@@ -6,35 +6,6 @@ body {
     padding: 0;
 }
 
-nav {
-    background-color: #01322F;
-    color: white;
-    padding: 25px;
-}
-
-.nav-container {
-    display: flex;
-    align-items: center;
-}
-
-nav img {
-    height: 50px;
-    margin-right: 10px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-right: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-nav a:hover {
-    color: #00FFF0;
-    text-decoration: underline;
-}
-
 .content {
     padding: 20px;
     text-align: left;
@@ -65,7 +36,10 @@ span {
 .btn {
     padding-left: 100px;
     margin-top: 20px;
-    /* Adjusted margin between button and footer */
+}
+
+.btn :hover {
+    background-color: #01322F;
 }
 
 .my-button {
@@ -77,37 +51,6 @@ span {
     margin-bottom: 15px;
 }
 
-.my-button a {
-    text-decoration: none;
-    color: white;
-}
-
-.my-button a:hover {
+.my-button :hover {
     background-color: #2980b9;
-}
-
-
-/* footer {
-    background-color: #01322F;
-    color: white;
-    padding-left: 20px;
-    padding-bottom: 0%;
-    margin-top: 10px;
-    margin-bottom: 0%;
-    margin-top: 10px;
-} */
-
-footer {
-    background-color: #01322F;
-    color: white;
-    padding: 10px;
-    text-align: left;
-    position: relative;
-    bottom: 0;
-    font-size: 15px;
-    width: 100%;
-}
-
-h3 {
-    margin: 5px;
 }
