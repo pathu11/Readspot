@@ -64,8 +64,10 @@ body {
 
 .form_cover1{
     box-sizing: border-box;
-    display:flex;
-    flex-direction:col;
+    display:grid;
+    column-gap: 50px;
+    grid-template-columns: auto auto auto;
+    /* flex-direction:col; */
     justify-content:space-between;
 
 }

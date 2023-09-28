@@ -1,3 +1,8 @@
+<?php 
+
+include '../config/connect_addbooks.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,44 +28,44 @@
         <div>
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form>                    
+                <form action="" method="POST">                    
                     <br>
 
-<br><table class="form_cover">
+                <br><table class="form_cover">
                         <tbody><tr class="form_cover1">
                             <th>
                                 <label>Book Name</label><br>
-                                <input type="text" required="">
+                                <input type="text" name="book_name" required>
                             </th>
                             <th>
                                 <label>ISBN no</label><br>
-                                <input type="text" required="">
+                                <input type="text" name="ISBN_no" required>
                             </th>
                         </tr>
                         <tr class="form_cover1">
                             
                             <th>
                                 <label>Author of Book</label><br>
-                                <input type="text" required=""></th>
+                                <input type="text" name="author" required></th>
                             <th>
                                 <label>Price</label><br>
-                                <input type="number" step="0.01" min="0" id="priceInput" required=""></th>
+                                <input type="number" step="0.01" min="0" id="priceInput" name="price" required></th>
                         </tr>
                         <tr class="form_cover1">
                             <th>
                                 <label>Book Category</label><br>
-                                <input type="text" required=""></th>
+                                <input type="text" name="category" required></th>
                             <th>
                                 <label>Weight</label><br>
-                                <input type="text" placeholder="Approximate weight of the book" required=""> <br><button class="calc" id="weightCal"><a href="https://www.bookmobile.com/book-weight-calculator/">Weight Calculator</a></button></th>
+                                <input type="text" placeholder="Approximate weight of the book" name="weight" required> <br><button class="calc" id="weightCal"><a href="https://www.bookmobile.com/book-weight-calculator/">Weight Calculator</a></button></th>
                         </tr>
                         <tr class="form_cover1">
                             <th>
                                 <label>Description </label><br>
-                                <input type="text" placeholder="Briefly describe about the content"></th>
+                                <input type="text" placeholder="Briefly describe about the content" name="descript" ></th>
                             <th>
                                 <label>Quantity</label><br>
-                                <input type="number" placeholder="No of Books in your stock" required=""></th>
+                                <input type="number" placeholder="No of Books in your stock" name="quantity" required></th>
                         </tr>
                     </tbody></table>
                     <table class="form_cover">
@@ -74,13 +79,13 @@
                     <br><table class="form_cover">
 
                         <tbody><tr class="form_cover1">
-                            <th> <input type="text" placeholder="Street Name" required=""></th>
-                            <th><input type="text" placeholder="District" required=""></th>
+                            <th> <input type="text" placeholder="Street Name" name="street_name" required></th>
+                            <th><input type="text" placeholder="District" name="district" required></th>
                             
                         </tr>
                         <tr class="form_cover1">
-                            <th><input type="text" placeholder="Your Town" required=""></th>
-                            <th><input type="text" placeholder="Postal Code"></th>
+                            <th><input type="text" placeholder="Your Town" name="town" required></th>
+                            <th><input type="text" placeholder="Postal Code" name="postal_code" ></th>
                         </tr>    
                     </tbody></table>
                     <table class="form_cover">
@@ -92,24 +97,25 @@
                     </tbody></table>
                     <br><table class="form_cover">
                         <tbody><tr class="form_cover1">
-                            <th> <input type="text" placeholder="Account No" required=""></th>
-                            <th><input type="text" placeholder="Bank Name" required=""></th>
+                            <th> <input type="text" placeholder="Account No" name="account_no" required></th>
+                            <th><input type="text" placeholder="Bank Name" name="bank_name" required></th>
                         </tr>
                         <tr class="form_cover1">
-                            <th><input type="text" placeholder="Account Name" required=""></th>
-                            <th><input type="text" placeholder="Branch Name" required=""></th>
+                            <th><input type="text" placeholder="Account Name" name="account_name" required></th>
+                            <th><input type="text" placeholder="Branch Name" name="branch_name" required></th>
                         </tr>    
                     </tbody></table>
                     <br><table class="form_cover">
                         <tbody><tr class="form_cover1">
                             <th>
                                 <label>Upload Clear images of Cover Pages(2)</label><br>
-                                <input type="file" id="pdfUpload" name="pdfUpload" required="">
-
+                                <input type="file" id="pdfUpload" name="img" required>
                             </th>
+                            
                         </tr>
                     </tbody></table>
-                    <input class="submit-button" type="submit" placeholder="Submit">
+                    <!-- <input type="submit" value="Log In"  class="btn" name="submit"> -->
+                    <input class="submit-button" type="submit" placeholder="Submit" name="submit">
                 </form>
             </div>
         </div>
