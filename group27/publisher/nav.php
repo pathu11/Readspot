@@ -6,6 +6,7 @@
             background-color: #01322F;
             color: white;
             padding: 25px;
+            width:100%;
         }
 
         .nav-container {
@@ -22,13 +23,14 @@
             color: white;
             text-decoration: none;
             margin-right: 20px;
-            padding-left: 40px;
-            padding-right: 40px;
+            padding-left: 50px;
+            padding-right: 50px;
+            
         }
 
         nav a:hover {
             color: #00FFF0;
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         </style>
@@ -38,11 +40,11 @@
     <nav>
             <div class="nav-container">
                 <img src="../images/publisher/ReadSpot.png" alt="Logo" />
-                <a href="#home">Home</a>
-                <a href="#ProductManagement">Product Management</a>
-                <a href="#OrderManagement">Order Management</a>
+                <a href="homepage.php">Home</a>
+                <a href="addbooks.php">Product Management</a>
+                <a href="pendingOrder.php">Order Management</a>
                 <a href="#CustomerSupport">Customer Support</a>
-                <a href="#Settings">Settings  <i class="fas fa-cogs" style="color: #ffffff;"></i></a>
+                <a href="setting.php">Settings  <i class="fas fa-cogs" style="color: #ffffff;"></i></a>
                 <a href="#User"> <i class="fas fa-user" style="color: #ffffff;"></i> Hi, Kaumadi</a>
 
             </div>

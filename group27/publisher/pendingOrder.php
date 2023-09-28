@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="order.css">
+    <link rel="stylesheet" href="orders.css">
 
     <title>Pending Orders</title>
 
@@ -14,16 +14,7 @@
 <body>
     <?php include 'nav.php'; ?>
 
-    <div class="nav-container2">
-
-        <a href="#home">Pending Orders</a>
-        <a href="#ProductManagement">Processing Orders</a>
-        <a href="#OrderManagement">Shipped Orders</a>
-        <a href="#CustomerSupport">Delivered Orders</a>
-        <a href="#Settings">Cancelled Orders  </a>
-        <a href="#User"> </a>
-
-    </div>
+    <?php include 'subnav.php'; ?>
     <div class="div_table" style="width:90%">
         <table>
             <tr>
@@ -32,8 +23,8 @@
                 <th style="width:15%">No of Items</th>
                 <th style="width:25%">Customer Details</th>
                 <th style="width:20%">Total Price(Rs)</th>
-                <th style="width:5%">Update</th>
-                <th style="width:5%">Delete</th>
+                <th style="width:5%">Approve</th>
+                <th style="width:5%">Cancel</th>
 
             </tr>
             <tr>
@@ -42,7 +33,7 @@
                 <th>3</th>
                 <th>M.K.P.Pathumi</th>
                 <th>1800</th>
-                <th><i class="fa fa-edit" style="color:black;"></i></th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
                 <th><i class="fa fa-trash" style="color:black;"></i></i>
                 </th>
 
@@ -53,7 +44,7 @@
                 <th>3</th>
                 <th>M.K.P.Pathumi</th>
                 <th>1800</th>
-                <th><i class="fa fa-edit" style="color:black;"></i></th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
                 <th><i class="fa fa-trash" style="color:black;"></i></i>
                 </th>
 
@@ -64,11 +55,67 @@
                 <th>3</th>
                 <th>M.K.P.Pathumi</th>
                 <th>1800</th>
-                <th><i class="fa fa-edit" style="color:black;"></i></th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
                 <th><i class="fa fa-trash" style="color:black;"></i></i>
                 </th>
 
             </tr>
+            <tr>
+                <th>34567</th>
+                <th>23128</th>
+                <th>3</th>
+                <th>M.K.P.Pathumi</th>
+                <th>1800</th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
+                <th><i class="fa fa-trash" style="color:black;"></i></i>
+                </th>
+
+            </tr>
+            <tr>
+                <th>34567</th>
+                <th>23128</th>
+                <th>3</th>
+                <th>M.K.P.Pathumi</th>
+                <th>1800</th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
+                <th><i class="fa fa-trash" style="color:black;"></i></i>
+                </th>
+
+            </tr>
+            <tr>
+                <th>34567</th>
+                <th>23128</th>
+                <th>3</th>
+                <th>M.K.P.Pathumi</th>
+                <th>1800</th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
+                <th><i class="fa fa-trash" style="color:black;"></i></i>
+                </th>
+
+            </tr>
+            <tr>
+                <th>34567</th>
+                <th>23128</th>
+                <th>3</th>
+                <th>M.K.P.Pathumi</th>
+                <th>1800</th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
+                <th><i class="fa fa-trash" style="color:black;"></i></i>
+                </th>
+
+            </tr>
+            <tr>
+                <th>34567</th>
+                <th>23128</th>
+                <th>3</th>
+                <th>M.K.P.Pathumi</th>
+                <th>1800</th>
+                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
+                <th><i class="fa fa-trash" style="color:black;"></i></i>
+                </th>
+
+            </tr>
+            
 
         </table>
     </div>
