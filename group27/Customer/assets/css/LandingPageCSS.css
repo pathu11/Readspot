@@ -99,6 +99,87 @@
 }
 
 
+
+/* Style for the hero section */
+.hero {
+    background: url(/assets/img/hero.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    margin: 0;
+    /* justify-content: end; */
+}
+
+.sing-up_btn{
+    position: relative;
+    top: 600px;
+    right: 480px;
+    margin-right: 10px;
+    width: 200px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #333333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.login_btn{
+    position: relative;
+    top: 600px;
+    right: 460px;
+    margin-left: 10px;
+    width: 200px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #333333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.sing-up_btn:hover, .login_btn:hover {
+    background: #fff;
+    color: black;
+    transform: scale(1.1);
+}
+
+.content {
+    background-color: transparent;
+    text-align: center;
+    padding: 50px 0;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 280px;
+    margin-left: 50PX;
+}
+
+.content h2 {
+    font-size: 100px;
+}
+
+.content h3 {
+    font-size: 50px;
+    margin-top: 10px;
+}
+
+.content p {
+    font-size: 20px;
+    text-align: justify;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+
 /* Style for the footer */
 footer {
     background-color: #01322F;
