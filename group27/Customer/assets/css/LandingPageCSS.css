@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+/* Header */
+.head{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #02514C;
+    align-items: center;
+    z-index: 100;
+}
+
+.head img {
+    height: 65px;
+    width: 84px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+
+
+/* Navigation Bar */
+.navig{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navigation{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.navigation a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+
+
+/* Login Icon */
+.Login {
+    width: 88px;
+    height: 50px;
+    background-color: transparent;
+    border-color: #03FFF0;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #03FFF0;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.Login:hover {
+    background: #fff;
+    color: black;
+    border: none;
+    transform: scale(1.1);
+}
