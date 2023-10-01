@@ -136,3 +136,59 @@ h4:before, h4:after {
     background-color: rgb(238, 228, 228);
     border-radius: 10px;
 }
+
+
+
+/*Register Style*/
+.register{
+    float: left;
+    background-image: linear-gradient(135deg, #02514C 5%, #009D94 95%);
+    height: 100%;
+    width: 50%; 
+	color:#fff;
+    border-radius:  0 10px 10px  0;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.register img {
+    height: 130px;
+    width: 168px;
+    margin-top: 0;
+}
+
+.register h2{
+    margin-bottom: 30px;
+    font-size: 80px;
+}
+
+.register h3{
+    margin-top: 30px;
+    font-size: 40px;
+}
+
+.register p{
+    font-size: 18px;
+    margin: 10px 30px 70px 30px;
+}
+
+.register button{
+    background-color: transparent;
+    border: 3px solid #03FFF0;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #03FFF0;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition:0.5s all  ease-in-out;
+    outline: none;
+}
+
+.register button:hover{
+    color: black;
+    background-color: #fff;
+    cursor: pointer;
+    border: none;
+    transform: scale(1.1);
+}
+/********************************************/
