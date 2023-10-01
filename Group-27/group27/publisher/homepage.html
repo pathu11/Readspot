@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="homepage.css">
+
+    <title>Publisher Home Page</title>
+
+</head>
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <img src="../images/publisher/ReadSpot.png" alt="Logo" />
+            <a href="#home">Home</a>
+            <a href="#ProductManagement">Product Management</a>
+            <a href="#OrderManagement">Order Management</a>
+            <a href="#CustomerSupport">Customer Support</a>
+            <a href="#Settings">Settings  <i class="fas fa-cogs" style="color: #ffffff;"></i></a>
+            <a href="#User"> <i class="fas fa-user" style="color: #ffffff;"></i> Hi, Kaumadi</a>
+
+        </div>
+    </nav>
+
+
+    <div class="content">
+        <h1 class="header_1">WELCOME TO</h1><br>
+        <h1 class="header_2">ReadSpot</h1>
+        <span>Effortlessly sell your books, manage inventory, and connect <br>
+            with readers. Sell smart, sell efficiently. Happy publishing!</span>
+    </div>
+
+    <div class="btn">
+        <button class="my-button"><a href="#" target="_blank">GET STARTING FOR SELLING</a></button>
+    </div>
+    <footer>
+        <h3>Privacy Policy</h3>
+        <p id="privacy-content">All content included on this site, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of READSPOT or its content suppliers and protected by Sri Lanka and international
+            copyright laws. <span id="read-more" onclick="toggleReadMore()">Read more</span></p>
+    </footer>
+    <script>
+        let expanded = false;
+
+        function toggleReadMore() {
+            const privacyContent = document.getElementById('privacy-content');
+            const readMore = document.getElementById('read-more');
+
+            if (expanded) {
+                privacyContent.innerHTML = "All content included on this site, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of READSPOT or its content suppliers and protected by Sri Lanka and international copyright laws. Our commitment to fostering a thriving reading community extends beyond mere transactions. We envision a space where literary enthusiasts can explore a vast array of genres, where authors can showcase their creative brilliance, and where readers can embark on transformative literary journeys. READSPOT stands as a beacon, connecting readers to the wealth of human knowledge and imagination. With an unwavering dedication to quality and authenticity, we strive to create an enriching experience for all.";
+                readMore.style.display = 'none';
+                expanded = false;
+            } else {
+                privacyContent.innerHTML += " Our commitment to fostering a thriving reading community extends beyond mere transactions. We envision a space where literary enthusiasts can explore a vast array of genres, where authors can showcase their creative brilliance, and where readers can embark on transformative literary journeys. READSPOT stands as a beacon, connecting readers to the wealth of human knowledge and imagination. With an unwavering dedication to quality and authenticity, we strive to create an enriching experience for all.";
+                expanded = true;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
