@@ -192,3 +192,28 @@ h4:before, h4:after {
     transform: scale(1.1);
 }
 /********************************************/
+
+
+
+/********************************************/
+/*SignUp Types Page*/
+.typ{
+    width: 80%;
+    margin: 20px 0;
+    padding: 20px;
+    border: none;
+    background-color: #009D94;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+    border-radius: 30px;
+}
+
+.typ:hover{
+    width:97%;
+    font-size: 22px;
+    background-color: #02514C;
+    font-weight: 500;
+}
+/********************************************/
