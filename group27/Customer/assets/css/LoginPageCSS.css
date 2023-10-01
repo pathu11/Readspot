@@ -217,3 +217,17 @@ h4:before, h4:after {
     font-weight: 500;
 }
 /********************************************/
+
+
+
+/********************************************/
+/*SignUp Page*/
+input[type="text"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+/********************************************/
