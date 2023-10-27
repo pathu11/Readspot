@@ -1,7 +1,7 @@
 <?php 
 
 
-define('ROOT','http://localhost/MVC1/public');
+define('ROOT','http://localhost/Group-27/public');
 define('APP_ROOT', dirname(dirname(__FILE__)));
 define('DBNAME','readspot');
 define('DBHOST','localhost');

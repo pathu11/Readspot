@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="http://localhost/MVC1/public/assets/css/publisher/set.css">
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/set.css">
 
     <title>Settings</title>
     

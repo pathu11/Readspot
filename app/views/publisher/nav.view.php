@@ -55,7 +55,7 @@
 <body>
     <nav>
         <div class="nav-container">
-            <img src="http://localhost/MVC1/public/assets/images/publisher/ReadSpot.png" alt="Logo" />
+            <img src="http://localhost/Group-27/public/assets/images/publisher/ReadSpot.png" alt="Logo" />
             <div>
                 <a href="home.view.php">Home</a>
                 <a href="addBooks.view.php">Book Shelf</a>
