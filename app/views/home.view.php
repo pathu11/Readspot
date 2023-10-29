@@ -7,5 +7,4 @@
 <a href="http://localhost/Group-27/app/views/publisher/test.view.php" >test</a>
 <a href="http://localhost/Group-27/app/views/publisher/home.view.php" >home</a>
 <?php echo ROOT ?>
-<!-- <link rel="stylesheet" type="text/css" href="/assets/css/style.css"> -->
-<h1 >HII</h1>
+a
