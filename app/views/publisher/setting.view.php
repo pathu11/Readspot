@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,10 +18,10 @@
     <div class="con">
         <div class="l_col">
         
-           
-                <h3>{$row['full_name']}</h3><br>
-                <p>{$row['email']}</p><br>
-                <p>{$row['contact_no']}</p>
+                <img style="border-radius:60%;width:60%;" src="http://localhost/Group-27/public/assets/images/image.jpg">
+                <h3><?php echo $publisherName; ?></h3><br>
+                <p><?php echo $publisheremail; ?></p><br>
+                <p><?php echo $publishercontact_no; ?></p>
                 
             <button id="btnclick" class="my-button">Edit Profile</button><br>
             
@@ -34,26 +36,26 @@
                         <tr>
                         <td> 
                             <label>Name</label><br>
-                            <span>{$row['full_name']}</span><br>
+                            <span><?php echo $publisherName; ?></span><br>
                         </td>
                         <td>
                             <label>Address</label><br>
-                            <span>{$row['street_name']}</span><br> 
+                            <span><?php echo $publisherStreet; ?></span><br> 
                         </td>
 
                     <tr>
                     <tr>
                         <td>
                             <label>City</label><br>
-                            <span>{$row['town']}</span><br>
+                            <span><?php echo $publishertown; ?></span><br>
                         </td>
                         <td>
                             <label>District</label><br>
-                            <span>{$row['district']}</span><br>
+                            <span><?php echo $publisherdistrict; ?></span><br>
                         </td>
                         <td>
                             <label>Postal Code</label><br>
-                            <span>{$row['postal_code']}</span><br>
+                            <span><?php echo $publisherPostalcode; ?></span><br>
                         </td>
 
                     <tr>
@@ -73,22 +75,22 @@
                         <tr>
                         <td> 
                             <label>Name</label><br>
-                            <span>{$row['account_name']}</span><br>
+                            <span><?php echo $publisheraccount_name; ?></span><br>
                         </td>
                         <td>
                             <label>Account Number</label><br>
-                            <span>{$row['account_no']}</span><br> 
+                            <span><?php echo $publisheraccount_no; ?></span><br> 
                         </td>
 
                     <tr>
                     <tr>
                         <td>
                             <label>Bank Name</label><br>
-                            <span>{$row['bank_name']}</span><br>
+                            <span><?php echo $publisherbank_name; ?></span><br>
                         </td>
                         <td>
                             <label>Branch Name</label><br>
-                            <span>{$row['branch_name']}</span><br>
+                            <span><?php echo $publisherbranch_name; ?></span><br>
                         </td>
                        
 

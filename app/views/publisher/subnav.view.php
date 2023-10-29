@@ -1,4 +1,5 @@
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         .nav-container2 {
             display: flex;
@@ -33,9 +34,9 @@
     <div class="nav-container2">
 
         
-        <a href="processingOrder.php">Processing Orders</a>
-        <a href="shippedOrder.php">Shipped Orders</a>
-        <a href="deliveredOrder.php">Delivered Orders</a>
+        <a href="processingorders.view.php">Processing Orders</a>
+        <a href="shippedorders.view.php">Shipped Orders</a>
+        <a href="deliveredorders.view.php">Delivered Orders</a>
         
 
 

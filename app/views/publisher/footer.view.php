@@ -2,6 +2,7 @@
 <html>
 <head>
     <style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         body {
             margin: 0;
             padding: 0;
@@ -19,6 +20,9 @@
         }
 
         footer {
+            /* position: fixed; */
+            bottom: 0;
+            margin-bottom:0;
             background-color: #01322F;
             color: white;
             padding: 10px;
@@ -26,6 +30,7 @@
             width: 100%;
             margin-top: auto; /* This pushes the footer to the bottom */
         }
+
 
         h3 {
             text-align: center;
@@ -46,6 +51,7 @@
             color: white;
             text-decoration: none;
         }
+
     </style>
 </head>
 <body>

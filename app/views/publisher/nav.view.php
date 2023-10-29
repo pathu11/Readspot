@@ -1,5 +1,33 @@
+<?php
+session_start();
+
+// Access the publisher's name from the session
+$publisherName = $_SESSION["publisher_name"] ?? '';
+$publisheremail = $_SESSION["publisher_email"] ?? '';
+$publishercontact_no = $_SESSION["publisher_contact_no"] ?? '';
+$publisherStreet = $_SESSION["publisher_street_name"] ?? '';
+$publishertown = $_SESSION["publisher_town"] ?? '';
+$publisherdistrict = $_SESSION["publisher_district"] ?? '';
+$publisherPostalcode = $_SESSION["publisher_postal_code"] ?? '';
+$publisheraccount_name = $_SESSION["publisher_account_name"] ?? '';
+$publisheraccount_no = $_SESSION["publisher_account_no"] ?? '';
+$publisherbank_name = $_SESSION["publisher_bank_name"] ?? '';
+$publisherbranch_name = $_SESSION["publisher_branch_name"] ?? '';
+// books
+
+$bookId = $_SESSION["book_book_id"] ?? '';
+$bookQuantity = $_SESSION["book_quantity"] ?? '';
+$bookDescript = $_SESSION["book_descript"] ?? '';
+$bookPrice = $_SESSION["book_price"] ?? '';
+
+
+// Other code for your HTML page
+?>
+
+
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         nav {
@@ -59,11 +87,13 @@
             <div>
                 <a href="home.view.php">Home</a>
                 <a href="addBooks.view.php">Book Shelf</a>
-                <a href="orders.view.php">Orders</a>
-                <a href="#CustomerSupport">Customer Support</a>
+                <a href="processingorders.view.php">Orders</a>
+                <a href="customerSupport.view.php">Customer Support</a>
                 <a href="setting.view.php">Settings <i class="fas fa-cogs" style="color: #ffffff;"></i></a>
-                <a href="#User"> <i class="fas fa-user" style="color: #ffffff;"></i> Hi, Kaumadi</a>
-                
+                <a href="setting.view.php"><i class="fas fa-user" style="color: #ffffff;"></i> Hi <?php echo $publisherName; ?></a>
+
+
+                <!-- echo "<h1>Welcome, $publisherName!</h1>"; -->
             </div>
         </div>
     </nav>

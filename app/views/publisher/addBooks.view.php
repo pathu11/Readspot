@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/addbooks.css">
 
@@ -24,7 +25,7 @@
         <div>
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form action="" method="POST">                    
+                <form action="http://localhost/Group-27/app/controllers/publisher/AddBooksController.php" method="POST">                    
                     <br>
 
                 <br><table class="form_cover">

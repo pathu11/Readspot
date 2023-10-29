@@ -1,1 +1,2 @@
-<h1>View file not found</h1>
+
+<img src="http://localhost/Group-27/public/assets/images/404.jpg" width="100%">

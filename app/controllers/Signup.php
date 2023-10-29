@@ -1,31 +1,21 @@
-<?php 
-
-/**
- * signup class
- */
-class Signup
+<?php
+class Signup extends Controller
 {
-	use Controller;
+    public function index()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
 
-	public function index()
-	{
-		$data = [];
-		
-		if($_SERVER['REQUEST_METHOD'] == "POST")
-		{
-			$user = new User;
-			if($user->validate($_POST))
-			{
-				$user->insert($_POST);
-				redirect('login');
-			}
-            $user->errors['email'] = "Wrong email or password";
+            $user = new User();
+            $user->insertUser($email, $password, 'publisher'); // Calls the method to insert a user
 
-			$data['errors'] = $user->errors="wrong";			
-		}
+            header("Location: " . ROOT . "/login.view.php"); // Redirect to login after registration
+            exit;
+        }
 
-
-		$this->view('signup',$data);
-	}
-
+        // Load your view file
+        require_once 'http://localhost/Group-27/app/views/signup.view.php';
+    }
 }
+?>

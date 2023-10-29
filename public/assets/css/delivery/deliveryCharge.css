@@ -1,0 +1,53 @@
+body {
+    background-image: url('http://localhost/Group-27/public/assets/images/publisher/landing.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.custom-button {
+    /* padding-left: 100px;
+    padding-right: 100px; */
+    /* margin: 0 10px; */
+    margin-left: 100px;
+    padding: 10px 35px;
+    border: none;
+    background-color: #01322F;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.div_table {
+    margin-top: 100px;
+    margin-left: 100px;
+    padding-bottom: 350px;
+}
+
+table {
+    margin: 0 auto; /* To center the table */
+}
+
+table th,td {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top:15px;
+    padding-bottom:15px;
+
+    background-color: #C6C6C6;
+}

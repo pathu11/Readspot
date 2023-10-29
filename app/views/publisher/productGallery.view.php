@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,16 +34,14 @@
 
             </tr>
             
-            
-                <tr>
-                    <th>{$row['id']}</th>
-                    <th>{$row['quantity']}</th>
-                    <th>{$row['descript']}</th>
-                    <th>{$row['price']}</th>
-                    <th><i class="fa fa-edit" style="color:black;"></i> </a></th>
-                    <th><i class="fa fa-trash" style="color:black;"></i></a></th>
-                </tr>
-        
+            <?php
+            // require '../AddBooksController.php';AddBooksController
+            require_once '../../controllers/publisher/ProductCrud.php';
+
+            $addBooksController = new AddBooksController();
+            $addBooksController->displayProductGallery();
+            ?>
+                
         </table>
     </div>
     <?php include 'footer.view.php'; ?>
