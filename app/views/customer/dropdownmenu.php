@@ -6,7 +6,7 @@
     <div class="sub-menu">
         <div class="user-info">
             <img src="http://localhost/Group-27/public/assets/images/customer/profile.png">
-            <h3><?php echo $_SESSION["customerName"]; ?></h3>
+            <h3><?php echo $_SESSION["customer_name"]; ?></h3>
         </div>
         <hr>
 
@@ -34,7 +34,7 @@
             <span>></span>
         </a>
         
-        <a href="http://localhost/Group-27/app/controllers/publisher/Logout.php" class="sub-menu-link">
+        <a href="http://localhost/Group-27/app/controllers/Logout.php" class="sub-menu-link">
             <img src="http://localhost/Group-27/public/assets/images/customer/logout.png">
             <p>Logout</p>
             <span>></span>

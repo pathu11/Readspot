@@ -9,14 +9,19 @@ $adminemail = $_SESSION["admin_email"] ?? '';
 
 
 ?>
-
+<head>
+   <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/adminNav.css">
+   <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/adminNav.css">
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/style.css">
+     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/footer.css">
+</head>
 
 
 <nav>
     <img src="http://localhost/Group-27/public/assets/images/admin/ReadSpot.png" class="logo">
     <ul>
       <li><a href="#dashboard">Dashboard</a></li>
-      <li><a href="#customers">Customers</a></li>
+      <li><a href="customers.view.php">Users</a></li>
       <li><a href="#books">Books</a></li>
       <li><a href="#orders">Orders</a></li>
       <li><a href="#Reports">Reports</a></li>
