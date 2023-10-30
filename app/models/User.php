@@ -11,37 +11,30 @@ if ($conn->connect_error) {
     die("Connection failed. Please try again later.");
 }
 
-session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $company_name = $_POST['company_name'];
+    $reg_no = $_POST['reg_no'];
+    $email = $_POST['email'];
+    $contact_no = $_POST['contact_no'];
+    $pass = $_POST['pass'];
+    $user_role = 'publisher';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // ... Your other variable assignments
+    // Insert data into users table
+    $insertUser = $conn->prepare("INSERT INTO users (email, pass, user_role) VALUES (?, ?, ?)");
+    $insertUser->bind_param("sss", $email, $pass, $user_role);
+    $insertUser->execute();
 
-    $stmt = $conn->prepare("SELECT email FROM publishers2 WHERE email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $stmt->store_result();
+    // Get the ID of the inserted user
+    $user_id = $conn->insert_id;
 
-    if ($stmt->num_rows > 0) {
-        echo "An account with this email already exists.";
-    } else {
-        $insertStmt = $conn->prepare("INSERT INTO publishers2 (name, company_name, reg_no, email, contact_no, pass, street_name, town, district, postal_code, account_name, account_no, branch_name, bank_name, user_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insertStmt->bind_param('ssssssssssssss', $name, $company_name, $reg_no, $email, $contact_no, $password, $street_name, $town, $district, $postal_code, $account_name, $account_no, $branch_name, $bank_name, $user_role);
-        
-        if ($insertStmt->execute()) {
-            // Insert data into the 'users' table
-            $insertStmtUsers = $conn->prepare("INSERT INTO users (email, password, role) VALUES (?, ?, 'publisher')");
-            $insertStmtUsers->bind_param('sss', $email, $password);
-            if (!$insertStmtUsers->execute()) {
-                echo "Registration failed for user insertion: " . $insertStmtUsers->error;
-                // Handle the error accordingly
-            } else {
-                header("Location: http://localhost/Group-27/app/views/login.view.php");
-                exit;
-            }
-        } else {
-            error_log("Registration failed: " . $insertStmt->error);
-            echo "Registration failed. Please try again later.";
-        }
-    }
+    // Insert data into the publishers table
+    $insertPublisher = $conn->prepare("INSERT INTO publishers (user_id, name, company_name, reg_no, email, contact_no, pass) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $insertPublisher->bind_param("issssss", $user_id, $name, $company_name, $reg_no, $email, $contact_no, $pass);
+    $insertPublisher->execute();
+
+    // Redirect to a success page or do further processing
+    header("Location: http://localhost/Group-27/app/views/login.view.php");
+    exit;
 }
 ?>

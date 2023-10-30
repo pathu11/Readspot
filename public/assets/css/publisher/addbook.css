@@ -128,3 +128,14 @@ body {
     color:white;
 }
 
+/* Style the dropdown button */
+
+
+
+.select{
+    padding-right:50px;
+    padding-left:50px;
+    padding-top:8px;
+    padding-bottom:8px;
+    marging-left:250px;
+}

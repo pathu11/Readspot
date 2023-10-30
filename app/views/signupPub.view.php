@@ -21,21 +21,10 @@
                 <input type="email" name="email" placeholder="Email">
                 <input type="text" name="contact_no" placeholder="Contact Number">
                 <input type="password" name="pass" placeholder="Password">
-                <button type="button" class="btn" id="nextButton">Next</button>
-            </div>
-
-            <!-- Second Page Content -->
-            <div id="formPart2" style="display: none;">
-                <input type="text" name="street_name" placeholder="Street Name">
-                <input type="text" name="town" placeholder="Town">
-                <input type="text" name="district" placeholder="District">
-                <input type="text" name="postal_code" placeholder="Postal Code">
-                <input type="text" name="account_name" placeholder="Account Holder Name">
-                <input type="text" name="account_no" placeholder="Account Number">
-                <input type="text" name="branch_name" placeholder="Branch Name">
-                <input type="text" name="bank_name" placeholder="Bank Name">
                 <button type="submit" class="btn" name="submit">Submit</button>
             </div>
+
+            
         </form>
 
         <div class="register">
@@ -47,16 +36,7 @@
         </div>
     </div>
 
-    <script>
-        const formPart1 = document.getElementById('formPart1');
-        const formPart2 = document.getElementById('formPart2');
-        const nextButton = document.getElementById('nextButton');
-
-        nextButton.addEventListener('click', () => {
-            formPart1.style.display = 'none';
-            formPart2.style.display = 'block';
-        });
-    </script>
+    
 </body>
 
 </html>

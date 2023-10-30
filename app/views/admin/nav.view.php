@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Access the admin's name from the session
+$adminName = $_SESSION["admin_name"] ?? '';
+$adminemail = $_SESSION["admin_email"] ?? '';
+
+
+
+
+?>
+
+
+
 <nav>
     <img src="http://localhost/Group-27/public/assets/images/admin/ReadSpot.png" class="logo">
     <ul>
@@ -10,14 +24,14 @@
     </ul>
     <div class="user-detail">
       <img src="http://localhost/Group-27/public/assets/images/admin/user.png" class="user">
-      <p class="nav-p">Hi, James Bond</p>
+      <p class="nav-p">Hi, <?php echo $adminName; ?></p>
     </div>
 
     <div class="sub-menu-wrap" id="subMenu">
       <div class="sub-menu">
         <div class="user-info">
           <img src="http://localhost/Group-27/public/assets/css/admin/user.png">
-          <h2>James Bond</h2>
+          <h2><?php echo $adminName; ?></h2>
         </div>
         <hr>
 
@@ -26,7 +40,7 @@
           <p class="sub-menu-p">profile info</p>
         </a>
 
-        <a href="#notifications" class="sub-menu-link">
+        <a href="http://localhost/Group-27/app/views/admin/notification.view.php" class="sub-menu-link">
           <img src="http://localhost/Group-27/public/assets/images/admin/notification.png">
           <p>notifications</p>
         </a>
@@ -37,8 +51,8 @@
         </a>
 
         <a href="#logout" class="sub-menu-link">
-          <img src="http://localhost/Group-27/public/assets/images/admin/logout.png">
-          <p>Logout</p>
+         <img src="http://localhost/Group-27/public/assets/images/admin/logout.png">
+          <a href="http://localhost/Group-27/app/controllers/Logout.php"> Logout</a>
         </a>
       </div>
     </div>

@@ -1,8 +1,46 @@
+<?php
+session_start();
+
+// Access the publisher's name from the session
+$deliveryName = $_SESSION["delivery_name"] ?? '';
+$deliveryemail = $_SESSION["delivery_email"] ?? '';
+
+?>
+
+
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
         nav {
             background-color: #01322F;
             color: white;
@@ -63,7 +101,24 @@
                 <a href="deliverCharges.view.php">Delivery Charges</a>
                 <a href="notification.view.php">Notifications </a>
                 
-                <a href="#User"> <i class="fas fa-user" style="color: #ffffff;"></i> Hi, Kaumadi</a>
+                
+                <?php
+                if (!empty($deliveryName)) {
+                    // Display the dropdown if the user is logged in
+                    echo '<div class="dropdown">';
+                    echo '<a href="javascript:void(0);" class="dropbtn"><i class="fas fa-user" style="color: #ffffff;"></i> Hi ' . $deliveryName . '</a>';
+                    echo '<div class="dropdown-content">';
+                    echo '<a href="customerSupport.view.php">Customer Support</a>';
+                    echo '<a href="setting.view.php">Settings</a>';
+                    echo '<a href="http://localhost/Group-27/app/controllers/Logout.php">Logout</a>';
+                    echo '</div>';
+                    echo '</div>';
+                } else {
+                    
+                    echo '<a href="http://localhost/Group-27/app/views/login.view.php">Login</a>';
+                }
+                ?>
+
                 
             </div>
         </div>
