@@ -1,4 +1,7 @@
-
+<?php
+    $title = "Settings";
+    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/set.css">
-
+    <link rel="icon" type="image/png" href="http://localhost/Group-27/public/assets/images/publisher/ReadSpot.png">
     <title>Settings</title>
     
 </head>

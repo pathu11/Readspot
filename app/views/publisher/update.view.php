@@ -1,4 +1,9 @@
 <!-- update.view.php -->
+<?php
+    $title = "Update Books";
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/update.css">
     <title>Update Book Information</title>
+    <link rel="icon" type="image/png" href="http://localhost/Group-27/public/assets/images/publisher/ReadSpot.png">
 </head>
 <body>
     <?php include 'nav.view.php'; ?>
