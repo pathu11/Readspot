@@ -7,7 +7,7 @@
         <div class="sidebar">
         <!-- Sidebar content goes here -->
         <div class="profile-section">
-            <img src="./assets/img/profile.png" alt="Profile Image" class="profile-image">
+            <img src="http://localhost/Group-27/public/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">
             <?php 
             if (isset($_SESSION["customerName"])){
                 echo '<h2 class="profile-name1">'.$_SESSION["customerName"].'</h2>';
@@ -37,69 +37,69 @@
                 <h2>Used Books</h2>
                 <form action="#.php" class="search">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><img src="./assets/img/search.png"></button>
+                    <button type="submit"><img src="http://localhost/Group-27/public/assets/images/customer/search.png"></button>
                 </form>
                 <br>
                 <br>
                 <div class="books">
                     <div class="B1">
-                        <img src="./assets/img/book.jpg" alt="Book1" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book1" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B2">
-                        <img src="./assets/img/book.jpg" alt="Book2" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book2" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B3">
-                        <img src="./assets/img/book.jpg" alt="Book3" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B4">
-                        <img src="./assets/img/book.jpg" alt="Book4" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book4" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                     <div class="B5">
-                        <img src="./assets/img/book.jpg" alt="Book5" class="Book"><br>
+                        <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book"><br>
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                 </div>

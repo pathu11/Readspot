@@ -5,7 +5,7 @@
 
     <div class="excg-detail">
         <div class="sub1">
-            <img src="./assets/img/book.jpg" alt="Book3" class="main-img">
+            <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="main-img">
         </div>
         <div class="sub2">
             <h3>Book Name : <span>Lorem ipsum dolor sit amet.</span></h3><br>
@@ -19,13 +19,13 @@
             <h3>ISMN Number : <span>Lorem ipsum dolor sit amet.</span></h3>
         </div>
         <div class="sub3">
-            <img src="./assets/img/book.jpg" alt="Book3" class="sub-img">
+            <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="sub-img">
         </div>
         <div class="sub4">
-            <img src="./assets/img/book.jpg" alt="Book3" class="sub-img">
+            <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="sub-img">
         </div>
         <div class="sub5">
-            <img src="./assets/img/book.jpg" alt="Book3" class="sub-img">
+            <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="sub-img">
         </div>
         <div class="sub6">
             <h3>Description about the book</h3><br>

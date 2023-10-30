@@ -9,6 +9,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to a login page or any other page after logging out
-header("Location: http://localhost/Group-27/app/views/login.view.php");
+header("Location: http://localhost/Group-27/app/views/index.php");
 exit;
 ?>

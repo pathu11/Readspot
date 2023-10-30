@@ -30,7 +30,7 @@ if (isset($_GET["user_role"])) {
 
     if ($userRole === 'customer') {
         // Redirect to the respective view based on user selection
-        header("Location: http://localhost/Group-27/app/views/signup.view.php");
+        header("Location: http://localhost/Group-27/app/views/signupCustomer.view.php");
         exit; // Ensure that the script stops here
     } elseif ($userRole === 'publisher') {
         // Process the retrieved user data as needed

@@ -54,8 +54,6 @@
       });
     });
   </script>
-  
-  
 
   <div class="navigation">
     <a href="index.view.php">Admin</a>

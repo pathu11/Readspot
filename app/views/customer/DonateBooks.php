@@ -34,7 +34,7 @@
         </div>
         <div class="sub-cont2">
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book1" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book1" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -52,7 +52,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book2" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book2" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -70,7 +70,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book3" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -88,7 +88,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book4" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book4" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -106,7 +106,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -124,7 +124,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -142,7 +142,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -160,7 +160,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -178,7 +178,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -196,7 +196,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -214,7 +214,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -232,7 +232,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -250,7 +250,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -268,7 +268,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -286,7 +286,7 @@
                 <button class="dts-btn">Donate</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="event">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
                 <table border="1">
                     <tr>
                         <th>Required</th>

@@ -53,17 +53,7 @@ class AddBooksController
 
             if ($this->db->execute($insertQuery)) {
                 echo "Book inserted successfully!";
-                // $bookQuery = "SELECT * FROM Books WHERE user_id = " . $row['user_id'];
-                // $bookResult = mysqli_query($data, $bookQuery);
-                // $book = mysqli_fetch_assoc($bookResult);
-
-                // if ($book) {
-                //     foreach ($book as $key => $value) {
-                //         $_SESSION["book_" . $key] = $value;
-                //     }
-
-                // }
-		
+                
 		        header("location:http://localhost/Group-27/app/views/publisher/productGallery.view.php");
 
             } else {

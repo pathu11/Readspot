@@ -74,37 +74,37 @@
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>
             <div class="B0">
-                <img src="./assets/img/book.jpg" alt="Book5" class="Book">
+                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
                 <h1>500/=</h1>
                 <button class="dts-btn">Add to Cart</button>
             </div>

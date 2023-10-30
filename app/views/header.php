@@ -32,18 +32,18 @@
         <div class="navig">
             <nav class="navigation">
                 <?php 
-                if (isset($_SESSION["customer_name"])){
-                    echo '<a href="./Home.php">Home</a>';
+                if (isset($_SESSION["customerName"])){
+                    echo '<a href="http://localhost/Group-27/app/views/customer/Home.php">Home</a>';
                 } else {
-                    echo '<a href="http://localhost/Group-27/app/views/index.php">Home</a>';
+                    echo '<a href="./index.php">Home</a>';
                 }
                 ?>
-                <a href="./AboutUs.php">About</a>
-                <a href="./Services.php">Services</a>
-                <a href="./ContactUs.php">Contact</a>
+                <a href="http://localhost/Group-27/app/views/customer/AboutUs.php">About</a>
+                <a href="http://localhost/Group-27/app/views/customer/Services.php">Services</a>
+                <a href="http://localhost/Group-27/app/views/customer/ContactUs.php">Contact</a>
             </nav>
             <?php 
-                if (isset($_SESSION["customer_name"])){
+                if (isset($_SESSION["customerName"])){
                     include_once 'dropdownmenu.php';
                 } else {
                     echo '<a href="http://localhost/Group-27/app/views/login.view.php"><button class="Login">Login</button></a>';

@@ -25,7 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($row["user_role"] == "customer") {
             $_SESSION["email"] = $email;
-            header("location:http://localhost/Group-27/app/views/home.view.php");
+			$customerQuery = "SELECT * FROM customers WHERE user_id = " . $row['user_id'];
+            $customerResult = mysqli_query($data, $customerQuery);
+            $customer = mysqli_fetch_assoc($customerResult);
+            if ($customer) {
+                foreach ($customer as $key => $value) {
+                    $_SESSION["customer_" . $key] = $value;
+                }
+
+
+            header("location:http://localhost/Group-27/app/views/customer/Dashboard.php");
+
         } elseif ($row["user_role"] == "publisher") {
             $_SESSION["email"] = $email;
             $publisherQuery = "SELECT * FROM Publishers WHERE user_id = " . $row['user_id'];
@@ -64,4 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo "invalid";
         header("location: http://localhost/Group-27/app/views/login.view.php?error=invalid_credentials");
     }
+
+	}
 }

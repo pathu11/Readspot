@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <!-- Combined Form for both First Page and Second Page -->
-        <form class="login" action="http://localhost/Group-27/app/models/User.php" method="post">
+        <form class="login" action="http://localhost/Group-27/app/models/UserPub.php" method="post">
             <!-- First Page Content -->
             <div id="formPart1">
                 <h1>Sign up</h1>

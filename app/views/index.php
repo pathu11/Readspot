@@ -1,6 +1,6 @@
 <?php
     $title = "Landing Page";
-    include_once 'header.php';
+    include_once './header.php';
 ?>
 
     <div class="hero" style="background-image: url('http://localhost/Group-27/public/assets/images/customer/hero.jpg');">
@@ -10,8 +10,8 @@
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
         </div>
-        <a href="./RegisterCategory.php"><button class="sing-up_btn" href="">Sign-up</button></a>
-        <a href="./Login.php"><button class="login_btn">Login</button></a>
+        <a href="http://localhost/Group-27/app/views/customer/RegisterCategory.php"><button class="sing-up_btn" href="">Sign-up</button></a>
+        <a href="login.view.php"><button class="login_btn">Login</button></a>
     </div>
 
     <div class="our_ser">
