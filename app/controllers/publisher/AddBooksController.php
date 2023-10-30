@@ -25,19 +25,16 @@ class Database {
     }
 }
 
-class AddBooksController
-{
+class AddBooksController {
     protected $db;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = new Database();
     }
     
-
-    public function insertBook()
-    {
+    public function insertBook() {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            // Fetching other form data
             $bookName = $_POST['book_name'];
             $ISBN = $_POST['ISBN_no'];
             $author = $_POST['author'];
@@ -46,16 +43,35 @@ class AddBooksController
             $weight = $_POST['weight'];
             $description = $_POST['descript'];
             $quantity = $_POST['quantity'];
-            $publisherId = $_SESSION['publisher_id'];// Replace this with the actual publisher ID
+            $publisherId = $_SESSION['publisher_id']; // Replace this with the actual publisher ID
 
-            $insertQuery = "INSERT INTO Books (book_name, ISBN_no, author, price, category, weight, descript, quantity, publisher_id) 
-                            VALUES ('$bookName', '$ISBN', '$author', $price, '$category', '$weight', '$description', $quantity, $publisherId)";
+            // File handling
+            $img1Name = $_FILES['img1']['name'];
+            $img1FileType = $_FILES['img1']['type'];
+            $img2Name = $_FILES['img2']['name'];
+            $img2FileType = $_FILES['img2']['type'];
+
+            // Check if it's an image type
+            $allowedImageTypes = array('image/jpg');
+            
+            if (in_array($img1FileType, $allowedImageTypes) && in_array($img2FileType, $allowedImageTypes)) {
+                // File handling
+                $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
+                $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
+
+                // Rest of the insertion logic...
+            } else {
+                echo "Sorry, only JPG files are allowed to upload.";
+            }
+
+            $insertQuery = "INSERT INTO Books 
+                            (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id) 
+                            VALUES 
+                            ('$bookName', '$ISBN', '$author', $price, '$category', '$weight', '$description', $quantity, '$img1', '$img2', '$publisherId')";
 
             if ($this->db->execute($insertQuery)) {
                 echo "Book inserted successfully!";
-                
-		        header("location:http://localhost/Group-27/app/views/publisher/productGallery.view.php");
-
+                header("location:http://localhost/Group-27/app/views/publisher/productGallery.view.php");
             } else {
                 echo "Error: " . $this->db->getError();
             }

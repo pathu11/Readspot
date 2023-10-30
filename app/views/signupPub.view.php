@@ -15,12 +15,13 @@
             <!-- First Page Content -->
             <div id="formPart1">
                 <h1>Sign up</h1>
-                <input type="text" name="name" placeholder="First & Last Name">
-                <input type="text" name="company_name" placeholder="Company Name">
-                <input type="text" name="reg_no" placeholder="Registration Number of the company">
-                <input type="email" name="email" placeholder="Email">
-                <input type="text" name="contact_no" placeholder="Contact Number">
-                <input type="password" name="pass" placeholder="Password">
+                <input type="text" name="name" placeholder="First & Last Name" required>
+                <input type="text" name="company_name" placeholder="Company Name" required>
+                <input type="text" name="reg_no" placeholder="Registration Number of the company" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="contact_no" placeholder="Contact Number" required>
+                
+                <input type="password" name="pass" placeholder="Password" required>
                 <button type="submit" class="btn" name="submit">Submit</button>
             </div>
 
@@ -35,6 +36,7 @@
             <a href="http://localhost/Group-27/app/views/login.view.php"><button>login</button></a>
         </div>
     </div>
+    
 
     
 </body>

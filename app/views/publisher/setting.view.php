@@ -18,7 +18,7 @@
     <div class="con">
         <div class="l_col">
         
-                <img style="border-radius:60%;width:60%;" src="http://localhost/Group-27/public/assets/images/image.jpg">
+                <img style="border-radius:60%;width:60%;" src="http://localhost/Group-27/public/assets/images/publisher/person.jpg">
                 <h3><?php echo $publisherName; ?></h3><br>
                 <p><?php echo $publisheremail; ?></p><br>
                 <p><?php echo $publishercontact_no; ?></p>

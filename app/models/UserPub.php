@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
-$user = 'root';  
-$password = '';  
+$user = 'root';
+$password = '';
 $database = 'readspots';
 
 $conn = new mysqli($host, $user, $password, $database);
@@ -19,6 +19,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_no = $_POST['contact_no'];
     $pass = $_POST['pass'];
     $user_role = 'publisher';
+
+    // Check if the email is valid
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die('Invalid email format. Please enter a valid email address.');
+    }
+    if (strlen($pass) < 6) {
+        // die('Password should contain more than 6 characters.');
+        echo '<script>alert("Password should contain more than 4 characters");</script>';
+        echo '<script>location.href = "http://localhost/Group-27/app/views/signupPub.view.php";</script>';
+        exit;
+    }
+
+
+    // Check if the email already exists
+    $checkUser = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+    $checkUser->bind_param("s", $email);
+    $checkUser->execute();
+    $checkUser->store_result();
+
+    if ($checkUser->num_rows > 0) {
+        echo '<script>alert("Email is already registered.");</script>';
+        echo '<script>location.href = "http://localhost/Group-27/app/views/signupPub.view.php";</script>';
+        exit;
+    }
 
     // Insert data into users table
     $insertUser = $conn->prepare("INSERT INTO users (email, pass, user_role) VALUES (?, ?, ?)");

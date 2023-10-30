@@ -3,13 +3,13 @@
 <head>
     <style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        body {
+        /* body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
+        } */
 
         header {
             background-color: #01322F;
@@ -19,16 +19,31 @@
             width: 100%;
         }
 
-        footer {
+        /* footer {
             /* position: fixed; */
-            bottom: 0;
+            /* bottom: 0;
             margin-bottom:0;
             background-color: #01322F;
-            color: white;
-            padding: 10px;
+            color: white; */
+            /* padding: 10px; */
+            /* padding: 10px 0;
             text-align: right;
             width: 100%;
             margin-top: auto; /* This pushes the footer to the bottom */
+        /* }  */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the content takes up the full height of the viewport */
+        }
+
+        footer {
+            background-color: #01322F;
+            color: white;
+            padding: 10px 0;
+            text-align: right;
+            width: 100%;
+            margin-top: auto; /* Push the footer to the bottom */
         }
 
 

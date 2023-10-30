@@ -1,5 +1,4 @@
 <?php
-
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -17,63 +16,92 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["pass"];
 
-    $sql = "SELECT * FROM users WHERE email='" . $email . "' AND pass='" . $password . "' ";
-    $result = mysqli_query($data, $sql);
+    $query = "SELECT * FROM users WHERE email = ? AND pass = ?";
+    $stmt = mysqli_prepare($data, $query);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_array($result);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ss", $email, $password);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-        if ($row["user_role"] == "customer") {
-            $_SESSION["email"] = $email;
-			$customerQuery = "SELECT * FROM customers WHERE user_id = " . $row['user_id'];
-            $customerResult = mysqli_query($data, $customerQuery);
-            $customer = mysqli_fetch_assoc($customerResult);
-            if ($customer) {
-                foreach ($customer as $key => $value) {
-                    $_SESSION["customer_" . $key] = $value;
-                }
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_array($result);
 
+            switch ($row["user_role"]) {
+                case "customer":
+                    // Handle Customer Login
+                    $_SESSION["email"] = $email;
+                    $customerQuery = "SELECT * FROM customers WHERE user_id = " . $row['user_id'];
+                    $customerResult = mysqli_query($data, $customerQuery);
+                    $customer = mysqli_fetch_assoc($customerResult);
+                    if ($customer) {
+                        foreach ($customer as $key => $value) {
+                            $_SESSION["customer_" . $key] = $value;
+                        }
+                    }
+                    // Redirect to the customer dashboard
+                    header("location:http://localhost/Group-27/app/views/customer/Dashboard.php");
+                    break;
 
-            header("location:http://localhost/Group-27/app/views/customer/Dashboard.php");
+                case "publisher":
+                    // Handle Publisher Login
+                    $_SESSION["email"] = $email;
+                    $publisherQuery = "SELECT * FROM Publishers WHERE user_id = " . $row['user_id'];
+                    $publisherResult = mysqli_query($data, $publisherQuery);
+                    $publisher = mysqli_fetch_assoc($publisherResult);
+                    if ($publisher) {
+                        foreach ($publisher as $key => $value) {
+                            $_SESSION["publisher_" . $key] = $value;
+                        }
+                    }
+                    // Redirect to the publisher home view
+                    header("location:http://localhost/Group-27/app/views/publisher/home.view.php");
+                    break;
 
-        } elseif ($row["user_role"] == "publisher") {
-            $_SESSION["email"] = $email;
-            $publisherQuery = "SELECT * FROM Publishers WHERE user_id = " . $row['user_id'];
-            $publisherResult = mysqli_query($data, $publisherQuery);
-            $publisher = mysqli_fetch_assoc($publisherResult);
-            if ($publisher) {
-                foreach ($publisher as $key => $value) {
-                    $_SESSION["publisher_" . $key] = $value;
-                }
+                case "admin":
+                    // Handle Admin Login
+                    $_SESSION["email"] = $email;
+                    $adminQuery = "SELECT * FROM admin WHERE user_id = " . $row['user_id'];
+                    $adminResult = mysqli_query($data, $adminQuery);
+                    $admin = mysqli_fetch_assoc($adminResult);
+                    if ($admin) {
+                        foreach ($admin as $key => $value) {
+                            $_SESSION["admin_" . $key] = $value;
+                        }
+                    }
+                    // Redirect to the admin panel
+                    header("location:http://localhost/Group-27/app/views/admin/index.view.php");
+                    break;
+
+                case "deliver":
+                    // Handle Delivery Login
+                    $_SESSION["email"] = $email;
+                    $deliveryQuery = "SELECT * FROM delivery WHERE user_id = " . $row['user_id'];
+                    $deliveryResult = mysqli_query($data, $deliveryQuery);
+                    $delivery = mysqli_fetch_assoc($deliveryResult);
+                    if ($delivery) {
+                        foreach ($delivery as $key => $value) {
+                            $_SESSION["delivery_" . $key] = $value;
+                        }
+                    }
+                    // Redirect to the delivery dashboard
+                    header("location:http://localhost/Group-27/app/views/delivery/home.view.php");
+                    break;
+
+                default:
+                    echo "Invalid role.";
+                    break;
             }
-            header("location:http://localhost/Group-27/app/views/publisher/home.view.php");
-        } elseif ($row["user_role"] == "admin") {
-            $_SESSION["email"] = $email;
-            $adminQuery = "SELECT * FROM admin WHERE user_id = " . $row['user_id'];
-            $adminResult = mysqli_query($data, $adminQuery);
-            $admin = mysqli_fetch_assoc($adminResult);
-            if ($admin) {
-                foreach ($admin as $key => $value) {
-                    $_SESSION["admin_" . $key] = $value;
-                }
-            }
-            header("location:http://localhost/Group-27/app/views/admin/index.view.php");
-        } elseif ($row["user_role"] == "deliver") {
-            $_SESSION["email"] = $email;
-            $deliveryQuery = "SELECT * FROM delivery WHERE user_id = " . $row['user_id'];
-            $deliveryResult = mysqli_query($data, $deliveryQuery);
-            $delivery = mysqli_fetch_assoc($deliveryResult);
-            if ($delivery) {
-                foreach ($delivery as $key => $value) {
-                    $_SESSION["delivery_" . $key] = $value;
-                }
-            }
-            header("location:http://localhost/Group-27/app/views/delivery/home.view.php");
+        } else {
+            // Invalid email or password
+            header("location: http://localhost/Group-27/app/views/login.view.php?error=invalid_credentials");
         }
     } else {
-		echo "invalid";
-        header("location: http://localhost/Group-27/app/views/login.view.php?error=invalid_credentials");
+        echo "Prepared statement error.";
     }
 
-	}
+    // Close prepared statement and database connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($data);
 }
+?>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/addbooks.css">
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/addbookss.css">
 
     <title>Add Books</title>
 
@@ -106,8 +106,9 @@
                         <tbody>
                             <tr class="pdfUpload">
                                 <th>
-                                    <label>Upload two Clear images of Cover Pages</label><br><br>
-                                    <input type="file" id="pdfUpload" name="img" required>
+                                    <label>Upload two Clear images (Cover Page & Inside Paper)</label><br><br>
+                                    <input type="file" id="pdfUpload1" name="img1" required>
+                                    <input type="file" id="pdfUpload2" name="img2" required>
                                 </th>
                             </tr>
                         </tbody>

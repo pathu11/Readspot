@@ -32,7 +32,7 @@
         <div class="navig">
             <nav class="navigation">
                 <?php 
-                if (isset($_SESSION["customerName"])){
+                if (isset($_SESSION["customer_name"])){
                     echo '<a href="http://localhost/Group-27/app/views/customer/Home.php">Home</a>';
                 } else {
                     echo '<a href="./index.php">Home</a>';
@@ -43,7 +43,7 @@
                 <a href="http://localhost/Group-27/app/views/customer/ContactUs.php">Contact</a>
             </nav>
             <?php 
-                if (isset($_SESSION["customerName"])){
+                if (isset($_SESSION["customer_name"])){
                     include_once 'dropdownmenu.php';
                 } else {
                     echo '<a href="http://localhost/Group-27/app/views/login.view.php"><button class="Login">Login</button></a>';

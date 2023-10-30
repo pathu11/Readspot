@@ -9,10 +9,10 @@
         <div class="profile-section">
             <img src="http://localhost/Group-27/public/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">
             <?php 
-            if (isset($_SESSION["customerName"])){
-                echo '<h2 class="profile-name1">'.$_SESSION["customerName"].'</h2>';
+            if (isset($_SESSION["customer_name"])){
+                echo '<h2 class="profile-name1">'.$_SESSION["customer_name"].'</h2>';
             } else {
-                echo '<h2 class="profile-name1">Ramath Perera</h2>';
+                echo '<h2 class="profile-name1">NO USER</h2>';
             }
             ?>
         </div>
