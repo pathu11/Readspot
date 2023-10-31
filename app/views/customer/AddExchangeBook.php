@@ -28,11 +28,11 @@
                     <div class="topic-book author">
                         <label class="label-topic" required>Book Category</label><br>
                         <select id="category" name="book_category" required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <option value="technology">Classics</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Novel">Novel</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Science Fiction">Science Fiction</option>
                             <!-- Add more categories as needed -->
                         </select>
                         <!-- <input type="text" class="form-topic"> -->
@@ -41,19 +41,19 @@
                     <div class="topic-book author">
                         <label class="label-topic" required>Condition</label><br>
                         <select id="category" name="book_condition" required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <option value="Used">Used</option>
+                            <option value="Not Used">Not Used</option>
+                            <option value="Good">Good</option>
+                            <option value="Bad">Bad</option>
+                            <!-- <option value="health">Classics</option> -->
                             <!-- Add more categories as needed -->
                         </select>
                         <!-- <input type="text" class="form-topic"> -->
                     </div>
 
                     <div class="topic-book author">
-                        <label class="label-topic" published_daterequired>Published Date</label><br>
-                        <input type="Date"  name="book_condition" class="form-topic">
+                        <label class="label-topic" published_daterequired>Published Year</label><br>
+                        <input type="Number"  name="book_condition" class="form-topic" min=1800 max=2023>
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@
                 <div class="upload-pages book-cate">
                     <div class="topic-book author weight">
                         <label class="label-topic" required>Weight (grams)</label><br>
-                        <input type="text"   name="weight_grams" class="form-topic" required>
+                        <input type="number"   name="weight_grams" class="form-topic" min=0 required>
                     </div>
                     <div class="topic-book author weight2">
                         <a href="#"><button  class="weight-cal">Weight Calculator</button></a>
@@ -73,7 +73,7 @@
                     <input type="text"    name="isbn_number" class="form-topic" id="input1">
                 </div>
         
-                <div class="topic-book author">
+                <!-- <div class="topic-book author">
                     <label class="label-topic" for="input2" required>ISSN Number</label><br>
                     <input type="text" name="issn_number"  class="form-topic" id="input2">
                 </div>
@@ -81,7 +81,7 @@
                 <div class="topic-book author">
                     <label class="label-topic" for="input3" required>ISMN Number</label><br>
                     <input type="text" name="ismn_number" class="form-topic" id="input3">
-                </div>
+                </div> -->
         
                 <div class="disc-book">
                     <label class="label-topic">Description</label><br>
@@ -121,18 +121,39 @@
                         <label class="label-topic" required>District</label><br>
                         <select id="category" name="district" required>
                         <!-- <option value="">Select a type</option> -->
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <option value="Ampara">Ampara</option>
+                            <option value="Anuradhapura">Anuradhapura</option>
+                            <option value="Badulla">Badulla</option>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Hambantota">Hambantota</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Kalutara">Kalutara</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Kegalla">Kegalla</option>
+                            <option value="Kilinochchi">Kilinochchi</option>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <option value="Mannar">Mannar</option>
+                            <option value="Matale">Matale</option>
+                            <option value="Matara">Matara</option>
+                            <option value="Moneragala">Moneragala</option>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <option value="Puttalam">Puttalam</option>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <option value="Vavuniya">Vavuniya</option>
+                            <!-- <option value="Colombo">Health</option> -->
                             <!-- Add more categories as needed -->
                         </select>
                     </div>
 
                     <div class="topic-book author">
                         <label class="label-topic" required>Postal Code</label><br>
-                        <input type="number" name="postal_code" class="form-topic">
+                        <input type="number" name="postal_code" class="form-topic" min=0>
                     </div>
                 </div>
 

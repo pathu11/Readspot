@@ -10,7 +10,7 @@
 
         <div class="my-content">
             <div class="content-topic">
-                <h2>Used Books</h2>
+                <h2>My Contents</h2>
             </div>
             <div class="mycontent">
             <form action="#.php" class="search">
@@ -73,7 +73,7 @@
             </table>
             </div>
             <div class="vw">
-                <a href="./AddCont.php"><button class="vw-btn">Add a Content</button></a>
+                <a href="./AddCont.php"><button class="vw-btn">Add Content</button></a>
             </div>
 
         </div>

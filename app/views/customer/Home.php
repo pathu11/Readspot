@@ -18,43 +18,43 @@
     
     <div class="services" style="background-image: url('http://localhost/Group-27/public/assets/css/customer/bg.jpg')">
         <div class="service" onclick="service1()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 1">
+            <img src="http://localhost/Group-27/public/assets/images/customer/new.jpeg" alt="Service 1">
             <h3>Buy New Books</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service2()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 2">
+            <img src="http://localhost/Group-27/public/assets/images/customer/used.jpeg" alt="Service 2">
             <h3>Buy Used Books</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service3()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 3">
+            <img src="http://localhost/Group-27/public/assets/images/customer/exchange.jpeg" alt="Service 3">
             <h3>Exchange Books</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service4()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 4">
+            <img src="http://localhost/Group-27/public/assets/images/customer/donate.jpeg" alt="Service 4">
             <h3>Donate Books</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service5()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 5">
+            <img src="http://localhost/Group-27/public/assets/images/customer/content.jpg" alt="Service 5">
             <h3>Contents</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service6()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 6">
+            <img src="http://localhost/Group-27/public/assets/images/customer/event.jpeg" alt="Service 6">
             <h3>Events</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service7()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 7">
+            <img src="http://localhost/Group-27/public/assets/images/customer/bookchallenge.jpg" alt="Service 7">
             <h3>Book Challenges</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
         <div class="service" onclick="service8()">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bg.jpg" alt="Service 8">
-            <h3>Service 8</h3>
+            <img src="http://localhost/Group-27/public/assets/images/customer/calender.jpg" alt="Service 8">
+            <h3>Event Calender</h3>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
     </div>

@@ -114,20 +114,20 @@
                 <h1>---OUR TEAM---</h1>
             </div>
             <div class="member1">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="memb-img">
-                <h3>M.K.P.Ahinsa</h3>
+                <img src="http://localhost/Group-27/public/assets/images/customer/pathumi.png" alt="Book3" class="memb-img">
+                <!-- <h3>M.K.P.Ahinsa</h3> -->
             </div>
             <div class="member2">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="memb-img">
-                <h3>P.D.Kaumadi</h3>
+                <img src="http://localhost/Group-27/public/assets/images/customer/kaumadi.png" alt="Book3" class="memb-img">
+                <!-- <h3>P.D.Kaumadi</h3> -->
             </div>
             <div class="member3">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="memb-img">
-                <h3>S.Kokularaj</h3>
+                <img src="http://localhost/Group-27/public/assets/images/customer/kokul.png" alt="Book3" class="memb-img">
+                <!-- <h3>S.Kokularaj</h3> -->
             </div>
             <div class="member4">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="memb-img">
-                <h3>K.R.S.Perera</h3>
+                <img src="http://localhost/Group-27/public/assets/images/customer/ramath.png" alt="Book3" class="memb-img">
+                <!-- <h3>K.R.S.Perera</h3> -->
             </div>
         </div>
     </div>
