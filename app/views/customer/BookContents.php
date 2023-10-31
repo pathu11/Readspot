@@ -28,7 +28,7 @@
                     Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br>
-                <button class="vw-btn">View Details</button>
+                <a href="./viewcontent.php"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="content-img">
@@ -42,7 +42,7 @@
                     Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br>
-                <button class="vw-btn">View Details</button>
+                <a href="./viewcontent.php"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="content-img">
@@ -56,7 +56,7 @@
                     Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br>
-                <button class="vw-btn">View Details</button>
+                <a href="./viewcontent.php"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="content-img">
@@ -70,7 +70,7 @@
                     Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br>
-                <button class="vw-btn">View Details</button>
+                <a href="./viewcontent.php"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="content-img">
@@ -92,7 +92,7 @@
                     Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br>
-                <button class="vw-btn">View Details</button>
+                <a href="./viewcontent.php"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="content-img">
@@ -106,7 +106,7 @@
                     Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br>
-                <button class="vw-btn">View Details</button>
+                <a href="./viewcontent.php"><button class="vw-btn">View Details</button></a>
             </div>
         </div>
     </div>
