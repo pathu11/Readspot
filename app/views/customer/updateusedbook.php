@@ -1,7 +1,7 @@
 <?php
     $title = "Dashboard";
     include_once 'header.php';
-    include_once './includes/dbh.inc.php';
+    // include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
 ?>
     <div class="container">
         <?php
@@ -9,6 +9,19 @@
         ?>
         
         <?php 
+
+            $serverName = "localhost";
+            $dbUsername = "root";
+            $dbPassword = "";
+            $dbName = "readspots";
+
+
+
+            $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
+
+            if (!$conn) {
+                die("Connection failed : " .mysqli_connect_error());
+            }
         $bookId = $_GET['updateid'];    
         $sql="SELECT * FROM usedbooks WHERE bookId=$bookId;";
         $result=mysqli_query($conn,$sql);
@@ -38,7 +51,7 @@
         $branchName=$row['branchName'];
         echo'
         <div class="add-content">
-            <form action="./includes/updateusedbook.inc.php?updateid='.$bookId.'" class="book-add" method="post">
+            <form action="http://localhost/Group-27/app/controllers/customer/updateusedbook.inc.php?updateid='.$bookId.'" class="book-add" method="post">
 
                 <h1>Add a Used Book</h1>
                 

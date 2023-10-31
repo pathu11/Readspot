@@ -83,7 +83,7 @@
                     <input type="text" class="form-topic" id="input1" name="isbnNumber">
                 </div>
         
-                <div class="topic-book author">
+                <!-- <div class="topic-book author">
                     <label class="label-topic" for="input2">ISSN Number</label><br>
                     <input type="text" class="form-topic" id="input2" name="issnNumber">
                 </div>
@@ -91,7 +91,7 @@
                 <div class="topic-book author">
                     <label class="label-topic" for="input3">ISMN Number</label><br>
                     <input type="text" class="form-topic" id="input3" name="issmNumber">
-                </div>
+                </div> -->
         
                 <div class="disc-book">
                     <label class="label-topic">Description</label><br>

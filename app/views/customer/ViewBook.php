@@ -1,11 +1,25 @@
 <?php
     $title = "Bookshelf";
     include_once 'header.php';
-    include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
+    // include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
 ?>
 
     <div class="main-detail">
         <?php
+    
+        
+        $serverName = "localhost";
+        $dbUsername = "root";
+        $dbPassword = "";
+        $dbName = "readspots";
+        
+        
+        
+        $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
+        
+        if (!$conn) {
+            die("Connection failed : " .mysqli_connect_error());
+        }
         if (isset($_GET['id'])){
             $bookId = $_GET['id'];
             
@@ -54,13 +68,13 @@
                     <h3>ISMN Number : <span>'.$issmNumber.'</span></h3>
                 </div>
                 <div class="sub3">
-                    <img src="./assets/img/'.$imgFront.'" alt="Book3" class="sub-img">
+                    <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgFront.'" alt="Book3" class="sub-img">
                 </div>
                 <div class="sub4">
-                    <img src="./assets/img/'.$imgInside.'" alt="Book3" class="sub-img">
+                    <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgInside.'" alt="Book3" class="sub-img">
                 </div>
                 <div class="sub5">
-                    <img src="./assets/img/'.$imgBack.'" alt="Book3" class="sub-img">
+                    <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgBack.'" alt="Book3" class="sub-img">
                 </div>
                 <div class="sub6">
                     <h3>Description about the book</h3><br>
@@ -73,7 +87,7 @@
                     <h3>Postal Code : <span>'.$postalCode.'</span></h3><br>
                 </div>
                 <div class="sub8">
-                    <a href="./includes/deleteusedbook.inc.php?deleteid='.$bookId.'"><button class="chat-dlt-btn">Delete</button></a>
+                    <a href="http://localhost/Group-27/app/controllers/customer/deleteusedbook.inc.php?deleteid='.$bookId.'"><button class="chat-dlt-btn">Delete</button></a>
                     <a href="./updateusedbook.php?updateid='.$bookId.'"><button class="chat-btn">Edit</button></a>
                 </div>';
                 }
