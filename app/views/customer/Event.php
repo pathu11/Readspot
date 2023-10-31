@@ -15,7 +15,7 @@
             <div class="mycontent">
             <form action="#.php" class="search">
                 <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><img src="./assets/img/search.png"></button>
+                <button type="submit"><img src="http://localhost/Group-27/public/assets/images/customer/search.png"></button>
             </form>
             <br>
             <br>

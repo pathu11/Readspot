@@ -13,7 +13,7 @@
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book1" class="event">
                 
-                <br><br><button class="dts-btn">Remeinder</button>
+                <a href="./viewevents.php"><button class="dts-btn">View Event</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book2" class="event">
