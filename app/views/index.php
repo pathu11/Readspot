@@ -10,7 +10,7 @@
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
         </div>
-        <a href="http://localhost/Group-27/app/views/customer/RegisterCategory.php"><button class="sing-up_btn" href="">Sign-up</button></a>
+        <a href="http://localhost/Group-27/app/views/selectuser.view.php"><button class="sing-up_btn" href="">Sign-up</button></a>
         <a href="login.view.php"><button class="login_btn">Login</button></a>
     </div>
 

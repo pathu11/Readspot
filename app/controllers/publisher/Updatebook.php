@@ -2,13 +2,19 @@
 // UpdateBook.php
 
 if (
-    isset($_POST['book_id'], $_POST['price'], $_POST['descript'], $_POST['quantity']) &&
+    isset($_POST['book_id'], $_POST['book_name'],$_POST['ISBN_no'],$_POST['author'],$_POST['price'],$_POST['category'],$_POST['weight'], $_POST['descript'], $_POST['quantity']) &&
     filter_var($_POST['book_id'], FILTER_VALIDATE_INT)
 ) {
     $bookId = $_POST['book_id'];
-    $newPrice = $_POST['price'];
-    $newDescription = $_POST['descript'];
-    $newQuantity = $_POST['quantity'];
+   
+    $NewbookName = $_POST['book_name'];
+    $NewISBN = $_POST['ISBN_no'];
+    $Newauthor = $_POST['author'];
+    $Newprice = $_POST['price'];
+    $Newcategory = $_POST['category'];
+    $Newweight = $_POST['weight'];
+    $Newdescription = $_POST['descript'];
+    $Newquantity = $_POST['quantity'];       
 
     // Database connection and update query
     $host = "localhost";
@@ -23,11 +29,11 @@ if (
     }
 
     // Prepare and execute the SQL UPDATE query
-    $updateQuery = "UPDATE Books SET price = ?, descript = ?, quantity = ? WHERE book_id = ?";
+    $updateQuery = "UPDATE Books SET book_name= ?,ISBN_no= ?,author= ?,price = ?, category= ?,weight= ?,descript = ?, quantity = ? WHERE book_id = ?";
     $stmt = $conn->prepare($updateQuery);
 
     // Bind the parameters and execute the query
-    $stmt->bind_param("dsii", $newPrice, $newDescription, $newQuantity, $bookId);
+    $stmt->bind_param("sssdsssii",$NewbookName,$NewISBN, $Newauthor,$newPrice,$Newcategory,$Newweight, $newDescription, $newQuantity, $bookId);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
