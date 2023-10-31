@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Access the publisher's name from the session
+
 $deliveryName = $_SESSION["delivery_name"] ?? '';
 $deliveryemail = $_SESSION["delivery_email"] ?? '';
 
@@ -98,7 +98,7 @@ $deliveryemail = $_SESSION["delivery_email"] ?? '';
             <div>
                 <a href="home.view.php">Dashboard</a>
                 <a href="orders.view.php">Orders</a>
-                <a href="deliverCharges.view.php">Delivery Charges</a>
+                <!-- <a href="deliverCharges.view.php">Delivery Charges</a> -->
                 <a href="notification.view.php">Notifications </a>
                 
                 
