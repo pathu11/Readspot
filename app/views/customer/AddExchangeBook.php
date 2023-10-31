@@ -1,5 +1,5 @@
 <?php
-    $title = "Dashboard";
+    $title = "Add Exchange Book";
     include_once 'header.php';
 ?>
 

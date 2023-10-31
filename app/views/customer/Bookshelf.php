@@ -1,5 +1,5 @@
 <?php
-    $title = "Bookshelf";
+    $title = "Book Shelf";
     include_once 'header.php';
 ?>
 
