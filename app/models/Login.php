@@ -87,6 +87,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Redirect to the delivery dashboard
                     header("location:http://localhost/Group-27/app/views/delivery/home.view.php");
                     break;
+                
+                    case "super_admin":
+                        // Handle Delivery Login
+                        $_SESSION["email"] = $email;
+                        $super_adminQuery = "SELECT * FROM superadmin WHERE user_id = " . $row['user_id'];
+                        $super_adminResult = mysqli_query($data, $super_adminQuery);
+                        $super_admin = mysqli_fetch_assoc($super_adminResult);
+                        if ($super_admin) {
+                            foreach ($super_admin as $key => $value) {
+                                $_SESSION["super_admin_" . $key] = $value;
+                            }
+                        }
+                        // Redirect to the delivery dashboard
+                        header("location:http://localhost/Group-27/app/views/superadmin/index.view.php");
+                        break; 
+                        
+                        case "moderator":
+                            // Handle Delivery Login
+                            $_SESSION["email"] = $email;
+                            $moderatorQuery = "SELECT * FROM moderator WHERE user_id = " . $row['user_id'];
+                            $moderatorResult = mysqli_query($data, $moderatorQuery);
+                            $moderator = mysqli_fetch_assoc($moderatorResult);
+                            if ($moderator) {
+                                foreach ($moderator as $key => $value) {
+                                    $_SESSION["moderator_" . $key] = $value;
+                                }
+                            }
+                            // Redirect to the delivery dashboard
+                            header("location:http://localhost/Group-27/app/views/delivery/home.view.php");
+                            break;
 
                 default:
                     echo "Invalid role.";
