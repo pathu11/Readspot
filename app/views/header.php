@@ -44,7 +44,7 @@
             </nav>
             <?php 
                 if (isset($_SESSION["customer_name"])){
-                    include_once 'dropdownmenu.php';
+                    include_once 'http://localhost/Group-27/app/views/customer/dropdownmenu.php';
                 } else {
                     echo '<a href="http://localhost/Group-27/app/views/login.view.php"><button class="Login">Login</button></a>';
                 }

@@ -1,13 +1,14 @@
 <?php
     $title = "Bookshelf";
     include_once 'header.php';
-    include_once './includes/dbh.inc.php';
+    include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
 ?>
 
     <div class="main-detail">
         <?php
         if (isset($_GET['id'])){
             $bookId = $_GET['id'];
+            
             $sql = "SELECT * FROM usedbooks WHERE bookId = $bookId;";
             $result = mysqli_query($conn, $sql);
             $checkResults = mysqli_num_rows($result);
@@ -37,7 +38,7 @@
 
 
                     echo '<div class="sub1">
-                    <img src="./assets/img/'.$imgFront.'" alt="Book3" class="main-img">
+                    <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgFront.'" alt="Book3" class="main-img">
                 </div>
                 <div class="sub2">
                     <h3>Book Name : <span>'.$bookName.'</span></h3><br>

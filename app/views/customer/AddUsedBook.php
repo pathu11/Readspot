@@ -9,7 +9,7 @@
         ?>
 
         <div class="add-content">
-            <form action="http://localhost/Group-27/app/controllers/customer/addusedbooks.inc.php" class="book-add">
+            <form action="http://localhost/Group-27/app/controllers/customer/addusedbooks.inc.php" class="book-add" method="POST">
 
                 <h1>Add a Used Book</h1>
                 
