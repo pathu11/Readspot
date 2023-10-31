@@ -14,6 +14,15 @@
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/publisher/addbookss.css">
 
     <title>Add Books</title>
+    <style>
+    .error {
+        color: red;
+        font-size: 0.8em;
+        margin-top: 4px;
+        display: block;
+    }
+</style>
+
 
 </head>
 
@@ -52,6 +61,7 @@
                                 <th>
                                     <label>Price</label><br>
                                     <input type="number" step="0.01" min="0" id="priceInput" name="price" required>
+                                    <span id="priceError" class="error"></span> 
                                 </th>
                             </tr>
                             <tr class="form_cover1">
@@ -86,7 +96,8 @@
                                 </th>
                                 <th>
                                     <label>Weight</label><br>
-                                    <input type="text" placeholder="Approximate weight of the book" name="weight" required> 
+                                    <input type="number" step="0.01" min="0" id="weightInput" placeholder="Approximate weight of the book" name="weight" required> 
+                                    <span id="weightError" class="error"></span>
                                     <br>
                                     <button class="calc" id="weightCal">
                                         <a href="https://www.bookmobile.com/book-weight-calculator/">Weight Calculator</a>
@@ -99,8 +110,9 @@
                                     <input type="text" placeholder="Briefly describe about the content" name="descript">
                                 </th>
                                 <th>
-                                    <label>Quantity</label><br><br>
-                                    <input type="number" placeholder="No of Books in your stock" name="quantity" required>
+                                <label>Quantity</label><br><br>
+                                <input type="number" step="1" min="0" id="quantityInput" placeholder="No of Books in your stock" name="quantity" required>
+                                <span id="quantityError" class="error"></span>
                                 </th>
                             </tr>
                         </tbody>
@@ -125,6 +137,41 @@
         </div>
         <?php include 'footer.view.php'; ?>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const priceInput = document.getElementById('priceInput');
+        const quantityInput = document.getElementById('quantityInput');
+        const weightInput = document.getElementById('weightInput');
+
+        priceInput.addEventListener('input', function() {
+            const priceError = document.getElementById('priceError');
+            if (priceInput.value < 0) {
+                priceError.textContent = 'Price should be a positive value';
+            } else {
+                priceError.textContent = '';
+            }
+        });
+
+        quantityInput.addEventListener('input', function() {
+            const quantityError = document.getElementById('quantityError');
+            if (quantityInput.value < 0) {
+                quantityError.textContent = 'Quantity should be a positive value';
+            } else {
+                quantityError.textContent = '';
+            }
+        });
+
+        weightInput.addEventListener('input', function() {
+            const weightError = document.getElementById('weightError');
+            if (weightInput.value < 0) {
+                weightError.textContent = 'Weight should be a positive value';
+            } else {
+                weightError.textContent = '';
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>
