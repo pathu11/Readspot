@@ -1,0 +1,48 @@
+.donate-event-detail {
+    top: 250px;
+    display: grid;
+    min-height: 725px;
+    margin: 90px 10px 10px 10px;
+    background-color: #CACACA;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-areas: 
+        "a b b b"
+        "a b b b"
+        "a c c c"
+        "h h h h";
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(50px,auto);
+}
+
+.event-img-div {
+    grid-area: a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aquamarine; */
+}
+.req-book-details {
+    grid-area: c;
+    /* background-color: aquamarine; */
+    padding: 5px 15px 15px 90px;
+}
+.event-des-div {
+    grid-area: b;
+    /* background-color: aquamarine; */
+    padding: 15px 15px 5px 15px;
+}
+
+.event-btn-div {
+    grid-area: h;
+    /* background-color: aquamarine; */
+    /* height: fit-content; */
+    padding: 15px;
+
+}
+
+.req-book-details span{
+    font-size: 18px;
+    font-weight: 100;
+}
