@@ -3,10 +3,10 @@
         <div class="profile-section">
             <img src="http://localhost/Group-27/public/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">
             <?php 
-            if (isset($_SESSION["customerName"])){
-                echo '<h2 class="profile-name1">'.$_SESSION["customerName"].'</h2>';
+            if (isset($_SESSION["customer_name"])){
+                echo '<h2 class="profile-name1">'.$_SESSION["customer_name"].'</h2>';
             } else {
-                echo '<h2 class="profile-name1">Ramath Perera</h2>';
+                echo '<h2 class="profile-name1">NO USER</h2>';
             }
             ?>
         </div>
@@ -23,7 +23,7 @@
                 <li data-page="Content"><a href="./Content.php">Content</a></li>
                 <li data-page="Event"><a href="./Event.php">Event</a></li>
                 <li data-page="Cart"><a href="./Cart.php">Cart</a></li>
-                <li data-page="Logout"><a href="includes/logout.inc.php">Logout</a></li>
+                <li data-page="Logout"><a href="http://localhost/Group-27/app/controllers/Logout.php">Logout</a></li>
             </ul>
         </div>
         </div>
