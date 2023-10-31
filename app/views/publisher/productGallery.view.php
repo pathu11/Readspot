@@ -28,10 +28,19 @@
         <table>
             <tr>
 
-                <th style="width:15%">Product ID</th>
-                <th style="width:15%">No of Items</th>
-                <th style="width:25%">Description</th>
-                <th style="width:20%">Total Price(Rs)</th>
+                <th style="width:7%">Product ID</th>
+                <th style="width:7%">Book Name</th>
+                <th style="width:7%">ISBN Number</th>
+                <th style="width:7%">Author</th>
+                <th style="width:7%">Price</th>
+                <th style="width:7%">Category</th>
+                <th style="width:7%">Weight</th>
+                <th style="width:7%">No of Books</th>
+                <th style="width:20%">Description</th>
+                
+                <!-- <th style="width:9%">Image (front)</th>
+
+                <th style="width:9%">Image(back)</th> -->
                 <th style="width:5%">Update</th>
                 <th style="width:5%">Delete</th>
 

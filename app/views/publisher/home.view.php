@@ -30,7 +30,7 @@
 
     <div class="btn">
         <!-- <button class="my-button"><a href="#" target="_blank">GET STARTING FOR SELLING</a></button> -->
-        <button id="btnclick" class="my-button">GET STARTING FOR SELLING </button>
+        <button id="btnclick"  onclick="window.location.href = 'addbooks.view.php';" class="my-button">GET STARTING FOR SELLING </button>
 
     </div>
     
@@ -41,6 +41,14 @@
             window.location.href = 'addbooks.php';
         });
     </script>  -->
+
+    <!-- <script>
+    // JavaScript to handle button click
+    document.getElementById('btnclick').addEventListener('click', function() {
+        window.location.href = 'addbooks.php'; // Add the path to the file here
+    });
+</script> -->
+
     <?php include 'footer.view.php'; ?> 
       
         

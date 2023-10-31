@@ -44,25 +44,27 @@ class AddBooksController {
             $description = $_POST['descript'];
             $quantity = $_POST['quantity'];
             $publisherId = $_SESSION['publisher_id']; // Replace this with the actual publisher ID
-
-            // File handling
-            $img1Name = $_FILES['img1']['name'];
-            $img1FileType = $_FILES['img1']['type'];
-            $img2Name = $_FILES['img2']['name'];
-            $img2FileType = $_FILES['img2']['type'];
-
-            // Check if it's an image type
-            $allowedImageTypes = array('image/jpg');
+            $img1Name = $_POST['img1'];
+            $img2Name = $_POST['img2'];
             
-            if (in_array($img1FileType, $allowedImageTypes) && in_array($img2FileType, $allowedImageTypes)) {
-                // File handling
-                $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
-                $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
+            // File handling
+            // $img1Name = $_FILES['img1']['name'];
+            // $img1FileType = $_FILES['img1']['type'];
+            // $img2Name = $_FILES['img2']['name'];
+            // $img2FileType = $_FILES['img2']['type'];
 
-                // Rest of the insertion logic...
-            } else {
-                echo "Sorry, only JPG files are allowed to upload.";
-            }
+            // // Check if it's an image type
+            // $allowedImageTypes = array('image/jpg');
+            
+            // if (in_array($img1FileType, $allowedImageTypes) && in_array($img2FileType, $allowedImageTypes)) {
+            //     // File handling
+            //     $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
+            //     $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
+
+            //     // Rest of the insertion logic...
+            // } else {
+            //     echo "Sorry, only JPG files are allowed to upload.";
+            // }
 
             $insertQuery = "INSERT INTO Books 
                             (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id) 

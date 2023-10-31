@@ -23,7 +23,7 @@ if (isset($_GET['book_id']) && filter_var($_GET['book_id'], FILTER_VALIDATE_INT)
 
     if ($conn->query($deleteQuery) === TRUE) {
         // Book deleted successfully, redirect back to the product gallery or any other page
-        header("Location: productGallery.php");
+        header("Location:http://localhost/Group-27/app/views/publisher/productGallery.php");
         exit;
     } else {
         echo "Error deleting book: " . $conn->error;

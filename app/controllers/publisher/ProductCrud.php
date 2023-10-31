@@ -46,12 +46,19 @@ class AddBooksController {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<th>" . $row['book_id'] . "</th>";
-                echo "<th>" . $row['quantity'] . "</th>";
+                echo "<th>" . $row['book_name'] . "</th>";
+                echo "<th>" . $row['ISBN_no'] . "</th>";
+                echo "<th>" . $row['author'] . "</th>";   
+                echo "<th>" . $row['price'] . "</th>";
+                echo "<th>" . $row['category'] . "</th>";
+                echo "<th>" . $row['price'] . "</th>";
+                echo "<th>" . $row['weight'] . "</th>";
                 echo "<th>" . $row['descript'] . "</th>";
-                echo "<th>" . $row['price'] . "</th>";                
+                // echo '<img src="http://localhost/Group-27/public/assets/images/customer/'.$row['img1'].'"  >';
+                // echo '<img src="http://localhost/Group-27/public/assets/images/customer/'.$row['img2'].'"  >';         
                 
                 echo "<th><a href='../../views/publisher/update.view.php?book_id=" . $row['book_id'] . "'><i class='fa fa-edit' style='color:black;'></i></a></th>";
-
+                // echo '<img src="http://localhost/Group-27/public/assets/images/customer/'.$row['img1'].'" alt="Book3" class="main-img">';
                 echo "<th><a href='../../controllers/publisher/Delete.php?book_id=" . $row['book_id'] . "'><i class='fa fa-trash' style='color:black;'></i></a></th>";
                 echo "</tr>";
             }
