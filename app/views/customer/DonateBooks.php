@@ -5,7 +5,7 @@
 
     <div class="main-cont">
         <div class="sub-cont1">
-            <div class="dropdown">
+            <!-- <div class="dropdown">
                 <button onclick="myFunction()" class="dropbtn">Categories</button>
                 <div id="myDropdown" class="dropdown-content">
                     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
@@ -21,16 +21,16 @@
                     <a href="#support">Support</a>
                     <a href="#tools">Tools</a>
                 </div>
-            </div>
+            </div> -->
             <div class="new-books">
                 <h1>BOOK DONATION EVENTS</h2>
             </div>
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <form action="#.php" class="searching">
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><img src="./assets/img/search.png"></button>
                 </form>
-            </div>
+            </div> -->
         </div>
         <div class="sub-cont2">
             <div class="B0">
@@ -49,7 +49,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book2" class="event">
@@ -67,7 +67,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="event">
@@ -85,7 +85,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book4" class="event">
@@ -103,7 +103,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -121,7 +121,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -139,7 +139,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -157,7 +157,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -175,7 +175,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -193,7 +193,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -211,7 +211,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -229,7 +229,8 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
+
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -247,7 +248,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -265,7 +266,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -283,7 +284,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
             <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="event">
@@ -301,7 +302,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <button class="dts-btn">Donate</button>
+                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
             </div>
         </div>
         

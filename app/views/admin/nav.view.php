@@ -9,12 +9,12 @@ $adminemail = $_SESSION["admin_email"] ?? '';
 
 
 ?>
-<head>
+<!-- <head>
    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/adminNav.css">
    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/adminNav.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/style.css">
      <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/admin/footer.css">
-</head>
+</head> -->
 
 
 <nav>

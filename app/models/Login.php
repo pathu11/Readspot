@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                     }
                     // Redirect to the customer dashboard
-                    header("location:http://localhost/Group-27/app/views/customer/Dashboard.php");
+                    header("location:http://localhost/Group-27/app/views/customer/Home.php");
                     break;
 
                 case "publisher":
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location: http://localhost/Group-27/app/views/login.view.php?error=invalid_credentials");
         }
     } else {
-        echo "Prepared statement error.";
+        echo "Prepared statement errors.";
     }
 
     // Close prepared statement and database connection

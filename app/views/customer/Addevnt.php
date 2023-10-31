@@ -10,7 +10,7 @@
 
         <div class="add-content">
             <form action="#" class="cont-add">
-                <h1>Add a Content</h1>
+                <h1>Add a Event</h1>
                 <div class="topic-cont">
                     <label class="label-topic" required>Topic</label><br>
                     <input type="text" class="form-topic">

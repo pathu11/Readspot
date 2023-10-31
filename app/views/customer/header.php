@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Sevices.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Aboutus.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/BookDetails.css">
-
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Event&Donate.css">
     <!-- <script src="./assets/js/prof.js"></script> -->
     <script src="http://localhost/Group-27/public/assets/js/customer/service.js"></script>
     <script src="http://localhost/Group-27/public/assets/js/customer/Add.js"></script>
