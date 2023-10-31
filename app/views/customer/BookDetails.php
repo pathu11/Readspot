@@ -79,6 +79,7 @@
         </div>
         <div class="sub8">
             <a href="#"><button class="chat-btn">Chat</button></a>
+            <a href="#"><button class="chat-btn">Purchase</button></a>
         </div>
     </div>
 
