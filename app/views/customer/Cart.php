@@ -1,5 +1,5 @@
 <?php
-    $title = "Cart";
+    $title = "My Cart";
     include_once 'header.php';
 ?>
 

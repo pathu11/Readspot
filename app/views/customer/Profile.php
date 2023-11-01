@@ -31,19 +31,19 @@
                 <div class="my-details">
                     <div class="FName">
                         <label class="label-FName">First Name</label><br>
-                        <input type="text" class="form-FName" value="Ramath">
+                        <input type="text" class="form-FName" value="user">
                     </div>
                     <div class="LName">
                         <label class="label-LName">Last Name</label><br>
-                        <input type="text" class="form-LName" value="Perera">
+                        <input type="text" class="form-LName" value="user">
                     </div>
                     <div class="Email">
                         <label class="label-Email">Email Address</label><br>
-                        <input type="email" class="form-Email" value="ramath@gmail.com">
+                        <input type="email" class="form-Email" value="user@gmail.com">
                     </div>
                     <div class="Number">
                         <label class="label-Number">Contact Number</label><br>
-                        <input type="text" class="form-Number" value="0718695748">
+                        <input type="text" class="form-Number" value="0712345678">
                     </div>
                 </div>
             </div>
@@ -54,15 +54,15 @@
                 <div class="post-details">
                     <div class="F-Name">
                         <label class="label-F-Name">First Name</label><br>
-                        <input type="text" class="form-F-Name" value="Ramath">
+                        <input type="text" class="form-F-Name" value="user">
                     </div>
                     <div class="L-Name">
                         <label class="label-L-Name">Last Name</label><br>
-                        <input type="text" class="form-L-Name" value="Perera">
+                        <input type="text" class="form-L-Name" value="user">
                     </div>
                     <div class="Address">
                         <label class="label-Address">Address</label><br>
-                        <input type="text" class="form-Address" value="142, Paraththa Road, Panadura">
+                        <input type="text" class="form-Address" value="142, temple Road, Panadura">
                     </div>
                     <div class="prov">
                         <label class="label-prov">Province</label><br>

@@ -1,5 +1,5 @@
 <?php
-    $title = "Bookshelf";
+    $title = "Our Services";
     include_once 'header.php';
 ?>
 
@@ -11,7 +11,7 @@
         </div>
         <div class="sub-cont4">
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/new.jpeg" alt="Book3" class="service-img">
 
                 <h1>Buy New Books</h1><br>
                 
@@ -30,7 +30,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/used.jpeg" alt="Book3" class="service-img">
                 
                 <h1>Buy Used Books</h1><br>
                 
@@ -49,7 +49,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/exchange.jpeg" alt="Book3" class="service-img">
                 
                 <h1>Exchange Books</h1><br>
                 
@@ -68,7 +68,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/donate.jpeg" alt="Book3" class="service-img">
             
                 <h1>Donate Books</h1><br>
             
@@ -87,7 +87,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/content.jpg" alt="Book3" class="service-img">
             
                 <h1>Contents</h1><br>
             
@@ -106,7 +106,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/event.jpeg" alt="Book3" class="service-img">
                 
                 <h1>Events</h1><br>
                 
@@ -125,7 +125,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/bookchallenge.jpg" alt="Book3" class="service-img">
                 
                 <h1>Book Challenges</h1><br>
                 
@@ -144,9 +144,9 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="service-img">
+                <img src="http://localhost/Group-27/public/assets/images/customer/calender.jpg" alt="Book3" class="service-img">
                 
-                <h1>Service 8</h1><br>
+                <h1>Event Calender</h1><br>
                 
                 <!-- <p>Lorem ipsum dolor sit amet consectetur, 
                     adipisicing elit. Accusantium, numquam! 

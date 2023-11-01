@@ -2,16 +2,16 @@
                 <button onclick="myFunction()" class="dropbtn">Categories</button>
                 <div id="myDropdown" class="dropdown-content">
                     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                    <a href="#about">About</a>
-                    <a href="#base">Base</a>
-                    <a href="#blog">Blog</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#custom">Custom</a>
-                    <a href="#support">Support</a>
-                    <a href="#tools">Tools</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#custom">Custom</a>
-                    <a href="#support">Support</a>
-                    <a href="#tools">Tools</a>
+                    <a href="#">Action and Adventure</a>
+                    <a href="#">Classics</a>
+                    <a href="#">Comic Book or Graphic Novel</a>
+                    <a href="#">Detective and Mystery</a>
+                    <a href="#">Fantasy</a>
+                    <a href="#">Historical Fiction</a>
+                    <a href="#">Horror</a>
+                    <a href="#">Literary Fiction</a>
+                    <a href="#">Romance</a>
+                    <a href="#">Science Fiction (Sci-Fi)</a>
+                    <a href="#">Short Stories</a>
                 </div>
             </div>

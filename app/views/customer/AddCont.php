@@ -1,5 +1,5 @@
 <?php
-    $title = "Dashboard";
+    $title = "Add Content";
     include_once 'header.php';
 ?>
 

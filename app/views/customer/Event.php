@@ -1,5 +1,5 @@
 <?php
-    $title = "Content";
+    $title = "My Events";
     include_once 'header.php';
 ?>
 
