@@ -15,7 +15,8 @@
 </head>
 
 <body>
-    
+
+    <?php include 'nav.view.php'; ?>
     <?php include 'subNav.view.php'; ?>
     <div class="div_table" style="width:90%">
         <table>

@@ -1,22 +1,21 @@
 <?php
-// UpdateBook.php
-
 if (
-    isset($_POST['book_id'], $_POST['book_name'],$_POST['ISBN_no'],$_POST['author'],$_POST['price'],$_POST['category'],$_POST['weight'], $_POST['descript'], $_POST['quantity']) &&
+    isset($_POST['book_id'], $_POST['book_name'], $_POST['ISBN_no'], $_POST['author'], $_POST['price'], $_POST['category'], $_POST['weight'], $_POST['descript'], $_POST['quantity'], $_POST['img1'], $_POST['img2']) &&
     filter_var($_POST['book_id'], FILTER_VALIDATE_INT)
 ) {
     $bookId = $_POST['book_id'];
-   
-    $NewbookName = $_POST['book_name'];
-    $NewISBN = $_POST['ISBN_no'];
-    $Newauthor = $_POST['author'];
-    $Newprice = $_POST['price'];
-    $Newcategory = $_POST['category'];
-    $Newweight = $_POST['weight'];
-    $Newdescription = $_POST['descript'];
-    $Newquantity = $_POST['quantity'];       
+    $bookName = $_POST['book_name'];
+    $ISBN = $_POST['ISBN_no'];
+    $author = $_POST['author'];
+    $price = $_POST['price'];
+    $category = $_POST['category'];
+    $weight = $_POST['weight'];
+    $descript = $_POST['descript'];
+    $quantity = $_POST['quantity'];
+    $img1Name = $_POST['img1']; // Note: This assumes file uploads are handled separately
+    $img2Name = $_POST['img2']; // Note: This assumes file uploads are handled separately
 
-    // Database connection and update query
+    // Database connection
     $host = "localhost";
     $user = "root";
     $password = "";
@@ -29,15 +28,15 @@ if (
     }
 
     // Prepare and execute the SQL UPDATE query
-    $updateQuery = "UPDATE Books SET book_name= ?,ISBN_no= ?,author= ?,price = ?, category= ?,weight= ?,descript = ?, quantity = ? WHERE book_id = ?";
+    $updateQuery = "UPDATE Books SET book_name = ?, ISBN_no = ?, author = ?, price = ?, category = ?, weight = ?, descript = ?, quantity = ?, img1 = ?, img2 = ? WHERE book_id = ?";
     $stmt = $conn->prepare($updateQuery);
 
-    // Bind the parameters and execute the query
-    $stmt->bind_param("sssdsssii",$NewbookName,$NewISBN, $Newauthor,$newPrice,$Newcategory,$Newweight, $newDescription, $newQuantity, $bookId);
+    // Bind parameters and execute the query
+    $stmt->bind_param("sssdsisissi", $bookName, $ISBN, $author, $price, $category, $weight, $descript, $quantity, $img1Name, $img2Name, $bookId);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        // Book updated successfully
+        // Book updated successfully, redirect to the desired page
         header("Location: http://localhost/Group-27/app/views/publisher/productGallery.view.php");
         exit;
     } else {

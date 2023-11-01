@@ -38,7 +38,7 @@
         <div>
             <div class="form1">
                 <h2>Update the Book's Information</h2>
-                <form action="http://localhost/Group-27/app/controllers/publisher/AddBooksController.php" method="POST">  
+                <form action="http://localhost/Group-27/app/controllers/publisher/Updatebook.php" method="POST">  
 			<?php
                 $host = "localhost";
                 $user = "root";
@@ -61,7 +61,7 @@
                     // $bookPrice = $row['price'];
                     // $bookDescript = $row['descript'];
                     // $bookQuantity = $row['quantity'];
-
+                    // $bookId = $row['book_id'];
                     $bookName = $row['book_name'];
                     $ISBN = $row['ISBN_no'];
                     $author = $row['author'];
@@ -87,6 +87,10 @@
                     <table class="form_cover">
                         <tbody>
                             <tr class="form_cover1">
+                            <th>
+                                <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
+                                    
+                                </th>
                                 <th>
                                     <label>Book Name</label><br>
                                     <input type="text" name="book_name" value="<?php echo $bookName; ?>" required>

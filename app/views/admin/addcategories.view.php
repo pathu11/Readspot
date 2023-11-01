@@ -31,10 +31,10 @@
   <form method="post" class="categoryAddForm" action="http://localhost/Group-27/app/controllers/admin/Addcategories.php">
     <div class="grid-container">
       <label for="category">Category</label>
-      <input type="text" name="category" id="category" value="<?php echo $category; ?>">
+      <input type="text" name="category" id="category" >
       
       <label for="description">Description</label>
-      <input type="text" name="description" id="description" value="<?php echo $description;?>">
+      <input type="text" name="description" id="description" >
 
       <button type="submit" class="button">Add</button>
     </div>

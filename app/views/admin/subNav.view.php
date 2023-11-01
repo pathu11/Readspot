@@ -1,12 +1,14 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+
+        
         .nav-container2 {
             display: flex;
             align-items: center;
             padding-left: 200px;
             padding-right: 200px;
-            margin-top: 30px;
+            margin-top: 180px;
             margin-bottom: 50px;
             color: black;
             font-family: inner;

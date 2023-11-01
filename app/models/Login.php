@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                             }
                             // Redirect to the delivery dashboard
-                            header("location:http://localhost/Group-27/app/views/delivery/home.view.php");
+                            header("location:http://localhost/Group-27/app/views/moderator/index.php");
                             break;
 
                 default:

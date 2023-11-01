@@ -20,7 +20,7 @@ $adminemail = $_SESSION["admin_email"] ?? '';
 <nav>
     <img src="http://localhost/Group-27/public/assets/images/admin/ReadSpot.png" class="logo">
     <ul>
-      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="index.view.php">Dashboard</a></li>
       <li><a href="customers.view.php">Users</a></li>
       <li><a href="#books">Books</a></li>
       <li><a href="#orders">Orders</a></li>
@@ -55,10 +55,10 @@ $adminemail = $_SESSION["admin_email"] ?? '';
           <p>Settings</p>
         </a>
 
-        <a href="#logout" class="sub-menu-link">
+        <a  href="http://localhost/Group-27/app/controllers/Logout.php" class="sub-menu-link">
          <img src="http://localhost/Group-27/public/assets/images/admin/logout.png">
-          <a href="http://localhost/Group-27/app/controllers/Logout.php"> Logout</a>
-        </a>
+          Logout</a>
+       
       </div>
     </div>
   </nav>

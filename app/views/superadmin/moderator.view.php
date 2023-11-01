@@ -15,18 +15,16 @@
 </head>
 
 <body>
-    <?php require 'nav.view.php'?>
-
     
     <?php include 'subNav.view.php'; ?>
-    <div class="div_table" style="width:90%;">
+    <div class="div_table" style="width:90%">
         <table>
             <tr>
                 <th style="width:15%">Customer ID</th>
                 <th style="width:15%">Name</th>
                 <th style="width:15%">Email</th>
                 <th style="width:25%">Contact</th>
-                <th style="width:20%">Deactivate</th>
+                <th style="width:20%">Delete</th>
                 
 
             </tr>

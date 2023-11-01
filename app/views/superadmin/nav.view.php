@@ -29,14 +29,14 @@ $superadminemail = $_SESSION["super_admin_email"] ?? '';
     </ul>
     <div class="user-detail">
       <img src="http://localhost/Group-27/public/assets/images/admin/user.png" class="user">
-      <p class="nav-p">Hi, <?php echo $adminName; ?></p>
+      <p class="nav-p">Hi, <?php echo $superadminName; ?></p>
     </div>
 
     <div class="sub-menu-wrap" id="subMenu">
       <div class="sub-menu">
         <div class="user-info">
           <img src="http://localhost/Group-27/public/assets/css/admin/user.png">
-          <h2><?php echo $adminName; ?></h2>
+          <h2><?php echo $superadminName; ?></h2>
         </div>
         <hr>
 
@@ -45,7 +45,7 @@ $superadminemail = $_SESSION["super_admin_email"] ?? '';
           <p class="sub-menu-p">profile info</p>
         </a>
 
-        <a href="http://localhost/Group-27/app/views/admin/notification.view.php" class="sub-menu-link">
+        <a href="http://localhost/Group-27/app/views/superadmin/notification.view.php" class="sub-menu-link">
           <img src="http://localhost/Group-27/public/assets/images/admin/notification.png">
           <p>notifications</p>
         </a>
@@ -55,9 +55,9 @@ $superadminemail = $_SESSION["super_admin_email"] ?? '';
           <p>Settings</p>
         </a>
 
-        <a href="#logout"  style="text-decoration:none;" class="sub-menu-link">
+        <a href="http://localhost/Group-27/app/controllers/Logout.php"  style="text-decoration:none;" class="sub-menu-link">
          <img src="http://localhost/Group-27/public/assets/images/admin/logout.png">
-          <a href="http://localhost/Group-27/app/controllers/Logout.php"> Logout</a>
+          Logout</a>
         </a>
       </div>
     </div>
