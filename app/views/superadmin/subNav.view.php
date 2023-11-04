@@ -32,12 +32,12 @@
 </head>
 <body>
     <div class="nav-container2">
-        <a href="processingorders.view.php">Community Moderators</a>
-        <a href="processingorders.view.php">Admins</a>
-        <a href="processingorders.view.php">Customers</a>
-        <a href="shippedorders.view.php">Publishers</a>
-        <a href="deliveredorders.view.php">Charity Organizations</a>
-        <a href="deliveredorders.view.php">Delivery Companies</a>
+        <a href="#">Community Moderators</a>
+        <a href="addadmin.view.php">Admins</a>
+        <a href="#">Customers</a>
+        <a href="#">Publishers</a>
+        <a href="#">Charity Organizations</a>
+        <a href="#">Delivery Companies</a>
         
 
 

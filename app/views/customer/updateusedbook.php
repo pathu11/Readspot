@@ -70,10 +70,10 @@
                     <div class="topic-book author">
                         <label class="label-topic">Book Category</label><br>
                         <select id="category"  name="category"value="'.$category.'" required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
+                            <option value="fictions">fictions</option>
+                            <option value="non fictions">Travel</option>
+                            <option value="horror">Food</option>
+                            <option value="novel">Lifestyle</option>
                             <option value="health">Health</option>
                         </select>
                     </div>
@@ -81,11 +81,10 @@
                     <div class="topic-book author">
                         <label class="label-topic">Condition</label><br>
                         <select id="category"  name="bookCondition"value="'.$bookCondition.'" required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <option value="Used">Used</option>
+                            <option value="Not Used">Not Used</option>
+                            <option value="Good">Good</option>
+                            <option value="Bad">Bad</option>
                         </select>
                     </div>
 
@@ -105,11 +104,8 @@
                     <div class="topic-book author">
                         <label class="label-topic">Price Type</label><br>
                         <select id="category"  name="priceType" value="'.$priceType.'"required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <option value="Negotiate">Technology</option>
+                            <option value="Fixed">Travel</option>
                         </select>
                     </div>
         
@@ -125,15 +121,7 @@
                     <input type="text" class="form-topic" id="input1" value="'.$isbnNumber.'"name="isbnNumber">
                 </div>
         
-                <div class="topic-book author">
-                    <label class="label-topic" for="input2">ISSN Number</label><br>
-                    <input type="text" class="form-topic" id="input2" value="'.$issnNumber.'"name="issnNumber">
-                </div>
-        
-                <div class="topic-book author">
-                    <label class="label-topic" for="input3">ISMN Number</label><br>
-                    <input type="text" class="form-topic" id="input3" value="'.$issmNumber.'"name="issmNumber">
-                </div>
+               
         
                 <div class="disc-book">
                     <label class="label-topic">Description</label><br>
@@ -189,11 +177,31 @@
                     <div class="topic-book author">
                         <label class="label-topic">District</label><br>
                         <select id="category"  name="district" value="'.$district.'"required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                        <option value="Ampara">Ampara</option>
+                        <option value="Anuradhapura">Anuradhapura</option>
+                        <option value="Badulla">Badulla</option>
+                        <option value="Batticaloa">Batticaloa</option>
+                        <option value="Colombo">Colombo</option>
+                        <option value="Galle">Galle</option>
+                        <option value="Gampaha">Gampaha</option>
+                        <option value="Hambantota">Hambantota</option>
+                        <option value="Jaffna">Jaffna</option>
+                        <option value="Kalutara">Kalutara</option>
+                        <option value="Kandy">Kandy</option>
+                        <option value="Kegalla">Kegalla</option>
+                        <option value="Kilinochchi">Kilinochchi</option>
+                        <option value="Kurunegala">Kurunegala</option>
+                        <option value="Mannar">Mannar</option>
+                        <option value="Matale">Matale</option>
+                        <option value="Matara">Matara</option>
+                        <option value="Moneragala">Moneragala</option>
+                        <option value="Mullaitivu">Mullaitivu</option>
+                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                        <option value="Polonnaruwa">Polonnaruwa</option>
+                        <option value="Puttalam">Puttalam</option>
+                        <option value="Ratnapura">Ratnapura</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                        <option value="Vavuniya">Vavuniya</option>
                         </select>
                     </div>
 

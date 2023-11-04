@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    // session_start();
     $title = "Bookshelf";
     include_once 'header.php';
     $serverName = "localhost";

@@ -1,10 +1,6 @@
 <?php
-<<<<<<< HEAD
 // session_start();
     $title = "Bookshelf";
-=======
-    $title = "Book Shelf";
->>>>>>> 4bc30dc8051ec2d832549e065496ecc3add162fa
     include_once 'header.php';
 ?>
 

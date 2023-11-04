@@ -20,8 +20,9 @@
                 <input type="text" name="reg_no" placeholder="Registration Number of the company" required>
                 <span class="error-message" id="email-error"></span>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="text" id="tel" pattern="[0-9]{9,}" title="Please enter a valid phone number (at least 9 digits)" name="contact_no" placeholder="Contact Number" required>
                 <span class="error-message" id="tel-error"></span>
+                <input type="text" id="tel" pattern="[0-9]{9,}" title="Please enter a valid phone number (at least 9 digits)" name="contact_no" placeholder="Contact Number" required>
+                
                 <input type="password" name="pass" placeholder="Password" required>
                 <button type="submit" class="btn" name="submit">Submit</button>
             </div>

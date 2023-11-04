@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/LandingPage.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/head.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/footer.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/profile.css">
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/prof.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/AddBookConte.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/BuyBook.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Sevice.css">
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Sevices.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Aboutus.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/BookDetail.css">
+    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/BookDetails.css">
     <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Event&Donates.css">
     <!-- <script src="./assets/js/prof.js"></script> -->
     <script src="http://localhost/Group-27/public/assets/js/customer/service.js"></script>

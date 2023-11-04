@@ -28,7 +28,7 @@
 
 <body>
     <div>
-        <?php include 'nav.view.php';?>
+        
         <?php include 'subNav.view.php';?>
 
         

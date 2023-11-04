@@ -64,8 +64,7 @@
                     <h3>Price Type : <span>'.$priceType.'</span></h3><br>
                     <h3>Weight (grams) : <span>'.$weight.'</span></h3><br>
                     <h3>ISBN Number : <span>'.$isbnNumber.'</span></h3><br>
-                    <h3>ISSN Number : <span>'.$issnNumber.'</span></h3><br>
-                    <h3>ISMN Number : <span>'.$issmNumber.'</span></h3>
+                    
                 </div>
                 <div class="sub3">
                     <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgFront.'" alt="Book3" class="sub-img">
