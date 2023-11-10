@@ -113,9 +113,9 @@
     width: 180px;
 }
 
-.sub2 span, .sub7 span {
+.sub2 span, .sub7 span, .req-book-details span{
     font-size: 15px;
-    font-weight: 100;
+    font-weight: 400;
 }
 
 .sub2 h3, .sub7 h3 {
@@ -147,10 +147,30 @@
     cursor: pointer;
     color: white;
     transition: .5s;
-    margin: 0px;
+    margin: 10px;
 }
 
 .chat-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}
+
+.chat-dlt-btn {
+    float: right;
+    width: 132px;
+    height: 36px;
+    background-color: red;
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin: 10px;
+}
+
+.chat-dlt-btn:hover {
     background: #fff;
     color: black;
     border: none;

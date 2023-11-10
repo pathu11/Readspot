@@ -14,7 +14,7 @@
     flex-direction: row;
     gap: 1rem;
     height: fit-content;
-    background-color: tomato;
+    background-color: rgba(95, 226, 95, 0.581);
     justify-content: space-around;
     padding: 5px;
 }
@@ -26,7 +26,7 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: #04AA6D;
+    background-color: #16835b9f;
     min-height: 200px;
 }
 
@@ -36,8 +36,8 @@
 }
 
 .event {
-    width: 600px;
-    height: 870px;
+    width: 200px;
+    height: 290px;
 }
 
 .B0 {
@@ -57,6 +57,7 @@
     cursor: pointer;
     color: white;
     transition: .5s;
+    margin-top: 5px;
     margin-left: 8px;
     margin-right: 8px;
 }
@@ -111,16 +112,19 @@
 }
 
 .dropbtn {
-    background-color: #04AA6D;
+    background-color: #142603bd;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
   }
   
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #3e8e41;
+    background-color: #0ee418;
+    color: black;
+    font-weight: 600;
 }
   
 #myInput {
