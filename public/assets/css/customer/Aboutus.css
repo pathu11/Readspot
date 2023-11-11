@@ -1,0 +1,87 @@
+.about-cont {
+    top: 250px;
+    display: flex;
+    flex-direction: column;
+    min-height: 725px;
+    margin: 90px 10px 10px 10px;
+    background-color: #CACACA;
+    padding: 20px;
+}
+
+.our-mission {
+    display: flex;
+    flex-direction: column;
+    /* background-color:aqua; */
+    min-height: 100px;
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.mission-about p {
+    text-align: center;
+    padding: 10px 100px 0px 100px;
+}
+
+.our-site {
+    display: flex;
+    flex-direction: column;
+    /* background-color:darkcyan; */
+    min-height: 100px;
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.site-about p {
+    text-align: justify;
+    padding: 10px 100px 0px 100px;
+}
+
+.our-team {
+    display: grid;
+    /* background-color: aquamarine; */
+    min-height: 100px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    place-items: center;
+    padding: 5px;
+    grid-template-areas: 
+    "a a a a"
+    "b c d e";
+    grid-gap: 2rem;
+}
+
+.member1, .member2, .member3, .member4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-topic {
+    grid-area: a;
+}
+
+.member1 {
+    grid-area: b;
+}
+
+.member2 {
+    grid-area: c;
+}
+
+.member3 {
+    grid-area: d;
+}
+
+.member4 {
+    grid-area: e;
+}
+
+.memb-img {
+    height: 330px;
+    width: 270px;
+    margin-bottom: 20px;
+}
