@@ -1,56 +1,54 @@
 body {
-    background-image: url('http://localhost/Group-27/public/assets/images/publisher/landing.jpg');
-    background-size: cover;
+    margin-top: 150px;
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    text-decoration:none;
-    color:white;
-}
-a{
-    color:white;
-    text-decoration:none;
-}
-
-.custom-button {
-    margin: 0 10px;
-    padding: 15px 40px; 
-    border: none;
-    background-color: #01322F;
-    color: white;
-    border-radius: 15px; 
-    cursor: pointer;
-    text-decoration:none;
-    
-}
 
 .div_table {
-    margin-left: 100px;
+    margin-left: 250px;
+    margin-right:40px;
 }
 
 table {
-    align-items: center;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-table th {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin: 40px;
-    background-color: #C6C6C6;
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
+
+th {
+    /* background-color: #009D94; */
+    color: #09514C;
+}
+
+tr {
+    background-color:#add8e6;
+}
+
+/* tr:hover {
+    background-color: #09514C;
+    color:black;
+} */
+
+.btn {
+    display: block;
+    margin-top: 20px;
+    margin-left: 1050px;
+    margin-right: 60px;
+    padding: 10px;
+    background-color: #009D94;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #09514C;
+} 

@@ -1,7 +1,9 @@
 body {
+    width:90%;
     background-size: cover;
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin-left: 230px;
+    margin-top:70px;
     padding: 0;
 }
 
@@ -17,6 +19,7 @@ body {
     background-color: #f0f0f0;
     text-align: center;
     margin: 40px;
+    border-radius:5px;
 }
 .profile-image {
     width: 200px; /* Adjust the width as needed */

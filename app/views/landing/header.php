@@ -39,7 +39,15 @@
                 <a href="#">About</a>
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
+
             </nav>
+            <?php 
+                    if (isset($_SESSION["user_id"])){
+                        include_once URLROOT . '/landing/customer/dropdownmenu.php';
+                    } else {
+                        echo '<a href="' . URLROOT . '/landing/login"><button class="Login">Login </button></a>';
+                    }
+                ?>
            
         </div>
         </div>
