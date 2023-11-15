@@ -1,0 +1,141 @@
+body {
+    background-image: url('http://localhost/Group-27/public/assets/images/publisher/landing.jpg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family:inter;
+    margin-bottom:30px;
+}
+
+
+.pdf-upload {
+    margin-left:70px;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    border: 2px solid #01322F;
+    border-radius: 15px; /* Added border radius */
+    box-sizing: border-box;
+    
+}
+
+.buttons
+{
+    justify-content:center;
+    margin-left:40%;
+    margin-right:30%;
+    margin-top:30px;
+    margin-bottom:30px;
+    font-family:inter;
+
+}
+.buttons button
+{
+    background-color:#01322F;
+    border-radius:10px;
+    padding-left:13px;
+    padding-right:13px;
+    padding-top:8px;
+    padding-bottom:8px;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.buttons button:hover{
+    background-color:#066761;
+}
+.form1{
+    background-color:#CCCCCC;
+    border-radius:8px;
+    justify-content:center;
+    margin-left:30%;
+    margin-right:30%;
+    margin-top:30px;
+    margin-bottom:30px;
+    text-align:center;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.form_cover{
+    box-sizing: border-box;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+
+}
+
+.form_cover1{
+    box-sizing: border-box;
+    display:grid;
+    column-gap: 50px;
+    grid-template-columns: auto auto auto;
+    /* flex-direction:col; */
+    justify-content:space-between;
+
+}
+.form_cover1 th {
+    margin-bottom: 10px; /* Adjust the value as needed */
+}
+
+
+.form_cover1 input{
+    background-color:white;
+    border-radius:4px;
+    margin-left:6px;
+    margin-bottom:6px;
+    margin-right:6px;
+    padding-left:18px;
+    padding-right:18px;
+    padding-top:7px;
+    padding-bottom:7px;
+    border:none;
+}
+.submit-button{
+    background-color:#01322F;
+    border-radius:10px;
+    padding-left:15px;
+    padding-right:15px;
+    padding-top:8px;
+    padding-bottom:8px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    text-align:center;
+    justify-content:center;
+    color:white;
+
+}
+.submit-button:hover{
+    background-color:#066761;
+}
+.calc{
+    background-color:#01322F;
+    border-radius:5px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    margin:5px;    
+    text-align:center;
+    justify-content:center;
+    color:white;
+}
+.calc a{
+    text-decoration:none;
+    color:white;
+}
+
+/* Style the dropdown button */
+
+
+
+.select{
+    padding-right:50px;
+    padding-left:50px;
+    padding-top:8px;
+    padding-bottom:8px;
+    marging-left:250px;
+}
