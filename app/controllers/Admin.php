@@ -21,9 +21,21 @@
          
           $adminDetails = $this->adminModel->findadminById($user_id);  
           $data = [
-              'adminDetails' => $adminDetails
+              'adminDetails' => $adminDetails,
+              'adminName'=>$adminDetails[0]->name
           ];
           $this->view('admin/index', $data);
       }
+  }
+
+  public function categories(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findadminById($user_id);  
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name
+    ];
+    $this->view('admin/categories',$data);
   }
  }
