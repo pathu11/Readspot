@@ -11,7 +11,9 @@ body{
   width: 100%;
   border-style: none;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(224,224,224,1) 0%, rgba(112,191,186,1) 35%, rgba(0,157,148,1) 100%);
+  margin-top: 10px;
 }
 
 .table td{
@@ -39,11 +41,16 @@ body{
 }
 
 .container-column{
-  flex: 50%;
+  box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  flex: 1;
+  padding: 30px 30px 50px 30px;
+  margin: 2%;
+  /*flex: 50%;
   padding: 25px;
   padding-bottom: 100px;
   border-right: 5px;
-  box-shadow: 3px 5px 15px 5px rgb(91, 100, 103);
+  box-shadow: 3px 5px 15px 5px rgb(91, 100, 103);*/
 }
 
 .navigation{
@@ -75,12 +82,13 @@ button{
 }
 
 .fa{
-  color: #70BFBA;
+  color: rgb(177, 48, 48);
   font-size: 20px;
 }
 
-.fa-trash{
+.fa-pen{
   padding-right: 20px;
+  color: #70BFBA;
 }
 
 

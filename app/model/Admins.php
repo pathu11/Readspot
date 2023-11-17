@@ -13,4 +13,16 @@
 
         return $this->db->resultSet();
     }
+
+    public function getBookCategories(){
+      $this->db->query('SELECT * FROM book_category');
+
+      return $this->db->resultSet();
+    }
+
+    public function getEventCategories(){
+      $this->db->query('SELECT * FROM event_category');
+
+      return $this->db->resultSet();
+    }
   }
