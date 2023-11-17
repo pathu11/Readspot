@@ -1,10 +1,13 @@
 <?php
 class Landing extends Controller{
     private $userModel;
+    private $publisherModel;
+    private $adminModel;
     private $db;
     public function  __construct(){
         $this->userModel=$this->model('User');
         $this->publisherModel=$this->model('Publishers');
+        $this->adminModel=$this->model('Admins');
         $this->db = new Database();
        
     }
@@ -306,8 +309,11 @@ class Landing extends Controller{
        
 
 
-        } elseif ($user->user_role == 'customer') {
-            
+        } elseif ($user->user_role == 'admin') {
+            $adminDetails = $this->adminModel->findAdminById($user->user_id);
+            $_SESSION['admin_id'] = $adminDetails->admin_id;
+            // $publisher=$this->userModel->findUserByPubId(user_id);           
+            redirect('admin/index');
          
         }elseif ($user->user_role == 'deliver') {
 
@@ -316,10 +322,8 @@ class Landing extends Controller{
             redirect('delivery/index');
          
         }
-        elseif ($user->user_role == 'admin') {
-            redirect('admin/index');
-         
-        }
+        
+        
         // For other roles, redirect accordingly
     }
     

@@ -91,19 +91,7 @@ class User{
     }
     
 
-    // public function login($email,$pass){
-    //     $this->db->query('SELECT * FROM users WHERE email=:email');
-    //     $this->db->bind(':email',$email);
 
-    //     $row=$this->db->single();
-
-    //     $hashed_password=$row->pass;
-    //     if(password_verify($pass,$hashed_password)){
-    //         return $row;
-    //     }else{
-    //         return false;
-    //     }
-    // }
     public function login($email, $pass)
 {
     $this->db->query('SELECT * FROM users WHERE email=:email');
@@ -133,8 +121,7 @@ class User{
             return false;
         }
     }
-}
-
+}   
     //find by user email
     public function findUserByEmail($email){
         $this->db->query('SELECT * from users WHERE email=:email');
@@ -150,13 +137,13 @@ class User{
         }
     }
 
-    // public function findUserByPubId($user_id){
-    //     $this->db->query('SELECT * from publishers WHERE user_id=:user_id');
-    //     $this->db->bind(':user_id',$user_id);
+    public function findUserByPubId($user_id){
+        $this->db->query('SELECT * from publishers WHERE user_id=:user_id');
+        $this->db->bind(':user_id',$user_id);
        
 
-    //     return $this->db->resultSet();
-    // }
+        return $this->db->resultSet();
+    }
 
    
 
