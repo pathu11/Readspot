@@ -1,3 +1,4 @@
+
 <?php
     $title = "Update Books";
     
@@ -7,13 +8,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addbookss.css">
-
+   
     <title>Add Books</title>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/update.css" />
     <style>
     .error {
         color: red;
@@ -28,7 +25,7 @@
 
 <body>
     <div>
-    <?php   require APPROOT . '/views/publisher/nav.php';?>
+    <?php   require APPROOT . '/views/publisher/sidebar.php';?>
         
         <div class="buttons">
             <button  id="addbooks"><a style="text-decoration:none;color:white;" href="<?php echo URLROOT; ?>/publisher/addbooks">Add Books</a></button>
@@ -129,3 +126,4 @@
 </body>
 
 </html>
+>>>>>>> d8c71934c53defc273670933be317035e003477f
