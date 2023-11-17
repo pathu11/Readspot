@@ -309,6 +309,16 @@ class Landing extends Controller{
         } elseif ($user->user_role == 'customer') {
             
          
+        }elseif ($user->user_role == 'deliver') {
+
+            $deliverDetails = $this->deliverModel->findDeliverById($user->user_id);
+            $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
+            redirect('delivery/index');
+         
+        }
+        elseif ($user->user_role == 'admin') {
+            redirect('admin/index');
+         
         }
         // For other roles, redirect accordingly
     }
