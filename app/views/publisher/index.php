@@ -1,3 +1,4 @@
+
 <?php
     $title = "Index";  
 ?>
@@ -6,42 +7,54 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/homepage.css" />
     <title>Publisher Home Page</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/homepage.css" />
 </head>
 
 <body>
-   
-<?php   require APPROOT . '/views/publisher/nav.php';?>
- 
-    <div class="content">
-        <h1 class="header_1">WELCOME TO</h1><br>
-        <h1 class="header_2">ReadSpot</h1>
-        <span>Effortlessly sell your books, manage inventory, and connect <br>
-            with readers. Sell smart, sell efficiently. Happy publishing!</span>
-    </div>
-
-    <div class="btn">
-        
-        <!-- <button class="my-button"><a href="#" target="_blank">GET STARTING FOR SELLING</a></button> -->
-        <button id="btnclick"  onclick="window.location.href = '<?php echo URLROOT; ?>/publisher/addbooks';" class="my-button">GET STARTING FOR SELLING </button>
-
-    </div>
+    <?php require APPROOT . '/views/publisher/sidebar.php';?>
+    <main class="dashboard">
+        <section class="topic">
+            <div class="head">
+                <h2>Sales Analytics</h2>
+                <p> &nbsp;&nbsp;&nbsp;Track your sales performance and discover trends</p>
+            </div>
+            <div class="drop">
+                <label>Date range</label>
+                <input type="date">
+            </div>
+        </section>
+        <section class="summary">
+            <div class="box total-orders">
+                <p>Total Books</p>
+                <h2 class="value">25 </span></h2>
+            </div>
+            <div class="box total-sales">
+                <p>Total Orders</p>
+                <h2 class="value">50</h2>
+            </div>
+            <div class="box books-added">
+                <p>Total Income</p>
+                <h2 class="value">LKR 12000</h2>
+            </div>
+        </section>
+        <section class="charts">
+            <div class="chart">
+                <h4>Monthly Sales</h4>
+                <canvas id="salesChart" ></canvas>
+            </div>
+            <div class="chart">
+                <h4>Monthly Income</h4>
+                <canvas id="incomeChart" ></canvas>
+            </div>
+        </section>
+    </main>
+    <script src="<?php echo URLROOT; ?>/assets/js/publisher/index.js"></script>
     
-
-    
-     <?php 
- 
- // echo APPROOT ;
-        require APPROOT . '/views/publisher/footer.php';
- 
- 
- ?>   
 </body>
 
 </html>
+

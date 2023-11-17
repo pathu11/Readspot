@@ -1,7 +1,6 @@
 
-
 <?php
-    $title = "Customer Support";
+    $title = "Notification";
     
 ?>
 <!DOCTYPE html>
@@ -9,12 +8,12 @@
 
 <head>
     
-    <title>Customer Support</title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/customerSupport.css" />
+    <title>Notification</title>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
 </head>
 
 <body >
-<?php   require APPROOT . '/views/publisher/sidebar.php';?>
+<?php   require APPROOT . '/views/delivery/sidebar.php';?>
     <div class="chat-container1">
         <input type="text" placeholder=" Search..." class="search-bar">
 </div>
@@ -86,4 +85,3 @@
 </body>
 
 </html>
-

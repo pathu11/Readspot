@@ -1,5 +1,5 @@
 body {
-    background-image: url('http://localhost/Group-27/public/assets/images/publisher/landing.jpg');
+   
     background-size: cover;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,51 +7,90 @@ body {
     
 }
 
-.content {
+.dashboard {
+    width: 100%;
+    margin: 20px auto;
     padding: 20px;
-    text-align: left;
-    padding-left: 100px;
+    margin-left:200px;
 }
-
-.header_1 {
-    font-family: inner;
-    font-size: 50px;
-    padding-bottom: 10px;
+.topic{
+    margin-top:45px;
+    margin-left:247px;
+    margin-bottom: 5px;
+}
+.head h2{
+   font-size:25px;
+   padding-bottom:5px;
+   color:#009D94;
+}
+.head p{
+    font-size:18px;
+    color:#01322F;
+    padding-bottom:8px;
+}
+.drop input{
+    border-radius:5px;
+    width:150px;
+}
+.summary {
+    margin-top:70px;
+    margin-left:172px;
+    display: flex;
+    justify-content: space-around;
     margin-bottom: 20px;
+   
 }
 
-.header_2 {
-    margin-top: 10px;
-    font-family: otomanopee one;
-    font-size: 90px;
-    color: white;
-    text-shadow: black;
-}
 
-span {
-    color: black;
-    font-size: 20px;
-    font-family: inner;
-}
-
-.btn {
-    padding-left: 100px;
-    margin-top: 20px;
-}
-
-.btn :hover {
-    background-color: #01322F;
-}
-
-.my-button {
-    background-color: black;
-    color: white;
-    padding: 20px 40px;
+.box {
+    background-color: #f4f4f4;
     border: none;
-    cursor: pointer;
-    margin-bottom: 15px;
+    border-radius:6px;  
+    
+    width: 160px; 
+    height: 90px; 
+    transform: scale(1.8, 1.8);
+    z-index:1;
+    padding:10px;
+    
+}
+.box:hover{
+    transform: scale(1.9, 1.9);
+    background-color:#009D94;
+    color:white;
+}
+.box h2:hover{
+    
+    color:white;
 }
 
-.my-button :hover {
-    background-color: #2980b9;
+.box h2 {
+   
+    margin-bottom: 10px;
+    font-size: 18px;
+    padding:20px;
+}
+
+.value {
+    text-align:center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+.chart{
+    width:600px;
+    height:600px;
+    background-color:#white;
+    border:none;
+    border-radius:5px;
+    
+}
+.charts{
+
+    margin-top:45px;
+    margin-left:247px;
+    margin-bottom: 5px;
+    padding:30px;
+    display: flex;
+    justify-content: space-around;
 }
