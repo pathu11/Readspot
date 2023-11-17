@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,19 +30,26 @@
         <div class="navig">
             <nav class="navigation">
                 <?php 
-                // if (isset($_SESSION["customer_name"])){
-                //     echo '<a href="http://localhost/Group-27/app/views/customer/Home.php">Home</a>';
-                // } else {
-                //     echo '<a href="./index.php">Home</a>';
-                // }
+                if (isset($_SESSION["user_id"])){
+                    echo '<a href="<?php echo URLROOT; ?>/customer/Home">Home</a>';
+                } else {
+                    echo '<a href="<?php echo URLROOT; ?>/landing/index">Home</a>';
+                }
                 ?>
-                <a href="<?php echo URLROOT; ?>/landing/logout">Logout</a>
+                
                 <a href="#">About</a>
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
+
             </nav>
+            <?php 
+                    if (isset($_SESSION["user_id"])){
+                        include_once URLROOT . '/landing/customer/dropdownmenu.php';
+                    } else {
+                        echo '<a href="' . URLROOT . '/landing/login"><button class="Login">Login </button></a>';
+                    }
+                ?>
            
         </div>
         </div>
     </header>
-    

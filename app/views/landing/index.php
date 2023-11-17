@@ -1,3 +1,4 @@
+
 <?php
     $title = "Landing Page";
     
@@ -21,7 +22,7 @@
         <h2><span>Our Services</span></h2>
     </div>
     
-    <div class="services" style="background-image: url('<?php echo URLROOT; ?>/assets/css/customer/bg.jpg')">
+    <div class="services" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/bg.jpg')">
         <div class="service" onclick="service1()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/new.jpeg" alt="Service 1">
             <h3>Buy New Books</h3>
