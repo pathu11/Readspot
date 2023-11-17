@@ -18,6 +18,7 @@
         <main class="dashboard">
             <section class="topic">
                 <div class="head">
+                   
                     <h2>Sales Analytics</h2>
                     <p> &nbsp;&nbsp;&nbsp;Track your sales performance and discover trends</p>
                 </div>
@@ -69,14 +70,19 @@
                             <th>80</th>
                             <th><a href="#"><i class="fa fa-edit" style="color:black;"></i></a></th>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td><a href="#"><i class="fa fa-edit" style="color:black;"></i></a></td>
-                        </tr>
+                        
                     </table>
-                    <button class="custom-button">New Weight Category</i> </button>
+                    
                 </div>
+
+
+                <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
+            <tr>
+                <th style="width:7%"><?php echo $deliveryDetails->name; ?></th>
+                
+            </tr>
+                <?php endforeach; ?>
+            
                 
 
                 

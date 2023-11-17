@@ -1,11 +1,31 @@
 <?php
 class Delivery extends Controller{
-    public function  __construct(){
-        // $this->postModel= $this->model('Post');
+    private $deliveryModel;
+    
+    private $userModel;
+
+    private $db;
+    public function __construct(){
+        $this->deliveryModel=$this->model('deliver');
+        $this->userModel=$this->model('User');
+       
+       
+        $this->db = new Database();
     }
     public function index(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);  
+            $data = [
+                'deliveryDetails' => $deliveryDetails
+            ];
+            $this->view('delivery/index', $data);
+        }
        
-        $this->view('delivery/index');
+       
     }
     public function orders(){
        
@@ -27,10 +47,6 @@ class Delivery extends Controller{
        
         $this->view('delivery/processedorders');
     }
-    public function profile(){
-       
-        $this->view('delivery/profile');
-    }
-   
+    
 
 }
