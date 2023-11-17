@@ -1,6 +1,7 @@
 <?php
  class Admin extends Controller{
   private $adminModel;
+  private $categoryModel;
   
   private $userModel;
 
@@ -19,7 +20,7 @@
       } else {
           $user_id = $_SESSION['user_id'];
          
-          $adminDetails = $this->adminModel->findadminById($user_id);  
+          $adminDetails = $this->adminModel->findAdminById($user_id);  
           $data = [
               'adminDetails' => $adminDetails,
               'adminName'=>$adminDetails[0]->name
@@ -31,7 +32,8 @@
   public function categories(){
     $user_id = $_SESSION['user_id'];
          
-    $adminDetails = $this->adminModel->findadminById($user_id);  
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    //$categoryDetails = $this->categoryModel->findCategoryById($category_id);  
     $data = [
         'adminDetails' => $adminDetails,
         'adminName'=>$adminDetails[0]->name
