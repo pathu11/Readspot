@@ -121,7 +121,7 @@ class User{
             return false;
         }
     }
-    
+}   
     //find by user email
     public function findUserByEmail($email){
         $this->db->query('SELECT * from users WHERE email=:email');
@@ -149,5 +149,4 @@ class User{
 
     
 
-}
 }
