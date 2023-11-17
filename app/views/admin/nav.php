@@ -66,7 +66,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/landing/logout" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>
                 <span class="link">Logout</span>
               </a>
