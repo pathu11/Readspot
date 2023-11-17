@@ -34,10 +34,10 @@
     <div class="nav-container2">
 
         
-        <a href="orders.view.php">Conformed Orders</a>
-        <a href="processedorders.view.php">Processing Orders</a>
-        <a href="successorders.view.php">Successful Orders</a>
-        <a href="returnedorders.view.php">Returned Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/orders">Conformed Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/processedorders">Processing Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/successorders">Successful Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/returnedorders">Returned Orders</a>
 
         
 

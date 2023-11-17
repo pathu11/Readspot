@@ -309,6 +309,13 @@ class Landing extends Controller{
         } elseif ($user->user_role == 'customer') {
             
          
+        }elseif ($user->user_role == 'deliver') {
+            redirect('delivery/index');
+         
+        }
+        elseif ($user->user_role == 'admin') {
+            redirect('admin/index');
+         
         }
         // For other roles, redirect accordingly
     }

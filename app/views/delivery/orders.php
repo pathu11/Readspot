@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/delivery/orders.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/orders.css">
 
     <title>All Orders</title>
 
 </head>
 
 <body>
-    <?php include 'nav.view.php'; ?>
+<?php require APPROOT . '/views/delivery/sidebar.php';?>
 
-    <?php include 'subnav.view.php'; ?>
+<?php require APPROOT . '/views/delivery/subnav.php';?>
     <div class="div_table" style="width:90%">
         <table>
             <tr>
@@ -25,6 +25,17 @@
                 <th style="width:20%">Reciever's Address</th>
                 <th style="width:5%">Contact sender</th>
                 <th style="width:5%">Contact reciever</th>
+
+            </tr>
+            <tr>
+                <th>34567</th>
+                <th>23128</th>
+                <th>3</th>
+                <th>M.K.P.Pathumi</th>
+                <th>1800</th>
+                <th><i class="fa fa-comment" style="color:black;"></i></th>
+                <th><i class="fa fa-comment" style="color:black;"></i></i>
+                </th>
 
             </tr>
             <tr>
@@ -81,22 +92,11 @@
                 <th><i class="fa fa-comment" style="color:black;"></i></th>
                 <th><i class="fa fa-comment" style="color:black;"></i></th>
             </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fa fa-comment" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
             
 
         </table>
     </div>
-    <?php include 'footer.view.php'; ?>
+   
 
 
 

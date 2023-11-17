@@ -1,0 +1,97 @@
+body {
+    width:90%;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin-left: 230px;
+    margin-top:70px;
+    padding: 0;
+}
+
+.con {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.l_col {
+    width: 20%;
+    padding: 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+    margin: 40px;
+    border-radius:5px;
+}
+.profile-image {
+    width: 200px; /* Adjust the width as needed */
+    height: 200px; /* Set height to make it a perfect circle */
+    border-radius: 50%; /* Create a circular shape */
+    display: block; /* Ensure it's a block-level element */
+    margin: 0 auto; /* Center the image */
+}
+/* .l_col img{
+    border-radius:50px;
+} */
+
+.r_col {
+    width: 80%;
+    padding-left: 20px;
+    margin-right: 40px;
+    margin-top:40px;
+    background-color: #e0e0e0;
+}
+
+.r_col table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.r_col table td {
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+}
+
+.r_col .r_a_col,
+.r_col .r_b_col {
+    background-color: #f0f0f0;
+    margin: 30px;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.r_col .r_a_col table,
+.r_col .r_b_col table {
+    width: 100%;
+}
+
+.r_col .r_a_col span,
+.r_col .r_b_col span {
+    background-color: white;
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+
+.l_col h3 {
+    margin: 0;
+}
+
+.l_col p {
+    margin-top: 5px;
+}
+
+.my-button {
+    margin-top: 10px;
+    color: white;
+    background-color: #01322F;
+    padding: 7px;
+    width: 200px;
+    border-radius: 8px;
+}
+
+.my-button:hover {
+    background-color: #009D94;
+}
