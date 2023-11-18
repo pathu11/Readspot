@@ -1,8 +1,8 @@
-<script src="http://localhost/Group-27/public/assets/js/customer/prof.js"></script>
+<script src="<?php echo URLROOT; ?>/assets/js/customer/prof.js"></script> <!--path changed-->
 <footer>
     <div class="footer-content">
         <div class="footer-logo">
-            <img src="http://localhost/Group-27/public/assets/images/customer/logo.png" alt="Footer Logo">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="Footer Logo"> <!--path changed-->
         </div>
         <div class="footer-text">
             &copy; 2023 Read Spot. All rights reserved.

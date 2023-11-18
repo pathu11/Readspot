@@ -1,11 +1,11 @@
 <?php
     $title = "Notification";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="container">
         <?php
-            include_once 'sidebar.php';
+            require APPROOT . '/views/customer/sidebar.php'; //path changed
         ?>
 
         <div class="prof-content">
@@ -15,7 +15,7 @@
             <div class="mycart">
             <form action="#.php" class="search">
                 <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><img src="http://localhost/Group-27/public/assets/images/customer/search.png"></button>
+                <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
             </form>
             <br>
             <br>
@@ -98,5 +98,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>

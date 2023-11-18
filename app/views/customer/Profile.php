@@ -1,16 +1,16 @@
 <?php
     $title = "Profile";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="container">
         <?php
-            include_once 'sidebar.php';
+            require APPROOT . '/views/customer/sidebar.php'; //path changed
         ?>
 
         <div class="prof-content">
             <div class="prof-picture">
-                <img src="http://localhost/Group-27/public/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Profile Image" class="profile-image"> <!--path changed-->
                 <?php 
                 if (isset($_SESSION["customer_name"])){
                     echo '<h2 class="profile-name2">'.$_SESSION["customer_name"].'<br><span>'.$_SESSION["customer_email"].'<span></h2>';
@@ -90,5 +90,5 @@
 
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>

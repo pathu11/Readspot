@@ -7,28 +7,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/LandingPage.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/head.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/footer.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/profile.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/AddBookConte.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/BuyBook.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Sevice.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Aboutus.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/BookDetail.css">
-    <link rel="stylesheet" href="http://localhost/Group-27/public/assets/css/customer/Event&Donates.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LandingPage.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/head.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/footer.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/profile.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/AddBookConte.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/BuyBook.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Sevice.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Aboutus.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/BookDetail.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Event&Donates.css"> <!--path changed-->
     <!-- <script src="./assets/js/prof.js"></script> -->
-    <script src="http://localhost/Group-27/public/assets/js/customer/service.js"></script>
-    <script src="http://localhost/Group-27/public/assets/js/customer/Add.js"></script>
-    <script src="http://localhost/Group-27/public/assets/js/customer/dropcategory.js"></script>
-    <script src="http://localhost/Group-27/public/assets/js/customer/home.js"></script>
+    <script src="<?php echo URLROOT; ?>/assets/js/customer/service.js"></script> <!--path changed-->
+    <script src="<?php echo URLROOT; ?>/assets/js/customer/Add.js"></script> <!--path changed-->
+    <script src="<?php echo URLROOT; ?>/assets/js/customer/dropcategory.js"></script> <!--path changed-->
+    <script src="<?php echo URLROOT; ?>/assets/js/customer/home.js"></script> <!--path changed-->
 
     <title><?php echo $title; ?></title>
 </head>
 <body>
     <header>
     <div class="head">
-        <img src="http://localhost/Group-27/public/assets/images/customer/logo.png" alt="logo" class="logo">
+        <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="logo" class="logo"> <!--path changed-->
         <div class="navig">
             <nav class="navigation">
                 <?php 
