@@ -1,5 +1,5 @@
 <?php 
-  class Customer{
+  class Customers{
     private $db;
     public function __construct(){
         $this->db = new Database;
