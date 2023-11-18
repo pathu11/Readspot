@@ -1,6 +1,6 @@
 <?php
     $title = "Contact Us";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="main-cont">
@@ -36,5 +36,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
