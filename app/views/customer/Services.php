@@ -63,7 +63,7 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
                 
-                <a href="<?php echo URLROOT; ?>/customer/Exchange-Book"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/ExchangeBook"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
