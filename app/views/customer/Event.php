@@ -1,11 +1,11 @@
 <?php
     $title = "My Events";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="container">
         <?php
-            include_once 'sidebar.php';
+            require APPROOT . '/views/customer/sidebar.php'; //path changed
         ?>
 
         <div class="my-content">
@@ -15,7 +15,7 @@
             <div class="mycontent">
             <form action="#.php" class="search">
                 <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><img src="http://localhost/Group-27/public/assets/images/customer/search.png"></button>
+                <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
             </form>
             <br>
             <br>
@@ -73,12 +73,12 @@
             </table>
             </div>
             <div class="vw">
-                <a href="./Addevnt.php"><button class="vw-btn">Add a Event</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/Addevnt"><button class="vw-btn">Add a Event</button></a> <!--path changed-->
             </div>
 
         </div>
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
