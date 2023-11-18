@@ -15,7 +15,7 @@
             <div class="types">
                 <a href="<?php echo URLROOT; ?>/landing/signupCustomer"><button class="ctg">CUSTOMER</button></a>
                 <a href="<?php echo URLROOT; ?>/landing/signupPub"><button class="ctg">PUBLISHER</button></a>
-                <a href="#"><button class="ctg">CHARITY ORGANIZATION</button></a>
+                <a href="<?php echo URLROOT; ?>/landing/signupCharity"><button class="ctg">CHARITY ORGANIZATION</button></a>
             </div>
             <div>
                 <span class="copyright">&copy;2023</span> 
