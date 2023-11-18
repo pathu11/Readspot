@@ -1,6 +1,6 @@
 <?php
     $title = "Donate Books";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="main-cont">
@@ -34,7 +34,7 @@
         </div>
         <div class="sub-cont2">
             <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/donate1.jpg" alt="Book1" class="event">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/donate1.jpg" alt="Book1" class="event"> <!--path changed-->
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -49,10 +49,10 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/Donatedetails"><button class="dts-btn">Donate</button></a> <!--path changed-->
             </div>
             <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/donate2.jpg" alt="Book2" class="event">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/donate2.jpg" alt="Book2" class="event"> <!--path changed-->
                 <table border="1">
                     <tr>
                         <th>Required</th>
@@ -67,7 +67,7 @@
                         <td>15</td>
                     </tr>
                 </table>
-                <a href="./Donatedetails.php"><button class="dts-btn">Donate</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/Donatedetails"><button class="dts-btn">Donate</button></a> <!--path changed-->
             </div>
             <!-- <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="event">
@@ -309,5 +309,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
