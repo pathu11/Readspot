@@ -9,7 +9,7 @@
 <html lang="en">
 
 <head>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/productgallery.css" />
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/productgallery.css" />
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
 
 </head>
@@ -24,8 +24,8 @@
             <tr>
 
                
-                <th style="width:5%;background-color: #C7C7C7;">Name</th>
-                <th style="width:10%;background-color: #C7C7C7;">Email</th>
+                <th style="width:45%;background-color: #C7C7C7;">Name</th>
+                <th style="width:45%;background-color: #C7C7C7;">Email</th>
                 <th style="width:5%;background-color: #C7C7C7;">Update</th>
                 <th style="width:5%;background-color: #C7C7C7;">Delete</th>
 

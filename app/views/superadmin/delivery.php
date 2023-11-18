@@ -1,7 +1,7 @@
 
 
 <?php
-    $title = "Moderators";
+    $title = "Delivery System";
     
 ?>
 
@@ -9,7 +9,7 @@
 <html lang="en">
 
 <head>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/productgallery.css" />
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/productgallery.css" />
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
 
 </head>
@@ -31,10 +31,10 @@
 
             </tr>
            
-    <?php foreach($data['addmoderatorDetails'] as $moderators): ?>
+    <?php foreach($data['adddeliveryDetails'] as $delivery): ?>
     <tr>
-        <td style="width:7%"><?php echo $moderators->name; ?></td>
-        <td style="width:20%"><?php echo $moderators->email; ?></td>
+        <td style="width:7%"><?php echo $delivery->name; ?></td>
+        <td style="width:20%"><?php echo $delivery->email; ?></td>
         <td><a href='<?php echo URLROOT; ?>/superadmin/updateAdmins/<?php echo $admin->admin_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></td>
         <td><a href='#'><i class='fa fa-trash' style='color:#09514C;'></i></a></td>
     </tr>
@@ -45,7 +45,7 @@
            
                 
         </table>
-        <a href="<?php echo URLROOT; ?>/superadmin/addModerator" class="btn">Add</a>
+        <a href="<?php echo URLROOT; ?>/superadmin/addDelivery" class="btn">Add</a>
     </div>
     
    

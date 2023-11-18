@@ -6,7 +6,8 @@
             align-items: center;
             padding-left: 200px;
             padding-right: 200px;
-            margin-top: 30px;
+            margin-top: 10px;
+            margin-left: 110px;
             margin-bottom: 50px;
             color: black;
             font-family: inner;
@@ -39,6 +40,7 @@
         <a href="<?php echo URLROOT; ?>/superadmin/admins">Admins</a>
         <a href="<?php echo URLROOT; ?>/superadmin/moderators">Moderatotrs</a>
         <a href="<?php echo URLROOT; ?>/superadmin/charity">Charity Organizations</a>
+        <a href="<?php echo URLROOT; ?>/superadmin/delivery">Delivery System</a>
         
 
 
