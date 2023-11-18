@@ -321,6 +321,10 @@ class Landing extends Controller{
             $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
             redirect('delivery/index');
          
+        }elseif ($user->user_role == 'customer') {
+
+            redirect('customer/Home');
+         
         }
         
         
