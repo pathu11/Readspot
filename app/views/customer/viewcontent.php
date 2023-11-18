@@ -1,11 +1,11 @@
 <?php
     $title = "View Contents";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="main-detail">
         <div class="sub1">
-            <img src="./assets/img/book.jpg" alt="Book3" class="main-img">
+            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="main-img"> <!--path changed-->
         </div>
         <div class="sub2">
             <h3>Book Name : <span>Lorem ipsum dolor sit amet.</span></h3><br>
@@ -21,13 +21,13 @@
             <h3>ISMN Number : <span>Lorem ipsum dolor sit amet.</span></h3>
         </div>
         <div class="sub3">
-            <img src="./assets/img/book.jpg" alt="Book3" class="sub-img">
+            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="sub-img"> <!--path changed-->
         </div>
         <div class="sub4">
-            <img src="./assets/img/book.jpg" alt="Book3" class="sub-img">
+            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="sub-img"> <!--path changed-->
         </div>
         <div class="sub5">
-            <img src="./assets/img/book.jpg" alt="Book3" class="sub-img">
+            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="sub-img"> <!--path changed-->
         </div>
         <div class="sub6">
             <h3>Description about the book</h3><br>
@@ -84,5 +84,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>

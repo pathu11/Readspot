@@ -1,6 +1,6 @@
 <?php
     $title = "Our Services";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="main-cont">
@@ -11,7 +11,7 @@
         </div>
         <div class="sub-cont4">
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/new.jpeg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/new.jpeg" alt="Book3" class="service-img"> <!--path changed-->
 
                 <h1>Buy New Books</h1><br>
                 
@@ -25,12 +25,12 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
                 
-                <a href="./BuyNewBooks.php"><button class="vw-dtl-btn">VIEW</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/used.jpeg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/used.jpeg" alt="Book3" class="service-img"> <!--path changed-->
                 
                 <h1>Buy Used Books</h1><br>
                 
@@ -44,12 +44,12 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
                 
-                <a href="./BuyUsedBook.php"><button class="vw-dtl-btn">VIEW</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/exchange.jpeg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/exchange.jpeg" alt="Book3" class="service-img"> <!--path changed-->
                 
                 <h1>Exchange Books</h1><br>
                 
@@ -63,12 +63,12 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
                 
-                <a href="./Exchange-Book.php"><button class="vw-dtl-btn">VIEW</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/Exchange-Book"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/donate.jpeg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/donate.jpeg" alt="Book3" class="service-img"> <!--path changed-->
             
                 <h1>Donate Books</h1><br>
             
@@ -82,12 +82,12 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
             
-                <a href="./DonateBooks.php"><button class="vw-dtl-btn">VIEW</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/DonateBooks"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/content.jpg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/content.jpg" alt="Book3" class="service-img"> <!--path changed-->
             
                 <h1>Contents</h1><br>
             
@@ -101,12 +101,12 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
             
-                <a href="./BookContents.php"><button class="vw-dtl-btn">VIEW</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/BookContents"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/event.jpeg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/event.jpeg" alt="Book3" class="service-img"> <!--path changed-->
                 
                 <h1>Events</h1><br>
                 
@@ -120,12 +120,12 @@
                     sit ullam sint dolores iure natus commodi veniam aliquid odit.
                 </p><br> -->
                 
-                <a href="./BookEvents.php"><button class="vw-dtl-btn">VIEW</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/BookEvents"><button class="vw-dtl-btn">VIEW</button></a> <!--path changed-->
             </div>
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/bookchallenge.jpg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/bookchallenge.jpg" alt="Book3" class="service-img"> <!--path changed-->
                 
                 <h1>Book Challenges</h1><br>
                 
@@ -144,7 +144,7 @@
 
 
             <div class="content00">
-                <img src="http://localhost/Group-27/public/assets/images/customer/calender.jpg" alt="Book3" class="service-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/calender.jpg" alt="Book3" class="service-img"> <!--path changed-->
                 
                 <h1>Event Calender</h1><br>
                 
@@ -164,5 +164,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
