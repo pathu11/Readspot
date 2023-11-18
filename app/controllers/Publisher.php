@@ -21,7 +21,8 @@ class Publisher extends Controller{
            
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);  
             $data = [
-                'publisherDetails' => $publisherDetails
+                'publisherDetails' => $publisherDetails,
+                
             ];
             $this->view('publisher/index', $data);
         }
