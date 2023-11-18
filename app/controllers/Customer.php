@@ -1,8 +1,20 @@
 <?php 
 class Customer extends Controller {
+    private $customerModel;
+  
+    private $userModel;
+  
+    private $db;
     public function __construct(){
-
+        $this->customerModel=$this->model('Customers');
+        $this->userModel=$this->model('User');
+       
+       
+        $this->db = new Database();
+  
     }
+
+
     public function AboutUs(){
 
         $this->view('customer/AboutUs');
