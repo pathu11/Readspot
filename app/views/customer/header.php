@@ -38,9 +38,9 @@
                     echo '<a href="http://localhost/Group-27/app/views/index.php">Home</a>';
                 }
                 ?>
-                <a href="./AboutUs.php">About</a>
-                <a href="./Services.php">Services</a>
-                <a href="./ContactUs.php">Contact</a>
+                <a href="<?php echo URLROOT; ?>/customer/AboutUs">About</a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/Services">Services</a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/ContactUs">Contact</a> <!--path changed-->
             </nav>
             <?php 
                 if (isset($_SESSION["customer_name"])){
