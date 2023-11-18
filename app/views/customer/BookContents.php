@@ -1,6 +1,6 @@
 <?php
     $title = "Contents";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="main-cont">
@@ -11,13 +11,13 @@
          <div class="search-bar">
                 <form action="#.php" class="searching">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><img src="http://localhost/Group-27/public/assets/images/customer/search.png"></button>
+                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
                 </form>
             </div>
         </div>
         <div class="sub-cont3">
             <div class="content0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img"> <!--path changed-->
                 <h1>Explore the Stars</h1><br>
                 <p>Lorem ipsum dolor sit amet consectetur, 
                     adipisicing elit. Accusantium, numquam! 
@@ -31,7 +31,7 @@
                 <a href="#"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/cont2.jpeg" alt="Book3" class="content-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/cont2.jpeg" alt="Book3" class="content-img"> <!--path changed-->
                 <h1>Business Law</h1><br>
                 <p>Lorem ipsum dolor sit amet consectetur, 
                     adipisicing elit. Accusantium, numquam! 
@@ -45,7 +45,7 @@
                 <a href="#"><button class="vw-btn">View Details</button></a>
             </div>
             <div class="content0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/cont3.jpg" alt="Book3" class="content-img">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/cont3.jpg" alt="Book3" class="content-img"> <!--path changed-->
                 <h1>New Educators</h1><br>
                 <p>Lorem ipsum dolor sit amet consectetur, 
                     adipisicing elit. Accusantium, numquam! 
@@ -112,5 +112,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>

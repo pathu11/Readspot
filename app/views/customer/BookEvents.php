@@ -1,6 +1,6 @@
 <?php
     $title = "Events";
-    include_once 'header.php';
+    require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
     <div class="main-cont">
@@ -11,14 +11,14 @@
         </div>
         <div class="sub-cont2">
             <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/event1.jpg" alt="Book1" class="event">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/event1.jpg" alt="Book1" class="event"> <!--path changed-->
                 
-                <a href="./viewevents.php"><button class="dts-btn">View Event</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/viewevents"><button class="dts-btn">View Event</button></a> <!--path changed-->
             </div>
             <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/event2.jpg" alt="Book2" class="event">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/event2.jpg" alt="Book2" class="event"> <!--path changed-->
                 
-                <a href="./viewevents.php"><button class="dts-btn">View Event</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/viewevents"><button class="dts-btn">View Event</button></a> <!--path changed-->
             </div>
             <!-- <div class="B0">
                 <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book3" class="event">
@@ -90,5 +90,5 @@
     </div>
 
 <?php
-    include_once 'footer.php';
+    require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
