@@ -1,0 +1,136 @@
+*{
+    font-family:arial;
+}
+body {
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin-left: 100px;
+    padding: 0;
+}
+
+.dashboard {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    margin-left:200px;
+}
+.dashboard1 {
+    width: 80%;
+    margin-top:60px;
+    padding: 20px;
+    margin-left:200px;
+    margin-right:100px;
+    border-radius:5px;
+    transform:scale(1,1);
+    background-color:white;
+}
+
+.dashboard1  span{
+    width: 80%;
+    margin-top:70px;
+    /* margin-left:172px; */
+}
+
+.topic{
+    margin-top:45px;
+    /* margin-left:247px; */
+    margin-bottom: 5px;
+}
+.head h2{
+   font-size:25px;
+   padding-bottom:5px;
+   color:#009D94;
+}
+.head p{
+    font-size:18px;
+    color:#01322F;
+    padding-bottom:8px;
+}
+.drop input{
+    border-radius:5px;
+    width:150px;
+}
+.summary {
+    margin-top:70px;
+   
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+   
+}
+
+
+.box {
+    background-color: #f4f4f4;
+    border: none;
+    border-radius:6px;  
+    
+    width: 110px; 
+    height: 130px; 
+    transform: scale(1.8, 1.8);
+    z-index:1;
+    padding-left:0;
+    /* padding:6px; */
+    
+}
+.box:hover{
+    transform: scale(1.9, 1.9);
+    background-color:#009D94;
+    color:white;
+}
+.box h3:hover{   
+    color:white;   
+}
+
+.box h3 {  
+    margin-bottom: 10px;
+    font-size: 17px;
+    padding:20px;
+    text-align:center;
+}
+.box p {  
+    margin-bottom: 5px;
+    font-size: 11px;
+    padding-top:2px;
+    padding-left:2px;
+}
+table {
+    margin-left: 50px;
+    width:80%;
+}
+table th,td {
+    padding-left: 20px;
+    padding-right: 100px;
+    padding-top:2px;
+    padding-bottom:15px;
+    background-color: #C6C6C6;
+}
+.custom-button {
+    /* padding-left: 100px;
+    padding-right: 100px; */
+    /* margin: 0 10px; */
+    margin-top:6px;
+    
+    margin-left: 50px;
+    padding-left:5px;
+    padding: 10px 35px;
+    border: none;
+    background-color: #01322F;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header{
+    padding:10px;
+    margin:10px;
+
+    color:#01322F;
+    font-size:20px;
+    
+}
+.r_c_col{
+    margin-top:70px;
+    /* margin-left:172px; */
+}
