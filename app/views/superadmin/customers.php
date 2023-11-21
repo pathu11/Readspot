@@ -36,19 +36,29 @@
         <td style="width:7%"><?php echo $customers->name; ?></td>
         <td style="width:20%"><?php echo $customers->email; ?></td>
         <td><a href='<?php echo URLROOT; ?>/superadmin/updateAdmins/<?php echo $admin->admin_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></td>
-        <td><a href='<?php echo URLROOT; ?>/superadmin/deletecustomers/<?php echo $customers->user_id; ?>'><i class='fa fa-trash' style='color:#09514C;'></i></a></td>
+        <td><div class="popup" onclick="myFunction()">
+                    <i class='fa fa-trash' style='color:#09514C;'></i>
+                </a>
+                    <div class="popuptext" id="myPopup">
+                    <p>Are you sure you want to delete this Customer?</p><br>
+                    <a  class="button" href='<?php echo URLROOT; ?>/superadmin/deletecustomers/<?php echo $customers->user_id; ?>' >Yes</a>
+                    <a class="button" href='<?php echo URLROOT; ?>/superadmin/customers'>No</a>
+                    </div>
+                    </div></td>
     </tr>
-<?php endforeach; ?>
-
-            
-            
-           
-                
+<?php endforeach; ?>               
         </table>
         <a href="<?php echo URLROOT; ?>/superadmin/addAdmin" class="btn">Add</a>
     </div>
     
    
 </body>
+<script>
+// When the user clicks on div, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
 
 </html>

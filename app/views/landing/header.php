@@ -31,10 +31,10 @@
             <nav class="navigation">
                 <?php 
                 if(isset($_SESSION["user_id"])){
-                    echo '<a href="<?php echo URLROOT; ?>/customer/Home">Home</a>';
+                    echo '<a href="' . URLROOT . '/customer/index">Home</a>';
                    
                 }else {
-                    echo '<a href="<?php echo URLROOT; ?>/landing/index">Home</a>';
+                    echo '<a href="' . URLROOT . '/landing/index">Home</a>';
                 }
                 ?>
                 
