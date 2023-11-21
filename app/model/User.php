@@ -89,6 +89,49 @@ class User{
 
         return false;
     }
+
+    public function signupCharity($data){
+        try {
+            $this->db->beginTransaction(); // Begin the transaction
+
+            // Insert data into the 'users' table
+            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':pass', $data['pass']);
+            $this->db->bind(':user_role', 'charity');
+
+            if ($this->db->execute()) {
+                $user_id = $this->db->lastInsertId();
+
+                // Insert data into the 'customers' table using the obtained user ID as the foreign key
+                $this->db->query('INSERT INTO charity (user_id, name,org_name,reg_no, email,contact_no, pass) VALUES (:user_id, :name,:org_name,:reg_no, :email,:contact_no , :pass)');
+
+                $this->db->bind(':user_id', $user_id);
+                $this->db->bind(':name', $data['name']);
+                $this->db->bind(':org_name', $data['org_name']);
+                $this->db->bind(':reg_no', $data['reg_no']);
+                $this->db->bind(':email', $data['email']);
+                $this->db->bind(':contact_no', $data['contact_no']);
+                $this->db->bind(':pass', $data['pass']);
+
+                if ($this->db->execute()) {
+                    $this->db->commit(); // Commit the transaction
+                    return true;
+                } else {
+                    $this->db->rollBack(); // Roll back the transaction if 'customers' insert fails
+                }
+            } else {
+                $this->db->rollBack(); // Roll back the transaction if 'users' insert fails
+            }
+        } catch (PDOException $e) {
+            echo "Transaction failed: " . $e->getMessage();
+            $this->db->rollBack(); // Roll back the transaction on exception
+        }
+
+        return false;
+    }
+    
+
     
 
 

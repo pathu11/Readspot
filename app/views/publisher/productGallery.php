@@ -55,7 +55,7 @@
 
                 <th style="width:9%">Image(back)</th> -->
                 <th><a href='<?php echo URLROOT; ?>/publisher/update/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></th>
-                <th><a href='#'><i class='fa fa-trash' style='color:#09514C;'></i></a></th>
+                <th><a href='<?php echo URLROOT; ?>/publisher/deletebooks/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-trash' style='color:#09514C;'></i></a></th>
             </tr>
                 <?php endforeach; ?>
             

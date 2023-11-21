@@ -9,6 +9,7 @@ body {
 .submit {
     width: 100px;
     height: 40px;
+    /* margin-left:600px; */
     background-color: #009D94;
     border-radius: 5px;
     margin-top: 0;

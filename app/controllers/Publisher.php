@@ -1,5 +1,7 @@
 <?php
+// require_once 'libraries/Core.php';
 class Publisher extends Controller{
+    
     private $publisherModel;
     
     private $userModel;
@@ -8,10 +10,8 @@ class Publisher extends Controller{
     public function __construct(){
         $this->publisherModel=$this->model('Publishers');
         $this->userModel=$this->model('User');
-       
-       
         $this->db = new Database();
-
+        
     }
     public function index(){
         if (!isLoggedIn()) {
@@ -19,22 +19,19 @@ class Publisher extends Controller{
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $publisherDetails = $this->publisherModel->findPublisherById($user_id);  
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id); 
+            
             $data = [
-                'publisherDetails' => $publisherDetails
+                'publisherDetails' => $publisherDetails,            
             ];
             $this->view('publisher/index', $data);
-        }
-       
-      
+        } 
     }
     public function addbooks(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
             $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
-
             $publisherid = null;
     
             if (isset($_SESSION['user_id'])) {
@@ -44,7 +41,8 @@ class Publisher extends Controller{
                
                 if ($publisherDetails) {
                    
-                    $publisherid = $publisherDetails[0]->publisher_id;                   
+                    $publisherid = $publisherDetails[0]->publisher_id;
+                    $publisherName = $publisherDetails[1]->name;                   
                 } else {
                     echo "Not found";
                 }
@@ -162,11 +160,18 @@ class Publisher extends Controller{
         }
     }
 
-       
-       
+    public function deletebooks($book_id)
+{
+    if ($this->publisherModel->deletebooks($book_id)) {   
+        flash('post_message', 'book is Removed');
+        redirect('publisher/productGallery');
         
-    
-    
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+
     public function customerSupport(){
         $this->view('publisher/customerSupport');
     }
@@ -227,6 +232,7 @@ class Publisher extends Controller{
         $this->view('publisher/shippedorders');
     }
     public function update($book_id){
+           
             
        
             if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -235,21 +241,22 @@ class Publisher extends Controller{
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
     
     
-                $publisherid = null;
+                // $publisherid = null;
         
-                if (isset($_SESSION['user_id'])) {
-                    $user_id = $_SESSION['user_id'];
+                // if (isset($_SESSION['user_id'])) {
+                //     $user_id = $_SESSION['user_id'];
                     
-                    $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+                //     $publisherDetails = $this->publisherModel->findPublisherById($user_id);
                    
-                    if ($publisherDetails) {
+                //     if ($publisherDetails) {
                        
-                        $publisherid = $publisherDetails[0]->publisher_id;                   
-                    } else {
-                        echo "Not found";
-                    }
-                }            
+                //         $publisherid = $publisherDetails[0]->publisher_id;                   
+                //     } else {
+                //         echo "Not found";
+                //     }
+                // }            
                 $data=[
+                    'url'=>$url,
                     'book_id'=>$book_id,
                     'book_name' => trim($_POST['book_name']),
                     'ISBN_no' => trim($_POST['ISBN_no']),
@@ -320,7 +327,7 @@ class Publisher extends Controller{
                 //make sure errors are empty
                 if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
                     
-                    if($this->publisherModel->update($data)){
+                    if($this->publisherModel->updatebooks($data)){
                         flash('update_success','You are added the book  successfully');
                         redirect('publisher/productGallery');
                     }else{
@@ -375,17 +382,10 @@ class Publisher extends Controller{
                         // 'img2_err'=>'',
                         
                     ];
-
-                
-                
-    
                 $this->view('publisher/update',$data);
     
-            }
-
-       
-    }
-      
+            }  
+    }  
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);

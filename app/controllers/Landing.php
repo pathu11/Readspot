@@ -3,11 +3,15 @@ class Landing extends Controller{
     private $userModel;
     private $publisherModel;
     private $adminModel;
+    private $superadminModel;
     private $db;
     public function  __construct(){
         $this->userModel=$this->model('User');
+        $this->deliveryModel=$this->model('Deliver');
         $this->publisherModel=$this->model('Publishers');
+        // $this->charityModel=$this->model('Charity');
         $this->adminModel=$this->model('Admins');
+        $this->superadminModel=$this->model('Super_admin');
         $this->db = new Database();
        
     }
@@ -234,6 +238,129 @@ class Landing extends Controller{
        
     }
 
+    public function signupCharity(){
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            // process form
+            // sanitize post data
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            // init data
+            $data=[
+                'name'=>trim($_POST['name']),
+                'org_name'=>trim($_POST['org_name']),
+
+                'reg_no'=>trim($_POST['reg_no']),
+                
+                'email'=>trim($_POST['email']),
+                'contact_no'=>trim($_POST['contact_no']),
+                'pass'=>trim($_POST['pass']),
+
+                'confirm_pass'=>trim($_POST['confirm_pass']),
+                'name_err'=>'',
+                'org_name_err'=>'',
+                'reg_no_err'=>'',
+                'email_err'=>'',
+                'contact_no_err'=>'',
+                'pass_err'=>'',
+                'confirm_pass_err'=>'',
+            ];
+
+            // validate email
+            //validate lname
+            if(empty($data['name'])){
+                $data['name_err']='Please enter the name';      
+            }
+            if(empty($data['org_name'])){
+                $data['company_name_err']='Please enter the company  name';      
+            }
+            if(empty($data['reg_no'])){
+                $data['reg_no_err']='Please enter the registration  number';      
+            }
+            //validate email
+            if(empty($data['email'])){
+                $data['email_err']='Please enter email';      
+            }else{
+                if($this->userModel->findUserByEmail($data['email'])){
+                    $data['email_err']='Email is already taken'; 
+                }
+            }
+            // validate phone number
+             
+             if(empty($data['contact_no'])){
+                $data['contact_no_err']='Please enter the contact number';      
+            }elseif(strlen($data['contact_no'])<10){
+                $data['contact_no_err']='Invalid phone number'; 
+            }
+
+
+
+            //validate password
+            if(empty($data['pass'])){
+                $data['pass_err']='Please enter password';      
+            }elseif(strlen($data['pass'])<6){
+                $data['pass_err']='Password must be atleast 6 characters'; 
+            }
+
+             //validate confirm password
+             if(empty($data['confirm_pass'])){
+                $data['confirm_pass_err']='Please confirm password';      
+            }else{
+                if($data['pass']!=$data['confirm_pass']){
+                    $data['confirm_pass_err']='password not matching';
+                }
+            }
+
+            
+
+            //make sure errors are empty
+            if( empty($data['name_err']) && empty($data['org_name_err']) && empty($data['reg_no_err']) && empty($data['email_err']) && empty($data['contact_no_err']) &&empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
+                //validate
+
+                //hash password
+                $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
+
+                //regsiter user
+                if($this->userModel->signupCharity($data)){
+                    flash('register_success','You are registered and can login');
+                    redirect('landing/login');
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('landing/signupCharity',$data);
+            }
+
+
+        }else{
+           
+                $data=[
+                    'name'=>'',
+                    'org_name'=>'',
+                    'reg_no'=>'',
+                    
+                    'email'=>'',
+                    'contact_no'=>'',
+                    'pass'=>'',
+    
+                    'confirm_pass'=>'',
+                    'name_err'=>'',
+                    'org_name_err'=>'',
+                    'reg_no_err'=>'',
+                    'email_err'=>'',
+                    'contact_no_err'=>'',
+                    'pass_err'=>'',
+                    'confirm_pass_err'=>'',
+                ];
+            
+
+            $this->view('landing/signupCharity',$data);
+
+        }
+       
+
+       
+       
+    }
+
 
     public function login(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -304,9 +431,6 @@ class Landing extends Controller{
             $_SESSION['publisher_id'] = $publisherDetails->publisher_id;
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('publisher/index');
-          
-
-       
 
 
         } elseif ($user->user_role == 'admin') {
@@ -317,13 +441,21 @@ class Landing extends Controller{
          
         }elseif ($user->user_role == 'deliver') {
 
-            $deliverDetails = $this->deliverModel->findDeliverById($user->user_id);
+            $deliverDetails = $this->deliveryModel->findDeliveryById($user->user_id);
             $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
             redirect('delivery/index');
          
+        }elseif ($user->user_role == 'charity') {
+            
+            redirect('charity/index');
+        
+        }elseif ($user->user_role == 'super_admin') {
+            $superadminDetails = $this->superadminModel->findSuperAdminById($user->user_id);
+            $_SESSION['superadmin_id'] = $superadminDetails->superadmin_id;
+            // $publisher=$this->userModel->findUserByPubId(user_id);           
+            redirect('superadmin/index');
+        
         }
-        
-        
         // For other roles, redirect accordingly
     }
     
@@ -340,6 +472,8 @@ class Landing extends Controller{
         session_destroy();
         redirect('landing/index');
     }
+
+    
 
     
 

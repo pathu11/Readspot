@@ -11,40 +11,36 @@
         <i class="bx bx-menu menu-icon"></i>
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
-       
+        <span class="user"><?php echo $data['superadminName']?></span>
       </div>
       <div class="sidebar">
         <div class="logo">
           <i class="bx bx-menu menu-icon"></i>
           <span class="logo-name">ReadSpot</span>
+          
         </div>
 
         <div class="sidebar-content">
           <ul class="lists">
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/index" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/index" class="nav-link">
                 <i class="bx bxs-dashboard icon"></i>
                 <span class="link">Dashboard</span>
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/productGallery" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/admins" class="nav-link">
                 <i class="bx bxs-calendar-event icon"></i>
-                <span class="link">Books</span>
+                <span class="link">Users</span>
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/processingorders" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/moderators" class="nav-link">
                 <i class="bx bxs-note icon"></i>
                 <span class="link">Orders</span>
               </a>
             </li>
-            <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/setting" class="nav-link">
-                <i class="bx bxs-book-heart icon"></i>
-                <span class="link">My Profile</span>
-              </a>
-            </li>
+            
           <div class="bottom-cotent">
             <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/customerSupport" class="nav-link">
