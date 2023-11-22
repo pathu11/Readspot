@@ -29,28 +29,18 @@
         <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="logo" class="logo">
         <div class="navig">
             <nav class="navigation">
-                <?php 
-                if(isset($_SESSION["user_id"])){
-                    echo '<a href="<?php echo URLROOT; ?>/customer/Home">Home</a>';
-                   
-                }else {
-                    echo '<a href="<?php echo URLROOT; ?>/landing/index">Home</a>';
-                }
-                ?>
+               
+               <a href="<?php echo URLROOT; ?>/landing/index">Home</a>';
+               
                 
                 <a href="#">About</a>
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
 
             </nav>
-            <?php 
-                    if (isset($_SESSION["user_id"])){
-                        include_once URLROOT . '/landing/customer/dropdownmenu.php';
-                    } else {
-                        echo '<a href="' . URLROOT . '/landing/login"><button class="Login">Login </button></a>';
-                    }
-                ?>
-           
+            
+                <a href="<?php echo URLROOT; ?>/landing/login"><button class="Login">Login </button></a>';
+                  
         </div>
         </div>
     </header>
