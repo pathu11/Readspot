@@ -26,8 +26,6 @@ class Superadmin extends Controller{
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
                 'superadminEmail'=>$superadminDetails[0]->email
-               
-
             ];
             $this->view('superadmin/index',$data);
         }
