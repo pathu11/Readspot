@@ -42,4 +42,120 @@
     ];
     $this->view('admin/categories',$data);
   }
+
+  public function addBookCategories(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'book_category'=>trim($_POST['book_category']),
+            'description'=>trim($_POST['description']),
+
+            'book_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        if(empty($data['book_category'])){
+            $data['book_category_err']='Please enter the category name';      
+        }
+
+        if(empty($data['description'])){
+            $data['description_err']='Please enter the category description';      
+        }
+
+        if(empty($data['book_category_err']) && empty($data['description_err'])){
+            if($this->adminModel->addBookCategory($data)){
+                flash('add_success','You are added the book category successfully');
+                redirect('admin/categories');
+            }else{
+                die('Something went wrong');
+            }
+        }
+
+        else{
+            $this->view('admin/addBookCategories',$data);
+        }
+        
+    }
+
+    else{
+        $data=[
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'book_category'=>'',
+            'description'=>'',
+            'book_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        $this->view('admin/addBookCategories',$data);
+    }
+    
+    
+  }
+
+  public function updateBookCategory($id){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'book_category'=>trim($_POST['book_category']),
+            'description'=>trim($_POST['description']),
+
+            'book_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        if(empty($data['book_category'])){
+            $data['book_category_err']='Please enter the category name';      
+        }
+
+        if(empty($data['description'])){
+            $data['description_err']='Please enter the category description';      
+        }
+
+        if(empty($data['book_category_err']) && empty($data['description_err'])){
+            if($this->adminModel->updateBookCategory($data)){
+                flash('update_success','You are updated the book category successfully');
+                redirect('admin/categories');
+            }else{
+                die('Something went wrong');
+            }
+        }
+
+        else{
+            $this->view('admin/updateBookCategory',$data);
+        }
+        
+    }
+
+    else{
+        $bookCategory = $this->adminModel->findBookCategoryById($id);
+        
+        $data=[
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'book_category'=>$bookCategory->category,
+            'description'=>$bookCategory->description,
+            'book_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        $this->view('admin/updateBookCategory',$data);
+    }
+    
+    
+  }
  }

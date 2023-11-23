@@ -13,7 +13,10 @@
   <?php require APPROOT . '/views/admin/nav.php';?>
   <div class="table-container">
     <div class="container-column">
-      <h3>Categories</h3>
+      <div class="above-table">
+        <h3>Categories</h3>
+        <a href="<?php echo URLROOT;?>/admin/addBookCategories" class="btn">Add Book Category</a>
+      </div>
       <table class="table">
       <thead>
         <tr>
@@ -29,7 +32,7 @@
           <td class="tdata"><?php echo $bookCategoryDetails->id; ?></td>
           <td><?php echo $bookCategoryDetails->category; ?></td>
           <td><?php echo $bookCategoryDetails->description; ?></td>
-          <td><i class="fa fa-solid fa-pen"></i><i class="fa fa-solid fa-trash"></i></td>
+          <td><a href="<?php echo URLROOT;?>/admin/updateBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-pen"></i></a><i class="fa fa-solid fa-trash"></i></td>
         </tr>
         <?php endforeach; ?>      <!-- Add more rows for additional categories -->
       </tbody>
@@ -37,7 +40,10 @@
     </div>
   
     <div class="container-column">
-      <h3>Events</h3>
+      <div class="above-table">
+        <h3>Events</h3>
+        <a href="<?php echo URLROOT;?>/admin/addCategories" class="btn">Add Event Category</a>
+      </div>
       <table class="table">
       <thead>
         <tr>
