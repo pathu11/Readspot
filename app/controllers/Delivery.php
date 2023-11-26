@@ -27,6 +27,7 @@ class Delivery extends Controller{
        
        
     }
+    
     public function orders(){
        
         $this->view('delivery/orders');

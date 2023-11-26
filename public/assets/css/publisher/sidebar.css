@@ -110,3 +110,8 @@ nav.open ~ .overlay {
   width: 70px;
   padding: 10px;
 }
+.user{
+  padding-left: 970px;
+  font-size:20px;
+  padding-right: 10px;
+}
