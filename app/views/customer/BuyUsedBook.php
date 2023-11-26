@@ -14,7 +14,7 @@
             <div class="search-bar">
                 <form action="#.php" class="searching">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/img/search.png"></button> <!--path changed-->
+                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
                 </form>
             </div>
         </div>

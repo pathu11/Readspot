@@ -99,6 +99,11 @@ class Customer extends Controller {
         $this->view('customer/Donatedetails');
     } 
 
+    public function Donateform(){
+        
+        $this->view('customer/Donateform');
+    } 
+
     public function Event(){
         
         $this->view('customer/Event');

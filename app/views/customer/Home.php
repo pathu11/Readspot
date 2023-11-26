@@ -62,3 +62,50 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+
+<script>
+    function service1() {
+    // Define the URL you want to redirect to
+    var url = "<?php echo URLROOT; ?>/customer/BuyNewBooks"; //path changed
+
+    // Use the window.location.href property to navigate to the specified URL
+    window.location.href = url;
+}
+
+function service2() {
+    var url = "<?php echo URLROOT; ?>/customer/BuyUsedBook"; //path changed
+    window.location.href = url;
+}
+
+function service3() {
+    var url = "<?php echo URLROOT; ?>/customer/ExchangeBook"; //path changed
+    window.location.href = url;
+}
+
+function service4() {
+    var url = "<?php echo URLROOT; ?>/customer/DonateBooks"; //path changed
+    window.location.href = url;
+}
+
+function service5() {
+    var url = "<?php echo URLROOT; ?>/customer/BookContents"; //path changed
+    window.location.href = url;
+}
+
+function service6() {
+    var url = "<?php echo URLROOT; ?>/customer/BookEvents"; //path changed
+    window.location.href = url;
+}
+
+function service7() {
+    var url = "#";
+    window.location.href = url;
+}
+
+function service8() {
+    var url = "#";
+    window.location.href = url;
+}
+
+</script>

@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/BookDetails.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Event&Donate.css"> <!--path changed-->
     <!-- <script src="./assets/js/prof.js"></script> -->
-    <script src="<?php echo URLROOT; ?>/assets/js/customer/service.js"></script> <!--path changed-->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/Add.js"></script> <!--path changed-->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/dropcategory.js"></script> <!--path changed-->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/home.js"></script> <!--path changed-->
@@ -33,7 +32,7 @@
             <nav class="navigation">
                 <?php 
                 if (isset($_SESSION["user_id"])){
-                    echo '<a href="#">Home</a>'; //path changed
+                    echo '<a href="Home">Home</a>'; //path changed
                 } else {
                     echo '<a href="http://localhost/Group-27/app/views/index.php">Home</a>';
                 }
