@@ -116,6 +116,21 @@ class Publishers{
         }
     }
 
+    
+    public function findbookByName($book_name){
+        $this->db->query('SELECT * from books WHERE book_name=:book_name');
+        $this->db->bind(':book_name',$book_name);
+
+        $row=$this->db->single();
+
+        //check row
+        if($this->db->rowCount()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 }

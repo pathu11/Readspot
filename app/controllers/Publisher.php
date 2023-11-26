@@ -28,6 +28,9 @@ class Publisher extends Controller{
         } 
     }
     public function addbooks(){
+        if(!isLoggedIn()){
+            redirect('/landing/login');
+        }
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
@@ -57,10 +60,11 @@ class Publisher extends Controller{
                 'descript' => trim($_POST['descript']),
                 'quantity' => trim($_POST['quantity']),
                 'publisher_id' => trim($publisherid),// Replace this with the actual publisher ID
-                'img1' => trim($_POST['img1']),
-                'img2' => trim($_POST['img2']),
+                // 'img1' => trim($_POST['img1']),
+                // 'img2' => trim($_POST['img2']),
                 // 'book_name'=>trim($_POST['book_name']),
-                
+                'img1'=>'',
+                'img2'=>'',
                 'book_name_err'=>'',
                 'ISBN_no_err'=>'',
                 'author_err'=>'',
@@ -69,15 +73,20 @@ class Publisher extends Controller{
                 'weight_err'=>'',
                 'descript_err'=>'',
                 'quantity_err'=>'',
-                // 'img1_err'=>'',
-                // 'img2_err'=>'',
+                'img1_err'=>'',
+                'img2_err'=>'',
                 
             ];
 
            
             //validate book name
+            
             if(empty($data['book_name'])){
                 $data['book_name_err']='Please enter the Book name';      
+            }else{
+                if($this->publisherModel->findbookByName($data['book_name'])){
+                    $data['book_name_err']='Book name is already taken'; 
+                }
             }
             //validate ISBN
             if(empty($data['ISBN_no'])){
@@ -116,6 +125,50 @@ class Publisher extends Controller{
 
             //make sure errors are empty
             if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
+
+                //image
+                if (isset($_FILES['img1']['name']) AND !empty($_FILES['img1']['name'])) {
+         
+         
+                    $img_name = $_FILES['img1']['name'];
+                    $tmp_name = $_FILES['img1']['tmp_name'];
+                    $error = $_FILES['img1']['error'];
+                    
+                    if($error === 0){
+                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                       $img_ex_to_lc = strtolower($img_ex);
+           
+                       $allowed_exs = array('jpg', 'jpeg', 'png');
+                       if(in_array($img_ex_to_lc, $allowed_exs)){
+                          $new_img_name = $data['book_name'] .'-img1.'. $img_ex_to_lc;
+                          $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
+                          move_uploaded_file($tmp_name, $img_upload_path);
+
+                          $data['img1']=$new_img_name;
+                       }
+                    }
+                }
+                if (isset($_FILES['img2']['name']) AND !empty($_FILES['img2']['name'])) {
+         
+         
+                    $img_name = $_FILES['img2']['name'];
+                    $tmp_name = $_FILES['img2']['tmp_name'];
+                    $error = $_FILES['img2']['error'];
+                    
+                    if($error === 0){
+                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                       $img_ex_to_lc = strtolower($img_ex);
+           
+                       $allowed_exs = array('jpg', 'jpeg', 'png');
+                       if(in_array($img_ex_to_lc, $allowed_exs)){
+                          $new_img_name = $data['book_name'] .'-img2.'. $img_ex_to_lc;
+                          $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
+                          move_uploaded_file($tmp_name, $img_upload_path);
+
+                          $data['img2']=$new_img_name;
+                       }
+                    }
+                }
                 
                 if($this->publisherModel->addBooks($data)){
                     flash('add_success','You are added the book  successfully');
@@ -150,8 +203,8 @@ class Publisher extends Controller{
                 'weight_err'=>'',
                 'descript_err'=>'',
                 'quantity_err'=>'',
-                // 'img1_err'=>'',
-                // 'img2_err'=>'',
+                'img1_err'=>'',
+                'img2_err'=>'',
                 
             ];
 
