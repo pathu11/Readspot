@@ -11,7 +11,9 @@ class Landing extends Controller{
     private $userModel;
     private $publisherModel;
     private $adminModel;
+    private $deliveryModel;
     private $superadminModel;
+
     private $db;
     public function  __construct(){
         $this->userModel=$this->model('User');
@@ -640,8 +642,8 @@ class Landing extends Controller{
             redirect('admin/index');
          
         }elseif ($user->user_role == 'deliver') {
-
             $deliverDetails = $this->deliveryModel->findDeliveryById($user->user_id);
+
             $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
             redirect('delivery/index');
          

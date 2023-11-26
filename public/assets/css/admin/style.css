@@ -10,159 +10,121 @@
 body {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   min-height: 100vh;
   background-color: #e3f2fd;
   background-size: cover;
   background-position: center;
 }
 
-/*nav {
-  position: fixed; Fixed position to keep it at the top 
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #01322F;
-  padding: 10px 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-p{
-  display: inline;
-  padding-left: 10px;
-  color: #FFFFFF;
-}
-
-.logo{
-  width: 120px;
-}
-
-.user{
-  width: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.user-detail{
-  margin-left: 50px;
-  display: flex;
-  align-items: center;
-}
-
-nav ul{
-  text-align: left;
-}
-
-nav ul li{
-  display: inline-block;
-  list-style: none;
-  margin: 10px 20px;
-}
-
-nav ul li a{
-  color: #FFFFFF;
-  text-decoration: none;
-} 
-
-.sub-menu-wrap{
-  position: absolute;
-  top: 100%;
-  right: 10%;
-  width: 320px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s;
-}
-
-.sub-menu-wrap.open-menu{
-  max-height: 500px;
-}
-
-.sub-menu{
-  background-color: bisque;
-  background-color: rgba(0, 0, 0, 0.9);
-  padding: 20px;
-  margin: 20px 20px 20px 20px; top right bottom left 
-  border-radius: 15px;
-}
-
-
-.user-info {
-  display: flex;
-  align-items: center;
-  /*margin-bottom: 10px;  Adjust the margin as needed 
-  margin-left: auto;
-}
-
-.user-info h2 {
-  font-weight: 500;
-  margin-left: 10px; /* Adjust the margin as needed 
-  color: #FFFFFF;
-}
-
-.user-info img{
-  width: 60px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.sub-menu hr{
-  border: 0;
-  height: 1px;
-  width: 100%;
-  background: #ccc;
-  margin: 15px 0 10px;
-
-}
-
-.sub-menu-link{
-   display: flex;
-   align-items: center;
-   text-decoration: none;
-   margin: 12px 0;
-   color: #FFFFFF;
-}
-
-
-.sub-menu-link img{
-  width: 40px;
-  background: gray;
-  border-radius: 50%;
-  padding: 8px;
-  margin-right: 15px;
-}
-
-.sub-menu-link span{
-  font-size: 22px;
-}
-
-
-
-.sub-menu-link:hover p{
-  font-weight: 600;
-}*/
-
 .grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
+  display: flex;
+  justify-content: center;
+  grid-template-columns: auto auto auto auto;
   padding: 10px;
-  margin-top: 200px;
-  gap: 100px 200px;
+  margin-top: 125px;
+  gap: 100px 50px;
 }
 .grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(112, 191, 186, 25%);
   padding: 20px;
-  font-size: 30px;
-  text-align: center;
+  font-size: 20px;
+  text-align:left;
   border-radius: 10px;
   text-decoration: none;
+  height: 100px;
+  width: 300px;
 }
 
 .grid-item a{
   text-decoration: none;
   color: black;
   text-align: center;
+}
+
+.fa-book{
+  color: darkcyan;
+  font-size: x-large;
+}
+
+.fa-address-book{
+  color: orchid;
+  font-size: x-large;
+}
+
+.fa-heart{
+  color: red;
+  font-size: x-large;
+}
+
+.fa-list{
+  color: lightsalmon;
+  font-size: x-large;
+}
+
+.table-container{
+  padding-top: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+table{
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border-collapse: collapse; 
+  border-spacing: 0 3px;
+  width: 100%;
+  border-style: none;
+  height: 100%;
+  border-radius: 5px;
+  background: rgb(112, 191, 186, 25%);
+}
+
+tr{
+  text-align: left; /* Adjust the desired top and bottom padding */
+  
+  border-radius: 15px;
+  border-top: 1px solid rgb(112, 191, 186, 50%);
+}
+
+tr:first-child {
+  border: none;
+}
+
+td{
+  text-align: center;
+  padding: 15px;
+}
+
+th{
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgb(112, 191, 186, 50%);
+}
+
+.fa-eye{
+  padding: 5px;
+  font-size: x-large;
+  color: #009D94;
+}
+
+button{
+  border-style: none;
+  border-radius: 4px;
+  background-color: #009D94;
+  color: white;
+  height: 30px;
+  width: 65px;
+}
+
+.chart-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 0px 30px;
+}
+
+.chart{
+  height: 300px;
+  width: 500px;
 }
