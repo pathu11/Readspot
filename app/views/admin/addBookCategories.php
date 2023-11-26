@@ -13,7 +13,7 @@
 <?php require APPROOT . '/views/admin/nav.php';?>
 
   <div class="form">
-  <form method="post" class="categoryAddForm" action="<?php echo URLROOT;?>/admin/updateBookCategories">
+  <form method="post" class="categoryAddForm" action="<?php echo URLROOT;?>/admin/addBookCategories">
     <div class="grid-container">
       <label for="category">Book Category</label>
       <input type="text" name="book_category" id="category" class="<?php echo (!empty($data['book_category_err'])) ? 'is-invalid' : ''; ?> value="<?php echo $data['book_category'];?>" required>

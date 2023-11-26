@@ -8,6 +8,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/categories.css" />
+
+  <!-- Add this to the head section -->
+<script>
+    function confirmDelete(deleteUrl) {
+        var result = confirm("Are you sure you want to delete this category?");
+        if (result) {
+            window.location.href = deleteUrl;
+        }
+    }
+</script>
+
 </head>
 <body>
   <?php require APPROOT . '/views/admin/nav.php';?>

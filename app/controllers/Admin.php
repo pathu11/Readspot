@@ -162,17 +162,12 @@
   }
 
   public function deleteBookCategory($id){
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        if($this->adminModel->deleteBookCategory($id)){
-            flash('delete_success','You deleted the book category successfully');
-            redirect('admin/categories');
-        }
-        else{
-            die('Something went wrong');
-        }
+    if($this->adminModel->deleteBookCategory($id)){
+        flash('delete_success','You deleted the book category successfully');
+        redirect('admin/categories');
     }
     else{
-        redirect('admin/categories');
+        die('Something went wrong');
     }
   }
  }
