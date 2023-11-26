@@ -32,7 +32,7 @@
           <td class="tdata"><?php echo $bookCategoryDetails->id; ?></td>
           <td><?php echo $bookCategoryDetails->category; ?></td>
           <td><?php echo $bookCategoryDetails->description; ?></td>
-          <td><a href="<?php echo URLROOT;?>/admin/updateBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-pen"></i></a><i class="fa fa-solid fa-trash"></i></td>
+          <td><a href="<?php echo URLROOT;?>/admin/updateBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-pen"></i></a><a href="<?php echo URLROOT;?>/admin/deleteBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-trash"></i></a></td>
         </tr>
         <?php endforeach; ?>      <!-- Add more rows for additional categories -->
       </tbody>

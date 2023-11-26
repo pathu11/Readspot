@@ -111,6 +111,7 @@
         $data = [
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
+            'id'=>$id,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
 
@@ -134,7 +135,7 @@
                 die('Something went wrong');
             }
         }
-
+        //Load view with errors
         else{
             $this->view('admin/updateBookCategory',$data);
         }
@@ -147,6 +148,7 @@
         $data=[
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
+            'id'=>$id,
             'book_category'=>$bookCategory->category,
             'description'=>$bookCategory->description,
             'book_category_err'=>'',
@@ -157,5 +159,20 @@
     }
     
     
+  }
+
+  public function deleteBookCategory($id){
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        if($this->adminModel->deleteBookCategory($id)){
+            flash('delete_success','You deleted the book category successfully');
+            redirect('admin/categories');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
+    else{
+        redirect('admin/categories');
+    }
   }
  }

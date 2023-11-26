@@ -49,13 +49,23 @@
     }
 
     public function updateBookCategory($data){
-      $this->db->query('UPDATE book_category 
-                              SET category = :book_category,
-                                  description = :description
-                              WHERE id = :id');
+      $this->db->query('UPDATE book_category SET category = :book_category, description = :description WHERE id = :id');
 
       $this->db->bind(':book_category',$data['book_category']);
       $this->db->bind(':description',$data['description']);
+      $this->db->bind(':id',$data['id']);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function deleteBookCategory($id){
+      $this->db->query('DELETE FROM book_category WHERE id = :id');
+
+      $this->db->bind(':id',$id);
 
       if($this->db->execute()){
         return true;
