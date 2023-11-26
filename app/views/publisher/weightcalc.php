@@ -1,12 +1,17 @@
 <?php
+
     $title = "weight calculator";
+
+    $title = "Weight Calculator";
     
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
 
     <title>Approximate weight calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

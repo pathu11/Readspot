@@ -8,68 +8,71 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/categories.css" />
+
+  <!-- Add this to the head section -->
+<script>
+    function confirmDelete(deleteUrl) {
+        var result = confirm("Are you sure you want to delete this category?");
+        if (result) {
+            window.location.href = deleteUrl;
+        }
+    }
+</script>
+
 </head>
 <body>
   <?php require APPROOT . '/views/admin/nav.php';?>
   <div class="table-container">
     <div class="container-column">
-      <p>Categories</p>
+      <div class="above-table">
+        <h3>Categories</h3>
+        <a href="<?php echo URLROOT;?>/admin/addBookCategories" class="btn">Add Book Category</a>
+      </div>
       <table class="table">
       <thead>
         <tr>
           <th>No</th>
           <th>Category</th>
+          <th>Description</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
+        <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
         <tr>
-          <td class="tdata">1</td>
-          <td>Fiction</td>
-          <td><i class="fa fa-solid fa-trash"></i><i class="fa fa-solid fa-pen"></i></td>
+          <td class="tdata"><?php echo $bookCategoryDetails->id; ?></td>
+          <td><?php echo $bookCategoryDetails->category; ?></td>
+          <td><?php echo $bookCategoryDetails->description; ?></td>
+          <td><a href="<?php echo URLROOT;?>/admin/updateBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-pen"></i></a><a href="<?php echo URLROOT;?>/admin/deleteBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-trash"></i></a></td>
         </tr>
-        <tr>
-          <td class="tdata">2</td>
-          <td>Science Fiction</td>
-          <td><i class="fa fa-solid fa-trash"></i><i class="fa fa-solid fa-pen"></i></td>
-        </tr>
-        <tr>
-          <td class="tdata">3</td>
-          <td>Mystery</td>
-          <td><i class="fa fa-solid fa-trash"></i><i class="fa fa-solid fa-pen"></i></td>
-        </tr>
-              <!-- Add more rows for additional categories -->
+        <?php endforeach; ?>      <!-- Add more rows for additional categories -->
       </tbody>
       </table>
     </div>
   
     <div class="container-column">
-      <p>Events</p>
+      <div class="above-table">
+        <h3>Events</h3>
+        <a href="<?php echo URLROOT;?>/admin/addCategories" class="btn">Add Event Category</a>
+      </div>
       <table class="table">
       <thead>
         <tr>
           <th>No</th>
-          <th>Category</th>
+          <th>Event</th>
+          <th>Description</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody class="tbody">
+      <?php foreach($data['eventCategoryDetails'] as $eventCategoryDetails): ?>
         <tr>
-          <td class="tdata">1</td>
-          <td>Fiction</td>
-          <td><i class="fa fa-solid fa-trash"></i><i class="fa fa-solid fa-pen"></i></td>
+          <td class="tdata"><?php echo $eventCategoryDetails->id; ?></td>
+          <td><?php echo $eventCategoryDetails->event; ?></td>
+          <td><?php echo $eventCategoryDetails->description; ?></td>
+          <td><i class="fa fa-solid fa-pen"></i><i class="fa fa-solid fa-trash"></i></td>
         </tr>
-        <tr>
-          <td class="tdata">2</td>
-          <td>Science Fiction</td>
-          <td><i class="fa fa-solid fa-trash"></i><i class="fa fa-solid fa-pen"></i></td>
-        </tr>
-        <tr>
-          <td class="tdata">3</td>
-          <td>Mystery</td>
-          <td><i class="fa fa-solid fa-trash"></i><i class="fa fa-solid fa-pen"></i></td>
-        </tr>
-              <!-- Add more rows for additional categories -->
+        <?php endforeach; ?> 
       </tbody>
       </table>
     </div>
