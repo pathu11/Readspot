@@ -1,4 +1,12 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require APPROOT . '\vendor\autoload.php';
+
 class Landing extends Controller{
     private $userModel;
     private $publisherModel;
@@ -195,11 +203,11 @@ class Landing extends Controller{
 
                 //hash password
                 $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
-
-                //regsiter user
-                if($this->userModel->signupPub($data)){
-                    flash('register_success','You are registered and can login');
-                    redirect('landing/login');
+                
+                // regsiter user
+                if($this->userModel->signupPubPending($data)){
+                    flash('Pending for admin approvel');
+                    redirect('landing/index');
                 }else{
                     die('Something went wrong');
                 }
@@ -319,9 +327,10 @@ class Landing extends Controller{
                 $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
 
                 //regsiter user
-                if($this->userModel->signupCharity($data)){
-                    flash('register_success','You are registered and can login');
-                    redirect('landing/login');
+                if($this->userModel->signupCharityPending($data)){
+                    flash('register_success','Pending for the approval');
+                    
+                    redirect('landing/index');
                 }else{
                     die('Something went wrong');
                 }
@@ -422,6 +431,197 @@ class Landing extends Controller{
        
         
     }
+    public function enteremail(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // process form
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            //init data
+            $data = [
+                'email' => trim($_POST['email']),
+                'email_err' => '',
+            ];
+            //validate email
+            if (empty($data['email'])) {
+                $data['email_err'] = 'Please enter email';
+            }
+    
+            //check for user/email
+            if ($this->userModel->findUserByEmail($data['email'])) {
+                //user found
+            } else {
+                $data['email_err'] = 'Email Not found,Please enter a valid email address';
+            }
+    
+            //make sure errors are empty
+            if (empty($data['email_err'])) {
+                $userEmail = $data['email'];
+                
+                $mail = new PHPMailer(true);
+                $otp = mt_rand(100000, 999999);
+    
+                // Save OTP in session
+                $_SESSION['otp'] = $otp;
+                $_SESSION['user_email'] = $userEmail;
+    
+                try {
+                    //Server settings
+                    $mail->isSMTP();
+                    $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = MAIL_USER; // SMTP username
+                    $mail->Password   = MAIL_PASS;   // SMTP password
+                    $mail->SMTPSecure = MAIL_SECURITY;
+                    $mail->Port       = MAIL_PORT;
+    
+                    //Recipients
+                    $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                    $mail->addAddress($userEmail);  // Add a recipient
+    
+                    // Content
+                    $mail->isHTML(true);  // Set email format to HTML
+                    $mail->Subject = 'Reset Your password';
+                    $mail->Body = "Enter this OTP for reset your password: $otp";
+    
+                    $mail->send();
+    
+                    // Redirect or perform other actions as needed
+                    redirect('landing/enterotp');
+                } catch (Exception $e) {
+                    die('Something went wrong: ' . $mail->ErrorInfo);
+                }
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            $data = [
+                'email' => '',
+                'email_err' => '',
+            ];
+    
+            $this->view('landing/enteremail', $data);
+        }
+    }
+    
+    
+    public function enterotp(){  
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $oldOtp=$_SESSION['otp'];
+            $userEmail=$_SESSION['user_email'] ;
+            // process form
+            // sanitize post data
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            // init data
+            $data=[
+                
+                'otp'=>trim($_POST['otp']),
+                'otp_err'=>'',
+            ];
+             //validate otp
+             if(empty($data['otp'])){
+                $data['otp_err']='Please enter the otp';      
+            }else{
+                if($data['otp']!=$oldOtp){
+                    $data['otp_err']='incorrect otp';
+                }
+            }
+            //make sure errors are empty
+            if( empty($data['otp_err'])  ){
+                //validate
+                if($data['otp']==$oldOtp){
+                    
+                    
+                    redirect('landing/updatepass/');
+                }
+                //hash password
+                
+            }else{
+                $this->view('landing/enterotp',$data);
+            }
+
+
+        }else{
+           
+                $data=[
+                   
+    
+                    'otp'=>'',
+                    'otp_err'=>'',
+                ];
+            
+
+            $this->view('landing/enterotp',$data);
+
+        }       
+    }
+    public function updatepass() {
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // var_dump($_SESSION);
+            // process form
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $userEmail=$_SESSION['user_email'] ;
+            $data = [
+                'user_email' => $userEmail,
+                'pass' => trim($_POST['pass']),
+                'confirm_pass' => trim($_POST['confirm_pass']),
+                'pass_err' => '',
+                'confirm_pass_err' => '',
+            ];
+    
+            // Validate password
+            if (empty($data['pass'])) {
+                $data['pass_err'] = 'Please enter a password';
+            } elseif (strlen($data['pass']) < 6) {
+                $data['pass_err'] = 'Password must be at least 6 characters';
+            }
+    
+            // Validate confirm password
+            if (empty($data['confirm_pass'])) {
+                $data['confirm_pass_err'] = 'Please confirm the password';
+            } elseif ($data['pass'] != $data['confirm_pass']) {
+                $data['confirm_pass_err'] = 'Passwords do not match';
+            }
+    
+            // If no errors, proceed with updating the password
+            if (empty($data['pass_err']) && empty($data['confirm_pass_err'])) {
+                // Get user ID based on the email
+                $user = $this->userModel->findUserByEmail($data['user_email']);
+                
+                if ($user) {
+                    // Hash the password
+                    $hashed_password = password_hash($data['pass'], PASSWORD_DEFAULT);
+    
+                    // Update the user's password
+                    if ($this->userModel->updatePassword($user->user_id, $hashed_password)) {
+                        // Password updated successfully, you can redirect or perform other actions
+                        redirect('landing/login');
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    // User not found
+                    die('User not found');
+                }
+            } else {
+                // There were errors, reload the view with error messages
+                $this->view('landing/updatepass', $data);
+            }
+        } else {
+            $userEmail=$_SESSION['user_email'] ;
+            // GET request, load the view
+            $data = [
+                'user_email' => $userEmail,
+                'pass' => '',
+                'confirm_pass' => '',
+                'pass_err' => '',
+                'confirm_pass_err' => '',
+            ];
+    
+            $this->view('landing/updatepass', $data);
+        }
+    }
+    
+    
     public function createUserSession($user) {
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['user_email'] = $user->email;

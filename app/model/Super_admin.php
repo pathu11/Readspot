@@ -5,7 +5,7 @@
         $this->db = new Database;
     }
     public function getAdminById($user_id){
-        $this->db->query('SELECT * from admin WHERE user_id=:user_id');
+        $this->db->query('SELECT * from admin WHERE user_id=:user_id ' );
         $this->db->bind(':user_id',$user_id);
        
 
@@ -24,7 +24,7 @@
     return $results;
 }
 public function getPublishers(){
-    $this->db->query('SELECT * FROM publishers');
+    $this->db->query('SELECT * FROM publishers WHERE status = "approval"');
     $results=$this->db->resultSet();
 
     return $results;
@@ -36,7 +36,7 @@ public function getCustomers(){
     return $results;
 }
 public function getCharity(){
-    $this->db->query('SELECT * FROM charity');
+    $this->db->query('SELECT * FROM charity  WHERE status = "approval"');
     $results=$this->db->resultSet();
 
     return $results;
@@ -64,10 +64,11 @@ public function getDelivery(){
         $this->db->beginTransaction(); // Begin the transaction
 
         // Insert data into the 'users' table
-        $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+        $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':pass', $data['pass']);
         $this->db->bind(':user_role', 'admin');
+        $this->db->bind(':status', 'approval');
 
         if ($this->db->execute()) {
             $user_id = $this->db->lastInsertId();
@@ -102,10 +103,11 @@ public function getDelivery(){
         $this->db->beginTransaction(); // Begin the transaction
 
         // Insert data into the 'users' table
-        $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+        $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role,:status)');
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':pass', $data['pass']);
         $this->db->bind(':user_role', 'moderator');
+        $this->db->bind(':status', 'approval');
 
         if ($this->db->execute()) {
             $user_id = $this->db->lastInsertId();
@@ -140,10 +142,11 @@ public function getDelivery(){
           $this->db->beginTransaction(); // Begin the transaction
   
           // Insert data into the 'users' table
-          $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+          $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
           $this->db->bind(':email', $data['email']);
           $this->db->bind(':pass', $data['pass']);
           $this->db->bind(':user_role', 'delivery');
+          $this->db->bind(':status', 'approval');
   
           if ($this->db->execute()) {
               $user_id = $this->db->lastInsertId();

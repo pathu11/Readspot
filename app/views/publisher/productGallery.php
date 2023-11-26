@@ -30,6 +30,8 @@
                 <th style="width:5%;background-color: #C7C7C7;">Weight</th>
                 <th style="width:5%;background-color: #C7C7C7;">No of Books</th>
                 <th style="width:10%;background-color: #C7C7C7;">Description</th>
+                <th style="width:16%;background-color: #C7C7C7;">Cover Image</th>
+                <th style="width:16%;background-color: #C7C7C7;">Inside Image</th>
                 
                 <!-- <th style="width:9%">Image (front)</th>
 
@@ -50,12 +52,25 @@
                 <th style="width:7%"><?php echo $bookDetails->weight; ?></th>
                 <th style="width:7%"><?php echo $bookDetails->quantity; ?></th>
                 <th style="width:20%"><?php echo $bookDetails->descript; ?></th>
-                
+                <th style="width:16%"><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img1 . '" alt="img1" style="width:80%;"> ';?></th>
+                <th style="width:16%"><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img2 . '" alt="img2" style="width:80%;"> ';?></th>
+
+
                 <!-- <th style="width:9%">Image (front)</th>
 
                 <th style="width:9%">Image(back)</th> -->
                 <th><a href='<?php echo URLROOT; ?>/publisher/update/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></th>
-                <th><a href='<?php echo URLROOT; ?>/publisher/deletebooks/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-trash' style='color:#09514C;'></i></a></th>
+                
+                <th>
+                    <div class="popup" onclick="myFunction()">
+                            <i class='fa fa-trash' style='color:#09514C;'></i>
+                        </a>
+                            <div class="popuptext" id="myPopup">
+                            <p>Are you sure you want to delete this book?</p><br>
+                            <a  class="button" href='<?php echo URLROOT; ?>/publisher/deletebooks/<?php echo $bookDetails->book_id; ?>' >Yes</a>
+                            <a class="button" href='<?php echo URLROOT; ?>/publisher/productGallery'>No</a>
+                            </div>
+                            </div></th>
             </tr>
                 <?php endforeach; ?>
             
@@ -68,5 +83,12 @@
     
    
 </body>
+<script>
+// When the user clicks on div, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
 
 </html>

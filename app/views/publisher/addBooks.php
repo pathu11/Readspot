@@ -20,7 +20,7 @@
              <!-- <h2>Enter the Details of the Book</h2> -->
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form action="<?php echo URLROOT; ?>/publisher/addbooks" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/addbooks" enctype="multipart/form-data" method="POST">                    
                     <br>
                     <br>
                                    
