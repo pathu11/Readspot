@@ -163,4 +163,13 @@ class Customer extends Controller {
         
         $this->view('customer/viewevents');
     } 
+
+    public function logout(){
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_email']);
+       
+        unset($_SESSION['user_pass']);
+        session_destroy();
+        redirect('landing/index');
+    }
 }

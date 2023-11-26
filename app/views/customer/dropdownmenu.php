@@ -1,41 +1,41 @@
 <div class="user"> 
-    <img src="http://localhost/Group-27/public/assets/images/customer/profile.png" onclick="toggleMenu()">
+    <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" onclick="toggleMenu()"> <!--path changed-->
 </div>
 
 <div class="sub-menu-wrap" id="subMenu">
     <div class="sub-menu">
         <div class="user-info">
-            <img src="http://localhost/Group-27/public/assets/images/customer/profile.png">
-            <h3><?php echo $_SESSION["customer_name"]; ?></h3>
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png"> <!--path changed-->
+            <!-- <h3><?php //echo $_SESSION["customer_id"]; ?></h3> -->   <!--NAME COMMENT-->
         </div>
         <hr>
 
-        <a href="./Dashboard.php" class="sub-menu-link">
-            <img src="http://localhost/Group-27/public/assets/images/customer/person.png">
+        <a href="<?php echo URLROOT; ?>/customer/Dashboard" class="sub-menu-link"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/person.png"> <!--path changed-->
             <p>Dashboard</p>
             <span>></span>
         </a>
         
-        <a href="./AddCont.php" class="sub-menu-link">
-            <img src="http://localhost/Group-27/public/assets/images/customer/plus.png">
+        <a href="<?php echo URLROOT; ?>/customer/AddCont" class="sub-menu-link"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/plus.png"> <!--path changed-->
             <p>Add contents</p>
             <span>></span>
         </a>
         
-        <a href="./Notification.php" class="sub-menu-link">
-            <img src="http://localhost/Group-27/public/assets/images/customer/bell.png">
+        <a href="<?php echo URLROOT; ?>/customer/Notification" class="sub-menu-link"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/bell.png"> <!--path changed-->
             <p>Notifications</p>
             <span>></span>
         </a>
 
-        <a href="./Cart.php" class="sub-menu-link">
-            <img src="http://localhost/Group-27/public/assets/images/customer/cart.png">
+        <a href="<?php echo URLROOT; ?>/customer/Cart" class="sub-menu-link"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/cart.png"> <!--path changed-->
             <p>Cart</p>
             <span>></span>
         </a>
         
-        <a href="http://localhost/Group-27/app/controllers/Logout.php" class="sub-menu-link">
-            <img src="http://localhost/Group-27/public/assets/images/customer/logout.png">
+        <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/logout.png"> <!--path changed-->
             <p>Logout</p>
             <span>></span>
         </a>
