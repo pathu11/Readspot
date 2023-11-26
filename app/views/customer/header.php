@@ -32,8 +32,8 @@
         <div class="navig">
             <nav class="navigation">
                 <?php 
-                if (isset($_SESSION["customer_name"])){
-                    echo '<a href="./Home.php">Home</a>';
+                if (isset($_SESSION["user_id"])){
+                    echo '<a href="#">Home</a>'; //path changed
                 } else {
                     echo '<a href="http://localhost/Group-27/app/views/index.php">Home</a>';
                 }
@@ -43,7 +43,7 @@
                 <a href="<?php echo URLROOT; ?>/customer/ContactUs">Contact</a> <!--path changed-->
             </nav>
             <?php 
-                if (isset($_SESSION["customer_name"])){
+                if (isset($_SESSION["user_id"])){
                     include_once 'dropdownmenu.php';
                 } else {
                     echo '<a href="http://localhost/Group-27/app/views/login.view.php"><button class="Login">Login</button></a>';

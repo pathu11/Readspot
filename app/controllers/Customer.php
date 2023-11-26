@@ -14,7 +14,6 @@ class Customer extends Controller {
   
     }
 
-
     public function AboutUs(){
 
         $this->view('customer/AboutUs');
