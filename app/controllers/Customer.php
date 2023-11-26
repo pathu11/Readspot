@@ -64,9 +64,9 @@ class Customer extends Controller {
         $this->view('customer/BuyNewBooks');
     } 
     
-    public function BuyUsedBooks(){
+    public function BuyUsedBook(){
         
-        $this->view('customer/BuyUsedBooks');
+        $this->view('customer/BuyUsedBook');
     } 
     
     public function Cart(){

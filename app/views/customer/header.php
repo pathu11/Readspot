@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LandingPage.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/head.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/footer.css"> <!--path changed-->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/profile.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/prof.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/AddBookConte.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/BuyBook.css"> <!--path changed-->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Sevice.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Sevices.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Aboutus.css"> <!--path changed-->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/BookDetail.css"> <!--path changed-->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Event&Donates.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/BookDetails.css"> <!--path changed-->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/Event&Donate.css"> <!--path changed-->
     <!-- <script src="./assets/js/prof.js"></script> -->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/service.js"></script> <!--path changed-->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/Add.js"></script> <!--path changed-->
