@@ -1,5 +1,5 @@
 <?php 
-  class Admins{
+  class Admins {
     private $db;
     public function __construct(){
         $this->db = new Database;
@@ -86,7 +86,7 @@
       }
     }
   
-  }
+  
 
     public function getPendingPublishers() {
       $this->db->query('SELECT * FROM publishers WHERE  status = "pending"');
@@ -134,7 +134,6 @@ public function approveusers($user_id){
 }
 
 
-  
   
   }
 
