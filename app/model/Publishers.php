@@ -13,13 +13,22 @@ class Publishers{
 
         return $this->db->resultSet();
     }
-    public function findBookById($book_id){
-        $this->db->query('SELECT * from books WHERE book_id=:book_id');
-        $this->db->bind(':book_id',$book_id);
+    // public function findBookById($book_id){
+    //     $this->db->query('SELECT * from books WHERE book_id=:book_id');
+    //     $this->db->bind(':book_id',$book_id);
        
 
-        return $this->db->resultSet();
+    //     return $this->db->resultSet();
+    // }
+
+    // In your PublisherModel.php
+    public function findBookById($book_id){
+        $this->db->query('SELECT * FROM books WHERE book_id = :book_id');
+        $this->db->bind(':book_id', $book_id);
+        $row = $this->db->single();
+        return $row;
     }
+
     public function findBookByPubId($publisher_id){
         $this->db->query('SELECT * from books WHERE publisher_id=:publisher_id');
         $this->db->bind(':publisher_id',$publisher_id);
@@ -58,40 +67,34 @@ class Publishers{
         }        
     }
 
-    public function update($book_id) {
+    public function update($data) {
         $this->db->query('UPDATE books 
-                      SET book_name = :book_name, 
-                      ISBN_no = :ISBN_no, 
-                      author= :author,  
-                          price= :price, 
-                          category = :category,
-                          weight= :weight,
-                          descript = :descript,
-                          quantity = :quantity,
-                          img1 = :img1,
-                          img2 = :img2,
-                          publisher_id = :publisher_id,
-                          
-
-                      WHERE book_id = :book_id');
+                  SET book_name = :book_name, 
+                  ISBN_no = :ISBN_no, 
+                  author = :author,  
+                  price = :price, 
+                  category = :category,
+                  weight = :weight,
+                  descript = :descript,
+                  quantity = :quantity,
+                  img1 = :img1,
+                  img2 = :img2
+                  WHERE book_id = :book_id');
 
         // Bind values
         $this->db->bind(':book_id', $data['book_id']);
-        $this->db->bind(':book_name ', $data['book_name ']);
+        $this->db->bind(':book_name', $data['book_name']);
         $this->db->bind(':ISBN_no', $data['ISBN_no']);
         $this->db->bind(':author', $data['author']);
         $this->db->bind(':price', $data['price']);
         $this->db->bind(':category', $data['category']);
         $this->db->bind(':weight', $data['weight']);
-        $this->db->bind(':descript ', $data['descript ']);
-        $this->db->bind(':quantity ', $data['quantity ']);
-        $this->db->bind(':img1 ', $data['img1 ']);
-        $this->db->bind(':img2  ', $data[' img2  ']);
-        $this->db->bind(':publisher_id  ', $data['publisher_id  ']);
-
-       
-
-
+        $this->db->bind(':descript', $data['descript']);
+        $this->db->bind(':quantity', $data['quantity']);
+        $this->db->bind(':img1', $data['img1']);
+        $this->db->bind(':img2', $data['img2']);
+        // $this->db->bind(':publisher_id', $data['publisher_id']);
+    
         // Execute
         if ($this->db->execute()) {
             return true;
@@ -99,6 +102,8 @@ class Publishers{
             return false;
         }
     }
+    
+    
 
     public function deletebooks($book_id) {
         $this->db->query('DELETE FROM books WHERE book_id = :book_id');

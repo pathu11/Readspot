@@ -76,12 +76,7 @@
                 </div>
 
 
-                <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
-            <tr>
-                <th style="width:7%"><?php echo $deliveryDetails->name; ?></th>
                 
-            </tr>
-                <?php endforeach; ?>
             
                 
 

@@ -86,7 +86,7 @@
       }
     }
   
-  }
+  
 
     public function getPendingPublishers() {
       $this->db->query('SELECT * FROM publishers WHERE  status = "pending"');

@@ -285,31 +285,24 @@ class Publisher extends Controller{
         $this->view('publisher/shippedorders');
     }
     public function update($book_id){
-           
-            
-       
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+            $user_id = $_SESSION['user_id'];
+            // $books = $this->publisherModel->findBookById($book_id);
+            // $publisher_id=$books[0]->publisher_id;
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $publisher_id=$publisherDetails[0]->publisher_id;
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 // process form
                 // sanitize post data
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
     
     
-                // $publisherid = null;
-        
-                // if (isset($_SESSION['user_id'])) {
-                //     $user_id = $_SESSION['user_id'];
-                    
-                //     $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-                   
-                //     if ($publisherDetails) {
-                       
-                //         $publisherid = $publisherDetails[0]->publisher_id;                   
-                //     } else {
-                //         echo "Not found";
-                //     }
-                // }            
+                          
                 $data=[
-                    'url'=>$url,
+                    // 'publisherDetails'=>$publisherDetails,
+                    // 'publisherName'=>$publisherDetails[0]->name,
                     'book_id'=>$book_id,
                     'book_name' => trim($_POST['book_name']),
                     'ISBN_no' => trim($_POST['ISBN_no']),
@@ -319,9 +312,9 @@ class Publisher extends Controller{
                     'weight' => trim($_POST['weight']),
                     'descript' => trim($_POST['descript']),
                     'quantity' => trim($_POST['quantity']),
-                    'publisher_id' => trim($publisherid),// Replace this with the actual publisher ID
-                    'img1' => trim($_POST['img1']),
-                    'img2' => trim($_POST['img2']),
+                    // 'publisher_id' => $publisherDetails[0]->publisher_id,,// Replace this with the actual publisher ID
+                    'img1' => '',
+                    'img2' => '',
                     // 'book_name'=>trim($_POST['book_name']),
                     
                     'book_name_err'=>'',
@@ -379,62 +372,98 @@ class Publisher extends Controller{
     
                 //make sure errors are empty
                 if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
+
+                    //image
+                    if (isset($_FILES['img1']['name']) AND !empty($_FILES['img1']['name'])) {
+            
+            
+                        $img_name = $_FILES['img1']['name'];
+                        $tmp_name = $_FILES['img1']['tmp_name'];
+                        $error = $_FILES['img1']['error'];
+                        
+                        if($error === 0){
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+            
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if(in_array($img_ex_to_lc, $allowed_exs)){
+                            $new_img_name = $data['book_name'] .'-img1.'. $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+
+                            $data['img1']=$new_img_name;
+                        }
+                        }
+                    }
+                    if (isset($_FILES['img2']['name']) AND !empty($_FILES['img2']['name'])) {
+            
+            
+                        $img_name = $_FILES['img2']['name'];
+                        $tmp_name = $_FILES['img2']['tmp_name'];
+                        $error = $_FILES['img2']['error'];
+                        
+                        if($error === 0){
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+            
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if(in_array($img_ex_to_lc, $allowed_exs)){
+                            $new_img_name = $data['book_name'] .'-img2.'. $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+
+                            $data['img2']=$new_img_name;
+                        }
+                        }
+                    }
                     
-                    if($this->publisherModel->updatebooks($data)){
+                    if($this->publisherModel->update($data)){
                         flash('update_success','You are added the book  successfully');
                         redirect('publisher/productGallery');
                     }else{
                         die('Something went wrong');
                     }
-                }else{
-                    $this->view('publisher/update',$data);
-                }
+                    }else{
+                        $this->view('publisher/update',$data);
+                    }
     
     
             }else{
                      
               
-                $books=$this->publisherModel->findBookById($book_id);
-                // if($books->publisher_id !=$_SESSION['publisher_id']){
-                //     redirect('publisher/productGallery');
-                // }
-                // echo $book_id;
-                // var_dump($books['book_name']);
-               
-                    $data=[
-                        // 'book_name' => '',
-                        // 'ISBN_no' => '',
-                        // 'author' => '',
-                        // 'price' => '',
-                        // 'category' => '',
-                        // 'weight' => '',
-                        // 'descript' => '',
-                        // 'quantity' =>'',
-                        'book_id'=>$book_id,
-                        'book_name' => $books['book_name'],
-                        'ISBN_no' => $books->ISBN_no,
-                        'author' =>$books->author,
-                        'price' => $books->price,
-                        'category' => $books->category,
-                        'weight' => $books->weight,
-                        'descript' => $books->descript,
-                        'quantity' =>$books->quantity,
-                        'publisher_id' => $books->publisher_id,// Replace this with the actual publisher ID
-                        'img1' => '',
-                        'img2' => '',
-                        
-                        'book_name_err'=>'',
-                        'ISBN_no_err'=>'',
-                        'author_err'=>'',
-                        'price_err'=>'',
-                        'category_err'=>'',
-                        'weight_err'=>'',
-                        'descript_err'=>'',
-                        'quantity_err'=>'',
-                        // 'img1_err'=>'',
-                        // 'img2_err'=>'',
-                        
-                    ];
+                // ...
+                $books = $this->publisherModel->findBookById($book_id);
+                if($books->publisher_id != $publisher_id){
+                    redirect('publisher/productGallery');
+                  }
+                $data = [
+                    
+                    'book_id' => $book_id,
+                    'book_name' => $books->book_name,
+                    'ISBN_no' => $books->ISBN_no,
+                    'author' => $books->author,
+                    'price' => $books->price,
+                    'category' => $books->category,
+                    'weight' => $books->weight,
+                    'descript' => $books->descript,
+                    'quantity' => $books->quantity,
+                    
+
+                    'img1' => $books->img1,
+                    'img2' => $books->img2,
+                    'book_name_err' => '',
+                    'ISBN_no_err' => '',
+                    'author_err' => '',
+                    'price_err' => '',
+                    'category_err' => '',
+                    'weight_err' => '',
+                    'descript_err' => '',
+                    'quantity_err' => '',
+                    // 'img1_err' => '',
+                    // 'img2_err' => '',
+                ];
+
+
                 $this->view('publisher/update',$data);
     
             }  
