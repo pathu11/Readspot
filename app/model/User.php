@@ -136,12 +136,6 @@ class User{
 
         return false;
     }
-
-
-
-    
-
-
     public function login($email, $pass)
 {
     $this->db->query('SELECT * FROM users WHERE email=:email AND status = "approval"');

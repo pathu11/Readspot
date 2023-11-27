@@ -35,7 +35,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT?>/admin/pendingRequestsCharity " class="nav-link">
                 <i class="bx bxs-message-dots icon"></i>
                 <span class="link">Pending requests</span>
               </a>

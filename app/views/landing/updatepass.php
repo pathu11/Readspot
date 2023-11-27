@@ -16,13 +16,13 @@
 
 <body>
     <div>
-   
+        
         <div class="form-container">
              
             <div class="form1">
                 <span>Change your password</span>
                 
-                <form action="<?php echo URLROOT; ?>/landing/updatepass" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/landing/updatepass/<?php echo $data['userEmail'];?>" method="POST">                    
                     <br>
                     <br>
                                    
