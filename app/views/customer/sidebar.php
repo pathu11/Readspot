@@ -3,8 +3,8 @@
         <div class="profile-section">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">
             <?php 
-            if (isset($_SESSION["customer_name"])){
-                echo '<h2 class="profile-name1">'.$_SESSION["customer_name"].'</h2>';
+            if (isset($_SESSION["user_id"])){
+                echo '<h2 class="profile-name1">'.$data['customerName'].'</h2>';
             } else {
                 echo '<h2 class="profile-name1">NO USER</h2>';
             }

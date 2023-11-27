@@ -12,8 +12,8 @@
             <div class="prof-picture">
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Profile Image" class="profile-image"> <!--path changed-->
                 <?php 
-                if (isset($_SESSION["customer_name"])){
-                    echo '<h2 class="profile-name2">'.$_SESSION["customer_name"].'<br><span>'.$_SESSION["customer_email"].'<span></h2>';
+                if (isset($_SESSION["user_id"])){
+                    echo '<h2 class="profile-name2">'.$data['customerName'].'<br><span>'.$data["customerEmail"].'<span></h2>';
                 } else {
                     echo '<h2 class="profile-name2">NO USER<br><span>NO EMAIL<span></h2>';
                 }

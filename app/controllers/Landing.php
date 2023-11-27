@@ -3,11 +3,13 @@ class Landing extends Controller{
     private $userModel;
     private $publisherModel;
     private $adminModel;
+    private $customerModel;
     private $db;
     public function  __construct(){
         $this->userModel=$this->model('User');
         $this->publisherModel=$this->model('Publishers');
         $this->adminModel=$this->model('Admins');
+        $this->customerModel=$this->model('Customers');
         $this->db = new Database();
        
     }
@@ -304,11 +306,7 @@ class Landing extends Controller{
             $_SESSION['publisher_id'] = $publisherDetails->publisher_id;
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('publisher/index');
-          
-
-       
-
-
+    
         } elseif ($user->user_role == 'admin') {
             $adminDetails = $this->adminModel->findAdminById($user->user_id);
             $_SESSION['admin_id'] = $adminDetails->admin_id;
@@ -322,7 +320,8 @@ class Landing extends Controller{
             redirect('delivery/index');
          
         }elseif ($user->user_role == 'customer') {
-
+            $customerDetails = $this->customerModel->findCustomerById($user->user_id);
+            $_SESSION['customer_id'] = $customerDetails->customer_id;
             redirect('customer/Home');
          
         }

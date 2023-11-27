@@ -14,159 +14,485 @@ class Customer extends Controller {
   
     }
 
-    public function AboutUs(){
+    public function Home(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Home', $data);
+        }
+    }
 
-        $this->view('customer/AboutUs');
+    public function AboutUs(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/AboutUs', $data);
+        }
     } 
     
     public function AddCont(){
-        
-        $this->view('customer/AddCont');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/AddCont', $data);
+        }
     } 
     
     public function Addevnt(){
-        
-        $this->view('customer/Addevnt');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Addevnt', $data);
+        }
     } 
 
     public function AddExchangeBook(){
-        
-        $this->view('customer/AddExchangeBook');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/AddExchangeBook', $data);
+        }
     } 
     
     public function AddUsedBook(){
-        
-        $this->view('customer/AddUsedBook');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/AddUsedBook', $data);
+        }
     } 
     
     public function BookContents(){
-        
-        $this->view('customer/BookContents');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BookContents', $data);
+        }
     } 
     
     public function BookDetails(){
-        
-        $this->view('customer/BookDetails');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BookDetails', $data);
+        }
     } 
     
     public function BookEvents(){
-        
-        $this->view('customer/BookEvents');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BookEvents', $data);
+        }
     } 
     
     public function Bookshelf(){
-        
-        $this->view('customer/Bookshelf');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Bookshelf', $data);
+        }
     } 
     
     public function BuyNewBooks(){
-        
-        $this->view('customer/BuyNewBooks');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BuyNewBooks', $data);
+        }
     } 
     
     public function BuyUsedBook(){
-        
-        $this->view('customer/BuyUsedBook');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BuyUsedBook', $data);
+        }
     } 
     
     public function Cart(){
-        
-        $this->view('customer/Cart');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Cart', $data);
+        }
     } 
     
     public function ContactUs(){
-        
-        $this->view('customer/ContactUs');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/ContactUs', $data);
+        }
     } 
     
     public function Content(){
-        
-        $this->view('customer/Content');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Content', $data);
+        }
     } 
     
     public function Dashboard(){
-        
-        $this->view('customer/Dashboard');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Dashboard', $data);
+        }
     } 
     
     public function DonateBooks(){
-        
-        $this->view('customer/DonateBooks');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/DonateBooks', $data);
+        }
     } 
 
     public function Donatedetails(){
-        
-        $this->view('customer/Donatedetails');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Donatedetails', $data);
+        }
     } 
 
     public function Donateform(){
-        
-        $this->view('customer/Donateform');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Donateform', $data);
+        }
     } 
 
+    // public function dropdownmenu(){
+
+    //     $this->view('customer/dropdownmenu');
+    // }
+
     public function Event(){
-        
-        $this->view('customer/Event');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Event', $data);
+        }
     } 
 
     public function ExchangeBook(){
-        
-        $this->view('customer/ExchangeBook');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/ExchangeBook', $data);
+        }
     } 
 
     public function ExchangeBookDetails(){
-        
-        $this->view('customer/ExchangeBookDetails');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/ExchangeBookDetails', $data);
+        }
     } 
 
     public function ExchangeBooks(){
-        
-        $this->view('customer/ExchangeBooks');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/ExchangeBooks', $data);
+        }
     } 
 
-    public function Home(){
+    // public function Home(){
         
-        $this->view('customer/Home');
-    } 
+    //     $this->view('customer/Home');
+    // } 
 
     public function Notification(){
-        
-        $this->view('customer/Notification');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Notification', $data);
+        }
     } 
 
     public function Profile(){
-        
-        $this->view('customer/Profile');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name,
+                'customerEmail' => $customerDetails[0]->email
+            ];
+            $this->view('customer/Profile', $data);
+        }
     } 
 
     public function Services(){
-        
-        $this->view('customer/Services');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Services', $data);
+        }
     } 
 
+    // public function sidebar(){
+
+    //     $this->view('customer/sidebar');
+    // }
+
     public function updateusedbook(){
-        
-        $this->view('customer/updateusedbook');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/updateusedbook', $data);
+        }
     } 
 
     public function UsedBooks(){
-        
-        $this->view('customer/UsedBooks');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/UsedBooks', $data);
+        }
     } 
 
     public function ViewBook(){
-        
-        $this->view('customer/ViewBook');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/ViewBook', $data);
+        }
     } 
 
     public function viewcontent(){
-        
-        $this->view('customer/viewcontent');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/viewcontent', $data);
+        }
     } 
 
     public function viewevents(){
-        
-        $this->view('customer/viewevents');
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/viewevents', $data);
+        }
     } 
 
     public function logout(){

@@ -6,7 +6,7 @@
     <div class="sub-menu">
         <div class="user-info">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png"> <!--path changed-->
-            <!-- <h3><?php //echo $_SESSION["customer_id"]; ?></h3> -->   <!--NAME COMMENT-->
+            <h3><?php echo $data['customerName']; ?></h3> <!--NAME COMMENT-->
         </div>
         <hr>
 
