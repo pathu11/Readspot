@@ -20,14 +20,18 @@
     
 
         <div class="l_col">
-        
-                <img style="border-radius:60%;width:60%;" src="<?php echo URLROOT; ?>/assets/images/publisher/person.jpg">
-                
+        <?php
+                    $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/publisher/addbooks/' . $publisherDetails->profile_img ;
+                ?>
+                <img style="border-radius:60%;width:60%;" src="<?php echo $profileImage; ?>">
+               
                 <h3><?php echo $publisherDetails->name; ?></h3><br>
+                <p><?php echo $publisherDetails->company_name; ?></p><br>
                 <p><?php echo $publisherDetails->email; ?></p><br>
                 <p><?php echo $publisherDetails->contact_no; ?></p>
+                <br>
                 
-            <button id="btnclick" class="my-button">Edit Profile</button><br>
+            <a href="<?php echo URLROOT; ?>/publisher/editProfile/<?php echo  $publisherDetails->publisher_id; ?>" id="btnclick" class="my-button">Edit Profile</a><br>
             
         </div>
 
@@ -40,7 +44,7 @@
                         <tr>
                         <td> 
                             <label>Name</label><br>
-                            <span><?php echo $publisherDetails->name; ?></span><br>
+                            <span><?php echo $publisherDetails->postal_name; ?></span><br>
                         </td>
                         <td>
                             <label>Address</label><br>
@@ -65,9 +69,10 @@
                     <tr>                   
                 </table>
                
+                
+                <a href="<?php echo URLROOT; ?>/publisher/editpostal/<?php echo  $publisherDetails->publisher_id; ?>" id="btnClick1" class="my-button">Edit</a>
 
-             
-                <button id="btnClick1" class="my-button">Edit</button>
+                
             </div>
             <div class="r_b_col">
                 <h2>Account Details</h2>
@@ -76,7 +81,7 @@
                         <tr>
                         <td> 
                             <label>Name</label><br>
-                            <span><?php echo $publisherDetails->name; ?></span><br>
+                            <span><?php echo $publisherDetails->account_name; ?></span><br>
                         </td>
                         <td>
                             <label>Account Number</label><br>
@@ -102,7 +107,7 @@
                
 
              
-                <button id="btnClick1" class="my-button">Edit</button>
+                <a href="<?php echo URLROOT; ?>/publisher/editAccount/<?php echo $publisherDetails->publisher_id; ?>" id="btnClick1" class="my-button">Edit</a>
             </div>
             
             
