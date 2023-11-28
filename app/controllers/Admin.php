@@ -19,10 +19,14 @@
       } else {
           $user_id = $_SESSION['user_id'];
          
-          $adminDetails = $this->adminModel->findAdminById($user_id);  
+          $adminDetails = $this->adminModel->findAdminById($user_id); 
+          //$customerCount = $this->adminModel->getCustomerCount();
+          //$publisherCount  = $this->adminModel->getPublisherCount(); 
           $data = [
               'adminDetails' => $adminDetails,
-              'adminName'=>$adminDetails[0]->name
+              'adminName'=>$adminDetails[0]->name,
+              //'customerCount'=>$customerCount->customerCount,
+              //'publisherCount'=>$publisherCount->publisherCount
           ];
           $this->view('admin/index', $data);
       }
@@ -170,4 +174,5 @@
         die('Something went wrong');
     }
   }
- }
+ 
+}
