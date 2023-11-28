@@ -11,8 +11,12 @@ class Landing extends Controller{
     private $userModel;
     private $publisherModel;
     private $adminModel;
+
+    private $customerModel;
+
     private $deliveryModel;
     private $superadminModel;
+
 
     private $db;
     public function  __construct(){
@@ -21,7 +25,11 @@ class Landing extends Controller{
         $this->publisherModel=$this->model('Publishers');
         // $this->charityModel=$this->model('Charity');
         $this->adminModel=$this->model('Admins');
+
+        $this->customerModel=$this->model('Customers');
+
         $this->superadminModel=$this->model('Super_admin');
+
         $this->db = new Database();
        
     }
@@ -628,8 +636,6 @@ class Landing extends Controller{
             $_SESSION['publisher_id'] = $publisherDetails->publisher_id;
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('publisher/index');
-
-
         } elseif ($user->user_role == 'admin') {
             $adminDetails = $this->adminModel->findAdminById($user->user_id);
             $_SESSION['admin_id'] = $adminDetails->admin_id;
@@ -641,6 +647,11 @@ class Landing extends Controller{
 
             $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
             redirect('delivery/index');
+         
+        }elseif ($user->user_role == 'customer') {
+            $customerDetails = $this->customerModel->findCustomerById($user->user_id);
+            $_SESSION['customer_id'] = $customerDetails->customer_id;
+            redirect('customer/Home');
          
         }elseif ($user->user_role == 'charity') {
             
