@@ -22,7 +22,7 @@
         <table>
             <tr>
                 <th style="width:7%;background-color: #009D94;">Order ID</th>
-                <th style="width:7%;background-color: #009D94;">Product ID</th>
+                <th style="width:7%;background-color: #009D94;">Book ID</th>
                 <th style="width:7%;background-color: #009D94;">No of Items</th>
                 <th style="width:7%;background-color: #009D94;">Customer Details</th>
                 <th style="width:7%;background-color: #009D94;">Total Price(Rs)</th>
@@ -30,95 +30,17 @@
                 <th style="width:2%;background-color: #009D94;">Contact Customer</th>
 
             </tr>
+            <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
+                <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->book_id; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
+                <th style="width:7%"><?php echo $data['customerName']; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->total_price; ?></th>
+                
+                
             </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                <th><i class="fas fa-check-circle" style="color:black;"></i></th>
-                <th><i class="fa fa-comment" style="color:black;"></i></i>
-                </th>
-
-            </tr>
-            
+            <?php endforeach; ?> 
 
         </table>
     </div>
