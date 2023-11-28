@@ -84,14 +84,31 @@ body {
 }
 
 .my-button {
+    width: 200px;
+    height:40px;
     margin-top: 10px;
     color: white;
     background-color: #01322F;
+
     padding: 7px;
-    width: 200px;
+    
     border-radius: 8px;
+    border:none;
+    text-decoration:none;
 }
 
 .my-button:hover {
+    width: 200px;
+    height:40px;
     background-color: #009D94;
+    border:none;
+    text-decoration:none;
+}
+
+.select {
+    display: block;
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
 }

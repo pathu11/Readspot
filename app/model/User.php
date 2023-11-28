@@ -18,10 +18,11 @@ class User{
             $this->db->beginTransaction(); // Begin the transaction
 
             // Insert data into the 'users' table
-            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+            $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role,:status)');
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'customer');
+            $this->db->bind(':status', 'approval');
 
             if ($this->db->execute()) {
                 $user_id = $this->db->lastInsertId();
@@ -49,7 +50,10 @@ class User{
 
         return false;
     }
-    public function signupPub($data){
+    
+    
+
+    public function signupPubPending($data){
         try {
             $this->db->beginTransaction(); // Begin the transaction
 
@@ -58,6 +62,7 @@ class User{
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'publisher');
+            // $this->db->bind(':status', 'pending');
 
             if ($this->db->execute()) {
                 $user_id = $this->db->lastInsertId();
@@ -89,12 +94,51 @@ class User{
 
         return false;
     }
-    
 
+    public function signupCharityPending($data){
+        try {
+            $this->db->beginTransaction(); // Begin the transaction
 
+            // Insert data into the 'users' table
+            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':pass', $data['pass']);
+            $this->db->bind(':user_role', 'charity');
+            // $this->db->bind(':status', 'pending');
+
+            if ($this->db->execute()) {
+                $user_id = $this->db->lastInsertId();
+
+                // Insert data into the 'customers' table using the obtained user ID as the foreign key
+                $this->db->query('INSERT INTO charity (user_id, name,org_name,reg_no, email,contact_no, pass) VALUES (:user_id, :name,:org_name,:reg_no, :email,:contact_no , :pass)');
+
+                $this->db->bind(':user_id', $user_id);
+                $this->db->bind(':name', $data['name']);
+                $this->db->bind(':org_name', $data['org_name']);
+                $this->db->bind(':reg_no', $data['reg_no']);
+                $this->db->bind(':email', $data['email']);
+                $this->db->bind(':contact_no', $data['contact_no']);
+                $this->db->bind(':pass', $data['pass']);
+
+                if ($this->db->execute()) {
+                    $this->db->commit(); // Commit the transaction
+                    return true;
+                } else {
+                    $this->db->rollBack(); // Roll back the transaction if 'customers' insert fails
+                }
+            } else {
+                $this->db->rollBack(); // Roll back the transaction if 'users' insert fails
+            }
+        } catch (PDOException $e) {
+            echo "Transaction failed: " . $e->getMessage();
+            $this->db->rollBack(); // Roll back the transaction on exception
+        }
+
+        return false;
+    }
     public function login($email, $pass)
 {
-    $this->db->query('SELECT * FROM users WHERE email=:email');
+    $this->db->query('SELECT * FROM users WHERE email=:email AND status = "approval"');
     $this->db->bind(':email', $email);
 
     $row = $this->db->single();
@@ -144,6 +188,34 @@ class User{
 
         return $this->db->resultSet();
     }
+
+    public function updatePassword($user_id, $hashed_password) {
+        try {
+            $this->db->query('UPDATE users SET pass = :hashed_password WHERE user_id = :user_id');
+            $this->db->bind(':user_id', $user_id);
+            $this->db->bind(':hashed_password', $hashed_password);
+    
+            $result = $this->db->execute();
+    
+            if ($result) {
+                echo "Success";
+                // Log or echo a success message
+                // Example: error_log("Password updated successfully for user ID: $user_id");
+            } else {
+                echo "Error";
+                // Log or echo an error message along with the query and bindings
+                // Example: error_log("Failed to update password for user ID: $user_id. Query: " . $this->db->getQuery() . ", Bindings: " . print_r($this->db->getBindings(), true));
+            }
+    
+            return $result;
+        } catch (Exception $e) {
+            echo "exceptiom";
+            // Log or echo the exception message
+            // Example: error_log("Exception: " . $e->getMessage());
+            return false;
+        }
+    }
+    
 
    
 

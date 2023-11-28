@@ -15,7 +15,7 @@
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="pass" placeholder="Password"><br>
             <input type="checkbox"><span>Remember me</span>
-            <a href="#">Forgot password?</a>
+            <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password?</a>
             <button class="btn" name="submit" type="submit">log in</button>
             <div class="connect">
                 <h4><span>Or Connect With</span></h4>
@@ -39,4 +39,5 @@
         </div>  
       </div>
 </body>
-</html>                     
+</html>
+                     

@@ -11,6 +11,7 @@
         <i class="bx bx-menu menu-icon"></i>
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
+       
       </div>
       <div class="sidebar">
         <div class="logo">

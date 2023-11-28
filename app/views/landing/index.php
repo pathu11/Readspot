@@ -9,6 +9,10 @@
 
     <div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero.jpg');">
         <div class="content">
+        <?php 
+        flash('register_success');
+        
+         ?>
             <h3>WELCOME TO</h3>
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying<br>
@@ -19,6 +23,7 @@
     </div>
     
     <div class="our_ser">
+        
         <h2><span>Our Services</span></h2>
     </div>
     

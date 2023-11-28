@@ -43,7 +43,7 @@ body {
 }
 
 
-.form1 input[type="text"],
+.form1 input[type="text"],.form1 input[type="email"],.form1 input[type="password"],
 .form1 input[type="number"],form1 input[type="file"],
 .form1 textarea {
     width: 100%;
@@ -55,7 +55,7 @@ body {
     outline: none; /* Remove default input focus border */
 }
 .form1 input[type="text"]:focus,
-.form1 input[type="number"]:focus,form1 input[type="file"]:focus,
+.form1 input[type="number"]:focus,.form1 input[type="file"]:focus,.form1 input[type="email"]:focus,.form1 input[type="password"]:focus,
 .form1 textarea:focus {
     border: 2px solid #009D94; /* Red border on focus */
 }
