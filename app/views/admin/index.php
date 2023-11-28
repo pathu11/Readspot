@@ -11,7 +11,9 @@
   <title>Admin Dashboard</title>
 </head>
 <body>
-  <?php require APPROOT . '/views/admin/nav.php';?>
+  <?php require APPROOT . '/views/admin/nav.php';
+  
+  ?>
 
   <div class="grid-container">
     <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="#customers">Customers</a></div>
@@ -20,7 +22,8 @@
     <div class="grid-item"><i class="fa fa-solid fa-list"></i><br><a href="#payments">Orders</a></div>
     <!--div class="grid-item"><a href="#complains">Complains</a></div>
     <div class="grid-item"><a href="#charity organizations">Charity Organizations</a></div>
-    <div class="grid-item"><a href="#pending requests">Pending Requests</a></div>
+    
+    <div class="grid-item"><a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Pending Requests</a></div>
     <div class="grid-item"><a href="#">Categories</a></div>
     <div class="grid-item"><a href="#delivary status">Delivery Status</a></div!-->
   </div>

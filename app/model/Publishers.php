@@ -58,7 +58,7 @@ class Publishers{
         }        
     }
 
-    public function update($data) {
+    public function update($book_id) {
         $this->db->query('UPDATE books 
                       SET book_name = :book_name, 
                       ISBN_no = :ISBN_no, 
@@ -96,6 +96,37 @@ class Publishers{
         if ($this->db->execute()) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public function deletebooks($book_id) {
+        $this->db->query('DELETE FROM books WHERE book_id = :book_id');
+        // Bind values
+        $this->db->bind(':book_id', $book_id);
+
+        // Execute after binding
+        $this->db->execute();
+
+        // Check for row count affected
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
+    public function findbookByName($book_name){
+        $this->db->query('SELECT * from books WHERE book_name=:book_name');
+        $this->db->bind(':book_name',$book_name);
+
+        $row=$this->db->single();
+
+        //check row
+        if($this->db->rowCount()>0){
+            return true;
+        }else{
             return false;
         }
     }
