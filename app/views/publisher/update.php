@@ -21,7 +21,7 @@
              <!-- <h2>Enter the Details of the Book</h2> -->
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form action="<?php echo URLROOT; ?>/publisher/update/" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/update/<?php echo $data['book_id'];?>" method="POST">                    
                     <br>
                     <br>
                                    

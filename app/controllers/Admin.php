@@ -118,66 +118,60 @@ require APPROOT . '\vendor\autoload.php';
     
   }
 
-  public function updateBookCategory($id){
+  public function updateBookCategory($id)
+{
     $user_id = $_SESSION['user_id'];
-         
     $adminDetails = $this->adminModel->findAdminById($user_id);
-    
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         $data = [
             'adminDetails' => $adminDetails,
-            'adminName'=>$adminDetails[0]->name,
-            'id'=>$id,
-            'book_category'=>trim($_POST['book_category']),
-            'description'=>trim($_POST['description']),
-
-            'book_category_err'=>'',
-            'description_err'=>''
+            'adminName' => $adminDetails[0]->name,
+            'id' => $id,
+            'book_category' => trim($_POST['book_category']),
+            'description' => trim($_POST['description']),
+            'book_category_err' => '',
+            'description_err' => ''
         ];
 
-        if(empty($data['book_category'])){
-            $data['book_category_err']='Please enter the category name';      
+        if (empty($data['book_category'])) {
+            $data['book_category_err'] = 'Please enter the category name';
         }
 
-        if(empty($data['description'])){
-            $data['description_err']='Please enter the category description';      
+        if (empty($data['description'])) {
+            $data['description_err'] = 'Please enter the category description';
         }
 
-        if(empty($data['book_category_err']) && empty($data['description_err'])){
-            if($this->adminModel->updateBookCategory($data)){
-                flash('update_success','You are updated the book category successfully');
+        if (empty($data['book_category_err']) && empty($data['description_err'])) {
+            if ($this->adminModel->updateBookCategory($data)) {
+                flash('update_success', 'You are updated the book category successfully');
                 redirect('admin/categories');
-            }else{
+            } else {
                 die('Something went wrong');
             }
+        } else {
+            // Load view with errors
+            $this->view('admin/updateBookCategory', $data);
         }
-        //Load view with errors
-        else{
-            $this->view('admin/updateBookCategory',$data);
-        }
-        
-    }
-
-    else{
+    } else {
         $bookCategory = $this->adminModel->findBookCategoryById($id);
-        
-        $data=[
+
+        $data = [
             'adminDetails' => $adminDetails,
-            'adminName'=>$adminDetails[0]->name,
-            'id'=>$id,
-            'book_category'=>$bookCategory->category,
-            'description'=>$bookCategory->description,
-            'book_category_err'=>'',
-            'description_err'=>''
+            'adminName' => $adminDetails[0]->name,
+            'id' => $id,
+            'book_category' => $bookCategory->category,
+            'description' => $bookCategory->description,
+            'book_category_err' => '',
+            'description_err' => ''
         ];
 
-        $this->view('admin/updateBookCategory',$data);
+        $this->view('admin/updateBookCategory', $data);
     }
-    
-    
-  }
+}
+
 
   public function deleteBookCategory($id){
     if($this->adminModel->deleteBookCategory($id)){

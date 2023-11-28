@@ -30,86 +30,17 @@
                 
 
             </tr>
+            <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
+                <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->book_id; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
+                <th style="width:7%"><?php echo $data['customerName']; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->total_price; ?></th>
                 
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-               
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-               
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
                 
-                </th>
-
             </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-               
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-                
-                </th>
-
-            </tr>
-            <tr>
-                <th>34567</th>
-                <th>23128</th>
-                <th>3</th>
-                <th>M.K.P.Pathumi</th>
-                <th>1800</th>
-               
-                </th>
-
-            </tr>
+            <?php endforeach; ?> 
             
 
         </table>

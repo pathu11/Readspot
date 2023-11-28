@@ -99,8 +99,10 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCustomer($data)){
-                    flash('register_success','You are registered and can login');
-                    redirect('landing/login');
+                    echo '<script>';
+                    echo 'alert("Successfully registered as a customer!");';
+                    echo 'window.location.href = "' . URLROOT . '/landing/login";';  // Construct the complete URL
+                    echo '</script>';
                 }else{
                     die('Something went wrong');
                 }
@@ -122,11 +124,7 @@ class Landing extends Controller{
             ];
 
             $this->view('landing/signupCustomer',$data);
-
-        }
-       
-       
-        
+        }  
     }
     public function signupPub(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -196,9 +194,6 @@ class Landing extends Controller{
                     $data['confirm_pass_err']='password not matching';
                 }
             }
-
-            
-
             //make sure errors are empty
             if( empty($data['name_err']) && empty($data['company_name_err']) && empty($data['reg_no_err']) &&empty($data['email_err']) && empty($data['contact_no_err']) &&empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
                 //validate
@@ -207,17 +202,18 @@ class Landing extends Controller{
                 $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
                 
                 // regsiter user
-                if($this->userModel->signupPubPending($data)){
-                    flash('Pending for admin approvel');
-                    redirect('landing/index');
+                if ($this->userModel->signupCharityPending($data)) {
+                    echo '<script>';
+                    echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
+                    echo 'window.location.href = "' . URLROOT . '/landing/index";';  // Construct the complete URL
+                    echo '</script>';
+                
                 }else{
                     die('Something went wrong');
                 }
             }else{
                 $this->view('landing/signupPub',$data);
             }
-
-
         }else{
            
                 $data=[
@@ -241,13 +237,8 @@ class Landing extends Controller{
 
             $this->view('landing/signupPub',$data);
 
-        }
-       
-
-       
-       
+        }   
     }
-
     public function signupCharity(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
@@ -300,9 +291,6 @@ class Landing extends Controller{
             }elseif(strlen($data['contact_no'])<10){
                 $data['contact_no_err']='Invalid phone number'; 
             }
-
-
-
             //validate password
             if(empty($data['pass'])){
                 $data['pass_err']='Please enter password';      
@@ -330,9 +318,13 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCharityPending($data)){
-                    flash('register_success','Pending for the approval');
+                    if ($this->userModel->signupCharityPending($data)) {
+                        echo '<script>';
+                        echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
+                        echo 'window.location.href = "' . URLROOT . '/landing/index";';  
+                        echo '</script>';
+                    }
                     
-                    redirect('landing/index');
                 }else{
                     die('Something went wrong');
                 }
@@ -365,14 +357,8 @@ class Landing extends Controller{
 
             $this->view('landing/signupCharity',$data);
 
-        }
-       
-
-       
-       
+        }   
     }
-
-
     public function login(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
@@ -429,9 +415,7 @@ class Landing extends Controller{
 
             $this->view('landing/login',$data);
 
-        }
-       
-        
+        }       
     }
     public function enteremail(){
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -502,9 +486,7 @@ class Landing extends Controller{
     
             $this->view('landing/enteremail', $data);
         }
-    }
-    
-    
+    }   
     public function enterotp(){  
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $oldOtp=$_SESSION['otp'];
@@ -529,23 +511,22 @@ class Landing extends Controller{
             //make sure errors are empty
             if( empty($data['otp_err'])  ){
                 //validate
-                if($data['otp']==$oldOtp){
-                    
-                    
-                    redirect('landing/updatepass/');
+                if ($data['otp'] == $oldOtp) {
+                    echo '<script>';
+                    echo 'alert("OTP is correct!");';
+                    echo 'redirectToUpdatePass();';
+                    echo 'function redirectToUpdatePass() {';
+                    echo 'window.location.href = "' . URLROOT . '/landing/updatepass/' . $userEmail . '";';  
+                    echo '}';
+                    echo '</script>';
                 }
-                //hash password
+                
                 
             }else{
                 $this->view('landing/enterotp',$data);
             }
-
-
-        }else{
-           
+        }else{  
                 $data=[
-                   
-    
                     'otp'=>'',
                     'otp_err'=>'',
                 ];
@@ -555,15 +536,15 @@ class Landing extends Controller{
 
         }       
     }
-    public function updatepass() {
+    public function updatepass($userEmail) {
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // var_dump($_SESSION);
             // process form
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $userEmail=$_SESSION['user_email'] ;
+            // $userEmail=$_SESSION['user_email'] ;
             $data = [
-                'user_email' => $userEmail,
+                'userEmail' => $userEmail,
                 'pass' => trim($_POST['pass']),
                 'confirm_pass' => trim($_POST['confirm_pass']),
                 'pass_err' => '',
@@ -587,7 +568,7 @@ class Landing extends Controller{
             // If no errors, proceed with updating the password
             if (empty($data['pass_err']) && empty($data['confirm_pass_err'])) {
                 // Get user ID based on the email
-                $user = $this->userModel->findUserByEmail($data['user_email']);
+                $user = $this->userModel->findUserByEmail($data['userEmail']);
                 
                 if ($user) {
                     // Hash the password
@@ -609,10 +590,10 @@ class Landing extends Controller{
                 $this->view('landing/updatepass', $data);
             }
         } else {
-            $userEmail=$_SESSION['user_email'] ;
+            // $userEmail=$_SESSION['user_email'] ;
             // GET request, load the view
             $data = [
-                'user_email' => $userEmail,
+                'userEmail' => $userEmail,
                 'pass' => '',
                 'confirm_pass' => '',
                 'pass_err' => '',

@@ -1,5 +1,5 @@
 <?php 
-  class Admins{
+  class Admins {
     private $db;
     public function __construct(){
         $this->db = new Database;
@@ -85,18 +85,7 @@
         return false;
       }
     }
-
-    /*public function getCustomerCount(){
-      $this->db->query('SELECT COUNT(*) as customerCount FROM customers;');
-      
-      return $this->db->resultSet();
-    }
-    
-    public function getPublisherCount(){
-      $this->db->query('SELECT COUNT(*) as publisherCount FROM publishers;');
-      
-      return $this->db->resultSet();
-    }*/
+  
   
 
     public function getPendingPublishers() {
@@ -146,6 +135,4 @@ public function approveusers($user_id){
 
 
   
-  
   }
-
