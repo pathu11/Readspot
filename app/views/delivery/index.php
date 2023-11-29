@@ -55,22 +55,25 @@
                 
                     <div class="div_table" style="width: 90%">
                     <table>
+                    <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
+                        
                         <tr>
                             <th style="width: 35%">Weight(kg)</th>
                             <th style="width: 45%">Price per unit(Rs)</th>
                             <th style="width: 20%">Edit</th>
                         </tr>
                         <tr>
+
                             <th>1</th>
-                            <th>350</th>
-                            <th><a href="<?php echo URLROOT; ?>/delivery/updatepriceAdditional/<?php $data['deliverId']; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
+                            <th><?php echo $deliveryDetails->priceperkilo; ?></th>
+                            <th><a href="<?php echo URLROOT; ?>/delivery/updatepricePerOne/<?php echo $deliveryDetails->delivery_id; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
                         </tr>
                         <tr>
                             <th>Additional per kilo</th>
-                            <th>80</th>
-                            <th><a href="<?php echo URLROOT; ?>/delivery/updatepricePerOne/<?php $data['deliverId']; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
+                            <th><?php echo $deliveryDetails->priceperadditional; ?></th>
+                            <th><a href="<?php echo URLROOT; ?>/delivery/updatepriceAdditional/<?php echo $deliveryDetails->delivery_id; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
                         </tr>
-                        
+                        <?php endforeach; ?>
                     </table>
                     
                 </div>
