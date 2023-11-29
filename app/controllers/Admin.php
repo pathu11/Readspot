@@ -23,7 +23,7 @@ require APPROOT . '\vendor\autoload.php';
       $this->db = new Database();
 
   }
-  public function index(){
+  /*public function index(){
       
       if (!isLoggedIn()) {
           redirect('landing/login');
@@ -32,18 +32,55 @@ require APPROOT . '\vendor\autoload.php';
          
 
           $adminDetails = $this->adminModel->findAdminById($user_id); 
-          //$customerCount = $this->adminModel->getCustomerCount();
-          //$publisherCount  = $this->adminModel->getPublisherCount(); 
+          $getPendingUserDetails = $this->adminModel->getPendingUsers();
+          
           $data = [
               'adminDetails' => $adminDetails,
               'adminName'=>$adminDetails[0]->name,
-              //'customerCount'=>$customerCount->customerCount,
-              //'publisherCount'=>$publisherCount->publisherCount
+              'pendingUserDetails'=>$getPendingUserDetails
 
           ];
           $this->view('admin/index', $data);
       }
+  }*/
+
+  public function index(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else {
+        if (isset($_GET['user_role'])) {
+            $user_id = $_SESSION['user_id'];
+            $adminDetails = $this->adminModel->findAdminById($user_id);
+            $userRoleFilter = $_GET['user_role'];
+        
+            $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
+            $data = [
+                'adminDetails' => $adminDetails,
+                'adminName'=>$adminDetails[0]->name,
+                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole
+  
+            ];
+            $this->view('admin/index', $data);
+        
+        } else {
+            $user_id = $_SESSION['user_id'];
+         
+
+            $adminDetails = $this->adminModel->findAdminById($user_id); 
+            $getPendingUserDetails = $this->adminModel->getPendingUsers();
+            
+            $data = [
+                'adminDetails' => $adminDetails,
+                'adminName'=>$adminDetails[0]->name,
+                'pendingUserDetails'=>$getPendingUserDetails
+  
+            ];
+            $this->view('admin/index', $data);
+        }
+      }
   }
+  
+
 
   public function categories(){
     $user_id = $_SESSION['user_id'];
@@ -182,7 +219,6 @@ require APPROOT . '\vendor\autoload.php';
         die('Something went wrong');
     }
   }
- 
 
   public function pendingRequestsPub(){
     if (!isLoggedIn()) {
@@ -217,8 +253,10 @@ require APPROOT . '\vendor\autoload.php';
         ];
         $this->view('admin/pendingRequestsCharity', $data);
     }
-
   }
+  
+  
+  
   public function approvePub($user_id){
     // Assuming your approval logic here...
 

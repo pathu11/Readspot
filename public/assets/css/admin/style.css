@@ -68,6 +68,38 @@ body {
   padding-right: 30px;
 }
 
+.table-head{
+  font-weight: 100px;
+  font-size: x-large;
+  color: #333333;
+}
+
+.filter-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-style: none;
+}
+
+.select-bar{
+  border-style: none;
+  height: 30px;
+  border-radius: 5px;
+  color: black;
+  border-style: solid;
+  border: none;
+  border-width: 2px;
+  background: rgb(0,0,0, 15%);
+}
+
+.filter-btn{
+  background: rgb(0,0,0, 15%);
+}
+
+.fa-search{
+  color: black;
+}
+
 table{
   margin-top: 20px;
   margin-bottom: 30px;

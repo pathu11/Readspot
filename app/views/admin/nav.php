@@ -5,7 +5,7 @@
         <img src="<?php echo URLROOT?>/assets/images/admin/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
         
-        <span class="user">Admin-<?php echo $data['adminName']?></span>
+        <span class="user"><?php echo $data['adminName']?></span>
         <i class="bx bxs-user-circle icon"></i>
       </div>
       <div class="sidebar">

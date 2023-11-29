@@ -88,7 +88,7 @@
   
   
 
-    public function getPendingPublishers() {
+  public function getPendingPublishers() {
       $this->db->query('SELECT * FROM publishers WHERE  status = "pending"');
       $results=$this->db->resultSet();
 
@@ -101,6 +101,29 @@
 
     return $results;
 }
+
+  public function getPendingUsers(){
+    $this->db->query('SELECT * FROM users WHERE  status = "pending"');
+    $results=$this->db->resultSet();
+
+    return $results;
+  }
+
+  public function getPendingUserDetailsFilteredByUserRole($userRoleFilter){
+    if($userRoleFilter=='publisher'){
+      $this->db->query('SELECT * FROM users WHERE  status = "pending" AND user_role="publisher"');
+      $results=$this->db->resultSet();
+
+      return $results;
+    }
+    if($userRoleFilter=='charity'){
+      $this->db->query('SELECT * FROM users WHERE  status = "pending" AND user_role="charity"');
+      $results=$this->db->resultSet();
+
+      return $results;
+    }
+  }
+
   public function approvePub($user_id) {
     $this->db->query("UPDATE publishers SET status = 'approval' WHERE user_id = :user_id");
     $this->db->bind(':user_id', $user_id);
