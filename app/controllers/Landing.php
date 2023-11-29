@@ -552,6 +552,7 @@ class Landing extends Controller{
             $data = [
                 'otp' => '',
                 'otp_err' => '',
+                'remaining_time' => 0
             ];
     
             $this->view('landing/enterotp', $data);
