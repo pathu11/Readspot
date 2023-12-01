@@ -51,8 +51,30 @@
       }
     }
 
+    public function addEventCategory($data){
+      $this->db->query('INSERT INTO event_category(event,description) VALUES (:event_category,:description)');
+
+      $this->db->bind(':event_category',$data['event_category']);
+      $this->db->bind(':description',$data['description']);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function findBookCategoryById($id){
       $this->db->query('SELECT * FROM book_category WHERE id=:id');
+      $this->db->bind(':id',$id);
+
+      //return $this->db->resultSet();
+      $row = $this->db->single();
+      return $row;
+    }
+
+    public function findEventCategoryById($id){
+      $this->db->query('SELECT * FROM event_category WHERE id=:id');
       $this->db->bind(':id',$id);
 
       //return $this->db->resultSet();
@@ -74,8 +96,34 @@
       }
     }
 
+    public function updateEventCategory($data){
+      $this->db->query('UPDATE event_category SET event = :event_category, description = :description WHERE id = :id');
+
+      $this->db->bind(':event_category',$data['event_category']);
+      $this->db->bind(':description',$data['description']);
+      $this->db->bind(':id',$data['id']);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function deleteBookCategory($id){
       $this->db->query('DELETE FROM book_category WHERE id = :id');
+
+      $this->db->bind(':id',$id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function deleteEventCategory($id){
+      $this->db->query('DELETE FROM event_category WHERE id = :id');
 
       $this->db->bind(':id',$id);
 

@@ -220,6 +220,124 @@ require APPROOT . '\vendor\autoload.php';
     }
   }
 
+  public function addEventCategory(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'event_category'=>trim($_POST['event_category']),
+            'description'=>trim($_POST['description']),
+
+            'event_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        if(empty($data['event_category'])){
+            $data['event_category_err']='Please enter the category name';      
+        }
+
+        if(empty($data['description'])){
+            $data['description_err']='Please enter the category description';      
+        }
+
+        if(empty($data['event_category_err']) && empty($data['description_err'])){
+            if($this->adminModel->addEventCategory($data)){
+                flash('add_success','You are added the event category successfully');
+                redirect('admin/categories');
+            }else{
+                die('Something went wrong');
+            }
+        }
+
+        else{
+            $this->view('admin/addEventCategory',$data);
+        }
+        
+    }
+
+    else{
+        $data=[
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'event_category'=>'',
+            'description'=>'',
+            'event_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        $this->view('admin/addEventCategory',$data);
+    }
+  }
+
+  public function updateEventCategory($id){
+    $user_id = $_SESSION['user_id'];
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName' => $adminDetails[0]->name,
+            'id' => $id,
+            'event_category' => trim($_POST['event_category']),
+            'description' => trim($_POST['description']),
+            'event_category_err' => '',
+            'description_err' => ''
+        ];
+
+        if (empty($data['event_category'])) {
+            $data['event_category_err'] = 'Please enter the category name';
+        }
+
+        if (empty($data['description'])) {
+            $data['description_err'] = 'Please enter the category description';
+        }
+
+        if (empty($data['event_category_err']) && empty($data['description_err'])) {
+            if ($this->adminModel->updateEventCategory($data)) {
+                flash('update_success', 'You are updated the event category successfully');
+                redirect('admin/categories');
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            // Load view with errors
+            $this->view('admin/updateEventCategory', $data);
+        }
+    } else {
+        $eventCategory = $this->adminModel->findEventCategoryById($id);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName' => $adminDetails[0]->name,
+            'id' => $id,
+            'event_category' => $eventCategory->event,
+            'description' => $eventCategory->description,
+            'event_category_err' => '',
+            'description_err' => ''
+        ];
+
+        $this->view('admin/updateEventCategory', $data);
+    }
+  }
+
+  public function deleteEventCategory($id){
+    if($this->adminModel->deleteEventCategory($id)){
+        flash('delete_success','You deleted the event category successfully');
+        redirect('admin/categories');
+    }
+    else{
+        die('Something went wrong');
+    }
+  }
+
   public function pendingRequestsPub(){
     if (!isLoggedIn()) {
         redirect('landing/login');

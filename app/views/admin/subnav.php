@@ -6,8 +6,7 @@
             align-items: center;
             padding-left: 200px;
             padding-right: 200px;
-            margin-top: 30px;
-            margin-bottom: 50px;
+            padding-top: 120px;
             color: black;
             font-family: inner;
         }
@@ -20,7 +19,7 @@
             color: black;
         }
 
-        .nav-container2 a:hover {
+        .nav-container2 a.active {
             background-color: #01322F;
             color: white;
             border-radius: 10px;
@@ -32,9 +31,16 @@
 </head>
 <body>
     <div class="nav-container2">
-
-        
-        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Publishers</a>
-        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsCharity">Charity Organizations</a>
-        
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub"<?php echo isActive('http://localhost/Group-27/admin/pendingRequestsPub'); ?>>Publishers</a>
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsCharity"<?php echo isActive('/admin/pendingRequestsCharity'); ?>>Charity Organizations</a>  
     </div>
+
+    <?php
+    // Function to check if the current page matches the given URL
+    function isActive($url)
+    {
+        $currentPage = $_SERVER['REQUEST_URI'];
+        $isActive = $currentPage == $url ? 'class="active"' : '';
+        echo $isActive;
+    }
+    ?>
