@@ -590,7 +590,10 @@ class Landing extends Controller{
     
                 $mail = new PHPMailer(true);
                 $otp = mt_rand(100000, 999999);
+
                 $timestamp = $_SERVER["REQUEST_TIME"];
+
+
                 $_SESSION['time'] = $timestamp;
                 $_SESSION['otp'] = $otp;
                 $_SESSION['user_email'] = $userEmail;
@@ -636,6 +639,7 @@ class Landing extends Controller{
     }
     
     public function enterotp() {
+
         $userId = null; // Initialize $userId
     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -690,6 +694,7 @@ class Landing extends Controller{
                                 exit;
                             }
                         }
+
                     }
                 } else {
                     $data = [
