@@ -43,6 +43,7 @@
     <div>
         <div class="form-container">
             <div class="form1">
+                
                 <span>We sent an OTP to your registered email address. Check your inbox and enter the OTP</span>
                 
                 <form action="<?php echo URLROOT; ?>/landing/enterotp" method="POST">                    
