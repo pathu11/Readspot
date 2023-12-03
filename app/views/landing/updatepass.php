@@ -32,8 +32,6 @@
 
                     <input type="password" name="confirm_pass"  placeholder="Confirm the new password " required><br>
                     <span class="error"><?php echo $data['confirm_pass_err']; ?></span>
-                               
-                    
                     
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
