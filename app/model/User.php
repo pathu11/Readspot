@@ -13,16 +13,16 @@ class User{
         return $results;
     }
 
-    public function signupCustomer($data) {
+    public function signupCustomerPending($data) {
         try {
             $this->db->beginTransaction(); // Begin the transaction
 
             // Insert data into the 'users' table
-            $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role,:status)');
+            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'customer');
-            $this->db->bind(':status', 'approval');
+            // $this->db->bind(':status', 'approval');
 
             if ($this->db->execute()) {
                 $user_id = $this->db->lastInsertId();
@@ -50,7 +50,24 @@ class User{
 
         return false;
     }
-    
+    public function verifyemailCustomer($user_id) {
+        $this->db->query("UPDATE customers SET status = 'approval' WHERE user_id = :user_id");
+        $this->db->bind(':user_id', $user_id);
+        if ($this->db->execute()) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+    public function verifyemailUsers($user_id) {
+        $this->db->query("UPDATE users SET status = 'approval' WHERE user_id = :user_id");
+        $this->db->bind(':user_id', $user_id);
+        if ($this->db->execute()) {
+          return true;
+      } else {
+          return false;
+      }
+    }
     
 
     public function signupPubPending($data){
