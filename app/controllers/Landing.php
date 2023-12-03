@@ -496,6 +496,7 @@ class Landing extends Controller{
         }
     }   
     public function enterotp() {
+        $otpTimeout = 120;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $currentTime = time();
             $otpTimestamp = $_SESSION['otp_timestamp'];
@@ -516,43 +517,39 @@ class Landing extends Controller{
             // Check if OTP is within the valid timeframe
             if ($remainingTime === 0) {
                 $data['otp_err'] = 'OTP has expired. Please request a new OTP.';
-            }
-    
-            $data = [
-                'otp' => trim($_POST['otp']),
-                'otp_err' => '',
-                'remaining_time' => $remainingTime
-            ];
-    
-            // validate otp
-            if (empty($data['otp'])) {
-                $data['otp_err'] = 'Please enter the otp';
             } else {
-                if ($data['otp'] != $oldOtp) {
-                    $data['otp_err'] = 'Incorrect otp';
+                $data = [
+                    'otp' => trim($_POST['otp']),
+                    'otp_err' => '',
+                    'remaining_time' => $remainingTime
+                ];
+            
+                // validate otp
+                if (empty($data['otp']) || $data['otp'] != $oldOtp) {
+                    $data['otp_err'] = 'Incorrect OTP';
+                }
+            
+                // make sure errors are empty
+                if (empty($data['otp_err'])) {
+                    // validate
+                    if ($data['otp'] == $oldOtp) {
+                        echo '<script>';
+                        echo 'alert("OTP is correct!");';
+                        echo 'redirectToUpdatePass();';
+                        echo 'function redirectToUpdatePass() {';
+                        echo 'window.location.href = "' . URLROOT . '/landing/updatepass/' . $userEmail . '";';  
+                        echo '}';
+                        echo '</script>';
+                    }
                 }
             }
-    
-            // make sure errors are empty
-            if (empty($data['otp_err'])) {
-                // validate
-                if ($data['otp'] == $oldOtp) {
-                    echo '<script>';
-                    echo 'alert("OTP is correct!");';
-                    echo 'redirectToUpdatePass();';
-                    echo 'function redirectToUpdatePass() {';
-                    echo 'window.location.href = "' . URLROOT . '/landing/updatepass/' . $userEmail . '";';  
-                    echo '}';
-                    echo '</script>';
-                }
-            } else {
-                $this->view('landing/enterotp', $data);
-            }
+            
         } else {
+            // If not a POST request, initialize data
             $data = [
                 'otp' => '',
                 'otp_err' => '',
-                'remaining_time' => 0
+                'remaining_time' => $otpTimeout // Start from 2 minutes
             ];
     
             $this->view('landing/enterotp', $data);

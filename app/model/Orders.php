@@ -16,8 +16,6 @@
     public function findBrandNewBookProOrdersBypubId($publisher_id){
         $this->db->query('SELECT * from brandnewbookorders WHERE publisher_id=:publisher_id AND status="processing"');
         $this->db->bind(':publisher_id',$publisher_id);
-       
-
         return $this->db->resultSet();
     }
     public function findBrandNewBookShippingOrdersBypubId($publisher_id){
@@ -34,4 +32,6 @@
 
         return $this->db->resultSet();
     }
+
+    
   }
