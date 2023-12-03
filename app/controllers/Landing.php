@@ -452,8 +452,10 @@ class Landing extends Controller{
                 
                 $mail = new PHPMailer(true);
                 $otp = mt_rand(100000, 999999);
-                $_SESSION['otp_timestamp'] = time();
+                // $_SESSION['otp_timestamp'] = time();
                 // Save OTP in session
+                $timestamp =  $_SERVER["REQUEST_TIME"];  // generate the timestamp when otp is forwarded to user email/mobile.
+                $_SESSION['time'] = $timestamp;
                 $_SESSION['otp'] = $otp;
                 $_SESSION['user_email'] = $userEmail;
     
@@ -496,17 +498,10 @@ class Landing extends Controller{
         }
     }   
     public function enterotp() {
-        $otpTimeout = 120;
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $currentTime = time();
-            $otpTimestamp = $_SESSION['otp_timestamp'];
-            $otpTimeout = 120; // 2 minutes
-    
-            $remainingTime = max(0, $otpTimeout - ($currentTime - $otpTimestamp));
-    
-            // Set the remaining time in the data array
-            $data['remaining_time'] = $remainingTime;
-    
+           
+            
             // process form
             // sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -515,13 +510,18 @@ class Landing extends Controller{
             $userEmail = $_SESSION['user_email'];
     
             // Check if OTP is within the valid timeframe
-            if ($remainingTime === 0) {
-                $data['otp_err'] = 'OTP has expired. Please request a new OTP.';
+            // if ($remainingTime === 0) {
+            //     $data['otp_err'] = 'OTP has expired. Please request a new OTP.';
+            $timestamp =  $_SERVER["REQUEST_TIME"];
+            if(($timestamp - $_SESSION['time']) > 60)  // 300 refers to 300 seconds
+                {
+                    $data['otp_err'] ="OTP expired. Pls. try again.";
+                }
             } else {
                 $data = [
                     'otp' => trim($_POST['otp']),
                     'otp_err' => '',
-                    'remaining_time' => $remainingTime
+                    // 'remaining_time' => $remainingTime
                 ];
             
                 // validate otp
