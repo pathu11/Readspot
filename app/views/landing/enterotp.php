@@ -11,9 +11,31 @@
 <head>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
 
-    <!-- Set the initial remaining time from PHP variable -->
     <script>
+        // Set the initial remaining time from PHP variable
         var initialRemainingTime = <?php echo $remainingTime; ?>;
+        
+        // Function to update the remaining time
+        function updateRemainingTime() {
+            var remainingTimeElement = document.getElementById('remainingTime');
+            if (initialRemainingTime > 0) {
+                remainingTimeElement.innerText = formatTime(initialRemainingTime);
+                initialRemainingTime--;
+            } else {
+                remainingTimeElement.innerText = 'Expired';
+                // You can perform additional actions here when the time expires
+            }
+        }
+
+        // Function to format time in MM:SS format
+        function formatTime(seconds) {
+            var minutes = Math.floor(seconds / 60);
+            var remainingSeconds = seconds % 60;
+            return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+        }
+
+        // Call the updateRemainingTime function every second
+        setInterval(updateRemainingTime, 1000);
     </script>
 </head>
 
@@ -21,6 +43,7 @@
     <div>
         <div class="form-container">
             <div class="form1">
+                
                 <span>We sent an OTP to your registered email address. Check your inbox and enter the OTP</span>
                 
                 <form action="<?php echo URLROOT; ?>/landing/enterotp" method="POST">                    
@@ -38,34 +61,6 @@
         </div>
     </div>
 
-    <!-- Add this script to handle the countdown timer -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Set the initial remaining time from PHP variable
-            var remainingTime = initialRemainingTime;
-            updateRemainingTime(remainingTime);
-
-            // Update the remaining time every second
-            var countdownInterval = setInterval(function () {
-                remainingTime = Math.max(0, remainingTime - 1);
-                updateRemainingTime(remainingTime);
-
-                // Stop the countdown when the remaining time reaches 0
-                if (remainingTime === 0) {
-                    clearInterval(countdownInterval);
-                }
-            }, 1000);
-
-            function updateRemainingTime(timeInSeconds) {
-                // Convert seconds to minutes and seconds
-                var minutes = Math.floor(timeInSeconds / 60);
-                var seconds = timeInSeconds % 60;
-
-                // Update the content of the remainingTime element
-                document.getElementById('remainingTime').innerText = minutes + 'm ' + seconds + 's';
-            }
-        });
-    </script>
 </body>
 
 </html>
