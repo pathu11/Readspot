@@ -915,7 +915,7 @@ class Publisher extends Controller{
                 $this->view('publisher/update',$data);
     
             }  
-    }  
+    } 
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
