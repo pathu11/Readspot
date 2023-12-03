@@ -23,7 +23,7 @@ require APPROOT . '\vendor\autoload.php';
       $this->db = new Database();
 
   }
-  public function index(){
+  /*public function index(){
       
       if (!isLoggedIn()) {
           redirect('landing/login');
@@ -31,19 +31,56 @@ require APPROOT . '\vendor\autoload.php';
           $user_id = $_SESSION['user_id'];
          
 
-          $adminDetails = $this->adminModel->findAdminById($user_id);  
-
-//           $adminDetails = $this->adminModel->findadminById($user_id);
+          $adminDetails = $this->adminModel->findAdminById($user_id); 
+          $getPendingUserDetails = $this->adminModel->getPendingUsers();
           
-
           $data = [
               'adminDetails' => $adminDetails,
               'adminName'=>$adminDetails[0]->name,
-             
+              'pendingUserDetails'=>$getPendingUserDetails
+
           ];
           $this->view('admin/index', $data);
       }
+  }*/
+
+  public function index(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else {
+        if (isset($_GET['user_role'])) {
+            $user_id = $_SESSION['user_id'];
+            $adminDetails = $this->adminModel->findAdminById($user_id);
+            $userRoleFilter = $_GET['user_role'];
+        
+            $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
+            $data = [
+                'adminDetails' => $adminDetails,
+                'adminName'=>$adminDetails[0]->name,
+                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole
+  
+            ];
+            $this->view('admin/index', $data);
+        
+        } else {
+            $user_id = $_SESSION['user_id'];
+         
+
+            $adminDetails = $this->adminModel->findAdminById($user_id); 
+            $getPendingUserDetails = $this->adminModel->getPendingUsers();
+            
+            $data = [
+                'adminDetails' => $adminDetails,
+                'adminName'=>$adminDetails[0]->name,
+                'pendingUserDetails'=>$getPendingUserDetails
+  
+            ];
+            $this->view('admin/index', $data);
+        }
+      }
   }
+  
+
 
   public function categories(){
     $user_id = $_SESSION['user_id'];
@@ -182,7 +219,124 @@ require APPROOT . '\vendor\autoload.php';
         die('Something went wrong');
     }
   }
- 
+
+  public function addEventCategory(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'event_category'=>trim($_POST['event_category']),
+            'description'=>trim($_POST['description']),
+
+            'event_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        if(empty($data['event_category'])){
+            $data['event_category_err']='Please enter the category name';      
+        }
+
+        if(empty($data['description'])){
+            $data['description_err']='Please enter the category description';      
+        }
+
+        if(empty($data['event_category_err']) && empty($data['description_err'])){
+            if($this->adminModel->addEventCategory($data)){
+                flash('add_success','You are added the event category successfully');
+                redirect('admin/categories');
+            }else{
+                die('Something went wrong');
+            }
+        }
+
+        else{
+            $this->view('admin/addEventCategory',$data);
+        }
+        
+    }
+
+    else{
+        $data=[
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'event_category'=>'',
+            'description'=>'',
+            'event_category_err'=>'',
+            'description_err'=>''
+        ];
+
+        $this->view('admin/addEventCategory',$data);
+    }
+  }
+
+  public function updateEventCategory($id){
+    $user_id = $_SESSION['user_id'];
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName' => $adminDetails[0]->name,
+            'id' => $id,
+            'event_category' => trim($_POST['event_category']),
+            'description' => trim($_POST['description']),
+            'event_category_err' => '',
+            'description_err' => ''
+        ];
+
+        if (empty($data['event_category'])) {
+            $data['event_category_err'] = 'Please enter the category name';
+        }
+
+        if (empty($data['description'])) {
+            $data['description_err'] = 'Please enter the category description';
+        }
+
+        if (empty($data['event_category_err']) && empty($data['description_err'])) {
+            if ($this->adminModel->updateEventCategory($data)) {
+                flash('update_success', 'You are updated the event category successfully');
+                redirect('admin/categories');
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            // Load view with errors
+            $this->view('admin/updateEventCategory', $data);
+        }
+    } else {
+        $eventCategory = $this->adminModel->findEventCategoryById($id);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName' => $adminDetails[0]->name,
+            'id' => $id,
+            'event_category' => $eventCategory->event,
+            'description' => $eventCategory->description,
+            'event_category_err' => '',
+            'description_err' => ''
+        ];
+
+        $this->view('admin/updateEventCategory', $data);
+    }
+  }
+
+  public function deleteEventCategory($id){
+    if($this->adminModel->deleteEventCategory($id)){
+        flash('delete_success','You deleted the event category successfully');
+        redirect('admin/categories');
+    }
+    else{
+        die('Something went wrong');
+    }
+  }
 
   public function pendingRequestsPub(){
     if (!isLoggedIn()) {
@@ -217,8 +371,10 @@ require APPROOT . '\vendor\autoload.php';
         ];
         $this->view('admin/pendingRequestsCharity', $data);
     }
-
   }
+  
+  
+  
   public function approvePub($user_id){
     // Assuming your approval logic here...
 
