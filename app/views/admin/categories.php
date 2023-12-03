@@ -53,7 +53,7 @@
     <div class="container-column">
       <div class="above-table">
         <h3>Events</h3>
-        <a href="<?php echo URLROOT;?>/admin/addCategories" class="btn">Add Event Category</a>
+        <a href="<?php echo URLROOT;?>/admin/addEventCategory" class="btn">Add Event Category</a>
       </div>
       <table class="table">
       <thead>
@@ -70,7 +70,7 @@
           <td class="tdata"><?php echo $eventCategoryDetails->id; ?></td>
           <td><?php echo $eventCategoryDetails->event; ?></td>
           <td><?php echo $eventCategoryDetails->description; ?></td>
-          <td><i class="fa fa-solid fa-pen"></i><i class="fa fa-solid fa-trash"></i></td>
+          <td><a href="<?php echo URLROOT;?>/admin/updateEventCategory/<?php echo $eventCategoryDetails->id;?>"><i class="fa fa-solid fa-pen"></i></a><a href="<?php echo URLROOT;?>/admin/deleteEventCategory/<?php echo $eventCategoryDetails->id;?>"><i class="fa fa-solid fa-trash"></i></a></td>
         </tr>
         <?php endforeach; ?> 
       </tbody>

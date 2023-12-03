@@ -40,8 +40,21 @@
   <script src="<?php echo URLROOT;?>/assets/js/admin/chart1.js"></script>
   <script src="<?php echo URLROOT;?>/assets/js/admin/chart2.js"></script>
 
+
   <div class="table-container">
     <span class="table-head">Pending Requests</span>
+    <div class="filter-bar">
+        <form action="<?php echo URLROOT;?>/admin/" method="get">
+            <select name="user_role" class="select-bar">
+                <option value="">Select User Role</option>
+                <option value="publisher" <?php isset($_GET['user_role'])==true ? ($_GET['user_role']=='publisher'? 'selected':''):''?> >Publisher
+                </option>
+                <option value="charity" <?php isset($_GET['user_role'])==true ? ($_GET['user_role']=='charity'? 'selected':''):''?> >Charity Organization
+                </option>
+            </select>
+            <button type="submit" class="filter-btn"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
     <table>
       <thead>
         <tr>
@@ -53,39 +66,28 @@
         </tr>
       </thead>
       <tbody>
+        <?php foreach($data['pendingUserDetails'] as $PendingUser): ?>
         <tr>
-          <td>123</td>
-          <td>ABC Publishers</td>
-          <td>Publisher</td>
-          <td>2023-05-20 09:45 AM</td>
+          <td><?php echo $PendingUser->user_id;?></td>
+          <td><?php echo $PendingUser->email;?></td>
+          <td><?php echo $PendingUser->user_role;?></td>
+          <td><?php echo $PendingUser->created_at;?></td>
           <td class="actions">
-            <button>Approve</button>
+          <?php
+            $userRole = '';
+            if($PendingUser->user_role=='publisher'){
+              $userRole = 'approvePub';
+            } else{
+              $userRole = 'approveCharity';
+            }
+          ?>
+          
+          <a href='<?php echo URLROOT; ?>/admin/<?php echo $userRole; ?>/<?php echo $PendingUser->user_id; ?>'><button>Approve</button></a>
             <button>Reject</button>
             <i class="fa fa-solid fa-eye"></i>
           </td>
         </tr>
-        <tr>
-          <td>124</td>
-          <td>XYZ Charity Org</td>
-          <td>Charity Org</td>
-          <td>2023-05-19 02:30 PM</td>
-          <td class="actions">
-            <button>Approve</button>
-            <button>Reject</button>
-            <i class="fa fa-solid fa-eye"></i>
-          </td>
-        </tr>
-        <tr>
-          <td>125</td>
-          <td>LMN Publishers</td>
-          <td>Publisher</td>
-          <td>2023-05-18 11:15 AM</td>
-          <td class="actions">
-            <button>Approve</button>
-            <button>Reject</button>
-            <i class="fa fa-solid fa-eye"></i>
-          </td>
-        </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>

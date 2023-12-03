@@ -30,7 +30,7 @@
         <div class="navig">
             <nav class="navigation">
                
-               <a href="<?php echo URLROOT; ?>/landing/index">Home</a>';
+               <a href="<?php echo URLROOT; ?>/landing/index" class="highlight">Home</a>
                
                 
                 <a href="#">About</a>
@@ -39,7 +39,7 @@
 
             </nav>
             
-                <a href="<?php echo URLROOT; ?>/landing/login"><button class="Login">Login </button></a>';
+                <a href="<?php echo URLROOT; ?>/landing/login"><button class="Login">Login </button></a>
                   
         </div>
         </div>
