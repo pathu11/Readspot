@@ -22,18 +22,20 @@ th, td {
 }
 
 th {
-    /* background-color: #009D94; */
+   
     color: #09514C;
 }
 
 tr {
     background-color:#add8e6;
+} 
+
+tr:hover {
+    background-color: #009D94;
+    color:black;
 }
 
-/* tr:hover {
-    background-color: #09514C;
-    color:black;
-} */
+
 
 .btn {
     display: block;
