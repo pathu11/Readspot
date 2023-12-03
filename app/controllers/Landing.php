@@ -425,7 +425,7 @@ class Landing extends Controller{
 
         }       
     }
-    public function enteremail(){
+    public function enteremail() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // process form
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -435,26 +435,28 @@ class Landing extends Controller{
                 'email_err' => '',
             ];
             //validate email
-            if (empty($data['email'])) {
-                $data['email_err'] = 'Please enter email';
+            if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['email_err'] = 'Please enter a valid email';
+                $this->view('landing/enteremail', $data); // Pass $data to the view
+                exit; // Ensure no further processing after redirection
             }
     
             //check for user/email
             if ($this->userModel->findUserByEmail($data['email'])) {
                 //user found
             } else {
-                $data['email_err'] = 'Email Not found,Please enter a valid email address';
+                $data['email_err'] = 'Email not found. Please enter a valid email address';
+                $this->view('landing/enteremail', $data); // Pass $data to the view
+                exit; // Ensure no further processing after redirection
             }
     
             //make sure errors are empty
             if (empty($data['email_err'])) {
                 $userEmail = $data['email'];
-                
+    
                 $mail = new PHPMailer(true);
                 $otp = mt_rand(100000, 999999);
-                // $_SESSION['otp_timestamp'] = time();
-                // Save OTP in session
-                $timestamp =  $_SERVER["REQUEST_TIME"];  // generate the timestamp when otp is forwarded to user email/mobile.
+                $timestamp = $_SERVER["REQUEST_TIME"];
                 $_SESSION['time'] = $timestamp;
                 $_SESSION['otp'] = $otp;
                 $_SESSION['user_email'] = $userEmail;
@@ -462,19 +464,19 @@ class Landing extends Controller{
                 try {
                     //Server settings
                     $mail->isSMTP();
-                    $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                    $mail->Host       = MAIL_HOST;
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = MAIL_USER; // SMTP username
-                    $mail->Password   = MAIL_PASS;   // SMTP password
+                    $mail->Username   = MAIL_USER;
+                    $mail->Password   = MAIL_PASS;
                     $mail->SMTPSecure = MAIL_SECURITY;
                     $mail->Port       = MAIL_PORT;
     
                     //Recipients
                     $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-                    $mail->addAddress($userEmail);  // Add a recipient
+                    $mail->addAddress($userEmail);
     
                     // Content
-                    $mail->isHTML(true);  // Set email format to HTML
+                    $mail->isHTML(true);
                     $mail->Subject = 'Reset Your password';
                     $mail->Body = "Enter this OTP for reset your password: $otp";
     
@@ -483,10 +485,11 @@ class Landing extends Controller{
                     // Redirect or perform other actions as needed
                     redirect('landing/enterotp');
                 } catch (Exception $e) {
-                    die('Something went wrong: ' . $mail->ErrorInfo);
+                    error_log('Email sending failed: ' . $e->getMessage());
+                    $data['email_err'] = 'Something went wrong. Please try again later.';
+                    $this->view('landing/enteremail', $data); // Pass $data to the view
+                    exit; // Ensure no further processing after redirection
                 }
-            } else {
-                die('Something went wrong');
             }
         } else {
             $data = [
@@ -496,66 +499,82 @@ class Landing extends Controller{
     
             $this->view('landing/enteremail', $data);
         }
-    }   
+    }
+    
     public function enterotp() {
-        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-           
-            
-            // process form
             // sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            // init data
-            $oldOtp = $_SESSION['otp'];
-            $userEmail = $_SESSION['user_email'];
     
-            // Check if OTP is within the valid timeframe
-            // if ($remainingTime === 0) {
-            //     $data['otp_err'] = 'OTP has expired. Please request a new OTP.';
-            $timestamp =  $_SERVER["REQUEST_TIME"];
-            if(($timestamp - $_SESSION['time']) > 60)  // 300 refers to 300 seconds
-                {
-                    $data['otp_err'] ="OTP expired. Pls. try again.";
+            if (isset($_SESSION['otp']) && isset($_SESSION['time'])) {
+                $oldOtp = $_SESSION['otp'];
+                $userEmail = $_SESSION['user_email'];
+    
+                $timestamp = $_SERVER["REQUEST_TIME"];
+                $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
+                if (($timestamp - $_SESSION['time']) > $remainingTime) {  // 60 seconds for 1 minute
+                    $data = [
+                        'otp_err' => "OTP expired. Please try again.",
+                        'remaining_time' => 0
+                    ];
+                    $this->view('landing/enterotp', $data);
+                    exit; // Ensure no further processing after redirection
+                } else {
+                    $data = [
+                        'otp' => trim($_POST['otp']),
+                        'otp_err' => '',
+                        'remaining_time' => $remainingTime - ($timestamp - $_SESSION['time'])
+                    ];
+    
+                    // validate otp
+                    if (empty($data['otp']) || $data['otp'] != $oldOtp) {
+                        $data['otp_err'] = 'Incorrect OTP';
+                        $this->view('landing/enterotp', $data);
+                        exit; // Ensure no further processing after redirection
+                    }
+    
+                    // make sure errors are empty
+                    if (empty($data['otp_err'])) {
+                        // validate
+                        if ($data['otp'] == $oldOtp) {
+                            echo '<script>';
+                            echo 'alert("OTP is correct!");';
+                            echo 'redirectToUpdatePass();';
+                            echo '</script>';
+                            // Redirect to update password page
+                            echo '<script>';
+                            echo 'function redirectToUpdatePass() {';
+                            echo 'window.location.href = "' . URLROOT . '/landing/updatepass/' . $userEmail . '";';  
+                            echo '}';
+                            echo '</script>';
+                            exit; // Ensure no further processing after redirection
+                        }
+                    }
                 }
             } else {
                 $data = [
-                    'otp' => trim($_POST['otp']),
-                    'otp_err' => '',
-                    // 'remaining_time' => $remainingTime
+                    'otp_err' => "Session data not found. Please request a new OTP.",
+                    'remaining_time' => 0
                 ];
-            
-                // validate otp
-                if (empty($data['otp']) || $data['otp'] != $oldOtp) {
-                    $data['otp_err'] = 'Incorrect OTP';
-                }
-            
-                // make sure errors are empty
-                if (empty($data['otp_err'])) {
-                    // validate
-                    if ($data['otp'] == $oldOtp) {
-                        echo '<script>';
-                        echo 'alert("OTP is correct!");';
-                        echo 'redirectToUpdatePass();';
-                        echo 'function redirectToUpdatePass() {';
-                        echo 'window.location.href = "' . URLROOT . '/landing/updatepass/' . $userEmail . '";';  
-                        echo '}';
-                        echo '</script>';
-                    }
-                }
+                $this->view('landing/enterotp', $data);
+                exit; // Ensure no further processing after redirection
             }
-            
         } else {
+            $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
             // If not a POST request, initialize data
+            // $otpTimeout =$_SESSION['remaining_time']; // Timeout in seconds (1 minute)
             $data = [
                 'otp' => '',
                 'otp_err' => '',
-                'remaining_time' => $otpTimeout // Start from 2 minutes
+                'remaining_time' => $remainingTime,
             ];
+            // $_SESSION['remaining_time'] = $data['remaining_time'];
     
             $this->view('landing/enterotp', $data);
         }
     }
     
+        
     public function updatepass($userEmail) {
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -622,9 +641,7 @@ class Landing extends Controller{
     
             $this->view('landing/updatepass', $data);
         }
-    }
-    
-    
+    }    
     public function createUserSession($user) {
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['user_email'] = $user->email;
