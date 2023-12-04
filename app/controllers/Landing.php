@@ -11,8 +11,12 @@ class Landing extends Controller{
     private $userModel;
     private $publisherModel;
     private $adminModel;
+
+    private $customerModel;
+
     private $deliveryModel;
     private $superadminModel;
+
 
     private $db;
     public function  __construct(){
@@ -21,7 +25,11 @@ class Landing extends Controller{
         $this->publisherModel=$this->model('Publishers');
         // $this->charityModel=$this->model('Charity');
         $this->adminModel=$this->model('Admins');
+
+        $this->customerModel=$this->model('Customers');
+
         $this->superadminModel=$this->model('Super_admin');
+
         $this->db = new Database();
        
     }
@@ -444,7 +452,7 @@ class Landing extends Controller{
                 
                 $mail = new PHPMailer(true);
                 $otp = mt_rand(100000, 999999);
-    
+                $_SESSION['otp_timestamp'] = time();
                 // Save OTP in session
                 $_SESSION['otp'] = $otp;
                 $_SESSION['user_email'] = $userEmail;
@@ -487,30 +495,47 @@ class Landing extends Controller{
             $this->view('landing/enteremail', $data);
         }
     }   
-    public function enterotp(){  
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-            $oldOtp=$_SESSION['otp'];
-            $userEmail=$_SESSION['user_email'] ;
+    public function enterotp() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $currentTime = time();
+            $otpTimestamp = $_SESSION['otp_timestamp'];
+            $otpTimeout = 120; // 2 minutes
+    
+            $remainingTime = max(0, $otpTimeout - ($currentTime - $otpTimestamp));
+    
+            // Set the remaining time in the data array
+            $data['remaining_time'] = $remainingTime;
+    
             // process form
             // sanitize post data
-            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             // init data
-            $data=[
-                
-                'otp'=>trim($_POST['otp']),
-                'otp_err'=>'',
+            $oldOtp = $_SESSION['otp'];
+            $userEmail = $_SESSION['user_email'];
+    
+            // Check if OTP is within the valid timeframe
+            if ($remainingTime === 0) {
+                $data['otp_err'] = 'OTP has expired. Please request a new OTP.';
+            }
+    
+            $data = [
+                'otp' => trim($_POST['otp']),
+                'otp_err' => '',
+                'remaining_time' => $remainingTime
             ];
-             //validate otp
-             if(empty($data['otp'])){
-                $data['otp_err']='Please enter the otp';      
-            }else{
-                if($data['otp']!=$oldOtp){
-                    $data['otp_err']='incorrect otp';
+    
+            // validate otp
+            if (empty($data['otp'])) {
+                $data['otp_err'] = 'Please enter the otp';
+            } else {
+                if ($data['otp'] != $oldOtp) {
+                    $data['otp_err'] = 'Incorrect otp';
                 }
             }
-            //make sure errors are empty
-            if( empty($data['otp_err'])  ){
-                //validate
+    
+            // make sure errors are empty
+            if (empty($data['otp_err'])) {
+                // validate
                 if ($data['otp'] == $oldOtp) {
                     echo '<script>';
                     echo 'alert("OTP is correct!");';
@@ -520,22 +545,19 @@ class Landing extends Controller{
                     echo '}';
                     echo '</script>';
                 }
-                
-                
-            }else{
-                $this->view('landing/enterotp',$data);
+            } else {
+                $this->view('landing/enterotp', $data);
             }
-        }else{  
-                $data=[
-                    'otp'=>'',
-                    'otp_err'=>'',
-                ];
-            
-
-            $this->view('landing/enterotp',$data);
-
-        }       
+        } else {
+            $data = [
+                'otp' => '',
+                'otp_err' => '',
+            ];
+    
+            $this->view('landing/enterotp', $data);
+        }
     }
+    
     public function updatepass($userEmail) {
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -614,8 +636,6 @@ class Landing extends Controller{
             $_SESSION['publisher_id'] = $publisherDetails->publisher_id;
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('publisher/index');
-
-
         } elseif ($user->user_role == 'admin') {
             $adminDetails = $this->adminModel->findAdminById($user->user_id);
             $_SESSION['admin_id'] = $adminDetails->admin_id;
@@ -627,6 +647,11 @@ class Landing extends Controller{
 
             $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
             redirect('delivery/index');
+         
+        }elseif ($user->user_role == 'customer') {
+            $customerDetails = $this->customerModel->findCustomerById($user->user_id);
+            $_SESSION['customer_id'] = $customerDetails->customer_id;
+            redirect('customer/Home');
          
         }elseif ($user->user_role == 'charity') {
             

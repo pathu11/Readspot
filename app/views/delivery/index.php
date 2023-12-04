@@ -63,12 +63,12 @@
                         <tr>
                             <th>1</th>
                             <th>350</th>
-                            <th><a href="#"><i class="fa fa-edit" style="color:black;"></i></a></th>
+                            <th><a href="<?php echo URLROOT; ?>/delivery/updatepriceAdditional/<?php $data['deliverId']; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
                         </tr>
                         <tr>
                             <th>Additional per kilo</th>
                             <th>80</th>
-                            <th><a href="#"><i class="fa fa-edit" style="color:black;"></i></a></th>
+                            <th><a href="<?php echo URLROOT; ?>/delivery/updatepricePerOne/<?php $data['deliverId']; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
                         </tr>
                         
                     </table>
