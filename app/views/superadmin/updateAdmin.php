@@ -1,9 +1,6 @@
 <?php
     $title = "Update Admins";
-    // foreach($data['addadminDetails'] as $admin): 
-    //    $adminId=$admin->admin_id; 
-    $urlParts = explode('/', rtrim($_SERVER['REQUEST_URI'], '/'));
-    $adminId = end($urlParts);
+    
     
 ?>
 
@@ -21,11 +18,12 @@
         <div>
             <div class="form-container">
                 <div class="form1">
+               
                     <h2>Enter the Details of the Admin</h2>
-                    <form action="<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $adminId; ?>" method="POST">
+                    <form action="<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $data['user_id']; ?>" method="POST">
                         <br>
                         <br>
-                        <input type="text" name="admin_id" value="<?php echo isset($data['admin_id']) ? $data['admin_id'] : ''; ?>" hidden><br>
+                       
                         <input type="text" name="name" class="<?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo isset($data['name']) ? $data['name'] : ''; ?>" placeholder="Full Name" required><br>
                         <span class="error"><?php echo isset($data['name_err']) ? $data['name_err'] : ''; ?></span>
                         <input type="email" name="email" class="<?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo isset($data['email']) ? $data['email'] : ''; ?>" placeholder="Email" required>

@@ -4,8 +4,8 @@
     public function __construct(){
         $this->db = new Database;
     }
-    public function getAdminById($user_id){
-        $this->db->query('SELECT * from admin WHERE user_id=:user_id ' );
+    public function findAdminById($user_id){
+        $this->db->query('SELECT * from admin WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
        
 
@@ -291,20 +291,14 @@ public function getDelivery(){
                       
                           email = :email,
                           pass = :pass,
-                          delivery_id = :delivery_id,
                           
-
                       WHERE user_id = :user_id');
         // Bind values
         $this->db->bind(':user_id', $data['user_id']);
         
         $this->db->bind(':name ', $data['name ']);
         $this->db->bind(':email  ', $data['email ']);
-        $this->db->bind(':delivery_id  ', $data['delivery_id  ']);
-
        
-
-
         // Execute
         if ($this->db->execute()) {
             return true;
@@ -313,14 +307,9 @@ public function getDelivery(){
         }
     }
 
-    public function updateusers($data) {
-        $this->db->query('UPDATE delivery
-                      SET name = :name, 
-                      
-                          email = :email,
-                          pass = :pass,
-                          
-                          
+    public function updateAdmin($data) {
+        $this->db->query('UPDATE admin
+                      SET name = :name, email = :email,pass = :pass
 
                       WHERE user_id = :user_id');
         // Bind values
@@ -328,11 +317,27 @@ public function getDelivery(){
         
         $this->db->bind(':name ', $data['name ']);
         $this->db->bind(':email  ', $data['email ']);
-        
-
        
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
+    public function updateusers($data) {
+        $this->db->query('UPDATE users
+                      SET 
+                          email = :email,
+                          pass =:pass                    
+                      WHERE user_id = :user_id');
+        // Bind values
+        $this->db->bind(':user_id', $data['user_id']);
+        
+        $this->db->bind(':email  ', $data['email ']);
+        $this->db->bind(':pass  ', $data['pass ']);
         // Execute
         if ($this->db->execute()) {
             return true;

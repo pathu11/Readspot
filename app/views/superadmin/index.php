@@ -5,25 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/style.css" />
   <title>Super Admin Dashboard</title>
 </head>
 <body>
-  <?php require APPROOT . '/views/superadmin/nav.php';?>
+  <?php require APPROOT . '/views/superadmin/nav.php';
+  
+  ?>
 
   <div class="grid-container">
-    <div class="grid-item"><a href="#admins">Admins</a></div>
-    <div class="grid-item"><a href="#moderators">Moderators</a></div>
-    <div class="grid-item"><a href="#customers">Customers</a></div>
-    <div class="grid-item"><a href="#publishers">Publishers</a></div>
-    <div class="grid-item"><a href="#orders">Orders</a></div>
-    <div class="grid-item"><a href="#payments">Payments</a></div>
-    <div class="grid-item"><a href="#complains">Complains</a></div>
-    <div class="grid-item"><a href="#charity organizations">Charity Organizations</a>
+    
+    <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="#customers">Admins</a></div>
+    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="#publishers">Community Moderators</a></div>
+    <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="#customers">Users</a></div>
+    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="#publishers">Orders</a></div>
+   
+   
   </div>
-    <div class="grid-item"><a href="#delivary status">Delivery Status</a></div>
+
+  
+
+  <div class="chart-container">
+    <div class="chart">
+      <canvas id="myChart1"></canvas>
+    </div>
+    <div class="chart">
+      <canvas id="myChart2"></canvas>
+    </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="<?php echo URLROOT;?>/assets/js/admin/chart1.js"></script>
+  <script src="<?php echo URLROOT;?>/assets/js/admin/chart2.js"></script>
+
+
+  
+  
 
 </body>
 </html>

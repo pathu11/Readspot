@@ -127,6 +127,9 @@ class Superadmin extends Controller{
        
     }
     public function updateAdmin($user_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // process form
             // sanitize post data
@@ -156,10 +159,12 @@ class Superadmin extends Controller{
             }else{
                 // Check if the email is already taken by another admin
                 $existingAdmin = $this->userModel->findUserByEmail($data['email']);
-                if($existingAdmin && $existingAdmin['admin_id'] != $admin_id){
+                if($existingAdmin ){
                     $data['email_err'] = 'Email is already taken'; 
                 }
+            
             }
+
     
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
@@ -181,8 +186,14 @@ class Superadmin extends Controller{
     
                 // update admin
                 if($this->superadminModel->updateAdmin($data)){
-                    flash('Successfully Updated');
-                    redirect('superadmin/admins');
+                    if($this->superadminModel->updateusers($data)){
+                    
+                        flash('Successfully Updated');
+                        redirect('superadmin/admins');
+                    }else{
+                        die('Something went wrong1');
+                    }
+                    
                 }else{
                     die('Something went wrong');
                 }
@@ -191,24 +202,124 @@ class Superadmin extends Controller{
             }
         }else{
             // Display the form with existing data
-            $admin = $this->superadminModel->getAdminById($user_id);
-    
+            $admin = $this->superadminModel->findAdminById($user_id);
+            
             if ($admin) {
                 $data = [
-                    'admin_id' => $admin['admin_id'],
-                    'name' => $admin['name'],
-                    'email' => $admin['email'],
-                    'pass' => '', // You may choose to populate this with a default value
-                    'confirm_pass' => '', // You may choose to populate this with a default value
+                    'user_id' => $user_id,
+                    'name' => $admin[0]->name,
+                    'email' => $admin[0]->email,
+                    'pass' => '',
+                    'confirm_pass' => '',
                     'name_err' => '',
                     'email_err' => '',
                     'pass_err' => '',
                     'confirm_pass_err' => '',
                 ];
-    
+                var_dump($admin);
                 $this->view('superadmin/updateAdmin', $data);
             } else {
-                // Handle the case where the admin with the given ID is not found
+             
+                echo 'Admin not found for ID: ' . $user_id;
+                die();
+            }
+        }
+    }
+
+    public function updateModerator($user_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // process form
+            // sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // init data
+            $data = [
+                'user_id' => $user_id,
+                'admin_id' => trim($_POST['admin_id']),
+                'name' => trim($_POST['name']),
+                'email' => trim($_POST['email']),
+                'pass' => trim($_POST['pass']),
+                'confirm_pass' => trim($_POST['confirm_pass']),
+                'name_err' => '',
+                'email_err' => '',
+                'pass_err' => '',
+                'confirm_pass_err' => '',
+            ];
+    
+            // validate name
+            if(empty($data['name'])){
+                $data['name_err'] = 'Please enter the name';      
+            }
+    
+            // validate email
+            if(empty($data['email'])){
+                $data['email_err'] = 'Please enter email';      
+            }else{
+                // Check if the email is already taken by another admin
+                $existingAdmin = $this->userModel->findUserByEmail($data['email']);
+                if($existingAdmin ){
+                    $data['email_err'] = 'Email is already taken'; 
+                }
+            
+            }
+
+    
+            // validate password
+            if(!empty($data['pass']) && strlen($data['pass']) < 6){
+                $data['pass_err'] = 'Password must be at least 6 characters'; 
+            }
+    
+            // validate confirm password
+            if(!empty($data['confirm_pass']) && $data['pass'] != $data['confirm_pass']){
+                $data['confirm_pass_err'] = 'Passwords do not match';
+            }
+    
+            // make sure errors are empty
+            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])){
+                // validate
+                // hash password if it is provided
+                if(!empty($data['pass'])){
+                    $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
+                }
+    
+                // update admin
+                if($this->superadminModel->updateAdmin($data)){
+                    if($this->superadminModel->updateusers($data)){
+                    
+                        flash('Successfully Updated');
+                        redirect('superadmin/admins');
+                    }else{
+                        die('Something went wrong1');
+                    }
+                    
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('superadmin/updateAdmin', $data);
+            }
+        }else{
+            // Display the form with existing data
+            $admin = $this->superadminModel->findAdminById($user_id);
+            
+            if ($admin) {
+                $data = [
+                    'user_id' => $user_id,
+                    'name' => $admin[0]->name,
+                    'email' => $admin[0]->email,
+                    'pass' => '',
+                    'confirm_pass' => '',
+                    'name_err' => '',
+                    'email_err' => '',
+                    'pass_err' => '',
+                    'confirm_pass_err' => '',
+                ];
+                var_dump($admin);
+                $this->view('superadmin/updateAdmin', $data);
+            } else {
+             
                 echo 'Admin not found for ID: ' . $user_id;
                 die();
             }
