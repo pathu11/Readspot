@@ -461,6 +461,44 @@ public function approveCharity($user_id){
     }
 }
 
+public function customers(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $customerDetails = $this->adminModel->getCustomerDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'customerDetails'=>$customerDetails,
+    ];
+    $this->view('admin/customers',$data);
+}
+
+public function publishers(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $publisherDetails = $this->adminModel->getPublisherDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'publisherDetails'=>$publisherDetails,
+    ];
+    $this->view('admin/publishers',$data);
+}
+
+public function charity(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $charityDetails = $this->adminModel->getCharityDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'charityDetails'=>$charityDetails,
+    ];
+    $this->view('admin/charity',$data);
+}
 
 }
 

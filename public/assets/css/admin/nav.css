@@ -120,3 +120,45 @@ nav.open ~ .overlay {
   font-size: 40px;
   color: #707070;
 }
+
+/*sub nav css*/
+.nav-container2 {
+  display: flex;
+  align-items: center;
+  margin-left: 70px;
+  margin-right: 70px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: black;
+  font-family: inner;
+  justify-content: space-between;
+  background-color: rgb(224, 224, 224, 0.5);
+  margin-top: 100px;
+  box-shadow: 0 0 8px rgba(224, 224, 224, 0.5);
+}
+
+.nav-container2 a {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 5px;
+  text-decoration: none;
+  color: black;
+}
+
+.active {
+  color: white;
+  border-radius: 10px;
+  /*animation-name: first;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;*/
+}
+
+@keyframes first{
+  0%   {background-color:#70BFBA; left:0px; top:0px;}
+  25%  {background-color:#009D94; left:200px; top:0px;}
+  50%  {background-color:#066761; left:200px; top:200px;}
+  75%  {background-color:#02514C; left:0px; top:200px;}
+  100% {background-color:#70BFBA; left:0px; top:0px;}
+}

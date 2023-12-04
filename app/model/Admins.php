@@ -204,6 +204,27 @@ public function approveusers($user_id){
   }
 }
 
+public function getCustomerDetails(){
+  $this->db->query('SELECT * FROM customers');
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getPublisherDetails(){
+  $this->db->query("SELECT * FROM publishers WHERE status='approval'");
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getCharityDetails(){
+  $this->db->query("SELECT * FROM charity WHERE status='approval'");
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
 
   
   }
