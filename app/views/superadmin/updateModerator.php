@@ -1,5 +1,5 @@
 <?php
-    $title = "Update Admins";
+    $title = "Update Moderators";
     
     
 ?>
@@ -19,8 +19,8 @@
             <div class="form-container">
                 <div class="form1">
                
-                    <h2>Enter the Details of the Admin</h2>
-                    <form action="<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $data['admin_id']; ?>" method="POST">
+                    <h2>Enter the Details of the Moderator</h2>
+                    <form action="<?php echo URLROOT; ?>/superadmin/updateModerator/<?php echo $data['user_id']; ?>" method="POST">
                         <br>
                         <br>
                        

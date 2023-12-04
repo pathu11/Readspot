@@ -126,18 +126,19 @@ class Superadmin extends Controller{
         
        
     }
-    public function updateAdmin($user_id){
+    public function updateAdmin($admin_id){
         if(!isLoggedIn()){
             redirect('landing/login');
         }
+        $user_id = $_SESSION['user_id'];
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // process form
             // sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             // init data
             $data = [
-                'user_id' => $user_id,
-                'admin_id' => trim($_POST['admin_id']),
+                'admin_id' => $admin_id,
+                
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'pass' => trim($_POST['pass']),
@@ -185,28 +186,27 @@ class Superadmin extends Controller{
                 }
     
                 // update admin
-                if($this->superadminModel->updateAdmin($data)){
-                    if($this->superadminModel->updateusers($data)){
+                if($this->superadminModel->updateAdmin($data) && $this->superadminModel->updateusers($data)){
                     
                         flash('Successfully Updated');
                         redirect('superadmin/admins');
-                    }else{
-                        die('Something went wrong1');
-                    }
-                    
+                   
                 }else{
-                    die('Something went wrong');
+                    echo 'Update Admin Failed';
+                    var_dump($data); // Print the data being sent to the updateAdmin method
+                    var_dump($this->superadminModel->getLastError()); // Assuming you have a method to get the last database error
+                    die();
                 }
             }else{
                 $this->view('superadmin/updateAdmin', $data);
             }
         }else{
             // Display the form with existing data
-            $admin = $this->superadminModel->findAdminById($user_id);
+            $admin = $this->superadminModel->findAdminById($admin_id);
             
             if ($admin) {
                 $data = [
-                    'user_id' => $user_id,
+                    'admin_id' => $admin_id,
                     'name' => $admin[0]->name,
                     'email' => $admin[0]->email,
                     'pass' => '',
@@ -216,11 +216,11 @@ class Superadmin extends Controller{
                     'pass_err' => '',
                     'confirm_pass_err' => '',
                 ];
-                var_dump($admin);
+                
                 $this->view('superadmin/updateAdmin', $data);
             } else {
              
-                echo 'Admin not found for ID: ' . $user_id;
+                echo 'Admin not found for ID: ' . $admin_id;
                 die();
             }
         }
@@ -237,7 +237,7 @@ class Superadmin extends Controller{
             // init data
             $data = [
                 'user_id' => $user_id,
-                'admin_id' => trim($_POST['admin_id']),
+                
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'pass' => trim($_POST['pass']),
@@ -258,8 +258,8 @@ class Superadmin extends Controller{
                 $data['email_err'] = 'Please enter email';      
             }else{
                 // Check if the email is already taken by another admin
-                $existingAdmin = $this->userModel->findUserByEmail($data['email']);
-                if($existingAdmin ){
+                $existingModerator = $this->userModel->findUserByEmail($data['email']);
+                if($existingModerator ){
                     $data['email_err'] = 'Email is already taken'; 
                 }
             
@@ -285,11 +285,11 @@ class Superadmin extends Controller{
                 }
     
                 // update admin
-                if($this->superadminModel->updateAdmin($data)){
+                if($this->superadminModel->updateModerator($data)){
                     if($this->superadminModel->updateusers($data)){
                     
                         flash('Successfully Updated');
-                        redirect('superadmin/admins');
+                        redirect('superadmin/moderators');
                     }else{
                         die('Something went wrong1');
                     }
@@ -298,17 +298,17 @@ class Superadmin extends Controller{
                     die('Something went wrong');
                 }
             }else{
-                $this->view('superadmin/updateAdmin', $data);
+                $this->view('superadmin/updateModerator', $data);
             }
         }else{
             // Display the form with existing data
-            $admin = $this->superadminModel->findAdminById($user_id);
+            $moderator = $this->superadminModel->findModeratorById($user_id);
             
-            if ($admin) {
+            if ($moderator) {
                 $data = [
                     'user_id' => $user_id,
-                    'name' => $admin[0]->name,
-                    'email' => $admin[0]->email,
+                    'name' => $moderator[0]->name,
+                    'email' => $moderator[0]->email,
                     'pass' => '',
                     'confirm_pass' => '',
                     'name_err' => '',
@@ -316,8 +316,8 @@ class Superadmin extends Controller{
                     'pass_err' => '',
                     'confirm_pass_err' => '',
                 ];
-                var_dump($admin);
-                $this->view('superadmin/updateAdmin', $data);
+               
+                $this->view('superadmin/updateModerator', $data);
             } else {
              
                 echo 'Admin not found for ID: ' . $user_id;
