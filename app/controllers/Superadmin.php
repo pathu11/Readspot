@@ -194,8 +194,7 @@ class Superadmin extends Controller{
                    
                 }else{
                     echo 'Update Admin Failed';
-                    var_dump($data); // Print the data being sent to the updateAdmin method
-                   
+                    var_dump($data); 
                     die();
                 }
             }else{
@@ -285,16 +284,11 @@ class Superadmin extends Controller{
                     $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
                 }
     
-                // update admin
-                if($this->superadminModel->updateModerator($data)){
-                    if($this->superadminModel->updateusers($data)){
-                    
-                        flash('Successfully Updated');
-                        redirect('superadmin/moderators');
-                    }else{
-                        die('Something went wrong1');
-                    }
-                    
+                
+                if($this->superadminModel->updateModerator($data)){   
+                    flash('Successfully Updated');
+                    redirect('superadmin/moderators');
+                  
                 }else{
                     die('Something went wrong');
                 }
@@ -321,7 +315,7 @@ class Superadmin extends Controller{
                 $this->view('superadmin/updateModerator', $data);
             } else {
              
-                echo 'Admin not found for ID: ' . $user_id;
+                echo 'Moderator not found for ID: ' . $user_id;
                 die();
             }
         }
