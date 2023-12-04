@@ -25,6 +25,13 @@
 
         return $this->db->resultSet();
     }
+    public function findDeliveryById($user_id){
+        $this->db->query('SELECT * from delivery WHERE user_id=:user_id');
+        $this->db->bind(':user_id',$user_id);
+       
+
+        return $this->db->resultSet();
+    }
     public function getAdmins(){
       $this->db->query('SELECT * FROM admin');
       $results=$this->db->resultSet();
@@ -356,7 +363,6 @@ public function updateModerator($data) {
     }
     
 }
-
 public function updateDelivery($data) {
     // Update users table
     $this->db->query('UPDATE users
@@ -367,6 +373,7 @@ public function updateDelivery($data) {
     $this->db->bind(':email', $data['email']);
     $this->db->bind(':pass', $data['pass']);
 
+    
     if ($this->db->execute()) {
         $this->db->query('UPDATE delivery
                       SET name = :name, email = :email, pass = :pass
@@ -386,6 +393,9 @@ public function updateDelivery($data) {
     }
     
 }
+
+
+
 
     
   
