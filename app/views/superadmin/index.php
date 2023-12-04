@@ -16,11 +16,22 @@
   ?>
 
   <div class="grid-container">
+ 
     
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="#customers">Admins</a></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="#publishers">Community Moderators</a></div>
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="#customers">Users</a></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="#publishers">Orders</a></div>
+    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="#">Admins</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countAdmins']; ?></span></div>
+    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="#">Moderators</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countModerators']; ?></span></div>
+    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="#">Delivery Systems</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countDelivery']; ?></span></div>
+    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="#">Customers</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countCustomers']; ?></span></div>
+   
+   
+  </div>
+  <div class="grid-container" style="margin:30px;">
+ 
+    
+    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="#">Publishers</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countPublishers']; ?></span></div>
+    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="#">Charity Organizations</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countCharity']; ?></span></div>
+    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="#">Orders</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countModerators']; ?></span></div>
+    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="#">Complaigns</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countModerators']; ?></span></div>
    
    
   </div>

@@ -393,6 +393,67 @@ public function updateDelivery($data) {
     }
     
 }
+public function countAdmins(){    
+    $this->db->query('SELECT COUNT(*) as adminCount FROM admin ');
+   
+    $result = $this->db->single();
+    if ($result) {
+        return $result->adminCount;
+    } else {
+        return 0; 
+    }
+}
+public function countModerators(){    
+    $this->db->query('SELECT COUNT(*) as moderatorCount FROM moderator ');
+   
+    $result = $this->db->single();
+    if ($result) {
+        return $result->moderatorCount;
+    } else {
+        return 0; 
+    }
+}
+    public function countDelivery(){    
+        $this->db->query('SELECT COUNT(*) as deliveryCount FROM delivery ');
+       
+        $result = $this->db->single();
+        if ($result) {
+            return $result->deliveryCount;
+        } else {
+            return 0; 
+        }
+    }
+    public function countCustomers(){    
+        $this->db->query('SELECT COUNT(*) as customerCount FROM customers WHERE status="approval" ');
+    
+        $result = $this->db->single();
+        if ($result) {
+            return $result->customerCount;
+        } else {
+            return 0; 
+        }
+    }
+    public function countPublishers(){    
+        $this->db->query('SELECT COUNT(*) as PublishersCount FROM publishers WHERE status="approval" ');
+        
+        $result = $this->db->single();
+        if ($result) {
+            return $result->PublishersCount;
+        } else {
+            return 0; 
+            }
+}
+public function countCharity(){    
+    $this->db->query('SELECT COUNT(*) as CharityCount FROM charity WHERE status="approval" ');
+    
+    $result = $this->db->single();
+    if ($result) {
+        return $result->CharityCount;
+    } else {
+        return 0; 
+        }
+}
+
 
 
 

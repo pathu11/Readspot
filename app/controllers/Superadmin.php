@@ -22,10 +22,23 @@ class Superadmin extends Controller{
             $user_id = $_SESSION['user_id'];
            
             $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+            $countAdmins = $this->superadminModel->countAdmins(); 
+            $countModerators = $this->superadminModel->countModerators(); 
+            $countDelivery = $this->superadminModel->countDelivery(); 
+            $countCustomers = $this->superadminModel->countCustomers (); 
+            $countPublishers = $this->superadminModel->countPublishers(); 
+            $countCharity = $this->superadminModel->countCharity();  
             $data = [
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
-                'superadminEmail'=>$superadminDetails[0]->email
+                'superadminEmail'=>$superadminDetails[0]->email,
+                'countModerators'=>$countModerators,
+                'countAdmins'=>$countAdmins,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
+
             ];
             $this->view('superadmin/index',$data);
         }
