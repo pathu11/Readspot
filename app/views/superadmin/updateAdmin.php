@@ -20,7 +20,7 @@
                 <div class="form1">
                
                     <h2>Enter the Details of the Admin</h2>
-                    <form action="<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $data['admin_id']; ?>" method="POST">
+                    <form action="<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $data['user_id']; ?>" method="POST">
                         <br>
                         <br>
                        

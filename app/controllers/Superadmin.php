@@ -126,18 +126,19 @@ class Superadmin extends Controller{
         
        
     }
-    public function updateAdmin($admin_id){
+    public function updateAdmin($user_id){
         if(!isLoggedIn()){
             redirect('landing/login');
         }
-        $user_id = $_SESSION['user_id'];
+        // $user_id = $_SESSION['user_id'];
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // process form
             // sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             // init data
             $data = [
-                'admin_id' => $admin_id,
+                'user_id'=>$user_id,
+                // 'admin_id' => $admin_id,
                 
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
@@ -186,7 +187,7 @@ class Superadmin extends Controller{
                 }
     
                 // update admin
-                if($this->superadminModel->updateAdmin($data) && $this->superadminModel->updateusers($data)){
+                if($this->superadminModel->updateAdmin($data) ){
                     
                         flash('Successfully Updated');
                         redirect('superadmin/admins');
@@ -194,7 +195,7 @@ class Superadmin extends Controller{
                 }else{
                     echo 'Update Admin Failed';
                     var_dump($data); // Print the data being sent to the updateAdmin method
-                    var_dump($this->superadminModel->getLastError()); // Assuming you have a method to get the last database error
+                   
                     die();
                 }
             }else{
@@ -202,11 +203,11 @@ class Superadmin extends Controller{
             }
         }else{
             // Display the form with existing data
-            $admin = $this->superadminModel->findAdminById($admin_id);
+            $admin = $this->superadminModel->findAdminById($user_id);
             
             if ($admin) {
                 $data = [
-                    'admin_id' => $admin_id,
+                    'user_id' => $user_id,
                     'name' => $admin[0]->name,
                     'email' => $admin[0]->email,
                     'pass' => '',
