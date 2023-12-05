@@ -104,19 +104,52 @@ class Landing extends Controller{
 
                 //hash password
                 $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
+                
 
                 //regsiter user
-                if($this->userModel->signupCustomer($data)){
-                    echo '<script>';
-                    echo 'alert("Successfully registered as a customer!");';
-                    echo 'window.location.href = "' . URLROOT . '/landing/login";';  // Construct the complete URL
-                    echo '</script>';
-                }else{
-                    die('Something went wrong');
-                }
+                if($this->userModel->signupCustomerPending($data)){
+                    // send the email
+                    $userEmail = $data['email'];
+                    $mail = new PHPMailer(true);
+                    $otp = mt_rand(1000000, 9999999);
+                    $timestamp = $_SERVER["REQUEST_TIME"];
+                    $_SESSION['time'] = $timestamp;
+                    $_SESSION['otp'] = $otp;
+                    $_SESSION['user_email'] = $userEmail;
+        
+                    try {
+                        //Server settings
+                        $mail->isSMTP();
+                        $mail->Host       = MAIL_HOST;
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = MAIL_USER;
+                        $mail->Password   = MAIL_PASS;
+                        $mail->SMTPSecure = MAIL_SECURITY;
+                        $mail->Port       = MAIL_PORT;
+        
+                        //Recipients
+                        $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                        $mail->addAddress($userEmail);
+        
+                        // Content
+                        $mail->isHTML(true);
+                        $mail->Subject = 'Verify your email';
+                        $mail->Body = "Enter this OTP for verify your email account: $otp";
+        
+                        $mail->send();
+                        redirect('landing/verifyemail');
+                    }catch (Exception $e) {
+                            error_log('Email sending failed: ' . $e->getMessage());
+                            $data['email_err'] = 'Something went wrong. Please try again later.';
+                            $this->view('landing/signupCustomer', $data); // Pass $data to the view
+                            exit; 
+                        }
+                } else{
+                        die('Something went wrong');
+                    }  
             }else{
-                $this->view('landing/signupCustomer',$data);
-            }
+                    $this->view('landing/signupCustomer',$data);
+                }
 
 
         }else{
@@ -134,6 +167,107 @@ class Landing extends Controller{
             $this->view('landing/signupCustomer',$data);
         }  
     }
+    public function verifyemail(){
+        $userId = null; // Initialize $userId
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+            if (isset($_SESSION['otp']) && isset($_SESSION['time'])) {
+                $oldOtp = $_SESSION['otp'];
+                $userEmail = $_SESSION['user_email'];
+    
+                $userDetails = $this->userModel->findUserByEmail($userEmail);
+    
+                if ($userDetails) {
+                    $userId = $userDetails[0]->user_id;
+    
+                    $timestamp = $_SERVER["REQUEST_TIME"];
+                    $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
+    
+                    if (($timestamp - $_SESSION['time']) > $remainingTime) {  // 60 seconds for 1 minute
+                        $data = [
+                            'user_id' => $userId,
+                            'otp_err' => "OTP expired. Please try again.",
+                            'remaining_time' => 0
+                        ];
+                        $this->view('landing/verifyemail', $data);
+                        exit; // Ensure no further processing after redirection
+                    } else {
+                        $data = [
+                            'user_id' => $userId,
+                            'otp' => trim($_POST['otp']),
+                            'otp_err' => '',
+                            'remaining_time' => $remainingTime - ($timestamp - $_SESSION['time'])
+                        ];
+    
+                        // validate otp
+                        if (empty($data['otp']) || $data['otp'] != $oldOtp) {
+                            $data['otp_err'] = 'Incorrect OTP';
+                            $this->view('landing/verifyemail', $data);
+                            exit; // Ensure no further processing after redirection
+                        }
+    
+                        // make sure errors are empty
+                        if (empty($data['otp_err'])) {
+                            // validate
+                            if ($data['otp'] == $oldOtp) {
+                                if($this->userModel->verifyemailCustomer($userId) && $this->userModel->verifyemailUsers($userId) ){
+                                    echo '<script>';
+                                    echo 'setTimeout(function() { alert("OTP is correct!"); redirectToLogin(); }, 100);'; // Delayed alert
+                                    echo 'function redirectToLogin() {';
+                                    echo '    window.location.href = "' . URLROOT . '/landing/login"; ';  
+                                    echo '}';
+                                    echo '</script>';
+                                    exit;
+                                } else {
+                                    // Log the error or redirect to an error page
+                                    error_log('Verification failed: Something went wrong');
+                                    // Redirect to an error page
+                                    redirect('error');
+                                    // OR display a specific error message
+                                    $data['error_message'] = 'Verification failed. Please try again later.';
+                                    $this->view('error_page', $data);
+                                    exit;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $data = [
+                        'user_id' => $userId,
+                        'otp_err' => "User not found. Please request a new OTP.",
+                        'remaining_time' => 0
+                    ];
+                    $this->view('landing/verifyemail', $data);
+                    exit;
+                }
+            }
+        } else {
+            // Handle the case when it's not a POST request
+            if (isset($_SESSION['user_email'])) {
+                $userEmail = $_SESSION['user_email'];
+                $userDetails = $this->userModel->findUserByEmail($userEmail);
+    
+                if ($userDetails) {
+                    $userId = $userDetails[0]->user_id;
+                }
+            }
+    
+            $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
+    
+            $data = [
+                'user_id' => $userId,
+                'otp' => '',
+                'otp_err' => '',
+                'remaining_time' => $remainingTime,
+            ];
+    
+            $this->view('landing/verifyemail', $data);
+        }
+    }
+    
     public function signupPub(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
@@ -210,7 +344,7 @@ class Landing extends Controller{
                 $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
                 
                 // regsiter user
-                if ($this->userModel->signupCharityPending($data)) {
+                if ($this->userModel->signupPubPending($data)) {
                     echo '<script>';
                     echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
                     echo 'window.location.href = "' . URLROOT . '/landing/index";';  // Construct the complete URL
@@ -326,14 +460,14 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCharityPending($data)){
-                    if ($this->userModel->signupCharityPending($data)) {
+                    
                         echo '<script>';
                         echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
                         echo 'window.location.href = "' . URLROOT . '/landing/index";';  
                         echo '</script>';
                     }
                     
-                }else{
+                else{
                     die('Something went wrong');
                 }
             }else{
@@ -703,26 +837,14 @@ class Landing extends Controller{
             redirect('superadmin/index');
         
         }
-        // For other roles, redirect accordingly
+    
     }
-    
-        
-    
-
-    
-
     public function logout(){
         unset($_SESSION['user_id']);
-        unset($_SESSION['user_email']);
-       
+        unset($_SESSION['user_email']);    
         unset($_SESSION['user_pass']);
         session_destroy();
         redirect('landing/index');
     }
-
-    
-
-    
-
 
 }

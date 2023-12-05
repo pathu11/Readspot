@@ -22,10 +22,23 @@ class Superadmin extends Controller{
             $user_id = $_SESSION['user_id'];
            
             $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+            $countAdmins = $this->superadminModel->countAdmins(); 
+            $countModerators = $this->superadminModel->countModerators(); 
+            $countDelivery = $this->superadminModel->countDelivery(); 
+            $countCustomers = $this->superadminModel->countCustomers (); 
+            $countPublishers = $this->superadminModel->countPublishers(); 
+            $countCharity = $this->superadminModel->countCharity();  
             $data = [
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
-                'superadminEmail'=>$superadminDetails[0]->email
+                'superadminEmail'=>$superadminDetails[0]->email,
+                'countModerators'=>$countModerators,
+                'countAdmins'=>$countAdmins,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
+
             ];
             $this->view('superadmin/index',$data);
         }
@@ -127,14 +140,19 @@ class Superadmin extends Controller{
        
     }
     public function updateAdmin($user_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+        // $user_id = $_SESSION['user_id'];
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // process form
             // sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             // init data
             $data = [
-                'user_id' => $user_id,
-                'admin_id' => trim($_POST['admin_id']),
+                'user_id'=>$user_id,
+                // 'admin_id' => $admin_id,
+                
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'pass' => trim($_POST['pass']),
@@ -156,10 +174,12 @@ class Superadmin extends Controller{
             }else{
                 // Check if the email is already taken by another admin
                 $existingAdmin = $this->userModel->findUserByEmail($data['email']);
-                if($existingAdmin && $existingAdmin['admin_id'] != $admin_id){
+                if($existingAdmin ){
                     $data['email_err'] = 'Email is already taken'; 
                 }
+            
             }
+
     
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
@@ -180,36 +200,230 @@ class Superadmin extends Controller{
                 }
     
                 // update admin
-                if($this->superadminModel->updateAdmin($data)){
-                    flash('Successfully Updated');
-                    redirect('superadmin/admins');
+                if($this->superadminModel->updateAdmin($data) ){
+                    
+                        flash('Successfully Updated');
+                        redirect('superadmin/admins');
+                   
                 }else{
-                    die('Something went wrong');
+                    echo 'Update Admin Failed';
+                    var_dump($data); 
+                    die();
                 }
             }else{
                 $this->view('superadmin/updateAdmin', $data);
             }
         }else{
             // Display the form with existing data
-            $admin = $this->superadminModel->getAdminById($user_id);
-    
+            $admin = $this->superadminModel->findAdminById($user_id);
+            
             if ($admin) {
                 $data = [
-                    'admin_id' => $admin['admin_id'],
-                    'name' => $admin['name'],
-                    'email' => $admin['email'],
-                    'pass' => '', // You may choose to populate this with a default value
-                    'confirm_pass' => '', // You may choose to populate this with a default value
+                    'user_id' => $user_id,
+                    'name' => $admin[0]->name,
+                    'email' => $admin[0]->email,
+                    'pass' => '',
+                    'confirm_pass' => '',
                     'name_err' => '',
                     'email_err' => '',
                     'pass_err' => '',
                     'confirm_pass_err' => '',
                 ];
-    
+                
                 $this->view('superadmin/updateAdmin', $data);
             } else {
-                // Handle the case where the admin with the given ID is not found
-                echo 'Admin not found for ID: ' . $user_id;
+             
+                echo 'Admin not found for ID: ' . $admin_id;
+                die();
+            }
+        }
+    }
+
+    public function updateModerator($user_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // process form
+            // sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // init data
+            $data = [
+                'user_id' => $user_id,
+                
+                'name' => trim($_POST['name']),
+                'email' => trim($_POST['email']),
+                'pass' => trim($_POST['pass']),
+                'confirm_pass' => trim($_POST['confirm_pass']),
+                'name_err' => '',
+                'email_err' => '',
+                'pass_err' => '',
+                'confirm_pass_err' => '',
+            ];
+    
+            // validate name
+            if(empty($data['name'])){
+                $data['name_err'] = 'Please enter the name';      
+            }
+    
+            // validate email
+            if(empty($data['email'])){
+                $data['email_err'] = 'Please enter email';      
+            }else{
+                // Check if the email is already taken by another admin
+                $existingModerator = $this->userModel->findUserByEmail($data['email']);
+                if($existingModerator ){
+                    $data['email_err'] = 'Email is already taken'; 
+                }
+            
+            }
+
+    
+            // validate password
+            if(!empty($data['pass']) && strlen($data['pass']) < 6){
+                $data['pass_err'] = 'Password must be at least 6 characters'; 
+            }
+    
+            // validate confirm password
+            if(!empty($data['confirm_pass']) && $data['pass'] != $data['confirm_pass']){
+                $data['confirm_pass_err'] = 'Passwords do not match';
+            }
+    
+            // make sure errors are empty
+            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])){
+                // validate
+                // hash password if it is provided
+                if(!empty($data['pass'])){
+                    $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
+                }
+    
+                
+                if($this->superadminModel->updateModerator($data)){   
+                    flash('Successfully Updated');
+                    redirect('superadmin/moderators');
+                  
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('superadmin/updateModerator', $data);
+            }
+        }else{
+            // Display the form with existing data
+            $moderator = $this->superadminModel->findModeratorById($user_id);
+            
+            if ($moderator) {
+                $data = [
+                    'user_id' => $user_id,
+                    'name' => $moderator[0]->name,
+                    'email' => $moderator[0]->email,
+                    'pass' => '',
+                    'confirm_pass' => '',
+                    'name_err' => '',
+                    'email_err' => '',
+                    'pass_err' => '',
+                    'confirm_pass_err' => '',
+                ];
+               
+                $this->view('superadmin/updateModerator', $data);
+            } else {
+             
+                echo 'Moderator not found for ID: ' . $user_id;
+                die();
+            }
+        }
+    }
+    
+    public function updateDelivery($user_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // process form
+            // sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // init data
+            $data = [
+                'user_id' => $user_id,
+                
+                'name' => trim($_POST['name']),
+                'email' => trim($_POST['email']),
+                'pass' => trim($_POST['pass']),
+                'confirm_pass' => trim($_POST['confirm_pass']),
+                'name_err' => '',
+                'email_err' => '',
+                'pass_err' => '',
+                'confirm_pass_err' => '',
+            ];
+    
+            // validate name
+            if(empty($data['name'])){
+                $data['name_err'] = 'Please enter the name';      
+            }
+    
+            // validate email
+            if(empty($data['email'])){
+                $data['email_err'] = 'Please enter email';      
+            }else{
+                // Check if the email is already taken by another admin
+                $existingDelivery = $this->userModel->findUserByEmail($data['email']);
+                if($existingDelivery ){
+                    $data['email_err'] = 'Email is already taken'; 
+                }
+            
+            }
+
+    
+            // validate password
+            if(!empty($data['pass']) && strlen($data['pass']) < 6){
+                $data['pass_err'] = 'Password must be at least 6 characters'; 
+            }
+    
+            // validate confirm password
+            if(!empty($data['confirm_pass']) && $data['pass'] != $data['confirm_pass']){
+                $data['confirm_pass_err'] = 'Passwords do not match';
+            }
+    
+            // make sure errors are empty
+            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])){
+                // validate
+                // hash password if it is provided
+                if(!empty($data['pass'])){
+                    $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
+                }
+    
+                
+                if($this->superadminModel->updateDelivery($data)){   
+                    flash('Successfully Updated');
+                    redirect('superadmin/delivery');
+                  
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('superadmin/updateDelivery', $data);
+            }
+        }else{
+            // Display the form with existing data
+            $Delivery = $this->superadminModel->findDeliveryById($user_id);
+            
+            if ($Delivery) {
+                $data = [
+                    'user_id' => $user_id,
+                    'name' => $Delivery[0]->name,
+                    'email' => $Delivery[0]->email,
+                    'pass' => '',
+                    'confirm_pass' => '',
+                    'name_err' => '',
+                    'email_err' => '',
+                    'pass_err' => '',
+                    'confirm_pass_err' => '',
+                ];
+               
+                $this->view('superadmin/updateDelivery', $data);
+            } else {
+             
+                echo 'Delivery not found for ID: ' . $user_id;
                 die();
             }
         }
