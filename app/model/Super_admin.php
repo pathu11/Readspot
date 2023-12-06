@@ -332,7 +332,6 @@ public function updateAdmin($data) {
     }
     
 }
-
 public function updateModerator($data) {
     // Update users table
     $this->db->query('UPDATE users
@@ -343,26 +342,33 @@ public function updateModerator($data) {
     $this->db->bind(':email', $data['email']);
     $this->db->bind(':pass', $data['pass']);
 
-    
-    if ($this->db->execute()) {
-        $this->db->query('UPDATE moderator
+    if (!$this->db->execute()) {
+        // Log or print an error message
+        error_log('Error updating users table: ' . $this->db->error());
+        return false;
+    }
+
+    // Update moderator table
+    $this->db->query('UPDATE moderator
                       SET name = :name, email = :email, pass = :pass
                       WHERE user_id = :user_id');
     
-        $this->db->bind(':user_id', $data['user_id']);
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':email', $data['email']);
-        $this->db->bind(':pass', $data['pass']);
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }else {
+    $this->db->bind(':user_id', $data['user_id']);
+    $this->db->bind(':name', $data['name']);
+    $this->db->bind(':email', $data['email']);
+    $this->db->bind(':pass', $data['pass']);
+
+    if (!$this->db->execute()) {
+        // Log or print an error message
+        error_log('Error updating moderator table: ' . $this->db->error());
         return false;
     }
-    
+
+    // Both updates were successful
+    return true;
 }
+
+
 public function updateDelivery($data) {
     // Update users table
     $this->db->query('UPDATE users

@@ -3,65 +3,86 @@
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
-    <div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero.jpg');">
+<div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
         <div class="content">
+        <?php 
+        flash('register_success');
+        var_dump($customerDetails);
+         ?>
+         
+
             <h3>WELCOME TO</h3>
-            <h2>Read Spot</h2>
+            <h2>ReadSpot</h2>
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
         </div>
+        <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
+        <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a>
     </div>
-
+    
     <div class="our_ser">
+        
         <h2><span>Our Services</span></h2>
     </div>
     
-    <div class="services" style="background-image: url('<?php echo URLROOT; ?>/assets/css/customer/bg.jpg')"> <!--path changed-->
-        <div class="service" onclick="service1()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/new.jpeg" alt="Service 1"> <!--path changed-->
-            <h3>Buy New Books</h3>
+    <div class="services" /*style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/bg1.png')"*/>
+        <div class="service" onclick="service1()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/new1.jpg');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/new1.jpg" alt="Service 1"-->
+            <div class="service-content">
+                <h3>Buy New Books</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service2()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/used.jpeg" alt="Service 2"> <!--path changed-->
-            <h3>Buy Used Books</h3>
+        <div class="service" onclick="service2()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/used1.jpg');" >
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/used1.png" alt="Service 2"-->
+            <div class="service-content">
+                <h3>Buy Used Books</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service3()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/exchange.jpeg" alt="Service 3"> <!--path changed-->
-            <h3>Exchange Books</h3>
+        <div class="service" onclick="service3()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/exchange1.png');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/exchange1.png" alt="Service 3"-->
+            <div class="service-content">
+                <h3>Exchange Books</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service4()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/donate.jpeg" alt="Service 4"> <!--path changed-->
-            <h3>Donate Books</h3>
+        <div class="service" onclick="service4()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/donate1.jpg');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/donate.jpeg" alt="Service 4"-->
+            <div class="service-content">
+                <h3>Donate Books</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service5()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/content.jpg" alt="Service 5"> <!--path changed-->
-            <h3>Contents</h3>
+        <div class="service" onclick="service5()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/content1.jpg');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/content.jpg" alt="Service 5"-->
+            <div class="service-content">
+                <h3>Contents</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service6()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/event.jpeg" alt="Service 6"> <!--path changed-->
-            <h3>Events</h3>
+        <div class="service" onclick="service6()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/event1.jpg');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/event.jpeg" alt="Service 6"-->
+            <div class="service-content">
+                <h3>Events</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service7()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/bookchallenge.jpg" alt="Service 7"> <!--path changed-->
-            <h3>Book Challenges</h3>
+        <div class="service" onclick="service7()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/challenge1.jpg');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/bookchallenge.jpg" alt="Service 7"-->
+            <div class="service-content">
+                <h3>Book Challenges</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
-        <div class="service" onclick="service8()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/calender.jpg" alt="Service 8"> <!--path changed-->
-            <h3>Event Calender</h3>
+        <div class="service" onclick="service8()" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg');">
+            <!--img src="<?php echo URLROOT; ?>/assets/images/customer/calender.jpg" alt="Service 8"-->
+            <div class="service-content">
+                <h3>Event Calender</h3>
+            </div>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
         </div>
     </div>
-
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>
 
 
 <script>

@@ -23,7 +23,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                // 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Home', $data);
         }
@@ -38,7 +38,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                // 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AboutUs', $data);
         }
@@ -53,7 +53,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                // 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AddCont', $data);
         }
@@ -68,7 +68,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                // 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Addevnt', $data);
         }
@@ -83,7 +83,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                // 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AddExchangeBook', $data);
         }
@@ -98,7 +98,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                // 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AddUsedBook', $data);
         }

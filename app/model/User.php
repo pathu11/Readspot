@@ -217,6 +217,40 @@ class User{
             return false;
         }
     }
+    public function updatePasswordPub($data) {
+        $this->db->query('UPDATE publishers SET pass = :pass WHERE user_id = :user_id');
+        $this->db->bind(':pass', $data['pass']);
+        $this->db->bind(':user_id', $data['user_id']);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function updatePasswordCus($data) {
+        $this->db->query('UPDATE customers SET pass = :pass WHERE user_id = :user_id');
+        $this->db->bind(':pass', $data['pass']);
+        $this->db->bind(':user_id', $data['user_id']);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function updatePasswordCharity($data) {
+        $this->db->query('UPDATE charity SET pass = :pass WHERE user_id = :user_id');
+        $this->db->bind(':pass', $data['pass']);
+        $this->db->bind(':user_id', $data['user_id']);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     
     
 
