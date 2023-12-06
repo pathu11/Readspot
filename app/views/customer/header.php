@@ -1,6 +1,3 @@
-<?php 
-    session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,13 +27,8 @@
         <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="logo" class="logo"> <!--path changed-->
         <div class="navig">
             <nav class="navigation">
-                <?php 
-                if (isset($_SESSION["user_id"])){
-                    echo '<a href="Home">Home</a>'; //path changed
-                } else {
-                    echo '<a href="http://localhost/Group-27/app/views/index.php">Home</a>';
-                }
-                ?>
+                <a href="<?php echo URLROOT; ?>/customer/index" class="highlight">Home</a>
+               
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs">About</a> <!--path changed-->
                 <a href="<?php echo URLROOT; ?>/customer/Services">Services</a> <!--path changed-->
                 <a href="<?php echo URLROOT; ?>/customer/ContactUs">Contact</a> <!--path changed-->
@@ -45,7 +37,7 @@
                 if (isset($_SESSION["user_id"])){
                     include_once 'dropdownmenu.php';
                 } else {
-                    echo '<a href="http://localhost/Group-27/app/views/login.view.php"><button class="Login">Login</button></a>';
+                    echo '<a href="<?php echo URLROOT; ?>landing/login"><button class="Login">Login</button></a>';
                 }
             ?>
         </div>

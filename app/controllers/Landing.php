@@ -765,16 +765,34 @@ class Landing extends Controller{
             if (empty($data['pass_err']) && empty($data['confirm_pass_err'])) {
                 // Get user ID based on the email
                 $user = $this->userModel->findUserById($user_id);
-
+                $user_role=$user[0]->user_role;
                 
                 if ($user) {
                     // Hash the password
-                    // $hashed_password = password_hash($data['pass'], PASSWORD_DEFAULT);
+                   
                     $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
                     // Update the user's password
                     if ($this->userModel->updatePassword($data)) {
-                        // Password updated successfully, you can redirect or perform other actions
-                        redirect('landing/login');
+                        if($user_role=='publisher'){
+                            if($this->userModel->updatePasswordPub($data)){
+                                redirect('landing/login');
+                            }else {
+                                die('Something went wrong');
+                            }
+                        }else if($user_role=='customer'){
+                            if($this->userModel->updatePasswordCus($data)){
+                                redirect('landing/login');
+                            }else {
+                                die('Something went wrong');
+                            }
+                        }else if($user_role=='charity'){
+                            if($this->userModel->updatePasswordCharity($data)){
+                                redirect('landing/login');
+                            }else {
+                                die('Something went wrong');
+                            }
+                        }
+                       
                     } else {
                         die('Something went wrong');
                     }
