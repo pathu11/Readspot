@@ -190,23 +190,25 @@ class Publishers{
         } else {
             return false;
         }
-    }
-
-    
+    }   
     public function findbookByName($book_name){
         $this->db->query('SELECT * from books WHERE book_name=:book_name');
         $this->db->bind(':book_name',$book_name);
-
         $row=$this->db->single();
-
-        //check row
         if($this->db->rowCount()>0){
             return true;
         }else{
             return false;
         }
     }
-
-
-
+    public function countBooks($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as bookCount FROM books WHERE publisher_id = :publisher_id');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        if ($result) {
+            return $result->bookCount;
+        } else {
+            return 0; 
+        }
+    }
 }

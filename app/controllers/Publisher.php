@@ -19,11 +19,13 @@ class Publisher extends Controller{
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-           
-            $publisherDetails = $this->publisherModel->findPublisherById($user_id); 
-            
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $publisher_id =$publisherDetails[0]->publisher_id;
+            $bookCount=$this->publisherModel->countBooks($publisher_id);
             $data = [
-                'publisherDetails' => $publisherDetails,            
+                'publisherDetails' => $publisherDetails, 
+                'bookCount'    =>$bookCount,
+                'publisher_id'   =>$publisher_id    
             ];
             $this->view('publisher/index', $data);
         } 
@@ -913,7 +915,7 @@ class Publisher extends Controller{
                 $this->view('publisher/update',$data);
     
             }  
-    }  
+    } 
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);

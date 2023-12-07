@@ -1,5 +1,5 @@
 <?php
-    $title = "OTP";
+    $title = "Verify Email";
     
     // Retrieve the remaining time from your PHP backend
     $remainingTime = $data['remaining_time']; // Make sure this value is set in your PHP logic
@@ -46,7 +46,7 @@
                 
                 <span>We sent an OTP to your registered email address. Check your inbox and enter the OTP</span>
                 
-                <form action="<?php echo URLROOT; ?>/landing/enterotp" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/landing/verifyemail" method="POST">                    
                     <br>
                     <br>               
                     <input type="text" name="otp"  placeholder="Enter the OTP code" required><br>

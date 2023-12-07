@@ -42,8 +42,30 @@
       }
     }
 
+    public function addEventCategory($data){
+      $this->db->query('INSERT INTO event_category(event,description) VALUES (:event_category,:description)');
+
+      $this->db->bind(':event_category',$data['event_category']);
+      $this->db->bind(':description',$data['description']);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function findBookCategoryById($id){
       $this->db->query('SELECT * FROM book_category WHERE id=:id');
+      $this->db->bind(':id',$id);
+
+      //return $this->db->resultSet();
+      $row = $this->db->single();
+      return $row;
+    }
+
+    public function findEventCategoryById($id){
+      $this->db->query('SELECT * FROM event_category WHERE id=:id');
       $this->db->bind(':id',$id);
 
       //return $this->db->resultSet();
@@ -65,8 +87,34 @@
       }
     }
 
+    public function updateEventCategory($data){
+      $this->db->query('UPDATE event_category SET event = :event_category, description = :description WHERE id = :id');
+
+      $this->db->bind(':event_category',$data['event_category']);
+      $this->db->bind(':description',$data['description']);
+      $this->db->bind(':id',$data['id']);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function deleteBookCategory($id){
       $this->db->query('DELETE FROM book_category WHERE id = :id');
+
+      $this->db->bind(':id',$id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function deleteEventCategory($id){
+      $this->db->query('DELETE FROM event_category WHERE id = :id');
 
       $this->db->bind(':id',$id);
 
@@ -79,7 +127,7 @@
   
   
 
-    public function getPendingPublishers() {
+  public function getPendingPublishers() {
       $this->db->query('SELECT * FROM publishers WHERE  status = "pending"');
       $results=$this->db->resultSet();
 
@@ -92,6 +140,29 @@
 
     return $results;
 }
+
+  public function getPendingUsers(){
+    $this->db->query('SELECT * FROM users WHERE  status = "pending"');
+    $results=$this->db->resultSet();
+
+    return $results;
+  }
+
+  public function getPendingUserDetailsFilteredByUserRole($userRoleFilter){
+    if($userRoleFilter=='publisher'){
+      $this->db->query('SELECT * FROM users WHERE  status = "pending" AND user_role="publisher"');
+      $results=$this->db->resultSet();
+
+      return $results;
+    }
+    if($userRoleFilter=='charity'){
+      $this->db->query('SELECT * FROM users WHERE  status = "pending" AND user_role="charity"');
+      $results=$this->db->resultSet();
+
+      return $results;
+    }
+  }
+
   public function approvePub($user_id) {
     $this->db->query("UPDATE publishers SET status = 'approval' WHERE user_id = :user_id");
     $this->db->bind(':user_id', $user_id);
@@ -127,4 +198,3 @@ public function approveusers($user_id){
 
   
   }
-

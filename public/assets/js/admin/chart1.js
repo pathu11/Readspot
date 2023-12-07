@@ -1,5 +1,6 @@
 const ctx = document.getElementById('myChart1');
 
+
 new Chart(ctx, {
   type: 'bar',
   data: {
@@ -15,7 +16,7 @@ new Chart(ctx, {
     }]
   },
   options: {
-    indexAxis: 'y', // Set indexAxis to 'y' for a horizontal bar chart
+    indexAxis: 'x', // Set indexAxis to 'y' for a horizontal bar chart
     scales: {
       x: {
         beginAtZero: true

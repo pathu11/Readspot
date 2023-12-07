@@ -25,6 +25,7 @@ body {
   margin-top: 125px;
   gap: 100px 50px;
 }
+
 .grid-item {
   background-color: rgb(112, 191, 186, 25%);
   padding: 20px;
