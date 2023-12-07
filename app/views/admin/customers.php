@@ -25,6 +25,20 @@
         <a href="<?php echo URLROOT; ?>/admin/publishers">Publishers</a> 
         <a href="<?php echo URLROOT; ?>/admin/charity">Charity Organizations</a> 
     </div>
+    
+    <div class="filter-bar">
+        <form action="<?php echo URLROOT;?>/admin/" method="get">
+            <select name="user_role" class="select-bar">
+                <option value="">Select User Role</option>
+                <option value="publisher" <?php isset($_GET['user_role'])==true ? ($_GET['user_role']=='publisher'? 'selected':''):''?> >Publisher
+                </option>
+                <option value="charity" <?php isset($_GET['user_role'])==true ? ($_GET['user_role']=='charity'? 'selected':''):''?> >Charity Organization
+                </option>
+            </select>
+            <button type="submit" class="filter-btn"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    
     <div class="table-container" >
 
         <table>

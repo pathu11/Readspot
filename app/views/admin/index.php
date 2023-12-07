@@ -37,7 +37,65 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="<?php echo URLROOT;?>/assets/js/admin/chart1.js"></script>
+
+  <script>
+    // set up block
+    const publishers=<?php echo json_encode($data['countPublishers']); ?>;
+    const charity=<?php echo json_encode($data['countCharity']); ?>;
+    const customers=<?php echo json_encode($data['countCustomers']); ?>;
+    const moderators=<?php echo json_encode($data['countModerators']); ?>;
+    const delivery=<?php echo json_encode($data['countDelivery']); ?>;
+    const data={
+      labels: ['Publishers', 'Charity organizations', 'Customers', 'Community moderators','Delivery Systems'],
+      datasets: [{
+        label: 'Number of users',
+        data: [publishers, charity, customers, moderators,delivery],
+        backgroundColor: [
+          '#333333', '#70BFBA', '#02514C', '000000','#70BFBA'
+        ],
+        borderWidth: 0,
+        borderRadius: 5,
+      }]
+
+    };
+
+    // config block
+    const config={
+      type: 'bar',
+      data,
+      options: {
+        indexAxis: 'x', // Set indexAxis to 'y' for a horizontal bar chart
+        scales: {
+          x: {
+            beginAtZero: true
+          },
+          y: {
+            barPercentage: 0.3, // Adjust the bar height (default is 0.9)
+            categoryPercentage: 0.5 // Adjust the spacing between bars (default is 0.8)
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Set display to false to hide the legend
+          },
+          title: {
+            display: true,
+            text: 'Number of Users', // Title text
+            padding: {
+              top: 10,
+              bottom: 10
+            }
+          }
+        }
+      }
+    };
+    // render block
+    const myChart1 = new Chart(
+      document.getElementById('myChart1'),config
+    );
+
+    </script>
+
   <script src="<?php echo URLROOT;?>/assets/js/admin/chart2.js"></script>
 
 

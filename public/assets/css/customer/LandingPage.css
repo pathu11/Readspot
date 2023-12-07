@@ -104,13 +104,13 @@ body{
     grid-auto-rows: minmax(50px, 250px);
     grid-gap: 2rem;
     margin: 50px 150px 50px 150px;
-    background-color: #B9DED7;
+    /*background-color: #B9DED7;
     /*background-image: url('./bg.jpg');*/
     background-size: cover;
     background-repeat: no-repeat;
     padding: 50px;
     border-radius: 15px;
-    box-shadow: 0 0 8px rgba(30, 98, 94, 0.7);
+    /*box-shadow: 0 0 8px rgba(30, 98, 94, 0.7);*/
 }
 
 /* Style for each section */

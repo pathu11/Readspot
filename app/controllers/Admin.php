@@ -54,10 +54,22 @@ require APPROOT . '\vendor\autoload.php';
             $userRoleFilter = $_GET['user_role'];
         
             $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
+
+            $countModerators = $this->adminModel->countModerators(); 
+            $countDelivery = $this->adminModel->countDelivery(); 
+            $countCustomers = $this->adminModel->countCustomers (); 
+            $countPublishers = $this->adminModel->countPublishers(); 
+            $countCharity = $this->adminModel->countCharity();
+            
             $data = [
                 'adminDetails' => $adminDetails,
                 'adminName'=>$adminDetails[0]->name,
-                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole
+                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole,
+                'countModerators'=>$countModerators,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
   
             ];
             $this->view('admin/index', $data);
