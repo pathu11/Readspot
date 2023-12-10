@@ -14,6 +14,7 @@ class Publisher extends Controller{
         $this->db = new Database();
         
     }
+    
     public function index(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -25,11 +26,37 @@ class Publisher extends Controller{
             $data = [
                 'publisherDetails' => $publisherDetails, 
                 'bookCount'    =>$bookCount,
-                'publisher_id'   =>$publisher_id    
+                'publisher_id'   =>$publisher_id ,
+                'publisherName'  =>$publisherDetails[0] ->name
             ];
             $this->view('publisher/index', $data);
         } 
     }
+    public function weightcalc(){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }else{
+            $user_id = $_SESSION['user_id'];
+                
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+               
+                if ($publisherDetails) {
+                   
+                   
+                    $publisherName = $publisherDetails[0]->name;                   
+                } else {
+                    echo "Not found";
+                }
+                $data=[
+                   'publisherName'=>$publisherName
+                    
+                ];
+    
+
+        }
+        $this->view('publisher/weightcalc',$data);
+    }
+
     public function addbooks(){
         if(!isLoggedIn()){
             redirect('/landing/login');
@@ -185,7 +212,19 @@ class Publisher extends Controller{
 
 
         }else{
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+                
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+               
+                if ($publisherDetails) {
+                    $publisherName = $publisherDetails[0]->name;                   
+                } else {
+                    echo "Not found";
+                }
+            }     
             $data=[
+                'publisherName'=>$publisherName,
                 'book_name' => '',
                 'ISBN_no' => '',
                 'author' => '',
@@ -229,9 +268,15 @@ class Publisher extends Controller{
 }
 
     public function customerSupport(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $this->view('publisher/customerSupport');
     }
     public function deliveredorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $publisherid = null;
     
         if (isset($_SESSION['user_id'])) {
@@ -276,7 +321,8 @@ class Publisher extends Controller{
             'publisherid' => $publisherid,
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
-            'customerName' => $customerName
+            'customerName' => $customerName,
+            'publisherName'  =>$publisherDetails[0] ->name
         ];
         $this->view('publisher/deliveredorders',$data);
     }
@@ -325,13 +371,17 @@ class Publisher extends Controller{
             'publisherid' => $publisherid,
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
-            'customerName' => $customerName
+            'customerName' => $customerName,
+            'publisherName'  =>$publisherDetails[0] ->name
         ];
     
         $this->view('publisher/processingorders', $data);
     }
 
     public function shippedorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $publisherid = null;
     
         if (isset($_SESSION['user_id'])) {
@@ -376,13 +426,17 @@ class Publisher extends Controller{
             'publisherid' => $publisherid,
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
-            'customerName' => $customerName
+            'customerName' => $customerName,
+            'publisherName'  =>$publisherDetails[0] ->name
         ];
         $this->view('publisher/shippedorders',$data);
     }
     
     
     public function productGallery() {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $publisherid = null;
     
         if (isset($_SESSION['user_id'])) {
@@ -406,7 +460,8 @@ class Publisher extends Controller{
         $data = [
             'publisherid' => $publisherid,
             'publisherDetails' => $publisherDetails,
-            'bookDetails' => $bookDetails
+            'bookDetails' => $bookDetails,
+            'publisherName'  =>$publisherDetails[0] ->name
         ];
     
         $this->view('publisher/productGallery', $data);
@@ -421,7 +476,8 @@ class Publisher extends Controller{
             // Fetch publisher details and render the view
             $publisherDetails = $this->publisherModel->findPublisherById($user_id); // Ensure the method exists in the UserModel
             $data = [
-                'publisherDetails' => $publisherDetails
+                'publisherDetails' => $publisherDetails,
+                'publisherName'  =>$publisherDetails[0] ->name
             ];
             $this->view('publisher/setting', $data); // Ensure you are using the correct view file
         }
@@ -512,6 +568,7 @@ class Publisher extends Controller{
                     'town_err'=>'',
                     'district_err'=>'',
                     'postal_code_err'=>'',
+                    'publisherName'  =>$publishers ->name
                    
                 ];
 
@@ -909,6 +966,7 @@ class Publisher extends Controller{
                     'quantity_err' => '',
                     // 'img1_err' => '',
                     // 'img2_err' => '',
+                    
                 ];
 
 
@@ -924,5 +982,6 @@ class Publisher extends Controller{
         session_destroy();
         redirect('landing/index');
     }
+    
 
 }

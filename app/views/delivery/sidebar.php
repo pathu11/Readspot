@@ -11,11 +11,14 @@
         <i class="bx bx-menu menu-icon"></i>
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
+        <span class="user"><?php echo $data['deliveryName']?></span>
+        <i class="bx bxs-user-circle icon"></i> 
       </div>
       <div class="sidebar">
         <div class="logo">
           <i class="bx bx-menu menu-icon"></i>
           <span class="logo-name">ReadSpot</span>
+          
         </div>
 
         <div class="sidebar-content">

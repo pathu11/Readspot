@@ -55,7 +55,7 @@
                             <span class="error"><?php echo $data['weight_err']; ?></span>
                             <br>
         
-                            <a href="#" class="calc-button">Weight Calculator</a>
+                            <a href="<?php echo URLROOT; ?>/publisher/weightcalc" class="calc-button">Weight Calculator</a>
                            
                         </div>
 </div>                               

@@ -19,11 +19,11 @@ class Delivery extends Controller{
             $user_id = $_SESSION['user_id'];
            
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $deliveryName=$deliveryDetails[0]->name;
              
             $data = [
                 'deliveryDetails' => $deliveryDetails,
-                
-
+                'deliveryName'=>$deliveryName
             ];
             $this->view('delivery/index', $data);
         }
@@ -46,6 +46,8 @@ class Delivery extends Controller{
     
             $data = [
                 'deliveryDetails'=>$deliveryDetails,
+                'deliveryName'=>$deliveryDetails[0]->name,
+             
                 'delivery_id' => $delivery_id,
                 'priceperkilo' => trim($_POST['priceperkilo']),
                 
@@ -84,6 +86,7 @@ class Delivery extends Controller{
                     'priceperkilo' => $delivers->priceperkilo,
                     
                     'priceperkilo_err'=>'',
+                    'deliveryName'=>$delivers->name
                    
                 ];
 
@@ -158,14 +161,23 @@ class Delivery extends Controller{
     }
     
     public function orders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
        
         $this->view('delivery/orders');
     }
     public function notification(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
        
         $this->view('delivery/notification');
     }
     public function successorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
        
         $this->view('delivery/successorders');
     }
@@ -174,6 +186,9 @@ class Delivery extends Controller{
         $this->view('delivery/returnedorders');
     }
     public function processedorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $deliveryid = null;
     
         if (isset($_SESSION['user_id'])) {
