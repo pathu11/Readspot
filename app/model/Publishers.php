@@ -87,8 +87,6 @@ class Publishers{
             return false;
         }
     }
-    
-
     public function editAccount($data) {
         $this->db->query('UPDATE publishers 
                   SET account_name = :account_name, 
@@ -113,10 +111,6 @@ class Publishers{
             return false;
         }
     }
-    
-
-    
-
     public function addBooks($data){
         $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id,status) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:status)');
         $this->db->bind(':book_name',$data['book_name']);
@@ -174,9 +168,6 @@ class Publishers{
             return false;
         }
     }
-    
-    
-
     public function deletebooks($book_id) {
         $this->db->query('DELETE FROM books WHERE book_id = :book_id');
         // Bind values

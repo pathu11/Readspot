@@ -6,32 +6,52 @@
     }
 
 
-    public function findNBrandNewBookOrdersByOrderId($order_id){
-        $this->db->query('SELECT * from brandnewbookorders WHERE order_id=:order_id');
-        $this->db->bind(':order_id',$order_id);
-       
-
+   
+    public function findNewBookOrdersByOrderId($order_id) {
+        $this->db->query('SELECT * FROM orders o JOIN books b ON o.book_id = b.book_id WHERE o.order_id = :order_id AND b.type = "new"');
+        $this->db->bind(':order_id', $order_id);
+    
         return $this->db->resultSet();
     }
-    public function findBrandNewBookProOrdersBypubId($publisher_id){
-        $this->db->query('SELECT * from brandnewbookorders WHERE publisher_id=:publisher_id AND status="processing"');
-        $this->db->bind(':publisher_id',$publisher_id);
+    
+    public function findNewBookProOrdersBypubId($publisher_id) {
+        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
+                          FROM orders o
+                          JOIN books b ON o.book_id = b.book_id
+                          LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
+                          LEFT JOIN customers c ON o.customer_id = c.customer_id
+                          WHERE b.publisher_id = :publisher_id AND o.status = "processing" AND b.type = "new"');
+        $this->db->bind(':publisher_id', $publisher_id);
+    
         return $this->db->resultSet();
     }
-    public function findBrandNewBookShippingOrdersBypubId($publisher_id){
-        $this->db->query('SELECT * from brandnewbookorders WHERE publisher_id=:publisher_id AND status="shipping"');
-        $this->db->bind(':publisher_id',$publisher_id);
-       
-
+    
+    
+    public function findNewBookShippingOrdersBypubId($publisher_id) {
+        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
+                          FROM orders o
+                          JOIN books b ON o.book_id = b.book_id
+                          LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
+                          LEFT JOIN customers c ON o.customer_id = c.customer_id
+                          WHERE b.publisher_id = :publisher_id AND o.status = "shipping" AND b.type = "new"');
+        $this->db->bind(':publisher_id', $publisher_id);
+    
         return $this->db->resultSet();
     }
-    public function findBrandNewBookDeliveredOrdersBypubId($publisher_id){
-        $this->db->query('SELECT * from brandnewbookorders WHERE publisher_id=:publisher_id AND status="delivered"');
-        $this->db->bind(':publisher_id',$publisher_id);
-       
-
+    
+    
+    public function findNewBookDeliveredOrdersBypubId($publisher_id) {
+        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
+                          FROM orders o
+                          JOIN books b ON o.book_id = b.book_id
+                          LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
+                          LEFT JOIN customers c ON o.customer_id = c.customer_id
+                          WHERE b.publisher_id = :publisher_id AND o.status = "delivered" AND b.type = "new"');
+        $this->db->bind(':publisher_id', $publisher_id);
+    
         return $this->db->resultSet();
     }
+    
 
     
   }

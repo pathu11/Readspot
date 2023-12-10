@@ -288,21 +288,14 @@ class Publisher extends Controller{
                 $publisherid = $publisherDetails[0]->publisher_id;
     
                 if ($publisherid) {
-                    $orderDetails = $this->orderModel->findBrandNewBookDeliveredOrdersBypubId($publisherid);
+                    $orderDetails = $this->orderModel->findNewBookDeliveredOrdersBypubId($publisherid);
     
                     if ($orderDetails) {
                         // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
                         foreach ($orderDetails as $order) {
-                            $customerId = $order->customer_id;
-                            if ($customerId) {
-                                $customerDetails=$this->publisherModel->findcustomerBycusId($customerId);
-                                $customerName=$customerDetails->name;
-                            } else {
-                                echo "Not found1";
-                            }
-                           
-                            // Now you can use $customerId to fetch customer details if needed
-                            // ...
+                            $publisherName = $order->publisher_name;
+                            $customerName = $order->customer_name;
+
                         }
                     } else {
                         echo "No orders found";
@@ -322,11 +315,16 @@ class Publisher extends Controller{
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
             'customerName' => $customerName,
-            'publisherName'  =>$publisherDetails[0] ->name
+            
+            'publisherName'  =>$publisherName
         ];
+    
         $this->view('publisher/deliveredorders',$data);
     }
     public function processingorders() {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $publisherid = null;
     
         if (isset($_SESSION['user_id'])) {
@@ -338,21 +336,14 @@ class Publisher extends Controller{
                 $publisherid = $publisherDetails[0]->publisher_id;
     
                 if ($publisherid) {
-                    $orderDetails = $this->orderModel->findBrandNewBookProOrdersBypubId($publisherid);
+                    $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
     
                     if ($orderDetails) {
                         // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
                         foreach ($orderDetails as $order) {
-                            $customerId = $order->customer_id;
-                            if ($customerId) {
-                                $customerDetails=$this->publisherModel->findcustomerBycusId($customerId);
-                                $customerName=$customerDetails->name;
-                            } else {
-                                echo "Not found1";
-                            }
-                           
-                            // Now you can use $customerId to fetch customer details if needed
-                            // ...
+                            $publisherName = $order->publisher_name;
+                            $customerName = $order->customer_name;
+
                         }
                     } else {
                         echo "No orders found";
@@ -372,7 +363,8 @@ class Publisher extends Controller{
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
             'customerName' => $customerName,
-            'publisherName'  =>$publisherDetails[0] ->name
+            
+            'publisherName'  =>$publisherName
         ];
     
         $this->view('publisher/processingorders', $data);
@@ -393,21 +385,14 @@ class Publisher extends Controller{
                 $publisherid = $publisherDetails[0]->publisher_id;
     
                 if ($publisherid) {
-                    $orderDetails = $this->orderModel->findBrandNewBookShippingOrdersBypubId($publisherid);
+                    $orderDetails = $this->orderModel->findNewBookShippingOrdersBypubId($publisherid);
     
                     if ($orderDetails) {
                         // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
                         foreach ($orderDetails as $order) {
-                            $customerId = $order->customer_id;
-                            if ($customerId) {
-                                $customerDetails=$this->publisherModel->findcustomerBycusId($customerId);
-                                $customerName=$customerDetails->name;
-                            } else {
-                                echo "Not found1";
-                            }
-                           
-                            // Now you can use $customerId to fetch customer details if needed
-                            // ...
+                            $publisherName = $order->publisher_name;
+                            $customerName = $order->customer_name;
+
                         }
                     } else {
                         echo "No orders found";
@@ -427,7 +412,8 @@ class Publisher extends Controller{
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
             'customerName' => $customerName,
-            'publisherName'  =>$publisherDetails[0] ->name
+            
+            'publisherName'  =>$publisherName
         ];
         $this->view('publisher/shippedorders',$data);
     }
