@@ -31,7 +31,7 @@
             </li>
             
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/delivery/orders" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/delivery/processedorders" class="nav-link">
                 <i class="bx bxs-note icon"></i>
                 <span class="link">Orders</span>
               </a>

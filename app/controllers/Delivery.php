@@ -3,11 +3,12 @@ class Delivery extends Controller{
     private $deliveryModel;
     
     private $userModel;
-
+    private $orderModel;
     private $db;
     public function __construct(){
         $this->deliveryModel=$this->model('deliver');
         $this->userModel=$this->model('User');
+        $this->orderModel=$this->model('Orders');
        
        
         $this->db = new Database();
@@ -160,12 +161,32 @@ class Delivery extends Controller{
         
     }
     
-    public function orders(){
+    public function shippingorders(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
+    
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+    
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookShippingOrders();
+    
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+    
+            
+        } else {
+            echo "Not logged in as a publisher";
+        }
+    
+        $data = [
+            'orderDetails'=>$orderDetails,
+           
+        ];
        
-        $this->view('delivery/orders');
+        $this->view('delivery/shippingorders',$data);
     }
     public function notification(){
         if (!isLoggedIn()) {
@@ -174,70 +195,87 @@ class Delivery extends Controller{
        
         $this->view('delivery/notification');
     }
-    public function successorders(){
+    public function deliveredorders(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-       
-        $this->view('delivery/successorders');
-    }
-    public function returnedorders(){
-       
-        $this->view('delivery/returnedorders');
-    }
-    public function processedorders(){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        }
+    
         $deliveryid = null;
     
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
-            
+    
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookDeliveredOrders();
     
-            if ($publisherDetails) {
-                $publisherid = $publisherDetails[0]->publisher_id;
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
     
-                if ($publisherid) {
-                    $orderDetails = $this->orderModel->findBrandNewBookProOrdersBypubId($publisherid);
-    
-                    if ($orderDetails) {
-                        // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
-                        foreach ($orderDetails as $order) {
-                            $customerId = $order->customer_id;
-                            if ($customerId) {
-                                $customerDetails=$this->publisherModel->findcustomerBycusId($customerId);
-                                $customerName=$customerDetails->name;
-                            } else {
-                                echo "Not found1";
-                            }
-                           
-                            // Now you can use $customerId to fetch customer details if needed
-                            // ...
-                        }
-                    } else {
-                        echo "No orders found";
-                    }
-                } else {
-                    echo "Publisher ID not found";
-                }
-            } else {
-                echo "Publisher not found";
-            }
+            
         } else {
             echo "Not logged in as a publisher";
         }
     
         $data = [
-            'publisherid' => $publisherid,
-            'publisherDetails' => $publisherDetails,
-            'orderDetails' => $orderDetails,
-            'customerName' => $customerName
+            'orderDetails'=>$orderDetails,
+           
+        ];
+       
+        $this->view('delivery/deliveredorders',$data);
+    }
+    public function returnedorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+    
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookReturnedOrders();
+    
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+    
+            
+        } else {
+            echo "Not logged in as a publisher";
+        }
+    
+        $data = [
+            'orderDetails'=>$orderDetails,
+           
+        ];
+        $this->view('delivery/returnedorders',$data);
+    }
+    public function processedorders() {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+    
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookProOrders();
+    
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+    
+            
+        } else {
+            echo "Not logged in as a publisher";
+        }
+    
+        $data = [
+            'orderDetails'=>$orderDetails,
+           
         ];
     
-        $this->view('delivery/processedorders');
+        $this->view('delivery/processedorders', $data);
     }
+    
     
 
 }

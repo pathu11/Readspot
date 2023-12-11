@@ -288,7 +288,7 @@ class Publisher extends Controller{
                 $publisherid = $publisherDetails[0]->publisher_id;
     
                 if ($publisherid) {
-                    $orderDetails = $this->orderModel->findNewBookDeliveredOrdersBypubId($publisherid);
+                    $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
     
                     if ($orderDetails) {
                         // Assuming findBrandNewBookProOrdersBypubId returns an array of orders

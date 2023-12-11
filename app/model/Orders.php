@@ -51,6 +51,180 @@
     
         return $this->db->resultSet();
     }
+
+    
+
+    public function findBookProOrders() {
+        $this->db->query('SELECT 
+            o.order_id, 
+            o.status,
+            o.quantity,
+            o.total_weight, 
+            b.book_id, 
+            b.type AS book_type, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
+            END AS sender_postal_name, 
+            CASE 
+                WHEN b.type = "new" THEN p.street_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.street_name
+            END AS sender_street_name,
+            CASE 
+                WHEN b.type = "new" THEN p.town
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.town
+            END AS sender_town, 
+            CASE 
+                WHEN b.type = "new" THEN p.district
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.district
+            END AS sender_district, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_code
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
+            END AS sender_postal_code, 
+            c_receiver.postal_name AS receiver_postal_name, 
+            c_receiver.street_name AS receiver_street_name,
+            c_receiver.town AS receiver_town,
+            c_receiver.district AS receiver_district ,
+            c_receiver.postal_code AS receiver_postal_code 
+        FROM orders o 
+        JOIN books b ON o.book_id = b.book_id 
+        LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
+        LEFT JOIN customers c_sender ON b.customer_id = c_sender.customer_id
+        LEFT JOIN customers c_receiver ON o.customer_id = c_receiver.customer_id 
+        WHERE o.status = "processing"');
+    
+        return $this->db->resultSet();
+    }
+    
+    public function findBookShippingOrders() {
+        $this->db->query('SELECT 
+            o.order_id, 
+            o.status,
+            o.quantity,
+            o.total_weight, 
+            b.book_id, 
+            b.type AS book_type, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
+            END AS sender_postal_name, 
+            CASE 
+                WHEN b.type = "new" THEN p.street_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.street_name
+            END AS sender_street_name,
+            CASE 
+                WHEN b.type = "new" THEN p.town
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.town
+            END AS sender_town, 
+            CASE 
+                WHEN b.type = "new" THEN p.district
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.district
+            END AS sender_district, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_code
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
+            END AS sender_postal_code, 
+            c_receiver.postal_name AS receiver_postal_name, 
+            c_receiver.street_name AS receiver_street_name,
+            c_receiver.town AS receiver_town,
+            c_receiver.district AS receiver_district ,
+            c_receiver.postal_code AS receiver_postal_code 
+        FROM orders o 
+        JOIN books b ON o.book_id = b.book_id 
+        LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
+        LEFT JOIN customers c_sender ON b.customer_id = c_sender.customer_id
+        LEFT JOIN customers c_receiver ON o.customer_id = c_receiver.customer_id 
+        WHERE o.status = "shipping"');
+    
+        return $this->db->resultSet();
+    }
+    
+    public function findBookDeliveredOrders() {
+        $this->db->query('SELECT 
+            o.order_id, 
+            o.status,
+            o.quantity,
+            o.total_weight, 
+            b.book_id, 
+            b.type AS book_type, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
+            END AS sender_postal_name, 
+            CASE 
+                WHEN b.type = "new" THEN p.street_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.street_name
+            END AS sender_street_name,
+            CASE 
+                WHEN b.type = "new" THEN p.town
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.town
+            END AS sender_town, 
+            CASE 
+                WHEN b.type = "new" THEN p.district
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.district
+            END AS sender_district, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_code
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
+            END AS sender_postal_code, 
+            c_receiver.postal_name AS receiver_postal_name, 
+            c_receiver.street_name AS receiver_street_name,
+            c_receiver.town AS receiver_town,
+            c_receiver.district AS receiver_district ,
+            c_receiver.postal_code AS receiver_postal_code 
+        FROM orders o 
+        JOIN books b ON o.book_id = b.book_id 
+        LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
+        LEFT JOIN customers c_sender ON b.customer_id = c_sender.customer_id
+        LEFT JOIN customers c_receiver ON o.customer_id = c_receiver.customer_id 
+        WHERE o.status = "delivered"');
+    
+        return $this->db->resultSet();
+    }
+    
+    public function findBookReturnedOrders() {
+        $this->db->query('SELECT 
+            o.order_id, 
+            o.status,
+            o.quantity,
+            o.total_weight, 
+            b.book_id, 
+            b.type AS book_type, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
+            END AS sender_postal_name, 
+            CASE 
+                WHEN b.type = "new" THEN p.street_name
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.street_name
+            END AS sender_street_name,
+            CASE 
+                WHEN b.type = "new" THEN p.town
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.town
+            END AS sender_town, 
+            CASE 
+                WHEN b.type = "new" THEN p.district
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.district
+            END AS sender_district, 
+            CASE 
+                WHEN b.type = "new" THEN p.postal_code
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
+            END AS sender_postal_code, 
+            c_receiver.postal_name AS receiver_postal_name, 
+            c_receiver.street_name AS receiver_street_name,
+            c_receiver.town AS receiver_town,
+            c_receiver.district AS receiver_district ,
+            c_receiver.postal_code AS receiver_postal_code 
+        FROM orders o 
+        JOIN books b ON o.book_id = b.book_id 
+        LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
+        LEFT JOIN customers c_sender ON b.customer_id = c_sender.customer_id
+        LEFT JOIN customers c_receiver ON o.customer_id = c_receiver.customer_id 
+        WHERE o.status = "returned"');
+    
+        return $this->db->resultSet();
+    }
     
 
     
