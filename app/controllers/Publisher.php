@@ -785,6 +785,7 @@ class Publisher extends Controller{
             // $books = $this->publisherModel->findBookById($book_id);
             // $publisher_id=$books[0]->publisher_id;
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
             $publisher_id=$publisherDetails[0]->publisher_id;
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 // process form
@@ -923,14 +924,14 @@ class Publisher extends Controller{
     
             }else{
                      
-              
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 // ...
                 $books = $this->publisherModel->findBookById($book_id);
                 if($books->publisher_id != $publisher_id){
                     redirect('publisher/productGallery');
                   }
                 $data = [
-                    
+                    'bookCategoryDetails'=>$bookCategoryDetails,
                     'book_id' => $book_id,
                     'book_name' => $books->book_name,
                     'ISBN_no' => $books->ISBN_no,
