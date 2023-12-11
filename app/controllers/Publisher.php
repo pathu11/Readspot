@@ -5,12 +5,13 @@ class Publisher extends Controller{
     private $publisherModel;
     private $orderModel;
     private $userModel;
-
+    private $adminModel;
     private $db;
     public function __construct(){
         $this->publisherModel=$this->model('Publishers');
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
+        $this->adminModel=$this->model('Admins');
         $this->db = new Database();
         
     }
@@ -71,7 +72,7 @@ class Publisher extends Controller{
                 $user_id = $_SESSION['user_id'];
                 
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-               
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($publisherDetails) {
                    
                     $publisherid = $publisherDetails[0]->publisher_id;
@@ -216,7 +217,7 @@ class Publisher extends Controller{
                 $user_id = $_SESSION['user_id'];
                 
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-               
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($publisherDetails) {
                     $publisherName = $publisherDetails[0]->name;                   
                 } else {
@@ -224,6 +225,7 @@ class Publisher extends Controller{
                 }
             }     
             $data=[
+                'bookCategoryDetails'=>$bookCategoryDetails,
                 'publisherName'=>$publisherName,
                 'book_name' => '',
                 'ISBN_no' => '',
