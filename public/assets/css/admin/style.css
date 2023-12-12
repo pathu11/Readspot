@@ -75,6 +75,7 @@ body {
 }
 
 .filter-bar{
+  padding-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -98,6 +99,12 @@ body {
 
 .fa-search{
   color: black;
+}
+
+.search-bar{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
 }
 
 table{

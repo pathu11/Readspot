@@ -244,7 +244,7 @@ public function countModerators(){
           return $result->deliveryCount;
       } else {
           return 0; 
-      }
+        }
   }
   public function countCustomers(){    
       $this->db->query('SELECT COUNT(*) as customerCount FROM customers');
@@ -254,7 +254,7 @@ public function countModerators(){
           return $result->customerCount;
       } else {
           return 0; 
-      }
+        }
   }
   public function countPublishers(){    
       $this->db->query('SELECT COUNT(*) as PublishersCount FROM publishers WHERE status="approval" ');
@@ -264,7 +264,7 @@ public function countModerators(){
           return $result->PublishersCount;
       } else {
           return 0; 
-          }
+        }
 }
 public function countCharity(){    
   $this->db->query('SELECT COUNT(*) as CharityCount FROM charity WHERE status="approval" ');
@@ -274,7 +274,15 @@ public function countCharity(){
       return $result->CharityCount;
   } else {
       return 0; 
-      }
+    }
+}
+
+public function getCustomerSearchDetails($input){
+  $this->db->query("SELECT * FROM customers WHERE name LIKE '{$input}%'");
+
+  $results=$this->db->resultSet();
+
+  return $results;
 }
 
   

@@ -5,7 +5,7 @@ new Chart(ctx2, {
   data: {
     labels: ['publishers', 'Charity organizations', 'customers', 'Community moderators'],
     datasets: [{
-      label: 'Number of users',
+      label: 'Popular books',
       data: [12, 19, 3, 5],
       backgroundColor: [
         '#333333', '#70BFBA', '#02514C', '000000', '404040'

@@ -48,6 +48,8 @@ require APPROOT . '\vendor\autoload.php';
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else {
+
+        //checking filter get request and load the table
         if (isset($_GET['user_role'])) {
             $user_id = $_SESSION['user_id'];
             $adminDetails = $this->adminModel->findAdminById($user_id);
@@ -80,12 +82,23 @@ require APPROOT . '\vendor\autoload.php';
 
             $adminDetails = $this->adminModel->findAdminById($user_id); 
             $getPendingUserDetails = $this->adminModel->getPendingUsers();
+
+            
+            $countModerators = $this->adminModel->countModerators(); 
+            $countDelivery = $this->adminModel->countDelivery(); 
+            $countCustomers = $this->adminModel->countCustomers (); 
+            $countPublishers = $this->adminModel->countPublishers(); 
+            $countCharity = $this->adminModel->countCharity();
             
             $data = [
                 'adminDetails' => $adminDetails,
                 'adminName'=>$adminDetails[0]->name,
-                'pendingUserDetails'=>$getPendingUserDetails
-  
+                'pendingUserDetails'=>$getPendingUserDetails,
+                'countModerators'=>$countModerators,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
             ];
             $this->view('admin/index', $data);
         }
@@ -510,6 +523,18 @@ public function charity(){
         'charityDetails'=>$charityDetails,
     ];
     $this->view('admin/charity',$data);
+}
+
+public function livesearch(){
+    if(isset($_POST['input'])){
+        $input = $_POST['input'];
+        $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
+    }
+    $data = [
+        'customerSearchDetails'=>$customerSearchDetails
+    ];
+    
+    $this->view('admin/livesearch',$data);
 }
 
 }

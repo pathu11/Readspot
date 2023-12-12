@@ -26,21 +26,40 @@
         <a href="<?php echo URLROOT; ?>/admin/charity">Charity Organizations</a> 
     </div>
     
-    <div class="filter-bar">
-        <form action="<?php echo URLROOT;?>/admin/" method="get">
-            <select name="user_role" class="select-bar">
-                <option value="">Select User Role</option>
-                <option value="publisher" <?php isset($_GET['user_role'])==true ? ($_GET['user_role']=='publisher'? 'selected':''):''?> >Publisher
-                </option>
-                <option value="charity" <?php isset($_GET['user_role'])==true ? ($_GET['user_role']=='charity'? 'selected':''):''?> >Charity Organization
-                </option>
-            </select>
-            <button type="submit" class="filter-btn"><i class="fa fa-search"></i></button>
-        </form>
+    <div class="search-bar">
+        <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search...">
     </div>
     
-    <div class="table-container" >
+    <div id="searchresult"></div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#live-search").keyup(function(){
+                var input = $(this).val();
+                //alert(input);
+                if(input != ""){
+                    $.ajax({
+                        url:"<?php echo URLROOT;?>/admin/livesearch",
+                        method:"POST",
+                        data:{input:input},
+
+                        success:function(data){
+                            $(".table-container").hide();
+                            $("#searchresult").html(data);
+                            $("#searchresult").css("display","block");
+                        }
+                    });
+                }else{
+                    $(".table-container").show();
+                    $("#searchresult").css("display","none");
+                }
+            });
+        });
+    </script>
+    
+    <div class="table-container" >
         <table>
             <tr>
                 <th>Customer ID</th>

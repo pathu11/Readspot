@@ -64,7 +64,7 @@
       type: 'bar',
       data,
       options: {
-        indexAxis: 'x', // Set indexAxis to 'y' for a horizontal bar chart
+        indexAxis: 'y', // Set indexAxis to 'y' for a horizontal bar chart
         scales: {
           x: {
             beginAtZero: true
@@ -100,7 +100,7 @@
 
 
   <div class="table-container">
-    <span class="table-head">Pending Requests</span>
+    <span class="table-head">Pending Registration Requests</span>
     <div class="filter-bar">
         <form action="<?php echo URLROOT;?>/admin/" method="get">
             <select name="user_role" class="select-bar">
