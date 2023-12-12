@@ -46,6 +46,9 @@ class Superadmin extends Controller{
     }
 
     public function addAdmin(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
@@ -431,6 +434,9 @@ class Superadmin extends Controller{
     
 
     public function addModerator(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
@@ -564,6 +570,9 @@ class Superadmin extends Controller{
     }
 
     public function addDelivery(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
@@ -738,6 +747,7 @@ class Superadmin extends Controller{
 
     public function deleteadmins($user_id)
 {
+
     if ($this->superadminModel->deleteadmins($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->deleteusers($user_id)){
@@ -751,7 +761,11 @@ class Superadmin extends Controller{
 }
 
 public function deletemoderators($user_id)
+
 {
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    }
     if ($this->superadminModel->deletemoderators($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->deleteusers($user_id)){
@@ -765,6 +779,9 @@ public function deletemoderators($user_id)
 }
 public function deletedelivery($user_id)
 {
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    }
     if ($this->superadminModel->deletedelivery($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->deleteusers($user_id)){

@@ -13,6 +13,7 @@
 <?php require APPROOT . '/views/delivery/subnav.php';?>
     <div class="div_table" style="width:90%">
     <p> Processing Orders >></p>
+   
         <table>
             <tr>
                 <th style="width:15%">Order ID</th>
@@ -26,14 +27,13 @@
             <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
                 <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->book_id; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
-                <th style="width:7%"><?php echo $data['customerName']; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->total_price; ?></th>
-                
-                
+                <th style="width:7%"><?php echo $orderDetails->total_weight; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></th>
+                    <th style="width:7%"><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></th>
+                <!-- Add other columns and data as needed -->
             </tr>
-            <?php endforeach; ?> 
+            <?php endforeach; ?>
 
             
 
