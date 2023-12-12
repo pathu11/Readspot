@@ -6,10 +6,10 @@
 <div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
         <div class="content">
         <?php 
+
         flash('register_success'); ?>
         <a href="<?php echo URLROOT; ?>/customer/comment">comment</a>
-        <a href="<?php echo URLROOT; ?>/customer/test">new</a>
-         
+      
 
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2>
