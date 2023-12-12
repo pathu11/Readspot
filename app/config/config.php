@@ -9,7 +9,7 @@ define('DB_NAME','readspots');
 // 
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
-define('URLROOT','http://localhost/Group-27');
+define('URLROOT','http://localhost:8080/Group-27');
 define('SITENAME','Readspot');
 define('APPVERSION','1.0.0');
 
@@ -20,4 +20,3 @@ define('MAIL_PASS','C431AA5FC0C935C12D71412E7BA6A5AAF5F8');
 define('MAIL_PORT','2525');
 // define('MAIL_SECURITY','SSL');
 define('MAIL_SECURITY','TLS');
-
