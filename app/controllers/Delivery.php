@@ -3,11 +3,12 @@ class Delivery extends Controller{
     private $deliveryModel;
     
     private $userModel;
-
+    private $orderModel;
     private $db;
     public function __construct(){
         $this->deliveryModel=$this->model('deliver');
         $this->userModel=$this->model('User');
+        $this->orderModel=$this->model('Orders');
        
        
         $this->db = new Database();
@@ -19,11 +20,11 @@ class Delivery extends Controller{
             $user_id = $_SESSION['user_id'];
            
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $deliveryName=$deliveryDetails[0]->name;
              
             $data = [
                 'deliveryDetails' => $deliveryDetails,
-                
-
+                'deliveryName'=>$deliveryName
             ];
             $this->view('delivery/index', $data);
         }
@@ -46,6 +47,8 @@ class Delivery extends Controller{
     
             $data = [
                 'deliveryDetails'=>$deliveryDetails,
+                'deliveryName'=>$deliveryDetails[0]->name,
+             
                 'delivery_id' => $delivery_id,
                 'priceperkilo' => trim($_POST['priceperkilo']),
                 
@@ -84,6 +87,7 @@ class Delivery extends Controller{
                     'priceperkilo' => $delivers->priceperkilo,
                     
                     'priceperkilo_err'=>'',
+                    'deliveryName'=>$delivers->name
                    
                 ];
 
@@ -157,72 +161,124 @@ class Delivery extends Controller{
         
     }
     
-    public function orders(){
-       
-        $this->view('delivery/orders');
-    }
-    public function notification(){
-       
-        $this->view('delivery/notification');
-    }
-    public function successorders(){
-       
-        $this->view('delivery/successorders');
-    }
-    public function returnedorders(){
-       
-        $this->view('delivery/returnedorders');
-    }
-    public function processedorders(){
+    public function shippingorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
         $deliveryid = null;
     
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
-            
+    
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookShippingOrders();
     
-            if ($publisherDetails) {
-                $publisherid = $publisherDetails[0]->publisher_id;
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
     
-                if ($publisherid) {
-                    $orderDetails = $this->orderModel->findBrandNewBookProOrdersBypubId($publisherid);
-    
-                    if ($orderDetails) {
-                        // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
-                        foreach ($orderDetails as $order) {
-                            $customerId = $order->customer_id;
-                            if ($customerId) {
-                                $customerDetails=$this->publisherModel->findcustomerBycusId($customerId);
-                                $customerName=$customerDetails->name;
-                            } else {
-                                echo "Not found1";
-                            }
-                           
-                            // Now you can use $customerId to fetch customer details if needed
-                            // ...
-                        }
-                    } else {
-                        echo "No orders found";
-                    }
-                } else {
-                    echo "Publisher ID not found";
-                }
-            } else {
-                echo "Publisher not found";
-            }
+            
         } else {
             echo "Not logged in as a publisher";
         }
-    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
-            'publisherid' => $publisherid,
-            'publisherDetails' => $publisherDetails,
-            'orderDetails' => $orderDetails,
-            'customerName' => $customerName
+            'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
+        ];
+       
+        $this->view('delivery/shippingorders',$data);
+    }
+    public function notification(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+       
+        $this->view('delivery/notification');
+    }
+    public function deliveredorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+    
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookDeliveredOrders();
+    
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+    
+            
+        } else {
+            echo "Not logged in as a publisher";
+        }
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+        $data = [
+            'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
+           
+        ];
+       
+        $this->view('delivery/deliveredorders',$data);
+    }
+    public function returnedorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+    
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookReturnedOrders();
+    
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+    
+            
+        } else {
+            echo "Not logged in as a publisher";
+        }
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+        $data = [
+            'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
+           
+        ];
+        $this->view('delivery/returnedorders',$data);
+    }
+    public function processedorders() {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+    
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+            $orderDetails = $this->orderModel->findBookProOrders();
+    
+            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+    
+            
+        } else {
+            echo "Not logged in as a publisher";
+        }
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+        $data = [
+            'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
+           
         ];
     
-        $this->view('delivery/processedorders');
+        $this->view('delivery/processedorders', $data);
     }
+    
     
 
 }

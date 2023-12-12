@@ -2,8 +2,6 @@
 
     $title = "weight calculator";
 
-    $title = "Weight Calculator";
-    
 
 ?>
 
