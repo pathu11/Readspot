@@ -180,10 +180,10 @@ class Delivery extends Controller{
         } else {
             echo "Not logged in as a publisher";
         }
-    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
-           
+            'deliveryName'=>$deliveryDetails[0]->name
         ];
        
         $this->view('delivery/shippingorders',$data);
@@ -214,9 +214,10 @@ class Delivery extends Controller{
         } else {
             echo "Not logged in as a publisher";
         }
-    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
            
         ];
        
@@ -241,9 +242,10 @@ class Delivery extends Controller{
         } else {
             echo "Not logged in as a publisher";
         }
-    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
            
         ];
         $this->view('delivery/returnedorders',$data);
@@ -267,9 +269,10 @@ class Delivery extends Controller{
         } else {
             echo "Not logged in as a publisher";
         }
-    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
+            'deliveryName'=>$deliveryDetails[0]->name
            
         ];
     

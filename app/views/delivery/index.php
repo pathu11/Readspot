@@ -38,15 +38,15 @@
   <div class="table-container">
     <span class="table-head">Delivery Charging Table </span>
     <table>
-                    <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
-                        
+                    
+    
                         <tr>
                             <th style="width: 35%">Weight(kg)</th>
                             <th style="width: 45%">Price per unit(Rs)</th>
                             <th style="width: 20%">Edit</th>
                         </tr>
                         <tr>
-
+                        <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
                             <th>1</th>
                             <th><?php echo $deliveryDetails->priceperkilo; ?></th>
                             <th><a href="<?php echo URLROOT; ?>/delivery/updatepricePerOne/<?php echo $deliveryDetails->delivery_id; ?>"><i class="fa fa-edit" style="color:black;"></i></a></th>
