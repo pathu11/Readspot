@@ -219,3 +219,23 @@ button{
   from {opacity: 0;}
   to {opacity:1 ;}
 }
+@media only screen and (max-width: 768px) {
+  
+
+  .grid-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .chart-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .chart {
+    width: 100%; /* Take full width on smaller screens */
+  }
+
+  /* Add additional styles or adjustments as needed for smaller screens */
+}

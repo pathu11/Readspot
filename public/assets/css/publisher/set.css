@@ -88,7 +88,7 @@ body {
     height:40px;
     margin-top: 10px;
     color: white;
-    background-color: #01322F;
+    background-color: #009D94;
 
     padding: 7px;
     
@@ -100,7 +100,7 @@ body {
 .my-button:hover {
     width: 200px;
     height:40px;
-    background-color: #009D94;
+    background-color: #ccc;
     border:none;
     text-decoration:none;
 }
@@ -109,6 +109,46 @@ body {
     display: block;
     margin-top: 10px;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #009D94;
     width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+    .con {
+        flex-direction: column;
+    }
+
+    .r_col {
+        width: 100%;
+        margin-right: 0;
+    }
+    .l_col {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .r_col .r_a_col span,
+.r_col .r_b_col span {
+        width: 70%;
+        margin-right: 0;
+}
+.r_col .r_a_col td,
+.r_col .r_b_col td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.my-button {
+    width: 60%;
+    margin: 20;
+    text-align:center;
+}
+
+
+
+
+    .l_col,
+    .r_col {
+        margin: 10px 0;
+    }
 }

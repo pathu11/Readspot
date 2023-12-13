@@ -323,12 +323,61 @@ class Publisher extends Controller{
     
         $this->view('publisher/deliveredorders',$data);
     }
-    public function processingorders() {
+    // public function processingorders() {
+    //     if (!isLoggedIn()) {
+    //         redirect('landing/login');
+    //     }
+    //     $publisherid = null;
+    
+    //     if (isset($_SESSION['user_id'])) {
+    //         $user_id = $_SESSION['user_id'];
+            
+    //         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+    
+    //         if ($publisherDetails) {
+    //             $publisherid = $publisherDetails[0]->publisher_id;
+    
+    //             if ($publisherid) {
+    //                 $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
+    
+    //                 if ($orderDetails) {
+    //                     // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
+    //                     foreach ($orderDetails as $order) {
+    //                         $publisherName = $order->publisher_name;
+    //                         $customerName = $order->customer_name;
+
+    //                     }
+    //                 } else {
+    //                     echo "No orders found";
+    //                 }
+    //             } else {
+    //                 echo "Publisher ID not found";
+    //             }
+    //         } else {
+    //             echo "Publisher not found";
+    //         }
+    //     } else {
+    //         echo "Not logged in as a publisher";
+    //     }
+    
+    //     $data = [
+    //         'publisherid' => $publisherid,
+    //         'publisherDetails' => $publisherDetails,
+    //         'orderDetails' => $orderDetails,
+    //         'customerName' => $customerName,
+            
+    //         'publisherName'  =>$publisherName
+    //     ];
+    
+    //     $this->view('publisher/processingorders', $data);
+    // }
+    public function processingorders(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
         $publisherid = null;
-    
+        // $customerName = ''; // Initialize variables before the loop
+        // $publisherName = '';
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
             
@@ -339,7 +388,7 @@ class Publisher extends Controller{
     
                 if ($publisherid) {
                     $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
-    
+                    var_dump($orderDetails);
                     if ($orderDetails) {
                         // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
                         foreach ($orderDetails as $order) {
@@ -353,6 +402,7 @@ class Publisher extends Controller{
                 } else {
                     echo "Publisher ID not found";
                 }
+                
             } else {
                 echo "Publisher not found";
             }
@@ -365,12 +415,11 @@ class Publisher extends Controller{
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
             'customerName' => $customerName,
-            
-            'publisherName'  =>$publisherName
+            'publisherName'  =>$publisherDetails[0]->name
         ];
-    
-        $this->view('publisher/processingorders', $data);
+        $this->view('publisher/processingorders',$data);
     }
+    
 
     public function shippedorders(){
         if (!isLoggedIn()) {
