@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LandingPage.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/head.css"> <!--path changed-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/footer.css"> <!--path changed-->
@@ -31,6 +33,7 @@
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs">About</a> <!--path changed-->
                 <a href="<?php echo URLROOT; ?>/customer/Services">Services</a> <!--path changed-->
                 <a href="<?php echo URLROOT; ?>/customer/ContactUs">Contact</a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/Cart"><i class="bx bxs-cart"></i></a>
             </nav>
             <?php 
                 if (isset($_SESSION["user_id"])){
