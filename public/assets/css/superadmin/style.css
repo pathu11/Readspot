@@ -220,3 +220,19 @@ button{
   from {opacity: 0;}
   to {opacity:1 ;}
 }
+@media screen and (max-width: 768px) {
+  .dashboard {
+      margin-left: 0;
+  }
+
+  .topic,
+  .summary,
+  .charts {
+      margin-left: 5%;
+  }
+
+  .box,
+  .chart {
+      max-width: 100%;
+  }
+}
