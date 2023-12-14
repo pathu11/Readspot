@@ -19,8 +19,11 @@
 <body>
  
 <?php require APPROOT . '/views/admin/nav.php';?>
-<?php require APPROOT . '/views/admin/subnav.php';?>
-    
+
+    <div class="nav-container2">
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub" class="active">Publishers</a>
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsCharity">Charity Organizations</a>  
+    </div>
     <div class="table-container" >
 
         <table>
@@ -44,9 +47,8 @@
        
         <td><a href='<?php echo URLROOT; ?>/admin/approvePub/<?php echo $publishers->user_id; ?>'><button>Approve</button></a>
             <!--a href='</?php echo URLROOT; ?>/admin/approvePub/</?php echo $publishers->user_id; ?>'>Edit</a-->
-        <div class="popup" onclick="myFunction()">
-                    <i class='fa fa-trash'></i>
-                </a>
+            <div class="popup"">
+                    <button onclick="myFunction()">Reject</button>
                     <div class="popuptext" id="myPopup">
                     <p>Are you sure you want to reject and delete this request</p><br>
                     <a href='#'><button>Yes</button></a>
