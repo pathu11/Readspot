@@ -12,6 +12,7 @@
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
         <span class="user"><?php echo $data['superadminName']?></span>
+        <i class="bx bxs-user-circle icon"></i> 
       </div>
       <div class="sidebar">
         <div class="logo">
@@ -35,7 +36,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/superadmin/moderators" class="nav-link">
+              <a href="#" class="nav-link">
                 <i class="bx bxs-note icon"></i>
                 <span class="link">Orders</span>
               </a>

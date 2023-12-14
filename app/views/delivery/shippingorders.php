@@ -12,9 +12,9 @@
 </head>
 
 <body>
-<?php require APPROOT . '/views/delivery/sidebar.php';?>
+    <?php require APPROOT . '/views/delivery/sidebar.php';?>
 
-<?php require APPROOT . '/views/delivery/subnav.php';?>
+    <?php require APPROOT . '/views/delivery/subnav.php';?>
     <div class="div_table" style="width:90%">
     <table>
             <tr>

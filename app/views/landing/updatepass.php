@@ -22,7 +22,8 @@
             <div class="form1">
                 <span>Change your password</span>
                 
-                <form action="<?php echo URLROOT; ?>/landing/updatepass/<?php echo $data['userEmail'];?>" method="POST">                    
+                
+                <form action="<?php echo URLROOT; ?>/landing/updatepass/<?php echo $data['user_id'];?>" method="POST">                    
                     <br>
                     <br>
                                    
@@ -31,8 +32,6 @@
 
                     <input type="password" name="confirm_pass"  placeholder="Confirm the new password " required><br>
                     <span class="error"><?php echo $data['confirm_pass_err']; ?></span>
-                               
-                    
                     
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 

@@ -35,7 +35,7 @@
     <tr>
         <td style="width:7%"><?php echo $moderators->name; ?></td>
         <td style="width:20%"><?php echo $moderators->email; ?></td>
-        <td><a href='<?php echo URLROOT; ?>/superadmin/updateAdmins/<?php echo $admin->admin_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></td>
+        <td><a href='<?php echo URLROOT; ?>/superadmin/updateModerator/<?php echo $moderators->user_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></td>
         <td><div class="popup" onclick="myFunction()">
                     <i class='fa fa-trash' style='color:#09514C;'></i>
                 </a>

@@ -28,14 +28,14 @@ class Publishers{
     }
     
     public function findBookById($book_id){
-        $this->db->query('SELECT * FROM books WHERE book_id = :book_id');
+        $this->db->query('SELECT * FROM books WHERE book_id = :book_id AND type="new"');
         $this->db->bind(':book_id', $book_id);
         $row = $this->db->single();
         return $row;
     }
 
     public function findBookByPubId($publisher_id){
-        $this->db->query('SELECT * from books WHERE publisher_id=:publisher_id');
+        $this->db->query('SELECT * from books WHERE publisher_id=:publisher_id AND type="new"');
         $this->db->bind(':publisher_id',$publisher_id);
        
 
@@ -87,8 +87,6 @@ class Publishers{
             return false;
         }
     }
-    
-
     public function editAccount($data) {
         $this->db->query('UPDATE publishers 
                   SET account_name = :account_name, 
@@ -113,12 +111,8 @@ class Publishers{
             return false;
         }
     }
-    
-
-    
-
     public function addBooks($data){
-        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id)');
+        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id,status) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:status)');
         $this->db->bind(':book_name',$data['book_name']);
         $this->db->bind(':ISBN_no',$data['ISBN_no']);
         $this->db->bind(':author',$data['author']);
@@ -130,6 +124,7 @@ class Publishers{
         $this->db->bind(':img1',$data['img1']);
         $this->db->bind(':img2',$data['img2']);
         $this->db->bind(':publisher_id',$data['publisher_id']);
+        $this->db->bind(':status','approval');
         // execute
         if($this->db->execute()){
             return true;
@@ -173,9 +168,6 @@ class Publishers{
             return false;
         }
     }
-    
-    
-
     public function deletebooks($book_id) {
         $this->db->query('DELETE FROM books WHERE book_id = :book_id');
         // Bind values
@@ -190,23 +182,25 @@ class Publishers{
         } else {
             return false;
         }
-    }
-
-    
+    }   
     public function findbookByName($book_name){
-        $this->db->query('SELECT * from books WHERE book_name=:book_name');
+        $this->db->query('SELECT * from books WHERE book_name=:book_name AND type="new"  ');
         $this->db->bind(':book_name',$book_name);
-
         $row=$this->db->single();
-
-        //check row
         if($this->db->rowCount()>0){
             return true;
         }else{
             return false;
         }
     }
-
-
-
+    public function countBooks($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as bookCount FROM books WHERE publisher_id = :publisher_id AND type="new"');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        if ($result) {
+            return $result->bookCount;
+        } else {
+            return 0; 
+        }
+    }
 }

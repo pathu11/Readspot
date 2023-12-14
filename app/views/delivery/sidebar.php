@@ -11,11 +11,14 @@
         <i class="bx bx-menu menu-icon"></i>
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
+        <span class="user"><?php echo $data['deliveryName']?></span>
+        <i class="bx bxs-user-circle icon"></i> 
       </div>
       <div class="sidebar">
         <div class="logo">
           <i class="bx bx-menu menu-icon"></i>
           <span class="logo-name">ReadSpot</span>
+          
         </div>
 
         <div class="sidebar-content">
@@ -28,7 +31,7 @@
             </li>
             
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/delivery/orders" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/delivery/processedorders" class="nav-link">
                 <i class="bx bxs-note icon"></i>
                 <span class="link">Orders</span>
               </a>
