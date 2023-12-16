@@ -6,7 +6,7 @@
     <div class="about-cont">
         <div class="our-mission">
             <div class="mission-topic">
-                <h1>---OUR MISSION---</h1>
+                <h1>--OUR MISSION--</h1>
             </div>
             <div class="mission-about">
                 <p>Lorem ipsum dolor sit amet consectetur 
@@ -22,8 +22,8 @@
 
         </div>
         <div class="our-site">
-        <div class="site-topic">
-                <h1>---About Our Website---</h1>
+            <div class="site-topic">
+                <h1>--OUR WEBSITE--</h1>
             </div>
             <div class="site-about">
                 <p>Lorem ipsum dolor sit amet consectetur 
@@ -113,22 +113,25 @@
             <div class="team-topic">
                 <h1>---OUR TEAM---</h1>
             </div>
-            <div class="member1">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/pathumi.png" alt="Book3" class="memb-img"> <!--path changed-->
-                <!-- <h3>M.K.P.Ahinsa</h3> -->
+            <div class="teammembers">
+                <div class="member1">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/pathumi.png" alt="Book3" class="memb-img"> <!--path changed-->
+                    <!-- <h3>M.K.P.Ahinsa</h3> -->
+                </div>
+                <div class="member2">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/kaumadi.png" alt="Book3" class="memb-img"> <!--path changed-->
+                    <!-- <h3>P.D.Kaumadi</h3> -->
+                </div>
+                <div class="member3">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/kokul.png" alt="Book3" class="memb-img"> <!--path changed-->
+                    <!-- <h3>S.Kokularaj</h3> -->
+                </div>
+                <div class="member4">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/ramath.png" alt="Book3" class="memb-img"> <!--path changed-->
+                    <!-- <h3>K.R.S.Perera</h3> -->
+                </div>
             </div>
-            <div class="member2">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/kaumadi.png" alt="Book3" class="memb-img"> <!--path changed-->
-                <!-- <h3>P.D.Kaumadi</h3> -->
-            </div>
-            <div class="member3">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/kokul.png" alt="Book3" class="memb-img"> <!--path changed-->
-                <!-- <h3>S.Kokularaj</h3> -->
-            </div>
-            <div class="member4">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/ramath.png" alt="Book3" class="memb-img"> <!--path changed-->
-                <!-- <h3>K.R.S.Perera</h3> -->
-            </div>
+            
         </div>
     </div>
     

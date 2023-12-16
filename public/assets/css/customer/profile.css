@@ -1,0 +1,169 @@
+/* Container for sidebar and content */
+.container {
+    /* position: relative; */
+    margin-left: 250px;
+    margin-top: 85px;
+    /* display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 90px 10px 10px 10px;
+    grid-auto-rows: minmax(725px,auto); */
+    background-color: yellow;
+    /* grid-gap: 1rem; */
+}
+
+/* Main content styles */
+.prof-content {
+    padding: 20px;
+    background-color: #CACACA;
+    /* right: 0px; */
+}
+
+.prof-picture {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 8px 0px 8px;
+}
+
+.prof-picture span {
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.cnge {
+    float: right;
+}
+
+.prof-content hr {
+    font-weight: 600;
+}
+
+.prof-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.prof-picture h2 {
+    margin-left: 20px;
+}
+
+.cnge-btn, .sbt-btn {
+    width: 150px;
+    height: 36px;
+    background-color: wheat;
+    border-color: black;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.cnge-btn:hover, .sbt-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+    transform: scale(1.1);
+}
+
+.my-details {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 1rem;
+    margin: 10px 25px 10px 10px;
+}
+
+.my-details input[type="email"] , .my-details input[type="text"], .my-details input[type="number"]{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+
+.post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"]{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+
+.personal-details h2, .postal-details h2 {
+    background-color: #81cec9;
+    color: black;
+    width: fit-content;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.post-details {
+    display: grid;
+    grid-template-areas: 
+        "a a b b"
+        "c c c c"
+        "d e f g";
+    grid-gap: 1rem;
+    margin: 10px;
+}
+
+.F-Name {
+    grid-area: a;
+}
+
+.L-Name {
+    grid-area: b;
+}
+
+.Address {
+    grid-area: c;
+}
+
+.prov {
+    grid-area: d;
+}
+
+.dist {
+    grid-area: e;
+}
+
+.city {
+    grid-area: f;
+}
+
+.p-code {
+    grid-area: g;
+}
+
+.sbt {
+    margin-top: 10px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width:800px) {
+    .container {
+        margin-left: 200px;
+        margin-top: 85px;
+        background-color: yellow;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .container {
+        margin-left: 60px;
+        margin-top: 85px;
+        background-color: yellow;
+    }
+}

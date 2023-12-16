@@ -1,0 +1,176 @@
+.my-cart {
+    padding: 20px;
+    background-color: #CACACA;
+    right: 0px;
+}
+
+.cart-topic h2 {
+    background-color: #81cec9;
+    color: black;
+    width: fit-content;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.mycart table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #333;
+    margin-top: 20px;
+}
+
+.mycart th, .mycart td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+.mycart th {
+    background-color: #333;
+    color: white;
+}
+
+.mycart tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.mycart tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.mycart tr {
+    height: 50px; /* Adjust the height as needed */
+}
+
+.mycart tr:first-child {
+    height: 60px; /* Adjust the height as needed */
+}
+
+/* Change the width of specific columns */
+.mycart th:nth-child(1), .mycart td:nth-child(1) {
+    width: 50%; /* Adjust the width as needed */
+}
+
+.mycart th:nth-child(2), .mycart td:nth-child(2) {
+    width: 10%; /* Adjust the width as needed */
+}
+
+.mycart th:nth-child(3), .mycart td:nth-child(3) {
+    width: 10%; /* Adjust the width as needed */
+}
+
+.mycart th:nth-child(4), .mycart td:nth-child(4) {
+    width: 10%; /* Adjust the width as needed */
+}
+
+.mycart th:nth-child(5), .mycart td:nth-child(5) {
+    width: 20%; /* Adjust the width as needed */
+}
+
+.cart-search {
+    float: right;
+}
+
+.cart-search input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.cart-search button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.cart-search button:hover {
+    background: #ccc;
+}
+
+.cart-search img {
+    height:15px;
+    width:15px;
+}
+
+.cart-vd .cart-view {
+    background-color: rgb(18, 201, 18);
+    text-decoration: none;
+    color: black;
+    border-radius: 6px;
+    padding: 5px;
+    display: block;
+    width: 50%;
+    margin: 5px;
+    transition: .5s;
+    text-align: center;
+}
+
+.cart-vd .cart-delete {
+    background-color: red;
+    text-decoration: none;
+    color: black;
+    border-radius: 6px;
+    padding: 5px;
+    display: block;
+    width: 50%;
+    margin: 5px;
+    transition: .5s;
+    text-align: center;
+}
+
+.cart-vd .cart-view:hover {
+    background-color: rgb(1, 68, 1);
+    color: white;
+    border: none;
+    transform: scale(1.1);
+}
+
+.cart-vd .cart-delete:hover {
+    background-color: rgb(125, 0, 0);
+    color: white;
+    border: black;
+    transform: scale(1.1);
+}
+
+.cart-vd {
+    display: flex;
+    flex-direction: row;
+}
+
+.cart-vw-btn {
+    width: 150px;
+    height: 36px;
+    background-color: wheat;
+    border-color: black;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.cart-vw-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+    transform: scale(1.1);
+}
+
+.cart-vw {
+    margin-top: 10px;
+    float: right;
+}
