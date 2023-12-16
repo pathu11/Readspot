@@ -47,7 +47,10 @@
                         <div class="table1">
                             <select class="select <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['category']; ?>" name="category" required>
                                 <option value="" selected disabled>Select Book Category</option>
-                                <option>novel</option>
+                               
+                                <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
+                                    <option><?php echo $bookCategoryDetails->category; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="table1">
@@ -55,7 +58,7 @@
                             <span class="error"><?php echo $data['weight_err']; ?></span>
                             <br>
         
-                            <a href="#" class="calc-button">Weight Calculator</a>
+                            <a href="<?php echo URLROOT; ?>/publisher/weightcalc" class="calc-button">Weight Calculator</a>
                            
                         </div>
 </div>                               

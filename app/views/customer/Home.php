@@ -6,15 +6,16 @@
 <div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
         <div class="content">
         <?php 
-        // flash('register_success');
-        // var_dump($customerDetails);
-         ?>
-         
+
+        flash('register_success'); ?>
+        <a href="<?php echo URLROOT; ?>/customer/comment">comment</a>
+      
 
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2>
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
+
         </div>
         <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
         <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a>

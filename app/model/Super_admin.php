@@ -163,7 +163,7 @@ public function getDelivery(){
           $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
           $this->db->bind(':email', $data['email']);
           $this->db->bind(':pass', $data['pass']);
-          $this->db->bind(':user_role', 'delivery');
+          $this->db->bind(':user_role', 'deliver');
           $this->db->bind(':status', 'approval');
   
           if ($this->db->execute()) {
