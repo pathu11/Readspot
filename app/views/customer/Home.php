@@ -3,19 +3,32 @@
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
+
     <div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
+
         <div class="content">
+        <?php 
+
+        flash('register_success'); ?>
+        <a href="<?php echo URLROOT; ?>/customer/comment">comment</a>
+      
+
             <h3>WELCOME TO</h3>
-            <h2>Read Spot</h2>
+            <h2>ReadSpot</h2>
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
-        </div>
-    </div>
 
+        </div>
+        <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
+        <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a>
+    </div>
+    
     <div class="our_ser">
+        
         <h2><span>Our Services</span></h2>
     </div>
     
+
     <div class="services"> <!--path changed-->
         <div class="service" onclick="service1()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/new1.jpg" alt="Service 1"> <!--path changed-->
@@ -55,14 +68,8 @@
         <div class="service" onclick="service8()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8"> <!--path changed-->
             <h3>Event Calender</h3>
-            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
-        </div>
-    </div>
 
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>
-
+    <?php require APPROOT .'/views/customer/footer.php'; ?>
 
 <script>
     function service1() {

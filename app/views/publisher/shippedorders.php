@@ -21,6 +21,9 @@
     <div class="div_table" style="width:90%">
     <p> Shipped Orders >></p>
         <table>
+        <!-- <?php var_dump($data['publisherName']); ?>
+        <?php var_dump($data['customerName']); ?> -->
+
             <tr>
                 <th style="width:7%;background-color: #009D94;">Order ID</th>
                 <th style="width:7%;background-color: #009D94;">Product ID</th>

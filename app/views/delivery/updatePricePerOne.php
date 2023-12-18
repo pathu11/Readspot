@@ -16,12 +16,12 @@
 
 <body>
     <div>
-    <?php   require APPROOT . '/views/delivery/nav.php';?><div>
+    <div>
         <div class="form-container">
              
             <div class="form1">
-                <h2>Enter the Details of the Admin</h2>
-                <form action="<?php echo URLROOT; ?>/delivery/updatePricePerOne" method="POST">                    
+                <h2>Enter the charge for first kg</h2>
+                <form action="<?php echo URLROOT; ?>/delivery/updatePricePerOne/<?php echo $data['delivery_id']; ?>" method="POST">                    
                     <br>
                     <br>
                                    

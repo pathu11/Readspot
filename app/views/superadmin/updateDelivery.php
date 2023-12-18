@@ -1,5 +1,5 @@
 <?php
-    $title = "Update Admins";
+    $title = "Update Delivery";
     
     
 ?>
@@ -19,8 +19,8 @@
             <div class="form-container">
                 <div class="form1">
                
-                    <h2>Enter the Details of the Admin</h2>
-                    <form action="<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $data['user_id']; ?>" method="POST">
+                    <h2>Enter the Details of the Delivery System</h2>
+                    <form action="<?php echo URLROOT; ?>/superadmin/updateDelivery/<?php echo $data['user_id']; ?>" method="POST">
                         <br>
                         <br>
                        
