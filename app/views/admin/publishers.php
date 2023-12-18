@@ -25,6 +25,42 @@
         <a href="<?php echo URLROOT; ?>/admin/publishers" class="active">Publishers</a> 
         <a href="<?php echo URLROOT; ?>/admin/charity">Charity Organizations</a> 
     </div>
+    
+    <div class="search-bar">
+        <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
+        <i class="bx bx-search-alt icon"></i>
+    </div>
+    
+    <div id="searchresult"></div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#live-search").keyup(function(){
+                var input = $(this).val();
+                var searchType = 'publisher';
+                //alert(input);
+                if(input != ""){
+                    $.ajax({
+                        url:"<?php echo URLROOT;?>/admin/livesearch",
+                        method:"POST",
+                        data:{input:input, searchType:searchType},
+
+                        success:function(data){
+                            $(".table-container").hide();
+                            $("#searchresult").html(data);
+                            $("#searchresult").css("display","block");
+                        }
+                    });
+                }else{
+                    $(".table-container").show();
+                    $("#searchresult").css("display","none");
+                }
+            });
+        });
+    </script>
+    
     <div class="table-container" >
 
         <table>

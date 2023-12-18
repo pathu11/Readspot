@@ -29,7 +29,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT;?>/admin/orders" class="nav-link">
                 <i class="bx bxs-note icon"></i>
                 <span class="link">Orders</span>
               </a>
