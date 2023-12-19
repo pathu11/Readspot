@@ -529,12 +529,30 @@ public function livesearch(){
     if(isset($_POST['input'])){
         $input = $_POST['input'];
         $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
+        $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
+        $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
     }
+
     $data = [
-        'customerSearchDetails'=>$customerSearchDetails
+        'customerSearchDetails'=>$customerSearchDetails,
+        'publisherSearchDetails'=>$publisherSearchDetails,
+        'charitySearchDetails'=>$charitySearchDetails
     ];
     
     $this->view('admin/livesearch',$data);
+}
+
+public function orders(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $orderDetails = $this->adminModel->getOrderDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'orderDetails'=>$orderDetails,
+    ];
+    $this->view('admin/orders',$data);
 }
 
 }
