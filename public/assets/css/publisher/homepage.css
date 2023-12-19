@@ -87,7 +87,7 @@ body {
     width: 100%;  /* Adjusted to full width for responsiveness */
     max-width: 600px;
     height: 600px;
-    background-color: #white;
+    background-color: white;
     border: none;
     border-radius: 5px;
     margin-bottom: 20px;

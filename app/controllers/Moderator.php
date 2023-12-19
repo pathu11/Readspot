@@ -1,4 +1,5 @@
 <?php
+
   class Moderator extends Controller{
     private $moderatorModel;
 
@@ -36,3 +37,4 @@
 
 
 ?>
+

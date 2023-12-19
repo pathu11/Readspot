@@ -5,21 +5,15 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require APPROOT . '\vendor\autoload.php';
-
-
 //Create an instance; passing `true` enables exceptions
 // $mail = new PHPMailer(true);
  class Admin extends Controller{
   private $adminModel;
-  
   private $userModel;
-
   private $db;
   public function __construct(){
       $this->adminModel=$this->model('Admins');
       $this->userModel=$this->model('User');
-     
-     
       $this->db = new Database();
 
   }

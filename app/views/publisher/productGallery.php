@@ -62,15 +62,16 @@
                 <th><a href='<?php echo URLROOT; ?>/publisher/update/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a></th>
                 
                 <th>
-                    <div class="popup" onclick="myFunction()">
-                            <i class='fa fa-trash' style='color:#09514C;'></i>
-                        </a>
-                            <div class="popuptext" id="myPopup">
-                            <p>Are you sure you want to delete this book?</p><br>
-                            <a  class="button" href='<?php echo URLROOT; ?>/publisher/deletebooks/<?php echo $bookDetails->book_id; ?>' >Yes</a>
-                            <a class="button" href='<?php echo URLROOT; ?>/publisher/productGallery'>No</a>
-                            </div>
-                            </div></th>
+                   
+                            <div class="popup" onclick="myFunction(<?php echo $bookDetails->book_id; ?>)">
+                                <i class='fa fa-trash' style='color:#09514C;'></i>
+                                <div class="popuptext" id="myPopup_<?php echo $bookDetails->book_id; ?>">
+                                    <p>Are you sure you want to delete this book?</p><br>
+                                    <a class="button" href='<?php echo URLROOT; ?>/publisher/deletebooks/<?php echo $bookDetails->book_id; ?>'>Yes</a>
+                                    <a class="button" href='<?php echo URLROOT; ?>/publisher/productGallery'>No</a>
+                                </div>
+                             </div>
+                        </th>
             </tr>
                 <?php endforeach; ?>
             
@@ -78,16 +79,18 @@
            
                 
         </table>
+        <div class="btn-container">
         <a href="<?php echo URLROOT; ?>/publisher/addbooks" class="btn">add books</a>
+    </div>
     </div>
     
    
 </body>
 <script>
-// When the user clicks on div, open the popup
-function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
+
+function myFunction(bookId) {
+    var popup = document.getElementById("myPopup_" + bookId);
+    popup.classList.toggle("show");
 }
 </script>
 

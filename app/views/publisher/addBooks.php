@@ -1,18 +1,12 @@
 <?php
-    $title = "AddBooks";
-    
+    $title = "AddBooks"; 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <title>Add Books</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addbooks.css" />
-
 </head>
-
 <body>
     <div>
     <?php   require APPROOT . '/views/publisher/sidebar.php';?><div>
@@ -81,7 +75,7 @@
                         </div>
                     </div> 
                     <br>       
-                    <input  type="submit" placeholder="Submit" name="submit" class="submit">
+                    <input  type="submit" placeholder="Next" name="submit" class="submit">
 
                 </form>
             </div>

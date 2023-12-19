@@ -13,6 +13,13 @@
         <span class="logo-name">ReadSpot</span>
          <span class="user"><?php echo $data['publisherName']?></span>
         <i class="bx bxs-user-circle icon"></i> 
+        <?php 
+                if (isset($_SESSION["user_id"])){
+                    include_once 'dropdownmenu.php';
+                } else {
+                    echo '<a href="<?php echo URLROOT; ?>landing/login"><button class="Login">Login</button></a>';
+                }
+            ?>
        
       </div>
       <div class="sidebar">

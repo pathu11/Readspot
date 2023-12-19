@@ -19,6 +19,7 @@
 <?php   require APPROOT . '/views/publisher/subnav.php';?>
     <div class="div_table" style="width:90%">
     <p> Processing Orders >></p>
+    <!-- <?php var_dump($orderDetails); ?> -->
         <table>
             <tr>
                 <th style="width:7%;background-color: #009D94;">Order ID</th>

@@ -25,3 +25,23 @@ table th {
     margin: 40px;
     background-color:#CCCCCC ;
 }
+@media only screen and (max-width: 768px) {
+    .div_table {
+        margin-left: 0;
+        margin-right: 0;
+    }
+  
+    tr {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+  
+    th {
+        text-align: center;
+    }
+  
+    .btn-container {
+        justify-content: center; /* Center the button */
+    }
+  }
