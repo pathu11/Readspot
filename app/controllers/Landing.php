@@ -16,6 +16,7 @@ class Landing extends Controller{
 
     private $deliveryModel;
     private $superadminModel;
+    private $moderatorModel;
 
 
     private $db;
@@ -29,6 +30,8 @@ class Landing extends Controller{
         $this->customerModel=$this->model('Customers');
 
         $this->superadminModel=$this->model('Super_admin');
+
+        $this->moderatorModel=$this->model('Moderators');
 
         $this->db = new Database();
        
@@ -854,6 +857,12 @@ class Landing extends Controller{
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('superadmin/index');
         
+        }
+
+        elseif ($user->user_role == 'moderator'){
+            $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
+            $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
+            redirect('moderator/index');
         }
     
     }
