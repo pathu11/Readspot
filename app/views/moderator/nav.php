@@ -5,7 +5,7 @@
         <img src="<?php echo URLROOT?>/assets/images/admin/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
         
-        <span class="user"><?php echo $data['adminName']?></span>
+        <span class="user"><?php echo $data['moderatorName']?></span>
         <i class="bx bxs-user-circle icon"></i>
       </div>
       <div class="sidebar">
@@ -17,45 +17,39 @@
         <div class="sidebar-content">
           <ul class="lists">
             <li class="list">
-              <a href="<?php echo URLROOT;?>/admin/index" class="nav-link">
+              <a href="<?php echo URLROOT;?>/moderator/index" class="nav-link">
                 <i class="bx bxs-dashboard icon"></i>
                 <span class="link">Dashboard</span>
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT;?>/admin/customers" class="nav-link">
-                <i class="bx bxs-user icon"></i>
-                <span class="link">Users</span>
+              <a href="#" class="nav-link">
+                <i class="bx bxs-book-content icon"></i>
+                <span class="link">Contents</span>
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT;?>/admin/orders" class="nav-link">
-                <i class="bx bxs-note icon"></i>
-                <span class="link">Orders</span>
+              <a href="#" class="nav-link">
+                <i class="bx bxs-trophy icon"></i>
+                <span class="link">Challenges</span>
               </a>
             </li>
             <li class="list">
               <a href="<?php echo URLROOT?>/admin/pendingRequestsCharity " class="nav-link">
-                <i class="bx bxs-message-dots icon"></i>
-                <span class="link">Pending requests</span>
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Events</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bxs-gift icon"></i>
+                <span class="link">Rewards</span>
               </a>
             </li>
             <li class="list">
               <a href="#" class="nav-link">
                 <i class="bx bxs-message-rounded-error icon"></i>
                 <span class="link">Complains</span>
-              </a>
-            </li>
-            <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bxs-dollar-circle icon"></i>
-                <span class="link">Payments</span>
-              </a>
-            </li>
-            <li class="list">
-              <a href="<?php echo URLROOT;?>/admin/categories" class="nav-link">
-                <i class="bx bxs-category-alt icon"></i>
-                <span class="link">Categories</span>
               </a>
             </li>
             <br><br>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +18,7 @@
     <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="<?php  echo URLROOT;?>/admin/customers">Customers</a></div>
     <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="<?php  echo URLROOT;?>/admin/publishers">Publishers</a></div>
     <div class="grid-item"><i class="fa fa-solid fa-heart"></i><br><a href="<?php  echo URLROOT;?>/admin/charity">Charity Organizations</a></div>
-    <div class="grid-item"><i class="fa fa-solid fa-list"></i><br><a href="#payments">Orders</a></div>
+    <div class="grid-item"><i class="fa fa-solid fa-list"></i><br><a href="<?php  echo URLROOT;?>/admin/orders">Orders</a></div>
     <!--div class="grid-item"><a href="#complains">Complains</a></div>
     <div class="grid-item"><a href="#charity organizations">Charity Organizations</a></div>
     
