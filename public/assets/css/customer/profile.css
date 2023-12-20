@@ -14,7 +14,7 @@
 /* Main content styles */
 .prof-content {
     padding: 20px;
-    background-color: #CACACA;
+    background-color: #E3F2FD;
     /* right: 0px; */
 }
 
@@ -158,6 +158,28 @@
         margin-top: 85px;
         background-color: yellow;
     }
+
+    .my-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+        margin: 10px 25px 10px 10px;
+    }
+
+    .post-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin: 5px;
+    }
+
+    .prof-picture {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 8px 8px 0px 8px;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -165,5 +187,93 @@
         margin-left: 60px;
         margin-top: 85px;
         background-color: yellow;
+    }
+
+    .personal-details h2, .postal-details h2 {
+        font-size: 18px;
+    }
+
+    .prof-picture img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+
+    .cnge-btn, .sbt-btn {
+        width: 120px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+
+    .prof-picture h2 {
+        margin-left: 15px;
+        font-size: 18px;
+    }
+
+
+    /* .my-details {
+        grid-gap: 0.8rem;
+        margin: 8px 22px 8px 8px;
+    } */
+    
+    /* .my-details input[type="email"] , .my-details input[type="text"], .my-details input[type="number"]{
+        padding: 8px;
+        margin-top: 8px;
+        margin-left: 8px;
+    }
+    
+    .post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"]{
+        padding: 8px;
+        margin-top: 8px;
+        margin-left: 8px;
+    }
+    
+    .personal-details h2, .postal-details h2 {
+        font-size: 18px;
+    }
+    
+    .post-details {
+        display: grid;
+        grid-template-areas: 
+            "a a b b"
+            "c c c c"
+            "d e f g";
+        grid-gap: 0.8rem;
+        margin: 5px;
+    } */
+}
+
+
+    
+@media screen and (max-width:400px) {
+    .container {
+        margin-left: 50px;
+        margin-top: 85px;
+        background-color: yellow;
+    }
+
+    .personal-details h2, .postal-details h2 {
+        font-size: 14px;
+    }
+
+    .prof-picture img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+
+    .cnge-btn, .sbt-btn {
+        width: 100px;
+        height: 28px;
+        font-size: 0.7em;
+    }
+
+    .prof-picture h2 {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    .label-FName, .label-LName, .label-Email, .label-Number, .label-F-Name, .label-L-Name, .label-Address, .label-prov, .label-dist, .label-city, .label-p-code{
+        font-size: 12px;
     }
 }
