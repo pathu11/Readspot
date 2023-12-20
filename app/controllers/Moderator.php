@@ -9,8 +9,6 @@
     public function __construct(){
         $this->moderatorModel=$this->model('Moderators');
         $this->userModel=$this->model('User');
-        
-        
         $this->db = new Database();
 
     }
