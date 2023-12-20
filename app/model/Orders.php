@@ -225,6 +225,72 @@
     
         return $this->db->resultSet();
     }
+
+    public function countOrders($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
+                          INNER JOIN books ON orders.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id ');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        
+        if ($result) {
+            return $result->orderCount;
+        } else {
+            return 0; 
+        }
+    }
+    public function countReturnedOrders($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
+                          INNER JOIN books ON orders.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND orders.status="returned"');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        
+        if ($result) {
+            return $result->orderCount;
+        } else {
+            return 0; 
+        }
+    }
+    public function countProOrders($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
+                          INNER JOIN books ON orders.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND orders.status="processing"');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        
+        if ($result) {
+            return $result->orderCount;
+        } else {
+            return 0; 
+        }
+    }
+    public function countDelOrders($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
+                          INNER JOIN books ON orders.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND orders.status="delivered"');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        
+        if ($result) {
+            return $result->orderCount;
+        } else {
+            return 0; 
+        }
+    }
+    public function countShipOrders($publisher_id){    
+        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
+                          INNER JOIN books ON orders.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND orders.status="shipping"');
+        $this->db->bind(':publisher_id', $publisher_id);
+        $result = $this->db->single();
+        
+        if ($result) {
+            return $result->orderCount;
+        } else {
+            return 0; 
+        }
+    }
     
 
     

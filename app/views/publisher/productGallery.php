@@ -78,8 +78,9 @@
             
            
                 
-        </table>
+        </table><br>
         <div class="btn-container">
+            
         <a href="<?php echo URLROOT; ?>/publisher/addbooks" class="btn">add books</a>
     </div>
     </div>
