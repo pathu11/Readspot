@@ -199,6 +199,12 @@
     .c-vd .c-delete {
         font-size: 12px;
     }
+
+    .c-vw-btn {
+        width: 120px;
+        height: 32px;
+        font-size: 0.9em;
+    }
 }
 
 @media screen and (max-width:400px) {
@@ -248,5 +254,11 @@
 
     .mycontent td:nth-child(2), .mycontent th:nth-child(2) {
       display: none;
+    }
+
+    .c-vw-btn {
+        width: 100px;
+        height: 28px;
+        font-size: 0.7em;
     }
 }

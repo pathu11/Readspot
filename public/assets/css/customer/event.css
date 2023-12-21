@@ -165,3 +165,100 @@
     margin-top: 10px;
     float: right;
 }
+
+@media screen and (max-width:600px) {
+    .event-topic h2 {
+        font-size: 18px;
+    }
+
+    .myevent th {
+        font-size: 12px;
+    }
+    .myevent td {
+        font-size: 12px;
+    }
+
+    .event-search input[type=text] {
+        background-color: black;
+        font-size: 12px;
+    }
+    
+    .event-search button {
+        font-size: 12px;
+    }
+
+    .event-search img {
+        height:13px;
+        width:13px;
+    }
+
+    .e-vd .e-view {
+        font-size: 12px;
+    }
+    
+    .e-vd .e-delete {
+        font-size: 12px;
+    }
+
+    .e-vw-btn {
+        width: 120px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .event-topic h2 {
+        font-size: 14px;
+    }
+
+    .myevent th {
+        font-size: 10px;
+    }
+    .myevent td {
+        font-size: 10px;
+    }
+
+    .event-search input[type=text] {
+        background-color: black;
+        font-size: 8px;
+    }
+    
+    .event-search button {
+        font-size: 8px;
+    }
+
+    .event-search img {
+        height:8px;
+        width:8px;
+    }
+
+    .e-vd .e-view {
+        font-size: 10px;
+        padding: 2px;
+        margin: 2px;
+    }
+    
+    .e-vd .e-delete {
+        font-size: 9px;
+        padding: 2px;
+        margin: 2px;
+    }
+
+    .e-vd {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+    }
+
+    .myevent td:nth-child(2), .myevent th:nth-child(2) {
+      display: none;
+    }
+
+    .e-vw-btn {
+        width: 100px;
+        height: 28px;
+        font-size: 0.7em;
+    }
+}
