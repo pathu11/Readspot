@@ -20,7 +20,7 @@
             <table border="1">
                 <tr>
                     <th>Contents</th>
-                    <th>Added-Date</th>
+                    <th >Added-Date</th>
                     <th>VIew/Delete </th>
                 </tr>
                 <tr>
