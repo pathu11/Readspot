@@ -60,6 +60,7 @@ class Publisher extends Controller{
                     echo "Not found";
                 }
                 $data=[
+                    'publisherDetails' => $publisherDetails,
                    'publisherName'=>$publisherName
                     
                 ];
@@ -237,6 +238,7 @@ class Publisher extends Controller{
                 }
             }     
             $data=[
+                'publisherDetails' => $publisherDetails,
                 'bookCategoryDetails'=>$bookCategoryDetails,
                 'publisherName'=>$publisherName,
                 'book_name' => '',
@@ -275,7 +277,7 @@ class Publisher extends Controller{
         }
     
         $user_id = $_SESSION['user_id'];
-
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Form submitted, process the data
@@ -342,7 +344,7 @@ class Publisher extends Controller{
                 
                 
                 $data = [
-                    
+                    'publisherDetails' => $publisherDetails,
                     'publisher_id' => $publisher_id,
                     'postal_name' => $publishers->postal_name,
                     'street_name' => $publishers->street_name,
@@ -719,7 +721,7 @@ public function processingorders()
             }else{
                      
                 $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
-                
+               
                 
                 $data = [
                     
@@ -734,7 +736,8 @@ public function processingorders()
                     'town_err'=>'',
                     'district_err'=>'',
                     'postal_code_err'=>'',
-                    'publisherName'  =>$publishers ->name
+                    'publisherName'  =>$publishers ->name,
+                   
                    
                 ];
 
@@ -1101,6 +1104,7 @@ public function processingorders()
                     redirect('publisher/productGallery');
                   }
                 $data = [
+                    'publisherDetails' => $publisherDetails,
                     'bookCategoryDetails'=>$bookCategoryDetails,
                     'book_id' => $book_id,
                     'book_name' => $books->book_name,
