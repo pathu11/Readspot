@@ -41,7 +41,25 @@ class Publishers{
 
         return $this->db->resultSet();
     }
-
+    
+    public function AddBookApproval($data) {
+        $this->db->query('UPDATE books 
+                          SET 
+                          status = :status
+                          WHERE publisher_id = :publisher_id');
+    
+        // Bind values
+        $this->db->bind(':status', "approval");
+        $this->db->bind(':publisher_id', $data['publisher_id']); // Assuming publisher_id is in the $data array
+    
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function editpostal($data) {
         $this->db->query('UPDATE publishers 
                   SET postal_name = :postal_name, 
@@ -200,9 +218,10 @@ class Publishers{
             return false;
         }
     }   
-    public function findbookByName($book_name){
-        $this->db->query('SELECT * from books WHERE book_name=:book_name AND type="new"  ');
+    public function findbookByName($book_name,$publisher_id){
+        $this->db->query('SELECT * from books WHERE book_name=:book_name AND type="new" AND publisher_id=:publisher_id ');
         $this->db->bind(':book_name',$book_name);
+        $this->db->bind(':publisher_id',$publisher_id);
         $row=$this->db->single();
         if($this->db->rowCount()>0){
             return true;

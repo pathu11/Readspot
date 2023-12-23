@@ -126,7 +126,7 @@ class Publisher extends Controller{
             if(empty($data['book_name'])){
                 $data['book_name_err']='Please enter the Book name';      
             }else{
-                if($this->publisherModel->findbookByName($data['book_name'])){
+                if($this->publisherModel->findbookByName($data['book_name'],$data['publisher_id'])){
                     $data['book_name_err']='Book name is already taken'; 
                 }
             }
@@ -182,7 +182,7 @@ class Publisher extends Controller{
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['book_name'] .'-img1.'. $img_ex_to_lc;
+                          $new_img_name = $data['book_name'].$data['publisher_id'] .'-img1.'. $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
@@ -203,7 +203,7 @@ class Publisher extends Controller{
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['book_name'] .'-img2.'. $img_ex_to_lc;
+                          $new_img_name = $data['book_name'].$data['publisher_id'] .'-img2.'. $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
@@ -214,7 +214,8 @@ class Publisher extends Controller{
                 
                 if($this->publisherModel->addBooks($data)){
                     flash('add_success','You are added the book  successfully');
-                    redirect('publisher/productGallery');
+                    redirect('publisher/editPostalForBooks/' . $publisherid);
+
                 }else{
                     die('Something went wrong');
                 }
@@ -268,6 +269,163 @@ class Publisher extends Controller{
         }
     }
 
+    public function editpostalForBooks($publisher_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+    
+        $user_id = $_SESSION['user_id'];
+
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Form submitted, process the data
+    
+            // Sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+            $data = [
+                'publisher_id' => $publisher_id,
+                'postal_name' => trim($_POST['postal_name']),
+                'street_name' => trim($_POST['street_name']),
+                'town' => trim($_POST['town']),
+                'district' => trim($_POST['district']),
+                'postal_code' => trim($_POST['postal_code']),
+                'postal_name_err' => '',
+                'street_name_err' => '',
+                'town_err' => '',
+                'district_err' => '',
+                'postal_code_err' => '',
+            ];
+               
+                //validate book name
+                if(empty($data['postal_name'])){
+                    $data['postal_name_err']='Please enter the  name';      
+                }
+                //validate ISBN
+                if(empty($data['street_name'])){
+                    $data['street_name_err']='Please enter street name';      
+                }
+                //validate password
+                if(empty($data['town'])){
+                    $data['town_err']='Please enter the town';      
+                }
+    
+                
+                 if(empty($data['district'])){
+                    $data['district_err']='Please select the district';      
+                }
+                if(empty($data['postal_code'])){
+                    $data['postal_code_err']='Please enter the postal code';      
+                }
+               
+    
+                //make sure errors are empty
+                if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){
+
+                   
+                    
+                    
+                    if($this->publisherModel->editpostal($data)){
+                        flash('update_success','You are added the book  successfully');
+                        redirect('publisher/editAccountForBooks/'.$publisher_id);
+                    }else{
+                        die('Something went wrong');
+                    }
+                }else{
+                        $this->view('publisher/editpostalForBooks',$data);
+                    }
+    
+                   
+            }else{
+                     
+                $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
+                
+                
+                $data = [
+                    
+                    'publisher_id' => $publisher_id,
+                    'postal_name' => $publishers->postal_name,
+                    'street_name' => $publishers->street_name,
+                    'town' => $publishers->town,
+                    'district' => $publishers->district,
+                    'postal_code' => $publishers->postal_code,
+                    'postal_name_err'=>'',
+                    'street_name_err'=>'',
+                    'town_err'=>'',
+                    'district_err'=>'',
+                    'postal_code_err'=>'',
+                    'publisherName'  =>$publishers ->name
+                   
+                ];
+
+
+                $this->view('publisher/editpostalForBooks',$data);
+    
+            }  
+    }
+
+    public function editAccountForBooks($publisher_id) {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $user_id = $_SESSION['user_id'];
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Form submitted, process the data
+    
+            // Sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+            $data = [
+                'publisher_id' => $publisher_id,
+                'account_name' => trim($_POST['account_name']),
+                'account_no' => trim($_POST['account_no']),
+                'bank_name' => trim($_POST['bank_name']),
+                'branch_name' => trim($_POST['branch_name']),
+                'account_name_err' => '',
+                'account_no_err' => '',
+                'bank_name_err' => '',
+                'branch_name_err' => '',
+            ];
+    
+            // Validate data
+            // ...
+    
+            // Make sure errors are empty
+            if (empty($data['account_name_err']) && empty($data['account_no_err']) && empty($data['bank_name_err']) && empty($data['branch_name_err'])) {
+                // If validation succeeds, update account details
+                if ($this->publisherModel->editAccount($data) && $this->publisherModel->AddBookApproval($data)) {
+                    // Now add book approval
+
+                    flash('update_success', 'You have updated the account and added book approval successfully');
+                    redirect('publisher/productGallery');
+                   
+                } else {
+                    die('Something went wrong with updating account details');
+                }
+            } else {
+                // Validation failed, show the form with errors
+                $this->view('publisher/editAccountForBooks', $data);
+            }
+        } else {
+            // Display the form with current account details
+            $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
+            $data = [
+                'publisher_id' => $publisher_id,
+                'account_name' => $publishers->account_name,
+                'account_no' => $publishers->account_no,
+                'bank_name' => $publishers->bank_name,
+                'branch_name' => $publishers->branch_name,
+                'account_name_err' => '',
+                'account_no_err' => '',
+                'bank_name_err' => '',
+                'branch_name_err' => '',
+            ];
+            $this->view('publisher/editAccountForBooks', $data);
+        }
+    }
+    
     public function deletebooks($book_id)
 {
     if ($this->publisherModel->deletebooks($book_id)) {   
@@ -279,7 +437,6 @@ class Publisher extends Controller{
         die('Something went wrong');
     }
 }
-
     public function customerSupport(){
         if (!isLoggedIn()) {
             redirect('landing/login');
