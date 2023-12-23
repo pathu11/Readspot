@@ -35,7 +35,7 @@ class Publishers{
     }
 
     public function findBookByPubId($publisher_id){
-        $this->db->query('SELECT * from books WHERE publisher_id=:publisher_id AND type="new"');
+        $this->db->query('SELECT * from books WHERE publisher_id=:publisher_id AND type="new" AND status="approval"');
         $this->db->bind(':publisher_id',$publisher_id);
        
 
@@ -112,7 +112,7 @@ class Publishers{
         }
     }
     public function addBooks($data){
-        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id,status) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:status)');
+        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id)');
         $this->db->bind(':book_name',$data['book_name']);
         $this->db->bind(':ISBN_no',$data['ISBN_no']);
         $this->db->bind(':author',$data['author']);
@@ -124,7 +124,7 @@ class Publishers{
         $this->db->bind(':img1',$data['img1']);
         $this->db->bind(':img2',$data['img2']);
         $this->db->bind(':publisher_id',$data['publisher_id']);
-        $this->db->bind(':status','approval');
+        // $this->db->bind(':status','approval');
         // execute
         if($this->db->execute()){
             return true;
@@ -134,6 +134,23 @@ class Publishers{
     }
 
     public function update($data) {
+        if (!empty($data['img1'])) {
+            // Update img1 column
+            $this->db->query('UPDATE books SET img1 = :img1 WHERE book_id = :book_id');
+            $this->db->bind(':book_id', $data['book_id']);
+            $this->db->bind(':img1', $data['img1']);
+            $this->db->execute();
+        }
+    
+        // Check if new img2 is uploaded
+        if (!empty($data['img2'])) {
+            // Update img2 column
+            $this->db->query('UPDATE books SET img2 = :img2 WHERE book_id = :book_id');
+            $this->db->bind(':book_id', $data['book_id']);
+            $this->db->bind(':img2', $data['img2']);
+            $this->db->execute();
+        }
+    
         $this->db->query('UPDATE books 
                   SET book_name = :book_name, 
                   ISBN_no = :ISBN_no, 
