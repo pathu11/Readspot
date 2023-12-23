@@ -51,6 +51,17 @@
     
         return $this->db->resultSet();
     }
+    public function findNewBookReturnedOrdersBypubId($publisher_id) {
+        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
+                          FROM orders o
+                          JOIN books b ON o.book_id = b.book_id
+                          LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
+                          LEFT JOIN customers c ON o.customer_id = c.customer_id
+                          WHERE b.publisher_id = :publisher_id AND o.status = "returned" AND b.type = "new"');
+        $this->db->bind(':publisher_id', $publisher_id);
+    
+        return $this->db->resultSet();
+    }
 
     
 

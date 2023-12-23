@@ -8,7 +8,7 @@
 
 <head>
    
-    <title>Pending Orders</title>
+    <title>Returned Orders</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/orders.css" />
 
 </head>
@@ -18,7 +18,7 @@
 
 <?php   require APPROOT . '/views/publisher/subnav.php';?>
     <div class="div_table" style="width:90%">
-    <p> Processing Orders >></p>
+    <p> Returned Orders >></p>
     
         <table>
             <tr>

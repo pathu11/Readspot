@@ -557,6 +557,11 @@ public function processingorders()
             redirect('landing/login');
         }
         $publisherid = null;
+       
+        $publisherDetails = null;
+        $orderDetails = null;
+        $customerName = null;
+        $publisherName = null;
     
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
@@ -598,6 +603,58 @@ public function processingorders()
             'publisherName'  =>$publisherName
         ];
         $this->view('publisher/shippedorders',$data);
+    }
+    
+    public function returnedorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $publisherid = null;
+        
+        $publisherDetails = null;
+        $orderDetails = null;
+        $customerName = null;
+        $publisherName = null;
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+    
+            if ($publisherDetails) {
+                $publisherid = $publisherDetails[0]->publisher_id;
+                $publisherName = $publisherDetails[0]->name;
+                if ($publisherid) {
+                    $orderDetails = $this->orderModel->findNewBookReturnedOrdersBypubId($publisherid);
+    
+                    if ($orderDetails) {
+                        // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
+                        foreach ($orderDetails as $order) {
+                            // $publisherName = $order->publisher_name;
+                            $customerName = $order->customer_name;
+
+                        }
+                    } else {
+                        echo "No orders found";
+                    }
+                } else {
+                    echo "Publisher ID not found";
+                }
+            } else {
+                echo "Publisher not found";
+            }
+        } else {
+            echo "Not logged in as a publisher";
+        }
+    
+        $data = [
+            'publisherid' => $publisherid,
+            'publisherDetails' => $publisherDetails,
+            'orderDetails' => $orderDetails,
+            'customerName' => $customerName,
+            
+            'publisherName'  =>$publisherName
+        ];
+        $this->view('publisher/returnedorders',$data);
     }
     
     

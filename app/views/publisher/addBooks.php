@@ -68,6 +68,9 @@
 
                         </div>
                     </div> 
+                    <br>
+                    <div>  <input type="checkbox" required><span style="font-size:15px;">  I confirm that this book is original, free from copyright issues, and not printed through unauthorized channels. I commit to promptly addressing any copyright concerns and respect intellectual property rights.</span>
+                </div>
                     <br>       
                     <input type="submit" value="Next" name="submit" class="submit">
 
