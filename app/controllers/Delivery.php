@@ -278,7 +278,42 @@ class Delivery extends Controller{
     
         $this->view('delivery/processedorders', $data);
     }
-    
+    public function pickedUp($order_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        if($this->deliveryModel->pickedUp($order_id)){
+            
+            redirect('delivery/processedorders');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
+    public function delivered($order_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        if($this->deliveryModel->delivered($order_id)){
+            
+            redirect('delivery/shippingorders');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
+    public function returned($order_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        if($this->deliveryModel->returned($order_id)){
+            
+            redirect('delivery/shippingorders');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
     
 
 }

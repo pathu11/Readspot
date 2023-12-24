@@ -56,4 +56,60 @@
         return false;
     }
 }
+
+public function pickedUp($order_id) {
+    $this->db->query('UPDATE orders
+              SET status = :status  
+              
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $order_id);
+   
+    $this->db->bind(':status', 'shipping');
+   
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function delivered($order_id) {
+    $this->db->query('UPDATE orders
+              SET status = :status  
+              
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $order_id);
+   
+    $this->db->bind(':status', 'delivered');
+   
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+public function returned($order_id) {
+    $this->db->query('UPDATE orders
+              SET status = :status  
+              
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $order_id);
+   
+    $this->db->bind(':status', 'returned');
+   
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
   }
