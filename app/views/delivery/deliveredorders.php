@@ -24,7 +24,6 @@
                 <th style="width:15%">Total Weight</th>
                 <th style="width:25%">Sender's Address</th>
                 <th style="width:20%">Reciever's Address</th>
-
                 <th style="width:5%">Contact sender</th>
                 <th style="width:5%">Contact reciever</th>
             </tr>
@@ -39,9 +38,6 @@
                 <th><a><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
             </tr>
             <?php endforeach; ?>
-
-            
-
         </table>
     </div>
    
