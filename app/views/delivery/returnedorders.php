@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/productgallery.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/orders.css">
 
     <title>All Orders</title>
 
@@ -16,6 +16,7 @@
 
 <?php require APPROOT . '/views/delivery/subnav.php';?>
     <div class="div_table" style="width:90%">
+    <p> Returned  Orders >></p>
     <table>
             <tr>
                 <th style="width:15%">Order ID</th>
@@ -33,7 +34,9 @@
                 <th style="width:7%"><?php echo $orderDetails->total_weight; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></th>
                     <th style="width:7%"><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></th>
-                <!-- Add other columns and data as needed -->
+
+                <th><a><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+                <th><a><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
             </tr>
             <?php endforeach; ?>
 

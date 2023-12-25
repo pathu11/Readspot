@@ -24,9 +24,20 @@ class Publisher extends Controller{
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $publisher_id =$publisherDetails[0]->publisher_id;
             $bookCount=$this->publisherModel->countBooks($publisher_id);
+            $orderCount=$this->orderModel->countOrders($publisher_id);
+            $orderProCount=$this->orderModel->countProOrders($publisher_id);
+            $orderDelCount=$this->orderModel->countDelOrders($publisher_id);
+            $orderShipCount=$this->orderModel->countShipOrders($publisher_id);
+            $orderReturnedCount=$this->orderModel->countReturnedOrders($publisher_id);
+            
             $data = [
                 'publisherDetails' => $publisherDetails, 
                 'bookCount'    =>$bookCount,
+                'orderCount'    =>$orderCount,
+                'orderProCount'    =>$orderProCount,
+                'orderDelCount'    =>$orderDelCount,
+                'orderReturnedCount'    =>$orderReturnedCount,
+                'orderShipCount'    =>$orderShipCount,
                 'publisher_id'   =>$publisher_id ,
                 'publisherName'  =>$publisherDetails[0] ->name
             ];
@@ -49,6 +60,7 @@ class Publisher extends Controller{
                     echo "Not found";
                 }
                 $data=[
+                    'publisherDetails' => $publisherDetails,
                    'publisherName'=>$publisherName
                     
                 ];
@@ -115,7 +127,7 @@ class Publisher extends Controller{
             if(empty($data['book_name'])){
                 $data['book_name_err']='Please enter the Book name';      
             }else{
-                if($this->publisherModel->findbookByName($data['book_name'])){
+                if($this->publisherModel->findbookByName($data['book_name'],$data['publisher_id'])){
                     $data['book_name_err']='Book name is already taken'; 
                 }
             }
@@ -171,7 +183,7 @@ class Publisher extends Controller{
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['book_name'] .'-img1.'. $img_ex_to_lc;
+                          $new_img_name = $data['book_name'].$data['publisher_id'] .'-img1.'. $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
@@ -192,7 +204,7 @@ class Publisher extends Controller{
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['book_name'] .'-img2.'. $img_ex_to_lc;
+                          $new_img_name = $data['book_name'].$data['publisher_id'] .'-img2.'. $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/publisher/addbooks/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
@@ -203,7 +215,8 @@ class Publisher extends Controller{
                 
                 if($this->publisherModel->addBooks($data)){
                     flash('add_success','You are added the book  successfully');
-                    redirect('publisher/productGallery');
+                    redirect('publisher/editPostalForBooks/' . $publisherid);
+
                 }else{
                     die('Something went wrong');
                 }
@@ -225,6 +238,7 @@ class Publisher extends Controller{
                 }
             }     
             $data=[
+                'publisherDetails' => $publisherDetails,
                 'bookCategoryDetails'=>$bookCategoryDetails,
                 'publisherName'=>$publisherName,
                 'book_name' => '',
@@ -257,6 +271,159 @@ class Publisher extends Controller{
         }
     }
 
+    public function editpostalForBooks($publisher_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+    
+        $user_id = $_SESSION['user_id'];
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Form submitted, process the data
+    
+            // Sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+            $data = [
+                'publisher_id' => $publisher_id,
+                'postal_name' => trim($_POST['postal_name']),
+                'street_name' => trim($_POST['street_name']),
+                'town' => trim($_POST['town']),
+                'district' => trim($_POST['district']),
+                'postal_code' => trim($_POST['postal_code']),
+                'postal_name_err' => '',
+                'street_name_err' => '',
+                'town_err' => '',
+                'district_err' => '',
+                'postal_code_err' => '',
+            ];
+               
+                //validate book name
+                if(empty($data['postal_name'])){
+                    $data['postal_name_err']='Please enter the  name';      
+                }
+                //validate ISBN
+                if(empty($data['street_name'])){
+                    $data['street_name_err']='Please enter street name';      
+                }
+                //validate password
+                if(empty($data['town'])){
+                    $data['town_err']='Please enter the town';      
+                }
+    
+                
+                 if(empty($data['district'])){
+                    $data['district_err']='Please select the district';      
+                }
+                if(empty($data['postal_code'])){
+                    $data['postal_code_err']='Please enter the postal code';      
+                }
+               
+    
+                //make sure errors are empty
+                if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){
+
+                   
+                    
+                    
+                    if($this->publisherModel->editpostal($data)){
+                        flash('update_success','You are added the book  successfully');
+                        redirect('publisher/editAccountForBooks/'.$publisher_id);
+                    }else{
+                        die('Something went wrong');
+                    }
+                }else{
+                        $this->view('publisher/editpostalForBooks',$data);
+                    }
+    
+                   
+            }else{
+                     
+                $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
+                
+                
+                $data = [
+                    'publisherDetails' => $publisherDetails,
+                    'publisher_id' => $publisher_id,
+                    'postal_name' => $publishers->postal_name,
+                    'street_name' => $publishers->street_name,
+                    'town' => $publishers->town,
+                    'district' => $publishers->district,
+                    'postal_code' => $publishers->postal_code,
+                    'postal_name_err'=>'',
+                    'street_name_err'=>'',
+                    'town_err'=>'',
+                    'district_err'=>'',
+                    'postal_code_err'=>'',
+                    'publisherName'  =>$publishers ->name
+                   
+                ];
+
+
+                $this->view('publisher/editpostalForBooks',$data);
+    
+            }  
+    }
+
+    public function editAccountForBooks($publisher_id) {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+    
+        $user_id = $_SESSION['user_id'];
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Form submitted, process the data
+    
+            // Sanitize post data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+            $data = [
+                'publisher_id' => $publisher_id,
+                'account_name' => trim($_POST['account_name']),
+                'account_no' => trim($_POST['account_no']),
+                'bank_name' => trim($_POST['bank_name']),
+                'branch_name' => trim($_POST['branch_name']),
+                'account_name_err' => '',
+                'account_no_err' => '',
+                'bank_name_err' => '',
+                'branch_name_err' => '',
+            ];
+    
+            if (empty($data['account_name_err']) && empty($data['account_no_err']) && empty($data['bank_name_err']) && empty($data['branch_name_err'])) {
+                // If validation succeeds, update account details
+                if ($this->publisherModel->editAccount($data) && $this->publisherModel->AddBookApproval($data)) {
+                    // Now add book approval
+
+                    flash('update_success', 'You have updated the account and added book approval successfully');
+                    redirect('publisher/productGallery');
+                   
+                } else {
+                    die('Something went wrong with updating account details');
+                }
+            } else {
+                // Validation failed, show the form with errors
+                $this->view('publisher/editAccountForBooks', $data);
+            }
+        } else {
+            // Display the form with current account details
+            $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
+            $data = [
+                'publisher_id' => $publisher_id,
+                'account_name' => $publishers->account_name,
+                'account_no' => $publishers->account_no,
+                'bank_name' => $publishers->bank_name,
+                'branch_name' => $publishers->branch_name,
+                'account_name_err' => '',
+                'account_no_err' => '',
+                'bank_name_err' => '',
+                'branch_name_err' => '',
+            ];
+            $this->view('publisher/editAccountForBooks', $data);
+        }
+    }
+    
     public function deletebooks($book_id)
 {
     if ($this->publisherModel->deletebooks($book_id)) {   
@@ -268,164 +435,194 @@ class Publisher extends Controller{
         die('Something went wrong');
     }
 }
-
     public function customerSupport(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-        $this->view('publisher/customerSupport');
-    }
-    public function deliveredorders(){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        }
         $publisherid = null;
     
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
             
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-    
+           
             if ($publisherDetails) {
+               
                 $publisherid = $publisherDetails[0]->publisher_id;
-    
-                if ($publisherid) {
-                    $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
-    
-                    if ($orderDetails) {
-                        // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
-                        foreach ($orderDetails as $order) {
-                            $publisherName = $order->publisher_name;
-                            $customerName = $order->customer_name;
-
-                        }
-                    } else {
-                        echo "No orders found";
-                    }
-                } else {
-                    echo "Publisher ID not found";
-                }
-            } else {
-                echo "Publisher not found";
-            }
-        } else {
-            echo "Not logged in as a publisher";
-        }
-    
-        $data = [
-            'publisherid' => $publisherid,
-            'publisherDetails' => $publisherDetails,
-            'orderDetails' => $orderDetails,
-            'customerName' => $customerName,
-            
-            'publisherName'  =>$publisherName
-        ];
-    
-        $this->view('publisher/deliveredorders',$data);
-    }
-    // public function processingorders() {
-    //     if (!isLoggedIn()) {
-    //         redirect('landing/login');
-    //     }
-    //     $publisherid = null;
-    
-    //     if (isset($_SESSION['user_id'])) {
-    //         $user_id = $_SESSION['user_id'];
-            
-    //         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-    
-    //         if ($publisherDetails) {
-    //             $publisherid = $publisherDetails[0]->publisher_id;
-    
-    //             if ($publisherid) {
-    //                 $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
-    
-    //                 if ($orderDetails) {
-    //                     // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
-    //                     foreach ($orderDetails as $order) {
-    //                         $publisherName = $order->publisher_name;
-    //                         $customerName = $order->customer_name;
-
-    //                     }
-    //                 } else {
-    //                     echo "No orders found";
-    //                 }
-    //             } else {
-    //                 echo "Publisher ID not found";
-    //             }
-    //         } else {
-    //             echo "Publisher not found";
-    //         }
-    //     } else {
-    //         echo "Not logged in as a publisher";
-    //     }
-    
-    //     $data = [
-    //         'publisherid' => $publisherid,
-    //         'publisherDetails' => $publisherDetails,
-    //         'orderDetails' => $orderDetails,
-    //         'customerName' => $customerName,
-            
-    //         'publisherName'  =>$publisherName
-    //     ];
-    
-    //     $this->view('publisher/processingorders', $data);
-    // }
-    public function processingorders(){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        }
-        $publisherid = null;
-        // $customerName = ''; // Initialize variables before the loop
-        // $publisherName = '';
-        if (isset($_SESSION['user_id'])) {
-            $user_id = $_SESSION['user_id'];
-            
-            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-    
-            if ($publisherDetails) {
-                $publisherid = $publisherDetails[0]->publisher_id;
-    
-                if ($publisherid) {
-                    $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
-                    var_dump($orderDetails);
-                    if ($orderDetails) {
-                        // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
-                        foreach ($orderDetails as $order) {
-                            $publisherName = $order->publisher_name;
-                            $customerName = $order->customer_name;
-
-                        }
-                    } else {
-                        echo "No orders found";
-                    }
-                } else {
-                    echo "Publisher ID not found";
-                }
+              
+                $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
                 
             } else {
-                echo "Publisher not found";
+                echo "Not found";
             }
         } else {
-            echo "Not logged in as a publisher";
+            echo "Not a publisher";
         }
     
         $data = [
             'publisherid' => $publisherid,
             'publisherDetails' => $publisherDetails,
-            'orderDetails' => $orderDetails,
-            'customerName' => $customerName,
-            'publisherName'  =>$publisherDetails[0]->name
+            'messageDetails' => $messageDetails,
+            'publisherName'  =>$publisherDetails[0] ->name
         ];
-        $this->view('publisher/processingorders',$data);
-    }
     
 
+        $this->view('publisher/customerSupport',$data);
+    }
+
+    public function viewMessage($message_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $publisherid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+           
+            if ($publisherDetails) {
+               
+                $publisherid = $publisherDetails[0]->publisher_id;
+              
+                $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
+                $messageDetails2 = $this->publisherModel->getMessageById($message_id);
+                
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'publisherid' => $publisherid,
+            'publisherDetails' => $publisherDetails,
+            'messageDetails' => $messageDetails,
+            'messageDetails2' => $messageDetails2,
+            'publisherName'  =>$publisherDetails[0] ->name
+        ];
+    
+
+        $this->view('publisher/viewMessage',$data);
+    }
+    
+    public function deliveredorders()
+{
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    }
+
+    $publisherid = null;
+    $publisherDetails = null;
+    $orderDetails = null;
+    $customerName = null;
+    $publisherName = null;
+
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+
+        if ($publisherDetails) {
+            $publisherid = $publisherDetails[0]->publisher_id;
+            $publisherName = $publisherDetails[0]->name;
+
+            if ($publisherid) {
+                $orderDetails = $this->orderModel->findNewBookDeliveredOrdersBypubId($publisherid);
+
+                if ($orderDetails) {
+                    foreach ($orderDetails as $order) {
+                        $customerName = $order->customer_name;
+                        // Additional processing if needed
+                    }
+                } else {
+                    echo "No orders found";
+                }
+            } else {
+                echo "Publisher ID not found";
+            }
+        } else {
+            echo "Publisher not found";
+        }
+    } else {
+        echo "Not logged in as a publisher";
+    }
+
+    $data = [
+        'publisherid' => $publisherid,
+        'publisherDetails' => $publisherDetails,
+        'orderDetails' => $orderDetails,
+        'customerName' => $customerName,
+        'publisherName' => $publisherName
+    ];
+
+    $this->view('publisher/deliveredorders', $data);
+}
+public function processingorders()
+{
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    }
+
+    $publisherid = null;
+    $publisherDetails = null;
+    $orderDetails = null;
+    $customerName = null;
+    $publisherName = null;
+
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+
+        if ($publisherDetails) {
+            $publisherid = $publisherDetails[0]->publisher_id;
+            $publisherName = $publisherDetails[0]->name;
+
+            if ($publisherid) {
+                $orderDetails = $this->orderModel->findNewBookProOrdersBypubId($publisherid);
+
+                if ($orderDetails) {
+                    foreach ($orderDetails as $order) {
+                        $customerName = $order->customer_name;
+                        // Additional processing if needed
+                    }
+                } else {
+                    echo "No orders found";
+                }
+            } else {
+                echo "Publisher ID not found";
+            }
+        } else {
+            echo "Publisher not found";
+        }
+    } else {
+        echo "Not logged in as a publisher";
+    }
+
+    $data = [
+        'publisherid' => $publisherid,
+        'publisherDetails' => $publisherDetails,
+        'orderDetails' => $orderDetails,
+        'customerName' => $customerName,
+        'publisherName' => $publisherName
+    ];
+
+    $this->view('publisher/processingorders', $data);
+}
+
+   
     public function shippedorders(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
         $publisherid = null;
+       
+        $publisherDetails = null;
+        $orderDetails = null;
+        $customerName = null;
+        $publisherName = null;
     
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
@@ -434,14 +631,14 @@ class Publisher extends Controller{
     
             if ($publisherDetails) {
                 $publisherid = $publisherDetails[0]->publisher_id;
-    
+                $publisherName = $publisherDetails[0]->name;
                 if ($publisherid) {
                     $orderDetails = $this->orderModel->findNewBookShippingOrdersBypubId($publisherid);
     
                     if ($orderDetails) {
                         // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
                         foreach ($orderDetails as $order) {
-                            $publisherName = $order->publisher_name;
+                            // $publisherName = $order->publisher_name;
                             $customerName = $order->customer_name;
 
                         }
@@ -467,6 +664,58 @@ class Publisher extends Controller{
             'publisherName'  =>$publisherName
         ];
         $this->view('publisher/shippedorders',$data);
+    }
+    
+    public function returnedorders(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $publisherid = null;
+        
+        $publisherDetails = null;
+        $orderDetails = null;
+        $customerName = null;
+        $publisherName = null;
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+    
+            if ($publisherDetails) {
+                $publisherid = $publisherDetails[0]->publisher_id;
+                $publisherName = $publisherDetails[0]->name;
+                if ($publisherid) {
+                    $orderDetails = $this->orderModel->findNewBookReturnedOrdersBypubId($publisherid);
+    
+                    if ($orderDetails) {
+                        // Assuming findBrandNewBookProOrdersBypubId returns an array of orders
+                        foreach ($orderDetails as $order) {
+                            // $publisherName = $order->publisher_name;
+                            $customerName = $order->customer_name;
+
+                        }
+                    } else {
+                        echo "No orders found";
+                    }
+                } else {
+                    echo "Publisher ID not found";
+                }
+            } else {
+                echo "Publisher not found";
+            }
+        } else {
+            echo "Not logged in as a publisher";
+        }
+    
+        $data = [
+            'publisherid' => $publisherid,
+            'publisherDetails' => $publisherDetails,
+            'orderDetails' => $orderDetails,
+            'customerName' => $customerName,
+            
+            'publisherName'  =>$publisherName
+        ];
+        $this->view('publisher/returnedorders',$data);
     }
     
     
@@ -590,7 +839,7 @@ class Publisher extends Controller{
             }else{
                      
                 $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
-                
+               
                 
                 $data = [
                     
@@ -605,7 +854,8 @@ class Publisher extends Controller{
                     'town_err'=>'',
                     'district_err'=>'',
                     'postal_code_err'=>'',
-                    'publisherName'  =>$publishers ->name
+                    'publisherName'  =>$publishers ->name,
+                   
                    
                 ];
 
@@ -682,8 +932,6 @@ class Publisher extends Controller{
             }else{
                      
                 $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
-                
-                
                 $data = [
                     
                     'publisher_id' => $publisher_id,
@@ -695,13 +943,9 @@ class Publisher extends Controller{
                     'account_name_err' => '',
                     'account_no_err' => '',
                     'bank_name_err' => '',
-                    'branch_name_err' => '',
-                   
+                    'branch_name_err' => '',  
                 ];
-
-
                 $this->view('publisher/editAccount',$data);
-    
             }  
     }
 
@@ -824,6 +1068,59 @@ class Publisher extends Controller{
                 $this->view('publisher/editProfile',$data);
     
             }  
+    }
+    public function message(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $user_id = $_SESSION['user_id'];
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'sender_name'=>$publisherDetails[0]->name,
+                'sender_id' =>$user_id,
+                'parent_id'=>trim($_POST['parent_id']),
+                'topic'=> trim($_POST['topic']),
+                'message' => trim($_POST['message']),
+                'user_id' => trim($_POST['receiver_id']),
+                'message_err' => '',
+                'topic_err' => '',
+            ];
+
+            if (empty($data['message'])) {
+                $data['message_err'] = 'Please enter a message';
+            }
+            if (empty($data['topic'])) {
+                $data['topic_err'] = 'Please enter a topic';
+            }
+
+            if (empty($data['message_err']) && empty($data['topic_err'])) {
+                if ($this->publisherModel->addMessage($data)) {
+                    flash('Successfully Added');
+                    redirect('publisher/customerSupport');
+                } else {
+                    die('Something went wrong');
+                }
+            } else {
+                $this->view('publisher/message', $data);
+            }
+        } else {
+            $data = [
+                
+                'sender_id'=>'',
+                'parent_id'=>'',
+                'topic'=>'',
+                'message' => '',
+                'user_id' => '',
+                'message_err' => '',
+                'topic_err'=>''
+            ];
+
+            $this->view('delivery/message', $data);
+        }
     }
     
     public function update($book_id){
@@ -969,8 +1266,6 @@ class Publisher extends Controller{
                     }else{
                         $this->view('publisher/update',$data);
                     }
-    
-    
             }else{
                      
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
@@ -980,6 +1275,7 @@ class Publisher extends Controller{
                     redirect('publisher/productGallery');
                   }
                 $data = [
+                    'publisherDetails' => $publisherDetails,
                     'bookCategoryDetails'=>$bookCategoryDetails,
                     'book_id' => $book_id,
                     'book_name' => $books->book_name,
@@ -1003,15 +1299,14 @@ class Publisher extends Controller{
                     'descript_err' => '',
                     'quantity_err' => '',
                     // 'img1_err' => '',
-                    // 'img2_err' => '',
-                    
+                    // 'img2_err' => '',   
                 ];
-
-
                 $this->view('publisher/update',$data);
     
             }  
     } 
+
+    
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
@@ -1020,6 +1315,4 @@ class Publisher extends Controller{
         session_destroy();
         redirect('landing/index');
     }
-    
-
 }

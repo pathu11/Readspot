@@ -45,7 +45,6 @@ console.log(urlroot)</script>
         // Get the commentId from the clicked button
         // var commentId = $(this).data('commentId'); // Corrected this line
         var commentId = $(this).data('comment-id');
-
         // Create a new form for the reply
         var replyForm = "<form class='replyForm' method='POST'>";
         replyForm += "<label for='comment'>Your Reply:</label>";

@@ -37,6 +37,7 @@
         <a href="<?php echo URLROOT; ?>/publisher/processingorders">Processing Orders</a>
         <a href="<?php echo URLROOT; ?>/publisher/shippedorders">Shipped Orders</a>
         <a href="<?php echo URLROOT; ?>/publisher/deliveredorders">Delivered Orders</a>
+        <a href="<?php echo URLROOT; ?>/publisher/returnedorders">Returned Orders</a>
         
 
 

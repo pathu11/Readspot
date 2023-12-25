@@ -1,9 +1,13 @@
 <?php
-    $title = "Edit Postal Details";   
+    $title = "Edit Postal Details";
+    
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/sidebar.css" />
@@ -17,9 +21,12 @@
         
             <div class="form1">
                 <h2>Enter Postal Details </h2>
-                <form action="<?php echo URLROOT; ?>/publisher/editpostalForAddbooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/editpostalForBooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
                     <br>
                     <br>
+                    
+                   
+             
                     <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder=" Name" required><br>
                     <span class="error"><?php echo $data['postal_name_err']; ?></span>
                                
@@ -62,7 +69,8 @@
                     <input type="text" name="postal_code"  class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>"placeholder="Postal Code" required><br>
                     <span class="error"><?php echo $data['postal_code_err']; ?></span>
                     
-                    <input  type="submit" placeholder="Next" name="submit" class="submit">
+                    <input type="submit" value="Next" name="submit" class="submit">
+
                     </div> 
                     <br>       
                     

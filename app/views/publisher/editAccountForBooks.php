@@ -21,7 +21,7 @@
              
             <div class="form1">
                 <h2>Enter the Account Details </h2>
-                <form action="<?php echo URLROOT; ?>/publisher/editAccountForAddbooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/editAccountForBooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
                     <br>
                     <br>
                                    
@@ -37,7 +37,7 @@
                     <input type="text" name="branch_name"  class="<?php echo (!empty($data['branch_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['branch_name']; ?>"placeholder="Branch Name" required><br>
                     <span class="error"><?php echo $data['branch_name_err']; ?></span>
                     
-                    <input  type="submit" placeholder="Next" name="submit" class="submit">
+                    <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
                     <br>       
                     
