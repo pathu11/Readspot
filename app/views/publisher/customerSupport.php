@@ -32,17 +32,22 @@
          <table>
          <?php foreach ($data['messageDetails'] as $message): ?>
     <tr>
-        <th style="width:70%" >
-            <h4><?php echo $message->topic; ?></h5>
-            <p><?php echo $message->message; ?></p>
+    <a href="#"><th style="width:20%" >
+            
+            <h4><?php echo $message->sender_name; ?></h5>
+           
         </th>
-        <td style="width:15%">
-            <button class="view">View</button>
+        <td style="width:80%">
+            <h4><?php echo $message->topic; ?>  </h4>
+            <p><?php echo $message->message; ?></p>
+            
         </td>
-        <td style="width:15%">
-            <button class="delete">Delete</button>
+        <td style="width:10%">
+        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>">View</a>   
+        <!-- <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?> " class="view" >View</a> -->
         </td>
-    </tr>
+        
+    </tr></a>
 <?php endforeach; ?>
             
         </table>
@@ -55,7 +60,12 @@
     <script>
     <script>
         $(document).ready(function () {
-          
+            $('.view').click(function (e) {
+                e.preventDefault();
+                var messageId = $(this).data('message-id');
+                window.location.href = urlroot + '/publisher/viewMessage/' + messageId;
+            });
+
             function loadMessages() {
                 // Assuming you have a backend endpoint to fetch messages
                 $.ajax({

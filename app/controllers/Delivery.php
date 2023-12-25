@@ -325,6 +325,7 @@ class Delivery extends Controller{
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
+                'sender_name'=>$deliveryDetails[0]->name,
                 'sender_id' =>$user_id,
                 'topic'=> trim($_POST['topic']),
                 'message' => trim($_POST['message']),

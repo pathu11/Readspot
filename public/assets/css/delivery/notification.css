@@ -109,12 +109,13 @@ body{
  
  }
  
- .delete{
+ .submit{
+     margin-left:800px;
      display: block;
      width:80px;
-     height:40px;
-     padding: 7px;
-     background-color: red;
+     height:35px;
+     padding: 6px;
+     background-color: #09514C;
      color: white;
      text-decoration: none;
      border: none;
@@ -124,10 +125,21 @@ body{
  
  
  }
- .delete:hover{
-     background-color: red;
+ .submit:hover{
+     background-color: #add8e6;
      transform:scale(1.1,1.1);
+     color:black;
  
+ }
+ .msg{
+    margin-top:100px;
+    margin-left:120px;
+    margin-right:120px;
+    background-color: white;
+    padding:30px;
+    border-radius: 7px;
+
+
  }
  
  

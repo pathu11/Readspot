@@ -469,6 +469,43 @@ class Publisher extends Controller{
 
         $this->view('publisher/customerSupport',$data);
     }
+
+    public function viewMessage($message_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $publisherid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+           
+            if ($publisherDetails) {
+               
+                $publisherid = $publisherDetails[0]->publisher_id;
+              
+                $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
+                $messageDetails2 = $this->publisherModel->getMessageById($message_id);
+                
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'publisherid' => $publisherid,
+            'publisherDetails' => $publisherDetails,
+            'messageDetails' => $messageDetails,
+            'messageDetails2' => $messageDetails2,
+            'publisherName'  =>$publisherDetails[0] ->name
+        ];
+    
+
+        $this->view('publisher/viewMessage',$data);
+    }
     
     public function deliveredorders()
 {
@@ -1032,6 +1069,57 @@ public function processingorders()
     
             }  
     }
+    public function message(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $user_id = $_SESSION['user_id'];
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'sender_name'=>$publisherDetails[0]->name,
+                'sender_id' =>$user_id,
+                'topic'=> trim($_POST['topic']),
+                'message' => trim($_POST['message']),
+                'user_id' => trim($_POST['receiver_id']),
+                'message_err' => '',
+                'topic_err' => '',
+            ];
+
+            if (empty($data['message'])) {
+                $data['message_err'] = 'Please enter a message';
+            }
+            if (empty($data['topic'])) {
+                $data['topic_err'] = 'Please enter a topic';
+            }
+
+            if (empty($data['message_err']) && empty($data['topic_err'])) {
+                if ($this->publisherModel->addMessage($data)) {
+                    flash('Successfully Added');
+                    redirect('publisher/customerSupport');
+                } else {
+                    die('Something went wrong');
+                }
+            } else {
+                $this->view('publisher/message', $data);
+            }
+        } else {
+            $data = [
+
+                'sender_id'=>'',
+                'topic'=>'',
+                'message' => '',
+                'user_id' => '',
+                'message_err' => '',
+                'topic_err'=>''
+            ];
+
+            $this->view('delivery/message', $data);
+        }
+    }
     
     public function update($book_id){
         if(!isLoggedIn()){
@@ -1215,6 +1303,8 @@ public function processingorders()
     
             }  
     } 
+
+    
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
