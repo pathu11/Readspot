@@ -112,4 +112,18 @@ public function returned($order_id) {
         return false;
     }
 }
+public function addMessage($data) {
+    // Assuming $this->db is an instance of your database class
+    $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message) VALUES (:sender_id, :user_id, :topic, :message)');
+    $this->db->bind(':sender_id', $data['sender_id']);
+    $this->db->bind(':user_id', $data['user_id']);
+    $this->db->bind(':topic', $data['topic']);
+    $this->db->bind(':message', $data['message']);
+    if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+}
+
   }

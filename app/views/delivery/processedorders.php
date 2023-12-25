@@ -28,6 +28,8 @@
                 <th style="width:5%">Contact reciever</th>
             </tr>
             <?php foreach($data['orderDetails'] as $orderDetails): ?>
+                
+            
             <tr>
                 <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
@@ -37,8 +39,6 @@
                 <th style="width:7%"><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></th>
                 
                 <th>
-                    
-
                     <div class="popup" onclick="myFunction(<?php echo $orderDetails->order_id; ?>)">
                             <i class='fas fa-check-circle' style='font-size:36px'></i>
                                 <div class="popuptext" id="myPopup_<?php echo $orderDetails->order_id; ?>">
@@ -48,7 +48,9 @@
                                 </div>
                              </div>
                 </th>
-                <th><a><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+               
+                <th><a href="<?php echo URLROOT; ?>/delivery/message/?receiver_id=<?php echo $orderDetails->sender_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+
                 <th><a><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
 
             </tr>

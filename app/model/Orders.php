@@ -74,6 +74,10 @@
             b.book_id, 
             b.type AS book_type, 
             CASE 
+                WHEN b.type = "new" THEN p.user_id
+                WHEN b.type IN ("exchanged", "used") THEN c_sender.user_id
+            END AS sender_id, 
+            CASE 
                 WHEN b.type = "new" THEN p.postal_name
                 WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
             END AS sender_postal_name, 

@@ -263,7 +263,7 @@ class Delivery extends Controller{
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
             $orderDetails = $this->orderModel->findBookProOrders();
     
-            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+            $sender_id = $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
     
             
         } else {
@@ -314,6 +314,58 @@ class Delivery extends Controller{
             die('Something went wrong');
         }
     }
+    public function message(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $user_id = $_SESSION['user_id'];
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'sender_id' =>$user_id,
+                'topic'=> trim($_POST['topic']),
+                'message' => trim($_POST['message']),
+                'user_id' => trim($_POST['receiver_id']),
+                'message_err' => '',
+                'topic_err' => '',
+            ];
+
+            if (empty($data['message'])) {
+                $data['message_err'] = 'Please enter a message';
+            }
+            if (empty($data['topic'])) {
+                $data['topic_err'] = 'Please enter a topic';
+            }
+
+            if (empty($data['message_err']) && empty($data['topic_err'])) {
+                if ($this->deliveryModel->addMessage($data)) {
+                    flash('Successfully Added');
+                    redirect('delivery/processedorders');
+                } else {
+                    die('Something went wrong');
+                }
+            } else {
+                $this->view('delivery/message', $data);
+            }
+        } else {
+            $data = [
+
+                'sender_id'=>'',
+                'topic'=>'',
+                'message' => '',
+                'user_id' => '',
+                'message_err' => '',
+                'topic_err'=>''
+            ];
+
+            $this->view('delivery/message', $data);
+        }
+       
+    }
+    
     
 
 }
