@@ -17,6 +17,12 @@
                 <form id="messageForm" method="POST">                   
                     <br>
                     <br>
+                   
+                    <?php
+                        $parent_id = isset($_GET['parent_id']) ? $_GET['parent_id'] : '';
+                        echo 'Parent ID: ' . $parent_id;
+                        ?>
+
                     <label for="topic">Your Topic:</label>
                     <input type='text' id="topic" name="topic" required><br> 
                     <span class="error"><?php echo $data['topic_err']; ?></span>            
@@ -24,6 +30,8 @@
                     <textarea id="message" name="message" required></textarea><br>
                     <span class="error"><?php echo $data['message_err']; ?></span>
                     <input type="hidden" id="receiverId" name="receiver_id" value="<?php echo isset($_GET['receiver_id']) ? $_GET['receiver_id'] : ''; ?>">
+                    <input type="hidden" id="parentId" name="parent_id" value="<?php echo isset($_GET['parent_id']) ? $_GET['parent_id'] : ''; ?>">
+
                     <button type="submit" class="submit">Send Message</button>
                 </form>
             </div>
@@ -33,15 +41,18 @@
 
 <script>
     var urlroot = "<?php echo URLROOT; ?>";
+   
     $(document).ready(function () {
         $('#messageForm').submit(function (e) {
             e.preventDefault();
+            console.log('Parent ID:', $('#parentId').val());  // Debug statement
+
             $.ajax({
                 type: 'POST',
                 url: urlroot + '/publisher/message',
                 data: $(this).serialize(),
                 success: function () {
-                    loadMessages();
+                    // loadMessages();
                     $('#messageForm')[0].reset();
                 }
             });

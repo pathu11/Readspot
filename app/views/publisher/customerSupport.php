@@ -39,7 +39,14 @@
         </th>
         <td style="width:80%">
             <h4><?php echo $message->topic; ?>  </h4>
-            <p><?php echo $message->message; ?></p>
+            <!-- <p><?php echo $message->message; ?></p> -->
+            <p>
+                <?php
+                    // Display only the first two lines of the message
+                    $lines = explode("\n", $message->message);
+                    echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
+                ?>
+            </p>
             
         </td>
         <td style="width:10%">

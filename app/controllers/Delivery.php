@@ -192,9 +192,37 @@ class Delivery extends Controller{
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-       
-        $this->view('delivery/notification');
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+           
+            if ($deliveryDetails) {
+               
+                $deliveryid = $deliveryDetails[0]->delivery_id;
+              
+                $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
+                // $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
+                
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'deliveryid' => $deliveryid,
+            'deliveryDetails' => $deliveryDetails,
+            'messageDetails' => $messageDetails,
+           
+            'deliveryName'  =>$deliveryDetails[0] ->name
+        ];
+    
+
+        $this->view('delivery/notification',$data);
     }
+    
     public function deliveredorders(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -365,6 +393,43 @@ class Delivery extends Controller{
             $this->view('delivery/message', $data);
         }
        
+    }
+
+    public function viewMessage($message_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+           
+            if ($deliveryDetails) {
+               
+                $deliveryid = $deliveryDetails[0]->delivery_id;
+              
+                $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
+                $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
+                
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'deliveryid' => $deliveryid,
+            'deliveryDetails' => $deliveryDetails,
+            'messageDetails' => $messageDetails,
+            'messageDetails2' => $messageDetails2,
+            'deliveryName'  =>$deliveryDetails[0] ->name
+        ];
+    
+
+        $this->view('delivery/viewMessage',$data);
     }
     
     

@@ -1082,6 +1082,7 @@ public function processingorders()
             $data = [
                 'sender_name'=>$publisherDetails[0]->name,
                 'sender_id' =>$user_id,
+                'parent_id'=>trim($_POST['parent_id']),
                 'topic'=> trim($_POST['topic']),
                 'message' => trim($_POST['message']),
                 'user_id' => trim($_POST['receiver_id']),
@@ -1108,8 +1109,9 @@ public function processingorders()
             }
         } else {
             $data = [
-
+                
                 'sender_id'=>'',
+                'parent_id'=>'',
                 'topic'=>'',
                 'message' => '',
                 'user_id' => '',

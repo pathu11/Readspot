@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <?php require APPROOT . '/views/publisher/sidebar.php';?>
+    <?php require APPROOT . '/views/delivery/sidebar.php';?>
     
     <div class="chat">
          <div id="messagesContainer">
@@ -36,7 +36,7 @@
                 var receiverId = $(this).data('receiver-id');
                 var parentId = $(this).data('parent-id');
                 $('#parentId').val(parentId);
-                window.location.href = urlroot + '/publisher/message?parent_id=' + parentId + '&receiver_id=' + receiverId;
+                window.location.href = urlroot + '/delivery/message?parent_id=' + parentId + '&receiver_id=' + receiverId;
             });
         });
     </script>
