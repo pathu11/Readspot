@@ -391,10 +391,6 @@ class Publisher extends Controller{
                 'branch_name_err' => '',
             ];
     
-            // Validate data
-            // ...
-    
-            // Make sure errors are empty
             if (empty($data['account_name_err']) && empty($data['account_no_err']) && empty($data['bank_name_err']) && empty($data['branch_name_err'])) {
                 // If validation succeeds, update account details
                 if ($this->publisherModel->editAccount($data) && $this->publisherModel->AddBookApproval($data)) {
@@ -443,7 +439,35 @@ class Publisher extends Controller{
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-        $this->view('publisher/customerSupport');
+        $publisherid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+           
+            if ($publisherDetails) {
+               
+                $publisherid = $publisherDetails[0]->publisher_id;
+              
+                $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
+                
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'publisherid' => $publisherid,
+            'publisherDetails' => $publisherDetails,
+            'messageDetails' => $messageDetails,
+            'publisherName'  =>$publisherDetails[0] ->name
+        ];
+    
+
+        $this->view('publisher/customerSupport',$data);
     }
     
     public function deliveredorders()

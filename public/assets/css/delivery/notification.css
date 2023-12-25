@@ -1,7 +1,8 @@
 
 body{
     margin-top:90px;
-    margin-left:280px;
+    margin-left:100px;
+    margin-right:80px;
  
  }
  .search-bar {
@@ -50,6 +51,7 @@ body{
      width: 100%;
      border-collapse: collapse;
      margin-top: 20px;
+     margin-right:60px;
      
  }
  

@@ -51,8 +51,7 @@
                
                 <th><a href="<?php echo URLROOT; ?>/delivery/message/?receiver_id=<?php echo $orderDetails->sender_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
 
-                <th><a><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
-
+                <th><a href="<?php echo URLROOT; ?>/delivery/message/?receiver_id=<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
             </tr>
             <?php endforeach; ?>
 

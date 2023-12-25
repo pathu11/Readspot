@@ -239,4 +239,11 @@ class Publishers{
             return 0; 
         }
     }
+    
+    public function findMessageByUserId($user_id){
+        $this->db->query('SELECT * from messages WHERE user_id=:user_id ');
+        $this->db->bind(':user_id',$user_id);
+        return $this->db->resultSet();
+    }
+    
 }

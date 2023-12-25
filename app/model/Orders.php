@@ -96,7 +96,8 @@
             CASE 
                 WHEN b.type = "new" THEN p.postal_code
                 WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
-            END AS sender_postal_code, 
+            END AS sender_postal_code,
+            c_receiver.user_id AS receiver_user_id, 
             c_receiver.postal_name AS receiver_postal_name, 
             c_receiver.street_name AS receiver_street_name,
             c_receiver.town AS receiver_town,
