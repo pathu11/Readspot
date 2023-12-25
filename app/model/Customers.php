@@ -30,6 +30,39 @@
   }
 
 
+  public function AddUsedBook($data){
+    $this->db->query('INSERT INTO usedbooks (bookName, author, category, bookCondition, publishedYear, price, priceType, weights, isbnNumber, issnNumber, issmNumber, descriptions, imgFront, imgBack, imgInside, accName, accNumber, bankName, branchName, town, district, postalCode, customer_id) VALUES(:bookName, :author, :category, :bookCondition, :publishedYear, :price, :priceType, :weights, :isbnNumber, :issnNumber, :issmNumber, :descriptions, :imgFront, :imgBack, :imgInside, :accName, :accNumber, :bankName, :branchName, :town, :district, :postalCode, :customer_id)');
+    
+    $this->db->bind(':bookName',$data['bookName']);
+    $this->db->bind(':author',$data['author']);
+    $this->db->bind(':category',$data['category']);
+    $this->db->bind(':bookCondition',$data['bookCondition']);
+    $this->db->bind(':publishedYear',$data['publishedYear']);
+    $this->db->bind(':price',$data['price']);
+    $this->db->bind(':priceType',$data['priceType']);
+    $this->db->bind(':weights',$data['weights']);
+    $this->db->bind(':isbnNumber',$data['isbnNumber']);
+    $this->db->bind(':issnNumber',$data['issnNumber']);
+    $this->db->bind(':issmNumber',$data['issmNumber']);
+    $this->db->bind(':descriptions',$data['descriptions']);
+    $this->db->bind(':imgFront',$data['imgFront']);
+    $this->db->bind(':imgBack',$data['imgBack']);
+    $this->db->bind(':imgInside',$data['imgInside']);
+    $this->db->bind(':accName',$data['accName']);
+    $this->db->bind(':accNumber',$data['accNumber']);
+    $this->db->bind(':bankName',$data['bankName']);
+    $this->db->bind(':branchName',$data['branchName']);
+    $this->db->bind(':town',$data['town']);
+    $this->db->bind(':district',$data['district']);
+    $this->db->bind(':postalCode',$data['postalCode']);
+    $this->db->bind(':customer_id',$data['customer_id']);
+    // execute
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }        
+}
 
 
   }
