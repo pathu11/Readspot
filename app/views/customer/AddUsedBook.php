@@ -2,11 +2,10 @@
     $title = "Add Used Book";
     include_once 'header.php';
 ?>
-
+    <?php
+        include_once 'sidebar.php';
+    ?>
     <div class="container">
-        <?php
-            include_once 'sidebar.php';
-        ?>
 
         <div class="add-content">
             <form action="http://localhost/Group-27/app/controllers/customer/addusedbooks.inc.php" class="book-add" method="POST">
@@ -164,8 +163,7 @@
                 <input type="submit" value="Submit" name="submitused">
             </form>
         </div>
+    <?php
+        include_once 'footer.php';
+    ?>    
     </div>
-
-<?php
-    include_once 'footer.php';
-?>

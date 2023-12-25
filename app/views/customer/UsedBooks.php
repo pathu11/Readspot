@@ -1,27 +1,26 @@
 <?php
-    session_start();
+    // session_start();
     $title = "Bookshelf";
     include_once 'header.php';
-    $serverName = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "readspots";
+    // $serverName = "localhost";
+    // $dbUsername = "root";
+    // $dbPassword = "";
+    // $dbName = "readspots";
 
 
 
-    $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
+    // $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
 
-    if (!$conn) {
-        die("Connection failed : " .mysqli_connect_error());
-    }
+    // if (!$conn) {
+    //     die("Connection failed : " .mysqli_connect_error());
+    // }
     // include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
 ?>
 
+    <?php
+        include_once 'sidebar.php';
+    ?>
     <div class="container">
-        <?php
-            include_once 'sidebar.php';
-        ?>
-
         <div class="book-shelf">
             <div class="used-books">
                 <h2>Used Books</h2>
@@ -55,12 +54,13 @@
                    
                 </div>
                 <div class="vw">
-                    <a href="./AddUsedBook.php"><button class="vw-btn">Add a Book</button></a>
+                    <a href="<?php echo URLROOT; ?>/customer/AddUsedBook"><button class="vw-btn">Add a Book</button></a>
                 </div>
+                <br>
+                <br>
             </div>
         </div>
+    <?php
+        include_once 'footer.php';
+    ?>
     </div>
-
-<?php
-    include_once 'footer.php';
-?>

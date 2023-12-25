@@ -6,6 +6,9 @@ class Customer extends Controller {
   
     private $db;
     public function __construct(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
         $this->customerModel=$this->model('Customers');
         $this->userModel=$this->model('User');  
         $this->db = new Database();
@@ -63,6 +66,9 @@ class Customer extends Controller {
     public function test(){
         $this->view('customer/test');
     }
+
+
+
     public function Home(){
         if (!isLoggedIn()) {
             redirect('landing/login');
