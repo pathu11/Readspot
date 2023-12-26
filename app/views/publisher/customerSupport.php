@@ -22,7 +22,7 @@
                 <span>You've 3 unread notifications </span>
             </div>
             <div class="head1">
-                <button id="markAllRead">Mark all as read</button>
+                <button id="markAllRead" class="markAllRead" >Mark all as read</button>
             </div>
         </div>
 
@@ -50,8 +50,8 @@
             
         </td>
         <td style="width:10%">
-        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>">View</a>   
-        <!-- <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?> " class="view" >View</a> -->
+        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>"  data-user-id="<?php echo $message->user_id; ?>">View</a>   
+        
         </td>
         
     </tr></a>
@@ -67,7 +67,27 @@
     <script>
     <script>
         $(document).ready(function () {
-            $('.view').click(function (e) {
+            $('#markAllRead').click(function (e) {
+            e.preventDefault();
+
+            // Collect all user IDs
+            var userIds = $('.view').map(function () {
+                return $(this).data('user-id');
+            }).get();
+
+            // Assuming you have a backend endpoint to mark selected messages as read
+            $.ajax({
+                type: 'POST',
+                url: urlroot + '/publisher/markSelectedAsRead',
+                data: { userIds: userIds },
+                success: function () {
+                    // After marking selected as read, reload the messages
+                    loadMessages();
+                }
+            });
+        });
+
+            $('.m').click(function (e) {
                 e.preventDefault();
                 var messageId = $(this).data('message-id');
                 window.location.href = urlroot + '/publisher/viewMessage/' + messageId;
@@ -84,6 +104,8 @@
                     }
                 });
             }
+           
+
 
             
             loadMessages();
