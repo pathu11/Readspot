@@ -203,4 +203,29 @@ class Publishers{
             return 0; 
         }
     }
+
+    public function getPublisherEventDetails($user_id){
+        $this->db->query('SELECT * FROM events WHERE user_id=:user_id');
+        $this->db->bind(':user_id',$user_id);
+
+        return $this->db->resultSet();
+    }
+
+    public function addEvent($data){
+        $this->db->query('INSERT INTO events (user_id,user_type,title, description, location,start_date , end_date, category_name) VALUES(:user_id,:user_type,:title, :description, :location, :start_date , :end_date, :category)');
+        $this->db->bind(':user_type',$data['user_type']);
+        $this->db->bind(':user_id',$data['user_id']);
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':description',$data['description']);
+        $this->db->bind(':location',$data['location']);
+        $this->db->bind(':start_date',$data['start_date']);
+        $this->db->bind(':end_date',$data['end_date']);
+        $this->db->bind(':category',$data['category']);
+        // execute
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        } 
+    }
 }
