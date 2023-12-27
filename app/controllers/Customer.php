@@ -60,9 +60,7 @@ class Customer extends Controller {
     }
 
     
-    public function test(){
-        $this->view('customer/test');
-    }
+    
     public function Home(){
         if (!isLoggedIn()) {
             redirect('landing/login');

@@ -1328,6 +1328,14 @@ public function processingorders()
             // Redirect or handle success accordingly
         }
     }
+    public function getUnreadMessagesCount($userId) {
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($userId);
+        $data = [
+            'unreadCount' => $unreadCount,
+        ];
+        $this->view('publisher/sidebar', $data);
+    }
+    
     
     
     public function logout(){

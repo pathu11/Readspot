@@ -18,6 +18,12 @@
                 ?>
         <?php endforeach; ?>
         <img style="border-radius:60%;width:3%;height:3%;" src="<?php echo $profileImage; ?>">
+        <!-- <div id="notificationIcon">
+          <i class="fas fa-bell"></i>
+          
+          <div id="unreadCount" ><?php echo $unreadCount; ?></div>
+</div> -->
+    </div>
        
       </div>
       <div class="sidebar">
@@ -74,3 +80,33 @@
 
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/sidebar.js"></script>
   </body>
+  <script>
+   var urlroot = "<?php echo URLROOT; ?>";
+
+function checkUnreadMessagesCount() {
+    $.ajax({
+        type: 'GET',
+        url: urlroot + '/publisher/getUnreadMessagesCount',
+        dataType: 'json',
+        success: function (data) {
+            var unreadCount = data.unreadCount;
+            var unreadCountElement = $('#unreadCount');
+
+            if (unreadCount > 0) {
+                unreadCountElement.text(unreadCount).show();
+            } else {
+                unreadCountElement.hide();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+$(document).ready(function () {
+    checkUnreadMessagesCount();
+    setInterval(checkUnreadMessagesCount, 5000);
+});
+
+  </script>

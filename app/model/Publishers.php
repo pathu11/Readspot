@@ -297,4 +297,14 @@ class Publishers{
         return $this->db->execute();
     }
 
+    public function getUnreadMessagesCount($userId) {
+        $this->db->query('SELECT COUNT(*) AS unreadCount FROM messages WHERE user_id = :user_id AND status = "unread"');
+        $this->db->bind(':user_id', $userId);
+        
+        $row = $this->db->single();
+        
+        return $row->unreadCount;
+    }
+    
+
 }
