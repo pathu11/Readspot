@@ -1,87 +1,53 @@
 <?php
-    $title = "Bookshelf";
-    include_once 'header.php';
-    include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
+    foreach ($data['UsedBookId'] as $UsedBook):
+        $title = "$UsedBook->bookName";
+    endforeach;
+    require APPROOT . '/views/customer/header.php';
+    // include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
 ?>
 
     <div class="main-detail">
-        <?php
-        if (isset($_GET['id'])){
-            $bookId = $_GET['id'];
-            
-            $sql = "SELECT * FROM usedbooks WHERE bookId = $bookId;";
-            $result = mysqli_query($conn, $sql);
-            $checkResults = mysqli_num_rows($result);
+        <?php foreach ($data['UsedBookId'] as $UsedBook): ?>
+            <div class="sub1">
+                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $UsedBook->imgFront . '" alt="Book3" class="main-img">';?>
+            </div>
+            <div class="sub2">
+                <h3>Book Name : <span><?php echo $UsedBook->bookName; ?></span></h3><br>
+                <h3>Author of Book : <span><?php echo $UsedBook->author; ?></span></h3><br>
+                <h3>Book Category : <span><?php echo $UsedBook->category; ?></span></h3><br>
+                <h3>Condition : <span><?php echo $UsedBook->bookCondition; ?></span></h3><br>
+                <h3>Published Year : <span><?php echo $UsedBook->publishedYear; ?></span></h3><br>
+                <h3>Price : <span><?php echo $UsedBook->price; ?></span></h3><br>
+                <h3>Price Type : <span><?php echo $UsedBook->priceType; ?></span></h3><br>
+                <h3>Weight (grams) : <span><?php echo $UsedBook->weights; ?></span></h3><br>
+                <h3>ISBN Number : <span><?php echo $UsedBook->isbnNumber; ?></span></h3><br>
+                <h3>ISSN Number : <span><?php echo $UsedBook->issnNumber; ?></span></h3><br>
+                <h3>ISMN Number : <span><?php echo $UsedBook->issmNumber; ?></span></h3>
+            </div>
+            <div class="sub3">
+                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $UsedBook->imgFront . '" alt="Book3" class="sub-img">';?>
+            </div>
+            <div class="sub4">
+                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $UsedBook->imgInside . '" alt="Book3" class="sub-img">';?>
+            </div>
+            <div class="sub5">
+                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $UsedBook->imgBack . '" alt="Book3" class="sub-img">';?>
+            </div>
+            <div class="sub6">
+                <h3>Description about the book</h3><br>
+                <p><?php echo $UsedBook->descriptions; ?></p>
 
-            if ($checkResults > 0) {
-            while ($row = mysqli_fetch_assoc($result)){
-                $bookId = $row['bookId'];
-                $bookName=$row['bookName'];
-                $author=$row['author'];
-                $category=$row['category'];
-                $bookCondition=$row['bookCondition'];
-                $publishedYear=$row['publishedYear'];
-                $price=$row['price'];
-                $priceType=$row['priceType'];
-                $weight=$row['weights'];
-                $isbnNumber=$row['isbnNumber'];
-                $issnNumber=$row['issnNumber'];
-                $issmNumber=$row['issmNumber'];
-                $description=$row['descriptions'];
-                $imgFront=$row['imgFront'];
-                $imgBack=$row['imgBack'];
-                $imgInside=$row['imgInside'];
-                $town=$row['town'];
-                $district=$row['district'];
-                $postalCode=$row['postalCode'];
-
-
-
-                    echo '<div class="sub1">
-                    <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgFront.'" alt="Book3" class="main-img">
-                </div>
-                <div class="sub2">
-                    <h3>Book Name : <span>'.$bookName.'</span></h3><br>
-                    <h3>Author of Book : <span>'.$author.'</span></h3><br>
-                    <h3>Book Category : <span>'.$category.'</span></h3><br>
-                    <h3>Condition : <span>'.$bookCondition.'</span></h3><br>
-                    <h3>Published Year : <span>'.$publishedYear.'</span></h3><br>
-                    <h3>Price : <span>'.$price.'</span></h3><br>
-                    <h3>Price Type : <span>'.$priceType.'</span></h3><br>
-                    <h3>Weight (grams) : <span>'.$weight.'</span></h3><br>
-                    <h3>ISBN Number : <span>'.$isbnNumber.'</span></h3><br>
-                    <h3>ISSN Number : <span>'.$issnNumber.'</span></h3><br>
-                    <h3>ISMN Number : <span>'.$issmNumber.'</span></h3>
-                </div>
-                <div class="sub3">
-                    <img src="./assets/img/'.$imgFront.'" alt="Book3" class="sub-img">
-                </div>
-                <div class="sub4">
-                    <img src="./assets/img/'.$imgInside.'" alt="Book3" class="sub-img">
-                </div>
-                <div class="sub5">
-                    <img src="./assets/img/'.$imgBack.'" alt="Book3" class="sub-img">
-                </div>
-                <div class="sub6">
-                    <h3>Description about the book</h3><br>
-                    <p>'.$description.'</p>
-        
-                </div>
-                <div class="sub7">
-                    <h3>Town : <span>'.$town.'</span></h3><br>
-                    <h3>District : <span>'.$district.'</span></h3><br>
-                    <h3>Postal Code : <span>'.$postalCode.'</span></h3><br>
-                </div>
-                <div class="sub8">
-                    <a href="./includes/deleteusedbook.inc.php?deleteid='.$bookId.'"><button class="chat-dlt-btn">Delete</button></a>
-                    <a href="./updateusedbook.php?updateid='.$bookId.'"><button class="chat-btn">Edit</button></a>
-                </div>';
-                }
-            }
-
-        }
-        ?>
-
+            </div>
+            <div class="sub7">
+                <h3>Town : <span><?php echo $UsedBook->town; ?></span></h3><br>
+                <h3>District : <span><?php echo $UsedBook->district; ?></span></h3><br>
+                <h3>Postal Code : <span><?php echo $UsedBook->postalCode; ?></span></h3><br>
+            </div>
+            <div class="sub8">
+                <a href="./includes/deleteusedbook.inc.php?deleteid='.$bookId.'"><button class="chat-dlt-btn">Delete</button></a>
+                <a href="./updateusedbook.php?updateid='.$bookId.'"><button class="chat-btn">Edit</button></a>
+            </div>
+        <?php endforeach; ?>
         <!-- <div class="sub1">
             <img src="./assets/img/book.jpg" alt="Book3" class="main-img">
         </div>

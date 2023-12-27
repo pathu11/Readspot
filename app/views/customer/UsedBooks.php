@@ -32,10 +32,10 @@
                 <br>
                 <div class="books">
                     <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                    <div class="B5">
+                        <div class="B5">
                             <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->imgFront . '" class="Book"><br>';?>
-                            <a href="<?php echo URLROOT; ?>/customer/ViewBook"><button class="dts-btn">View Details</button></a>
-                    </div>
+                            <a href="<?php echo URLROOT; ?>/customer/ViewBook/<?php echo $bookDetails->bookId; ?>"><button class="dts-btn">View Details</button></a>
+                        </div>
                     <?php endforeach; ?>
 
                          

@@ -23,6 +23,12 @@
       return $this->db->resultSet();
     }
 
+    public function getUsedBookById($bookId){
+      $this->db->query('SELECT * from usedbooks WHERE bookId=:bookId ');
+      $this->db->bind(':bookId',$bookId);
+      return $this->db->resultSet();
+  }
+
 
 
 
