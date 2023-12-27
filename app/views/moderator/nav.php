@@ -29,13 +29,13 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT;?>/moderator/challenges" class="nav-link">
                 <i class="bx bxs-trophy icon"></i>
                 <span class="link">Challenges</span>
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT?>/admin/pendingRequestsCharity " class="nav-link">
+              <a href="<?php echo URLROOT?>/moderator/events" class="nav-link">
                 <i class="bx bxs-calendar-event icon"></i>
                 <span class="link">Events</span>
               </a>
