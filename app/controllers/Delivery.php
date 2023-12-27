@@ -4,11 +4,13 @@ class Delivery extends Controller{
     
     private $userModel;
     private $orderModel;
+    private $publisherModel;
     private $db;
     public function __construct(){
         $this->deliveryModel=$this->model('deliver');
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
+        $this->publisherModel=$this->model('Publishers');
        
        
         $this->db = new Database();
@@ -203,7 +205,13 @@ class Delivery extends Controller{
               
                 $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
                 // $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
-                
+                if($messageDetails){
+                    if($this->publisherModel->changeStatus($message_id)){
+                        flash('post_message', 'change status');
+                    }else {
+                        echo "Not found";
+                    }
+                }
             } else {
                 echo "Not found";
             }

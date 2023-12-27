@@ -85,6 +85,7 @@ class Publishers{
             return false;
         }
     }
+
     public function editProfile($data) {
         $this->db->query('UPDATE publishers 
                           SET name = :name, 
@@ -293,6 +294,36 @@ class Publishers{
           }
     }
     
+    public function changeStatus($message_id) {
+        $this->db->query('UPDATE messages 
+                          SET status = :status
+                          WHERE message_id = :message_id');
     
+
+        // Bind values
+        $this->db->bind(':message_id', $message_id);
+        $this->db->bind(':status', 'read');
+       
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            echo $this->db->error();
+            return false;
+        }
+    }
+    
+
+    public function markSelectedAsRead($userId) {
+        // Update the status of all messages to 'read' for the specific user (publisher)
+        $this->db->query("UPDATE messages SET status = 'read' WHERE user_id = :user_id");
+        
+        // Bind values
+        $this->db->bind(':user_id', $userId);
+
+        // Execute the query
+        return $this->db->execute();
+    }
+
 
 }

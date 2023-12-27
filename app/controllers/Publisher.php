@@ -487,7 +487,13 @@ class Publisher extends Controller{
               
                 $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
                 $messageDetails2 = $this->publisherModel->getMessageById($message_id);
-                
+                if($messageDetails && $messageDetails2){
+                    if($this->publisherModel->changeStatus($message_id)){
+                        flash('post_message', 'change status');
+                    }else {
+                        echo "Not found";
+                    }
+                }
             } else {
                 echo "Not found";
             }
@@ -1307,6 +1313,25 @@ public function processingorders()
     } 
 
 
+    public function markSelectedAsRead() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get the list of user IDs from the POST data
+            $userIds = $_POST['userIds'];
+            error_log('User IDs: ' . print_r($userIds, true));
+            // Loop through each user ID and mark messages as read
+            foreach ($userIds as $userId) {
+                if (!$this->publisherModel->markSelectedAsRead($userId)) {
+                    die('Something went wrong');
+                }
+            }
+    
+            flash('update_success', 'Marked as read successfully');
+            // Redirect or handle success accordingly
+        }
+    }
+    
+
+
     public function events(){
         if(!isLoggedIn()){
             redirect('landing/login');
@@ -1419,6 +1444,7 @@ public function processingorders()
         }
         
     }
+
 
     
     public function logout(){
