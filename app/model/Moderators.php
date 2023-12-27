@@ -12,6 +12,26 @@
 
       return $this->db->resultSet();
     }
+
+    public function getChallengeDetails(){
+      $this->db->query('SELECT * FROM book_challenges');
+      return $this->db->resultSet();
+    }
+
+    public function getPendingEventDetails(){
+      $this->db->query('SELECT * FROM events WHERE status = "Pending"');
+      return $this->db->resultSet();
+    }
+
+    public function approveEvent($id){
+      $this->db->query("UPDATE events SET status = 'Approved' WHERE id = :id");
+      $this->db->bind(':id', $id);
+      if ($this->db->execute()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   
   }
 

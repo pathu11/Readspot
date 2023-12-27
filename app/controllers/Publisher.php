@@ -1306,6 +1306,120 @@ public function processingorders()
             }  
     } 
 
+
+    public function events(){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }
+        else{
+            $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $eventDetails = $this->publisherModel->getPublisherEventDetails($user_id);
+
+            $data = [
+                'publisherDetails' => $publisherDetails,
+                'publisherName' => $publisherDetails[0]->name,
+                'eventDetails' => $eventDetails
+            ];
+            $this->view('publisher/events',$data);
+        }
+    }
+
+    public function addEvent(){
+        if(!isLoggedIn()){
+            redirect('/landing/login');
+        }
+        
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+            if(isset($_SESSION['user_id'])){
+                $user_id = $_SESSION['user_id'];
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+                $eventCategoryDetails = $this->adminModel->getEventCategories();
+            }
+
+            $data=[
+                'publisherName' => $publisherDetails[0]->name,
+                'user_type'=> 'Publisher',
+                'user_id'=>trim($user_id),
+                'title'=>trim($_POST['title']),
+                'description'=>trim($_POST['description']),
+                'location'=>trim($_POST['location']),
+                'start_date'=>trim($_POST['start_date']),
+                'end_date'=>trim($_POST['end_date']),
+                'category'=>trim($_POST['category']),
+
+                'title_err'=>'',
+                'description_err'=>'',
+                'location_err'=>'',
+                'start_date_err'=>'',
+                'end_date_err'=>'',
+                'category_err'=>''
+            ];
+
+            if(empty($data['title'])){
+                $data['title_err'] = 'Please enter event title';
+            }
+            if(empty($data['description'])){
+                $data['description_err'] = 'Please enter event description';
+            }
+            if(empty($data['location'])){
+                $data['location_err'] = 'Please enter event location';
+            }
+            if(empty($data['start_date'])){
+                $data['start_date_err'] = 'Please enter event date';
+            }
+            if(empty($data['end_date'])){
+                $data['end_date_err'] = 'Please enter event end date';
+            }
+            if(empty($data['category'])){
+                $data['category_err'] = 'Please select event category';
+            }
+
+            if(empty($data['title_err']) && empty($data['description_err']) && empty($data['location_err']) && empty($data['start_date_err']) && empty($data['end_date_err']) && empty($data['category_err'])){
+
+                if($this->publisherModel->addEvent($data)){
+                    flash('add_success','You are added the event successfully');
+                    redirect('publisher/events');
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('publisher/addEvent',$data);
+            }
+        }
+        
+        else{
+            if(isset($_SESSION['user_id'])){
+                $user_id = $_SESSION['user_id'];
+                $eventCategoryDetails = $this->adminModel->getEventCategories();
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            }
+            $data=[
+                'publisherName' => $publisherDetails[0]->name,
+                'eventCategoryDetails'=>$eventCategoryDetails,
+                'user_type'=> 'Publisher',
+                'title'=>'',
+                'description'=>'',
+                'location'=>'',
+                'start_date'=>'',
+                'end_date'=>'',
+                'category'=>'',
+
+                'title_err'=>'',
+                'description_err'=>'',
+                'location_err'=>'',
+                'start_date_err'=>'',
+                'end_date_err'=>'',
+                'category_err'=>''
+
+            ];
+            $this->view('publisher/addEvent',$data);
+        }
+        
+    }
+
     
     public function logout(){
         unset($_SESSION['user_id']);
