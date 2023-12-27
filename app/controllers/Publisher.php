@@ -451,6 +451,8 @@ class Publisher extends Controller{
                 $publisherid = $publisherDetails[0]->publisher_id;
               
                 $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
+                
                 
             } else {
                 echo "Not found";
@@ -460,6 +462,7 @@ class Publisher extends Controller{
         }
     
         $data = [
+            'unreadCount'=>$unreadCount,
             'publisherid' => $publisherid,
             'publisherDetails' => $publisherDetails,
             'messageDetails' => $messageDetails,
@@ -1329,13 +1332,13 @@ public function processingorders()
             // Redirect or handle success accordingly
         }
     }
-    public function getUnreadMessagesCount($userId) {
-        $unreadCount = $this->publisherModel->getUnreadMessagesCount($userId);
-        $data = [
-            'unreadCount' => $unreadCount,
-        ];
-        $this->view('publisher/sidebar', $data);
-    }
+    // public function getUnreadMessagesCount($userId) {
+    //     $unreadCount = $this->publisherModel->getUnreadMessagesCount($userId);
+    //     $data = [
+    //         'unreadCount' => $unreadCount,
+    //     ];
+    //     $this->view('publisher/sidebar', $data);
+    // }
     
     
 
