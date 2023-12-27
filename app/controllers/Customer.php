@@ -770,16 +770,34 @@ class Customer extends Controller {
     public function UsedBooks(){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/UsedBooks', $data);
+            
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+
+                $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'bookDetails' => $bookDetails,
+            'customerName' => $customerDetails[0]->name
+        ];
+
+        $this->view('customer/UsedBooks', $data);
     } 
 
     public function ViewBook(){

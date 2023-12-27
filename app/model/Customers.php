@@ -15,6 +15,18 @@
     }
 
   
+    public function findUsedBookByCusId($customer_id){
+      $this->db->query('SELECT * from usedbooks WHERE customer_id=:customer_id');
+      $this->db->bind(':customer_id',$customer_id);
+     
+
+      return $this->db->resultSet();
+    }
+
+
+
+
+
   public function addComment($data) {
     // Assuming $this->db is an instance of your database class
     $this->db->query('INSERT INTO comments (name, comment, parent_comment) VALUES (:name, :comment, :parent_comment)');
@@ -28,6 +40,10 @@
     $this->db->query('SELECT * FROM comments ORDER BY timestamp DESC');
     return $this->db->resultSet();
   }
+
+
+
+
 
 
   public function AddUsedBook($data){
