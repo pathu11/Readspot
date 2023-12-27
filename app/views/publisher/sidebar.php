@@ -12,7 +12,12 @@
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
          <span class="user"><?php echo $data['publisherName']?></span>
-        <i class="bx bxs-user-circle icon"></i> 
+         <?php foreach($data['publisherDetails'] as $publisherDetails): ?>
+        <?php
+                    $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/publisher/addbooks/' . $publisherDetails->profile_img ;
+                ?>
+        <?php endforeach; ?>
+        <img style="border-radius:60%;width:3%;height:3%;" src="<?php echo $profileImage; ?>">
        
       </div>
       <div class="sidebar">

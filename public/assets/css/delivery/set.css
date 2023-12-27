@@ -86,12 +86,51 @@ body {
 .my-button {
     margin-top: 10px;
     color: white;
-    background-color: #01322F;
+    background-color: #009D94;
     padding: 7px;
     width: 200px;
     border-radius: 8px;
 }
 
 .my-button:hover {
-    background-color: #009D94;
+    background-color: #01322F;
+}
+@media only screen and (max-width: 767px) {
+    .con {
+        flex-direction: column;
+    }
+
+    .r_col {
+        width: 100%;
+        margin-right: 0;
+    }
+    .l_col {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .r_col .r_a_col span,
+.r_col .r_b_col span {
+        width: 70%;
+        margin-right: 0;
+}
+.r_col .r_a_col td,
+.r_col .r_b_col td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.my-button {
+    width: 60%;
+    margin: 20;
+    text-align:center;
+}
+
+
+
+
+    .l_col,
+    .r_col {
+        margin: 10px 0;
+    }
 }

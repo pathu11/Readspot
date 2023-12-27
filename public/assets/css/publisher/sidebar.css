@@ -115,3 +115,87 @@ nav.open ~ .overlay {
   font-size:20px;
   padding-right: 10px;
 }
+
+
+.sub-menu-wrap{
+  position: absolute;
+  top: 88%;
+  right: 0%;
+  width: 240px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu{
+  max-height: 360px;
+}
+
+.sub-menu{
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  /* backdrop-filter: blur(5px); */
+  border-radius: 20px;
+}
+
+.user-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info h3{
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.user-info img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* margin-right: 15px; */
+}
+
+
+.sub-menu hr{
+  border: 0;
+  height: 2px;
+  width: 100%;
+  background: #ccc;
+  margin: 15px 0 10px;
+}
+
+.sub-menu-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #525252;
+  margin: 10px 0;
+}
+
+.sub-menu-link p {
+  width: 100%;
+}
+
+.sub-menu-link img {
+  width: 30px;
+  height: 30px;
+  background: black;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 15px;
+}
+
+.sub-menu-link span {
+  font-size: 22px;
+  transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span {
+  transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+  font-weight: 600;
+}/* Header */

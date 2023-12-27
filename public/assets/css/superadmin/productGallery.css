@@ -125,3 +125,30 @@ tr {
     color:white;
   }
 
+  @media only screen and (max-width: 768px) {
+    .div_table {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    tr {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    .btn {
+      width:30%;
+        margin-left: 100px;
+        margin-right: 50px;
+    }
+
+    .popup .popuptext {
+        width: 80%; /* Adjust the width for responsiveness */
+        margin-left: -40%; /* Center the popup horizontally */
+    }
+}
