@@ -53,6 +53,12 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/events" class="nav-link">
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Events</span>
+              </a>
+            </li>
+            <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/setting" class="nav-link">
                 <i class="bx bxs-book-heart icon"></i>
                 <span class="link">My Profile</span>
