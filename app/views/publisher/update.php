@@ -15,8 +15,8 @@
 </head>
 
 <body>
-    <div>
-    <?php   require APPROOT . '/views/publisher/sidebar.php';?><div>
+    
+    <?php   require APPROOT . '/views/publisher/sidebar.php';?>
         <div class="form-container">
              <!-- <h2>Enter the Details of the Book</h2> -->
             <div class="form1">
