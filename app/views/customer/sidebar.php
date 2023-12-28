@@ -1,18 +1,4 @@
 <div class="sidebar">
-        <!-- Sidebar content goes here -->
-        <div class="profile-section">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">
-            <?php 
-            if (isset($_SESSION["user_id"])){
-                echo '<h2 class="profile-name1">'.$data['customerName'].'</h2>';
-            } else {
-                echo '<h2 class="profile-name1">NO USER</h2>';
-            }
-            ?>
-        </div>
-        <br>
-        <hr>
-
         <!-- Menu section -->
         <div class="menu-section">
             <ul class="menu-list">
@@ -27,3 +13,35 @@
             </ul>
         </div>
         </div>
+
+<div class="mob-sidebar">
+        <!-- Menu section -->
+        <div class="mob-section">
+        <a href="<?php echo URLROOT; ?>/customer/Dashboard" class="sidebar-link" data-page="Dashboard"><img src="<?php echo URLROOT; ?>/assets/images/customer/dashboard.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Profile" class="sidebar-link" data-page="Profile"><img src="<?php echo URLROOT; ?>/assets/images/customer/myprofile.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Notification" class="sidebar-link" data-page="Notification"><img src="<?php echo URLROOT; ?>/assets/images/customer/notification.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Bookshelf" class="sidebar-link" data-page="Bookshelf"><img src="<?php echo URLROOT; ?>/assets/images/customer/bookshelf.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Content" class="sidebar-link" data-page="Content"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycontent.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Event" class="sidebar-link" data-page="Event"><img src="<?php echo URLROOT; ?>/assets/images/customer/myevent.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Cart" class="sidebar-link" data-page="Cart"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/logout" class="sidebar-link" data-page="Logout"><img src="<?php echo URLROOT; ?>/assets/images/customer/logout.png" alt="logo" class="sidebar-img"></a>
+        </div>
+        </div>
+
+        <script>
+             // Get the current page URL
+            var currentPageUrl = window.location.href;
+
+            // Get all sidebar links
+            var sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+            // Loop through sidebar links to find the active one
+            for (var i = 0; i < sidebarLinks.length; i++) {
+                var page = sidebarLinks[i].getAttribute('data-page');
+                if (currentPageUrl.includes(page)) {
+                    sidebarLinks[i].querySelector('.sidebar-img').classList.add('active');
+                    break; // Exit the loop once the active item is found
+                }
+            }
+        </script>
+        

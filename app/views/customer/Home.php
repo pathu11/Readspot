@@ -19,8 +19,8 @@
                 Selling , exchanging, and Donating both new & used books.</p>
 
         </div>
-        <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
-        <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a>
+        <!-- <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
+        <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a> -->
     </div>
     
     <div class="our_ser">

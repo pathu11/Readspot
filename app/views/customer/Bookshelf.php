@@ -2,12 +2,10 @@
     $title = "Book Shelf";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+    <?php
+        require APPROOT . '/views/customer/sidebar.php'; //path changed
+    ?>
     <div class="container">
-        <?php
-            require APPROOT . '/views/customer/sidebar.php'; //path changed
-        ?>
-
         <div class="book-shelf">
             <div class="used-books">
                 <h2>Used Books</h2>
@@ -69,9 +67,11 @@
             <div class="vw">
                 <a href="<?php echo URLROOT; ?>/customer/ExchangeBooks"><button class="vw-btn">View All >></button></a> <!--path changed-->
             </div>
-        </div>
+            <br>
+            <br>
+        </div>    
+        <?php
+            require APPROOT . '/views/customer/footer.php'; //path changed
+        ?>
     </div>
 
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>
