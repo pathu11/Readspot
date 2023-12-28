@@ -4,11 +4,13 @@ class Delivery extends Controller{
     
     private $userModel;
     private $orderModel;
+    private $publisherModel;
     private $db;
     public function __construct(){
         $this->deliveryModel=$this->model('deliver');
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
+        $this->publisherModel=$this->model('Publishers');
        
        
         $this->db = new Database();
@@ -192,9 +194,43 @@ class Delivery extends Controller{
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-       
-        $this->view('delivery/notification');
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+           
+            if ($deliveryDetails) {
+               
+                $deliveryid = $deliveryDetails[0]->delivery_id;
+              
+                $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
+                // $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
+                if($messageDetails){
+                    if($this->publisherModel->changeStatus($message_id)){
+                        flash('post_message', 'change status');
+                    }else {
+                        echo "Not found";
+                    }
+                }
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'deliveryid' => $deliveryid,
+            'deliveryDetails' => $deliveryDetails,
+            'messageDetails' => $messageDetails,
+           
+            'deliveryName'  =>$deliveryDetails[0] ->name
+        ];
+    
+
+        $this->view('delivery/notification',$data);
     }
+    
     public function deliveredorders(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -263,7 +299,7 @@ class Delivery extends Controller{
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
             $orderDetails = $this->orderModel->findBookProOrders();
     
-            $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
+            $sender_id = $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
     
             
         } else {
@@ -277,6 +313,131 @@ class Delivery extends Controller{
         ];
     
         $this->view('delivery/processedorders', $data);
+    }
+    public function pickedUp($order_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        if($this->deliveryModel->pickedUp($order_id)){
+            
+            redirect('delivery/processedorders');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
+    public function delivered($order_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        if($this->deliveryModel->delivered($order_id)){
+            
+            redirect('delivery/shippingorders');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
+    public function returned($order_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        if($this->deliveryModel->returned($order_id)){
+            
+            redirect('delivery/shippingorders');
+        }
+        else{
+            die('Something went wrong');
+        }
+    }
+    public function message(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $user_id = $_SESSION['user_id'];
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'sender_name'=>$deliveryDetails[0]->name,
+                'sender_id' =>$user_id,
+                'topic'=> trim($_POST['topic']),
+                'message' => trim($_POST['message']),
+                'user_id' => trim($_POST['receiver_id']),
+                'message_err' => '',
+                'topic_err' => '',
+            ];
+
+            if (empty($data['message'])) {
+                $data['message_err'] = 'Please enter a message';
+            }
+            if (empty($data['topic'])) {
+                $data['topic_err'] = 'Please enter a topic';
+            }
+
+            if (empty($data['message_err']) && empty($data['topic_err'])) {
+                if ($this->deliveryModel->addMessage($data)) {
+                    flash('Successfully Added');
+                    redirect('delivery/processedorders');
+                } else {
+                    die('Something went wrong');
+                }
+            } else {
+                $this->view('delivery/message', $data);
+            }
+        } else {
+            $data = [
+
+                'sender_id'=>'',
+                'topic'=>'',
+                'message' => '',
+                'user_id' => '',
+                'message_err' => '',
+                'topic_err'=>''
+            ];
+
+            $this->view('delivery/message', $data);
+        }
+       
+    }
+
+    public function viewMessage($message_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        }
+        $deliveryid = null;
+    
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            
+            $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+           
+            if ($deliveryDetails) {
+               
+                $deliveryid = $deliveryDetails[0]->delivery_id;
+              
+                $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
+                $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
+                
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a publisher";
+        }
+    
+        $data = [
+            'deliveryid' => $deliveryid,
+            'deliveryDetails' => $deliveryDetails,
+            'messageDetails' => $messageDetails,
+            'messageDetails2' => $messageDetails2,
+            'deliveryName'  =>$deliveryDetails[0] ->name
+        ];
+    
+
+        $this->view('delivery/viewMessage',$data);
     }
     
     

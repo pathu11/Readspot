@@ -63,7 +63,7 @@ body {
 }
 
 .table-container{
-  padding-top: 50px;
+  padding-top: 30px;
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -104,7 +104,16 @@ body {
 .search-bar{
   display: flex;
   justify-content: flex-end;
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+
+.search{
+  border-style: none;
+  background-color:#e3f2fd ;
+  font-size: large;
+  border-bottom: 2px solid rgb(112, 191, 186);
+  outline: none;
 }
 
 table{
@@ -229,4 +238,24 @@ button{
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
+}
+@media only screen and (max-width: 768px) {
+  
+
+  .grid-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .chart-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .chart {
+    width: 100%; /* Take full width on smaller screens */
+  }
+
+  /* Add additional styles or adjustments as needed for smaller screens */
 }

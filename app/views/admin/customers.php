@@ -27,7 +27,8 @@
     </div>
     
     <div class="search-bar">
-        <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search...">
+        <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
+        <i class="bx bx-search-alt icon"></i>
     </div>
     
     <div id="searchresult"></div>
@@ -38,12 +39,13 @@
         $(document).ready(function(){
             $("#live-search").keyup(function(){
                 var input = $(this).val();
+                var searchType = 'customer';
                 //alert(input);
                 if(input != ""){
                     $.ajax({
                         url:"<?php echo URLROOT;?>/admin/livesearch",
                         method:"POST",
-                        data:{input:input},
+                        data:{input:input, searchType:searchType},
 
                         success:function(data){
                             $(".table-container").hide();

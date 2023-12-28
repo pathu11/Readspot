@@ -285,5 +285,29 @@ public function getCustomerSearchDetails($input){
   return $results;
 }
 
+public function getPublisherSearchDetails($input){
+  $this->db->query("SELECT * FROM publishers WHERE name LIKE '{$input}%' AND status='approval'");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getCharitySearchDetails($input){
+  $this->db->query("SELECT * FROM charity WHERE name LIKE '{$input}%' AND status='approval'");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getOrderDetails(){
+  $this->db->query("SELECT * FROM orders ");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
   
   }
