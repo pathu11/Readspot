@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addbooks.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addEvent.css" />
 
   <title>Add Event</title>
 </head>
 <body>
   <?php require APPROOT.'/views/publisher/sidebar.php';?>
   <div class="form-container">
+    <div class="bg">
+      <img src="<?php echo URLROOT;?>/assets/images/publisher/event.jpg">
+    </div>
     <div class="form1">
       <h2>Enter the details of the event</h2>
       <form action="<?php echo URLROOT;?>/publisher/addEvent" method="post">
@@ -39,6 +42,9 @@
       <button type="submit" class="submit">Request</button>
     
       </form>
+    </div>
+    <div class="bg">
+      <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div>
   </div>
   
