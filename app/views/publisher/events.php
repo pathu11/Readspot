@@ -25,6 +25,7 @@
         <th>Event ID</th>
         <th>Title</th>
         <th>Description</th>
+        <th>Poster</th>
         <th>Location</th>
         <th>Start Date</th>
         <th>End Date</th>
@@ -36,6 +37,7 @@
           <td><?php echo $event->id; ?></td>
           <td><?php echo $event->title; ?></td>
           <td><?php echo $event->description; ?></td>
+          <td><img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>" style="width:52%;"></td>
           <td><?php echo $event->location; ?></td>
           <td><?php echo $event->start_date; ?></td>
           <td><?php echo $event->end_date; ?></td>

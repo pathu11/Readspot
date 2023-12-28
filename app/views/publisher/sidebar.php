@@ -18,6 +18,8 @@
                 ?>
         <?php endforeach; ?>
         <img style="border-radius:60%;width:3%;height:3%;" src="<?php echo $profileImage; ?>">
+        
+    </div>
        
       </div>
       <div class="sidebar">
@@ -80,3 +82,4 @@
 
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/sidebar.js"></script>
   </body>
+  

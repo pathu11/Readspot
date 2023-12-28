@@ -15,7 +15,7 @@
     </div>
     <div class="form1">
       <h2>Enter the details of the event</h2>
-      <form action="<?php echo URLROOT;?>/publisher/addEvent" method="post">
+      <form action="<?php echo URLROOT;?>/publisher/addEvent" enctype="multipart/form-data" method="post">
       
       <input type="text" name="title" class="<?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>" placeholder="Event title" required><br>
       <span class="error"><?php echo $data['title_err']; ?></span>
@@ -38,7 +38,9 @@
             <option><?php echo $event->event; ?></option>
           <?php endforeach; ?>
       </select>
-
+      <br><br><label>Enter Your event poster with all details to display in our site</label>
+      <div><input type="file" id="pdfUpload1" name="poster" required></div>
+      <br>
       <button type="submit" class="submit">Request</button>
     
       </form>

@@ -250,7 +250,7 @@ class Publishers{
     }
 
     public function addEvent($data){
-        $this->db->query('INSERT INTO events (user_id,user_type,title, description, location,start_date , end_date, category_name) VALUES(:user_id,:user_type,:title, :description, :location, :start_date , :end_date, :category)');
+        $this->db->query('INSERT INTO events (user_id,user_type,title, description, location,start_date , end_date, category_name,poster) VALUES(:user_id,:user_type,:title, :description, :location, :start_date , :end_date, :category, :poster)');
         $this->db->bind(':user_type',$data['user_type']);
         $this->db->bind(':user_id',$data['user_id']);
         $this->db->bind(':title',$data['title']);
@@ -259,6 +259,7 @@ class Publishers{
         $this->db->bind(':start_date',$data['start_date']);
         $this->db->bind(':end_date',$data['end_date']);
         $this->db->bind(':category',$data['category']);
+        $this->db->bind(':poster',$data['poster']);
         // execute
         if($this->db->execute()){
             return true;
@@ -325,5 +326,16 @@ class Publishers{
         return $this->db->execute();
     }
 
+    public function getUnreadMessagesCount($userId) {
+        $this->db->query('SELECT COUNT(*) AS unreadCount FROM messages WHERE user_id = :user_id AND status = "unread"');
+        $this->db->bind(':user_id', $userId);
+        $result = $this->db->single();
+        if ($result) {
+            return $result->unreadCount;
+        } else {
+            return 0; 
+        }
+    }
+    
 
 }
