@@ -1,116 +1,27 @@
-/* Container for sidebar and content */
-.container {
-    /* position: relative; */
-    top: 250px;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    margin: 90px 10px 10px 10px;
-    grid-auto-rows: minmax(725px,auto);
-    /* grid-gap: 1rem; */
-}
-
-/* Sidebar styles */
-.sidebar {
-    background-color: #333;
-    color: white;
-    width: 250px;
-    padding: 20px;
-    margin-right: 0;
-    overflow-y: auto; /* Add this to make the sidebar content scrollable */
-}
-
 /* Main content styles */
-.prof-content, .book-shelf, .my-content {
+.book-shelf {
     padding: 20px;
     background-color: #CACACA;
+    right: 0px;
 }
 
-
-/* Profile section styles */
-.profile-section {
-    text-align: center;
-}
-
-.profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-
-.profile-name {
+/* .profile-name {
     margin: 10px 0;
     font-size: 1.2em;
-}
+} */
 
-/* Menu section styles */
-.menu-section {
-    margin-top: 20px;
-}
 
-.menu-list {
-    list-style: none;
-    padding: 0;
-}
 
-.menu-list li {
-    margin-bottom: 5px;
-    /* border: bisque solid; */
-}
 
-.menu-list a {
-    text-decoration: none;
-    color: white;
-    font-size: 1em;
-    padding: 10px;
-    display: block;
-}
-
-.menu-list a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-
-.menu-list li.active {
-    background-color: #007bff; /* Change to the color you prefer */
-    color: #fff; /* Change to the color you prefer */
-}
-
-.prof-picture {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 8px 8px 0px 8px;
-}
-
-.prof-picture span {
-    font-weight: 300;
-    margin-top: 10px;
-}
 
 /* .prof-picture button {
     float: right;
     align-self: flex-end;
 } */
 
-.cng {
-    float: right;
-}
 
-.prof-content hr {
-    font-weight: 600;
-}
 
-.prof-picture img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-
-.prof-picture h2 {
-    margin-left: 20px;
-}
-
-.cng-btn, .sbt-btn, .vw-btn {
+.vw-btn {
     width: 150px;
     height: 36px;
     background-color: wheat;
@@ -126,7 +37,7 @@
     margin-right: 8px;
 }
 
-.cng-btn:hover, .sbt-btn:hover, .vw-btn:hover {
+.vw-btn:hover {
     background: #fff;
     color: black;
     border: none;
@@ -134,37 +45,9 @@
 }
 
 
-.my-details {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    /* grid-template-areas: 
-        "a a"
-        "b b"; */
-    grid-gap: 1rem;
-    margin: 10px 25px 10px 10px;
-}
 
-.my-details input[type="email"] , .my-details input[type="text"], .my-details input[type="number"]{
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-left: 10px;
-    border: none;
-    background-color: #eeeeef;
-    border-radius: 5px;
-}
 
-.post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"]{
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-left: 10px;
-    border: none;
-    background-color: #eeeeef;
-    border-radius: 5px;
-}
-
-.personal-details h2, .postal-details h2, .used-books h2, .exchange-books h2, .content-topic h2 {
+.used-books h2, .exchange-books h2 {
     background-color: #81cec9;
     color: black;
     width: fit-content;
@@ -174,46 +57,7 @@
     margin-top: 10px;
 }
 
-.post-details {
-    display: grid;
-    /* grid-template-columns: 25% 25% 25% 25%; */
-    grid-template-areas: 
-        "a a b b"
-        "c c c c"
-        "d e f g";
-    grid-gap: 1rem;
-    margin: 10px;
-}
-
-.F-Name {
-    grid-area: a;
-}
-
-.L-Name {
-    grid-area: b;
-}
-
-.Address {
-    grid-area: c;
-}
-
-.prov {
-    grid-area: d;
-}
-
-.dist {
-    grid-area: e;
-}
-
-.city {
-    grid-area: f;
-}
-
-.p-code {
-    grid-area: g;
-}
-
-.sbt, .vw {
+.vw {
     margin-top: 10px;
     float: right;
 }
@@ -291,52 +135,7 @@
     width:15px;
 }
 
-.mycontent table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid #333;
-    margin-top: 20px;
-}
 
-.mycontent th, .mycontent td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #333;
-}
-
-.mycontent th {
-    background-color: #333;
-    color: white;
-}
-
-.mycontent tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.mycontent tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.mycontent tr {
-    height: 50px; /* Adjust the height as needed */
-}
-
-.mycontent tr:first-child {
-    height: 60px; /* Adjust the height as needed */
-}
-
-/* Change the width of specific columns */
-.mycontent th:nth-child(1), .mycontent td:nth-child(1) {
-    width: 50%; /* Adjust the width as needed */
-}
-
-.mycontent th:nth-child(2), .mycontent td:nth-child(2) {
-    width: 20%; /* Adjust the width as needed */
-}
-
-.mycontent th:nth-child(3), .mycontent td:nth-child(3) {
-    width: 30%; /* Adjust the width as needed */
-}
 
 /* .mycontent td a {
     background-color: #007bff;
@@ -395,70 +194,5 @@
 
 
 
-.mycart table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid #333;
-    margin-top: 20px;
-}
-
-.mycart th, .mycart td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #333;
-}
-
-.mycart th {
-    background-color: #333;
-    color: white;
-}
-
-.mycart tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.mycart tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.mycart tr {
-    height: 50px; /* Adjust the height as needed */
-}
-
-.mycart tr:first-child {
-    height: 60px; /* Adjust the height as needed */
-}
-
-/* Change the width of specific columns */
-.mycart th:nth-child(1), .mycart td:nth-child(1) {
-    width: 50%; /* Adjust the width as needed */
-}
-
-.mycart th:nth-child(2), .mycart td:nth-child(2) {
-    width: 10%; /* Adjust the width as needed */
-}
-
-.mycart th:nth-child(3), .mycart td:nth-child(3) {
-    width: 10%; /* Adjust the width as needed */
-}
-
-.mycart th:nth-child(4), .mycart td:nth-child(4) {
-    width: 10%; /* Adjust the width as needed */
-}
-
-.mycart th:nth-child(5), .mycart td:nth-child(5) {
-    width: 20%; /* Adjust the width as needed */
-}
 
 
-.notification {
-    display: grid;
-    margin-top: 10px;
-    grid-gap: 0.5rem;
-}
-
-.notify {
-    background: lightblue;
-    padding: 1rem;
-    border: 1px solid blue;
-}

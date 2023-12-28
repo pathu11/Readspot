@@ -2,12 +2,10 @@
     $title = "Add Exchange Book";
     include_once 'header.php';
 ?>
-
+    <?php
+        include_once 'sidebar.php';
+    ?>
     <div class="container">
-        <?php
-            include_once 'sidebar.php';
-        ?>
-
         <div class="add-content">
             <form action="http://localhost/Group-27/app/controllers/customer/AddExchangedbookController.php" class="book-add">
 
@@ -160,10 +158,7 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
+        <?php
+            include_once 'footer.php';
+        ?>
     </div>
-
-    
-
-<?php
-    include_once 'footer.php';
-?>

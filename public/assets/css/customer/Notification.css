@@ -1,0 +1,101 @@
+.notify-topic h2 {
+    background-color: #81cec9;
+    color: black;
+    width: fit-content;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.notify-search {
+    float: right;
+}
+
+.notify-search input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.notify-search button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.notify-search button:hover {
+    background: #ccc;
+}
+
+.notify-search img {
+    height:15px;
+    width:15px;
+}
+
+.notification {
+    display: grid;
+    margin-top: 10px;
+    grid-gap: 0.5rem;
+}
+
+.notify {
+    background: lightblue;
+    padding: 1rem;
+    border: 1px solid blue;
+}
+
+@media screen and (max-width:600px) {
+    .notify-topic h2 {
+        font-size: 18px;
+    }
+
+    .notify p {
+        font-size: 14px;
+    }
+
+    .notify-search input[type=text] {
+        background-color: black;
+        font-size: 12px;
+    }
+    
+    .notify-search button {
+        font-size: 12px;
+    }
+
+    .notify-search img {
+        height:13px;
+        width:13px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .notify-topic h2 {
+        font-size: 14px;
+    }
+
+    .notify p {
+        font-size: 12px;
+    }
+
+    .notify-search input[type=text] {
+        font-size: 8px;
+    }
+    
+    .notify-search button {
+        font-size: 8px;
+    }
+
+    .notify-search img {
+        height:8px;
+        width:8px;
+    }
+}
