@@ -44,8 +44,8 @@
                 <h3>Postal Code : <span><?php echo $UsedBook->postalCode; ?></span></h3><br>
             </div>
             <div class="sub8">
-                <a href="./includes/deleteusedbook.inc.php?deleteid='.$bookId.'"><button class="chat-dlt-btn">Delete</button></a>
-                <a href="./updateusedbook.php?updateid='.$bookId.'"><button class="chat-btn">Edit</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/deleteusedbook/<?php echo $UsedBook->bookId; ?>"><button class="chat-dlt-btn">Delete</button></a>
+                <a href="<?php echo URLROOT; ?>/customer/updateusedbook/<?php echo $UsedBook->bookId; ?>"><button class="chat-btn">Edit</button></a>
             </div>
         <?php endforeach; ?>
         <!-- <div class="sub1">

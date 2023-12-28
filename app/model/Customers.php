@@ -27,8 +27,16 @@
       $this->db->query('SELECT * from usedbooks WHERE bookId=:bookId ');
       $this->db->bind(':bookId',$bookId);
       return $this->db->resultSet();
-  }
+      // $row = $this->db->single();
+      // return $row;
+    }
 
+    public function findUsedBookById($bookId) {
+      $this->db->query('SELECT * from usedbooks WHERE bookId=:bookId ');
+      $this->db->bind(':bookId',$bookId);
+      $row = $this->db->single();
+      return $row;
+    }
 
 
 
@@ -84,7 +92,83 @@
     }else{
         return false;
     }        
-}
+  }
 
+  public function updateusedbook($data) {
+    $this->db->query('UPDATE usedbooks 
+              SET bookName = :bookName, 
+              author = :author, 
+              category = :category,  
+              bookCondition = :bookCondition, 
+              publishedYear = :publishedYear,
+              price = :price,
+              priceType = :priceType,
+              weights = :weights,
+              isbnNumber = :isbnNumber,
+              issnNumber = :issnNumber,
+              issmNumber = :issmNumber, 
+              descriptions = :descriptions,  
+              imgFront = :imgFront, 
+              imgBack = :imgBack,
+              imgInside = :imgInside,
+              accName = :accName,
+              accNumber = :accNumber,
+              bankName = :bankName,
+              branchName = :branchName,
+              town = :town, 
+              district = :district,  
+              postalCode = :postalCode, 
+              customer_id = :customer_id
+              WHERE bookId = :bookId');
+
+    // Bind values
+    $this->db->bind(':bookId', $data['bookId']);
+    $this->db->bind(':bookName',$data['bookName']);
+    $this->db->bind(':author',$data['author']);
+    $this->db->bind(':category',$data['category']);
+    $this->db->bind(':bookCondition',$data['bookCondition']);
+    $this->db->bind(':publishedYear',$data['publishedYear']);
+    $this->db->bind(':price',$data['price']);
+    $this->db->bind(':priceType',$data['priceType']);
+    $this->db->bind(':weights',$data['weights']);
+    $this->db->bind(':isbnNumber',$data['isbnNumber']);
+    $this->db->bind(':issnNumber',$data['issnNumber']);
+    $this->db->bind(':issmNumber',$data['issmNumber']);
+    $this->db->bind(':descriptions',$data['descriptions']);
+    $this->db->bind(':imgFront',$data['imgFront']);
+    $this->db->bind(':imgBack',$data['imgBack']);
+    $this->db->bind(':imgInside',$data['imgInside']);
+    $this->db->bind(':accName',$data['accName']);
+    $this->db->bind(':accNumber',$data['accNumber']);
+    $this->db->bind(':bankName',$data['bankName']);
+    $this->db->bind(':branchName',$data['branchName']);
+    $this->db->bind(':town',$data['town']);
+    $this->db->bind(':district',$data['district']);
+    $this->db->bind(':postalCode',$data['postalCode']);
+    $this->db->bind(':customer_id',$data['customer_id']);
+
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+
+  public function deleteusedbook($bookId) {
+    $this->db->query('DELETE FROM usedbooks WHERE bookId = :bookId');
+    // Bind values
+    $this->db->bind(':bookId', $bookId);
+
+    // Execute after binding
+    $this->db->execute();
+
+    // Check for row count affected
+    if ($this->db->rowCount() > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
 
   }
