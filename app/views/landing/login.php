@@ -14,7 +14,8 @@
             <h1>Log in</h1>
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="pass" placeholder="Password"><br>
-            <input type="checkbox"><span>Remember me</span>
+            <input type="checkbox" id="rememberMe" name="rememberMe" value="1">
+            <span>Remember me</span>
             <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password?</a>
             <button class="btn" name="submit" type="submit">log in</button>
             <div class="connect">
