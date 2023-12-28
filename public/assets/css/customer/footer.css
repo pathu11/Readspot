@@ -1,7 +1,7 @@
 /* Style for the footer */
 footer {
-    background-color: #01322F;
-    color: #fff;
+    background-color: #87dfdc;
+    color: #525252;
     padding: 10px 0;
     text-align: center;
 }
@@ -34,7 +34,7 @@ footer {
 
 .footer-links a {
     text-decoration: none;
-    color: #fff;
+    color: #525252;
 }
 
 /* Style for the footer text */
@@ -42,4 +42,16 @@ footer {
     margin-top: 10px;
     font-size: 14px;
     align-self: flex-end;
+}
+
+@media screen and (max-width:400px) {
+    .footer-logo {
+        display: none;
+    }
+    .footer-links {
+        display: none;
+    }
+    .footer-content {
+        justify-content: center;
+    }
 }

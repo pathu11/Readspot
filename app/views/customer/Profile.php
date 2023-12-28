@@ -2,27 +2,24 @@
     $title = "Profile";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+    <?php
+        require APPROOT . '/views/customer/sidebar.php'; //path changed
+    ?>
     <div class="container">
-        <?php
-            require APPROOT . '/views/customer/sidebar.php'; //path changed
-        ?>
-
         <div class="prof-content">
             <div class="prof-picture">
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Profile Image" class="profile-image"> <!--path changed-->
                 <?php 
                 if (isset($_SESSION["user_id"])){
-                    echo '<h2 class="profile-name2">'.$data['customerName'].'<br><span>'.$data["customerEmail"].'<span></h2>';
+                    echo '<center><h2 class="profile-name2">'.$data['customerName'].'<br><span>'.$data["customerEmail"].'<span></h2></center>';
                 } else {
-                    echo '<h2 class="profile-name2">NO USER<br><span>NO EMAIL<span></h2>';
+                    echo '<center><h2 class="profile-name2">NO USER<br><span>NO EMAIL<span></h2></center>';
                 }
                 ?>
             </div>
-            <div class="cng">
-                <button class="cng-btn">change picture</button>
+            <div class="cnge">
+                <button class="cnge-btn">change picture</button>
             </div>
-            <br>
             <br>
             <br>
             <hr>
@@ -85,10 +82,14 @@
             <div class="sbt">
                 <button class="sbt-btn">Save Changes</button>
             </div>
+            <br>
+            <br>
         </div>
+
+        <?php
+            require APPROOT . '/views/customer/footer.php'; //path changed
+        ?>
     </div>
 
 
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>
+
