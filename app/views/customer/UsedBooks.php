@@ -1,20 +1,6 @@
 <?php
-    // session_start();
     $title = "My Used Books";
     require APPROOT . '/views/customer/header.php';
-    // $serverName = "localhost";
-    // $dbUsername = "root";
-    // $dbPassword = "";
-    // $dbName = "readspots";
-
-
-
-    // $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
-
-    // if (!$conn) {
-    //     die("Connection failed : " .mysqli_connect_error());
-    // }
-    // include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
 ?>
 
     <?php
@@ -33,8 +19,8 @@
                 <div class="books">
                     <?php foreach($data['bookDetails'] as $bookDetails): ?>
                         <div class="B5">
-                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->imgFront . '" class="Book"><br>';?>
-                            <a href="<?php echo URLROOT; ?>/customer/ViewBook/<?php echo $bookDetails->bookId; ?>"><button class="dts-btn">View Details</button></a>
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book"><br>';?>
+                            <a href="<?php echo URLROOT; ?>/customer/ViewBook/<?php echo $bookDetails->book_id; ?>"><button class="dts-btn">View Details</button></a>
                         </div>
                     <?php endforeach; ?>
 
