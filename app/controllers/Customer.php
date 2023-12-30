@@ -158,7 +158,7 @@ class Customer extends Controller {
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
-                   
+                    $customerName = $customerDetails[0]->name;
                     $customerid = $customerDetails[0]->customer_id;                 
                 } else {
                     echo "Not found";
@@ -195,7 +195,8 @@ class Customer extends Controller {
                 'publishedYear_err'=>'',
                 'price_err'=>'',
                 'weights_err'=>'',
-                'ISBN_err'=>''
+                'ISBN_err'=>'',
+                'customerName' => $customerName
             ];
 
            
@@ -326,6 +327,7 @@ class Customer extends Controller {
                     $district = $customerDetails[0]->district;
                     $postalCode = $customerDetails[0]->postal_code;
                     $customerid = $customerDetails[0]->customer_id;
+                    $customerName = $customerDetails[0]->name;
 
                 } else {
                     echo "Not found";
@@ -339,7 +341,8 @@ class Customer extends Controller {
                 'town' => trim($town),
                 'district' => trim($district),
                 'postal_code' => trim($postalCode),
-                'customer_id' => trim($customerid)// Replace this with the actual customer ID
+                'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                'customerName' => $customerName
             ];
 
             $this->view('customer/AddUsedBook',$data);
@@ -717,7 +720,8 @@ class Customer extends Controller {
                 'publishedYear_err'=>'',
                 'price_err'=>'',
                 'weights_err'=>'',
-                'ISBN_err'=>''
+                'ISBN_err'=>'',
+                'customerName' => $customerDetails[0]->name
             ];
 
            
@@ -862,7 +866,8 @@ class Customer extends Controller {
                 'branch_name' => $UsedBookId->branch_name,
                 'town' => $UsedBookId->town,
                 'district' => $UsedBookId->district,
-                'postal_code' => $UsedBookId->postal_code
+                'postal_code' => $UsedBookId->postal_code,
+                'customerName' => $customerDetails[0]->name
             ];
 
 
@@ -909,6 +914,7 @@ class Customer extends Controller {
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
+            'customerName' => $customerDetails[0]->name
         ];
 
         $this->view('customer/UsedBooks', $data);
