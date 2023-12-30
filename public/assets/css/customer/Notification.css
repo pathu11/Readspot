@@ -1,3 +1,9 @@
+.notify-content {
+    padding: 20px;
+    background-color: #E3F2FD;
+    /* right: 0px; */
+}
+
 .notify-topic h2 {
     background-color: #81cec9;
     color: black;

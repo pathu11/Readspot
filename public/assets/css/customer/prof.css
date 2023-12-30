@@ -1,9 +1,5 @@
 /* Main content styles */
-.book-shelf {
-    padding: 20px;
-    background-color: #CACACA;
-    right: 0px;
-}
+
 
 /* .profile-name {
     margin: 10px 0;
@@ -44,42 +40,9 @@
     transform: scale(1.1);
 }
 
-
-
-
-.used-books h2, .exchange-books h2 {
-    background-color: #81cec9;
-    color: black;
-    width: fit-content;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
 .vw {
     margin-top: 10px;
     float: right;
-}
-
-.books {
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.Book {
-    width: 180px;
-    height: 250px;
-}
-
-.B1, .B2, .B3, .B4, .B5 {
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 /* .dts-btn {

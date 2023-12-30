@@ -17,7 +17,7 @@
         <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="logo" class="logo"> <!--path changed-->
         <div class="navig">
             <nav class="navigation">
-                <a href="<?php echo URLROOT; ?>/customer/index" data-head="Home">Home</a>
+                <a href="<?php echo URLROOT; ?>/customer/Home" data-head="Home">Home</a>
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                 <a href="<?php echo URLROOT; ?>/customer/Services" data-head="Services">Services</a> <!--path changed-->
                 <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
@@ -32,7 +32,7 @@
             <div class="mobnav">
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/menu.png" alt="menu" class="menu">
                 <nav id="subNav">
-                    <a href="<?php echo URLROOT; ?>/customer/index" data-head="Home">Home</a>
+                    <a href="<?php echo URLROOT; ?>/customer/Home." data-head="Home">Home</a>
                     <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                     <a href="<?php echo URLROOT; ?>/customer/Services" data-head="Services">Services</a> <!--path changed-->
                     <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->

@@ -10,30 +10,30 @@
             <div class="used-books">
                 <h2>Used Books</h2>
                 <div class="books">
-                    <div class="B1">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B2">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book2" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B3">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book3" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B4">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book4" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B5">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book5" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                 </div>
             </div>
-            <div class="vw">
-                <a href="<?php echo URLROOT; ?>/customer/UsedBooks"><button class="vw-btn">View All >></button></a> <!--path changed-->
+            <div class="ub-vw">
+                <a href="<?php echo URLROOT; ?>/customer/UsedBooks"><button class="ub-vw-btn">View All >></button></a> <!--path changed-->
             </div>
             <br>
             <br>
@@ -42,30 +42,30 @@
             <div class="exchange-books">
                 <h2>Exchange Books</h2>
                 <div class="books">
-                    <div class="B1">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B2">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book2" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B3">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book3" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B4">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book4" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
-                    <div class="B5">
+                    <div class="B-div">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book5" class="Book"><br> <!--path changed-->
                         <!-- <button class="dts-btn">View Details</button> -->
                     </div>
                 </div>
             </div>
-            <div class="vw">
-                <a href="<?php echo URLROOT; ?>/customer/ExchangeBooks"><button class="vw-btn">View All >></button></a> <!--path changed-->
+            <div class="eb-vw">
+                <a href="<?php echo URLROOT; ?>/customer/ExchangeBooks"><button class="eb-vw-btn">View All >></button></a> <!--path changed-->
             </div>
             <br>
             <br>

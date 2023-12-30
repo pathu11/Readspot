@@ -6,7 +6,7 @@
         require APPROOT . '/views/customer/sidebar.php'; //path changed
     ?>
     <div class="container">
-        <div class="prof-content">
+        <div class="notify-content">
             <div class="notify-topic">
                 <h2>Notification</h2>
             </div>

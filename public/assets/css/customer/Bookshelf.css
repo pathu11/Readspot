@@ -1,0 +1,216 @@
+.book-shelf {
+    padding: 20px;
+    background-color: #E3F2FD;
+    right: 0px;
+}
+
+.used-books h2, .exchange-books h2 {
+    background-color: #81cec9;
+    color: black;
+    width: fit-content;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.ub-vw, .eb-vw {
+    margin-top: 10px;
+    float: right;
+}
+
+.books {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.Book {
+    width: 180px;
+    height: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.B-div {
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ub-vw-btn, .eb-vw-btn {
+    width: 150px;
+    height: 36px;
+    background-color: wheat;
+    border-color: black;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    margin-left: 8px;
+    margin-right: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ub-vw-btn:hover, .eb-vw-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+    transform: scale(1.1);
+}
+
+.ub-dts-btn, .eb-dts-btn {
+    width: 132px;
+    height: 36px;
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 0px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin-left: 8px;
+    margin-right: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ub-dts-btn:hover, .eb-dts-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}
+
+.mybook-search {
+    float: right;
+}
+
+.mybook-search input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.mybook-search button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.mybook-search button:hover {
+    background: #ccc;
+}
+
+.mybook-search img {
+    height:15px;
+    width:15px;
+}
+
+@media screen and (max-width:600px) {
+    .used-books h2, .exchange-books h2 {
+        font-size: 18px;
+    }
+
+    .books {
+        margin: 8px;
+    }
+
+    .B-div {
+        margin: 3px;
+    }
+
+    .Book {
+        width: 150px;
+        height: 200px;
+    }
+
+    .ub-vw, .eb-vw {
+        margin-top: 8px;
+    }
+
+    .ub-vw-btn, .eb-vw-btn {
+        width: 120px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+
+    .ub-dts-btn, .eb-dts-btn {
+        width: 100px;
+        height: 32px;
+        font-size: 0.7em;
+    }
+
+    .mybook-search input[type=text] {
+        background-color: black;
+        font-size: 12px;
+    }
+    
+    .mybook-search button {
+        font-size: 12px;
+    }
+
+    .mybook-search img {
+        height:13px;
+        width:13px;
+    }
+}
+
+
+    
+@media screen and (max-width:400px) {
+    .used-books h2, .exchange-books h2 {
+        font-size: 14px;
+    }
+
+    .books {
+        margin: 5px;
+    }
+
+    .Book {
+        width: 100px;
+        height: 150px;
+    }
+
+    .ub-vw, .eb-vw {
+        margin-top: 5px;
+    }
+
+    .ub-vw-btn, .eb-vw-btn {
+        width: 100px;
+        height: 28px;
+        font-size: 0.7em;
+    }
+
+    .ub-dts-btn, .eb-dts-btn {
+        width: 80px;
+        height: 32px;
+        font-size: 0.5em;
+    }
+
+    .mybook-search input[type=text] {
+        font-size: 8px;
+    }
+    
+    .mybook-search button {
+        font-size: 8px;
+    }
+
+    .mybook-search img {
+        height:8px;
+        width:8px;
+    }
+}

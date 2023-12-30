@@ -68,8 +68,11 @@
         <div class="service" onclick="service8()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8"> <!--path changed-->
             <h3>Event Calender</h3>
-
-    <?php require APPROOT .'/views/customer/footer.php'; ?>
+        </div>
+    </div>
+    <?php
+        require APPROOT . '/views/customer/footer.php';
+    ?>
 
 <script>
     function service1() {
