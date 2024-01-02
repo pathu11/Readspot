@@ -329,7 +329,7 @@ class Publisher extends Controller{
                    
                     
                     
-                    if($this->publisherModel->editpostal($data)){
+                    if($this->publisherModel->editpostal($data) && $this->publisherModel->editpostalInBooks($data)){
                         flash('update_success','You are added the book  successfully');
                         redirect('publisher/editAccountForBooks/'.$publisher_id);
                     }else{
@@ -396,7 +396,7 @@ class Publisher extends Controller{
     
             if (empty($data['account_name_err']) && empty($data['account_no_err']) && empty($data['bank_name_err']) && empty($data['branch_name_err'])) {
                 // If validation succeeds, update account details
-                if ($this->publisherModel->editAccount($data) && $this->publisherModel->AddBookApproval($data)) {
+                if ($this->publisherModel->editAccount($data) && $this->publisherModel->editAccountInBooks($data)  && $this->publisherModel->AddBookApproval($data)) {
                     // Now add book approval
 
                     flash('update_success', 'You have updated the account and added book approval successfully');

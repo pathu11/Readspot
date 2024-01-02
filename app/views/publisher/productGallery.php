@@ -30,8 +30,8 @@
                 <!-- <th style="width:5%;background-color: #C7C7C7;">Weight</th> -->
                 <th style="width:5%;background-color: #C7C7C7;">No of Books</th>
                 <th style="width:10%;background-color: #C7C7C7;">Description</th>
-                <!-- <th style="width:16%;background-color: #C7C7C7;">Cover Image</th>
-                <th style="width:16%;background-color: #C7C7C7;">Inside Image</th> -->
+                 <th style="width:16%;background-color: #C7C7C7;">Cover Image</th>
+                <th style="width:16%;background-color: #C7C7C7;">Inside Image</th>
                 
                 <!-- <th style="width:9%">Image (front)</th>
 
@@ -52,8 +52,8 @@
                 <!-- <th style="width:7%"><?php echo $bookDetails->weight; ?></th> -->
                 <th style="width:7%"><?php echo $bookDetails->quantity; ?></th>
                 <th style="width:20%"><?php echo $bookDetails->descript; ?></th>
-                <!-- <th style="width:16%"><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img1 . '" alt="img1" style="width:80%;"> ';?></th>
-                <th style="width:16%"><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img2 . '" alt="img2" style="width:80%;"> ';?></th> -->
+                <th style="width:16%"><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img1 . '" alt="img1" style="width:60%;"> ';?></th>
+                <th style="width:16%"><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img2 . '" alt="img2" style="width:60%;"> ';?></th>
 
 
                 <!-- <th style="width:9%">Image (front)</th>

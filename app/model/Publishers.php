@@ -85,7 +85,32 @@ class Publishers{
             return false;
         }
     }
+    public function editpostalInBooks($data) {
+        $this->db->query('UPDATE books
+                  SET postal_name = :postal_name, 
+                  street_name = :street_name, 
+                  town = :town,  
+                  district = :district, 
+                  postal_code = :postal_code
+                  WHERE publisher_id = :publisher_id');
 
+        // Bind values
+        $this->db->bind(':publisher_id', $data['publisher_id']);
+        $this->db->bind(':postal_name', $data['postal_name']);
+        $this->db->bind(':street_name', $data['street_name']);
+        
+        $this->db->bind(':town', $data['town']);
+        $this->db->bind(':district', $data['district']);
+        $this->db->bind(':postal_code', $data['postal_code']);
+       
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+   
     public function editProfile($data) {
         $this->db->query('UPDATE publishers 
                           SET name = :name, 
@@ -108,6 +133,31 @@ class Publishers{
     }
     public function editAccount($data) {
         $this->db->query('UPDATE publishers 
+                  SET account_name = :account_name, 
+                  account_no = :account_no, 
+                  bank_name = :bank_name,  
+                  branch_name = :branch_name 
+                 
+                  WHERE publisher_id = :publisher_id');
+
+        // Bind values
+        $this->db->bind(':publisher_id', $data['publisher_id']);
+        $this->db->bind(':account_name', $data['account_name']);
+        $this->db->bind(':account_no', $data['account_no']);
+        
+        $this->db->bind(':bank_name', $data['bank_name']);
+        $this->db->bind(':branch_name', $data['branch_name']);
+       
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function editAccountInBooks($data) {
+        $this->db->query('UPDATE books
                   SET account_name = :account_name, 
                   account_no = :account_no, 
                   bank_name = :bank_name,  
