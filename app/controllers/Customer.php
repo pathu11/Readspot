@@ -408,7 +408,8 @@ class Customer extends Controller {
                 
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
-                    $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
+                    $bookDetails1 = $this->customerModel->findUsedBookByCusId($customerid);
+                    $bookDetails2 = $this->customerModel->findExchangedBookByCusId($customerid);
                 } else {
                     echo "Not found";
                 }
@@ -419,7 +420,8 @@ class Customer extends Controller {
             $data = [
                 'customerid' => $customerid,
                 'customerDetails' => $customerDetails,
-                'bookDetails' => $bookDetails,
+                'bookDetails1' => $bookDetails1,
+                'bookDetails2' => $bookDetails2,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Bookshelf', $data);
