@@ -2,14 +2,13 @@
     $title = "Add Used Book";
     include_once 'header.php';
 ?>
-
+    <?php
+        include_once 'sidebar.php';
+    ?>
     <div class="container">
-        <?php
-            include_once 'sidebar.php';
-        ?>
 
         <div class="add-content">
-            <form action="http://localhost/Group-27/app/controllers/customer/addusedbooks.inc.php" class="book-add" method="POST">
+            <form action="<?php echo URLROOT; ?>/customer/AddUsedBook" enctype="multipart/form-data" class="book-add" method="POST">
 
                 <h1>Add a Used Book</h1>
                 
@@ -73,7 +72,7 @@
         
                     <div class="topic-book author weight">
                         <label class="label-topic">Weight (grams)</label><br>
-                        <input type="number" class="form-topic"  name="weight" required>
+                        <input type="number" class="form-topic"  name="weights" required>
                         <a href="#"><button class="weight-cal">Weight Calculator</button></a>
                     </div>
                 </div>
@@ -95,7 +94,7 @@
         
                 <div class="disc-book">
                     <label class="label-topic">Description</label><br>
-                    <textarea id="description" rows="12" class="form-topic"  name="description" required></textarea>
+                    <textarea id="description" rows="12" class="form-topic"  name="descriptions" required></textarea>
                 </div>
         
                 <div class="upload-pages">
@@ -164,8 +163,7 @@
                 <input type="submit" value="Submit" name="submitused">
             </form>
         </div>
+    <?php
+        include_once 'footer.php';
+    ?>    
     </div>
-
-<?php
-    include_once 'footer.php';
-?>

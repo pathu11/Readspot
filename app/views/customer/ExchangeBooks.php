@@ -2,12 +2,10 @@
     $title = "My Exchange Books";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+    <?php
+        require APPROOT . '/views/customer/sidebar.php'; //path changed
+    ?>
     <div class="container">
-        <?php
-            require APPROOT . '/views/customer/sidebar.php'; //path changed
-        ?>
-
         <div class="book-shelf">
             <div class="exchange-books">
                 <h2>Exchange Books</h2>
@@ -84,10 +82,11 @@
                 <div class="vw">
                     <a href="<?php echo URLROOT; ?>/customer/AddExchangeBook"><button class="vw-btn">Add a Book</button></a> <!--path changed-->
                 </div>
+                <br>
+                <br>
             </div>
         </div>
+        <?php
+            require APPROOT . '/views/customer/footer.php'; //path changed
+        ?>
     </div>
-
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>

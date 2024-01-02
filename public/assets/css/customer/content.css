@@ -1,0 +1,264 @@
+.my-content {
+    padding: 20px;
+    background-color: #CACACA;
+    right: 0px;
+}
+
+.content-topic h2 {
+    background-color: #81cec9;
+    color: black;
+    width: fit-content;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.mycontent table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #333;
+    margin-top: 20px;
+}
+
+.mycontent th, .mycontent td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+.mycontent th {
+    background-color: #333;
+    color: white;
+}
+
+.mycontent tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.mycontent tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.mycontent tr {
+    height: 50px; /* Adjust the height as needed */
+}
+
+.mycontent tr:first-child {
+    height: 60px; /* Adjust the height as needed */
+}
+
+/* Change the width of specific columns */
+.mycontent th:nth-child(1), .mycontent td:nth-child(1) {
+    width: 50%; /* Adjust the width as needed */
+}
+
+.mycontent th:nth-child(2), .mycontent td:nth-child(2) {
+    width: 20%; /* Adjust the width as needed */
+}
+
+.mycontent th:nth-child(3), .mycontent td:nth-child(3) {
+    width: 30%; /* Adjust the width as needed */
+}
+
+.content-search {
+    float: right;
+}
+
+.content-search input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.content-search button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.content-search button:hover {
+    background: #ccc;
+}
+
+.content-search img {
+    height:15px;
+    width:15px;
+}
+
+.c-vd .c-view {
+    background-color: rgb(18, 201, 18);
+    text-decoration: none;
+    color: black;
+    border-radius: 6px;
+    padding: 5px;
+    display: block;
+    width: 50%;
+    margin: 5px;
+    transition: .5s;
+    text-align: center;
+}
+
+.c-vd .c-delete {
+    background-color: red;
+    text-decoration: none;
+    color: black;
+    border-radius: 6px;
+    padding: 5px;
+    display: block;
+    width: 50%;
+    margin: 5px;
+    transition: .5s;
+    text-align: center;
+}
+
+.c-vd .c-view:hover {
+    background-color: rgb(1, 68, 1);
+    color: white;
+    border: none;
+    transform: scale(1.1);
+}
+
+.c-vd .c-delete:hover {
+    background-color: rgb(125, 0, 0);
+    color: white;
+    border: black;
+    transform: scale(1.1);
+}
+
+.c-vd {
+    display: flex;
+    flex-direction: row;
+}
+
+.c-vw-btn {
+    width: 150px;
+    height: 36px;
+    background-color: wheat;
+    border-color: black;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: .5s;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.c-vw-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+    transform: scale(1.1);
+}
+
+.c-vw {
+    margin-top: 10px;
+    float: right;
+}
+
+@media screen and (max-width:600px) {
+    .content-topic h2 {
+        font-size: 18px;
+    }
+
+    .mycontent th {
+        font-size: 12px;
+    }
+    .mycontent td {
+        font-size: 12px;
+    }
+
+    .content-search input[type=text] {
+        background-color: black;
+        font-size: 12px;
+    }
+    
+    .content-search button {
+        font-size: 12px;
+    }
+
+    .content-search img {
+        height:13px;
+        width:13px;
+    }
+
+    .c-vd .c-view {
+        font-size: 12px;
+    }
+    
+    .c-vd .c-delete {
+        font-size: 12px;
+    }
+
+    .c-vw-btn {
+        width: 120px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .content-topic h2 {
+        font-size: 14px;
+    }
+
+    .mycontent th {
+        font-size: 10px;
+    }
+    .mycontent td {
+        font-size: 10px;
+    }
+
+    .content-search input[type=text] {
+        background-color: black;
+        font-size: 8px;
+    }
+    
+    .content-search button {
+        font-size: 8px;
+    }
+
+    .content-search img {
+        height:8px;
+        width:8px;
+    }
+
+    .c-vd .c-view {
+        font-size: 10px;
+        padding: 2px;
+        margin: 2px;
+    }
+    
+    .c-vd .c-delete {
+        font-size: 9px;
+        padding: 2px;
+        margin: 2px;
+    }
+
+    .c-vd {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+    }
+
+    .mycontent td:nth-child(2), .mycontent th:nth-child(2) {
+      display: none;
+    }
+
+    .c-vw-btn {
+        width: 100px;
+        height: 28px;
+        font-size: 0.7em;
+    }
+}

@@ -1,0 +1,123 @@
+.contact-cont {
+    top: 250px;
+    display: flex;
+    flex-direction: column;
+    min-height: 725px;
+    margin: 90px 10px 10px 10px;
+    background-color: #CACACA;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.contact-us {
+    background-color: white;
+    margin: 10px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.topic-name1 {
+    margin-top: 10px;
+    min-height: 120px;
+    width: 100%;
+    /* background-color: aquamarine; */
+    padding: 10px;
+}
+
+.topic-name2 {
+    margin-top: 0px;
+    min-height: 120px;
+    width: 100%;
+    /* background-color: aquamarine; */
+    padding: 10px;
+}
+
+.topic-name3 {
+    min-height: 120px;
+    width: 100%;
+    /* background-color: aquamarine; */
+    padding: 20px;
+}
+
+.topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+
+.contact-us input[type="submit"] {
+    /* float: right; */
+    width: 132px;
+    height: 36px;
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    /* margin-left: 8px; */
+    margin-right: 8px;
+    /* margin-bottom: 0; */
+    /* margin-top: 120px; */
+}
+
+.contact-us input[type="submit"]:hover {
+    background: #fff;
+    color: black;
+    border-color: black;
+}
+
+@media screen and (max-width:600px) {
+    .contact-cont {
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .contact-us h1{
+        font-size: 16px;
+    }
+
+    .topic-name1 {
+        margin-top: 5px;
+        min-height: 60px;
+        width: 100%;
+        /* background-color: aquamarine; */
+        padding: 5px;
+    }
+    
+    .topic-name2 {
+        margin-top: 0px;
+        min-height: 60px;
+        width: 100%;
+        /* background-color: aquamarine; */
+        padding: 5px;
+    }
+    
+    .topic-name3 {
+        min-height: 60px;
+        width: 100%;
+        /* background-color: aquamarine; */
+        padding: 10px;
+    }
+    
+    .topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"] {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        margin-left: 5px;
+        border: none;
+        background-color: #eeeeef;
+        border-radius: 5px;
+    }
+}
