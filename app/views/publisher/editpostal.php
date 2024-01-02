@@ -68,7 +68,7 @@
 
                     <input type="text" name="postal_code"  class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>"placeholder="Postal Code" required><br>
                     <span class="error"><?php echo $data['postal_code_err']; ?></span>
-                    
+                    <button class="submit" type="button" onclick="goBack()">Back</button>
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
                     <br>       
@@ -83,5 +83,11 @@
    
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

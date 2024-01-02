@@ -38,6 +38,7 @@
       <br><br><label>Enter Your event poster with all details to display in our site</label>
       <div><input type="file" id="pdfUpload1" name="poster" required></div>
       <br>
+      <button class="submit" type="button" onclick="goBack()">Back</button>
       <button type="submit" class="submit">Request</button>
     
       </form>
@@ -45,4 +46,11 @@
   </div>
   
 </body>
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

@@ -104,7 +104,16 @@ tr:hover {
   from {opacity: 0;}
   to {opacity:1 ;}
 }
-
+.go-back-link{
+  text-decoration: none;
+  color:#009D94;
+  margin-left: 100px;
+}
+.go-back-link:hover{
+  text-decoration: none;
+  color:#09514C;
+  margin-left: 100px;
+}
 .button {
   background-color: white;
   width: 60px;

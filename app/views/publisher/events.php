@@ -49,4 +49,11 @@
   </div>
 
 </body>
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

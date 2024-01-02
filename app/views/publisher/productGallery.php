@@ -15,7 +15,7 @@
 
 <body>
 <?php   require APPROOT . '/views/publisher/sidebar.php';?>
-    
+<a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
     <div class="div_table" >
 
         <table>
@@ -94,5 +94,11 @@ function myFunction(bookId) {
     popup.classList.toggle("show");
 }
 </script>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

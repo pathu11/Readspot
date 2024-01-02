@@ -80,7 +80,8 @@
 
                         </div>
                     </div> 
-                    <br>       
+                    <br> 
+                    <button class="submit" onclick="goBack()">Back</button>      
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
 
                 </form>
@@ -92,5 +93,11 @@
    
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

@@ -96,6 +96,16 @@ tr:hover {
 .delete:hover {
     transform: scale(1.1, 1.1);
 }
+.go-back-link{
+    text-decoration: none;
+    color:#009D94;
+    margin-left: 100px;
+  }
+  .go-back-link:hover{
+    text-decoration: none;
+    color:#09514C;
+    margin-left: 100px;
+  }
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {

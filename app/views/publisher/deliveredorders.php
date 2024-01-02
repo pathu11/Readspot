@@ -11,12 +11,18 @@
     
     <title>Delivered Orders</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/orders.css" />
-
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </head>
 
 <body>
 <?php   require APPROOT . '/views/publisher/sidebar.php';?>
-
+<a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
 <?php   require APPROOT . '/views/publisher/subnav.php';?>
     <div class="div_table" style="width:90%">
         <p>Delivered Orders >></p>
