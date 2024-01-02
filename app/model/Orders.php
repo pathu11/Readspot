@@ -98,11 +98,11 @@
                 WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
             END AS sender_postal_code,
             c_receiver.user_id AS receiver_user_id, 
-            b.c_postal_name AS receiver_postal_name, 
-            b.c_street_name AS receiver_street_name,
-            b.c_town AS receiver_town,
-            b.c_district AS receiver_district ,
-            b.postal_code AS receiver_postal_code 
+            o.c_postal_name AS receiver_postal_name, 
+            o.c_street_name AS receiver_street_name,
+            o.c_town AS receiver_town,
+            o.c_district AS receiver_district ,
+            o.c_postal_code AS receiver_postal_code 
         FROM orders o 
         JOIN books b ON o.book_id = b.book_id 
         LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
@@ -141,11 +141,12 @@
                 WHEN b.type = "new" THEN p.postal_code
                 WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
             END AS sender_postal_code, 
-            c_receiver.postal_name AS receiver_postal_name, 
-            c_receiver.street_name AS receiver_street_name,
-            c_receiver.town AS receiver_town,
-            c_receiver.district AS receiver_district ,
-            c_receiver.postal_code AS receiver_postal_code 
+            c_receiver.user_id AS receiver_user_id, 
+            o.c_postal_name AS receiver_postal_name, 
+            o.c_street_name AS receiver_street_name,
+            o.c_town AS receiver_town,
+            o.c_district AS receiver_district ,
+            o.c_postal_code AS receiver_postal_code  
         FROM orders o 
         JOIN books b ON o.book_id = b.book_id 
         LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
@@ -184,11 +185,12 @@
                 WHEN b.type = "new" THEN p.postal_code
                 WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
             END AS sender_postal_code, 
-            c_receiver.postal_name AS receiver_postal_name, 
-            c_receiver.street_name AS receiver_street_name,
-            c_receiver.town AS receiver_town,
-            c_receiver.district AS receiver_district ,
-            c_receiver.postal_code AS receiver_postal_code 
+            c_receiver.user_id AS receiver_user_id, 
+            o.c_postal_name AS receiver_postal_name, 
+            o.c_street_name AS receiver_street_name,
+            o.c_town AS receiver_town,
+            o.c_district AS receiver_district ,
+            o.c_postal_code AS receiver_postal_code 
         FROM orders o 
         JOIN books b ON o.book_id = b.book_id 
         LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 
@@ -227,11 +229,12 @@
                 WHEN b.type = "new" THEN p.postal_code
                 WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_code
             END AS sender_postal_code, 
-            c_receiver.postal_name AS receiver_postal_name, 
-            c_receiver.street_name AS receiver_street_name,
-            c_receiver.town AS receiver_town,
-            c_receiver.district AS receiver_district ,
-            c_receiver.postal_code AS receiver_postal_code 
+            c_receiver.user_id AS receiver_user_id, 
+            o.c_postal_name AS receiver_postal_name, 
+            o.c_street_name AS receiver_street_name,
+            o.c_town AS receiver_town,
+            o.c_district AS receiver_district ,
+            o.c_postal_code AS receiver_postal_code  
         FROM orders o 
         JOIN books b ON o.book_id = b.book_id 
         LEFT JOIN publishers p ON b.publisher_id = p.publisher_id 

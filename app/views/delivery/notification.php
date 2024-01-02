@@ -8,13 +8,26 @@
     <title>Notification</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </head>
 
 <body>
     <?php require APPROOT . '/views/delivery/sidebar.php';?>
+    <div>
+        <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
+    </div><br>
     <div class="chat-container1">
         <input type="text" placeholder=" Search..." class="search-bar">
+        <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a> -->
+        
     </div>
+    
     <div class="chat">
         <div class="head">
             <div class="head1">

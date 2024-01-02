@@ -8,14 +8,25 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/orders.css">
 
     <title>All Orders</title>
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 
 </head>
 
 <body>
     <?php require APPROOT . '/views/delivery/sidebar.php';?>
 
+    <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
     <?php require APPROOT . '/views/delivery/subnav.php';?>
     <div class="div_table" style="width:90%">
+    <!-- <button onclick="goBack()">Go Back</button> -->
+   
+
     <p> Shipping  Orders >></p>
     <table>
             <tr>
@@ -67,11 +78,16 @@
             
 
         </table>
+        
     </div>
-   
+    <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a> -->
 </body>
 
 <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
         function myFunctionDelivered(orderId) {
             var popup = document.getElementById("deliveredPopup_" + orderId);
             popup.classList.toggle("show");
