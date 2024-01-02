@@ -20,7 +20,7 @@ nav {
   width: 100%;
   display: flex;
   align-items: center;
-  background: #009D94;
+  background: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 nav .logo {
@@ -44,9 +44,9 @@ nav .sidebar {
   top: 0;
   left: -100%;
   height: 100%;
-  width: 260px;
+  width: 240px;
   padding: 20px 0;
-  background-color: #fff;
+  background-color: #009D94;
   box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease;
 }
@@ -77,11 +77,11 @@ nav.open .sidebar {
 .nav-link .icon {
   margin-right: 14px;
   font-size: 20px;
-  color: #707070;
+  color: white;
 }
 .nav-link .link {
   font-size: 16px;
-  color: #707070;
+  color: white;
   font-weight: 400;
 }
 .lists .nav-link:hover .icon,
