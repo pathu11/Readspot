@@ -10,26 +10,11 @@
             <div class="used-books">
                 <h2>Used Books</h2>
                 <div class="books">
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book2" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book3" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book4" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book5" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
+                    <?php foreach($data['bookDetails'] as $bookDetails): ?>
+                        <div class="B-div">
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book"><br>';?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="ub-vw">
