@@ -54,7 +54,7 @@
                                
                     <!-- Add this code where you want to display the remaining time -->
                     <p>Remaining Time: <span id="remainingTime"></span></p>
-
+                    <button onclick="goBack()" class="submit">  Back </button> 
                     <input type="submit" placeholder="Submit" name="submit" class="submit">
                 </form>
             </div>
@@ -62,5 +62,11 @@
     </div>
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

@@ -41,6 +41,13 @@ class Publishers{
 
         return $this->db->resultSet();
     }
+    public function getPublisherStoreDetails($publisher_id){
+        $this->db->query('SELECT * from publisher_stores WHERE publisher_id=:publisher_id ');
+        $this->db->bind(':publisher_id',$publisher_id);
+       
+
+        return $this->db->resultSet();
+    }
     
     public function AddBookApproval($data) {
         $this->db->query('UPDATE books 
@@ -318,7 +325,22 @@ class Publishers{
         } 
     }
 
-    
+    public function addStore($data){
+        $this->db->query('INSERT INTO  publisher_stores  (store_name,postal_name,street_name,town,district,postal_code,publisher_id) VALUES(:store_name, :postal_name, :street_name, :town, :district, :postal_code, :publisher_id)');
+        $this->db->bind(':store_name', $data['store_name']);
+        $this->db->bind(':postal_name', $data['postal_name']);
+        $this->db->bind(':street_name', $data['street_name']);
+        $this->db->bind(':town', $data['town']);
+        $this->db->bind(':district', $data['district']);
+        $this->db->bind(':postal_code', $data['postal_code']);
+        $this->db->bind(':publisher_id', $data['publisher_id']);
+        // execute
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        } 
+    }
     public function findMessageByUserId($user_id){
         $this->db->query('SELECT * from messages WHERE user_id=:user_id ');
         $this->db->bind(':user_id',$user_id);

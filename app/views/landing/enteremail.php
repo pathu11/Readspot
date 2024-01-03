@@ -29,7 +29,7 @@
               
                     <input type="email" name="email"  placeholder="Email address " required><br>
                     
-                    
+                    <button onclick="goBack()" class="submit">  Back </button> 
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
                     <br>       
@@ -42,7 +42,13 @@
 </div> 
     </div>
    
-
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </body>
 
 </html>
