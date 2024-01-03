@@ -4,8 +4,13 @@ class Publishers{
     public function __construct(){
         $this->db = new Database;
     }
-
-
+    public function findStoreById($store_id){
+        $this->db->query('SELECT * FROM publisher_stores WHERE store_id=:store_id');
+        $this->db->bind(':store_id', $store_id);
+        return $this->db->resultSet();
+    }
+    
+    
     public function findPublisherById($user_id){
         $this->db->query('SELECT * from publishers WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
@@ -408,6 +413,50 @@ class Publishers{
             return 0; 
         }
     }
+    public function updateStore($data) {
+        $this->db->query('UPDATE publisher_stores 
+                          SET publisher_id = :publisher_id,
+                              store_name = :store_name,
+                              postal_name = :postal_name, 
+                              street_name = :street_name, 
+                              town = :town,  
+                              district = :district, 
+                              postal_code = :postal_code
+                          WHERE store_id = :store_id');
+        // Bind values
+        $this->db->bind(':publisher_id', $data['publisher_id']);
+        $this->db->bind(':store_name', $data['store_name']);
+        $this->db->bind(':postal_name', $data['postal_name']);
+        $this->db->bind(':street_name', $data['street_name']);
+        $this->db->bind(':town', $data['town']);
+        $this->db->bind(':district', $data['district']);
+        $this->db->bind(':postal_code', $data['postal_code']);
+        $this->db->bind(':store_id', $data['store_id']);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            echo $this->db->error();
+            return false;
+        }
+    }
+    
+
+    public function deleteStore($store_id) {
+        $this->db->query('DELETE FROM publisher_stores  WHERE store_id = :store_id');
+        // Bind values
+        $this->db->bind(':store_id', $store_id);
+
+        // Execute after binding
+        $this->db->execute();
+
+        // Check for row count affected
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }   
     
 
 }

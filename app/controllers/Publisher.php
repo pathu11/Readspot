@@ -1607,6 +1607,115 @@ public function stores(){
     }
 }
 
+    public function updateStore($store_id){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }else{
+
+            $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            // $storeDetails=$this->publisherModel->findStoreById($store_id);
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'store_id'=>$store_id,
+                    'publisher_id' => $publisherDetails[0]->publisher_id,
+                    'store_name' => trim($_POST['store_name']),
+                    'postal_name' => trim($_POST['postal_name']),
+                    'street_name' => trim($_POST['street_name']),
+                    'town' => trim($_POST['town']),
+                    'district' => trim($_POST['district']),
+                    'postal_code' => trim($_POST['postal_code']),
+                    'store_name_err' => '',
+                    'postal_name_err' => '',
+                    'street_name_err' => '',
+                    'town_err' => '',
+                    'district_err' => '',
+                    'postal_code_err' => '',
+                ];
+                
+                    if(empty($data['store_name'])){
+                        $data['store_name_err']='Please enter the store name';      
+                    }
+                    if(empty($data['postal_name'])){
+                        $data['postal_name_err']='Please enter the  name';      
+                    }
+                    //validate ISBN
+                    if(empty($data['street_name'])){
+                        $data['street_name_err']='Please enter street name';      
+                    }
+                    //validate password
+                    if(empty($data['town'])){
+                        $data['town_err']='Please enter the town';      
+                    }
+
+                    
+                    if(empty($data['district'])){
+                        $data['district_err']='Please select the district';      
+                    }
+                    if(empty($data['postal_code'])){
+                        $data['postal_code_err']='Please enter the postal code';      
+                    }
+                
+
+                    //make sure errors are empty
+                    if( empty($data['store_name_err']) && empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){                    
+                        if($this->publisherModel->updateStore($data) ){
+                            flash('update_success','You are updated the store details  successfully');
+                            redirect('publisher/stores');
+                        }else{
+                            die('Something went wrong');
+                        }
+                    }else{
+                            $this->view('publisher/updateStore',$data);
+                        }
+
+                    
+                }else{
+                    // $publisherDetails = $this->publisherModel->findPublisherById($user_id); 
+                    // $publishers = $this->publisherModel->findPublisherBypubId($publisherDetails [0]->publisher_id);
+                    // var_dump()
+                    $storeDetails=$this->publisherModel->findStoreById($store_id);
+                    
+                    $data = [
+                        'publisherDetails' => $publisherDetails,
+                        'store_id'=>$store_id,
+                        'publisher_id' => $storeDetails[0]->publisher_Id,  // Accessing the correct property
+                        'store_name' => $storeDetails[0]->store_name,
+                        'postal_name' => $storeDetails[0]->postal_name,
+                        'street_name' => $storeDetails[0]->street_name,
+                        'town' => $storeDetails[0]->town,
+                        'district' => $storeDetails[0]->district,
+                        'postal_code' => $storeDetails[0]->postal_code,
+                        'store_name_err'=>'',
+                        'postal_name_err'=>'',
+                        'street_name_err'=>'',
+                        'town_err'=>'',
+                        'district_err'=>'',
+                        'postal_code_err'=>'',
+                        'publisherName'  =>$publisherDetails[0] ->name
+                    
+                    ];
+
+
+                    $this->view('publisher/updateStore',$data);
+
+                }  
+            }
+    }
+
+    public function deleteStore($store_id){
+        if($this->publisherModel->deleteStore($store_id)){
+            flash('delete_success','You deleted the store successfully');
+            redirect('publisher/stores');
+        }
+        else{
+            die('Something went wrong');
+        }
+      }
+
 
     
     public function logout(){
