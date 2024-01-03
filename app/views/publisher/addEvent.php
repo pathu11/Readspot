@@ -38,16 +38,16 @@
             <option><?php echo $event->event; ?></option>
           <?php endforeach; ?>
       </select>
-      <br><br><label>Enter Your event poster with all details to display in our site</label>
-      <div><input type="file" id="pdfUpload1" name="poster" required></div>
+      <label>Enter Your event poster with all details to display in our site</label>
+      <input type="file" id="pdfUpload1" name="poster" required>
       <br>
       <button type="submit" class="submit">Request</button>
     
       </form>
     </div>
-    <div class="bg">
+    <!--div class="bg">
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
-    </div>
+    </div-->
   </div>
   
 </body>
