@@ -49,8 +49,6 @@ class Publishers{
     public function getPublisherStoreDetails($publisher_id){
         $this->db->query('SELECT * from publisher_stores WHERE publisher_id=:publisher_id ');
         $this->db->bind(':publisher_id',$publisher_id);
-       
-
         return $this->db->resultSet();
     }
     

@@ -267,24 +267,146 @@ class Publisher extends Controller{
                 ];
 
                 $this->view('publisher/addbooks',$data);
-
             }
-            
             } 
         }
-
-    public function editpostalForBooks($publisher_id){
-        if(!isLoggedIn()){
-            redirect('landing/login');
-        }else{
-    
-        $user_id = $_SESSION['user_id'];
-        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+        public function editPostalForBooks($publisher_id) {
+            if(!isLoggedIn()){
+                redirect('landing/login');
+            }else{                  
+                $user_id = $_SESSION['user_id'];
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+                $storeDetails = $this->publisherModel->getPublisherStoreDetails($publisherDetails[0]->publisher_id);
+                        
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Check the value of the form_type field
+                $formType = $_POST['form_type'];
+                if ($formType === 'addStoreToBooks') {
+                    // Handle "Edit Postal for Books" form submission
+                    $this->handleaddStoreToBooksForm($user_id);
+                } elseif ($formType === 'default_address') {
+                    // Handle "Default Address" form submission
+                    $this->handleDefaultAddressForm($publisher_id);
+                }elseif ($formType === 'selectStore') {
+                    // Handle "Default Address" form submission
+                    $this->handleselectStoreForm($user_id);
+                }
+            } else {
+                // Your existing code for displaying the form
+                $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
+                        
+                $data = [
+                     'storeDetails'=>$storeDetails,
+                     'publisherDetails' => $publisherDetails,
+                     'publisher_id' => $publisher_id,
+                     'store_name'=>'',
+                     'postal_name' => $publishers->postal_name,
+                     'street_name' => $publishers->street_name,
+                     'town' => $publishers->town,
+                     'district' => $publishers->district,
+                     'postal_code' => $publishers->postal_code,
+                     'store_name_err'=>'',
+                     'postal_name_err'=>'',
+                     'street_name_err'=>'',
+                     'town_err'=>'',
+                     'district_err'=>'',
+                     'postal_code_err'=>'',
+                     'publisherName'  =>$publishers ->name
+                ];
         
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Form submitted, process the data
-    
-            // Sanitize post data
+                $this->view('publisher/editpostalForBooks', $data);
+            }
+        }
+    }
+        private function handleselectStoreForm($user_id){
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $publisher_id=$publisherDetails[0]->publisher_id;
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $store_id=trim($_POST['selectedStore']);
+            $storeDetails=$this->publisherModel->findStoreById($store_id);
+            $data = [ 
+                'publisher_id' => $publisher_id,
+                
+                'postal_name' => $storeDetails[0]->postal_name,
+                'street_name' => $storeDetails[0]->street_name,
+                'town' =>$storeDetails[0]->town ,
+                'district' => $storeDetails[0]->district,
+                'postal_code' => $storeDetails[0]->postal_code,
+                
+            ];
+            if( $this->publisherModel->editpostalInBooks($data)){
+                flash('update_success','You are added the store  successfully');
+                redirect('publisher/editAccountForBooks/'.$publisher_id);
+            }else{
+                redirect('publisher/editpostalForBooks/'.$publisher_id);
+            }
+        }
+
+        private function handleaddStoreToBooksForm($user_id) {
+            // $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $publisher_id=$publisherDetails[0]->publisher_id;
+            // $storeDetails = $this->publisherModel->getPublisherStoreDetails($publisherDetails[0]->publisher_id);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'publisher_id' => $publisherDetails[0]->publisher_id,
+                'store_name' => trim($_POST['store_name']),
+                'postal_name' => trim($_POST['postal_name']),
+                'street_name' => trim($_POST['street_name']),
+                'town' => trim($_POST['town']),
+                'district' => trim($_POST['district']),
+                'postal_code' => trim($_POST['postal_code']),
+                'store_name_err' => '',
+                'postal_name_err' => '',
+                'street_name_err' => '',
+                'town_err' => '',
+                'district_err' => '',
+                'postal_code_err' => '',
+            ];
+            
+                
+                if(empty($data['store_name'])){
+                    $data['store_name_err']='Please enter the  store name';      
+                }
+                if(empty($data['postal_name'])){
+                    $data['postal_name_err']="Please enter the sender's name";      
+                }
+                //validate ISBN
+                if(empty($data['street_name'])){
+                    $data['street_name_err']='Please enter street name';      
+                }
+                //validate password
+                if(empty($data['town'])){
+                    $data['town_err']='Please enter the town';      
+                }
+
+                
+                if(empty($data['district'])){
+                    $data['district_err']='Please select the district';      
+                }
+                if(empty($data['postal_code'])){
+                    $data['postal_code_err']='Please enter the postal code';      
+                }
+            
+
+                //make sure errors are empty
+                if( empty($data['store_name_err']) && empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){
+
+            
+                    if($this->publisherModel->addStore($data) && $this->publisherModel->editpostalInBooks($data)){
+                        flash('update_success','You are added the store  successfully');
+                        redirect('publisher/editAccountForBooks/'.$publisher_id);
+                    }else{
+                        die('Something went wrong');
+                    }
+                }else{
+                        $this->view('publisher/editpostalForBooks',$data);
+                    }
+        }
+        
+        private function handleDefaultAddressForm($publisher_id) {
+            
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     
             $data = [
@@ -329,7 +451,7 @@ class Publisher extends Controller{
                    
                     
                     
-                    if($this->publisherModel->editpostal($data) && $this->publisherModel->editpostalInBooks($data)){
+                    if( $this->publisherModel->editpostalInBooks($data)){
                         flash('update_success','You are added the book  successfully');
                         redirect('publisher/editAccountForBooks/'.$publisher_id);
                     }else{
@@ -339,35 +461,106 @@ class Publisher extends Controller{
                         $this->view('publisher/editpostalForBooks',$data);
                     }
     
-                   
-            }else{
-                     
-                $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
-                
-                
-                $data = [
-                    'publisherDetails' => $publisherDetails,
-                    'publisher_id' => $publisher_id,
-                    'postal_name' => $publishers->postal_name,
-                    'street_name' => $publishers->street_name,
-                    'town' => $publishers->town,
-                    'district' => $publishers->district,
-                    'postal_code' => $publishers->postal_code,
-                    'postal_name_err'=>'',
-                    'street_name_err'=>'',
-                    'town_err'=>'',
-                    'district_err'=>'',
-                    'postal_code_err'=>'',
-                    'publisherName'  =>$publishers ->name
-                   
-                ];
+        }
 
-
-                $this->view('publisher/editpostalForBooks',$data);
+//     public function editpostalForBooks($publisher_id){
+//         if(!isLoggedIn()){
+//             redirect('landing/login');
+//         }else{
     
-            }  
-    }
-}
+//         $user_id = $_SESSION['user_id'];
+//         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+//         $storeDetails = $this->publisherModel->getPublisherStoreDetails($publisherDetails[0]->publisher_id);
+        
+//         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//             // Form submitted, process the data
+    
+//             // Sanitize post data
+//             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+//             $data = [
+//                 'publisher_id' => $publisher_id,
+//                 'postal_name' => trim($_POST['postal_name']),
+//                 'street_name' => trim($_POST['street_name']),
+//                 'town' => trim($_POST['town']),
+//                 'district' => trim($_POST['district']),
+//                 'postal_code' => trim($_POST['postal_code']),
+//                 'postal_name_err' => '',
+//                 'street_name_err' => '',
+//                 'town_err' => '',
+//                 'district_err' => '',
+//                 'postal_code_err' => '',
+//             ];
+               
+//                 //validate book name
+//                 if(empty($data['postal_name'])){
+//                     $data['postal_name_err']='Please enter the  name';      
+//                 }
+//                 //validate ISBN
+//                 if(empty($data['street_name'])){
+//                     $data['street_name_err']='Please enter street name';      
+//                 }
+//                 //validate password
+//                 if(empty($data['town'])){
+//                     $data['town_err']='Please enter the town';      
+//                 }
+    
+                
+//                  if(empty($data['district'])){
+//                     $data['district_err']='Please select the district';      
+//                 }
+//                 if(empty($data['postal_code'])){
+//                     $data['postal_code_err']='Please enter the postal code';      
+//                 }
+               
+    
+//                 //make sure errors are empty
+//                 if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){
+
+                   
+                    
+                    
+//                     if($this->publisherModel->editpostal($data) && $this->publisherModel->editpostalInBooks($data)){
+//                         flash('update_success','You are added the book  successfully');
+//                         redirect('publisher/editAccountForBooks/'.$publisher_id);
+//                     }else{
+//                         die('Something went wrong');
+//                     }
+//                 }else{
+//                         $this->view('publisher/editpostalForBooks',$data);
+//                     }
+    
+                   
+//             }else{
+                     
+//                 $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
+                
+                
+//                 $data = [
+//                     'publisherDetails' => $publisherDetails,
+//                     'publisher_id' => $publisher_id,
+//                     'store_name'=>'',
+//                     'postal_name' => $publishers->postal_name,
+//                     'street_name' => $publishers->street_name,
+//                     'town' => $publishers->town,
+//                     'district' => $publishers->district,
+//                     'postal_code' => $publishers->postal_code,
+//                     'store_name_err'=>'',
+//                     'postal_name_err'=>'',
+//                     'street_name_err'=>'',
+//                     'town_err'=>'',
+//                     'district_err'=>'',
+//                     'postal_code_err'=>'',
+//                     'publisherName'  =>$publishers ->name
+                   
+//                 ];
+
+
+//                 $this->view('publisher/editpostalForBooks',$data);
+    
+//             }  
+//     }
+// }
 
     public function editAccountForBooks($publisher_id) {
         if (!isLoggedIn()) {
@@ -1588,6 +1781,106 @@ public function processingorders()
     
             }  
     }
+}
+public function addStoreToBooks(){
+    if(!isLoggedIn()){
+        redirect('landing/login');
+    }else{
+
+    $user_id = $_SESSION['user_id'];
+    $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Form submitted, process the data
+
+        // Sanitize post data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'publisher_id' => $publisherDetails[0]->publisher_id,
+            'store_name' => trim($_POST['store_name']),
+            'postal_name' => trim($_POST['postal_name']),
+            'street_name' => trim($_POST['street_name']),
+            'town' => trim($_POST['town']),
+            'district' => trim($_POST['district']),
+            'postal_code' => trim($_POST['postal_code']),
+            'store_name_err' => '',
+            'postal_name_err' => '',
+            'street_name_err' => '',
+            'town_err' => '',
+            'district_err' => '',
+            'postal_code_err' => '',
+        ];
+           
+            
+            if(empty($data['store_name'])){
+                $data['store_name_err']='Please enter the  store name';      
+            }
+            if(empty($data['postal_name'])){
+                $data['postal_name_err']="Please enter the sender's name";      
+            }
+            //validate ISBN
+            if(empty($data['street_name'])){
+                $data['street_name_err']='Please enter street name';      
+            }
+            //validate password
+            if(empty($data['town'])){
+                $data['town_err']='Please enter the town';      
+            }
+
+            
+             if(empty($data['district'])){
+                $data['district_err']='Please select the district';      
+            }
+            if(empty($data['postal_code'])){
+                $data['postal_code_err']='Please enter the postal code';      
+            }
+           
+
+            //make sure errors are empty
+            if( empty($data['store_name_err']) && empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){
+
+         
+                if($this->publisherModel->addStore($data) && $this->publisherModel->editpostalInBooks($data)){
+                    flash('update_success','You are added the store  successfully');
+                    redirect('publisher/editAccountForBooks/'.$publisher_id);
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                    $this->view('publisher/editpostalForBooks',$data);
+                }
+
+               
+        }else{
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);    
+            $publishers = $this->publisherModel->findPublisherBypubId($publisherDetails[0]->publisher_id);
+            
+            
+            $data = [
+                'publisherDetails' => $publisherDetails,
+                'publisher_id' => $publisherDetails[0]->publisher_id,
+                'store_name'=>'',
+                'postal_name' => '',
+                'street_name' => '',
+                'town' => '',
+                'district' => '',
+                'postal_code' => '',
+                'store_name_err' => '',
+                'postal_name_err'=>'',
+                'street_name_err'=>'',
+                'town_err'=>'',
+                'district_err'=>'',
+                'postal_code_err'=>'',
+                'publisherName'  =>$publishers ->name
+               
+            ];
+
+
+            $this->view('publisher/editpostalForBooks',$data);
+
+        }  
+}
 }
 public function stores(){
     if(!isLoggedIn()){
