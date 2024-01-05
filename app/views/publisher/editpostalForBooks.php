@@ -18,11 +18,18 @@
 </head>
 
 <body>
+   
     <div>
         <div class="form-container">
             <div class="form1">
                 <h2>Select Your  Picked Up address</h2>
-                
+                <br>
+                    <br>
+
+                    <label>
+                        <input type="radio" name="addressType" value="selectStore">
+                        Select Address from Store Table
+                    </label>
                     <br>
                     <br>
 
@@ -35,18 +42,12 @@
                         <input type="radio" name="addressType" value="defaultAddress">
                         Use Default Address
                     </label>
-                    <br><br>
-                    <label>
-                        <input type="radio" name="addressType" value="selectStore">
-                        Select Address from Store Table
-                    </label>
+                    
                     <br><br>
                     <div class="new-store-form">
-                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['publisher_id']; ?>" method="POST">
+                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
                         <input type="hidden" name="form_type" value="addStoreToBooks">
                         
-                        <input type="text" name="store_name" class="<?php echo (!empty($data['store_name_err'])) ? 'is-invalid' : ''; ?>"  placeholder=" Store Name" required><br>
-                        <span class="error"><?php echo $data['store_name_err']; ?></span>
                         <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" placeholder="Name" required><br>
                         <span class="error"><?php echo $data['postal_name_err']; ?></span>
 
@@ -92,7 +93,7 @@
                     </form>
                     </div>
                     <div class="select-store-form">
-                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['publisher_id']; ?>" method="POST">
+                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
                         <input type="hidden" name="form_type" value="selectStore">
                         <?php foreach($data['storeDetails'] as $store): ?>
                             <label>
@@ -108,7 +109,7 @@
                        
                     </div>
                     <div class="default-store-form">
-                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['publisher_id']; ?>" method="POST">
+                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
                         <input type="hidden" name="form_type" value="default_address">
                         <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder="Name" readonly><br>
                         <span class="error"><?php echo $data['postal_name_err']; ?></span>
@@ -121,14 +122,14 @@
                         <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['district']; ?>" name="district" disabled>
                             
                                     <?php
-                                        $districts = array(
+                                        $district = array(
                                             "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha",
                                             "Hambantota", "Jaffna", "Kalutara", "Kandy", "Kegalla", "Kilinochchi", "Kurunegala",
                                             "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa",
                                             "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
                                         );
 
-                                        foreach ($districts as $district) {
+                                        foreach ($district as $district) {
                                             $selected = ($data['district'] === $district) ? 'selected' : '';
                                             echo "<option value=\"$district\" $selected >$district</option>";
                                         }

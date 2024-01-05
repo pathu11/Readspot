@@ -25,8 +25,7 @@
                     <br>
                     <br>
                     
-                    <input type="text" name="store_name" class="<?php echo (!empty($data['store_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['store_name']; ?>" placeholder=" Store Name" required><br>
-                    <span class="error"><?php echo $data['store_name_err']; ?></span>
+                    
              
                     <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder=" Name" required><br>
                     <span class="error"><?php echo $data['postal_name_err']; ?></span>

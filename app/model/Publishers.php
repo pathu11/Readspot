@@ -95,6 +95,12 @@ class Publishers{
             return false;
         }
     }
+   
+    public function getLastInsertedBookId() {
+        $this->db->query('SELECT LAST_INSERT_ID() as book_id');
+        $row = $this->db->single();
+        return $row->book_id;
+    }
     public function editpostalInBooks($data) {
         $this->db->query('UPDATE books
                   SET postal_name = :postal_name, 
@@ -102,10 +108,10 @@ class Publishers{
                   town = :town,  
                   district = :district, 
                   postal_code = :postal_code
-                  WHERE publisher_id = :publisher_id');
+                  WHERE book_id = :book_id');
 
         // Bind values
-        $this->db->bind(':publisher_id', $data['publisher_id']);
+        $this->db->bind(':book_id', $data['book_id']);
         $this->db->bind(':postal_name', $data['postal_name']);
         $this->db->bind(':street_name', $data['street_name']);
         
@@ -166,23 +172,21 @@ class Publishers{
         }
     }
     
+    
     public function editAccountInBooks($data) {
         $this->db->query('UPDATE books
                   SET account_name = :account_name, 
                   account_no = :account_no, 
                   bank_name = :bank_name,  
                   branch_name = :branch_name 
-                 
-                  WHERE publisher_id = :publisher_id');
-
+                  WHERE book_id = :book_id');
         // Bind values
-        $this->db->bind(':publisher_id', $data['publisher_id']);
+        $this->db->bind(':book_id', $data['book_id']);
         $this->db->bind(':account_name', $data['account_name']);
         $this->db->bind(':account_no', $data['account_no']);
         
         $this->db->bind(':bank_name', $data['bank_name']);
-        $this->db->bind(':branch_name', $data['branch_name']);
-       
+        $this->db->bind(':branch_name', $data['branch_name']);  
         // Execute
         if ($this->db->execute()) {
             return true;
@@ -280,7 +284,7 @@ class Publishers{
         }
     }   
     public function findbookByName($book_name,$publisher_id){
-        $this->db->query('SELECT * from books WHERE book_name=:book_name AND type="new" AND publisher_id=:publisher_id ');
+        $this->db->query('SELECT * from books WHERE book_name=:book_name AND type="new" AND status="approval" AND publisher_id=:publisher_id ');
         $this->db->bind(':book_name',$book_name);
         $this->db->bind(':publisher_id',$publisher_id);
         $row=$this->db->single();
@@ -329,8 +333,8 @@ class Publishers{
     }
 
     public function addStore($data){
-        $this->db->query('INSERT INTO  publisher_stores  (store_name,postal_name,street_name,town,district,postal_code,publisher_id) VALUES(:store_name, :postal_name, :street_name, :town, :district, :postal_code, :publisher_id)');
-        $this->db->bind(':store_name', $data['store_name']);
+        $this->db->query('INSERT INTO  publisher_stores  (postal_name,street_name,town,district,postal_code,publisher_id) VALUES( :postal_name, :street_name, :town, :district, :postal_code, :publisher_id)');
+        
         $this->db->bind(':postal_name', $data['postal_name']);
         $this->db->bind(':street_name', $data['street_name']);
         $this->db->bind(':town', $data['town']);
@@ -414,7 +418,7 @@ class Publishers{
     public function updateStore($data) {
         $this->db->query('UPDATE publisher_stores 
                           SET publisher_id = :publisher_id,
-                              store_name = :store_name,
+                             
                               postal_name = :postal_name, 
                               street_name = :street_name, 
                               town = :town,  
@@ -423,7 +427,7 @@ class Publishers{
                           WHERE store_id = :store_id');
         // Bind values
         $this->db->bind(':publisher_id', $data['publisher_id']);
-        $this->db->bind(':store_name', $data['store_name']);
+       
         $this->db->bind(':postal_name', $data['postal_name']);
         $this->db->bind(':street_name', $data['street_name']);
         $this->db->bind(':town', $data['town']);

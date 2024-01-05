@@ -23,7 +23,7 @@
     <table>
       <tr>
         <th>Store ID</th>
-        <th>Store Name</th>
+        
         <th>Sender's Name</th>
         <th>Street Name</th>
         <th>Town</th>
@@ -36,7 +36,7 @@
       <?php foreach($data['storeDetails'] as $store): ?>
         <tr>
           <td><?php echo $store->store_id; ?></td>
-          <td><?php echo $store->store_name; ?></td>
+          
           <td><?php echo $store->postal_name; ?></td>
           <td><?php echo $store->street_name; ?></td>
          

@@ -21,7 +21,7 @@
              
             <div class="form1">
                 <h2>Enter the Account Details </h2>
-                <form action="<?php echo URLROOT; ?>/publisher/editAccountForBooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/editAccountForBooks/<?php echo $data['book_id']; ?>" method="POST">                    
                     <br>
                     <br>
                                    
