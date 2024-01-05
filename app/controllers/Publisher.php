@@ -214,6 +214,7 @@ public function addbooks(){
                 }else{
                     die('Something went wrong');
                 }
+                
             }else{
                 $this->view('publisher/addBooks',$data);
             }
@@ -1347,7 +1348,6 @@ public function processingorders()
                         $img_name = $_FILES['img2']['name'];
                         $tmp_name = $_FILES['img2']['tmp_name'];
                         $error = $_FILES['img2']['error'];
-                        
                         if($error === 0){
                         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
                         $img_ex_to_lc = strtolower($img_ex);
@@ -1376,6 +1376,8 @@ public function processingorders()
                     }else{
                         $this->view('publisher/update',$data);
                     }
+                   
+
             }else{
                      
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
@@ -1408,8 +1410,7 @@ public function processingorders()
                     'weight_err' => '',
                     'descript_err' => '',
                     'quantity_err' => '',
-                    // 'img1_err' => '',
-                    // 'img2_err' => '',   
+                     
                 ];
                 $this->view('publisher/update',$data);
     
