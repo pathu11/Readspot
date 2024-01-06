@@ -8,6 +8,7 @@
 @import url('./Aboutus.css');
 @import url('./BookDetails.css');
 @import url('./ExchangeBookDetails.css');
+@import url('./UsedBookDetails.css');
 @import url('./Event&Donate.css');
 @import url('./Contactus.css');
 @import url('./sidebar.css');
@@ -22,4 +23,4 @@
 @import url('./DonateBooks.css');
 @import url('./bookcontents.css');
 @import url('./BookEvents.css');
-@import url('./BookDetail.css');
+/* @import url('./BookDetail.css'); */
