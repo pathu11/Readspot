@@ -1041,4 +1041,49 @@ class Customer extends Controller {
         session_destroy();
         redirect('landing/index');
     }
+
+    public function TopCategory(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/TopCategory', $data);
+        }
+    }
+
+    public function TopAuthor(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/TopAuthor', $data);
+        }
+    }
+
+    public function Recommended(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Recommended', $data);
+        }
+    }
 }
