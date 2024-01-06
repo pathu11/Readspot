@@ -174,3 +174,122 @@
     margin-top: 10px;
     float: right;
 }
+
+.tb-cart2 {
+    display: none;
+}
+
+.tb-cart2 td:nth-child(1) {
+    width: 100%; /* Adjust the width as needed */
+}
+
+.tb-cart2 td:nth-child(2) {
+    width: 100%; /* Adjust the width as needed */
+}
+
+@media screen and (max-width:800px) {
+    .tb-cart1 {
+        display: none;
+    }
+
+    .tb-cart2 {
+        display: block;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .cart-topic h2 {
+        font-size: 18px;
+    }
+
+    .mycart th {
+        font-size: 12px;
+    }
+    .mycart td {
+        font-size: 12px;
+    }
+
+    .cart-search input[type=text] {
+        background-color: black;
+        font-size: 12px;
+    }
+    
+    .cart-search button {
+        font-size: 12px;
+    }
+
+    .cart-search img {
+        height:13px;
+        width:13px;
+    }
+
+    .cart-vd .cart-view {
+        font-size: 12px;
+    }
+    
+    .cart-vd .cart-delete {
+        font-size: 12px;
+    }
+
+    .cart-vw-btn {
+        width: 120px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .cart-topic h2 {
+        font-size: 14px;
+    }
+
+    .mycart th {
+        font-size: 10px;
+    }
+    .mycart td {
+        font-size: 10px;
+    }
+
+    .cart-search input[type=text] {
+        background-color: black;
+        font-size: 8px;
+    }
+    
+    .cart-search button {
+        font-size: 8px;
+    }
+
+    .cart-search img {
+        height:8px;
+        width:8px;
+    }
+
+    .cart-vd .cart-view {
+        font-size: 10px;
+        padding: 2px;
+        margin: 2px;
+    }
+    
+    .cart-vd .cart-delete {
+        font-size: 9px;
+        padding: 2px;
+        margin: 2px;
+    }
+
+    .cart-vd {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+    }
+
+    /* .myevent td:nth-child(2), .myevent th:nth-child(2) {
+      display: none;
+    } */
+
+    .cart-vw-btn {
+        width: 100px;
+        height: 28px;
+        font-size: 0.7em;
+    }
+}
