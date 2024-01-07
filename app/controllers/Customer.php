@@ -101,7 +101,7 @@ class Customer extends Controller {
                 
                 $formType = $_POST['form_type'];
                 if ($formType === 'new_address') {
-                   
+                   if()
                     $this->handlenew_addressForm($book_id);
                 } elseif ($formType === 'default_address') {
                     
@@ -179,12 +179,13 @@ private function handledefault_addressForm($book_id) {
 
         //make sure errors are empty
         if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){                   
-            if( $this->customerModel->editpostalInOrders($data)){
-                flash('update_success','You are added the book  successfully');
-                redirect('customer/purchase/'.$book_id);
-            }else{
-                die('Something went wrong');
-            }
+            // if( $this->customerModel->editpostalInOrders($data)){
+            //     flash('update_success','You are added the book  successfully');
+            //     redirect('customer/purchase/'.$book_id);
+            // }else{
+            //     die('Something went wrong');
+            // }
+
         }else{
                 $this->view('customer/purchase',$data);
             }
