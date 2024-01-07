@@ -1,9 +1,9 @@
 @import url('./LandingPage.css');
 @import url('./head.css');
 @import url('./footer.css');
-@import url('./prof.css');
+/* @import url('./prof.css'); */
 @import url('./AddBookConte.css');
-@import url('./BuyBook.css');
+/* @import url('./BuyBook.css'); */
 @import url('./Sevices.css');
 @import url('./Aboutus.css');
 @import url('./BookDetails.css');
@@ -24,4 +24,5 @@
 @import url('./bookcontents.css');
 @import url('./BookEvents.css');
 @import url('./BuyUsedBooks.css');
+@import url('./GetExchangeBooks.css');
 /* @import url('./BookDetail.css'); */

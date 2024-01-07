@@ -9,7 +9,7 @@
                 <h1>USED BOOKS</h1>
             </div>
             <div class="search-bar-U">
-            <form action="#.php" class="searching-U">
+                <form action="#.php" class="searching-U">
                     <select id="searchBy"  name="category">
                         <option value="technology">Title</option>
                         <option value="travel">Author</option>
@@ -22,15 +22,15 @@
             </div>
         </div>
         <div class="sub-cont-U2">
-            <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails"><div class="B0-N">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails"><div class="B0-U">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-U"> <!--path changed-->
                 <h3>End Game</h3>
                 <h3>500/=</h3>
                 <h5>(Negotiate)</h5>
                 <div class="fav-cart-msg">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="cart">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat">
                 </div>
             </div></a>
             <div class="B0-U">
