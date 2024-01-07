@@ -51,7 +51,7 @@
         </div>
         <div class="box4">
             <h4> Hire events Donate Books !</h4>
-            <img src=<?=URLROOT."/assets/images/charity/donate-png.png"?>>
+            <img src=<?=URLROOT."/assets/images/charity/donate.png"?>>
             <p> Join a supportive individual of Charity Organization
                 <br>
             </p>
