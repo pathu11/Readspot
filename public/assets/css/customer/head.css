@@ -236,6 +236,10 @@
     background-color: #ddd;
 }
 
+.show-S {
+    display: block;
+}
+
 @media screen and (max-width:600px) {
     .navigation {display: none;}
 

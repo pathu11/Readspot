@@ -22,8 +22,8 @@
                 <a href="<?php echo URLROOT; ?>/customer/Home" data-head="Home">Home</a>
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                 <div class="dropdown-services">
-                    <button onclick="toggleDropdown('myDropdown')">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
-                    <div id="myDropdown" class="dropdown-content-services">
+                    <button onclick="toggleDropdown('myDropdown-S')">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
+                    <div id="myDropdown-S" class="dropdown-content-services">
                         <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
@@ -49,7 +49,7 @@
                     <a href="<?php echo URLROOT; ?>/customer/Home." data-head="Home">Home</a>
                     <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                     <button class="drop-serv">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
-                    <div id="myDropdown" class="dropdown-content-services">
+                    <div id="myDropdown-S" class="dropdown-content-services">
                         <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
@@ -113,7 +113,7 @@
 
     function toggleDropdown(dropdownId) {
         var dropdown = document.getElementById(dropdownId);
-        dropdown.classList.toggle("show");
+        dropdown.classList.toggle("show-S");
     }
     </script>
     

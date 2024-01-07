@@ -67,45 +67,10 @@
                 <h3>500/=</h3>
                 <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails"><button class="dts-btn">View Details</button></a> <!--path changed-->
             </div>
-            <!-- <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div>
-            <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div>
-            <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div>
-            <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div>
-            <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div>
-            <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div>
-            <div class="B0">
-                <img src="http://localhost/Group-27/public/assets/images/customer/book.jpg" alt="Book5" class="Book">
-                <h1>500/=</h1>
-                <a href="./BookDetails.php"><button class="dts-btn">View Details</button></a>
-            </div> -->
         </div>
         
     </div>
-
+    
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
