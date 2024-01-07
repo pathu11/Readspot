@@ -1,0 +1,27 @@
+.body{
+   margin:40px; 
+}
+.form-container{
+    margin:70px;
+    
+    display: flex;
+
+    
+}
+.column{
+    padding:40px;
+    flex:1;
+    border-radius: 6px;
+    background-color:white;
+    margin:10px;
+}
+.new-address-form,
+       
+.default-address-form {
+    display: none;
+}
+.cardPayment-form,
+.COD-form,
+.onlineBanking-form {
+    display: none;
+}

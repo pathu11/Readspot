@@ -1,9 +1,6 @@
 <?php
-    $title = "Update Books";
-    
-    
+    $title = "Update Books";   
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +23,8 @@
                     <br>
                                    
                     <input type="text" name="book_name" class="<?php echo (!empty($data['book_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['book_name']; ?>" placeholder="Book Name" required><br>
-                    <span class="error"><?php echo $data['book_name_err']; ?></span>
-                               
-                                   
-                    <input type="text" name="ISBN_no" class="<?php echo (!empty($data['ISBN_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['ISBN_no']; ?>" placeholder="ISBN Number" required>
-                                              
+                    <span class="error"><?php echo $data['book_name_err']; ?></span>                                  
+                    <input type="text" name="ISBN_no" class="<?php echo (!empty($data['ISBN_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['ISBN_no']; ?>" placeholder="ISBN Number" required>                                              
                     <input type="text" name="author"  class="<?php echo (!empty($data['author_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['author']; ?>"placeholder="Author Name" required><br>
                     <span class="error"><?php echo $data['author_err']; ?></span>
                     <div class="table">

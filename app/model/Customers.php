@@ -4,6 +4,14 @@
     public function __construct(){
         $this->db = new Database;
     }
+    
+    public function findBookById($book_id){
+      $this->db->query('SELECT * from books WHERE book_id=:book_id ');
+      $this->db->bind(':book_id',$book_id);
+      return $this->db->resultSet();
+      // $row = $this->db->single();
+      // return $row;
+    }
 
 
     public function findCustomerById($user_id){
