@@ -6,7 +6,7 @@
     <div class="main-cont">
         <div class="sub-cont-N1">
             <div class="New-books">
-                <h1>NEW BOOKS</h2>
+                <h1>NEW BOOKS</h1>
             </div>
             <div class="search-bar-N">
                 <form action="#.php" class="searching-N">
