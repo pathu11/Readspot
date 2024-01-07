@@ -14,9 +14,9 @@
             <img id="logo" src=<?php echo URLROOT."/assets/images/charity/ReadSpot.png"?> alt="Logo">
         </div>
         <nav>
-            <a href="charity-home.html">Home</a>
+            <a href="index.html">Home</a>
             <a href="event-management.html" class="active">Event Management</a>
-            <a href="#" id="donorRequestLink">Donor Request</a>
+            <a href="#">Donor Request</a>
             <a href="#">Customer Support</a>
         </nav>
 

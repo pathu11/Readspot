@@ -461,7 +461,6 @@ dd {
 }
 
 
-
 .donation {
     background-image: url(../../images/charity/don.jpg);
 }
@@ -566,7 +565,7 @@ h3 {
 
 #contact-bar {
     position: absolute;
-    bottom: -49px;
+    bottom: -39px;
     left: 31%;
     transform: translateX(-50%);
     width: 500px;
