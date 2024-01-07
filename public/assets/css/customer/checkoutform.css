@@ -1,0 +1,152 @@
+.checkout-main {
+    top: 250px;
+    min-height: 325px;
+    margin: 90px 10px 10px 10px;
+    /* background-color: #CACACA; */
+    padding: 10px 290px 10px 290px;
+    border-radius: 10px;
+}
+
+.check-form {
+    background-color: white;
+    min-height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px;
+    gap:0.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.check-form-main {
+    /* background-color: yellow; */
+    min-height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    /* padding: 10px; */
+    gap:0.5rem;
+}
+
+.billing-address {
+    /* background-color: aqua; */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.payment {
+    /* background-color: aquamarine; */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    /* justify-content: center;
+    align-items: center; */
+    /* gap:1rem; */
+}
+
+.col-50 {
+    /* max-width: 130px; */
+    padding: 2px;
+}
+
+.billing-address input[type=text], .payment input[type=text] {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+  
+.billing-address label, .payment label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 2px;
+    /* padding:; */
+    font-size: 30px;
+}
+
+.btn-checkout {
+    width: 100%;
+    background-color: #14ee1f;
+    color: black;
+    padding: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    transition: .5s;
+}
+
+.btn-checkout:hover {
+    transform: scale(1.01);
+    background-color: wheat;
+    border: 3px solid #14ee1f;
+}
+
+
+@media screen and (max-width:1000px) {
+    .checkout-main {
+        padding: 10px 90px 10px 90px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .checkout-main {
+        padding: 10px 20px 10px 20px;
+    }
+
+    .billing-address input[type=text], .payment input[type=text] {
+        margin-bottom: 8px;
+        padding: 5px;
+    }
+      
+    .billing-address label, .payment label {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .billing-address h3, .payment h3 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:450px) {
+    /* .checkout-main {
+        padding: 10px 90px 10px 90px;
+    }
+
+    .billing-address input[type=text], .payment input[type=text] {
+        margin-bottom: 5px;
+        padding: 3px;
+    }
+      
+    .billing-address label, .payment label {
+        margin-bottom: 5px;
+        font-size: 8px;
+    }
+
+    .billing-address h3, .payment h3 {
+        font-size: 12px;
+    } */
+    .check-form-main{ 
+        flex-direction: column;
+    }
+    .billing-address, .payment {
+        width: 100%;
+    }
+}

@@ -147,34 +147,6 @@
     flex-direction: row;
 }
 
-.cart-vw-btn {
-    width: 150px;
-    height: 36px;
-    background-color: wheat;
-    border-color: black;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    color: black;
-    font-size: 1.1em;
-    font-weight: 500;
-    transition: .5s;
-    margin-left: 8px;
-    margin-right: 8px;
-}
-
-.cart-vw-btn:hover {
-    background: #fff;
-    color: black;
-    border: none;
-    transform: scale(1.1);
-}
-
-.cart-vw {
-    margin-top: 10px;
-    float: right;
-}
-
 .tb-cart2 {
     display: none;
 }

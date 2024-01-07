@@ -30,63 +30,63 @@
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                 </table>
                 <table border="1" class="tb-cart2">
@@ -94,38 +94,33 @@
                     <td>rs200.00 (per book)</td></tr>
                     <tr><td>3 (quantity)</td></tr>
                     <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
+                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
 
                     <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
                     <td>rs200.00 (per book)</td></tr>
                     <tr><td>3 (quantity)</td></tr>
                     <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
+                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
 
                     <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
                     <td>rs200.00 (per book)</td></tr>
                     <tr><td>3 (quantity)</td></tr>
                     <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
+                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
 
                     <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
                     <td>rs200.00 (per book)</td></tr>
                     <tr><td>3 (quantity)</td></tr>
                     <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
+                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
 
                     <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
                     <td>rs200.00 (per book)</td></tr>
                     <tr><td>3 (quantity)</td></tr>
                     <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="#" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
+                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
                 </table>
             </div>
-            <!-- <div class="vw">
-                <button class="vw-btn">Add a Content</button>
-            </div> -->
-            <!-- <br>
-            <br> -->
         </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed

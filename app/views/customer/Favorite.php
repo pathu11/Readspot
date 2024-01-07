@@ -70,11 +70,6 @@
                 </tr>
             </table>
             </div>
-            <div class="f-vw">
-                <a href="<?php echo URLROOT; ?>/customer/Addevnt"><button class="f-vw-btn">Add a Event</button></a> <!--path changed-->
-            </div>
-            <br>
-            <br>
         </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed

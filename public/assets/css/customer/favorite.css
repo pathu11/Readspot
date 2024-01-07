@@ -138,34 +138,6 @@
     flex-direction: row;
 }
 
-.f-vw-btn {
-    width: 150px;
-    height: 36px;
-    background-color: wheat;
-    border-color: black;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    color: black;
-    font-size: 1.1em;
-    font-weight: 500;
-    transition: .5s;
-    margin-left: 8px;
-    margin-right: 8px;
-}
-
-.f-vw-btn:hover {
-    background: #fff;
-    color: black;
-    border: none;
-    transform: scale(1.1);
-}
-
-.f-vw {
-    margin-top: 10px;
-    float: right;
-}
-
 @media screen and (max-width:600px) {
     .favorite-topic h2 {
         font-size: 18px;
@@ -198,12 +170,6 @@
     
     .f-vd .f-delete {
         font-size: 12px;
-    }
-
-    .f-vw-btn {
-        width: 120px;
-        height: 32px;
-        font-size: 0.9em;
     }
 }
 
@@ -254,11 +220,5 @@
 
     .myfavorite td:nth-child(2), .myfavorite th:nth-child(2) {
       display: none;
-    }
-
-    .f-vw-btn {
-        width: 100px;
-        height: 28px;
-        font-size: 0.7em;
     }
 }

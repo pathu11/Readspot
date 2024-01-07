@@ -9,8 +9,8 @@
         <div class="book-shelf">
             <div class="exchange-books">
                 <h2>Exchange Books</h2>
-                <form action="#.php" class="search">
-                    <input type="text" placeholder="Search.." name="mybook-search">
+                <form action="#.php" class="mybook-search">
+                    <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
                 </form>
                 <br>

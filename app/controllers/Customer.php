@@ -1116,4 +1116,19 @@ class Customer extends Controller {
             $this->view('customer/Favorite', $data);
         }
     }
+
+    public function checkoutform(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/checkoutform', $data);
+        }
+    }
 }
