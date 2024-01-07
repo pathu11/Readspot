@@ -6,7 +6,7 @@ class Charity extends Controller{
     }
     public function index(){
         
-        $this->view('charity/charity-home');
+        $this->view('charity/index');
     }
     public function event(){
         $this->view('charity/event-management');
