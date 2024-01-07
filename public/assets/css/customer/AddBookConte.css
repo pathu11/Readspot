@@ -44,6 +44,20 @@
     /* background-color:darksalmon; */
 }
 
+.upload-doc-content {
+    margin-bottom: 10px;
+    min-height: 120px;
+    width: 100%;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:1rem;
+    /* background-color:darksalmon; */
+}
+
 .book-cate {
     margin-bottom: 0px;
 }
@@ -124,10 +138,29 @@
         align-items: center;
         flex-direction: column;
     }
+
+    .upload-doc-content {
+        padding-left: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap:1rem;
+        /* background-color:darksalmon; */
+    }
+
     .img-cont, .pdf-cont {
         width: 100%;
         padding: 20px;
         margin: 0px;
+        /* background-color: chartreuse; */
+    }
+
+    .img-cont-content {
+        width: 100%;
+        padding: 20px;
+        margin: -20px;
         /* background-color: chartreuse; */
     }
 
@@ -153,8 +186,14 @@
         padding: 5px;
         margin-top: 5px;
         margin-left: 5px;
+    
     }
-
+    .upload-doc-content input[type="file"]{
+        background-color: white;
+        font-size: 12px;
+        max-width: 170px;
+    }
+    
     .label-topic {
         font-size: 12px;
     }
@@ -192,5 +231,34 @@
     .weight2 {
         padding-top: 0px;
         /* background-color: brown; */
+    }
+
+    .upload-doc-content {
+        padding-left: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap:0.5rem;
+        /* background-color:darksalmon; */
+    }
+}
+
+@media screen and (max-width:300px) {
+    .upload-doc-content {
+        padding-left: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap:0.5rem;
+        /* background-color:darksalmon; */
+    }
+    .upload-doc-content input[type="file"]{
+        background-color: white;
+        font-size: 10px;
+        max-width: 130px;
     }
 }
