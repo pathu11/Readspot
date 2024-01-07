@@ -5,21 +5,15 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require APPROOT . '\vendor\autoload.php';
-
-
 //Create an instance; passing `true` enables exceptions
 // $mail = new PHPMailer(true);
  class Admin extends Controller{
   private $adminModel;
-  
   private $userModel;
-
   private $db;
   public function __construct(){
       $this->adminModel=$this->model('Admins');
       $this->userModel=$this->model('User');
-     
-     
       $this->db = new Database();
 
   }
@@ -48,16 +42,30 @@ require APPROOT . '\vendor\autoload.php';
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else {
+
+        //checking filter get request and load the table
         if (isset($_GET['user_role'])) {
             $user_id = $_SESSION['user_id'];
             $adminDetails = $this->adminModel->findAdminById($user_id);
             $userRoleFilter = $_GET['user_role'];
         
             $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
+
+            $countModerators = $this->adminModel->countModerators(); 
+            $countDelivery = $this->adminModel->countDelivery(); 
+            $countCustomers = $this->adminModel->countCustomers (); 
+            $countPublishers = $this->adminModel->countPublishers(); 
+            $countCharity = $this->adminModel->countCharity();
+            
             $data = [
                 'adminDetails' => $adminDetails,
                 'adminName'=>$adminDetails[0]->name,
-                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole
+                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole,
+                'countModerators'=>$countModerators,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
   
             ];
             $this->view('admin/index', $data);
@@ -68,12 +76,23 @@ require APPROOT . '\vendor\autoload.php';
 
             $adminDetails = $this->adminModel->findAdminById($user_id); 
             $getPendingUserDetails = $this->adminModel->getPendingUsers();
+
+            
+            $countModerators = $this->adminModel->countModerators(); 
+            $countDelivery = $this->adminModel->countDelivery(); 
+            $countCustomers = $this->adminModel->countCustomers (); 
+            $countPublishers = $this->adminModel->countPublishers(); 
+            $countCharity = $this->adminModel->countCharity();
             
             $data = [
                 'adminDetails' => $adminDetails,
                 'adminName'=>$adminDetails[0]->name,
-                'pendingUserDetails'=>$getPendingUserDetails
-  
+                'pendingUserDetails'=>$getPendingUserDetails,
+                'countModerators'=>$countModerators,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
             ];
             $this->view('admin/index', $data);
         }
@@ -461,6 +480,74 @@ public function approveCharity($user_id){
     }
 }
 
+public function customers(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $customerDetails = $this->adminModel->getCustomerDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'customerDetails'=>$customerDetails,
+    ];
+    $this->view('admin/customers',$data);
+}
+
+public function publishers(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $publisherDetails = $this->adminModel->getPublisherDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'publisherDetails'=>$publisherDetails,
+    ];
+    $this->view('admin/publishers',$data);
+}
+
+public function charity(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $charityDetails = $this->adminModel->getCharityDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'charityDetails'=>$charityDetails,
+    ];
+    $this->view('admin/charity',$data);
+}
+
+public function livesearch(){
+    if(isset($_POST['input'])){
+        $input = $_POST['input'];
+        $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
+        $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
+        $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
+    }
+
+    $data = [
+        'customerSearchDetails'=>$customerSearchDetails,
+        'publisherSearchDetails'=>$publisherSearchDetails,
+        'charitySearchDetails'=>$charitySearchDetails
+    ];
+    
+    $this->view('admin/livesearch',$data);
+}
+
+public function orders(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $orderDetails = $this->adminModel->getOrderDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'orderDetails'=>$orderDetails,
+    ];
+    $this->view('admin/orders',$data);
+}
 
 }
 

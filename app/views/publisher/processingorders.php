@@ -19,6 +19,7 @@
 <?php   require APPROOT . '/views/publisher/subnav.php';?>
     <div class="div_table" style="width:90%">
     <p> Processing Orders >></p>
+    
         <table>
             <tr>
                 <th style="width:7%;background-color: #009D94;">Order ID</th>
@@ -26,8 +27,7 @@
                 <th style="width:7%;background-color: #009D94;">No of Items</th>
                 <th style="width:7%;background-color: #009D94;">Customer Details</th>
                 <th style="width:7%;background-color: #009D94;">Total Price(Rs)</th>
-                <th style="width:2%;background-color: #009D94;">Send to Delivery</th>
-                <th style="width:2%;background-color: #009D94;">Contact Customer</th>
+               
 
             </tr>
             <?php foreach($data['orderDetails'] as $orderDetails): ?>

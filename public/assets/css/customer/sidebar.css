@@ -1,0 +1,134 @@
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    background-color: #E0E0E0;
+    color: #707070;
+    width: 250px;
+    height: 700px;
+    padding: 20px;
+    margin-right: 0;
+    overflow-y: auto; /* Add this to make the sidebar content scrollable */
+}
+
+/* Menu section styles */
+.menu-section {
+    margin-top: 0px;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-list li {
+    margin-bottom: 5px;
+    /* border: bisque solid; */
+}
+
+.menu-list a {
+    text-decoration: none;
+    color: #707070;
+    font-size: 1em;
+    padding: 10px;
+    display: block;
+}
+
+.menu-list a:hover:not(.active) {
+    background-color: #70BFBA;
+    color: white;
+    border-radius: 15px;
+}
+
+.menu-list li.active {
+    background-color: #70BFBA; /* Change to the color you prefer */
+    color: white; /* Change to the color you prefer */
+    border-radius: 15px;
+}
+
+.mob-sidebar {
+    display: none;
+}
+
+@media screen and (max-width:800px) {
+    .sidebar {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .sidebar {
+        display: none;
+    }
+    .mob-sidebar{
+        display: block;
+        position: fixed;
+        background-color: whitesmoke;
+        width: 60px;
+        height: 700px;
+    
+        margin-right: 0;
+        overflow-y: auto; /* Add this to make the sidebar content scrollable */
+    }
+    .sidebar-img {
+        padding: 5px;
+        width: 50px;
+        height: 50px;
+        background-color: yellow;
+        border: 2px solid blue;
+    }
+    .mob-section {
+        padding-top: 5px;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .sidebar-img:hover{
+        padding: 5px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background-color: wheat;
+        border: 2px solid blue;
+        transform: scale(1.1);
+    }
+    .sidebar-img.active {
+        border: 2px solid red; /* You can customize the border color or any other style */
+        background-color: #007bff;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .mob-sidebar{
+        width: 50px;
+        height: 700px;
+    
+        margin-right: 0;
+        overflow-y: auto; /* Add this to make the sidebar content scrollable */
+    }
+    .sidebar-img {
+        padding: 4px;
+        width: 40px;
+        height: 40px;
+        background-color: yellow;
+        border: 2px solid blue;
+    }
+    .mob-section {
+        padding-top: 4px;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .sidebar-img:hover{
+        padding: 4px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        background-color: wheat;
+        border: 2px solid blue;
+        transform: scale(1.1);
+    }
+    .sidebar-img.active {
+        border: 2px solid red; /* You can customize the border color or any other style */
+        background-color: #007bff;
+    }
+}

@@ -20,7 +20,10 @@
 <body>
  
 <?php require APPROOT . '/views/admin/nav.php';?>
-<?php require APPROOT . '/views/admin/subnav.php';?>
+    <div class="nav-container2">
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Publishers</a>
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsCharity" class="active">Charity Organizations</a>  
+    </div>
     
     <div class="table-container" >
 
@@ -46,7 +49,6 @@
         <td><a href='<?php echo URLROOT; ?>/admin/approveCharity/<?php echo $charity->user_id; ?>'><button>Approve</button></a>
         <div class="popup"">
                     <button onclick="myFunction()">Reject</button>
-                </a>
                     <div class="popuptext" id="myPopup">
                     <p>Are you sure you want to  reject and delete this Customer?</p><br>
                     <a  class="button" href='#' ><button>Yes</button></a>

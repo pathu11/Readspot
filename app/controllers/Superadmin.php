@@ -10,10 +10,7 @@ class Superadmin extends Controller{
         $this->superadminModel=$this->model('Super_admin');
         // $this->adminModel=$this->model('Admins');
         $this->userModel=$this->model('User');
-       
-       
         $this->db = new Database();
-  
     }
     public function index(){
         if (!isLoggedIn()) {
@@ -96,9 +93,6 @@ class Superadmin extends Controller{
                     $data['confirm_pass_err']='password not matching';
                 }
             }
-
-            
-
             //make sure errors are empty
             if( empty($data['name_err']) && empty($data['email_err'])  &&empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
                 //validate
@@ -137,10 +131,7 @@ class Superadmin extends Controller{
 
             $this->view('superadmin/addAdmin',$data);
 
-        }
-        
-        
-       
+        }   
     }
     public function updateAdmin($user_id){
         if(!isLoggedIn()){
@@ -180,10 +171,7 @@ class Superadmin extends Controller{
                 if($existingAdmin ){
                     $data['email_err'] = 'Email is already taken'; 
                 }
-            
             }
-
-    
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
                 $data['pass_err'] = 'Password must be at least 6 characters'; 
@@ -204,13 +192,13 @@ class Superadmin extends Controller{
     
                 // update admin
                 if($this->superadminModel->updateAdmin($data) ){
-                    
+                    var_dump($data); 
                         flash('Successfully Updated');
                         redirect('superadmin/admins');
                    
                 }else{
                     echo 'Update Admin Failed';
-                    var_dump($data); 
+                    // var_dump($data); 
                     die();
                 }
             }else{
@@ -280,8 +268,6 @@ class Superadmin extends Controller{
                 }
             
             }
-
-    
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
                 $data['pass_err'] = 'Password must be at least 6 characters'; 
@@ -291,7 +277,6 @@ class Superadmin extends Controller{
             if(!empty($data['confirm_pass']) && $data['pass'] != $data['confirm_pass']){
                 $data['confirm_pass_err'] = 'Passwords do not match';
             }
-    
             // make sure errors are empty
             if(empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])){
                 // validate
@@ -336,7 +321,6 @@ class Superadmin extends Controller{
             }
         }
     }
-    
     public function updateDelivery($user_id){
         if(!isLoggedIn()){
             redirect('landing/login');
@@ -348,7 +332,6 @@ class Superadmin extends Controller{
             // init data
             $data = [
                 'user_id' => $user_id,
-                
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'pass' => trim($_POST['pass']),
@@ -358,8 +341,7 @@ class Superadmin extends Controller{
                 'pass_err' => '',
                 'confirm_pass_err' => '',
             ];
-    
-            // validate name
+            // validate name 
             if(empty($data['name'])){
                 $data['name_err'] = 'Please enter the name';      
             }
@@ -373,20 +355,15 @@ class Superadmin extends Controller{
                 if($existingDelivery ){
                     $data['email_err'] = 'Email is already taken'; 
                 }
-            
             }
-
-    
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
                 $data['pass_err'] = 'Password must be at least 6 characters'; 
             }
-    
             // validate confirm password
             if(!empty($data['confirm_pass']) && $data['pass'] != $data['confirm_pass']){
                 $data['confirm_pass_err'] = 'Passwords do not match';
             }
-    
             // make sure errors are empty
             if(empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])){
                 // validate
@@ -394,12 +371,13 @@ class Superadmin extends Controller{
                 if(!empty($data['pass'])){
                     $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
                 }
-    
-                
-                if($this->superadminModel->updateDelivery($data)){   
-                    flash('Successfully Updated');
-                    redirect('superadmin/delivery');
-                  
+                if($this->superadminModel->updateDelivery($data)){
+                    // if($this->superadminModel->updateUsers($data)){
+                        flash('Successfully Updated');
+                        redirect('superadmin/delivery');
+                    // }else{
+                    //     die('Something went wrong');
+                    // } 
                 }else{
                     die('Something went wrong');
                 }
@@ -431,8 +409,6 @@ class Superadmin extends Controller{
             }
         }
     }
-    
-
     public function addModerator(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -540,14 +516,10 @@ class Superadmin extends Controller{
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
                 'superadminEmail'=>$superadminDetails[0]->email,
-                
-               
-
             ];
             $this->view('superadmin/admins', $data);
         }
     }
-
     public function moderators(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -561,14 +533,10 @@ class Superadmin extends Controller{
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
                 'superadminEmail'=>$superadminDetails[0]->email,
-                
-               
-
             ];
             $this->view('superadmin/moderators', $data);
         }
     }
-
     public function addDelivery(){
         if (!isLoggedIn()) {
             redirect('landing/login');

@@ -16,6 +16,7 @@ class Landing extends Controller{
 
     private $deliveryModel;
     private $superadminModel;
+    private $moderatorModel;
 
 
     private $db;
@@ -29,6 +30,8 @@ class Landing extends Controller{
         $this->customerModel=$this->model('Customers');
 
         $this->superadminModel=$this->model('Super_admin');
+
+        $this->moderatorModel=$this->model('Moderators');
 
         $this->db = new Database();
        
@@ -501,6 +504,22 @@ class Landing extends Controller{
 
         }   
     }
+    // public  function generateUniqueToken($length = 32)
+    // {
+    //     // Generate random bytes using openssl_random_pseudo_bytes
+    //     $randomBytes = openssl_random_pseudo_bytes($length / 2);
+
+    //     // Convert to hexadecimal
+    //     $token = bin2hex($randomBytes);
+
+    //     return $token;
+    // }
+
+    // public function setRememberMeCookie($token)
+    // {
+    //     // Set a cookie with the unique token
+    //     setcookie('userToken', $token, time() + 30 * 24 * 60 * 60); // 30 days expiration
+    // }
     public function login(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
@@ -510,6 +529,7 @@ class Landing extends Controller{
                 
                 'email'=>trim($_POST['email']),
                 'pass'=>trim($_POST['pass']),
+                'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 
                 'email_err'=>'',
                 'pass_err'=>'',
 
@@ -537,7 +557,10 @@ class Landing extends Controller{
                 $loggedInUser=$this->userModel->login($data['email'],$data['pass']);
 
                 if($loggedInUser){
-                    
+                    if ($data['remember_me']) {
+                        $uniqueToken = $this->generateUniqueToken();
+                        $this->setRememberMeCookie($uniqueToken);
+                    }
                     $this->createUserSession($loggedInUser);
                 }else{
                     $data['pass_err']='Password incorrect';
@@ -551,6 +574,7 @@ class Landing extends Controller{
             $data=[
                 'email'=>'',
                 'pass'=>'',
+                'remember_me'=>'',
                 'email_err'=>'',
                 'pass_err'=>'',
             ];
@@ -854,6 +878,18 @@ class Landing extends Controller{
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('superadmin/index');
         
+        }elseif ($user->user_role == 'moderator') {
+            // $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
+            // $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
+            // $publisher=$this->userModel->findUserByPubId(user_id);           
+            redirect('moderator/index');
+        
+        }
+
+        elseif ($user->user_role == 'moderator'){
+            $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
+            $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
+            redirect('moderator/index');
         }
     
     }
