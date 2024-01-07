@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td>Lorem ipsum dolor sit amet</td>
-                    <td>Used</td>
+                    <td>Content</td>
                     <td><div class="f-vd"><a href="#" class="f-view">View</a><a href="#" class="f-delete">Remove</a></div></td>
                 </tr>
                 <tr>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <td>Lorem ipsum dolor sit amet</td>
-                    <td>Used</td>
+                    <td>Content</td>
                     <td><div class="f-vd"><a href="#" class="f-view">View</a><a href="#" class="f-delete">Remove</a></div></td>
                 </tr>
                 <tr>

@@ -11,10 +11,10 @@
                 <h2>Notification</h2>
             </div>
             <div class="notification-main">
-            <form action="#.php" class="notify-search" autocomplete="off">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-            </form>
+                <form action="#.php" class="notify-search" autocomplete="off">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
+                </form>
             <br>
             <br>
             <div class="notification">

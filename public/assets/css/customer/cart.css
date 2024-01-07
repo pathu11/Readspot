@@ -1,6 +1,6 @@
 .my-cart {
     padding: 20px;
-    background-color: #CACACA;
+    background-color:  #E3F2FD;
     right: 0px;
 }
 
@@ -19,6 +19,7 @@
     border-collapse: collapse;
     border: 2px solid #333;
     margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .mycart th, .mycart td {
@@ -182,7 +183,7 @@
     }
 
     .cart-search input[type=text] {
-        background-color: black;
+        /* background-color: black; */
         font-size: 12px;
     }
     
@@ -223,7 +224,7 @@
     }
 
     .cart-search input[type=text] {
-        background-color: black;
+        /* background-color: black; */
         font-size: 8px;
     }
     
