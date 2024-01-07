@@ -68,6 +68,7 @@ class Customer extends Controller {
         $merchant_id="1225428";
         $order_id=79;
         $merchant_secret="MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA==";
+        $currency="LKR";
         $hash = strtoupper(
             md5(
                 $merchant_id . 
@@ -77,9 +78,15 @@ class Customer extends Controller {
                 strtoupper(md5($merchant_secret)) 
             ) 
         );
-        echo $hash;
-        $array=[];
         
+        $array=[];
+        $array["amount"]=$amount;
+        $array["merchant_id"]=$merchant_id;
+        $array["currency "]=$currency ;
+        $array["hash "]=$hash ;
+        $array["merchant_secret"]=$merchant_secret;
+        $jsonObj=json_encode($array);
+        echo $jsonObj;
         // $this->view('customer/payhereProcess');
     }
     public function purchase($book_id) {

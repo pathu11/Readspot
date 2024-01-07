@@ -98,17 +98,47 @@
     <div class="column">
         <div class="upperCol">
             <?php foreach($data['bookDetails'] as $books): ?>
-            <h1>Order Details</h1>
+            <h1>Your Order</h1>
+            <div class="order">
+                <div class="col1">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Bell Image" width="180px">
+                </div>
+                <div class="col2">
+                    <div class="cost">
+                        <div>
+                            <h2><?php echo $books->book_name; ?></h2>
+                            <p><em><?php echo $books->quantity; ?> books  in stock</em></p>
+                            <p><em><?php echo $books->weight; ?>g per book</em></p>
+
+                        </div>
+                        <div>
+                            
+                            <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)">
+                        </div> 
+                           
+                          
+                    </div><br><br><br>
+                    <hr color="black" size="3" width="100%"> <br> 
+                    <div class="cost">
+                        <div class="subcost">
+                            <p>Subtotal</p>
+                            <p>Delivery Fee</p>
+                            <p>Total</P>
+                        </div>
+                        <div  class="subcost2">
+                            <p><span id="totalPrice"><?php echo $books->price; ?></span></p>
+                            <p><span id="deliveryCharge"><?php echo $books->price; ?></span></p>
+                            <p><span id="totalCost"><?php echo $books->price; ?></span></p>
+
+                        </div> 
+                        
+                    </div>
+                </div>
+            </div>
             
-            <p><?php echo $books->book_name; ?></p>
-            <p><?php echo $books->quantity; ?> available</p>
-            <p><?php echo $books->weight; ?>weight</p>
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" placeholder="Enter quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)">
             
-            <p>Price: Rs.<span id="totalPrice"><?php echo $books->price; ?></span></p>
-            <p>Delivery Free: Rs.<span id="deliveryCharge"><?php echo $books->price; ?></span></p>
-            <p>Total Cost: Rs.<span id="totalCost"><?php echo $books->price; ?></span></p>
+           
+            
         <?php endforeach; ?>
         </div>   
         <div class="upperCol">
@@ -117,36 +147,42 @@
                     <input type="radio" name="paymentType" value="cardPayment">
                         Card Payment
                 </label>
+                <div class="cardPayment-form">
+                    
+                   <button onClick="paymentGateway();">Pay here</button>
+                   <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+                   <!-- <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script> -->
+                </div>
                 <br><br>
                 <label>
                     <input type="radio" name="paymentType" value="OnlineDeposit">
                         Online Deposit
-                </label><br><br>
+                </label>
+                <div class="onlineBanking-form">
+                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+
+                        Bank Name: Hatton National Bank - Hulftsdorp Branch
+                        Acc. Name: M.D. Gunasena & Co. (Pvt.) Ltd.
+                        Acc. No: 063010004901
+                        BIC/Swift: HBLILKLX</p>
+                        <span>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
+                        <label>submit your bank recipt after the payment</label>
+                        <input type="file" name="recipt">
+                        <button type="submit" >place Order</button>
+                </div>
+                <br><br>
                 <label>
                     <input type="radio" name="paymentType" value="COD">
                         Cash On Delivery
                 </label>
-                <div class="cardPayment-form">
-                   <button onClick="paymentGateway();">Pay here</button>
-                   <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
-                </div>
-                <div class="onlineBanking-form">
-                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-
-                    Bank Name: Hatton National Bank - Hulftsdorp Branch
-                    Acc. Name: M.D. Gunasena & Co. (Pvt.) Ltd.
-                    Acc. No: 063010004901
-                    BIC/Swift: HBLILKLX</p>
-                    <span>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
-                    <label>submit your bank recipt after the payment</label>
-                    <input type="file" name="recipt">
+                <div class="COD-form">
+                    <p>Pay with cash upon delivery. (We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.)
+                    </p>
                     <button type="submit" >place Order</button>
                 </div>
-                <div class="COD-form">
-                <p>Pay with cash upon delivery. (We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.)
-                </p>
-                <button type="submit" >place Order</button>
-                </div>
+                
+                
+               
 
         </div>                                   
         
@@ -160,16 +196,20 @@
 function paymentGateway(){
     var xhttp =new XMLHttpRequest();
     xhttp.onreadystatechange=()=>{
+        console.log(xhttp.readyState);
+        console.log(xhttp.status);
         if(xhttp.readyState==4 && xhttp.status ==200){
             alert(xhttp.responseText);
+            console.log(xhttp.responseText);
+            var obj=JSON.parse(xhttp.responseText);
             payhere.onCompleted = function onCompleted(orderId) {
-                console.log("Payment completed. OrderID:" + orderId);
-                // Note: validate the payment and show success or failure page to the customer
+                console.log("Payment completed. OrderID:" + obj["order_id"]);
+                
             };
 
             // Payment window closed
             payhere.onDismissed = function onDismissed() {
-                // Note: Prompt user to pay again or show an error page
+              
                 console.log("Payment dismissed");
             };
 
@@ -187,11 +227,11 @@ function paymentGateway(){
                 "cancel_url": "http:localhost/Readspot/customer/purchase/79",   
                 
                 "notify_url": "http://sample.com/notify",
-                "order_id": "ItemNo12345",
+                "order_id": obj["order_id"],
                 "items": "Door bell wireles",
-                "amount": "1000.00",
-                "currency": "LKR",
-                "hash": "45D3CBA93E9F2189BD630ADFE19AA6DC", // *Replace with generated hash retrieved from backend
+                "amount": obj["amount"],
+                "currency":obj["currency"],
+                "hash": obj["hash"], // *Replace with generated hash retrieved from backend
                 "first_name": "Saman",
                 "last_name": "Perera",
                 "email": "samanp@gmail.com",
@@ -205,21 +245,12 @@ function paymentGateway(){
                 "custom_1": "",
                 "custom_2": ""
             };
-
-            // Show the payhere.js popup, when "PayHere Pay" is clicked
-            document.getElementById('payhere-payment').onclick = function (e) {
-                payhere.startPayment(payment);
-            };
             payhere.startPayment(payment);
-                }
-    }
+        }
+    };
     xhttp.open("GET","<?php echo URLROOT; ?>/customer/payhereProcess",true);
     xhttp.send();
 }
-
-
-
-
     var cardPaymentForm = document.querySelector('.cardPayment-form');
     var onlineBankingForm = document.querySelector('.onlineBanking-form');
     var codForm = document.querySelector('.COD-form');
@@ -260,7 +291,7 @@ function paymentGateway(){
                 defaultAddressForm.style.display = 'block';
             } else {
                 newAddressForm.style.display = 'none';
-                defaultAddressForm.style.display = 'none';
+                defaultAddressForm.style.display = 'block';
             }
         });
     });
