@@ -135,10 +135,6 @@
     border-radius: 10px;
 }
 
-.Book-E:hover {
-    display: none;
-}
-
 .B0-E:hover .Book-E {
     display: none;
 }

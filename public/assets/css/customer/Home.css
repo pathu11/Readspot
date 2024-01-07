@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+body{
+	background-color: #D2EAE9;
+}
+
+/* Style for the hero section */
+.hero-div-M {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.content-div-M {
+    background-color: transparent;
+    margin-top: 200px;
+    margin-left: 10px;
+    /* background-color: #009D94; */
+}
+
+.content-div-M h2 {
+    font-size: 100px;
+    text-align: center;
+    height: fit-content;
+    color: #525252;
+    /* background-color: aqua; */
+    margin-top: -20px;
+}
+
+.content-div-M h3 {
+    margin-top: 20px;
+    font-size: 50px;
+    text-align: center;
+    color: #525252;
+    /* background-color: aquamarine; */
+}
+
+.content-div-M p {
+    /* background-color: azure; */
+    font-size: 20px;
+    text-align: center;
+    color: #525252;
+}
+
+.our_ser-div-M h3 {
+    margin: 0px 50px 0px 50px;
+    font-size: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.our_ser-div-M h3 span {
+    background-color: #066761;
+    padding: 15px 15px;
+    border-radius: 25px;
+}
+
+.our_ser-div-M h3:before, .our_ser-div-M h3:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 5px solid #009D94;
+    margin: auto;
+}
+
+/* Style for the Services Section */
+.services-div-M {
+    /* background-color: #066761; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 50px;
+    margin: 50px 150px 50px 150px;
+    border-radius: 15px;
+    box-shadow: 0 0 8px rgba(30, 98, 94, 0.7);
+}
+
+/* Style for each section */
+.service-div-M {
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    border-radius: 20px;
+    color: black;
+    font-weight: 600;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px;
+    width: 220px;
+    height: 300px;
+}
+
+.service-div-M img {
+    width: 200px;
+    height: 250px;
+    opacity: 0.7;
+}
+
+.service-div-M p {
+    padding-top: 20px;
+    text-align: justify;
+    font-size: 12px;
+    display: none;
+    font-weight: 300;
+}
+
+.service-div-M:hover {
+    transform: scale(1.1);
+    transition: transform .5s;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.service-div-M:hover .Sev1{
+    display: none;
+}
+
+.service-div-M:hover p {
+    display: block;
+}
+
+
+@media screen and (max-width:600px) { 
+    .our_ser-div-M h3 {
+        margin: 0px 30px 0px 30px;
+        font-size: 20px;
+        padding: 8px;
+    }
+    
+    .our_ser-div-M h3 span {
+        background-color: #066761;
+        padding: 10px 10px;
+        border-radius: 20px;
+    }
+    
+    .our_ser-div-M h3:before, .our_ser-div-M h3:after {
+        border-bottom: 4px solid #009D94;
+    }
+
+    .services-div-M {
+        gap: 0.5rem;
+        padding: 25px;
+        margin: 30px;
+    }
+
+    .service-div-M {
+        padding: 10px;
+        width: 170px;
+        height: 250px;
+    }
+
+    .service-div-M img {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .service-div-M p {
+        padding-top: 15px;
+        font-size: 8px;
+        font-weight: 300;
+    }
+
+    .service-div-M h3 {
+        font-size: 16px;
+    }
+}
+
+
+@media screen and (max-width:400px) { 
+    .our_ser-div-M h3 {
+        margin: 0px 10px 0px 10px;
+        font-size: 15px;
+        padding: 5px;
+    }
+    
+    .our_ser-div-M h3 span {
+        background-color: #066761;
+        padding: 7px 7px;
+        border-radius: 15px;
+    }
+    
+    .our_ser-div-M h3:before, .our_ser-div-M h3:after {
+        border-bottom: 3px solid #009D94;
+    }
+
+    .services-div-M {
+        gap: 0.3rem;
+        padding: 15px;
+        margin: 20px;
+    }
+
+    .service-div-M {
+        padding: 8px;
+        width: 120px;
+        height: 160px;
+    }
+
+    .service-div-M img {
+        width: 100px;
+        height: 130px;
+    }
+    
+    .service-div-M p {
+        padding-top: 10px;
+        font-size: 6px;
+        font-weight: 300;
+    }
+
+    .service-div-M h3 {
+        font-size: 10px;
+    }
+}
