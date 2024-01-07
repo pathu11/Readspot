@@ -1,9 +1,6 @@
 <?php
-    $title = "Update Books";
-    
-    
+    $title = "Update Books";   
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,16 +18,13 @@
              <!-- <h2>Enter the Details of the Book</h2> -->
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form action="<?php echo URLROOT; ?>/publisher/update/<?php echo $data['book_id'];?>" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/update/<?php echo $data['book_id'];?>"  enctype="multipart/form-data" method="POST">                    
                     <br>
                     <br>
                                    
                     <input type="text" name="book_name" class="<?php echo (!empty($data['book_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['book_name']; ?>" placeholder="Book Name" required><br>
-                    <span class="error"><?php echo $data['book_name_err']; ?></span>
-                               
-                                   
-                    <input type="text" name="ISBN_no" class="<?php echo (!empty($data['ISBN_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['ISBN_no']; ?>" placeholder="ISBN Number" required>
-                                              
+                    <span class="error"><?php echo $data['book_name_err']; ?></span>                                  
+                    <input type="text" name="ISBN_no" class="<?php echo (!empty($data['ISBN_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['ISBN_no']; ?>" placeholder="ISBN Number" required>                                              
                     <input type="text" name="author"  class="<?php echo (!empty($data['author_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['author']; ?>"placeholder="Author Name" required><br>
                     <span class="error"><?php echo $data['author_err']; ?></span>
                     <div class="table">
@@ -80,7 +74,8 @@
 
                         </div>
                     </div> 
-                    <br>       
+                    <br> 
+                    <button class="submit" onclick="goBack()">Back</button>      
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
 
                 </form>
@@ -92,5 +87,11 @@
    
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

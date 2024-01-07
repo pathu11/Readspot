@@ -120,6 +120,17 @@ body {
     background-color: gray;
     color: white;
   }
+
+  .go-back-link{
+    text-decoration: none;
+    color:#009D94;
+    margin-left: 100px;
+  }
+  .go-back-link:hover{
+    text-decoration: none;
+    color:#09514C;
+    margin-left: 100px;
+  }
   
   /* Media query for responsiveness */
   @media only screen and (max-width: 768px) {

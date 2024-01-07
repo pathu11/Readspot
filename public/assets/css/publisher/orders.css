@@ -34,7 +34,16 @@ tr:hover {
     background-color: gray;
     color:black;
 }
-
+.go-back-link{
+    text-decoration: none;
+    color:#009D94;
+    margin-left: 100px;
+  }
+  .go-back-link:hover{
+    text-decoration: none;
+    color:#09514C;
+    margin-left: 100px;
+  }
 @media only screen and (max-width: 768px) {
     .div_table {
         margin-left: 0;

@@ -95,5 +95,12 @@
   </script>
   <script src="<?php echo URLROOT;?>/assets/js/superadmin/chart2.js"></script>
 </body>
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>
 

@@ -4,7 +4,12 @@
     public function __construct(){
         $this->db = new Database;
     }
-
+    public function finddeliveryCharge(){
+        $this->db->query('SELECT priceperkilo, priceperadditional FROM delivery LIMIT 1');
+        $row = $this->db->single();
+        return $row;
+    }
+    
 
     public function findDeliveryById($user_id){
         $this->db->query('SELECT * from delivery WHERE user_id=:user_id');

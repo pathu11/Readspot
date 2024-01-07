@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
+
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/stores.css" />
+
   <title>Events</title>
 </head>
 <body>
@@ -68,4 +70,11 @@
   
 
 </body>
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

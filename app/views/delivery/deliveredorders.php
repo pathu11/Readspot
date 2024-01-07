@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/orders.css">
 
     <title>Delivered orders</title>
-
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </head>
 
 <body>
     <?php require APPROOT . '/views/delivery/sidebar.php';?>
-
+    <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
     <?php require APPROOT . '/views/delivery/subnav.php';?>
     <div class="div_table" style="width:90%">
     <p> Delivered Orders >></p>

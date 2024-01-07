@@ -1,6 +1,7 @@
 <?php 
 class Customer extends Controller {
     private $customerModel;
+    private $deliveryModel;
   
     private $userModel;
   
@@ -10,6 +11,7 @@ class Customer extends Controller {
             redirect('landing/login');
         }
         $this->customerModel=$this->model('Customers');
+        $this->deliveryModel=$this->model('Deliver');
         $this->userModel=$this->model('User');  
         $this->db = new Database();
     }
@@ -61,9 +63,134 @@ class Customer extends Controller {
         $comments = $this->customerModel->getComments();
         echo json_encode($comments);
     }
+    public function payhereProcess(){
+        $amount=3000;
+        $merchant_id="1225428";
+        $order_id=79;
+        $merchant_secret="MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA==";
+        $currency="LKR";
+        $hash = strtoupper(
+            md5(
+                $merchant_id . 
+                $order_id . 
+                number_format($amount, 2, '.', '') . 
+                $currency .  
+                strtoupper(md5($merchant_secret)) 
+            ) 
+        );
+        
+        $array=[];
+        $array["amount"]=$amount;
+        $array["merchant_id"]=$merchant_id;
+        $array["currency "]=$currency ;
+        $array["hash "]=$hash ;
+        $array["merchant_secret"]=$merchant_secret;
+        $jsonObj=json_encode($array);
+        echo $jsonObj;
+        // $this->view('customer/payhereProcess');
+    }
+    public function purchase($book_id) {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $bookDetails=$this->customerModel->findBookById($book_id);
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                
+                $formType = $_POST['form_type'];
+                if ($formType === 'new_address') {
+                   if()
+                    $this->handlenew_addressForm($book_id);
+                } elseif ($formType === 'default_address') {
+                    
+                    $this->handledefault_addressForm($book_id);
+                }
+            } else {
+                // Your existing code for displaying the form
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                        
+                $data = [
+                    'deliveryDetails'=>$deliveryDetails,
+                    'bookDetails'=>$bookDetails,
+                    'book_id'=>$book_id,
+                    'postal_name' => $customerDetails[0]->postal_name,
+                    'street_name' => $customerDetails[0]->street_name,
+                    'town' => $customerDetails[0]->town,
+                    'district' => $customerDetails[0]->district,
+                    'postal_code' => $customerDetails[0]->postal_code,
 
-    
 
+                    'postal_name_err'=>'',
+                    'street_name_err'=>'',
+                    'town_err'=>'',
+                    'district_err'=>'',
+                    'postal_code_err'=>'',
+                    'customerDetails' => $customerDetails,
+                    'customerName' => $customerDetails[0]->name
+                ];
+                // print_r($data);
+            $this->view('customer/purchase', $data);
+        }
+    }
+}
+
+private function handledefault_addressForm($book_id) {
+        
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    $data = [
+        // 'book_id'=>$book_id,
+        'publisher_id' => $publisher_id,
+        'postal_name' => trim($_POST['postal_name']),
+        'street_name' => trim($_POST['street_name']),
+        'town' => trim($_POST['town']),
+        'district' => trim($_POST['district']),
+        'postal_code' => trim($_POST['postal_code']),
+        'postal_name_err' => '',
+        'street_name_err' => '',
+        'town_err' => '',
+        'district_err' => '',
+        'postal_code_err' => '',
+    ];
+       
+        //validate book name
+        if(empty($data['postal_name'])){
+            $data['postal_name_err']='Please enter the  name';      
+        }
+        //validate ISBN
+        if(empty($data['street_name'])){
+            $data['street_name_err']='Please enter street name';      
+        }
+        //validate password
+        if(empty($data['town'])){
+            $data['town_err']='Please enter the town';      
+        }
+
+        
+         if(empty($data['district'])){
+            $data['district_err']='Please select the district';      
+        }
+        if(empty($data['postal_code'])){
+            $data['postal_code_err']='Please enter the postal code';      
+        }
+       
+
+        //make sure errors are empty
+        if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){                   
+            // if( $this->customerModel->editpostalInOrders($data)){
+            //     flash('update_success','You are added the book  successfully');
+            //     redirect('customer/purchase/'.$book_id);
+            // }else{
+            //     die('Something went wrong');
+            // }
+
+        }else{
+                $this->view('customer/purchase',$data);
+            }
+
+}
     public function Home(){
         if (!isLoggedIn()) {
             redirect('landing/login');

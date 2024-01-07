@@ -31,7 +31,7 @@
                     <span class="error"><?php echo $data['message_err']; ?></span>
                     <input type="hidden" id="receiverId" name="receiver_id" value="<?php echo isset($_GET['receiver_id']) ? $_GET['receiver_id'] : ''; ?>">
                     <input type="hidden" id="parentId" name="parent_id" value="<?php echo isset($_GET['parent_id']) ? $_GET['parent_id'] : ''; ?>">
-
+                    <button class="submit" type="button" onclick="goBack()">Back</button>
                     <button type="submit" class="submit">Send Message</button>
                 </form>
             </div>
@@ -59,6 +59,12 @@
         });
     });
 </script>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </body>
 </html>

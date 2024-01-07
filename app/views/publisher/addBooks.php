@@ -38,7 +38,6 @@
                         <div class="table1">
                             <select class="select <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['category']; ?>" name="category" required>
                                 <option value="" selected disabled>Select Book Category</option>
-                               
                                 <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
                                     <option><?php echo $bookCategoryDetails->category; ?></option>
                                 <?php endforeach; ?>
@@ -71,9 +70,10 @@
                     <br>
                     <div>  <input type="checkbox" required><span style="font-size:15px;">  I confirm that this book is original, free from copyright issues, and not printed through unauthorized channels. I commit to promptly addressing any copyright concerns and respect intellectual property rights.</span>
                 </div>
-                    <br>       
+                    <br>   
+                    <button onclick="goBack()" class="submit">  Back </button>     
                     <input type="submit" value="Next" name="submit" class="submit">
-
+                                
 
                 </form>
             </div>
@@ -84,5 +84,11 @@
    
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>
