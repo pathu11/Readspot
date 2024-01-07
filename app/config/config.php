@@ -9,9 +9,7 @@ define('DB_NAME','readspots');
 // 
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
-
 define('URLROOT','http://localhost/Readspot');
-
 define('SITENAME','Readspot');
 define('APPVERSION','1.0.0');
 
