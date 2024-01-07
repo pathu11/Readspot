@@ -8,7 +8,7 @@
                 <li data-page="Bookshelf"><a href="<?php echo URLROOT; ?>/customer/Bookshelf">Bookshelf</a></li>
                 <li data-page="Content"><a href="<?php echo URLROOT; ?>/customer/Content">Content</a></li>
                 <li data-page="Event"><a href="<?php echo URLROOT; ?>/customer/Event">Event</a></li>
-                <li data-page="Favorite"><a href="<?php echo URLROOT; ?>/customer/MyFavoriteBooks">Favorite</a></li>
+                <li data-page="Favorite"><a href="<?php echo URLROOT; ?>/customer/Favorite">Favorite</a></li>
                 <li data-page="Cart"><a href="<?php echo URLROOT; ?>/customer/Cart">Cart</a></li>
                 <li data-page="Logout"><a href="<?php echo URLROOT; ?>/landing/logout">Logout</a></li>
             </ul>
@@ -24,7 +24,7 @@
         <a href="<?php echo URLROOT; ?>/customer/Bookshelf" class="sidebar-link" data-page="Bookshelf"><img src="<?php echo URLROOT; ?>/assets/images/customer/bookshelf.png" alt="logo" class="sidebar-img"></a>
         <a href="<?php echo URLROOT; ?>/customer/Content" class="sidebar-link" data-page="Content"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycontent.png" alt="logo" class="sidebar-img"></a>
         <a href="<?php echo URLROOT; ?>/customer/Event" class="sidebar-link" data-page="Event"><img src="<?php echo URLROOT; ?>/assets/images/customer/myevent.png" alt="logo" class="sidebar-img"></a>
-        <a href="<?php echo URLROOT; ?>/customer/MyFavoriteBooks" class="sidebar-link" data-page="Logout"><img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="logo" class="sidebar-img"></a>
+        <a href="<?php echo URLROOT; ?>/customer/Favorite" class="sidebar-link" data-page="Favorite"><img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="logo" class="sidebar-img"></a>
         <a href="<?php echo URLROOT; ?>/customer/Cart" class="sidebar-link" data-page="Cart"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="logo" class="sidebar-img"></a>
         <a href="<?php echo URLROOT; ?>/customer/logout" class="sidebar-link" data-page="Logout"><img src="<?php echo URLROOT; ?>/assets/images/customer/logout.png" alt="logo" class="sidebar-img"></a>
         </div>

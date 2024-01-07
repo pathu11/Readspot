@@ -93,7 +93,7 @@
         transform: scale(1.1);
     }
     .sidebar-img.active {
-        border: 2px solid white /* You can customize the border color or any other style */
+        border: 2px solid white; /* You can customize the border color or any other style */
         background-color: #70BFBA;
     }
 }

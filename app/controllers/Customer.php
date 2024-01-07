@@ -1102,7 +1102,7 @@ class Customer extends Controller {
         }
     }
 
-    public function MyFavoriteBooks(){
+    public function Favorite(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
@@ -1113,7 +1113,7 @@ class Customer extends Controller {
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name
             ];
-            $this->view('customer/MyFavoriteBooks', $data);
+            $this->view('customer/Favorite', $data);
         }
     }
 }
