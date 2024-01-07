@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addbooks.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addEvent.css" />
 
   <title>Add Event</title>
 </head>
 <body>
   <?php require APPROOT.'/views/publisher/sidebar.php';?>
   <div class="form-container">
+    <div class="bg">
+      <img src="<?php echo URLROOT;?>/assets/images/publisher/event.jpg">
+    </div>
     <div class="form1">
       <h2>Enter the details of the event</h2>
       <form action="<?php echo URLROOT;?>/publisher/addEvent" enctype="multipart/form-data" method="post">
@@ -35,13 +38,16 @@
             <option><?php echo $event->event; ?></option>
           <?php endforeach; ?>
       </select>
-      <br><br><label>Enter Your event poster with all details to display in our site</label>
-      <div><input type="file" id="pdfUpload1" name="poster" required></div>
+      <label>Enter Your event poster with all details to display in our site</label>
+      <input type="file" id="pdfUpload1" name="poster" required>
       <br>
       <button type="submit" class="submit">Request</button>
     
       </form>
     </div>
+    <!--div class="bg">
+      <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
+    </div-->
   </div>
   
 </body>
