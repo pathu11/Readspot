@@ -14,7 +14,7 @@
                 Use default Address
         </label>
         <div class="default-address-form">
-            <form> 
+            <form method="POST" action="<?php echo URLROOT; ?>/customer/purchase/<?php echo $data['book_id']; ?>"> 
                 <input type="hidden" name="form_type" value="default_address">  
                 <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder="Name" readonly><br>
                 <span class="error"><?php echo $data['postal_name_err']; ?></span>
@@ -38,8 +38,8 @@
 
                 <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>" placeholder="Postal Code" readonly><br>
                 <span class="error"><?php echo $data['postal_code_err']; ?></span>
-                <button class="submit" type="button" onclick="goBack()">Back</button>
-                <input type="submit" value="Next" name="submit" class="submit">
+                <!-- <button class="submit" type="button" onclick="goBack()">Back</button> -->
+                <!-- <input type="submit" value="Next" name="submit" class="submit"> -->
             </form>
      </div>
         <br><br>
@@ -49,14 +49,14 @@
         </label>
         
      <div class="new-address-form">
-            <form> 
+            <form method="POST" action="<?php echo URLROOT; ?>/customer/purchase/<?php echo $data['book_id']; ?>"> 
                 <input type="hidden" name="form_type" value="new_address">  
-                <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Name" readonly><br>
+                <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Name"><br>
                 <span class="error"><?php echo $data['postal_name_err']; ?></span>
 
-                <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Street Name" readonly>
+                <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Street Name" >
 
-                <input type="text" name="town" class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>"  placeholder="City" readonly><br>
+                <input type="text" name="town" class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>"  placeholder="City" ><br>
                 <span class="error"><?php echo $data['town_err']; ?></span>
 
                 <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>" name="district" required>                               
@@ -88,10 +88,10 @@
                                 <option value="Vavuniya">Vavuniya</option>
                 </select>
                 <span class="error"><?php echo $data['district_err']; ?></span>
-                <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Postal Code" readonly><br>
+                <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Postal Code" ><br>
                 <span class="error"><?php echo $data['postal_code_err']; ?></span>
-                <button class="submit" type="button" onclick="goBack()">Back</button>
-                <input type="submit" value="Next" name="submit" class="submit">
+                <!-- <button class="submit" type="button" onclick="goBack()">Back</button> -->
+                <!-- <input type="submit" value="Next" name="submit" class="submit"> -->
             </form>
         </div>       
     </div>
@@ -111,10 +111,15 @@
                             <p><em><?php echo $books->weight; ?>g per book</em></p>
 
                         </div>
+                    <form method="POST" action="<?php echo URLROOT; ?>customer/purchase/<?php echo $data['book_id']; ?>">
                         <div>
-                            
+                            <input type="hidden" name="form_type" value="combined_form">
                             <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)">
+                            <input  type="number" id="totalCostInput" hidden>
+                            <input type="submit" value="Place Order" name="submit" class="submit">
+
                         </div> 
+                    </form>
                            
                           
                     </div><br><br><br>
@@ -127,12 +132,13 @@
                         </div>
                         <div  class="subcost2">
                             <p><span id="totalPrice"><?php echo $books->price; ?></span></p>
-                            <p><span id="deliveryCharge"><?php echo $books->price; ?></span></p>
-                            <p><span id="totalCost"><?php echo $books->price; ?></span></p>
+                            <p><span id="deliveryCharge">0</span></p>
+                            <p><span id="totalCostSpan"><?php echo $books->price; ?></span></p>
 
                         </div> 
                         
                     </div>
+           
                 </div>
             </div>
             
@@ -141,7 +147,7 @@
             
         <?php endforeach; ?>
         </div>   
-        <div class="upperCol">
+        <!-- <div class="upperCol">
                 <h1>Select Your Payment Method></h1>
                 <label>
                     <input type="radio" name="paymentType" value="cardPayment">
@@ -151,7 +157,7 @@
                     
                    <button onClick="paymentGateway();">Pay here</button>
                    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
-                   <!-- <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script> -->
+                  
                 </div>
                 <br><br>
                 <label>
@@ -181,11 +187,11 @@
                     <button type="submit" >place Order</button>
                 </div>
                 
-                
+               
                
 
         </div>                                   
-        
+         -->
    
     </div>
 </div>
@@ -306,25 +312,29 @@ function paymentGateway(){
     var weightPerBook = <?php echo $data['bookDetails'][0]->weight; ?>/1000;
     
     function updatePrice(quantity, unitPrice) {
-        quantity = parseInt(quantity);
-        unitPrice = parseFloat(unitPrice);
+    quantity = parseInt(quantity);
+    unitPrice = parseFloat(unitPrice);
 
-        if (quantity >= 1 && quantity <= maxQuantity) {
-            var totalPrice = quantity * unitPrice;
+    if (quantity >= 1 && quantity <= maxQuantity) {
+        var totalPrice = quantity * unitPrice;
 
-            // Calculate delivery charges
-            var totalWeight = quantity * weightPerBook;
-            var deliveryCharge = calculateDeliveryCharge(totalWeight, priceperkilo, priceperadditional);
+        // Calculate delivery charges
+        var totalWeight = quantity * weightPerBook;
+        var deliveryCharge = calculateDeliveryCharge(totalWeight, priceperkilo, priceperadditional);
 
-            // Calculate total cost
-            var totalCost = totalPrice + deliveryCharge;
+        // Calculate total cost
+        var totalCost = totalPrice + deliveryCharge;
 
-            // Update the total price, delivery charge, and total cost display elements
-            document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
-            document.getElementById('deliveryCharge').innerText = deliveryCharge.toFixed(2);
-            document.getElementById('totalCost').innerText = totalCost.toFixed(2);
-        } 
-    }
+        // Update the total price, delivery charge, and total cost display elements
+        console.log(totalPrice, deliveryCharge, totalCost);
+
+        document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+        document.getElementById('deliveryCharge').innerText = deliveryCharge.toFixed(2);
+        document.getElementById('totalCostInput').value = totalCost.toFixed(2);
+        document.getElementById('totalCostSpan').innerText = totalCost.toFixed(2);
+    } 
+}
+
 
     function calculateDeliveryCharge(totalWeight, weightPerKiloCharge, additionalWeightCharge) {
         // Assuming weightPerKiloCharge is for the first kilogram
