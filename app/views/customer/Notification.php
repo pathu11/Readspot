@@ -6,15 +6,15 @@
         require APPROOT . '/views/customer/sidebar.php'; //path changed
     ?>
     <div class="container">
-        <div class="prof-content">
+        <div class="notify-content">
             <div class="notify-topic">
                 <h2>Notification</h2>
             </div>
             <div class="notification-main">
-            <form action="#.php" class="notify-search" autocomplete="off">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-            </form>
+                <form action="#.php" class="notify-search" autocomplete="off">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
+                </form>
             <br>
             <br>
             <div class="notification">

@@ -1,0 +1,150 @@
+.sub-cont-D1 {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    height: fit-content;
+    background-color: rgb(247,247,247);
+    justify-content: space-around;
+    padding: 5px;
+}
+
+.sub-cont-D2 {
+    margin-top: 16px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgb(247,247,247);
+    min-height: 200px;
+    border-radius: 10px;
+}
+
+.event-D {
+    width: 200px;
+    height: 290px;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+}
+
+.B0-D {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.dts-btn-D {
+    width: 132px;
+    height: 36px;
+    background-color: rgb(10, 197, 181);
+    border-color: white;
+    outline: none;
+    border-radius: 0px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin-top: 5px;
+    margin-left: 8px;
+    margin-right: 8px;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+}
+
+.dts-btn-D:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}
+
+.Donate-books{
+    /* padding: 6px; */
+    margin: 8px;
+}
+
+.B0-D table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #333;
+    margin: 20px 0px 20px 0px;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+}
+
+.B0-D th, .B0-D td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.B0-D th {
+    background-color: #333;
+    color: white;
+}
+
+.B0-D tr {
+    height: 50px; /* Adjust the height as needed */
+}
+
+/* Change the width of specific columns */
+.B0-D th:nth-child(1), .B0-D td:nth-child(1) {
+    width: 25%; /* Adjust the width as needed */
+}
+
+.B0-D th:nth-child(2), .B0-D td:nth-child(2) {
+    width: 25%; /* Adjust the width as needed */
+}
+
+.B0-D th:nth-child(3), .B0-D td:nth-child(3) {
+    width: 25%; /* Adjust the width as needed */
+}
+
+.B0-D th:nth-child(3), .B0-D td:nth-child(3) {
+    width: 25%; /* Adjust the width as needed */
+}
+
+.B0-D th, .B0-D td {
+    font-weight: 400;
+}
+
+.tb2 th:nth-child(1), .tb2 td:nth-child(1){
+    background-color: #333;
+    color: white;
+}
+
+.tb2 th:nth-child(2) {
+    background-color: white;
+    color: #000;
+}
+
+.tb2 {
+    display: none;
+}
+
+
+@media  screen and (max-width:600px) {
+    .Donate-books h1{
+        font-size: 28px;
+    }
+}
+
+@media  screen and (max-width:400px) {
+    .Donate-books h1{
+        font-size: 22px;
+    }
+
+    .tb1 {
+        display: none;
+    }
+
+    .tb2 {
+        display: block;
+    }
+    
+    .event-D {
+        width: 180px;
+        height: 240px;
+        box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    }
+}

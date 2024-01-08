@@ -5,7 +5,7 @@
     color: #707070;
     width: 250px;
     height: 700px;
-    padding: 20px;
+    /* padding: 20px; */
     margin-right: 0;
     overflow-y: auto; /* Add this to make the sidebar content scrollable */
 }
@@ -20,8 +20,8 @@
     padding: 0;
 }
 
-.menu-list li {
-    margin-bottom: 5px;
+.menu-list li{
+    padding-left: 5px;
     /* border: bisque solid; */
 }
 
@@ -36,13 +36,14 @@
 .menu-list a:hover:not(.active) {
     background-color: #70BFBA;
     color: white;
-    border-radius: 15px;
+    /* border-radius: 15px; */
 }
 
 .menu-list li.active {
-    background-color: #70BFBA; /* Change to the color you prefer */
-    color: white; /* Change to the color you prefer */
-    border-radius: 15px;
+    background-color: #70BFBA;
+    /* color: white; */
+    /* border-radius: 15px; */
+    border: 2px solid white;
 }
 
 .mob-sidebar {
@@ -73,7 +74,7 @@
         padding: 5px;
         width: 50px;
         height: 50px;
-        background-color: yellow;
+        background-color: #E0E0E0;
         border: 2px solid blue;
     }
     .mob-section {
@@ -92,8 +93,8 @@
         transform: scale(1.1);
     }
     .sidebar-img.active {
-        border: 2px solid red; /* You can customize the border color or any other style */
-        background-color: #007bff;
+        border: 2px solid white; /* You can customize the border color or any other style */
+        background-color: #70BFBA;
     }
 }
 
@@ -109,7 +110,7 @@
         padding: 4px;
         width: 40px;
         height: 40px;
-        background-color: yellow;
+        background-color: #E0E0E0;
         border: 2px solid blue;
     }
     .mob-section {
@@ -128,7 +129,7 @@
         transform: scale(1.1);
     }
     .sidebar-img.active {
-        border: 2px solid red; /* You can customize the border color or any other style */
-        background-color: #007bff;
+        border: 2px solid white; /* You can customize the border color or any other style */
+        background-color:#70BFBA;
     }
 }

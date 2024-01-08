@@ -1,0 +1,179 @@
+.main-detail {
+    top: 250px;
+    display: grid;
+    min-height: 725px;
+    margin: 90px 10px 10px 10px;
+    background-color: #CACACA;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-areas: 
+        "a b b b"
+        "a b b b"
+        "a c d e"
+        "f f f f"
+        "g g g g"
+        "h h h h";
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(50px,auto);
+}
+
+.excg-detail {
+    top: 250px;
+    display: grid;
+    min-height: 725px;
+    margin: 90px 10px 10px 10px;
+    background-color: #CACACA;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-areas: 
+        "a b b b"
+        "a b b b"
+        "a c d e"
+        "f f f f"
+        "i i i i"
+        "g g g g"
+        "h h h h";
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(50px,auto);
+}
+
+.sub1 {
+    grid-area: a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aquamarine; */
+}
+
+.sub2 {
+    grid-area: b;
+    /* background-color: aquamarine; */
+    padding: 15px;
+}
+
+.sub3 {
+    grid-area: c;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    /* background-color: aquamarine; */
+}
+
+.sub4 {
+    grid-area: d;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    /* background-color: aquamarine; */
+}
+
+.sub5 {
+    grid-area: e;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    /* background-color: aquamarine; */
+}
+
+.sub6 {
+    padding: 15px;
+    grid-area: f;
+    /* background-color: aquamarine; */
+}
+
+.sub7 {
+    grid-area: g;
+    /* background-color: aquamarine; */
+    padding: 15px;
+    /* height: fit-content; */
+}
+
+.sub8 {
+    grid-area: h;
+    /* background-color: aquamarine; */
+    /* height: fit-content; */
+    padding: 15px;
+
+}
+
+.sub9 {
+    padding: 15px;
+    grid-area: i;
+}
+
+.main-img {
+    height: 550px;
+    width: 450px;
+}
+
+.sub-img {
+    height: 220px;
+    width: 180px;
+}
+
+.sub2 span, .sub7 span, .req-book-details span{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.sub2 h3, .sub7 h3 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.sub6 p {
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: justify;
+}
+
+.sub9 ol {
+    padding-left: 40px;
+    padding-right: 30px;
+    text-align: justify;
+}
+
+.chat-btn {
+    float: right;
+    width: 132px;
+    height: 36px;
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.chat-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}
+
+.chat-dlt-btn {
+    float: right;
+    width: 132px;
+    height: 36px;
+    background-color: red;
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.chat-dlt-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}

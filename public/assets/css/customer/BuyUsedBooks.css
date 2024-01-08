@@ -1,0 +1,206 @@
+.sub-cont-U1 {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(247,247,247);
+    justify-content: space-between;
+    padding: 5px 20px 5px 20px;
+}
+
+
+.sub-cont-U2 {
+    margin-top: 16px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color:  rgb(247,247,247);
+    min-height: 200px;
+    border-radius: 10px;
+}
+
+.fav-cart-msg{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.fav-cart-msg img {
+    width: 50px;
+    height: 50px;
+}
+
+.fav-cart-msg img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform .5s;
+}
+
+.sub-cont-U2 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.Book-U {
+    width: 160px;
+    height: 200px;
+}
+
+.B0-U {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 210px;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+}
+
+.B0-U:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform .5s;
+}
+
+.Used-books{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar-U {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searching-U {
+    display: flex;
+    flex-direction: row;
+    /* gap: 0rem; */
+}
+
+.searching-U select {
+    padding: 6px;
+    /* margin: 8px 0px 8px 8px; */
+    height: 38px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+    border: 1px solid;
+}
+
+.searching-U input[type=text] {
+    padding: 6px;
+    /* margin: 8px 0px 8px 8px; */
+    font-size: 16px;
+    border: none;
+    border: 1px solid;
+    border-left: 0px;
+}
+
+.searching-U button {
+    border: 1px solid;
+    border-left: 0px;
+    /* float: right; */
+    padding: 6px 10px;
+    /* margin: 8px 8px 8px 0px; */
+    background: #ddd;
+    font-size: 16px;
+    /* border: none; */
+    cursor: pointer;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.searching-U button:hover {
+    background: #ccc;
+}
+
+.searching-U img {
+    height:15px;
+    width:15px;
+}
+
+
+
+@media screen and (max-width:600px) {    
+    .searching-U {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .searching-U select {
+        width: 150px;
+        border-radius: 10px 10px 0px 0px;
+        border: 1px solid;
+        border-bottom: 0px;
+    }
+    
+    .searching-U input[type=text] {
+        padding: 6px;
+        width: 150px;
+        border: 1px solid;
+    }
+    
+    .searching-U button {
+        border: 1px solid;
+        border-top: 0px;
+        width: 150px;
+        border-radius: 0px 00px 10px 10px;
+    }
+    
+    .searching-U img {
+        height:15px;
+        width:15px;
+    }
+
+    .Used-books h1{
+        font-size: 28px;
+    }
+}
+
+
+@media screen and (max-width:400px) {
+    .searching-U select {
+        width: 100px;
+        border-radius: 10px 10px 0px 0px;
+        border: 1px solid;
+        border-bottom: 0px;
+    }
+    
+    .searching-U input[type=text] {
+        padding: 6px;
+        width: 100px;
+        border: 1px solid;
+    }
+    
+    .searching-U button {
+        border: 1px solid;
+        border-top: 0px;
+        width: 100px;
+        border-radius: 0px 00px 10px 10px;
+    }
+    
+    .searching-U img {
+        height:15px;
+        width:15px;
+    }
+
+    .Used-books h1{
+        font-size: 22px;
+    }
+
+    .Book-U {
+        width: 140px;
+        height: 180px;
+    }
+    
+    .B0-U {
+        margin: 20px;
+        width: 190px;
+    }
+}

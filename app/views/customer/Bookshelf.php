@@ -10,30 +10,17 @@
             <div class="used-books">
                 <h2>Used Books</h2>
                 <div class="books">
-                    <div class="B1">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B2">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book2" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B3">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book3" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B4">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book4" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B5">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book5" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
+                    <?php
+                        $firstFourBooks1 = array_slice($data['bookDetails1'], 0, 4);
+                        foreach($firstFourBooks1 as $bookDetails1): ?>
+                        <div class="B-div">
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails1->img1 . '" class="Book"><br>';?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-            <div class="vw">
-                <a href="<?php echo URLROOT; ?>/customer/UsedBooks"><button class="vw-btn">View All >></button></a> <!--path changed-->
+            <div class="ub-vw">
+                <a href="<?php echo URLROOT; ?>/customer/UsedBooks"><button class="ub-vw-btn">View All >></button></a> <!--path changed-->
             </div>
             <br>
             <br>
@@ -42,30 +29,17 @@
             <div class="exchange-books">
                 <h2>Exchange Books</h2>
                 <div class="books">
-                    <div class="B1">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B2">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book2" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B3">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book3" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B4">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book4" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
-                    <div class="B5">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book5" class="Book"><br> <!--path changed-->
-                        <!-- <button class="dts-btn">View Details</button> -->
-                    </div>
+                    <?php
+                        $firstFourBooks2 = array_slice($data['bookDetails2'], 0, 4);
+                        foreach($firstFourBooks2 as $bookDetails2): ?>
+                        <div class="B-div">
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails2->img1 . '" class="Book"><br>';?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-            <div class="vw">
-                <a href="<?php echo URLROOT; ?>/customer/ExchangeBooks"><button class="vw-btn">View All >></button></a> <!--path changed-->
+            <div class="eb-vw">
+                <a href="<?php echo URLROOT; ?>/customer/ExchangeBooks"><button class="eb-vw-btn">View All >></button></a> <!--path changed-->
             </div>
             <br>
             <br>

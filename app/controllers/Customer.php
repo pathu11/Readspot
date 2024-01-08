@@ -415,83 +415,58 @@ private function handledefault_addressForm($book_id) {
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
-                   
-                    $customerid = $customerDetails[0]->customer_id;
-                    $publisherName = $customerDetails[0]->name;                   
+                    $customerName = $customerDetails[0]->name;
+                    $customerid = $customerDetails[0]->customer_id;                 
                 } else {
                     echo "Not found";
                 }
             }            
             $data=[
-                'bookName' => trim($_POST['bookName']),
+                'book_name' => trim($_POST['bookName']),
+                'ISBN_no' => trim($_POST['isbnNumber']),
+                // 'ISSN_no' => trim($_POST['issnNumber']),
+                // 'ISMN_no' => trim($_POST['issmNumber']),
                 'author' => trim($_POST['author']),
-                'category' => trim($_POST['category']),
-                'bookCondition' => trim($_POST['bookCondition']),
-                'publishedYear' => trim($_POST['publishedYear']),
                 'price' => trim($_POST['price']),
-                'priceType' => trim($_POST['priceType']),
-                'weights' => trim($_POST['weights']),
-                'isbnNumber' => trim($_POST['isbnNumber']),
-                'issnNumber' => trim($_POST['issnNumber']),
-                'issmNumber' => trim($_POST['issmNumber']),
-                'descriptions' => trim($_POST['descriptions']),
-                'imgFront' => '',
-                'imgBack' => '',
-                'imgInside' => '',
-                'accName' => trim($_POST['accName']),
-                'accNumber' => trim($_POST['accNumber']),
-                'bankName' => trim($_POST['bankName']),
-                'branchName' => trim($_POST['branchName']),
+                'category' => trim($_POST['category']),
+                'weight' => trim($_POST['weights']),
+                'descript' => trim($_POST['descriptions']),
+                'img1' => '',
+                'img2' => '',
+                'img3' => '',
+                'condition' => trim($_POST['bookCondition']),
+                'published_year' => trim($_POST['publishedYear']),
+                'price_type' => trim($_POST['priceType']),
+                'type' => trim('used'),
+                'account_name' => trim($_POST['accName']),
+                'account_no' => trim($_POST['accNumber']),
+                'bank_name' => trim($_POST['bankName']),
+                'branch_name' => trim($_POST['branchName']),
                 'town' => trim($_POST['town']),
                 'district' => trim($_POST['district']),
-                'postalCode' => trim($_POST['postalCode']),
+                'postal_code' => trim($_POST['postalCode']),
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
-                
-                'bookName_err'=>'',
-                'author_err'=>'',
-                'category_err'=>'',
-                'bookCondition_err'=>'',
+                'status' => trim('pending'),
+
+                'bookName_err' => '',
                 'publishedYear_err'=>'',
                 'price_err'=>'',
-                'priceType_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
-                'descriptions_err'=>'',
-                'imgFront_err'=>'',
-                'imgBack_err'=>'',
-                'imgInside_err'=>'',
-                'accName_err'=>'',
-                'accNumber_err'=>'',
-                'bankName_err'=>'',
-                'branchName_err'=>'',
-                'town_err'=>'',
-                'district_err'=>'',
-                'postalCode_err'=>''
+                'customerName' => $customerName
             ];
 
            
             //validate book name
-            if(empty($data['bookName'])){
-                $data['bookName_err']='Please enter the Book name';      
-            // }else{
-            //     if($this->publisherModel->findbookByName($data['book_name'])){
-            //         $data['book_name_err']='Book name is already taken'; 
-            //     }
-            }
-
-            if(empty($data['author'])){
-                $data['author_err']='Please enter Author name';      
-            }
-
-            if(empty($data['category'])){
-                $data['category_err']='Please select the category';      
-            }
-
-            if(empty($data['bookCondition'])){
-                $data['bookCondition_err']='Please select the book condition';      
-            }
+            // if(empty($data['bookName'])){
+            //     $data['bookName_err']='Please enter the Book name';      
+            // // }else{
+            // //     if($this->publisherModel->findbookByName($data['book_name'])){
+            // //         $data['book_name_err']='Book name is already taken'; 
+            // //     }
+            // }
             
-            if(empty($data['publishedYear'])){
+            if(empty($data['published_year'])){
                 $data['publishedYear_err']='Please enter published year';      
             }
 
@@ -500,83 +475,47 @@ private function handledefault_addressForm($book_id) {
             }else if($data['price']<0 ){
                 $data['price_err']='Please enter a valid price'; 
             }
-
-            if(empty($data['priceType'])){
-                $data['priceType_err']='Please select the price type';      
-            }
             
-            if(empty($data['weights'])){
+            if(empty($data['weight'])){
                 $data['weights_err']='Please enter the weight';      
-            }else if($data['weights']<0 ){
+            }else if($data['weight']<0 ){
                 $data['weights_err']='Please enter a valid weight'; 
             }
 
             //validate ISBN
-            if(empty($data['isbnNumber']) && empty($data['issnNumber']) && empty($data['issmNumber'])){
-                $data['ISBN_err']='Please enter ISBN _NO or ISSN_NO or ISSM_NO';      
-            }
-
-            if(empty($data['descriptions'])){
-                $data['descriptions_err']='Please enter the description';      
-            }
-
-            if(empty($data['accName'])){
-                $data['accName_err']='Please enter Account name';      
-            }
-
-            if(empty($data['accNumber'])){
-                $data['accNumber_err']='Please enter Account number';      
-            }
-
-            if(empty($data['bankName'])){
-                $data['bankName_err']='Please enter Bank name';      
-            }
-
-            if(empty($data['branchName'])){
-                $data['branchName_err']='Please enter Branch name';      
-            }
-
-            if(empty($data['town'])){
-                $data['town_err']='Please enter Town';      
-            }
-
-            if(empty($data['district'])){
-                $data['district_err']='Please enter District';      
-            }
-
-            if(empty($data['postalCode'])){
-                $data['postalCode_err']='Please enter postal code';      
-            }
+            // if(empty($data['ISBN_no']) && empty($data['ISSN_no']) && empty($data['ISMN_no'])){
+            //     $data['ISBN_err']='Please enter ISBN _NO or ISSN_NO or ISSM_NO';      
+            // }
            
             
             //make sure errors are empty
-            if(empty($data['bookName_err']) && empty($data['author_err']) && empty($data['category_err']) &&empty($data['bookCondition_err']) && empty($data['publishedYear_err']) && empty($data['price_err']) && empty($data['priceType_err']) && empty($data['weights_err']) && empty($data['ISBN_err']) && empty($data['descriptions_err']) && empty($data['accName_err']) && empty($data['accNumber_err']) && empty($data['bankName_err']) && empty($data['branchName_err']) && empty($data['town_err']) && empty($data['district_err']) && empty($data['postalCode_err'])){
+            if(empty($data['bookName_err']) && empty($data['publishedYear_err']) && empty($data['price_err']) && empty($data['weights_err']) && empty($data['ISBN_err'])){
 
                 //image
                 if (isset($_FILES['imgFront']['name']) AND !empty($_FILES['imgFront']['name'])) {
-         
-         
                     $img_name = $_FILES['imgFront']['name'];
                     $tmp_name = $_FILES['imgFront']['tmp_name'];
                     $error = $_FILES['imgFront']['error'];
                     
-                    if($error === 0){
-                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                       $img_ex_to_lc = strtolower($img_ex);
-           
-                       $allowed_exs = array('jpg', 'jpeg', 'png');
-                       if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['bookName'] .'-imgBack.'. $img_ex_to_lc;
-                          $img_upload_path = "../public/assets/images/customer/AddUsedBook/".$new_img_name;
-                          move_uploaded_file($tmp_name, $img_upload_path);
-
-                          $data['imgBack']=$new_img_name;
-                       }
+                    if ($error === 0) {
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+                
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if (in_array($img_ex_to_lc, $allowed_exs)) {
+                            // Generate a unique identifier (e.g., timestamp)
+                            $unique_id = time(); 
+                            $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgFront.' . $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/customer/AddUsedBook/" . $new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                
+                            $data['img1'] = $new_img_name;
+                        }
                     }
                 }
+                
+
                 if (isset($_FILES['imgBack']['name']) AND !empty($_FILES['imgBack']['name'])) {
-         
-         
                     $img_name = $_FILES['imgBack']['name'];
                     $tmp_name = $_FILES['imgBack']['tmp_name'];
                     $error = $_FILES['imgBack']['error'];
@@ -587,17 +526,17 @@ private function handledefault_addressForm($book_id) {
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['bookName'] .'-imgFront.'. $img_ex_to_lc;
+                          // Generate a unique identifier (e.g., timestamp)
+                          $unique_id = time(); 
+                          $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgBack.' . $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/customer/AddUsedBook/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
-                          $data['imgFront']=$new_img_name;
+                          $data['img2']=$new_img_name;
                        }
                     }
                 }
                 if (isset($_FILES['imgInside']['name']) AND !empty($_FILES['imgInside']['name'])) {
-         
-         
                     $img_name = $_FILES['imgInside']['name'];
                     $tmp_name = $_FILES['imgInside']['tmp_name'];
                     $error = $_FILES['imgInside']['error'];
@@ -608,17 +547,19 @@ private function handledefault_addressForm($book_id) {
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['bookName'] .'-imgInside.'. $img_ex_to_lc;
+                          // Generate a unique identifier (e.g., timestamp)
+                          $unique_id = time(); 
+                          $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgInside.' . $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/customer/AddUsedBook/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
-                          $data['imgInside']=$new_img_name;
+                          $data['img3']=$new_img_name;
                        }
                     }
                 }
                 
                 if($this->customerModel->AddUsedBook($data)){
-                    flash('add_success','You are added the book  successfully');
+                    // flash('add_success','You are added the book  successfully');
                     redirect('customer/UsedBooks');
                 }else{
                     die('Something went wrong');
@@ -635,74 +576,35 @@ private function handledefault_addressForm($book_id) {
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
-                    $customerName = $customerDetails[0]->name;                   
+                    $accName = $customerDetails[0]->account_name;
+                    $accNumber = $customerDetails[0]->account_no; 
+                    $bankName = $customerDetails[0]->bank_name; 
+                    $branchName = $customerDetails[0]->branch_name;
+                    $town = $customerDetails[0]->town; 
+                    $district = $customerDetails[0]->district;
+                    $postalCode = $customerDetails[0]->postal_code;
+                    $customerid = $customerDetails[0]->customer_id;
+                    $customerName = $customerDetails[0]->name;
+
                 } else {
                     echo "Not found";
                 }
             }     
             $data=[
-                // 'bookCategoryDetails'=>$bookCategoryDetails,
-                'customerName'=>$customerName,
-                'bookName' => '',
-                'author' => '',
-                'category' => '',
-                'bookCondition' => '',
-                'publishedYear' => '',
-                'price' => '',
-                'priceType' => '',
-                'weights' => '',
-                'isbnNumber' => '',
-                'issnNumber' => '',
-                'issmNumber' => '',
-                'descriptions' => '',
-                'imgFront' => '',
-                'imgBack' => '',
-                'imgInside' => '',
-                'accName' => '',
-                'accNumber' => '',
-                'bankName' => '',
-                'branchName' => '',
-                'town' => '',
-                'district' => '',
-                'postalCode' => '',
-                'customer_id' => '',
-
-                'bookName_err'=>'',
-                'author_err'=>'',
-                'category_err'=>'',
-                'bookCondition_err'=>'',
-                'publishedYear_err'=>'',
-                'price_err'=>'',
-                'priceType_err'=>'',
-                'weights_err'=>'',
-                'ISBN_err'=>'',
-                'descriptions_err'=>'',
-                'imgFront_err'=>'',
-                'imgBack_err'=>'',
-                'imgInside_err'=>'',
-                'accName_err'=>'',
-                'accNumber_err'=>'',
-                'bankName_err'=>'',
-                'branchName_err'=>'',
-                'town_err'=>'',
-                'district_err'=>'',
-                'postalCode_err'=>''
-                
+                'account_name' => trim($accName),
+                'account_no' => trim($accNumber),
+                'bank_name' => trim($bankName),
+                'branch_name' => trim($branchName),
+                'town' => trim($town),
+                'district' => trim($district),
+                'postal_code' => trim($postalCode),
+                'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                'customerName' => $customerName
             ];
 
             $this->view('customer/AddUsedBook',$data);
 
         }
-        // else {
-        //     $user_id = $_SESSION['user_id'];
-           
-        //     $customerDetails = $this->customerModel->findCustomerById($user_id);  
-        //     $data = [
-        //         'customerDetails' => $customerDetails,
-        //         'customerName' => $customerDetails[0]->name
-        //     ];
-        //     $this->view('customer/AddUsedBook', $data);
-        // }
     } 
     
     public function BookContents(){
@@ -754,11 +656,29 @@ private function handledefault_addressForm($book_id) {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerid = null;
+        
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+            
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                
+                if ($customerDetails) {
+                    $customerid = $customerDetails[0]->customer_id;
+                    $bookDetails1 = $this->customerModel->findUsedBookByCusId($customerid);
+                    $bookDetails2 = $this->customerModel->findExchangedBookByCusId($customerid);
+                } else {
+                    echo "Not found";
+                }
+            } else {
+                echo "Not a customer";
+            }
+
             $data = [
+                'customerid' => $customerid,
                 'customerDetails' => $customerDetails,
+                'bookDetails1' => $bookDetails1,
+                'bookDetails2' => $bookDetails2,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Bookshelf', $data);
@@ -1044,76 +964,52 @@ private function handledefault_addressForm($book_id) {
 
                       
             $data=[
-                'bookId'=>$bookId,
-                'bookName' => trim($_POST['bookName']),
+                'book_id'=>$bookId,
+                'book_name' => trim($_POST['bookName']),
+                'ISBN_no' => trim($_POST['isbnNumber']),
+                // 'ISSN_no' => trim($_POST['issnNumber']),
+                // 'ISMN_no' => trim($_POST['issmNumber']),
                 'author' => trim($_POST['author']),
-                'category' => trim($_POST['category']),
-                'bookCondition' => trim($_POST['bookCondition']),
-                'publishedYear' => trim($_POST['publishedYear']),
                 'price' => trim($_POST['price']),
-                'priceType' => trim($_POST['priceType']),
-                'weights' => trim($_POST['weights']),
-                'isbnNumber' => trim($_POST['isbnNumber']),
-                'issnNumber' => trim($_POST['issnNumber']),
-                'issmNumber' => trim($_POST['issmNumber']),
-                'descriptions' => trim($_POST['descriptions']),
-                'imgFront' => '',
-                'imgBack' => '',
-                'imgInside' => '',
-                'accName' => trim($_POST['accName']),
-                'accNumber' => trim($_POST['accNumber']),
-                'bankName' => trim($_POST['bankName']),
-                'branchName' => trim($_POST['branchName']),
+                'category' => trim($_POST['category']),
+                'weight' => trim($_POST['weights']),
+                'descript' => trim($_POST['descriptions']),
+                'img1' => '',
+                'img2' => '',
+                'img3' => '',
+                'condition' => trim($_POST['bookCondition']),
+                'published_year' => trim($_POST['publishedYear']),
+                'price_type' => trim($_POST['priceType']),
+                'type' => trim('used'),
+                'account_name' => trim($_POST['accName']),
+                'account_no' => trim($_POST['accNumber']),
+                'bank_name' => trim($_POST['bankName']),
+                'branch_name' => trim($_POST['branchName']),
                 'town' => trim($_POST['town']),
                 'district' => trim($_POST['district']),
-                'postalCode' => trim($_POST['postalCode']),
+                'postal_code' => trim($_POST['postalCode']),
                 'customer_id' => trim($customer_id),// Replace this with the actual customer ID
-                
-                'bookName_err'=>'',
-                'author_err'=>'',
-                'category_err'=>'',
-                'bookCondition_err'=>'',
+                'status' => trim('pending'),
+
+                'bookName_err' => '',
                 'publishedYear_err'=>'',
                 'price_err'=>'',
-                'priceType_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
-                'descriptions_err'=>'',
-                'imgFront_err'=>'',
-                'imgBack_err'=>'',
-                'imgInside_err'=>'',
-                'accName_err'=>'',
-                'accNumber_err'=>'',
-                'bankName_err'=>'',
-                'branchName_err'=>'',
-                'town_err'=>'',
-                'district_err'=>'',
-                'postalCode_err'=>''
+                'customerName' => $customerDetails[0]->name
             ];
 
            
             //validate book name
-            if(empty($data['bookName'])){
-                $data['bookName_err']='Please enter the Book name';      
-            // }else{
-            //     if($this->publisherModel->findbookByName($data['book_name'])){
-            //         $data['book_name_err']='Book name is already taken'; 
-            //     }
-            }
-
-            if(empty($data['author'])){
-                $data['author_err']='Please enter Author name';      
-            }
-
-            if(empty($data['category'])){
-                $data['category_err']='Please select the category';      
-            }
-
-            if(empty($data['bookCondition'])){
-                $data['bookCondition_err']='Please select the book condition';      
-            }
+            // if(empty($data['bookName'])){
+            //     $data['bookName_err']='Please enter the Book name';      
+            // // }else{
+            // //     if($this->publisherModel->findbookByName($data['book_name'])){
+            // //         $data['book_name_err']='Book name is already taken'; 
+            // //     }
+            // }
             
-            if(empty($data['publishedYear'])){
+            if(empty($data['published_year'])){
                 $data['publishedYear_err']='Please enter published year';      
             }
 
@@ -1122,83 +1018,48 @@ private function handledefault_addressForm($book_id) {
             }else if($data['price']<0 ){
                 $data['price_err']='Please enter a valid price'; 
             }
-
-            if(empty($data['priceType'])){
-                $data['priceType_err']='Please select the price type';      
-            }
             
-            if(empty($data['weights'])){
+            if(empty($data['weight'])){
                 $data['weights_err']='Please enter the weight';      
-            }else if($data['weights']<0 ){
+            }else if($data['weight']<0 ){
                 $data['weights_err']='Please enter a valid weight'; 
             }
 
             //validate ISBN
-            if(empty($data['isbnNumber']) && empty($data['issnNumber']) && empty($data['issmNumber'])){
-                $data['ISBN_err']='Please enter ISBN _NO or ISSN_NO or ISSM_NO';      
-            }
-
-            if(empty($data['descriptions'])){
-                $data['descriptions_err']='Please enter the description';      
-            }
-
-            if(empty($data['accName'])){
-                $data['accName_err']='Please enter Account name';      
-            }
-
-            if(empty($data['accNumber'])){
-                $data['accNumber_err']='Please enter Account number';      
-            }
-
-            if(empty($data['bankName'])){
-                $data['bankName_err']='Please enter Bank name';      
-            }
-
-            if(empty($data['branchName'])){
-                $data['branchName_err']='Please enter Branch name';      
-            }
-
-            if(empty($data['town'])){
-                $data['town_err']='Please enter Town';      
-            }
-
-            if(empty($data['district'])){
-                $data['district_err']='Please enter District';      
-            }
-
-            if(empty($data['postalCode'])){
-                $data['postalCode_err']='Please enter postal code';      
-            }
+            // if(empty($data['ISBN_no']) && empty($data['ISSN_no']) && empty($data['ISMN_no'])){
+            //     $data['ISBN_err']='Please enter ISBN _NO or ISSN_NO or ISSM_NO';      
+            // }
            
             
             //make sure errors are empty
-            if(empty($data['bookName_err']) && empty($data['author_err']) && empty($data['category_err']) &&empty($data['bookCondition_err']) && empty($data['publishedYear_err']) && empty($data['price_err']) && empty($data['priceType_err']) && empty($data['weights_err']) && empty($data['ISBN_err']) && empty($data['descriptions_err']) && empty($data['accName_err']) && empty($data['accNumber_err']) && empty($data['bankName_err']) && empty($data['branchName_err']) && empty($data['town_err']) && empty($data['district_err']) && empty($data['postalCode_err'])){
+            if(empty($data['bookName_err']) && empty($data['publishedYear_err']) && empty($data['price_err']) && empty($data['weights_err']) && empty($data['ISBN_err'])){
 
                 //image
                 if (isset($_FILES['imgFront']['name']) AND !empty($_FILES['imgFront']['name'])) {
-         
-         
                     $img_name = $_FILES['imgFront']['name'];
                     $tmp_name = $_FILES['imgFront']['tmp_name'];
                     $error = $_FILES['imgFront']['error'];
                     
-                    if($error === 0){
-                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                       $img_ex_to_lc = strtolower($img_ex);
-           
-                       $allowed_exs = array('jpg', 'jpeg', 'png');
-                       if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['bookName'] .'-imgBack.'. $img_ex_to_lc;
-                          $img_upload_path = "../public/assets/images/customer/AddUsedBook/".$new_img_name;
-                          move_uploaded_file($tmp_name, $img_upload_path);
-
-                          $data['imgBack']=$new_img_name;
-                       }
+                    if ($error === 0) {
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+                
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if (in_array($img_ex_to_lc, $allowed_exs)) {
+                            // Generate a unique identifier (e.g., timestamp)
+                            $unique_id = time(); 
+                            $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgFront.' . $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/customer/AddUsedBook/" . $new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                
+                            $data['img1'] = $new_img_name;
+                        }
                     }
                 }
+                
+                
+
                 if (isset($_FILES['imgBack']['name']) AND !empty($_FILES['imgBack']['name'])) {
-         
-         
                     $img_name = $_FILES['imgBack']['name'];
                     $tmp_name = $_FILES['imgBack']['tmp_name'];
                     $error = $_FILES['imgBack']['error'];
@@ -1209,17 +1070,17 @@ private function handledefault_addressForm($book_id) {
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['bookName'] .'-imgFront.'. $img_ex_to_lc;
+                          // Generate a unique identifier (e.g., timestamp)
+                          $unique_id = time(); 
+                          $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgBack.' . $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/customer/AddUsedBook/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
-                          $data['imgFront']=$new_img_name;
+                          $data['img2']=$new_img_name;
                        }
                     }
                 }
                 if (isset($_FILES['imgInside']['name']) AND !empty($_FILES['imgInside']['name'])) {
-         
-         
                     $img_name = $_FILES['imgInside']['name'];
                     $tmp_name = $_FILES['imgInside']['tmp_name'];
                     $error = $_FILES['imgInside']['error'];
@@ -1230,17 +1091,19 @@ private function handledefault_addressForm($book_id) {
            
                        $allowed_exs = array('jpg', 'jpeg', 'png');
                        if(in_array($img_ex_to_lc, $allowed_exs)){
-                          $new_img_name = $data['bookName'] .'-imgInside.'. $img_ex_to_lc;
+                          // Generate a unique identifier (e.g., timestamp)
+                          $unique_id = time(); 
+                          $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgInside.' . $img_ex_to_lc;
                           $img_upload_path = "../public/assets/images/customer/AddUsedBook/".$new_img_name;
                           move_uploaded_file($tmp_name, $img_upload_path);
 
-                          $data['imgInside']=$new_img_name;
+                          $data['img3']=$new_img_name;
                        }
                     }
                 }
                 
                 if($this->customerModel->updateusedbook($data)){
-                    flash('update_success','You are added the book  successfully');
+                    // flash('update_success','You are added the book  successfully');
                     redirect('customer/UsedBooks');
                 }else{
                     die('Something went wrong');
@@ -1258,51 +1121,28 @@ private function handledefault_addressForm($book_id) {
               }
             $data = [
                 // 'customerName'=>$customerName,
-                'bookId'=>$bookId,
-                'bookName' => $UsedBookId->bookName,
+                'book_id' => $bookId,
+                'book_name' => $UsedBookId->book_name,
+                'ISBN_no' => $UsedBookId->ISBN_no,
                 'author' => $UsedBookId->author,
-                'category' => $UsedBookId->category,
-                'bookCondition' => $UsedBookId->bookCondition,
-                'publishedYear' => $UsedBookId->publishedYear,
                 'price' => $UsedBookId->price,
-                'priceType' => $UsedBookId->priceType,
-                'weights' => $UsedBookId->weights,
-                'isbnNumber' => $UsedBookId->isbnNumber,
-                'issnNumber' => $UsedBookId->issnNumber,
-                'issmNumber' => $UsedBookId->issmNumber,
-                'descriptions' => $UsedBookId->descriptions,
-                'imgFront' => $UsedBookId->imgFront,
-                'imgBack' => $UsedBookId->imgBack,
-                'imgInside' => $UsedBookId->imgInside,
-                'accName' => $UsedBookId->accName,
-                'accNumber' => $UsedBookId->accNumber,
-                'bankName' => $UsedBookId->bankName,
-                'branchName' => $UsedBookId->branchName,
+                'category' => $UsedBookId->category,
+                'weight' => $UsedBookId->weight,
+                'descript' => $UsedBookId->descript,
+                'img1' => $UsedBookId->img1,
+                'img2' => $UsedBookId->img2,
+                'img3' => $UsedBookId->img3,
+                'condition' => $UsedBookId->condition,
+                'published_year' => $UsedBookId->published_year,
+                'price_type' => $UsedBookId->price_type,
+                'account_name' => $UsedBookId->account_name,
+                'account_no' => $UsedBookId->account_no,
+                'bank_name' => $UsedBookId->bank_name,
+                'branch_name' => $UsedBookId->branch_name,
                 'town' => $UsedBookId->town,
                 'district' => $UsedBookId->district,
-                'postalCode' => $UsedBookId->postalCode,
-                'customer_id' => $UsedBookId->customer_id,
-
-                'bookName_err'=>'',
-                'author_err'=>'',
-                'category_err'=>'',
-                'bookCondition_err'=>'',
-                'publishedYear_err'=>'',
-                'price_err'=>'',
-                'priceType_err'=>'',
-                'weights_err'=>'',
-                'ISBN_err'=>'',
-                'descriptions_err'=>'',
-                'imgFront_err'=>'',
-                'imgBack_err'=>'',
-                'imgInside_err'=>'',
-                'accName_err'=>'',
-                'accNumber_err'=>'',
-                'bankName_err'=>'',
-                'branchName_err'=>'',
-                'town_err'=>'',
-                'district_err'=>'',
-                'postalCode_err'=>''
+                'postal_code' => $UsedBookId->postal_code,
+                'customerName' => $customerDetails[0]->name
             ];
 
 
@@ -1315,7 +1155,7 @@ private function handledefault_addressForm($book_id) {
     public function deleteusedbook($bookId)
     {
         if ($this->customerModel->deleteusedbook($bookId)) {   
-            flash('post_message', 'book is Removed');
+            // flash('post_message', 'book is Removed');
             redirect('customer/UsedBooks');
             
             
@@ -1336,9 +1176,7 @@ private function handledefault_addressForm($book_id) {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             
             if ($customerDetails) {
-                
                 $customerid = $customerDetails[0]->customer_id;
-
                 $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
             } else {
                 echo "Not found";
@@ -1373,7 +1211,7 @@ private function handledefault_addressForm($book_id) {
                 $customerid = $customerDetails[0]->customer_id;
                 
                 $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
-                $UsedBookId = $this->customerModel->getUsedBookById($bookId);
+                $UsedBookId = $this->customerModel->findUsedBookById($bookId);
                 
                 // if($bookDetails && $UsedBookId ){
                 //     if($this->customerModel->changeStatus($bookId)){
@@ -1395,7 +1233,29 @@ private function handledefault_addressForm($book_id) {
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
             'UsedBookId' => $UsedBookId,
-            'customerName' => $customerDetails[0]->name
+            'customerName' => $customerDetails[0]->name,
+
+            'book_id' => $bookId,
+            'book_name' => $UsedBookId->book_name,
+            'ISBN_no' => $UsedBookId->ISBN_no,
+            'author' => $UsedBookId->author,
+            'price' => $UsedBookId->price,
+            'category' => $UsedBookId->category,
+            'weight' => $UsedBookId->weight,
+            'descript' => $UsedBookId->descript,
+            'img1' => $UsedBookId->img1,
+            'img2' => $UsedBookId->img2,
+            'img3' => $UsedBookId->img3,
+            'condition' => $UsedBookId->condition,
+            'published_year' => $UsedBookId->published_year,
+            'price_type' => $UsedBookId->price_type,
+            'account_name' => $UsedBookId->account_name,
+            'account_no' => $UsedBookId->account_no,
+            'bank_name' => $UsedBookId->bank_name,
+            'branch_name' => $UsedBookId->branch_name,
+            'town' => $UsedBookId->town,
+            'district' => $UsedBookId->district,
+            'postal_code' => $UsedBookId->postal_code
         ];
         $this->view('customer/ViewBook', $data);
     } 
@@ -1437,5 +1297,110 @@ private function handledefault_addressForm($book_id) {
         unset($_SESSION['user_pass']);
         session_destroy();
         redirect('landing/index');
+    }
+
+    public function TopCategory(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/TopCategory', $data);
+        }
+    }
+
+    public function TopAuthor(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/TopAuthor', $data);
+        }
+    }
+
+    public function Recommended(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Recommended', $data);
+        }
+    }
+
+    public function UsedBookDetails(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/UsedBookDetails', $data);
+        }
+    }
+
+    public function Favorite(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Favorite', $data);
+        }
+    }
+
+    public function checkoutform(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/checkoutform', $data);
+        }
+    }
+
+    public function Calender(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Calender', $data);
+        }
     }
 }
