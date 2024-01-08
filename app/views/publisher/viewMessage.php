@@ -24,6 +24,8 @@
             <br>
             <p><?php echo $message->message; ?></p><br>
             <button class="submit" data-receiver-id="<?php echo $message->sender_id; ?>" data-parent-id="<?php echo $message->message_id; ?>">Reply</button>
+
+            <button class="submit1" onclick="goBack()">Back</button>
         <?php endforeach; ?>
          </div> 
     
@@ -41,5 +43,11 @@
         });
     </script>
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

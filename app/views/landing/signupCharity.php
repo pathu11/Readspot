@@ -38,7 +38,7 @@
                 <span class="invalid-feedback"><?php echo $data['confirm_pass_err']; ?></span>
                 <input type="password" name="confirm_pass" placeholder="Confirm Password" class="<?php echo (!empty($data['confirm_pass_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['confirm_pass']; ?>" required>
                 
-
+                <button onclick="goBack()" class="submit">  Cancel </button> 
                 <button type="submit" class="btn" name="submit">Submit</button>
             </div>
         </form>
@@ -52,5 +52,11 @@
         </div>
     </div>
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

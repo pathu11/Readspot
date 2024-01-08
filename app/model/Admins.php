@@ -309,5 +309,22 @@ public function getOrderDetails(){
   return $results;
 }
 
+public function generateRegistrationReport($data){
+  $this->db->query('SELECT
+  DATE(created_at) AS registration_date,
+  COUNT(*) AS new_registrations
+  FROM users
+  WHERE MONTH(created_at) = :startMonth AND YEAR(created_at) = :startYear
+  GROUP BY DATE(created_at)
+  ORDER BY DATE(created_at)');
+
+  $this->db->bind(':startMonth',$data['startMonth']);
+  $this->db->bind(':startYear',$data['startYear']);
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
   
-  }
+}

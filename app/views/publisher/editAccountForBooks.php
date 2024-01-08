@@ -21,7 +21,7 @@
              
             <div class="form1">
                 <h2>Enter the Account Details </h2>
-                <form action="<?php echo URLROOT; ?>/publisher/editAccountForBooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/publisher/editAccountForBooks/<?php echo $data['book_id']; ?>" method="POST">                    
                     <br>
                     <br>
                                    
@@ -36,7 +36,7 @@
 
                     <input type="text" name="branch_name"  class="<?php echo (!empty($data['branch_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['branch_name']; ?>"placeholder="Branch Name" required><br>
                     <span class="error"><?php echo $data['branch_name_err']; ?></span>
-                    
+                    <button class="submit" type="button" onclick="goBack()">Back</button>
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
                     <br>       
@@ -49,7 +49,13 @@
 </div> 
     </div>
    
-
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </body>
 
 </html>

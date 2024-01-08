@@ -44,6 +44,7 @@
             <button class="quantity-button" onclick="increment()">+</button>
             <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
         </div>
+
         
 
         <div class="comment-newbooks">
@@ -185,6 +186,11 @@
                     <h5>13 people found this helpful</h5>
                 </div>
             </div>
+
+        <div class="sub8">
+            <a href="#"><button class="chat-btn">Chat</button></a>
+            <a href="<?php echo URLROOT; ?>/customer/purchase/79"><button class="chat-btn">Purchase</button></a>
+
         </div>
     </div>
     

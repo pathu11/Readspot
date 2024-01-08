@@ -1,42 +1,62 @@
 <?php
     $title = "Edit Postal Details";
-    
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/sidebar.css" />
-
+    <style>
+        .new-store-form,
+        .select-store-form,
+        .default-store-form {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
    
+    <div>
         <div class="form-container">
-        
             <div class="form1">
-                <h2>Enter Postal Details </h2>
-                <form action="<?php echo URLROOT; ?>/publisher/editpostalForBooks/<?php echo $data['publisher_id']; ?>" method="POST">                    
+                <h2>Select Your  Picked Up address</h2>
+                <br>
                     <br>
-                    <br>
-                    
-                   
-             
-                    <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder=" Name" required><br>
-                    <span class="error"><?php echo $data['postal_name_err']; ?></span>
-                               
-                                   
-                    <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['street_name']; ?>" placeholder="Street Name" required>
-                                              
-                    <input type="text" name="town"  class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['town']; ?>"placeholder="City" required><br>
-                    <span class="error"><?php echo $data['town_err']; ?></span>
 
-                    <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['district']; ?>" name="district" required>
+                    <label>
+                        <input type="radio" name="addressType" value="selectStore">
+                        Select Address from Store Table
+                    </label>
+                    <br>
+                    <br>
+
+                    <label>
+                        <input type="radio" name="addressType" value="newStore">
+                        Add New Store
+                    </label>
+                    <br><br>
+                    <label>
+                        <input type="radio" name="addressType" value="defaultAddress">
+                        Use Default Address
+                    </label>
+                    
+                    <br><br>
+                    <div class="new-store-form">
+                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
+                        <input type="hidden" name="form_type" value="addStoreToBooks">
+                        
+                        <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" placeholder="Name" required><br>
+                        <span class="error"><?php echo $data['postal_name_err']; ?></span>
+
+                        <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Street Name" required>
+
+                        <input type="text" name="town" class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>"  placeholder="City" required><br>
+                        <span class="error"><?php echo $data['town_err']; ?></span>
+
+                        <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>"  name="district" required>
                                 <option value="" selected disabled>Select Your district</option>
                                 <option value="Ampara">Ampara</option>
                                 <option value="Anuradhapura">Anuradhapura</option>
@@ -64,25 +84,101 @@
                                 <option value="Trincomalee">Trincomalee</option>
                                 <option value="Vavuniya">Vavuniya</option>
                             </select>
-                    <span class="error"><?php echo $data['district_err']; ?></span>
+                        <span class="error"><?php echo $data['district_err']; ?></span>
 
-                    <input type="text" name="postal_code"  class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>"placeholder="Postal Code" required><br>
-                    <span class="error"><?php echo $data['postal_code_err']; ?></span>
-                    
-                    <input type="submit" value="Next" name="submit" class="submit">
+                        <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Postal Code" required><br>
+                        <span class="error"><?php echo $data['postal_code_err']; ?></span>
+                        <button class="submit" type="button" onclick="goBack()">Back</button>
+                        <input type="submit" value="Next" name="submit" class="submit">
+                    </form>
+                    </div>
+                    <div class="select-store-form">
+                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
+                        <input type="hidden" name="form_type" value="selectStore">
+                        <?php foreach($data['storeDetails'] as $store): ?>
+                            <label>
+                                <input type="radio" name="selectedStore" value="<?php echo $store->store_id; ?>">
+                                <?php echo  $store->postal_name . ", " . $store->street_name . ", " . $store->town . ", " . $store->district . ", " . $store->postal_code; ?>
+                            </label>
+                            <br>
+                        <?php endforeach; ?>
+                        <br><br>
+                        <button class="submit" type="button" onclick="goBack()">Back</button>
+                        <input type="submit" value="Next" name="submit" class="submit">
+                    </form>
+                       
+                    </div>
+                    <div class="default-store-form">
+                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
+                        <input type="hidden" name="form_type" value="default_address">
+                        <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder="Name" readonly><br>
+                        <span class="error"><?php echo $data['postal_name_err']; ?></span>
 
-                    </div> 
-                    <br>       
-                    
+                        <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['street_name']; ?>" placeholder="Street Name" readonly>
 
-                </form>
+                        <input type="text" name="town" class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['town']; ?>" placeholder="City" readonly><br>
+                        <span class="error"><?php echo $data['town_err']; ?></span>
+
+                        <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['district']; ?>" name="district" disabled>
+                            
+                                    <?php
+                                        $district = array(
+                                            "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha",
+                                            "Hambantota", "Jaffna", "Kalutara", "Kandy", "Kegalla", "Kilinochchi", "Kurunegala",
+                                            "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa",
+                                            "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
+                                        );
+
+                                        foreach ($district as $district) {
+                                            $selected = ($data['district'] === $district) ? 'selected' : '';
+                                            echo "<option value=\"$district\" $selected >$district</option>";
+                                        }
+                                    ?>
+                            </select>
+                        <span class="error"><?php echo $data['district_err']; ?></span>
+
+                        <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>" placeholder="Postal Code" readonly><br>
+                        <span class="error"><?php echo $data['postal_code_err']; ?></span>
+                        <button class="submit" type="button" onclick="goBack()">Back</button>
+                        <input type="submit" value="Next" name="submit" class="submit">
+                    </form>
+                    </div>
             </div>
         </div>
-
-</div> 
     </div>
-   
 
+    <script>
+        var newStoreForm = document.querySelector('.new-store-form');
+        var selectStoreForm = document.querySelector('.select-store-form');
+        var defaultStoreForm = document.querySelector('.default-store-form');
+
+        document.querySelectorAll('input[name="addressType"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                if (this.value === 'newStore') {
+                    newStoreForm.style.display = 'block';
+                    selectStoreForm.style.display = 'none';
+                    defaultStoreForm.style.display='none';
+                } else if (this.value === 'selectStore') {
+                    newStoreForm.style.display = 'none';
+                    selectStoreForm.style.display = 'block';
+                    defaultStoreForm.style.display='none';
+                } else if(this.value === 'defaultAddress'){
+                    newStoreForm.style.display = 'none';
+                    selectStoreForm.style.display = 'none';
+                    defaultStoreForm.style.display='block';
+                }else{
+                    newStoreForm.style.display = 'none';
+                    selectStoreForm.style.display = 'none';
+                    defaultStoreForm.style.display='none';
+                }
+            });
+        });
+
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+    </script>
 </body>
 
 </html>

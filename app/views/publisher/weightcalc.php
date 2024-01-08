@@ -37,7 +37,7 @@
 
                
                 <input type="number" id="coverWeight" name="coverWeight" placeholder="Cover Weight (GSM, if applicable):" ><br>
-
+                <button class="submit" type="button" onclick="goBack()">Back</button>
                 <button class="submit" type="button" onclick="calculateWeight()">Calculate Weight</button>
             </form>
             <div id="result"></div>
@@ -67,6 +67,13 @@
 }
 
 </script>
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </Html>
 
 

@@ -131,6 +131,39 @@ body{
      color:black;
  
  }
+
+ .submit2{
+    margin-left:700px;
+    display: block;
+    width:80px;
+    height:35px;
+    padding: 6px;
+    background-color: #09514C;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transform:scale(1,1);
+
+
+}
+.go-back-link{
+    text-decoration: none;
+    color:#009D94;
+    margin-left: 50px;
+  }
+.go-back-link:hover{
+    text-decoration: none;
+    color:#09514C;
+    margin-left: 50px;
+  }
+.submit2:hover{
+    background-color: #add8e6;
+    transform:scale(1.1,1.1);
+    color:black;
+
+}
  .msg{
     margin-top:100px;
     margin-left:120px;
