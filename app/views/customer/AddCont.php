@@ -2,12 +2,10 @@
     $title = "Add Content";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+    <?php
+        require APPROOT . '/views/customer/sidebar.php'; //path changed
+    ?>
     <div class="container">
-        <?php
-            require APPROOT . '/views/customer/sidebar.php'; //path changed
-        ?>
-
         <div class="add-content">
             <form action="#" class="cont-add">
                 <h1>Add a Content</h1>
@@ -32,7 +30,7 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
+        <?php
+            require APPROOT . '/views/customer/footer.php'; //path changed
+        ?>
     </div>
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>
