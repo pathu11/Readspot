@@ -1,5 +1,5 @@
 <?php
-    $title = "Exchange Book Details";
+    $title = "Used Book Details";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
