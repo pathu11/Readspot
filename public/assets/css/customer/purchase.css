@@ -1,19 +1,27 @@
 .body{
    margin:40px; 
 }
-.form-container{
+
+.flex-parent-element {
+    /* display: flex;
+    width: 50%; */
     margin:70px;
     display: flex;
-
-    
-}
-.column{
+  }
+  
+  .flex-child-element {
+   
     padding:40px;
     flex:1;
     border-radius: 9px;
     background-color:white;
-    margin:10px;
-}
+    margin-top:20px;
+  }
+  
+  .flex-child-element:first-child {
+    margin-right: 20px;
+  }
+
 .order{
     display: flex;
     /* justify-content: space-between; */
@@ -36,11 +44,7 @@
     padding:20px;
     margin-left: 80px;
 }
-.new-address-form,
-       
-.default-address-form {
-    display: none;
-}
+
 .cardPayment-form,
 .COD-form,
 .onlineBanking-form {

@@ -192,4 +192,38 @@
     }
   }
 
+  public function addOrder($data){
+    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :quantity, :status)');
+    
+    $this->db->bind(':book_id',$data['book_id']);
+    $this->db->bind(':customer_id',$data['customer_id']);
+   
+    $this->db->bind(':c_postal_name',$data['postal_name']);
+    $this->db->bind(':c_street_name',$data['street_name']);
+    $this->db->bind(':c_town',$data['town']);
+    $this->db->bind(':c_district',$data['district']);
+    $this->db->bind(':c_postal_code',$data['postal_code']);
+    $this->db->bind(':contact_no', $data['contact_no']);
+    $this->db->bind(':total_price', $data['total_cost']);
+    $this->db->bind(':total_weight', $data['total_weight']);
+    $this->db->bind(':quantity',$data['quantity']);
+    $this->db->bind(':status',"pending");
+   
+   
+   
+    // execute
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }        
+  }
+
+  public function getLastInsertedOrderId() {
+    $this->db->query('SELECT LAST_INSERT_ID() as order_id');
+    $row = $this->db->single();
+    return $row->order_id;
+}
+
+
   }

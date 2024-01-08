@@ -93,26 +93,80 @@ class Customer extends Controller {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
+            
             $user_id = $_SESSION['user_id'];
             $bookDetails=$this->customerModel->findBookById($book_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-               
+                
                     // sanitize post data
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-                $formType = $_POST['form_type'];
-                if ($formType === 'new_address') {
-                   
-                    $this->handlenew_addressForm($book_id);
-                } elseif ($formType === 'default_address') {
-                    
-                    $this->handledefault_addressForm($book_id);
+                $data=[
+                    'book_id'=>$book_id,
+                    'customer_id' => $customerDetails[0]->customer_id,
+                    'postal_name' => trim($_POST['postal_name']),
+                    'street_name' => trim($_POST['street_name']),
+                    'town' => trim($_POST['town']),
+                    'district' => trim($_POST['district']),
+                    'postal_code' => trim($_POST['postal_code']),
+                    'contact_no'=>trim($_POST['contact_no']),
+                    'total_cost' => trim($_POST['totalCost']),
+                    'total_weight'=>trim($_POST['totalWeight']),
+ 
+                    'quantity' => trim($_POST['quantity']), 
+                    'postal_name_err' => '',
+                    'street_name_err' => '',
+                    'town_err' => '',
+                    'district_err' => '',
+                    'postal_code_err' => '',
+                    'contact_no_err'=>''
+
+                ];
+                // var_dump($data);
+                 
+                if(empty($data['postal_name'])){
+                    $data['postal_name_err']='Please enter the  name';      
                 }
+                
+                if(empty($data['street_name'])){
+                    $data['street_name_err']='Please enter street name';      
+                }
+                
+                if(empty($data['town'])){
+                    $data['town_err']='Please enter the town';      
+                }
+                if(empty($data['contact_no'])){
+                    $data['contact_no_err']='Please enter the contact number';      
+                }else if(strlen($data['contact_no'])<10){
+                    $data['contact_no_err']='Please enter a valid contact number';
+                }
+                if(empty($data['district'])){
+                    $data['district_err']='Please select the district';      
+                }
+                if(empty($data['postal_code'])){
+                    $data['postal_code_err']='Please enter the postal code';      
+                }
+
+                if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
+                    // print_r($data);
+                    if($this->customerModel->addOrder($data)){
+                        $orderId = $this->customerModel-> getLastInsertedOrderId();
+                        redirect('customer/checkoutform/'.$orderId);
+                    }else{
+                      echo  '<script>alert("Error")</script>';
+                    }
+
+                }else{
+                    
+                    echo  '<script>alert("Error")</script>';
+                    }
+        
+              
             } else {
                 // Your existing code for displaying the form
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                var_dump($customerDetails);
+               
                  if($customerDetails)   {
                     $data = [
                         'deliveryDetails'=>$deliveryDetails,
@@ -123,8 +177,8 @@ class Customer extends Controller {
                         'town' => $customerDetails[0]->town,
                         'district' => $customerDetails[0]->district,
                         'postal_code' => $customerDetails[0]->postal_code,
-    
-    
+                        'contact_no'=>'',
+                        'contact_no_err'=>'',
                         'postal_name_err'=>'',
                         'street_name_err'=>'',
                         'town_err'=>'',
@@ -138,194 +192,12 @@ class Customer extends Controller {
                  }  
                 
                 // print_r($data);
-            $this->view('customer/purchase', $data);
-        }
-    }
-}
-
-private function handledefault_addressForm($book_id) {
-   
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-        $data = [
-            'book_id'=>$book_id,
-            // 'publisher_id' => $publisher_id,
-            'postal_name' => trim($_POST['postal_name']),
-            'street_name' => trim($_POST['street_name']),
-            'town' => trim($_POST['town']),
-            'district' => trim($_POST['district']),
-            'postal_code' => trim($_POST['postal_code']),
-            'contact_no'=>trim($_POST['contact_no']),
-            'postal_name_err' => '',
-            'street_name_err' => '',
-            'town_err' => '',
-            'district_err' => '',
-            'postal_code_err' => '',
-            'contact_no_err'=>''
-        ];
-        
-            //validate book name
-            if(empty($data['postal_name'])){
-                $data['postal_name_err']='Please enter the  name';      
-            }
-            //validate ISBN
-            if(empty($data['street_name'])){
-                $data['street_name_err']='Please enter street name';      
-            }
-            //validate password
-            if(empty($data['town'])){
-                $data['town_err']='Please enter the town';      
-            }
-            if(empty($data['conatct_no'])){
-                $data['contact_no_err']='Please enter the contact number';      
-            }else if(strlen($data['contact_no'])<10){
-                $data['contact_no_err']='Please enter a valid contact number';
-            }
-            if(empty($data['district'])){
-                $data['district_err']='Please select the district';      
-            }
-            if(empty($data['postal_code'])){
-                $data['postal_code_err']='Please enter the postal code';      
-            }
-            //make sure errors are empty
-            if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){  
-                $formType = $_POST['form_type'];
-                if ($formType === 'combined_form') {
-                   
-                    $this->handleCost($book_id, $user_id, $data);
-                }else{
-                    $this->processOrder($book_id, $user_id, $data);
-                }
-                // $this->processOrder($book_id, $user_id, $data);
-
-
-            }else{
-                    $this->view('customer/purchase',$data);
-                }
-        
-
-}
-    private function handlenew_addressForm(){
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-        $data = [
-            'book_id'=>$book_id,
-            // 'publisher_id' => $publisher_id,
-            'postal_name' => trim($_POST['postal_name']),
-            'street_name' => trim($_POST['street_name']),
-            'town' => trim($_POST['town']),
-            'district' => trim($_POST['district']),
-            'postal_code' => trim($_POST['postal_code']),
-            'contact_no'=>trim($_POST['contact_no']),
-            'postal_name_err' => '',
-            'street_name_err' => '',
-            'town_err' => '',
-            'district_err' => '',
-            'postal_code_err' => '',
-            'contact_no_err'=>''
-        ];
-        
-            //validate book name
-            if(empty($data['postal_name'])){
-                $data['postal_name_err']='Please enter the  name';      
-            }
-            //validate ISBN
-            if(empty($data['street_name'])){
-                $data['street_name_err']='Please enter street name';      
-            }
-            //validate password
-            if(empty($data['town'])){
-                $data['town_err']='Please enter the town';      
-            }
-            if(empty($data['conatct_no'])){
-                $data['contact_no_err']='Please enter the contact number';      
-            }else if(strlen($data['contact_no'])<10){
-                $data['contact_no_err']='Please enter a valid contact number';
-            }
-            if(empty($data['district'])){
-                $data['district_err']='Please select the district';      
-            }
-            if(empty($data['postal_code'])){
-                $data['postal_code_err']='Please enter the postal code';      
-            }
-            //make sure errors are empty
-            if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){  
-                $formType = $_POST['form_type'];
-                if ($formType === 'combined_form') {
-                   
-                    $this->handleCost($book_id, $user_id, $data);
-                }else{
-                    $this->processOrder($book_id, $user_id, $data);
-                }
-                // $this->GetDetails($book_id, $user_id, $data);
-
-            }else{
-                    $this->view('customer/purchase',$data);
-                }
-        
-
-    }
-    private function handleCost($book_id, $user_id, $data) {
-        // Additional processing logic based on the selected payment type
-        // $paymentType = $_POST['paymentType'];
-        // Assuming your Order model has a method like insertOrder($data)
-        $customerDetails = $this->customerModel->findCustomerById($user_id);
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-               
-            // sanitize post data
-        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-            $data = [
-                'book_id' => $book_id,
-                'customer_id' => $customerDetails[0]->customer_id,
-                'postal_name' => $data['postal_name'],
-                'street_name' => $data['street_name'],
-                'town' => $data['town'],
-                'district' => $data['district'],
-                'postal_code' => $data['postal_code'],
-                'contact_no' => $data['contact_no'],  // Add the phone number field
-                // 'payment_type' => $paymentType,
-                'total_cost' => trim($_POST['totalCost']),  // Replace with the actual total price variable
-                'quantity' => trim($_POST['quantity']),  // Replace with the actual quantity variable
-                // Add other fields as needed
-            ];
-            if($orderData){
-                $this->view('customer/processOrder',$data);
-                    
-                
-               
-            }else{
-                echo "Try again";
-            }
-           
-
-        }else{
             $this->view('customer/purchase',$data);
         }
-
-        // if ($paymentType === 'OnlineDeposit') {
-        //     // Process additional data for online payment
-        //     $orderData['payment_receipt'] = $this->handleOnlinePayment();  
-        // }
-
-        // Insert the order into the database
-        
-
     }
-    private function processOrder($Data) {
-        $this->view('customer/processOrder',$data);
-       
-       
-    }
+}
 
-
-    private function handleOnlinePayment() {
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-        $payment_receipt=trim($_POST['payment_receipt']);
-       
-    }
-
-
+   
     public function Home(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -1374,7 +1246,7 @@ private function handledefault_addressForm($book_id) {
         }
     }
 
-    public function checkoutform(){
+    public function checkoutform($order_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
