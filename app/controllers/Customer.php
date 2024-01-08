@@ -101,7 +101,6 @@ class Customer extends Controller {
                 
                 $formType = $_POST['form_type'];
                 if ($formType === 'new_address') {
-                   if()
                     $this->handlenew_addressForm($book_id);
                 } elseif ($formType === 'default_address') {
                     
