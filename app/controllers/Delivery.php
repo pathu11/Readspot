@@ -204,14 +204,15 @@ class Delivery extends Controller{
                 $deliveryid = $deliveryDetails[0]->delivery_id;
               
                 $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 // $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
-                if($messageDetails){
-                    if($this->publisherModel->changeStatus($message_id)){
-                        flash('post_message', 'change status');
-                    }else {
-                        echo "Not found";
-                    }
-                }
+                // if($messageDetails){
+                //     if($this->publisherModel->changeStatus($message_id)){
+                //         flash('post_message', 'change status');
+                //     }else {
+                //         echo "Not found";
+                //     }
+                // }
             } else {
                 echo "Not found";
             }
@@ -220,6 +221,7 @@ class Delivery extends Controller{
         }
     
         $data = [
+            'unreadCount'=>$unreadCount,
             'deliveryid' => $deliveryid,
             'deliveryDetails' => $deliveryDetails,
             'messageDetails' => $messageDetails,
@@ -420,6 +422,14 @@ class Delivery extends Controller{
               
                 $messageDetails = $this->deliveryModel->findMessageByUserId($user_id);
                 $messageDetails2 = $this->deliveryModel->getMessageById($message_id);
+
+                if($messageDetails && $messageDetails2 ){
+                    if($this->publisherModel->changeStatus($message_id)){
+                        flash('post_message', 'change status');
+                    }else {
+                        echo "Not found";
+                    }
+                }
                 
             } else {
                 echo "Not found";

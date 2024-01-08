@@ -41,7 +41,7 @@
                     <span class="error"><?php echo $data['name_err']; ?></span>
 
                     <input type="text" name="contact_no" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" required>
-
+                    <button class="submit" type="button" onclick="goBack()">Back</button>
                     <input type="submit" value="Submit" name="submit" class="submit">
                 </form>
             </div>
@@ -63,6 +63,14 @@
                 reader.readAsDataURL(fileInput.files[0]);
             }
         }
+    </script>
+
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
     </script>
 </body>
 

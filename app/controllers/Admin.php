@@ -549,5 +549,79 @@ public function orders(){
     $this->view('admin/orders',$data);
 }
 
+public function reports(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'registration'=>trim($_POST['report-type']),
+            'start-date'=>trim($_POST['start-date']),
+            'end-date'=>trim($_POST['end-date']),
+
+            'registration_err'=>'',
+            'start-date_err'=>'',
+            'end-date_err'=>''
+        ];
+        
+        // Separate start-date components
+        list($startYear, $startMonth, $startDay) = explode('-', $data['start-date']);
+        
+        // Separate end-date components
+        list($endYear, $endMonth, $endDay) = explode('-', $data['end-date']);
+        
+        // Add the separated components to the data array
+        $data['startYear'] = $startYear;
+        $data['startMonth'] = $startMonth;
+        $data['startDay'] = $startDay;
+        
+        $data['endYear'] = $endYear;
+        $data['endMonth'] = $endMonth;
+        $data['endDay'] = $endDay;
+        
+
+        if(empty($data['registration'])){
+            $data['event_category_err']='Please select the report type';      
+        }
+
+        if(empty($data['start-date'])){
+            $data['start-date_err']='Please enter the start date';      
+        }
+
+        if(empty($data['registration_err']) && empty($data['start-date_err']) && empty($data['end-date_err'])){
+            if($this->adminModel->generateRegistrationReport($data)){
+                $registrationDetails = $this->adminModel->generateRegistrationReport($data);
+                $data=[
+                    'adminDetails' => $adminDetails,
+                    'adminName'=>$adminDetails[0]->name,
+                    'registrationDetails'=>$registrationDetails
+                ];
+                $this->view('admin/reports',$data);
+            }else{
+                die('Something went wrong');
+            }
+        }
+
+        else{
+            $this->view('admin/reports',$data);
+        }
+        
+    }
+
+    else{
+        $data=[
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+        ];
+
+        $this->view('admin/reports',$data);
+    }
+
+}
+
 }
 

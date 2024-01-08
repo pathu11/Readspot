@@ -19,7 +19,7 @@
         <div class="head">
             <div class="head1">
                 <h4>Notifications</h4>
-                <span>You've 3 unread notifications </span>
+                <span>You've <?php echo $data['unreadCount']; ?> unread notifications </span>
             </div>
             <div class="head1">
                 <button id="markAllRead" class="markAllRead" >Mark all as read</button>
@@ -31,7 +31,7 @@
          <div id="messagesContainer">
          <table>
          <?php foreach ($data['messageDetails'] as $message): ?>
-    <tr>
+    <tr style="background-color: <?php echo $message->status === 'read' ? '#c0ffef' : '#add8e6'; ?>; border-radius: 5px;">
     <a href="#"><th style="width:20%" >
             
             <h4><?php echo $message->sender_name; ?></h5>
@@ -50,7 +50,7 @@
             
         </td>
         <td style="width:10%">
-        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>"  data-user-id="<?php echo $message->user_id; ?>">View</a>   
+        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>"  data-user-id="<?php echo $message->user_id; ?>"  style="background-color: <?php echo $message->status === 'read' ? 'gray' : 'blue'; ?>; ">View</a>   
         
         </td>
         
@@ -112,5 +112,11 @@
         });
     </script>
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

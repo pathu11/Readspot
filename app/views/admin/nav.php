@@ -58,7 +58,13 @@
                 <span class="link">Categories</span>
               </a>
             </li>
-            <br><br>
+            <li class="list">
+              <a href="<?php echo URLROOT;?>/admin/reports" class="nav-link">
+                <i class="bx bxs-report icon"></i>
+                <span class="link">Reports</span>
+              </a>
+            </li>
+            <br>
           <div class="bottom-cotent">
             <li class="list">
               <a href="#" class="nav-link">

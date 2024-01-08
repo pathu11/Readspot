@@ -18,6 +18,8 @@
                 ?>
         <?php endforeach; ?>
         <img style="border-radius:60%;width:3%;height:3%;" src="<?php echo $profileImage; ?>">
+        
+    </div>
        
       </div>
       <div class="sidebar">
@@ -53,6 +55,13 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/stores" class="nav-link">
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Branches</span>
+              </a>
+            </li>
+            
+            <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/setting" class="nav-link">
                 <i class="bx bxs-book-heart icon"></i>
                 <span class="link">My Profile</span>
@@ -65,6 +74,7 @@
                 <span class="link">Notifications</span>
               </a>
             </li>
+            <br><br><br><br>
             <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/logout" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>
@@ -80,3 +90,4 @@
 
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/sidebar.js"></script>
   </body>
+  

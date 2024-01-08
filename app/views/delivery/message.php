@@ -29,7 +29,8 @@
                     
                     <input type="hidden" id="receiverId" name="receiver_id" value="<?php echo isset($_GET['receiver_id']) ? $_GET['receiver_id'] : ''; ?>">
                                    
-                  
+                    
+                    <button type="submit" onclick="goBack()" class="go-back-link">Back</button>
                     <button type="submit" class="submit">Send Message</button>
                     </div> 
                     <br>       
@@ -44,7 +45,13 @@
    
 
 
-
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 <script>var urlroot="<?php echo URLROOT; ?>"
 console.log(urlroot)</script>
 <script>

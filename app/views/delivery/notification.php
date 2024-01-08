@@ -8,18 +8,31 @@
     <title>Notification</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </head>
 
 <body>
     <?php require APPROOT . '/views/delivery/sidebar.php';?>
+    <div>
+        <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
+    </div><br>
     <div class="chat-container1">
         <input type="text" placeholder=" Search..." class="search-bar">
+        <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a> -->
+        
     </div>
+    
     <div class="chat">
         <div class="head">
             <div class="head1">
                 <h4>Notifications</h4>
-                <span>You've 3 unread notifications </span>
+                <span>You've <?php echo $data['unreadCount']; ?> unread notifications </span>
             </div>
             <div class="head1">
                 <button id="markAllRead">Mark all as read</button>
@@ -31,7 +44,7 @@
          <div id="messagesContainer">
          <table>
          <?php foreach ($data['messageDetails'] as $message): ?>
-    <tr>
+    <tr style="background-color: <?php echo $message->status === 'read' ? '#c0ffef' : '#add8e6'; ?>; border-radius: 5px;">
     <a href="#"><th style="width:20%" >
             
             <h4><?php echo $message->sender_name; ?></h5>
@@ -50,8 +63,8 @@
             
         </td>
         <td style="width:10%">
-        <a href="<?php echo URLROOT; ?>/delivery/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>">View</a>   
-        <!-- <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?> " class="view" >View</a> -->
+        <a href="<?php echo URLROOT; ?>/delivery/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>" style="background-color: <?php echo $message->status === 'read' ? 'gray' : 'blue'; ?>; ">View</a>   
+       
         </td>
         
     </tr></a>
