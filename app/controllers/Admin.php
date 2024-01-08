@@ -623,5 +623,15 @@ public function reports(){
 
 }
 
+/*public function generatePDF(){
+    require APPROOT.'/fpdf/fpdf.php';
+
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(100,20,'Hello world',1,0,'C');
+    $pdf->Output();
+}*/
+
 }
 
