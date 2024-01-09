@@ -32,8 +32,14 @@
       </div>
 
       <div class="date">
-        <input type="date" placeholder="Start Date" name="start-date" id="start-date">
-        <input type="date" placeholder="End Date" name="end-date" id="end-date">
+        <div class="date-picker">
+          <label>Start Date</label><br>
+          <input type="date" placeholder="Start Date" name="start-date" id="start-date">
+        </div>
+        <div class="date-picker">
+          <label>End Date</label>
+          <input type="date" placeholder="End Date" name="end-date" id="end-date">
+        </div>
       </div>
 
       <div class="button">
