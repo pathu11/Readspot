@@ -38,6 +38,19 @@ class Publishers{
         $row = $this->db->single();
         return $row;
     }
+    // public function findNewBook(){
+    //     $this->db->query('SELECT * FROM books WHERE status ="approval" AND type="new"');
+    //     // $this->db->bind(':book_id', $book_id);
+    //     $row = $this->db->single();
+    //     return $row;
+    // }
+    public function findNewBooks(){
+        $this->db->query('SELECT * FROM books WHERE status ="approval" AND type="new"');
+        $rows = $this->db->resultSet(); // Fetch multiple rows as an array of associative arrays
+        return $rows;
+    }
+    
+
 
     public function findBookByPubId($publisher_id){
         $this->db->query('SELECT * from books WHERE publisher_id=:publisher_id AND type="new" AND status="approval"');

@@ -2,6 +2,7 @@
 class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
+    private $publisherModel;
   
     private $userModel;
   
@@ -12,7 +13,8 @@ class Customer extends Controller {
         }
         $this->customerModel=$this->model('Customers');
         $this->deliveryModel=$this->model('Deliver');
-        $this->userModel=$this->model('User');  
+        $this->userModel=$this->model('User');
+        $this->publisherModel=$this->model('Publishers')  ;
         $this->db = new Database();
     }
     public function comment() {
@@ -563,10 +565,13 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $bookDetails=$this->publisherModel->findNewBooks() ;
+            
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails'=>$bookDetails
             ];
             $this->view('customer/BuyNewBooks', $data);
         }
