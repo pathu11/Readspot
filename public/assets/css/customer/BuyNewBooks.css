@@ -117,6 +117,40 @@
     align-items: center;
 }
 
+.filter-btn {
+    padding: 6px;
+    height: 38px;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid;
+    margin-right: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+
+}
+
+.filter-category {
+    position: absolute;
+    top: 170px;
+    right: 40px;
+    height: 450px;
+    width: 550px;
+    background-color: white;
+    opacity: 0.9;
+    z-index: 50;
+    border-radius: 10px;
+    display:none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.show-filter {
+    display: block;
+}
 .searching-N {
     display: flex;
     flex-direction: row;
