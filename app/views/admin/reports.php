@@ -34,7 +34,7 @@
 
         <div class="date">
           <div class="date-picker">
-            <label>Start Date</label><br>
+            <label>Start Date</label>
             <input type="date" placeholder="Start Date" name="start-date" id="start-date">
           </div>
           <div class="date-picker">
