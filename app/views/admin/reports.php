@@ -15,35 +15,37 @@
 <body>
   <?php require APPROOT . '/views/admin/nav.php';?>
 
-  <div class="title-bar">
-    <h3>Title</h3>
-    <input type="text" placeholder="Add a report title">
-  </div>
 
   <div class="selection-bar">
     <form action="<?php echo URLROOT;?>/admin/reports" method="post">
-      <div class="select">
-        <select name="report-type">
-          <option value="" disabled selected>Select Report Type</option>
-          <option value="registration" id="registration" name="registration">Registration report</option>
-          <option value="">User report summary</option>
-          <option value="">Login Activity</option>
-        </select>
+      <div class="title-bar">
+      <h3>Title</h3>
+        <input type="text" placeholder="Add a report title" id="title">
       </div>
-
-      <div class="date">
-        <div class="date-picker">
-          <label>Start Date</label><br>
-          <input type="date" placeholder="Start Date" name="start-date" id="start-date">
+      <div class="input-bar">
+        <div class="select">
+          <select name="report-type">
+            <option value="" disabled selected>Select Report Type</option>
+            <option value="registration" id="registration" name="registration">Registration report</option>
+            <option value="">User report summary</option>
+            <option value="">Login Activity</option>
+          </select>
         </div>
-        <div class="date-picker">
-          <label>End Date</label>
-          <input type="date" placeholder="End Date" name="end-date" id="end-date">
-        </div>
-      </div>
 
-      <div class="button">
-        <button type="submit">Generate Report</button>
+        <div class="date">
+          <div class="date-picker">
+            <label>Start Date</label><br>
+            <input type="date" placeholder="Start Date" name="start-date" id="start-date">
+          </div>
+          <div class="date-picker">
+            <label>End Date</label>
+            <input type="date" placeholder="End Date" name="end-date" id="end-date">
+          </div>
+        </div>
+
+        <div class="button">
+          <button type="submit">Generate Report</button>
+        </div>
       </div>
     </form>
   </div>
@@ -51,6 +53,8 @@
   <?php 
     if($_SERVER['REQUEST_METHOD']=='POST'){
       echo '<div class="table-container" id="pdf">
+          <h2>'.$data['title'].'</h2>
+          <div class="table" id="pdf"> 
             <table>
             <thead>
               <tr>
@@ -67,6 +71,7 @@
               endforeach;
             echo '</tbody>'.
           '</table>'.
+    '</div>'.
     '</div>';
     echo '<button id=download>Download PDF</button>';
     }
