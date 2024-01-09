@@ -12,7 +12,38 @@
       // $row = $this->db->single();
       // return $row;
     }
+    public function addToCart($book_id, $customer_id, $quantity) {
+      try {
+          $this->db->query('INSERT INTO cart (book_id, customer_id, quantity) VALUES (:book_id, :customer_id, :quantity)');
+          $this->db->bind(':book_id', $book_id);
+          $this->db->bind(':customer_id', $customer_id);
+          $this->db->bind(':quantity', $quantity);
+  
+          return $this->db->execute();
+      } catch (\Exception $e) {
+          // Handle the exception (e.g., log it, display an error message)
+          echo 'Error: ' . $e->getMessage();
+          return false;
+      }
+  }
 
+  // public function findCartById($customer_id){
+  //   $this->db->query('SELECT * from cart WHERE customer_id=:customer_id');
+  //   $this->db->bind(':customer_id',$customer_id);
+   
+  //   return $this->db->resultSet();
+  // }
+  public function findCartById($customer_id) {
+    $this->db->query('SELECT c.*, b.book_name, b.price FROM cart c
+                      JOIN books b ON c.book_id = b.book_id
+                      WHERE c.customer_id = :customer_id');
+    $this->db->bind(':customer_id', $customer_id);
+
+    return $this->db->resultSet();
+}
+
+  
+  
 
     public function findCustomerById($user_id){
         $this->db->query('SELECT * from customers WHERE user_id=:user_id');
