@@ -9,6 +9,7 @@
                 <h1>CONTENTS</h2>
             </div>
          <div class="search-bar-C">
+                <button type="submit" class="filter-btn-C" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
                 <form action="#.php" class="searching-C">
                     <select id="searchBy"  name="category">
                         <option value="technology">Title</option>
@@ -86,6 +87,9 @@
                 </div>
             </div>
         </div>
+        <?php
+            require APPROOT . '/views/customer/filterbook.php'; //path changed
+        ?>
     </div>
 
 <?php

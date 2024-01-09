@@ -9,7 +9,7 @@
                 <h1>NEW BOOKS</h1>
             </div>
             <div class="search-bar-N">
-                <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter by</button>
+                <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
                 <form action="#.php" class="searching-N">
                     <select id="searchBy"  name="category">
                         <option value="technology">Title</option>
@@ -121,17 +121,11 @@
                 <!--  -->
             </div>
         </div>    
-        <div class="filter-category" id="filter-dropdown">
-            
-        </div>
+        <?php
+            require APPROOT . '/views/customer/filterbook.php'; //path changed
+        ?>
     </div>
 
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
-<script>
-    function toggleDropdownfilter(dropdownId) {
-        var dropdown = document.getElementById(dropdownId);
-        dropdown.classList.toggle("show-filter");
-    }
-</script>

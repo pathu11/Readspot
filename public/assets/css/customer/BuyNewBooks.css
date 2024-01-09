@@ -117,40 +117,6 @@
     align-items: center;
 }
 
-.filter-btn {
-    padding: 6px;
-    height: 38px;
-    border: none;
-    border-radius: 10px;
-    border: 1px solid;
-    margin-right: 5px;
-    background-color: white;
-    cursor: pointer;
-}
-
-.filter-btn:hover {
-    transform: scale(1.05);
-    transition: 0.5s;
-
-}
-
-.filter-category {
-    position: absolute;
-    top: 170px;
-    right: 40px;
-    height: 450px;
-    width: 550px;
-    background-color: white;
-    opacity: 0.9;
-    z-index: 50;
-    border-radius: 10px;
-    display:none;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.show-filter {
-    display: block;
-}
 .searching-N {
     display: flex;
     flex-direction: row;
@@ -162,12 +128,31 @@
     /* margin: 8px 0px 8px 8px; */
     height: 38px;
     border: none;
+    /* border-radius: 10px 0px 0px 10px; */
+    border: 1px solid;
+}
+
+.filter-btn {
+    padding: 5px;
+    height: 38px;
+    border: none;
     border-radius: 10px 0px 0px 10px;
     border: 1px solid;
+    border-right: 0;
+    margin-right: 0px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: black;
+    color: white;
+
 }
 
 .searching-N input[type=text] {
     padding: 6px;
+    height: 38px;
     /* margin: 8px 0px 8px 8px; */
     font-size: 16px;
     border: none;
@@ -177,6 +162,7 @@
 
 .searching-N button {
     border: 1px solid;
+    height: 38px;
     border-left: 0px;
     /* float: right; */
     padding: 6px 10px;
@@ -246,37 +232,31 @@
 }
 
 
+@media screen and (max-width:800px) { 
+    .sub-cont-N1 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
 
 
 @media screen and (max-width:600px) {    
-    .searching-N {
+    /* .searching-N {
         display: flex;
         flex-direction: column;
-    }
+    } */
     
     .searching-N select {
-        width: 150px;
-        border-radius: 10px 10px 0px 0px;
-        border: 1px solid;
-        border-bottom: 0px;
+        width: 70px;
     }
     
     .searching-N input[type=text] {
-        padding: 6px;
-        width: 150px;
-        border: 1px solid;
+        width: 120px;
     }
     
     .searching-N button {
-        border: 1px solid;
-        border-top: 0px;
-        width: 150px;
-        border-radius: 0px 00px 10px 10px;
-    }
-    
-    .searching-N img {
-        height:15px;
-        width:15px;
+        width: 40px;
     }
 
     .New-books h1{
@@ -297,28 +277,23 @@
 
 @media screen and (max-width:400px) {
     .searching-N select {
-        width: 100px;
-        border-radius: 10px 10px 0px 0px;
-        border: 1px solid;
-        border-bottom: 0px;
+        width: 65px;
+        height: 28px;
     }
     
     .searching-N input[type=text] {
-        padding: 6px;
-        width: 100px;
-        border: 1px solid;
+        width: 70px;
+        height: 28px;
     }
     
     .searching-N button {
-        border: 1px solid;
-        border-top: 0px;
-        width: 100px;
-        border-radius: 0px 00px 10px 10px;
+        width: 40px;
+        height: 28px;
+        padding: 3px 2px;
     }
-    
-    .searching-N img {
-        height:15px;
-        width:15px;
+
+    .filter-btn {
+        height: 28px;
     }
 
     .New-books h1{

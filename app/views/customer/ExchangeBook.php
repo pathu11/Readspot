@@ -9,6 +9,7 @@
                 <h1>EXCHANGE BOOKS</h2>
             </div>
             <div class="search-bar-E">
+                <button type="submit" class="filter-btn-E" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
                 <form action="#.php" class="searching-E">
                     <select id="searchBy"  name="category">
                         <option value="technology">Title</option>
@@ -79,7 +80,9 @@
                 <a href="<?php echo URLROOT; ?>/customer/ExchangeBookDetails"><button class="dts-btn">View Details</button></a> <!--path changed-->
             </div>
         </div>
-        
+        <?php
+            require APPROOT . '/views/customer/filterbook.php'; //path changed
+        ?>
     </div>
 
 <?php
