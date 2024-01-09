@@ -30,7 +30,7 @@
                         <td>rs200.00</td>
                         <td>3</td>
                         <td>rs600.00</td>
-                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/purchase/79" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <tr>
                         <td>Lorem ipsum dolor sit amet</td>
