@@ -50,24 +50,23 @@
 
   <?php 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-      echo '<div class="table" id="pdf">
-        <span>Registration Report</span>
-        <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>New Registrations</th>
-          </tr>
-        </thead>
-        <tbody>';
-          foreach ($data['registrationDetails'] as $registrationDetail):
-          echo '<tr>'.
-            '<td>'.$registrationDetail->registration_date . '</td>'.
-            '<td>'.$registrationDetail->new_registrations . '</td>'.
-          '</tr>';
-          endforeach;
-        echo '</tbody>'.
-      '</table>'.
+      echo '<div class="table-container" id="pdf">
+            <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>New Registrations</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['registrationDetails'] as $registrationDetail):
+              echo '<tr>'.
+                '<td>'.$registrationDetail->registration_date . '</td>'.
+                '<td>'.$registrationDetail->new_registrations . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
     '</div>';
     echo '<button id=download>Download PDF</button>';
     }
