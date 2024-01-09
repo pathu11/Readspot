@@ -45,11 +45,11 @@
     margin-left: 80px;
 }
 
-.cardPayment-form,
+/* .cardPayment-form,
 .COD-form,
 .onlineBanking-form {
     display: none;
-}
+} */
 input[type="radio"]{
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;

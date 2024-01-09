@@ -1246,20 +1246,63 @@ class Customer extends Controller {
         }
     }
 
-    public function checkoutform($order_id){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/checkoutform', $data);
-        }
+    public function checkoutform()
+{
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else {
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+
+        $data = [
+            'customerDetails' => $customerDetails,
+            'customerName' => $customerDetails[0]->name
+        ];
+
+        $amount = 3000;
+        $merchant_id = "1225428";
+        $order_id = uniqid();
+        $merchant_secret = "MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA==";
+        $currency = "LKR";
+
+        $hash = strtoupper(
+            md5(
+                $merchant_id .
+                $order_id .
+                number_format($amount, 2, '.', '') .
+                $currency .
+                strtoupper(md5($merchant_secret))
+            )
+        );
+
+        $array =[];
+
+        $array["items"] = "Door bell wireles";
+        $array["first_name"] = "Hasintha";
+        $array["last_name"] = "Nirmanie";
+        $array["email"] = "easyfarm123@mail.com";
+        $array["phone"] = "0715797461";
+        $array["address"] = "No 20, Headaketiya, Angunukolapalassa";
+        $array["city"] = "Hambanthota";
+
+        
+   
+
+        $array["amount"] = $amount;
+        $array["merchant_id"] = $merchant_id;
+        $array["order_id"] = $order_id;
+        $array["merchant_secret"] = $merchant_secret;
+        $array["currency"] = $currency;
+        $array["hash"] = $hash;
+
+        $jsonObj = json_encode($array);
+        // Return JSON response
+        // echo $jsonObj;
+
+        // Load the checkoutform view with data
+        $this->view('customer/checkoutform', $data);
     }
+}
 
     public function Calender(){
         if (!isLoggedIn()) {
