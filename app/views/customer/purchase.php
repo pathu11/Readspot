@@ -50,7 +50,16 @@
             <?php foreach($data['bookDetails'] as $books): ?>
             <div class="order">
                 <div class="col1">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Bell Image" width="180px">
+                <?php 
+                    if ($books->type == "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
+                    } elseif ($books->type == "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    } else {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    }
+            ?>
+                        
                 </div>
                 <div class="col2">
                     <div class="cost">

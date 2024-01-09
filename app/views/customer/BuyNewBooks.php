@@ -80,9 +80,9 @@
                 <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
-                <!-- <?php var_dump($data); ?> -->
+               
                 <?php foreach($data['bookDetails'] as $books): ?>
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails">
+                <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
                 <div class="B0-N">
                     <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> 
                     <h3><?php echo $books->book_name; ?></h3>

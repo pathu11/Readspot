@@ -496,16 +496,17 @@ class Customer extends Controller {
         }
     } 
     
-    public function BookDetails(){
+    public function BookDetails($book_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-           
+            $bookDetails=$this->customerModel->findBookById($book_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails'=>$bookDetails
             ];
             $this->view('customer/BookDetails', $data);
         }

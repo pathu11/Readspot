@@ -4,38 +4,55 @@
 ?>
 
     <div class="main-detail">
+    <?php foreach($data['bookDetails'] as $books): ?>
         <div class="book-img-des">
             <div class="book-img">
                 <div class="sub1">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book3"> <!--path changed-->
+                <?php 
+                    if ($books->type == "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
+                    } elseif ($books->type == "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    } else {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    }
+            ?> <!--path changed-->
                 </div>
                 <div class="sub2">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/back.jpeg" alt="Book3"> <!--path changed-->
+                <?php 
+                    if ($books->type == "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
+                    } elseif ($books->type == "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    } else {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    }
+            ?>
                 </div>
             </div>
             <div class="sub3">
                 <h3>Description about the book</h3><br>
-                <p>The Great Gatsby, third novel by F. Scott Fitzgerald, published in 1925 by Charles Scribner’s Sons. Set in Jazz Age New York, the novel tells the tragic story of Jay Gatsby, a self-made millionaire, and his pursuit of Daisy Buchanan, a wealthy young woman whom he loved in his youth. Unsuccessful upon publication, the book is now considered a classic of American fiction and has often been called the Great American Novel.
+                <p><?php echo $books->descript; ?>
                 </p>
             </div>
         </div>
 
         <div class="new-book-details">
             <div class="sub4">
-                <h3>Book Name : <span>The Great Gatsby</span></h3><br>
-                <h3>Author of Book : <span>F. Scott Fitzgerald</span></h3><br>
-                <h3>Book Category : <span>Novel</span></h3><br>
+                <h3>Book Name : <span><?php echo $books->book_name; ?></span></h3><br>
+                <h3>Author of Book : <span><?php echo $books->author; ?></span></h3><br>
+                <h3>Book Category : <span><?php echo $books->category; ?></span></h3><br>
                 <h3>Condition : <span>Used</span></h3><br>
                 <h3>Published Date : <span>November 17, 2020</span></h3><br>
-                <h3>Price : <span>Rs.1500.00</span></h3><br>
+                <h3>Price : <span><?php echo $books->price; ?></span></h3><br>
                 <h3>Price Type : <span>Fixed</span></h3><br>
-                <h3>Weight (grams) : <span>181g</span></h3><br>
-                <h3>ISBN Number : <span>ISBN 9780743273565 </span></h3><br>
+                <h3>Weight (grams) : <span><?php echo $books->weight; ?></span></h3><br>
+                <h3>ISBN Number : <span><?php echo $books->ISBN_no; ?> </span></h3><br>
             </div>
             <div class="sub5">
-                <h3>Town : <span>Panadura</span></h3><br>
-                <h3>District : <span>Kalutara</span></h3><br>
-                <h3>Postal Code : <span>12500</span></h3><br>
+                <h3>Town : <span><?php echo $books->town; ?></span></h3><br>
+                <h3>District : <span><?php echo $books->district; ?></span></h3><br>
+                <h3>Postal Code : <span><?php echo $books->postal_code; ?></span></h3><br>
             </div>
         </div>
         <div class="cart-item">
@@ -45,7 +62,7 @@
             <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
         </div>
 
-        
+      
 
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
@@ -189,8 +206,9 @@
 
         <div class="sub8">
             <a href="#"><button class="chat-btn">Chat</button></a>
-            <a href="<?php echo URLROOT; ?>/customer/purchase/79"><button class="chat-btn">Purchase</button></a>
-
+          
+            <a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
+            <?php endforeach; ?>
         </div>
     </div>
     

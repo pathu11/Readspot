@@ -38,12 +38,7 @@ class Publishers{
         $row = $this->db->single();
         return $row;
     }
-    // public function findNewBook(){
-    //     $this->db->query('SELECT * FROM books WHERE status ="approval" AND type="new"');
-    //     // $this->db->bind(':book_id', $book_id);
-    //     $row = $this->db->single();
-    //     return $row;
-    // }
+   
     public function findNewBooks(){
         $this->db->query('SELECT * FROM books WHERE status ="approval" AND type="new"');
         $rows = $this->db->resultSet(); // Fetch multiple rows as an array of associative arrays
