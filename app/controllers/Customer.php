@@ -592,18 +592,40 @@ class Customer extends Controller {
             $this->view('customer/BuyUsedBook', $data);
         }
     } 
+    public function addToCart($bookId) {
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $customer_id=$customerDetails[0]->customer_id;
+        $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
+        
+        if ($bookId) {
+            if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
+                echo json_encode(['status' => 'success']);
+                return;
+            }
+        }
+    
+        echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
+
+    }
     
     public function Cart(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
+
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $cartDetails=$this->customerModel->findCartById($customerDetails[0]->customer_id);
+            // $bookDetails=$this->customerModel->findBookById($cartDetails[0]->book_id);
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'cartDetails'=>$cartDetails,
+                // 'bookDetails'=>$bookDetails
             ];
+            
             $this->view('customer/Cart', $data);
         }
     } 

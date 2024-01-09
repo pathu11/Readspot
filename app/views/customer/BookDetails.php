@@ -42,12 +42,17 @@
                 <h3>Book Name : <span><?php echo $books->book_name; ?></span></h3><br>
                 <h3>Author of Book : <span><?php echo $books->author; ?></span></h3><br>
                 <h3>Book Category : <span><?php echo $books->category; ?></span></h3><br>
-                <h3>Condition : <span>Used</span></h3><br>
-                <h3>Published Date : <span>November 17, 2020</span></h3><br>
+                
                 <h3>Price : <span><?php echo $books->price; ?></span></h3><br>
-                <h3>Price Type : <span>Fixed</span></h3><br>
+                <!-- <h3>Price Type : <span>Fixed</span></h3><br> -->
                 <h3>Weight (grams) : <span><?php echo $books->weight; ?></span></h3><br>
                 <h3>ISBN Number : <span><?php echo $books->ISBN_no; ?> </span></h3><br>
+                <?php 
+                    if ($books->type == "used" || $books->type == "exchanged" ) {
+                        echo '<h3>Condition : <span>'. $books->condition .'</span></h3><br>
+                        <h3>Published Date : <span>'. $books->published_date .'</span></h3><br><h3>'. $books->price_type .'<span>Fixed</span></h3><br>';
+                    } 
+            ?>
             </div>
             <div class="sub5">
                 <h3>Town : <span><?php echo $books->town; ?></span></h3><br>
@@ -55,12 +60,14 @@
                 <h3>Postal Code : <span><?php echo $books->postal_code; ?></span></h3><br>
             </div>
         </div>
-        <div class="cart-item">
-            <button class="quantity-button" onclick="decrement()">-</button>
-            <span id="quantity">1</span>
-            <button class="quantity-button" onclick="increment()">+</button>
-            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
-        </div>
+        
+            <div class="cart-item">
+                <button class="quantity-button" onclick="decrement()">-</button>
+                <span id="quantity">1</span>
+                <button class="quantity-button" onclick="increment()">+</button>
+                <button class="add-to-cart" onclick="addToCart(<?php echo $books->book_id; ?>)">Add to Cart</button>
+
+    </div>
 
       
 
@@ -227,10 +234,44 @@
             }
         }
 
-        function addToCart() {
-            // Add your logic to handle adding to cart
-            alert('Item added to cart with quantity: ' + quantity);
-        }
+        function addToCart(bookId) {
+            var quantity = document.getElementById('quantity').innerText;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        console.log('Response:', this.responseText);
+                        console.log('Response Type:', typeof this.responseText);
+
+                        try {
+                            var response = JSON.parse(this.responseText);
+                            if (response.status === 'success') {
+                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                // ... (rest of the code)
+                            } else {
+                                console.error('Error adding to cart:', response.message);
+                                // Display an error message to the user
+                            }
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                            // Display a generic error message to the user
+                        }
+                    } else {
+                        console.error('HTTP error:', this.status);
+                        // Handle HTTP errors (e.g., display a generic error message)
+                    }
+                }
+    };
+
+    xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
+    xhttp.send();
+}
+
+
+
+
+
     </script>
 
 
