@@ -4,20 +4,22 @@
   padding-right: 20px;
 }
 
-input{
+form input[type="text"]{
   width: 100%;
-  height: 30px;
+  height: 40px;
   padding-left: 5px;
   outline: none;
-  border-style: none;
+  border: 2px solid #70BFBA;
   border-radius: 3px;
+  margin-top: 10px;
 }
 
-form{
+.input-bar{
   display: flex;
   flex-direction: row;
   margin: 20px;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
 .date{
@@ -25,6 +27,83 @@ form{
   flex-direction: row;
 }
 
+form input[type="date"]{
+  border: 2px solid #70BFBA;
+  border-radius: 5px;
+  height: 35px;
+  width: 150px;
+  padding: 5px;
+}
+
+.date-picker{
+  display: block;
+  padding: 5px;
+}
+
 .table{
   margin: 20px;
 }
+
+select{
+  height: 40px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 2px solid #70BFBA;
+}
+
+label{
+  display: inline-block;
+}
+
+button{
+  background-color: #70BFBA;
+  height: 40px;
+  padding: 5px;
+  border-style: none;
+  border-radius: 10px;
+  color: white;
+  margin-left: 20px;
+}
+
+.table{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+h2{
+  padding-left: 20px;
+}
+
+table{
+  border-collapse: collapse; 
+  border-spacing: 0 3px;
+  width: 100%;
+  border-style: none;
+  height: 100%;
+  border: 1px solid black;
+}
+
+tr{
+  text-align: left;
+  
+  border: 1px solid black;
+}
+
+tr:first-child {
+  border: none;
+}
+
+td{
+  text-align: center;
+  padding: 15px;
+  border: 1px solid black;
+}
+
+th{
+  padding: 10px;
+  text-align: center;
+  border: 1px solid black;
+  background-color: rgba(0,0,0,25%);
+}
+
