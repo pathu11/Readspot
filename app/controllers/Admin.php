@@ -562,6 +562,7 @@ public function reports(){
             'registration'=>trim($_POST['report-type']),
             'start-date'=>trim($_POST['start-date']),
             'end-date'=>trim($_POST['end-date']),
+            
 
             'registration_err'=>'',
             'start-date_err'=>'',
@@ -598,7 +599,8 @@ public function reports(){
                 $data=[
                     'adminDetails' => $adminDetails,
                     'adminName'=>$adminDetails[0]->name,
-                    'registrationDetails'=>$registrationDetails
+                    'registrationDetails'=>$registrationDetails,
+                    'title'=>trim($_POST['title'])
                 ];
                 $this->view('admin/reports',$data);
             }else{
@@ -622,6 +624,16 @@ public function reports(){
     }
 
 }
+
+/*public function generatePDF(){
+    require APPROOT.'/fpdf/fpdf.php';
+
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(100,20,'Hello world',1,0,'C');
+    $pdf->Output();
+}*/
 
 }
 
