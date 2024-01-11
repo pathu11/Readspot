@@ -17,6 +17,7 @@ require APPROOT . '\vendor\autoload.php';
       $this->db = new Database();
 
   }
+  //testing comment
   /*public function index(){
       
       if (!isLoggedIn()) {
