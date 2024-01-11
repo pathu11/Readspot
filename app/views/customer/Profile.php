@@ -79,6 +79,29 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <hr>
+            <div class="account-details">
+                <h2>Account Details</h2>
+                <div class="acc-details">
+                    <div class="acc-Name">
+                        <label class="label-acc-Name">Account Holder's Name</label><br>
+                        <input type="text" class="form-Account-Name" value="user">
+                    </div>
+                    <div class="acc-Number">
+                        <label class="label-acc-Number">Account Number</label><br>
+                        <input type="text" class="form-Account-Number" value="123456789">
+                    </div>
+                    <div class="bank">
+                        <label class="label-Bank-Name">Bank Name</label><br>
+                        <input type="text" class="form-Bank-Name" value="BOC">
+                    </div>
+                    <div class="branch">
+                        <label class="label-Branch-Name">Branch Name</label><br>
+                        <input type="text" class="form-Branch-Name" value="city">
+                    </div>
+                </div>
+            </div>
             <div class="sbt">
                 <button class="sbt-btn">Save Changes</button>
             </div>
