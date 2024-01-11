@@ -22,8 +22,8 @@ form input[type="text"]{
   align-items: flex-end;
 }
 
-.date{
-  display: flex;
+#date{
+  display: none;
   flex-direction: row;
 }
 

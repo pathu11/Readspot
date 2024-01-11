@@ -24,15 +24,15 @@
       </div>
       <div class="input-bar">
         <div class="select">
-          <select name="report-type">
+          <select name="report-type" id="report-type" onchange="handleReportSelection()">
             <option value="" disabled selected>Select Report Type</option>
-            <option value="registration" id="registration" name="registration">Registration report</option>
-            <option value="">User report summary</option>
+            <option value="registration" id="registration" name="registration" onclick="registration()">Registration report</option>
+            <option value="">Book Inventory Report</option>
             <option value="">Login Activity</option>
           </select>
         </div>
 
-        <div class="date">
+        <div id="date">
           <div class="date-picker">
             <label>Start Date</label>
             <input type="date" placeholder="Start Date" name="start-date" id="start-date">
@@ -76,6 +76,19 @@
     echo '<button id=download>Download PDF</button>';
     }
   ?>
+
+<script>
+    function handleReportSelection() {
+      var selectedValue = document.getElementById("report-type").value;
+      var dateSection = document.getElementById("date");
+
+      if (selectedValue === "registration") {
+        dateSection.style.display = "flex";
+      } else {
+        dateSection.style.display = "none";
+      }
+    }
+</script>
 
 </body>
 </html>
