@@ -4,6 +4,16 @@
     public function __construct(){
         $this->db = new Database;
     }
+    public function findOrderById($order_id){
+        $this->db->query('SELECT * from orders WHERE order_id=:order_id');
+        $this->db->bind(':order_id',$order_id);
+        return $this->db->resultSet();
+    }
+    public function findCustomerById($customer_id){
+        $this->db->query('SELECT * from customers WHERE customer_id=:customer_id');
+        $this->db->bind(':customer_id',$customer_id);
+        return $this->db->resultSet();
+    }
     public function finddeliveryCharge(){
         $this->db->query('SELECT priceperkilo, priceperadditional FROM delivery LIMIT 1');
         $row = $this->db->single();

@@ -1,4 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require APPROOT . '\vendor\autoload.php';
 class Delivery extends Controller{
     private $deliveryModel;
     
@@ -10,9 +16,7 @@ class Delivery extends Controller{
         $this->deliveryModel=$this->model('deliver');
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
-        $this->publisherModel=$this->model('Publishers');
-       
-       
+        $this->publisherModel=$this->model('Publishers'); 
         $this->db = new Database();
     }
     public function index(){
@@ -92,8 +96,6 @@ class Delivery extends Controller{
                     'deliveryName'=>$delivers->name
                    
                 ];
-
-
                 $this->view('delivery/updatePricePerOne',$data);
     
             }  
@@ -319,10 +321,54 @@ class Delivery extends Controller{
     public function pickedUp($order_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
+
         }
-        if($this->deliveryModel->pickedUp($order_id)){
+        $user_id = $_SESSION['user_id'];
+    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+        $orderDetails=$this->deliveryModel->findOrderById($order_id);
+        $customer_id=$orderDetails[0]->customer_id;
+        $customerDetails=$this->deliveryModel->findCustomerById($customer_id);
+        $data=[
+            'sender_name'=>$deliveryDetails[0]->name,
+            'sender_id'=>$user_id,
+            'topic'=>"Delivery Status",
+            'message'=>"Picked up your order from the pick up location",
+            'user_id'=>$customerDetails[0]->user_id,
+            'reciever_email'=>$customerDetails[0]->email,
+        ];
+        if($this->deliveryModel->pickedUp($order_id) && $this->deliveryModel->addMessage($data)){
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                $mail->SMTPAuth   = true;
+                $mail->Username   = MAIL_USER; // SMTP username
+                $mail->Password   = MAIL_PASS;   // SMTP password
+                $mail->SMTPSecure = MAIL_SECURITY;
+                $mail->Port       = MAIL_PORT;
+
+                //Recipients
+                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                $mail->addAddress($data['reciever_email']);  // Add a recipient
+
+                // Content
+                $mail->isHTML(true);  // Set email format to HTML
+                $mail->Subject = $data['topic'];
+                $mail->Body    = $data['message'];
+
+                $mail->send();
+
+                // Redirect or perform other actions as needed
+                redirect('delivery/processedorders');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
+                
             
-            redirect('delivery/processedorders');
         }
         else{
             die('Something went wrong');
@@ -332,9 +378,51 @@ class Delivery extends Controller{
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-        if($this->deliveryModel->delivered($order_id)){
+        $user_id = $_SESSION['user_id'];
+    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+        $orderDetails=$this->deliveryModel->findOrderById($order_id);
+        $customer_id=$orderDetails[0]->customer_id;
+        $customerDetails=$this->deliveryModel->findCustomerById($customer_id);
+        $data=[
+            'sender_name'=>$deliveryDetails[0]->name,
+            'sender_id'=>$user_id,
+            'topic'=>"Delivery Status",
+            'message'=>"Delivered  your order from the pick up location to your location successfully",
+            'user_id'=>$customerDetails[0]->user_id,
+            'reciever_email'=>$customerDetails[0]->email,
+        ];
+        if($this->deliveryModel->delivered($order_id) && $this->deliveryModel->addMessage($data)){
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                $mail->SMTPAuth   = true;
+                $mail->Username   = MAIL_USER; // SMTP username
+                $mail->Password   = MAIL_PASS;   // SMTP password
+                $mail->SMTPSecure = MAIL_SECURITY;
+                $mail->Port       = MAIL_PORT;
+
+                //Recipients
+                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                $mail->addAddress($data['reciever_email']);  // Add a recipient
+
+                // Content
+                $mail->isHTML(true);  // Set email format to HTML
+                $mail->Subject = $data['topic'];
+                $mail->Body    = $data['message'];
+
+                $mail->send();
+
+                // Redirect or perform other actions as needed
+                redirect('delivery/shippingorders');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
+                
             
-            redirect('delivery/shippingorders');
         }
         else{
             die('Something went wrong');
@@ -344,9 +432,51 @@ class Delivery extends Controller{
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-        if($this->deliveryModel->returned($order_id)){
+        $user_id = $_SESSION['user_id'];
+    
+        $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
+        $orderDetails=$this->deliveryModel->findOrderById($order_id);
+        $customer_id=$orderDetails[0]->customer_id;
+        $customerDetails=$this->deliveryModel->findCustomerById($customer_id);
+        $data=[
+            'sender_name'=>$deliveryDetails[0]->name,
+            'sender_id'=>$user_id,
+            'topic'=>"Delivery Status",
+            'message'=>"Returned  your order to picked up location ",
+            'user_id'=>$customerDetails[0]->user_id,
+            'reciever_email'=>$customerDetails[0]->email,
+        ];
+        if($this->deliveryModel->returned($order_id) && $this->deliveryModel->addMessage($data)){
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                $mail->SMTPAuth   = true;
+                $mail->Username   = MAIL_USER; // SMTP username
+                $mail->Password   = MAIL_PASS;   // SMTP password
+                $mail->SMTPSecure = MAIL_SECURITY;
+                $mail->Port       = MAIL_PORT;
+
+                //Recipients
+                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                $mail->addAddress($data['reciever_email']);  // Add a recipient
+
+                // Content
+                $mail->isHTML(true);  // Set email format to HTML
+                $mail->Subject = $data['topic'];
+                $mail->Body    = $data['message'];
+
+                $mail->send();
+
+                // Redirect or perform other actions as needed
+                redirect('delivery/shippingorders');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
             
-            redirect('delivery/shippingorders');
+            
         }
         else{
             die('Something went wrong');
