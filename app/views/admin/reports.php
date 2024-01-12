@@ -26,8 +26,8 @@
         <div class="select">
           <select name="report-type" id="report-type" onchange="handleReportSelection()">
             <option value="" disabled selected>Select Report Type</option>
-            <option value="registration" id="registration" name="registration" onclick="registration()">Registration report</option>
-            <option value="">Book Inventory Report</option>
+            <option value="registration" id="registration" name="registration"">Registration report</option>
+            <option value="book-inventory" id="book-inventory" name="book-inventory">Book Inventory Report</option>
             <option value="">Login Activity</option>
           </select>
         </div>
@@ -41,6 +41,13 @@
             <label>End Date</label>
             <input type="date" placeholder="End Date" name="end-date" id="end-date">
           </div>
+        </div>
+
+        <div id="book_inventory">
+          <div class="checkBox"><input type="checkbox"><label>Total number of books</label></div>
+          <div class="checkBox"><input type="checkbox"><label>Book Categories</label></div>
+          <div class="checkBox"><input type="checkbox"><label>Top Authors</label></div>
+          <div class="checkBox"><input type="checkbox"><label>Book Availability</label></div>
         </div>
 
         <div class="button">
@@ -81,11 +88,13 @@
     function handleReportSelection() {
       var selectedValue = document.getElementById("report-type").value;
       var dateSection = document.getElementById("date");
+      var inventorySection = document.getElementById("book_inventory");
 
       if (selectedValue === "registration") {
         dateSection.style.display = "flex";
-      } else {
-        dateSection.style.display = "none";
+      }
+      else if(selectedValue==="book-inventory"){
+        inventorySection.style.display = "flex";
       }
     }
 </script>

@@ -27,6 +27,42 @@ form input[type="text"]{
   flex-direction: row;
 }
 
+#book_inventory{
+  display: none;
+  flex-direction: row;
+}
+.checkBox{
+  padding: 10px;
+}
+
+.checkBox label{
+  padding-left: 5px;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  -webkit-appearance: none;
+  border: none; 
+  border-radius: 5px;
+  cursor: pointer;
+  vertical-align: text-top;
+  background-color: #70BFBA;
+}
+
+input[type="checkbox"]:checked::before {
+  content: '\2713';
+  font-size: 20px; 
+  color: white; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+}
+
+
 form input[type="date"]{
   border: 2px solid #70BFBA;
   border-radius: 5px;
