@@ -568,13 +568,13 @@ class Customer extends Controller {
            
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $bookDetails=$this->publisherModel->findNewBooks() ;
-            $bookCategoryDetails=$this->adminModel->getBookCategories();
+            // $bookCategoryDetails=$this->adminModel->getBookCategories();
             
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'bookDetails'=>$bookDetails,
-                'bookCategoryDetails'=>$bookCategoryDetails
+                // 'bookCategoryDetails'=>$bookCategoryDetails
             ];
             $this->view('customer/BuyNewBooks', $data);
         }
