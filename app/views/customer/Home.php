@@ -12,7 +12,7 @@
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
         </div>
-        <a href="<?php echo URLROOT; ?>/customer/purchase/79">purchase</a>
+        
     </div>
     
     <div class="our_ser-div-M">

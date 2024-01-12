@@ -77,10 +77,7 @@
 
                                
                                 <input type="number" id="totalCostInput" name="totalCost" step="any" class="visible">
-                                <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">
-
-
-                                
+                                <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">                                
 
                         </div> 
                     </div>

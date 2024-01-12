@@ -27,7 +27,9 @@
                 <a href="<?php echo URLROOT; ?>/customer/TopAuthor">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/Recommended"><div class="aut-T">
+                <a href="<?php echo URLROOT; ?>/customer/Recommended">
+                
+                <div class="aut-T">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Book1"> <!--path changed-->
                     <h3>Martin Wickramasignhe</h3>
                 </div></a>
@@ -51,7 +53,9 @@
                 <a href="<?php echo URLROOT; ?>/customer/TopCategory">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/Recommended"><div class="cat-T">
+                <a href="<?php echo URLROOT; ?>/customer/Recommended">
+                
+                <div class="cat-T">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/fantasy.jpg" alt="Book1"> <!--path changed-->
                 </div></a>
                 <div class="cat-T">
