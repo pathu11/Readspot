@@ -109,7 +109,8 @@
 .filter-btn-E:hover {
     background-color: black;
     color: white;
-
+    border: 1px 0px 1px 1px;
+    border-color: black
 }
 
 .searching-E input[type=text] {

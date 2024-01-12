@@ -147,7 +147,8 @@
 .filter-btn:hover {
     background-color: black;
     color: white;
-
+    border: 1px 0px 1px 1px;
+    border-color: black
 }
 
 .searching-N input[type=text] {

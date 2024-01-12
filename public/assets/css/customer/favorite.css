@@ -219,6 +219,14 @@
         /* justify-content: center; */
     }
 
+    .f-vd .f-view {
+        width: 75%;
+    }
+    
+    .f-vd .f-delete {
+        width: 75%;
+    }
+
     .myfavorite td:nth-child(2), .myfavorite th:nth-child(2) {
       display: none;
     }

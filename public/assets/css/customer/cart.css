@@ -160,7 +160,7 @@
     width: 100%; /* Adjust the width as needed */
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:810px) {
     .tb-cart1 {
         display: none;
     }
@@ -252,10 +252,17 @@
     .cart-vd {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         /* justify-content: center; */
     }
 
+    .cart-vd .cart-view {
+        width: 100%;
+    }
+    
+    .cart-vd .cart-delete {
+        width: 100%;
+    }
     /* .myevent td:nth-child(2), .myevent th:nth-child(2) {
       display: none;
     } */

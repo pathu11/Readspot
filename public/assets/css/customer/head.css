@@ -82,6 +82,11 @@
     padding: 8px;
 }
 
+.navigation a.active:hover::after {
+    transform-origin: none;
+    transform: scaleX(0);
+}
+
 
 /* Login Icon */
 .Login {
@@ -213,12 +218,13 @@
 .dropdown-content-services {
     display: none;
     position: absolute;
-    background-color: #f6f6f6;
+    background-color: rgba(255, 255, 255, 0.8);
     min-width: 200px;
     height: 325px;
-    overflow: auto;
+    /* overflow: auto; */
     border: 1px solid #ddd;
     z-index: 1;
+    backdrop-filter: blur(8px);
 }
 
 .dropdown-services a {

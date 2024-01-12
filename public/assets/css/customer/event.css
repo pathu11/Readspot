@@ -254,6 +254,14 @@
         /* justify-content: center; */
     }
 
+    .e-vd .e-view {
+        width: 75%;
+    }
+    
+    .e-vd .e-delete {
+        width: 75%;
+    }
+
     .myevent td:nth-child(2), .myevent th:nth-child(2) {
       display: none;
     }
