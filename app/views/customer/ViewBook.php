@@ -6,6 +6,9 @@
 ?>
 
     <div class="used-detail">
+        <div class="back-btn-div">
+            <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
         <div class="used-des">
             <div class="used-img">
                 <div class="sub1-E">

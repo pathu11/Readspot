@@ -1267,4 +1267,19 @@ private function handledefault_addressForm($book_id) {
             $this->view('customer/Calender', $data);
         }
     }
+
+    public function BookChallenge(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BookChallenge', $data);
+        }
+    }
 }

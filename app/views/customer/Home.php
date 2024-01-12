@@ -9,7 +9,7 @@
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2><br>
             <p>Here we introducing a web-based Platform for Buying<br>
-                Selling , exchanging, and Donating both new & used books.</p>
+                Selling , Exchanging, and Donating both new & used books.</p>
         </div>
     </div>
     
@@ -99,7 +99,7 @@ function service6() {
 }
 
 function service7() {
-    var url = "#";
+    var url = "<?php echo URLROOT; ?>/customer/BookChallenge";
     window.location.href = url;
 }
 

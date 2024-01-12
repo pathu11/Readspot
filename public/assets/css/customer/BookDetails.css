@@ -110,6 +110,29 @@
     /* background-color: #fff; */
 }
 
+.back-btn-div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* margin-top: 10px; */
+    padding-left: 10px;
+    /* background-color: #fff; */
+}
+
+.back-btn {
+    width: 80px;
+    height: 30px;
+    background-color:  rgb(1, 36, 33);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background: #fff;
+    color: black;
+}
+
 .quantity-button {
     width: 40px;
     height: 40px;

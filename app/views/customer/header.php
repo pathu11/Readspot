@@ -30,7 +30,7 @@
                         <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookContents">Contents</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
-                        <a href="#">Book Challenges</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
                         <a href="#">Event Calender</a>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookContents">Contents</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
-                        <a href="#">Book Challenges</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
                         <a href="#">Event Calender</a>
                     </div>
                     <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->

@@ -7,6 +7,9 @@
     ?>
     <div class="container">
         <div class="book-shelf">
+            <div class="back-btn-div">
+                <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <div class="exchange-books">
                 <h2>Exchange Books</h2>
                 <form action="#.php" class="mybook-search">
