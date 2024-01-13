@@ -326,5 +326,16 @@ public function generateRegistrationReport($data){
   return $results;
 }
 
+public function countTotalBooks(){
+  $this->db->query('SELECT COUNT(*) AS totalBooks FROM books');
+  
+  $result = $this->db->single();
+  if ($result) {
+      return $result->totalBooks;
+  } else {
+      return 0; 
+    }
+}
+
   
 }

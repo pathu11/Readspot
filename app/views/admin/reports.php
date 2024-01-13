@@ -44,10 +44,10 @@
         </div>
 
         <div id="book_inventory">
-          <div class="checkBox"><input type="checkbox"><label>Total number of books</label></div>
-          <div class="checkBox"><input type="checkbox"><label>Book Categories</label></div>
-          <div class="checkBox"><input type="checkbox"><label>Top Authors</label></div>
-          <div class="checkBox"><input type="checkbox"><label>Book Availability</label></div>
+          <div class="checkBox"><input type="checkbox" name="total_books"><label>Total number of books</label></div>
+          <div class="checkBox"><input type="checkbox" name="book_category"><label>Book Categories</label></div>
+          <div class="checkBox"><input type="checkbox" name="top_books"><label>Top Books</label></div>
+          <div class="checkBox"><input type="checkbox" name="book_available"><label>Book Availability</label></div>
         </div>
 
         <div class="button">
@@ -92,9 +92,11 @@
 
       if (selectedValue === "registration") {
         dateSection.style.display = "flex";
+        inventorySection.style.display = "none";
       }
-      else if(selectedValue==="book-inventory"){
+      if(selectedValue==="book-inventory"){
         inventorySection.style.display = "flex";
+        dateSection.style.display = "none";
       }
     }
 </script>
