@@ -642,6 +642,47 @@ public function payments(){
     }
     
 }
+public function approveOrder($order_id){
+    // Assuming your approval logic here...
+
+    if ( $this->adminModel->approveOrder($order_id)) {
+        $orderDetails=$this->adminModel->getOrderDetailsById($order_id);
+        $customer_id=$orderDetails[0]->customer_id;
+        $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
+        $customerEmail = $customerDetails[0]->email;
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress( $customerEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Approved the Order by administration';
+            $mail->Body    = 'Congratulations! Your order has been approved.Your order will be recieved to home as soon as possible.';
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            redirect('admin/payments');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+    } else {
+        die('Something went wrong');
+    }
+}
+
 
 /*public function generatePDF(){
     require APPROOT.'/fpdf/fpdf.php';

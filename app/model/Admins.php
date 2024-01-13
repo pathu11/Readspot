@@ -17,6 +17,21 @@
 
         return $this->db->resultSet();
     }
+    
+    public function getCustomerDetailsById($customer_id){
+      $this->db->query('SELECT * from customers WHERE customer_id=:customer_id');
+      $this->db->bind(':customer_id',$customer_id);
+     
+
+      return $this->db->resultSet();
+  }
+    public function getOrderDetailsById($order_id){
+      $this->db->query('SELECT * from orders WHERE order_id=:order_id');
+      $this->db->bind(':order_id',$order_id);
+     
+
+      return $this->db->resultSet();
+  }
     public function getBookCategories(){
       $this->db->query('SELECT * FROM book_category');
 
@@ -334,6 +349,15 @@ public function generateRegistrationReport($data){
   $results=$this->db->resultSet();
 
   return $results;
+}
+public function approveOrder($order_id) {
+  $this->db->query("UPDATE orders SET status = 'processing' WHERE order_id = :order_id");
+  $this->db->bind(':order_id', $order_id);
+  if ($this->db->execute()) {
+    return true;
+} else {
+    return false;
+}
 }
 
   
