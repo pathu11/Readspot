@@ -255,14 +255,14 @@ public function editOrder($data)
     $this->db->query('UPDATE orders
               SET recipt = :recipt,
               payment_type = :payment_type ,
-              traking_no = :traking_no
+              tracking_no = :tracking_no
               WHERE order_id = :order_id');
 
     // Bind values
     $this->db->bind(':order_id', $data['order_id']);
     $this->db->bind(':recipt', $data['recipt']);
     $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
-    $this->db->bind(':traking_no', $data['trakingNumber']);
+    $this->db->bind(':tracking_no', $data['trackingNumber']);
     // Execute
     if ($this->db->execute()) {
         return true;

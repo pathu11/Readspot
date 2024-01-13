@@ -1325,7 +1325,7 @@ private function handleOnlineDepositForm($order_id,$formType){
         'order_id'=>$order_id,
         'recipt' => '',
         'formType'=>$formType,
-        'trakingNumber'=>$trackingNumber
+        'trackingNumber'=>$trackingNumber
         
     ];
     if (isset($_FILES['recipt']['name']) AND !empty($_FILES['recipt']['name'])) {
@@ -1351,7 +1351,7 @@ private function handleOnlineDepositForm($order_id,$formType){
     }
     
         //make sure errors are empty
-        if($data['recipt'] && $data['trakingNumber']  ){
+        if($data['recipt'] && $data['trackingNumber']  ){
             if($this->customerModel->editOrder($data) ){
                 flash('update_success','You are placed an order successfully');
                 redirect('customer/cart');
