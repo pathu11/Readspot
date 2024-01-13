@@ -620,14 +620,12 @@ class Customer extends Controller {
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $cartDetails=$this->customerModel->findCartById($customerDetails[0]->customer_id);
-            $orderDetails=$this->customerModel->displayOrder();
-            // $bookDetails=$this->customerModel->findBookById($cartDetails[0]->book_id);
+           
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'cartDetails'=>$cartDetails,
-                'orderDetails'=>$orderDetails,
-                // 'bookDetails'=>$bookDetails
+                
             ];
             
             $this->view('customer/Cart', $data);
@@ -1320,13 +1318,14 @@ private function handleOnlineDepositForm($order_id,$formType){
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
     $customer_id=$customerDetails[0]->customer_id;
-    
+    $trackingNumber=$this->generateTrackingNumber($order_id);
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
         'customer_id' => $customer_id,
         'order_id'=>$order_id,
         'recipt' => '',
-        'formType'=>$formType
+        'formType'=>$formType,
+        'trakingNumber'=>$trackingNumber
         
     ];
     if (isset($_FILES['recipt']['name']) AND !empty($_FILES['recipt']['name'])) {
@@ -1352,7 +1351,7 @@ private function handleOnlineDepositForm($order_id,$formType){
     }
     
         //make sure errors are empty
-        if($data['recipt']   ){
+        if($data['recipt'] && $data['trakingNumber']  ){
             if($this->customerModel->editOrder($data) ){
                 flash('update_success','You are placed an order successfully');
                 redirect('customer/cart');
@@ -1363,6 +1362,11 @@ private function handleOnlineDepositForm($order_id,$formType){
                 $this->view('customer/checkout2',$data);
             }
 }
+    private function generateTrackingNumber($orderId) {
+        $randomNumber = mt_rand(100000000000000000, 999999999999999999);
+        $trackingNumber = $orderId . $randomNumber;
+        return $trackingNumber;
+    }
 
     public function Calender(){
         if (!isLoggedIn()) {

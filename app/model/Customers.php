@@ -254,14 +254,15 @@ public function editOrder($data)
 {
     $this->db->query('UPDATE orders
               SET recipt = :recipt,
-              payment_type = :payment_type 
+              payment_type = :payment_type ,
+              traking_no = :traking_no
               WHERE order_id = :order_id');
 
     // Bind values
     $this->db->bind(':order_id', $data['order_id']);
     $this->db->bind(':recipt', $data['recipt']);
     $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
-
+    $this->db->bind(':traking_no', $data['trakingNumber']);
     // Execute
     if ($this->db->execute()) {
         return true;
@@ -269,10 +270,10 @@ public function editOrder($data)
         return false;
     }
 }
-public function displayOrder(){
-  $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
-    return $this->db->resultSet();
-}
+// public function displayOrder(){
+//   $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
+//     return $this->db->resultSet();
+// }
 
 
   }
