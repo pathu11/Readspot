@@ -620,12 +620,33 @@ public function reports(){
             if(isset($_POST['total_books'])){
                 $totalBooks = $this->adminModel->countTotalBooks();
             }
+            else $totalBooks = '';
+            
             if(isset($_POST['book_category'])){
                 $bookCategories = $this->adminModel->getBookCategories();
             }
+            else $bookCategories = '';
+            
             if(isset($_POST['top_books'])){
-                $topBooks = $this->adminModel->countTotalBooks();
+                $topBooks = $this->adminModel->getTopBooks();
             }
+            else $topBooks = '';
+            
+            if(isset($_POST['book_available'])){
+                $availableBooks = $this->adminModel->getAvailableBooks();
+            }
+            else $availableBooks = '';
+
+            $data=[
+                'adminDetails' => $adminDetails,
+                'adminName'=>$adminDetails[0]->name,
+                'totalBooks' => $totalBooks,
+                'bookCategories'=>$bookCategories,
+                'topBooks'=>$topBooks,
+                'availableBooks'=>$availableBooks,
+                'title'=>trim($_POST['title'])
+            ];
+            $this->view('admin/reports',$data);
 
         }
         
