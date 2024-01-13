@@ -27,12 +27,7 @@
       }
   }
 
-  // public function findCartById($customer_id){
-  //   $this->db->query('SELECT * from cart WHERE customer_id=:customer_id');
-  //   $this->db->bind(':customer_id',$customer_id);
-   
-  //   return $this->db->resultSet();
-  // }
+ 
   public function findCartById($customer_id) {
     $this->db->query('SELECT c.*, b.book_name, b.price FROM cart c
                       JOIN books b ON c.book_id = b.book_id
@@ -254,6 +249,29 @@
     $this->db->query('SELECT LAST_INSERT_ID() as order_id');
     $row = $this->db->single();
     return $row->order_id;
+}
+public function editOrder($data)
+{
+    $this->db->query('UPDATE orders
+              SET recipt = :recipt,
+              payment_type = :payment_type 
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $data['order_id']);
+    $this->db->bind(':recipt', $data['recipt']);
+    $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+public function displayOrder(){
+  $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
+    return $this->db->resultSet();
 }
 
 
