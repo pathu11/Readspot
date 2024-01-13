@@ -16,6 +16,7 @@ class Landing extends Controller{
 
     private $deliveryModel;
     private $superadminModel;
+    private $moderatorModel;
 
 
     private $db;
@@ -29,6 +30,8 @@ class Landing extends Controller{
         $this->customerModel=$this->model('Customers');
 
         $this->superadminModel=$this->model('Super_admin');
+
+        $this->moderatorModel=$this->model('Moderators');
 
         $this->db = new Database();
        
@@ -501,15 +504,27 @@ class Landing extends Controller{
 
         }   
     }
+  
+    
     public function login(){
+      
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            if(isset($_POST['rememberMe'])){
+                setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+                setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+             }else{
+               
+                setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
+                setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
+             }
             //init data
             $data=[
                 
                 'email'=>trim($_POST['email']),
                 'pass'=>trim($_POST['pass']),
+                // 'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 
                 'email_err'=>'',
                 'pass_err'=>'',
 
@@ -531,34 +546,128 @@ class Landing extends Controller{
             }
             
             //make sure errors are empty
-            if(empty($data['email_err']) && empty($data['pass_err'])){
-                //validate
-                //chek and set logged in user
-                $loggedInUser=$this->userModel->login($data['email'],$data['pass']);
+            if (empty($data['email_err']) && empty($data['password_err'])) {
+                // Validate and set logged in user
+                $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
 
-                if($loggedInUser){
-                    
+                if ($loggedInUser) {
+                   
                     $this->createUserSession($loggedInUser);
-                }else{
-                    $data['pass_err']='Password incorrect';
-                    $this->view('landing/login',$data);
+                } else {
+                    $data['pass_err'] = 'Password incorrect';
+                    $this->view('landing/login', $data);
                 }
-            }else{
-                $this->view('landing/login',$data);
+            } else {
+                $this->view('landing/login', $data);
             }
-
         }else{
             $data=[
                 'email'=>'',
                 'pass'=>'',
+                // 'remember_me'=>'',
                 'email_err'=>'',
                 'pass_err'=>'',
             ];
 
             $this->view('landing/login',$data);
-
         }       
     }
+    // private function deleteRememberMeCookie() {
+    //     setcookie('userToken', '', time() - 3600); // Set expiration in the past
+    // }
+    // private function setRememberMeCookie($token) {
+    //     setcookie('userToken', $token, time() + 30 * 24 * 60 * 60); // 30 days expiration
+    // }
+    
+    // private function generateUniqueToken($length = 32) {
+    //     $randomBytes = openssl_random_pseudo_bytes($length / 2);
+    //     return bin2hex($randomBytes);
+    // }
+    // private function deleteRememberMeCookie() {
+    //     setcookie('userToken', '', time() - 3600); // Set expiration in the past
+    // }
+    
+    // private function setRememberMeCookie($token) {
+    //     setcookie('userToken', $token, time() + 30 * 24 * 60 * 60); // 30 days expiration
+    // }
+    
+    // public function login() {
+    //     if (isset($_COOKIE['userToken'])) {
+    //         $token = $_COOKIE['userToken'];
+    //         $userDetails = $this->userModel->findUserByToken($token);
+
+    //         if ($userDetails) {
+    //             // Valid token, log in the user
+    //             $this->createUserSession($userDetails);
+    //             return true;
+    //         }
+    //     }
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         // Check if the userToken cookie is set
+            
+    
+    //         // Process form
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+    //         $data = [
+    //             'email' => trim($_POST['email']),
+    //             'pass' => trim($_POST['pass']),
+    //             'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1',
+    //             'email_err' => '',
+    //             'pass_err' => '',
+    //         ];
+    
+    //         // Validate email
+    //         if (empty($data['email'])) {
+    //             $data['email_err'] = 'Please enter email';
+    //         }
+    
+    //         // Validate password
+    //         if (empty($data['pass'])) {
+    //             $data['pass_err'] = 'Please enter password';
+    //         }
+    
+    //         // Check for user/email
+    //         if ($this->userModel->findUserByEmail($data['email'])) {
+    //             // User found
+    //         } else {
+    //             $data['email_err'] = 'No user found';
+    //         }
+    
+    //         // Make sure errors are empty
+    //         if (empty($data['email_err']) && empty($data['password_err'])) {
+    //             // Validate and set logged in user
+    //             $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
+    
+    //             if ($loggedInUser) {
+    //                 if ($data['remember_me']) {
+    //                     $uniqueToken = $this->generateUniqueToken();
+    //                     $this->userModel->setRememberMeToken($loggedInUser->user_id, $uniqueToken);
+    //                     $this->setRememberMeCookie($uniqueToken);
+    //                 }
+    //                 $this->createUserSession($loggedInUser);
+    //             } else {
+    //                 $data['pass_err'] = 'Password incorrect';
+    //                 $this->view('landing/login', $data);
+    //             }
+    //         } else {
+    //             $this->view('landing/login', $data);
+    //         }
+    //     } else {
+    //         $data = [
+    //             'email' => '',
+    //             'pass' => '',
+    //             'remember_me' => '',
+    //             'email_err' => '',
+    //             'pass_err' => '',
+    //             'userDetails'=>$userDetails
+    //         ];
+    
+    //         $this->view('landing/login', $data);
+    //     }
+    // }
+    
+
     public function enteremail() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // process form
@@ -819,6 +928,18 @@ class Landing extends Controller{
         }
     }    
     public function createUserSession($user) {
+        // if (is_object($userDetails)) {
+        //     $_SESSION['user_id'] = $userDetails->user_id;
+        //     $_SESSION['user_email'] = $userDetails->email;
+    
+        //     // ... handle other roles ...
+        // } elseif (is_array($userDetails) && !empty($userDetails)) {
+        //     // Handle the case when $userDetails is an array
+        //     $_SESSION['user_id'] = $userDetails[0]->user_id;
+        //     $_SESSION['user_email'] = $userDetails[0]->email;
+    
+        //     // ... handle other roles ...
+        // }
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['user_email'] = $user->email;
     
@@ -854,6 +975,18 @@ class Landing extends Controller{
             // $publisher=$this->userModel->findUserByPubId(user_id);           
             redirect('superadmin/index');
         
+        }elseif ($user->user_role == 'moderator') {
+            // $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
+            // $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
+            // $publisher=$this->userModel->findUserByPubId(user_id);           
+            redirect('moderator/index');
+        
+        }
+
+        elseif ($user->user_role == 'moderator'){
+            $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
+            $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
+            redirect('moderator/index');
         }
     
     }

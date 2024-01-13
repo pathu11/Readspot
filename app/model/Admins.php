@@ -195,6 +195,136 @@ public function approveusers($user_id){
   }
 }
 
+public function getCustomerDetails(){
+  $this->db->query('SELECT * FROM customers');
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getPublisherDetails(){
+  $this->db->query("SELECT * FROM publishers WHERE status='approval'");
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getCharityDetails(){
+  $this->db->query("SELECT * FROM charity WHERE status='approval'");
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function countAdmins(){    
+  $this->db->query('SELECT COUNT(*) as adminCount FROM admin ');
+ 
+  $result = $this->db->single();
+  if ($result) {
+      return $result->adminCount;
+  } else {
+      return 0; 
+  }
+}
+public function countModerators(){    
+  $this->db->query('SELECT COUNT(*) as moderatorCount FROM moderator ');
+ 
+  $result = $this->db->single();
+  if ($result) {
+      return $result->moderatorCount;
+  } else {
+      return 0; 
+  }
+}
+  public function countDelivery(){    
+      $this->db->query('SELECT COUNT(*) as deliveryCount FROM delivery ');
+     
+      $result = $this->db->single();
+      if ($result) {
+          return $result->deliveryCount;
+      } else {
+          return 0; 
+        }
+  }
+  public function countCustomers(){    
+      $this->db->query('SELECT COUNT(*) as customerCount FROM customers');
+  
+      $result = $this->db->single();
+      if ($result) {
+          return $result->customerCount;
+      } else {
+          return 0; 
+        }
+  }
+  public function countPublishers(){    
+      $this->db->query('SELECT COUNT(*) as PublishersCount FROM publishers WHERE status="approval" ');
+      
+      $result = $this->db->single();
+      if ($result) {
+          return $result->PublishersCount;
+      } else {
+          return 0; 
+        }
+}
+public function countCharity(){    
+  $this->db->query('SELECT COUNT(*) as CharityCount FROM charity WHERE status="approval" ');
+  
+  $result = $this->db->single();
+  if ($result) {
+      return $result->CharityCount;
+  } else {
+      return 0; 
+    }
+}
+
+public function getCustomerSearchDetails($input){
+  $this->db->query("SELECT * FROM customers WHERE name LIKE '{$input}%'");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getPublisherSearchDetails($input){
+  $this->db->query("SELECT * FROM publishers WHERE name LIKE '{$input}%' AND status='approval'");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getCharitySearchDetails($input){
+  $this->db->query("SELECT * FROM charity WHERE name LIKE '{$input}%' AND status='approval'");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getOrderDetails(){
+  $this->db->query("SELECT * FROM orders ");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function generateRegistrationReport($data){
+  $this->db->query('SELECT
+  DATE(created_at) AS registration_date,
+  COUNT(*) AS new_registrations
+  FROM users
+  WHERE MONTH(created_at) = :startMonth AND YEAR(created_at) = :startYear
+  GROUP BY DATE(created_at)
+  ORDER BY DATE(created_at)');
+
+  $this->db->bind(':startMonth',$data['startMonth']);
+  $this->db->bind(':startYear',$data['startYear']);
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
 
   
-  }
+}

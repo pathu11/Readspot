@@ -32,7 +32,7 @@
 
                     <input type="password" name="confirm_pass"  placeholder="Confirm the new password " required><br>
                     <span class="error"><?php echo $data['confirm_pass_err']; ?></span>
-                    
+                    <button onclick="goBack()" class="submit">  Cancel </button> 
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
                     <br>       
@@ -47,5 +47,11 @@
    
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

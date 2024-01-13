@@ -1,0 +1,124 @@
+.exchange-detail {
+    top: 250px;
+    display: flex;
+    flex-direction: column;
+    min-height: 725px;
+    margin: 90px 0px 10px 0px;
+    /* background-color: #CACACA; */
+    padding: 20px;
+    gap:1rem;
+}
+
+.exchange-des {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 1rem;
+    background-color:  rgb(247,247,247);
+    border-radius: 10px;
+}
+
+.books-want {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.want-exchange-book {
+    padding: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.want-exchange-book ol {
+    padding-left: 40px;
+    padding-right: 30px;
+    text-align: justify;
+}
+
+.exchange-img {
+    display:flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    gap: 0.5rem;
+}
+
+.sub-img-excg {
+    height: 220px;
+    width: 180px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.description-exchange {
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: justify;
+}
+
+.exchange-topic {
+    padding: 10px;
+    background-color: rgb(247,247,247);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.exchange-topic span {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.city-details-E {
+    padding: 10px;
+    background-color: rgb(247,247,247);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.city-details-E span {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.chat-btn-Excg {
+    float: right;
+    width: 132px;
+    height: 36px;
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.chat-btn-Excg:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}
+
+@media screen and (max-width:1000px) {
+    .sub-img-excg {
+        height: 180px;
+        width: 120px;
+        box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    }
+}
+
+@media screen and (max-width:700px) {
+    .exchange-des {
+        flex-direction: column;
+    }
+
+    .exchange-img {
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}

@@ -1,48 +1,90 @@
-.donate-event-detail {
+.donate-detail, .event-details {
     top: 250px;
-    display: grid;
     min-height: 725px;
     margin: 90px 10px 10px 10px;
-    background-color: #CACACA;
+    background-color: white;
+    border-radius: 10px;
     padding: 20px;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    grid-template-areas: 
-        "a b b b"
-        "a b b b"
-        "a c c c"
-        "h h h h";
-    grid-gap: 1rem;
-    grid-auto-rows: minmax(50px,auto);
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
 }
 
-.event-img-div {
-    grid-area: a;
+.donate-main, .event-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+}
+
+.donate-img-div, .event-img-div {
     display: flex;
     justify-content: center;
     align-items: center;
     /* background-color: aquamarine; */
 }
-.req-book-details {
-    grid-area: c;
+.req-books-details-D, .req-books-details-E {
     /* background-color: aquamarine; */
-    padding: 5px 15px 15px 90px;
+    padding: 5px 15px 15px 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
 }
-.event-des-div {
-    grid-area: b;
+.donate-des-div, .event-des-div {
+    text-align: justify;
     /* background-color: aquamarine; */
     padding: 15px 15px 5px 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.event-btn-div {
-    grid-area: h;
+.donate-btn-div, .event-des-div{
     /* background-color: aquamarine; */
     /* height: fit-content; */
     padding: 15px;
-
 }
 
-.req-book-details span{
+.req-books-details-D span, .req-books-details-E span{
     font-size: 18px;
     font-weight: 400;
+}
+
+.donate-img, .event-img {
+    height: 400px;
+    width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.donate-chat-btn, .event-chat-btn {
+    float: right;
+    width: 132px;
+    height: 36px;
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.donate-chat-btn:hover, .event-chat-btn:hover {
+    background: #fff;
+    color: black;
+    border: none;
+}
+
+@media screen and (max-width:600px) {
+    .donate-main, .event-main {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width:400px) {
+    donate-img, .event-img {
+        height: 300px;
+        width: 240px;
+    }
 }

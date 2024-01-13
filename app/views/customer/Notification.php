@@ -2,21 +2,19 @@
     $title = "Notification";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+    <?php
+        require APPROOT . '/views/customer/sidebar.php'; //path changed
+    ?>
     <div class="container">
-        <?php
-            require APPROOT . '/views/customer/sidebar.php'; //path changed
-        ?>
-
-        <div class="prof-content">
-            <div class="content-topic">
+        <div class="notify-content">
+            <div class="notify-topic">
                 <h2>Notification</h2>
             </div>
-            <div class="mycart">
-            <form action="#.php" class="search">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-            </form>
+            <div class="notification-main">
+                <form action="#.php" class="notify-search" autocomplete="off">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
+                </form>
             <br>
             <br>
             <div class="notification">
@@ -95,8 +93,9 @@
             </div>
             </div>
         </div>
+        <?php
+            require APPROOT . '/views/customer/footer.php'; //path changed
+        ?>
     </div>
 
-<?php
-    require APPROOT . '/views/customer/footer.php'; //path changed
-?>
+

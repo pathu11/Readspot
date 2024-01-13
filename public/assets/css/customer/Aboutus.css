@@ -6,6 +6,7 @@
     margin: 90px 10px 10px 10px;
     background-color: #CACACA;
     padding: 20px;
+    border-radius: 10px;
 }
 
 .our-mission {
@@ -21,7 +22,7 @@
 
 .mission-about p {
     text-align: center;
-    padding: 10px 100px 0px 100px;
+    padding: 10px 20px 0px 20px;
 }
 
 .our-site {
@@ -37,51 +38,76 @@
 
 .site-about p {
     text-align: justify;
-    padding: 10px 100px 0px 100px;
+    padding: 10px 20px 0px 20px;
 }
 
 .our-team {
-    display: grid;
-    /* background-color: aquamarine; */
-    min-height: 100px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    place-items: center;
-    padding: 5px;
-    grid-template-areas: 
-    "a a a a"
-    "b c d e";
-    grid-gap: 2rem;
-}
-
-.member1, .member2, .member3, .member4 {
     display: flex;
     flex-direction: column;
+    /* background-color: aquamarine; */
+    min-height: 100px;
+    margin-bottom: 5px;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
-.team-topic {
-    grid-area: a;
-}
-
-.member1 {
-    grid-area: b;
-}
-
-.member2 {
-    grid-area: c;
-}
-
-.member3 {
-    grid-area: d;
-}
-
-.member4 {
-    grid-area: e;
+.teammembers{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* align-items: center; */
+    padding: 10px 20px 0px 20px;
 }
 
 .memb-img {
-    height: 330px;
-    width: 270px;
-    margin-bottom: 20px;
+    height: 250px;
+    width: 200px;
+    margin: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@media screen and (max-width:600px) {
+    .mission-topic h1{
+        font-size: 24px;
+    }
+    .site-topic h1{
+        font-size: 24px;
+    }
+    .team-topic h1{
+        font-size: 24px;
+    }
+    .mission-about p {
+        font-size: 14px;
+        text-align: center;
+        padding: 8px 15px 0px 15px;
+    }
+    .site-about p {
+        font-size: 14px;
+        text-align: center;
+        padding: 8px 15px 0px 15px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .mission-topic h1{
+        font-size: 16px;
+    }
+    .site-topic h1{
+        font-size: 16px;
+    }
+    .team-topic h1{
+        font-size: 16px;
+    }
+    .mission-about p {
+        font-size: 12px;
+        text-align: center;
+        padding: 0;
+    }
+    .site-about p {
+        font-size: 12px;
+        text-align: center;
+        padding: 0;
+    }
 }

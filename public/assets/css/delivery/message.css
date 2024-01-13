@@ -1,0 +1,132 @@
+body {
+    width: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+
+.submit {
+    width: 100px;
+    height: 40px;
+    /* margin-left:600px; */
+    background-color: #009D94;
+    border-radius: 5px;
+    margin-top: 0;
+    border: none;
+    color:white;
+}
+
+.submit:hover {
+    background-color: #70BFBA;
+    border-radius: 5px;
+    margin-top: 0;
+    border: none;
+}
+.form-container {
+    width: 70%;
+    margin-top:100px;
+}
+
+.form1 {
+    width: 60%;
+    margin-left: 390px;
+    margin-right: 300px;
+    text-align: center;
+    background-color: #f0f0f0; /* Set your desired background color */
+    padding: 20px; /* Add padding for better appearance */
+    border-radius: 10px; /* Add border-radius for rounded corners */
+}
+
+.form1 h2 {
+    color: #009D94;
+    text-align: center;
+}
+
+
+.form1 input[type="text"],.form1 input[type="email"],.form1 input[type="password"],
+.form1 input[type="number"],form1 input[type="file"],
+.form1 textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    outline: none; /* Remove default input focus border */
+}
+.form1 input[type="text"]:focus,
+.form1 input[type="number"]:focus,.form1 input[type="file"]:focus,.form1 input[type="email"]:focus,.form1 input[type="password"]:focus,
+.form1 textarea:focus {
+    border: 2px solid #009D94; /* Red border on focus */
+}
+
+
+.form1 select {
+    width: 100%;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 4px;
+    background-color: white;
+    color:gray;
+    
+}
+
+.table {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.table1 {
+    width: 50%; 
+    box-sizing: border-box;
+    padding: 0 10px; 
+}
+
+.calc-button {
+    width: 80%;
+    background-color: #009D94;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 8px;
+    cursor: pointer;
+    text-decoration:none;
+}
+
+.calc-button:hover {
+    background-color: #70BFBA;
+}
+.form1 label{
+    color:gray;
+
+}
+.go-back-link{
+    text-decoration: none;
+    color:#009D94;
+    margin-left: 50px;
+  }
+.go-back-link:hover{
+    text-decoration: none;
+    color:#09514C;
+    margin-left: 50px;
+  }
+@media only screen and (max-width: 600px) {
+    .form-container {
+        width: 100%;
+    }
+
+    .form1 {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .table {
+        flex-direction: column; /* Stack columns below each other */
+    }
+
+    .table1 {
+        width: 100%;
+    }
+}

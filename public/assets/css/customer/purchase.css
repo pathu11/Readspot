@@ -1,0 +1,106 @@
+.body{
+   margin:40px; 
+}
+
+.flex-parent-element {
+    /* display: flex;
+    width: 50%; */
+    margin:70px;
+    display: flex;
+  }
+  
+  .flex-child-element {
+   
+    padding:40px;
+    flex:1;
+    border-radius: 9px;
+    background-color:white;
+    margin-top:20px;
+  }
+  
+  .flex-child-element:first-child {
+    margin-right: 20px;
+  }
+
+.order{
+    display: flex;
+    /* justify-content: space-between; */
+}
+.cost{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+}
+.col2{
+    justify-content:space-evenly;
+    padding-left: 20px;
+    margin-left: 15px;
+}
+.subcost{
+    padding:20px;
+    /* margin-left: 20px; */
+}
+.subcost2{
+    padding:20px;
+    margin-left: 80px;
+}
+
+/* .cardPayment-form,
+.COD-form,
+.onlineBanking-form {
+    display: none;
+} */
+input[type="radio"]{
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+input[type="radio"]:checked + label {
+    background-color: #009D94;
+    color: #ffffff;
+  }
+input[type="text"],select{
+    background-color: aliceblue;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+   
+    border-radius: 5px;
+    outline: none;
+    border:none;
+
+}
+input[type="text"]:focus
+{
+    border: 2px solid #009D94;
+
+}
+input[type="number"]
+{
+   width:80px;
+   box-sizing: border-box;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   background-color: aliceblue;
+   border:none;
+   color:black;
+
+
+}
+.submit {
+    width: 100px;
+    height: 40px;
+    background-color: #009D94;
+    border-radius: 5px;
+    margin-top: 0;
+    border: none;
+    color:white;
+}
+
+.submit:hover {
+    background-color: #70BFBA;
+    border-radius: 5px;
+    margin-top: 0;
+    border: none;
+}

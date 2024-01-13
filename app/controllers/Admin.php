@@ -5,24 +5,19 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require APPROOT . '\vendor\autoload.php';
-
-
 //Create an instance; passing `true` enables exceptions
 // $mail = new PHPMailer(true);
  class Admin extends Controller{
   private $adminModel;
-  
   private $userModel;
-
   private $db;
   public function __construct(){
       $this->adminModel=$this->model('Admins');
       $this->userModel=$this->model('User');
-     
-     
       $this->db = new Database();
 
   }
+  //testing comment
   /*public function index(){
       
       if (!isLoggedIn()) {
@@ -48,16 +43,30 @@ require APPROOT . '\vendor\autoload.php';
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else {
+
+        //checking filter get request and load the table
         if (isset($_GET['user_role'])) {
             $user_id = $_SESSION['user_id'];
             $adminDetails = $this->adminModel->findAdminById($user_id);
             $userRoleFilter = $_GET['user_role'];
         
             $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
+
+            $countModerators = $this->adminModel->countModerators(); 
+            $countDelivery = $this->adminModel->countDelivery(); 
+            $countCustomers = $this->adminModel->countCustomers (); 
+            $countPublishers = $this->adminModel->countPublishers(); 
+            $countCharity = $this->adminModel->countCharity();
+            
             $data = [
                 'adminDetails' => $adminDetails,
                 'adminName'=>$adminDetails[0]->name,
-                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole
+                'pendingUserDetails'=>$getPendingUserDetailsFilteredByUserRole,
+                'countModerators'=>$countModerators,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
   
             ];
             $this->view('admin/index', $data);
@@ -68,12 +77,23 @@ require APPROOT . '\vendor\autoload.php';
 
             $adminDetails = $this->adminModel->findAdminById($user_id); 
             $getPendingUserDetails = $this->adminModel->getPendingUsers();
+
+            
+            $countModerators = $this->adminModel->countModerators(); 
+            $countDelivery = $this->adminModel->countDelivery(); 
+            $countCustomers = $this->adminModel->countCustomers (); 
+            $countPublishers = $this->adminModel->countPublishers(); 
+            $countCharity = $this->adminModel->countCharity();
             
             $data = [
                 'adminDetails' => $adminDetails,
                 'adminName'=>$adminDetails[0]->name,
-                'pendingUserDetails'=>$getPendingUserDetails
-  
+                'pendingUserDetails'=>$getPendingUserDetails,
+                'countModerators'=>$countModerators,
+                'countCustomers'=>$countCustomers,
+                'countPublishers'=>$countPublishers,
+                'countCharity'=>$countCharity,
+                'countDelivery'=>$countDelivery
             ];
             $this->view('admin/index', $data);
         }
@@ -461,6 +481,160 @@ public function approveCharity($user_id){
     }
 }
 
+public function customers(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $customerDetails = $this->adminModel->getCustomerDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'customerDetails'=>$customerDetails,
+    ];
+    $this->view('admin/customers',$data);
+}
+
+public function publishers(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $publisherDetails = $this->adminModel->getPublisherDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'publisherDetails'=>$publisherDetails,
+    ];
+    $this->view('admin/publishers',$data);
+}
+
+public function charity(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $charityDetails = $this->adminModel->getCharityDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'charityDetails'=>$charityDetails,
+    ];
+    $this->view('admin/charity',$data);
+}
+
+public function livesearch(){
+    if(isset($_POST['input'])){
+        $input = $_POST['input'];
+        $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
+        $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
+        $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
+    }
+
+    $data = [
+        'customerSearchDetails'=>$customerSearchDetails,
+        'publisherSearchDetails'=>$publisherSearchDetails,
+        'charitySearchDetails'=>$charitySearchDetails
+    ];
+    
+    $this->view('admin/livesearch',$data);
+}
+
+public function orders(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    $orderDetails = $this->adminModel->getOrderDetails();
+    $data = [
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+        'orderDetails'=>$orderDetails,
+    ];
+    $this->view('admin/orders',$data);
+}
+
+public function reports(){
+    $user_id = $_SESSION['user_id'];
+         
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'registration'=>trim($_POST['report-type']),
+            'start-date'=>trim($_POST['start-date']),
+            'end-date'=>trim($_POST['end-date']),
+            
+
+            'registration_err'=>'',
+            'start-date_err'=>'',
+            'end-date_err'=>''
+        ];
+        
+        // Separate start-date components
+        list($startYear, $startMonth, $startDay) = explode('-', $data['start-date']);
+        
+        // Separate end-date components
+        list($endYear, $endMonth, $endDay) = explode('-', $data['end-date']);
+        
+        // Add the separated components to the data array
+        $data['startYear'] = $startYear;
+        $data['startMonth'] = $startMonth;
+        $data['startDay'] = $startDay;
+        
+        $data['endYear'] = $endYear;
+        $data['endMonth'] = $endMonth;
+        $data['endDay'] = $endDay;
+        
+
+        if(empty($data['registration'])){
+            $data['event_category_err']='Please select the report type';      
+        }
+
+        if(empty($data['start-date'])){
+            $data['start-date_err']='Please enter the start date';      
+        }
+
+        if(empty($data['registration_err']) && empty($data['start-date_err']) && empty($data['end-date_err'])){
+            if($this->adminModel->generateRegistrationReport($data)){
+                $registrationDetails = $this->adminModel->generateRegistrationReport($data);
+                $data=[
+                    'adminDetails' => $adminDetails,
+                    'adminName'=>$adminDetails[0]->name,
+                    'registrationDetails'=>$registrationDetails,
+                    'title'=>trim($_POST['title'])
+                ];
+                $this->view('admin/reports',$data);
+            }else{
+                die('Something went wrong');
+            }
+        }
+
+        else{
+            $this->view('admin/reports',$data);
+        }
+        
+    }
+
+    else{
+        $data=[
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+        ];
+
+        $this->view('admin/reports',$data);
+    }
+
+}
+
+/*public function generatePDF(){
+    require APPROOT.'/fpdf/fpdf.php';
+
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(100,20,'Hello world',1,0,'C');
+    $pdf->Output();
+}*/
 
 }
 

@@ -103,3 +103,21 @@ body {
 
 }
 
+@media only screen and (max-width: 600px) {
+    .form-container {
+        width: 100%;
+    }
+
+    .form1 {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .table {
+        flex-direction: column; /* Stack columns below each other */
+    }
+
+    .table1 {
+        width: 100%;
+    }
+}

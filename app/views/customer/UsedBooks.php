@@ -1,66 +1,40 @@
 <?php
-    session_start();
-    $title = "Bookshelf";
-    include_once 'header.php';
-    $serverName = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "readspots";
-
-
-
-    $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
-
-    if (!$conn) {
-        die("Connection failed : " .mysqli_connect_error());
-    }
-    // include_once 'http://localhost/Group-27/app/controllers/customer/dbh.inc.php';
+    $title = "My Used Books";
+    require APPROOT . '/views/customer/header.php';
 ?>
 
+    <?php
+        require APPROOT . '/views/customer/sidebar.php';
+    ?>
     <div class="container">
-        <?php
-            include_once 'sidebar.php';
-        ?>
-
         <div class="book-shelf">
             <div class="used-books">
                 <h2>Used Books</h2>
-                <form action="#.php" class="search">
+                <form action="#.php" class="mybook-search">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><img src="http://localhost/Group-27/public/assets/images/customer/search.png"></button>
+                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button>
                 </form>
                 <br>
                 <br>
                 <div class="books">
+                    <?php foreach($data['bookDetails'] as $bookDetails): ?>
+                        <div class="B-div">
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book"><br>';?>
+                            <a href="<?php echo URLROOT; ?>/customer/ViewBook/<?php echo $bookDetails->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
+                        </div>
+                    <?php endforeach; ?>
 
-                    <?php
-                        $customerId = $_SESSION['customer_id'];
-
-                    
-
-                         $sql = "SELECT * FROM usedbooks WHERE customer_id= $customerId";
-                         $result = mysqli_query($conn, $sql);
-                         $checkResults = mysqli_num_rows($result);
-                         if ($checkResults > 0) {
-                            while ($row = mysqli_fetch_assoc($result)){
-                                $imgFront = $row['imgFront'];
-                                $bookId = $row['bookId'];
-                                echo '<div class="B5">
-                                <img src="http://localhost/Group-27/public/assets/images/customer/'.$imgFront.'"alt="Book1" class="Book"><br>
-                                <a href="./ViewBook.php?id='.$bookId.'"><button class="dts-btn">View Details</button></a>
-                            </div>';
-                            }
-                        }
-                    ?>
+                         
                    
                 </div>
-                <div class="vw">
-                    <a href="./AddUsedBook.php"><button class="vw-btn">Add a Book</button></a>
+                <div class="ub-vw">
+                    <a href="<?php echo URLROOT; ?>/customer/AddUsedBook"><button class="ub-vw-btn">Add a Book</button></a>
                 </div>
+                <br>
+                <br>
             </div>
         </div>
+        <?php
+            require APPROOT . '/views/customer/footer.php';
+        ?>
     </div>
-
-<?php
-    include_once 'footer.php';
-?>

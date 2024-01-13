@@ -104,18 +104,21 @@
 
 
                 </table>
-               
-
+        
              
                 <a href="<?php echo URLROOT; ?>/publisher/editAccount/<?php echo $publisherDetails->publisher_id; ?>" id="btnClick1" class="my-button">Edit</a>
-            </div>
-            
-            
+            </div>   
         </div>
         <?php endforeach; ?>
     </div>
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>
 

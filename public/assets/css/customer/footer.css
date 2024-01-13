@@ -1,7 +1,7 @@
 /* Style for the footer */
 footer {
-    background-color: #01322F;
-    color: #fff;
+    background-color: #87dfdc;
+    color: #525252;
     padding: 10px 0;
     text-align: center;
 }
@@ -9,8 +9,52 @@ footer {
 /* Style for the footer content */
 .footer-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    /* justify-content: space-between;
+    align-items: center; */
+    flex-direction: column;
+    padding: 10px;
+}
+
+.footer-content1 {
+    display: flex;
+    justify-content:space-evenly;
+    flex-direction: row;
+    /* background-color: blueviolet; */
+}
+
+.footer-content1 ul{
+    list-style: none;
+}
+
+.footer-content1 li{
+    margin: 5px;
+}
+
+.footer-content1 a {
+    text-decoration: none;
+    color: #525252;
+}
+
+.footer-content1 a:hover {
+    text-decoration: underline;
+}
+
+.footer-content2 {
+    margin-top: 10px;
+}
+
+/* .followus {
+    background-color: antiquewhite;
+} */
+
+.bookcata {
+    text-align: left;
+    /* background-color:chartreuse; */
+}
+
+.quicklink {
+    text-align: left;
+    /* background-color: blue; */
 }
 
 /* Style for the footer logo */
@@ -34,12 +78,24 @@ footer {
 
 .footer-links a {
     text-decoration: none;
-    color: #fff;
+    color: #525252;
 }
 
 /* Style for the footer text */
-.footer-text {
+/* .footer-text {
     margin-top: 10px;
     font-size: 14px;
     align-self: flex-end;
+} */
+
+@media screen and (max-width:400px) {
+    .footer-logo {
+        display: none;
+    }
+    .footer-links {
+        display: none;
+    }
+    .footer-content {
+        justify-content: center;
+    }
 }

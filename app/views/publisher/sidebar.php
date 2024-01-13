@@ -12,7 +12,14 @@
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
          <span class="user"><?php echo $data['publisherName']?></span>
-        <i class="bx bxs-user-circle icon"></i> 
+         <?php foreach($data['publisherDetails'] as $publisherDetails): ?>
+        <?php
+                    $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/publisher/addbooks/' . $publisherDetails->profile_img ;
+                ?>
+        <?php endforeach; ?>
+        <img style="border-radius:60%;width:3%;height:3%;" src="<?php echo $profileImage; ?>">
+        
+    </div>
        
       </div>
       <div class="sidebar">
@@ -42,6 +49,19 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/events" class="nav-link">
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Events</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/stores" class="nav-link">
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Branches</span>
+              </a>
+            </li>
+            
+            <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/setting" class="nav-link">
                 <i class="bx bxs-book-heart icon"></i>
                 <span class="link">My Profile</span>
@@ -54,6 +74,7 @@
                 <span class="link">Notifications</span>
               </a>
             </li>
+            <br><br><br><br>
             <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/logout" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>
@@ -69,3 +90,4 @@
 
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/sidebar.js"></script>
   </body>
+  

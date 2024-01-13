@@ -23,13 +23,13 @@
               </a>
             </li>
             <li class="list">
-              <a href="event.php" class="nav-link">
+              <a href="<?php echo URLROOT;?>/admin/customers" class="nav-link">
                 <i class="bx bxs-user icon"></i>
                 <span class="link">Users</span>
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT;?>/admin/orders" class="nav-link">
                 <i class="bx bxs-note icon"></i>
                 <span class="link">Orders</span>
               </a>
@@ -58,7 +58,13 @@
                 <span class="link">Categories</span>
               </a>
             </li>
-            <br><br>
+            <li class="list">
+              <a href="<?php echo URLROOT;?>/admin/reports" class="nav-link">
+                <i class="bx bxs-report icon"></i>
+                <span class="link">Reports</span>
+              </a>
+            </li>
+            <br>
           <div class="bottom-cotent">
             <li class="list">
               <a href="#" class="nav-link">

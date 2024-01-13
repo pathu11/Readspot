@@ -8,6 +8,8 @@ class Charity extends Controller{
         
         $this->view('charity/index');
     }
-    
+    public function event(){
+        $this->view('charity/event-management');
+    }
 
 }

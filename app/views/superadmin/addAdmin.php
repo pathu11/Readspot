@@ -36,7 +36,7 @@
 
                     <input type="password" name="confirm_pass"  class="<?php echo (!empty($data['confirm_pass_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['confirm_pass']; ?>"placeholder="Confirm Password" required><br>
                     <span class="error"><?php echo $data['confirm_pass_err']; ?></span>
-                    
+                    <button onclick="goBack()" class="submit">  Back </button>   
                     <input  type="submit" placeholder="Submit" name="submit" class="submit">
                     </div> 
                     <br>       
@@ -51,5 +51,11 @@
    
 
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>

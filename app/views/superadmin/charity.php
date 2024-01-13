@@ -12,6 +12,7 @@
 
 <body>
     <?php require APPROOT . '/views/superadmin/nav.php';?>
+    <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
     <?php require APPROOT . '/views/superadmin/subnav.php';?>
     <div class="div_table">
 
@@ -58,5 +59,11 @@ function myFunction() {
 </script>
     
 </body>
-
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        
+    </script>
 </html>
