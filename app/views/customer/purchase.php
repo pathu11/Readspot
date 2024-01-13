@@ -73,6 +73,7 @@
                         <div>
                                 
                               
+                                <!-- <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1"> -->
                                 <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1">
 
                                

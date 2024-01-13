@@ -47,7 +47,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT?>/admin/payments "" class="nav-link">
                 <i class="bx bxs-dollar-circle icon"></i>
                 <span class="link">Payments</span>
               </a>

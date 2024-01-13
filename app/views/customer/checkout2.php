@@ -25,10 +25,11 @@
                 <div class="payment">
                     <h3>Payment</h3>
                     <div class="cardPayment-form">
-                    
+                    <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
+                        <input type="hidden" name="form_type" value="cardPayment">
                         <button onClick="paymentGateway();">Pay here</button>
                         <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
-                  
+                    </form>
                     </div>
                     <div class="onlineBanking-form">
                     <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
@@ -39,13 +40,20 @@
                         BIC/Swift: HBLILKLX</p>
                         <span>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
                         <label>submit your bank recipt after the payment</label>
-                        <input type="file" name="recipt">
-                        <button type="submit" >place Order</button>
+                    <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="form_type" value="onlineDeposit">
+                        <input type="file" name="recipt" required>
+                        <button type="submit" >Conform Order</button>
+
+                    </form>
                 </div>
                 <div class="COD-form">
+                <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
+                    <input type="hidden" name="form_type" value="COD">
                     <p>Pay with cash upon delivery. (We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.)
                     </p>
-                    <button type="submit" >place Order</button>
+                    <button type="submit" >Conform Order</button>
+                </form>
                 </div>
 
 

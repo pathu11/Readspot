@@ -625,6 +625,24 @@ public function reports(){
     }
 
 }
+public function payments(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+        $user_id = $_SESSION['user_id'];
+         
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $orderDetails = $this->adminModel->getPendingOrderDetails();
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'orderDetails'=>$orderDetails,
+        ];
+        $this->view('admin/payments',$data);
+
+    }
+    
+}
 
 /*public function generatePDF(){
     require APPROOT.'/fpdf/fpdf.php';

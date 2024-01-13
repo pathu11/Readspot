@@ -309,6 +309,16 @@ public function getOrderDetails(){
   return $results;
 }
 
+public function getPendingOrderDetails() {
+  $this->db->query("SELECT orders.*, customers.name AS customer_name 
+                    FROM orders 
+                    INNER JOIN customers ON orders.customer_id = customers.customer_id 
+                    WHERE orders.payment_type='OnlineDeposit' AND orders.status='pending'");
+
+  return $this->db->resultSet();
+}
+
+
 public function generateRegistrationReport($data){
   $this->db->query('SELECT
   DATE(created_at) AS registration_date,
