@@ -200,7 +200,7 @@ class Customer extends Controller {
 }
 
    
-    public function Home(){
+    public function index(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
@@ -211,7 +211,7 @@ class Customer extends Controller {
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name
             ];
-            $this->view('customer/Home', $data);
+            $this->view('customer/index', $data);
         }
     }
     public function AboutUs(){
@@ -787,9 +787,9 @@ class Customer extends Controller {
         }
     } 
 
-    // public function Home(){
+    // public function index(){
         
-    //     $this->view('customer/Home');
+    //     $this->view('customer/index');
     // } 
 
     public function Notification(){
