@@ -270,6 +270,29 @@ public function editOrder($data)
         return false;
     }
 }
+
+
+public function editOrderCOD($data)
+{
+    $this->db->query('UPDATE orders
+              SET 
+              payment_type = :payment_type ,
+              tracking_no = :tracking_no,
+              status= :status
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $data['order_id']);
+    $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+    $this->db->bind(':tracking_no', $data['trackingNumber']);
+    $this->db->bind(':status', "processing");
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
 // public function displayOrder(){
 //   $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
 //     return $this->db->resultSet();

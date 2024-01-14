@@ -415,7 +415,7 @@ public function addbooks(){
             'postal_name_err' => '',
             'street_name_err' => '',
             'town_err' => '',
-            'district_err' => '',
+            // 'district_err' => '',
             'postal_code_err' => '',
         ];
            
@@ -433,16 +433,16 @@ public function addbooks(){
             }
 
             
-             if(empty($data['district'])){
-                $data['district_err']='Please select the district';      
-            }
+            //  if(empty($data['district'])){
+            //     $data['district_err']='Please select the district';      
+            // }
             if(empty($data['postal_code'])){
                 $data['postal_code_err']='Please enter the postal code';      
             }
            
 
             //make sure errors are empty
-            if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){                   
+            if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['postal_code_err'])   ){                   
                 if( $this->publisherModel->editpostalInBooks($data)){
                     flash('update_success','You are added the book  successfully');
                     redirect('publisher/editAccountForBooks/'.$book_id);

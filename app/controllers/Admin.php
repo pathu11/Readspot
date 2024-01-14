@@ -643,13 +643,26 @@ public function payments(){
     
 }
 public function approveOrder($order_id){
+    $user_id=$_SESSION['user_id'];
+    $topic="Approved the Order by administration";
+    $message="Congratulations! Your order has been approved.Your order will be recieved to home as soon as possible.";
+    $orderDetails=$this->adminModel->getOrderDetailsById($order_id);
+    $customer_id=$orderDetails[0]->customer_id;
+    
+    $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
+    $customerEmail = $customerDetails[0]->email;
+    $data=[
+        'topic'=>$topic,
+        'message'=>$message,
+        'user_id'=>$customerDetails[0]->user_id,
+        'sender_id'=>$user_id,
+        'sender_name'=>$customerDetails[0]->name
+
+    ];
     // Assuming your approval logic here...
 
-    if ( $this->adminModel->approveOrder($order_id)) {
-        $orderDetails=$this->adminModel->getOrderDetailsById($order_id);
-        $customer_id=$orderDetails[0]->customer_id;
-        $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
-        $customerEmail = $customerDetails[0]->email;
+    if ( $this->adminModel->approveOrder($order_id) && $this->adminModel->addMessage($data )) {
+       
         $mail = new PHPMailer(true);
 
         try {
@@ -668,8 +681,8 @@ public function approveOrder($order_id){
 
             // Content
             $mail->isHTML(true);  // Set email format to HTML
-            $mail->Subject = 'Approved the Order by administration';
-            $mail->Body    = 'Congratulations! Your order has been approved.Your order will be recieved to home as soon as possible.';
+            $mail->Subject = $data['topic'];
+            $mail->Body    = $data['message'];
 
             $mail->send();
 

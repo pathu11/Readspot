@@ -1282,9 +1282,7 @@ class Customer extends Controller {
         redirect('landing/login');
     } else {
         $user_id = $_SESSION['user_id'];
-        $customerDetails = $this->customerModel->findCustomerById($user_id);
-
-        
+        $customerDetails = $this->customerModel->findCustomerById($user_id);       
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
            
             $formType = $_POST['form_type'];
@@ -1296,7 +1294,7 @@ class Customer extends Controller {
                 $this->handleOnlineDepositForm($order_id,$formType);
             }elseif ($formType === 'COD') {
                 
-                $this->handleCODForm($order_id);
+                $this->handleCODForm($order_id,$formType);
             }
         } else {
             
@@ -1308,11 +1306,79 @@ class Customer extends Controller {
             ];
     
             $this->view('customer/checkout2', $data);
-        }
-
-        
-      
+        }     
     }
+}
+private function handleCardPaymentForm($order_id, $formType)
+{
+    // Set up payment details
+    $amount = 3000; // You may need to adjust this value
+    $merchant_id = "1225428"; // Your merchant ID
+    $order_id = uniqid(); // Generate a unique order ID
+    $merchant_secret = "MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA=="; // Your merchant secret
+    $currency = "LKR"; // Currency code
+
+    // Calculate hash for payment
+    $hash = strtoupper(
+        md5(
+            $merchant_id .
+            $order_id .
+            number_format($amount, 2, '.', '') .
+            $currency .
+            strtoupper(md5($merchant_secret))
+        )
+    );
+
+    // Prepare payment details for JSON response
+    $paymentDetails = [
+        "items" => "Door bell wireless", // Adjust based on your products
+        "first_name" => "Hasintha", // Customer's first name
+        "last_name" => "Nirmanie", // Customer's last name
+        "email" => "easyfarm123@mail.com", // Customer's email
+        "phone" => "0715797461", // Customer's phone number
+        "address" => "No 20, Headaketiya, Angunukolapalassa", // Customer's address
+        "city" => "Hambanthota", // Customer's city
+        "amount" => $amount, // Total payment amount
+        "merchant_id" => $merchant_id, // Merchant ID
+        "order_id" => $order_id, // Order ID
+        "merchant_secret" => $merchant_secret, // Merchant secret
+        "currency" => $currency, // Currency code
+        "hash" => $hash, // Payment hash
+    ];
+
+    // Convert payment details to JSON
+    $jsonObj = json_encode($paymentDetails);
+
+    // Send JSON response
+    // echo $jsonObj;
+}
+
+private function handleCODForm($order_id,$formType){
+    $user_id = $_SESSION['user_id'];
+    $customerDetails = $this->customerModel->findCustomerById($user_id);
+    $customer_id=$customerDetails[0]->customer_id;
+    $trackingNumber=$this->generateTrackingNumber($order_id);
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $data = [
+        'customer_id' => $customer_id,
+        'order_id'=>$order_id,
+       
+        'formType'=>$formType,
+        'trackingNumber'=>$trackingNumber
+        
+    ];
+    
+        //make sure errors are empty
+        if( $data['trackingNumber']  ){
+            if($this->customerModel->editOrderCOD($data) ){
+                flash('update_success','You are placed an order successfully');
+                redirect('customer/cart');
+            }else{
+                die('Something went wrong');
+            }
+        }else{
+                $this->view('customer/checkout2',$data);
+            }
 }
 private function handleOnlineDepositForm($order_id,$formType){
     $user_id = $_SESSION['user_id'];
