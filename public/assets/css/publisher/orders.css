@@ -45,37 +45,80 @@ tr:hover {
     margin-left: 100px;
   }
   .search-container1{
-    margin-left: 1000px;
-    margin-top: 30px;
+    margin-left: 930px;
+    margin-top: 50px;
   }
   .search-bar {
    
     margin-bottom: 10px;
-    width: 30%;
+    width:30%;
     box-sizing: border-box;
     border:none;
-    border-radius: 4px;
+    border-radius: 0;
     font-size: 16px;
     background-color: white;
     background-image: url('<?php echo URLROOT; ?>/assets/images/publisher/search.png');
     background-size: 20px; /* Set the size of the icon */
     background-position: 10px 10px; 
     background-repeat: no-repeat;
-    padding: 5px 10px 5px 25px;
-}
-.search-bar:focus{
-    border: 2px solid  #009D94;
-}
-.search-button{
-    width:300px;
-    border-radius: 3px;
-    background-color: #009D94;
-    color:#ddd;
-    border: #009D94;
-    margin-left: 8px;
     padding:10px;
 
 }
+.search-bar:focus{
+    background-color: #ddd;
+    /* border:#009D94; */
+}
+.search-button{
+    width:300px;
+    border-radius: 0;
+    background-color: #009D94;
+    color:#ddd;
+    border: #009D94;
+    margin-left: 0;
+    padding:10px;
+
+}
+.search-button:hover{
+    background-color: aqua;
+    color:#09514C;
+
+
+}
+.order-container{
+    margin-top:10px;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-radius: 8px;
+    background-color: white;
+    padding:10px;
+
+}
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust the margin as needed */
+   
+    padding: 10px;
+}
+
+.col1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding:20px; */
+    /* flex: 0 0 180px;  */
+}
+
+.col1 img {
+   padding:10px;
+} 
+
+.col2 {
+    flex: 1; /* Allow col2 to take up remaining space */
+    padding-left: 50px; /* Add padding to separate col1 and col2 */
+}
+
 @media only screen and (max-width: 768px) {
     .div_table {
         margin-left: 0;
