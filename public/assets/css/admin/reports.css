@@ -105,10 +105,13 @@ button{
   display: flex;
   justify-content: center;
   padding: 20px;
+  flex-direction: column;
 }
 
 h2{
   padding-left: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 table{
@@ -141,5 +144,9 @@ th{
   text-align: center;
   border: 1px solid black;
   background-color: rgba(0,0,0,25%);
+}
+
+p{
+  padding-left: 20px;
 }
 

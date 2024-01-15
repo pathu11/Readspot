@@ -20,7 +20,7 @@
     <form action="<?php echo URLROOT;?>/admin/reports" method="post">
       <div class="title-bar">
       <h3>Title</h3>
-        <input type="text" placeholder="Add a report title" id="title">
+        <input type="text" placeholder="Add a report title" id="title" name="title">
       </div>
       <div class="input-bar">
         <div class="select">
@@ -61,7 +61,7 @@
     if($_SERVER['REQUEST_METHOD']=='POST'){
       if($_POST['report-type']=='registration'){
         echo '<div class="table-container" id="pdf">
-          <h2>'.$data['title'].'</h2>
+          <h2><u>'.$data['title'].'</u></h2>
           <div class="table" id="pdf"> 
             <table>
             <thead>
@@ -84,14 +84,15 @@
       }
 
       elseif($_POST['report-type']=='book-inventory'){
-        echo '<h2>'.$data['title'].'</h2>';
+        echo '<div id="pdf">
+        <h2><u>'.$data['title'].'</u></h2>';
         if($data['totalBooks']!=''){
           echo '<div class="total-books"><p>Total Books: '.$data['totalBooks'].'</p></div>';
         }
         
         if($data['bookCategories']!=''){
-          echo '<div class="table-container" id="pdf">
-          <div class="table" id="pdf"> 
+          echo '<div class="table-container">
+          <div class="table"> 
             <h3>Book Categories</h3>
             <table>
             <thead>
@@ -114,8 +115,8 @@
         }
 
         if($data['topBooks']!=''){
-          echo '<div class="table-container" id="pdf">
-          <div class="table" id="pdf"> 
+          echo '<div class="table-container">
+          <div class="table"> 
             <h3>Most Ordered Books</h3>
             <table>
             <thead>
@@ -140,8 +141,8 @@
         }
 
         if($data['availableBooks']!=''){
-          echo '<div class="table-container" id="pdf">
-          <div class="table" id="pdf"> 
+          echo '<div class="table-container">
+          <div class="table"> 
             <h3>Available Books</h3>
             <table>
             <thead>
@@ -164,7 +165,7 @@
     '</div>'.
     '</div>';
         }
-      
+      echo '</div>';
       }
     
       echo '<button id=download>Download PDF</button>';
