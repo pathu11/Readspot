@@ -1,0 +1,74 @@
+.order-view {
+    position: fixed;
+    top: 27%;
+    right: 5%;
+    height: 450px;
+    width: 720px;
+    background-color: white;
+    opacity: 0.9;
+    z-index: 50;
+    border-radius: 10px;
+    display:none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.show-order {
+    display: block;
+}
+
+.main-order-details {
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    margin: 25px 5px 5px 5px;
+    padding: 5px;
+    position: relative;
+}
+
+.close-order-view {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: transparent;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    cursor: pointer;
+    border: none;
+    transition: .5s;
+}
+
+.close-order-view:hover {
+    /* background-color: rgb(238, 98, 98); */
+    transform: scale(1.02);
+    /* border: 1px solid; */
+}
+.order-close {
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (max-width:800px) {
+    .order-view {
+        top: 27%;
+        /* right: 18%; */
+        /* height: 460px; */
+        width: 470px; 
+    }
+}
+
+@media screen and (max-width:600px) {
+    .order-view {
+        top: 25%;
+        /* right: 10%; */
+        height: 460px;
+        width: 350px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .order-view {
+        top: 27%;
+        right: 2%;
+        height: 460px;
+        width: 280px;
+    }
+}
