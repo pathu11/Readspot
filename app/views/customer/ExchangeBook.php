@@ -4,6 +4,9 @@
 ?>
 
     <div class="main-cont">
+        <div class="back-btn-div01">
+            <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
         <div class="sub-cont-E1">
             <div class="Exchange-books">
                 <h1>EXCHANGE BOOKS</h2>

@@ -8,6 +8,29 @@
     padding: 20px;
 }
 
+.back-btn-div01 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    /* background-color: #fff; */
+}
+
+.back-btn01 {
+    width: 80px;
+    height: 30px;
+    background-color:  rgb(1, 36, 33);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn01:hover {
+    background: #fff;
+    color: black;
+}
+
 .sub-cont-N1 {
     border-radius: 10px;
     display: flex;
