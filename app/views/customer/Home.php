@@ -54,11 +54,11 @@
             <h3>Book Challenges</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
-        <div class="service-div-M" onclick="service8()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8" class="Sev1"> <!--path changed-->
+        <!-- <div class="service-div-M" onclick="service8()">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8" class="Sev1">
             <h3>Event Calender</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+        </div> -->
     </div>
     <?php
         require APPROOT . '/views/customer/footer.php';
@@ -103,9 +103,9 @@ function service7() {
     window.location.href = url;
 }
 
-function service8() {
-    var url = "#";
-    window.location.href = url;
-}
+// function service8() {
+//     var url = "#";
+//     window.location.href = url;
+// }
 
 </script>
