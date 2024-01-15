@@ -1,6 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        
         .nav-container2 {
             display: flex;
             align-items: center;
@@ -31,14 +32,14 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <!-- <div class="chat-container1">
+        <input type="text" id="live-search" autocomplete="off" placeholder="Search..." class="search-bar">
+    </div>
+    <div id="searchresult"></div> -->
     <div class="nav-container2">
-
-        
         <a href="<?php echo URLROOT; ?>/publisher/processingorders">Processing Orders</a>
         <a href="<?php echo URLROOT; ?>/publisher/shippedorders">Shipped Orders</a>
         <a href="<?php echo URLROOT; ?>/publisher/deliveredorders">Delivered Orders</a>
         <a href="<?php echo URLROOT; ?>/publisher/returnedorders">Returned Orders</a>
-        
-
-
     </div>
+    

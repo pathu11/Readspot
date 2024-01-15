@@ -673,7 +673,7 @@ public function approveOrder($order_id) {
         'user_idPub' => $ownerDetails[0]->user_id,
         'sender_id' => $user_id,
         'sender_name' => $customerDetails[0]->name,
-        'sender_name2' => $ownerDetails[0]->name
+        
     ];
 
     // Assuming your approval logic here...

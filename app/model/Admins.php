@@ -391,7 +391,7 @@ public function addMessageToPublisher($data) {
   $this->db->bind(':user_id', $data['user_idPub']);
   $this->db->bind(':topic', $data['topic']);
   $this->db->bind(':message', $data['messageToPublisher']);
-  $this->db->bind(':sender_name', $data['sender_name2']);
+  $this->db->bind(':sender_name', $data['sender_name']);
   if($this->db->execute()){
       return true;
     }else{

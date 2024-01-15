@@ -3,7 +3,7 @@ class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
     private $publisherModel;
-  
+    private $ordersModel;
     private $userModel;
   
     private $db;
@@ -14,6 +14,7 @@ class Customer extends Controller {
         $this->customerModel=$this->model('Customers');
         $this->deliveryModel=$this->model('Deliver');
         $this->userModel=$this->model('User');
+        $this->ordersModel=$this->model('Orders');
         $this->publisherModel=$this->model('Publishers')  ;
         $this->db = new Database();
     }
@@ -1448,4 +1449,6 @@ private function handleOnlineDepositForm($order_id,$formType){
             $this->view('customer/Calender', $data);
         }
     }
+
+    
 }

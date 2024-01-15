@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 require APPROOT . '\vendor\autoload.php';
 class Delivery extends Controller{
     private $deliveryModel;
-    
+    private $adminModel;
     private $userModel;
     private $orderModel;
     private $publisherModel;
@@ -17,6 +17,7 @@ class Delivery extends Controller{
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
         $this->publisherModel=$this->model('Publishers'); 
+        $this->adminModel=$this->model('Admins'); 
         $this->db = new Database();
     }
     public function index(){
@@ -24,10 +25,12 @@ class Delivery extends Controller{
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-           
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
-            $deliveryName=$deliveryDetails[0]->name;
-             
+            if ($deliveryDetails !== null) {
+                $deliveryName = $deliveryDetails[0]->name;
+                // Rest of your code...
+            }
+            
             $data = [
                 'deliveryDetails' => $deliveryDetails,
                 'deliveryName'=>$deliveryName
@@ -329,45 +332,36 @@ class Delivery extends Controller{
         $orderDetails=$this->deliveryModel->findOrderById($order_id);
         $customer_id=$orderDetails[0]->customer_id;
         $customerDetails=$this->deliveryModel->findCustomerById($customer_id);
+        $book_id = $orderDetails[0]->book_id;
+        $bookDetails = $this->adminModel->getBookDetailsById($book_id);
+
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+            $ownerEmail = $ownerDetails[0]->email;
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+            $ownerEmail = $ownerDetails[0]->email;
+        }
+
         $data=[
+           
+
             'sender_name'=>$deliveryDetails[0]->name,
+            'messageToPublisher' => "Picked up   your order from  your location  successfully",
+            'user_idPub' => $ownerDetails[0]->user_id,
             'sender_id'=>$user_id,
             'topic'=>"Delivery Status",
-            'message'=>"Picked up your order from the pick up location",
+            'message'=>"picked up  your order from the pick up location  successfully",
             'user_id'=>$customerDetails[0]->user_id,
             'reciever_email'=>$customerDetails[0]->email,
+            
+           
         ];
-        if($this->deliveryModel->pickedUp($order_id) && $this->deliveryModel->addMessage($data)){
-
-            $mail = new PHPMailer(true);
-
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
-                $mail->SMTPAuth   = true;
-                $mail->Username   = MAIL_USER; // SMTP username
-                $mail->Password   = MAIL_PASS;   // SMTP password
-                $mail->SMTPSecure = MAIL_SECURITY;
-                $mail->Port       = MAIL_PORT;
-
-                //Recipients
-                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-                $mail->addAddress($data['reciever_email']);  // Add a recipient
-
-                // Content
-                $mail->isHTML(true);  // Set email format to HTML
-                $mail->Subject = $data['topic'];
-                $mail->Body    = $data['message'];
-
-                $mail->send();
-
-                // Redirect or perform other actions as needed
-                redirect('delivery/processedorders');
-            } catch (Exception $e) {
-                die('Something went wrong: ' . $mail->ErrorInfo);
-            }
-                
+        if($this->deliveryModel->pickedUp($order_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
+           $this->sendEmails( $ownerEmail, $data);
+           redirect('delivery/shippingorders');
             
         }
         else{
@@ -384,50 +378,43 @@ class Delivery extends Controller{
         $orderDetails=$this->deliveryModel->findOrderById($order_id);
         $customer_id=$orderDetails[0]->customer_id;
         $customerDetails=$this->deliveryModel->findCustomerById($customer_id);
+        $book_id = $orderDetails[0]->book_id;
+        $bookDetails = $this->adminModel->getBookDetailsById($book_id);
+
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+            $ownerEmail = $ownerDetails[0]->email;
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+            $ownerEmail = $ownerDetails[0]->email;
+        }
+
         $data=[
+           
+
             'sender_name'=>$deliveryDetails[0]->name,
+            'messageToPublisher' => "Delivered  your order from the your location to your customer's  location successfully",
+            'user_idPub' => $ownerDetails[0]->user_id,
             'sender_id'=>$user_id,
             'topic'=>"Delivery Status",
             'message'=>"Delivered  your order from the pick up location to your location successfully",
             'user_id'=>$customerDetails[0]->user_id,
             'reciever_email'=>$customerDetails[0]->email,
+            
+           
         ];
-        if($this->deliveryModel->delivered($order_id) && $this->deliveryModel->addMessage($data)){
-            $mail = new PHPMailer(true);
-
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
-                $mail->SMTPAuth   = true;
-                $mail->Username   = MAIL_USER; // SMTP username
-                $mail->Password   = MAIL_PASS;   // SMTP password
-                $mail->SMTPSecure = MAIL_SECURITY;
-                $mail->Port       = MAIL_PORT;
-
-                //Recipients
-                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-                $mail->addAddress($data['reciever_email']);  // Add a recipient
-
-                // Content
-                $mail->isHTML(true);  // Set email format to HTML
-                $mail->Subject = $data['topic'];
-                $mail->Body    = $data['message'];
-
-                $mail->send();
-
-                // Redirect or perform other actions as needed
-                redirect('delivery/shippingorders');
-            } catch (Exception $e) {
-                die('Something went wrong: ' . $mail->ErrorInfo);
-            }
-                
+        if($this->deliveryModel->delivered($order_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
+           $this->sendEmails( $ownerEmail, $data);
+           redirect('delivery/shippingorders');
             
         }
         else{
             die('Something went wrong');
         }
     }
+    
     public function returned($order_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -438,50 +425,77 @@ class Delivery extends Controller{
         $orderDetails=$this->deliveryModel->findOrderById($order_id);
         $customer_id=$orderDetails[0]->customer_id;
         $customerDetails=$this->deliveryModel->findCustomerById($customer_id);
+        $book_id = $orderDetails[0]->book_id;
+        $bookDetails = $this->adminModel->getBookDetailsById($book_id);
+
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+            $ownerEmail = $ownerDetails[0]->email;
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+            $ownerEmail = $ownerDetails[0]->email;
+        }
+
         $data=[
+           
+
             'sender_name'=>$deliveryDetails[0]->name,
+            'messageToPublisher' => "Sorry to inform that your order was returned to your picked up location again",
+            'user_idPub' => $ownerDetails[0]->user_id,
             'sender_id'=>$user_id,
             'topic'=>"Delivery Status",
-            'message'=>"Returned  your order to picked up location ",
+            'message'=>"Returned  your order to the  pick up location ",
             'user_id'=>$customerDetails[0]->user_id,
             'reciever_email'=>$customerDetails[0]->email,
-        ];
-        if($this->deliveryModel->returned($order_id) && $this->deliveryModel->addMessage($data)){
-            $mail = new PHPMailer(true);
-
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
-                $mail->SMTPAuth   = true;
-                $mail->Username   = MAIL_USER; // SMTP username
-                $mail->Password   = MAIL_PASS;   // SMTP password
-                $mail->SMTPSecure = MAIL_SECURITY;
-                $mail->Port       = MAIL_PORT;
-
-                //Recipients
-                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-                $mail->addAddress($data['reciever_email']);  // Add a recipient
-
-                // Content
-                $mail->isHTML(true);  // Set email format to HTML
-                $mail->Subject = $data['topic'];
-                $mail->Body    = $data['message'];
-
-                $mail->send();
-
-                // Redirect or perform other actions as needed
-                redirect('delivery/shippingorders');
-            } catch (Exception $e) {
-                die('Something went wrong: ' . $mail->ErrorInfo);
-            }
             
+           
+        ];
+        if($this->deliveryModel->returned($order_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
+           $this->sendEmails( $ownerEmail, $data);
+           redirect('delivery/shippingorders');
             
         }
         else{
             die('Something went wrong');
         }
     }
+    private function sendEmails($ownerEmail, $data) {
+        $this->sendEmail($data['reciever_email'], $data['topic'], $data['message']);
+        $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+    }
+    
+    private function sendEmail($recipientEmail, $subject, $body) {
+        $mail = new PHPMailer(true);
+    
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = MAIL_USER; // SMTP username
+            $mail->Password = MAIL_PASS; // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port = MAIL_PORT;
+    
+            // Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($recipientEmail);  // Add a recipient
+    
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+    
+            $mail->send();
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+    }
+    
+   
+    
     public function message(){
         if (!isLoggedIn()) {
             redirect('landing/login');

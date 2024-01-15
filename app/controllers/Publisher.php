@@ -1803,7 +1803,30 @@ public function stores(){
             die('Something went wrong');
         }
       }
-
+      public function FindOrdersByTracking(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+            if (isset($_POST['tracking_no'])) {
+                
+                $trackingNumber = $_POST['tracking_no'];
+        
+                $orderDetails = $this->orderModel->FindOrdersByTracking($trackingNumber);
+        
+                // Return order details as JSON
+                header('Content-Type: application/json');
+                echo json_encode($orderDetails);
+            } else {
+                // Handle the case where trackingNumber parameter is not set
+                header('Content-Type: application/json');
+                echo json_encode(['error' => 'Tracking number is missing in the request.']);
+            }
+        } else {
+            // Handle non-POST requests if needed
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Invalid request method.']);
+        }
+    }
+    
 
     
     public function logout(){

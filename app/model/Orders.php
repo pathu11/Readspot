@@ -310,6 +310,14 @@
             return 0; 
         }
     }
+
+    public function FindOrdersByTracking($trackingNumber){
+        $this->db->query('SELECT * FROM orders  WHERE tracking_no=:tracking_no');
+        $this->db->bind(':tracking_no', $trackingNumber);
+    
+        return $this->db->resultSet();
+
+    }
     
 
     

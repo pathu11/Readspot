@@ -44,6 +44,38 @@ tr:hover {
     color:#09514C;
     margin-left: 100px;
   }
+  .search-container1{
+    margin-left: 1000px;
+    margin-top: 30px;
+  }
+  .search-bar {
+   
+    margin-bottom: 10px;
+    width: 30%;
+    box-sizing: border-box;
+    border:none;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('<?php echo URLROOT; ?>/assets/images/publisher/search.png');
+    background-size: 20px; /* Set the size of the icon */
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 5px 10px 5px 25px;
+}
+.search-bar:focus{
+    border: 2px solid  #009D94;
+}
+.search-button{
+    width:300px;
+    border-radius: 3px;
+    background-color: #009D94;
+    color:#ddd;
+    border: #009D94;
+    margin-left: 8px;
+    padding:10px;
+
+}
 @media only screen and (max-width: 768px) {
     .div_table {
         margin-left: 0;
@@ -63,4 +95,5 @@ tr:hover {
     .btn-container {
         justify-content: center; /* Center the button */
     }
+
   }
