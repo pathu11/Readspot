@@ -338,7 +338,7 @@ public function countTotalBooks(){
 }
 
 public function getTopBooks(){
-  $this->db->query("SELECT b.book_name, COUNT(o.book_id) AS order_count
+  $this->db->query("SELECT b.book_name, b.author, COUNT(o.book_id) AS order_count
   FROM books b
   JOIN orders o ON b.book_id = o.book_id
   GROUP BY b.book_name

@@ -59,7 +59,8 @@
 
   <?php 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-      echo '<div class="table-container" id="pdf">
+      if($_POST['report-type']=='registration'){
+        echo '<div class="table-container" id="pdf">
           <h2>'.$data['title'].'</h2>
           <div class="table" id="pdf"> 
             <table>
@@ -80,7 +81,93 @@
           '</table>'.
     '</div>'.
     '</div>';
-    echo '<button id=download>Download PDF</button>';
+      }
+
+      elseif($_POST['report-type']=='book-inventory'){
+        echo '<h2>'.$data['title'].'</h2>';
+        if($data['totalBooks']!=''){
+          echo '<div class="total-books"><p>Total Books: '.$data['totalBooks'].'</p></div>';
+        }
+        
+        if($data['bookCategories']!=''){
+          echo '<div class="table-container" id="pdf">
+          <div class="table" id="pdf"> 
+            <h3>Book Categories</h3>
+            <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['bookCategories'] as $bookCategory):
+              echo '<tr>'.
+                '<td>'.$bookCategory->category . '</td>'.
+                '<td>'.$bookCategory->description . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
+    '</div>'.
+    '</div>';
+        }
+
+        if($data['topBooks']!=''){
+          echo '<div class="table-container" id="pdf">
+          <div class="table" id="pdf"> 
+            <h3>Most Ordered Books</h3>
+            <table>
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Number of orders</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['topBooks'] as $topBook):
+              echo '<tr>'.
+                '<td>'.$topBook->book_name . '</td>'.
+                '<td>'.$topBook->author . '</td>'.
+                '<td>'.$topBook->order_count . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
+    '</div>'.
+    '</div>';
+        }
+
+        if($data['availableBooks']!=''){
+          echo '<div class="table-container" id="pdf">
+          <div class="table" id="pdf"> 
+            <h3>Available Books</h3>
+            <table>
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Quantity</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['availableBooks'] as $availableBook):
+              echo '<tr>'.
+                '<td>'.$availableBook->book_name . '</td>'.
+                '<td>'.$availableBook->quantity . '</td>'.
+                '<td>'.$availableBook->type . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
+    '</div>'.
+    '</div>';
+        }
+      
+      }
+    
+      echo '<button id=download>Download PDF</button>';
     }
   ?>
 
