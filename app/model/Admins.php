@@ -21,10 +21,13 @@
     public function getCustomerDetailsById($customer_id){
       $this->db->query('SELECT * from customers WHERE customer_id=:customer_id');
       $this->db->bind(':customer_id',$customer_id);
-     
-
       return $this->db->resultSet();
   }
+  public function getPublisherDetailsById($publisher_id){
+    $this->db->query('SELECT * from publishers WHERE publisher_id=:publisher_id');
+    $this->db->bind(':publisher_id',$publisher_id);
+    return $this->db->resultSet();
+}
     public function getOrderDetailsById($order_id){
       $this->db->query('SELECT * from orders WHERE order_id=:order_id');
       $this->db->bind(':order_id',$order_id);
@@ -361,7 +364,6 @@ public function approveOrder($order_id) {
 }
 
 public function addMessage($data) {
-  // Assuming $this->db is an instance of your database class
   $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
   $this->db->bind(':sender_id', $data['sender_id']);
   $this->db->bind(':user_id', $data['user_id']);
@@ -375,5 +377,26 @@ public function addMessage($data) {
     }
 }
 
+public function getBookDetailsById($book_id){
+  $this->db->query("SELECT * FROM books WHERE book_id=:book_id");
+  $this->db->bind(':book_id', $book_id); // Use the parameter $book_id here
+  $results = $this->db->resultSet();
+  return $results;
+}
+
+
+public function addMessageToPublisher($data) {
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $data['sender_id']);
+  $this->db->bind(':user_id', $data['user_idPub']);
+  $this->db->bind(':topic', $data['topic']);
+  $this->db->bind(':message', $data['messageToPublisher']);
+  $this->db->bind(':sender_name', $data['sender_name2']);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+}
   
 }

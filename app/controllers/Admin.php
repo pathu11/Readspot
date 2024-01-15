@@ -642,59 +642,87 @@ public function payments(){
     }
     
 }
-public function approveOrder($order_id){
-    $user_id=$_SESSION['user_id'];
-    $topic="Approved the Order by administration";
-    $message="Congratulations! Your order has been approved.Your order will be recieved to home as soon as possible.";
-    $orderDetails=$this->adminModel->getOrderDetailsById($order_id);
-    $customer_id=$orderDetails[0]->customer_id;
-    
+public function approveOrder($order_id) {
+    $user_id = $_SESSION['user_id'];
+    $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
+    $customer_id = $orderDetails[0]->customer_id;
+
     $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
     $customerEmail = $customerDetails[0]->email;
-    $data=[
-        'topic'=>$topic,
-        'message'=>$message,
-        'user_id'=>$customerDetails[0]->user_id,
-        'sender_id'=>$user_id,
-        'sender_name'=>$customerDetails[0]->name
+    $topic = "Approved the Order by administration";
+    $message = "Congratulations! Your order has been approved. Your order will be received at home as soon as possible.";
+    $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
+    $book_id = $orderDetails[0]->book_id;
+    $bookDetails = $this->adminModel->getBookDetailsById($book_id);
 
+    if ($bookDetails[0]->type == 'new') {
+        $user_idPub = $bookDetails[0]->publisher_id;
+        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        $ownerEmail = $ownerDetails[0]->email;
+    } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+        $user_idPub = $bookDetails[0]->customer_id;
+        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        $ownerEmail = $ownerDetails[0]->email;
+    }
+
+    $data = [
+        'topic' => $topic,
+        'messageToPublisher' => $messageToPublisher,
+        'message' => $message,
+        'user_id' => $customerDetails[0]->user_id,
+        'user_idPub' => $ownerDetails[0]->user_id,
+        'sender_id' => $user_id,
+        'sender_name' => $customerDetails[0]->name,
+        'sender_name2' => $ownerDetails[0]->name
     ];
+
     // Assuming your approval logic here...
+    if ($this->adminModel->approveOrder($order_id) &&
+        $this->adminModel->addMessage($data) &&
+        $this->adminModel->addMessageToPublisher($data)) {
 
-    if ( $this->adminModel->approveOrder($order_id) && $this->adminModel->addMessage($data )) {
-       
-        $mail = new PHPMailer(true);
+        $this->sendEmails($customerEmail, $ownerEmail, $data);
 
-        try {
-            //Server settings
-            $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
-            $mail->SMTPAuth   = true;
-            $mail->Username   = MAIL_USER; // SMTP username
-            $mail->Password   = MAIL_PASS;   // SMTP password
-            $mail->SMTPSecure = MAIL_SECURITY;
-            $mail->Port       = MAIL_PORT;
-
-            //Recipients
-            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress( $customerEmail);  // Add a recipient
-
-            // Content
-            $mail->isHTML(true);  // Set email format to HTML
-            $mail->Subject = $data['topic'];
-            $mail->Body    = $data['message'];
-
-            $mail->send();
-
-            // Redirect or perform other actions as needed
-            redirect('admin/payments');
-        } catch (Exception $e) {
-            die('Something went wrong: ' . $mail->ErrorInfo);
-        }
+        // Redirect or perform other actions as needed
+        redirect('admin/payments');
     } else {
         die('Something went wrong');
     }
 }
+
+private function sendEmails($customerEmail, $ownerEmail, $data) {
+    $this->sendEmail($customerEmail, $data['topic'], $data['message']);
+    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+}
+
+private function sendEmail($recipientEmail, $subject, $body) {
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = MAIL_HOST;  // Specify your SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = MAIL_USER; // SMTP username
+        $mail->Password = MAIL_PASS; // SMTP password
+        $mail->SMTPSecure = MAIL_SECURITY;
+        $mail->Port = MAIL_PORT;
+
+        // Recipients
+        $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+        $mail->addAddress($recipientEmail);  // Add a recipient
+
+        // Content
+        $mail->isHTML(true);  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        $mail->send();
+    } catch (Exception $e) {
+        die('Something went wrong: ' . $mail->ErrorInfo);
+    }
+}
+
 
 
 /*public function generatePDF(){
