@@ -29,13 +29,13 @@
         </a>
 
         <a href="<?php echo URLROOT; ?>/customer/Cart" class="sub-menu-link"> <!--path changed-->
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/cart.png"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/cart01.png"> <!--path changed-->
             <p>Cart</p>
             <span>></span>
         </a>
         
         <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/logout.png"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/logout01.png"> <!--path changed-->
             <p>Logout</p>
             <span>></span>
         </a>
