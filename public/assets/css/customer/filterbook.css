@@ -1,6 +1,6 @@
 .filter-category {
     position: absolute;
-    top: 170px;
+    top: 210px;
     right: 40px;
     height: 450px;
     width: 520px;
@@ -18,21 +18,21 @@
 
 @media screen and (max-width:800px) {
     .filter-category {
-        top: 210px;
+        top: 250px;
     }
 }
 
 @media screen and (max-width:600px) {
     .filter-category {
-        top: 200px;
+        top: 240px;
         height: 650px;
         width: 320px;
     }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:400px) {
     .filter-category {
-        top: 180px;
+        top: 220px;
         height: 850px;
         width: 200px;
     }
