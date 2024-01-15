@@ -1,4 +1,4 @@
-body {
+ body {
     margin-top: 90px;
     font-family: Arial, sans-serif;
 }
@@ -15,25 +15,35 @@ table {
     margin-top: 20px;
 }
 
-th {
+
+
+th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    /* border: 2px solid #009D94; */
 }
 
-th {
-    /* background-color: #009D94; */
+ th {
+     background-color:white ;
+    color: #009D94;
+    /* border-radius: 5px; */
+    box-shadow: #009D94;
+
+} 
+tr{
+    border-spacing: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+
+}
+ tr:hover {
+    background-color: #e6f7ea;
+    border: 2px solid #009D94;
     color: black;
-}
+    box-shadow: #009D94;
+}  
 
-tr {
-    background-color: #70BFBA;
-}
 
-tr:hover {
-    background-color: gray;
-    color:black;
-}
 .go-back-link{
     text-decoration: none;
     color:#009D94;
@@ -58,7 +68,7 @@ tr:hover {
     font-size: 16px;
     background-color: white;
     background-image: url('<?php echo URLROOT; ?>/assets/images/publisher/search.png');
-    background-size: 20px; /* Set the size of the icon */
+    background-size: 20px; 
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding:10px;
@@ -66,7 +76,7 @@ tr:hover {
 }
 .search-bar:focus{
     background-color: #ddd;
-    /* border:#009D94; */
+    
 }
 .search-button{
     width:300px;
@@ -97,7 +107,7 @@ tr:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Adjust the margin as needed */
+    margin-bottom: 20px; 
    
     padding: 10px;
 }
@@ -106,8 +116,7 @@ tr:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding:20px; */
-    /* flex: 0 0 180px;  */
+   
 }
 
 .col1 img {
@@ -115,8 +124,8 @@ tr:hover {
 } 
 
 .col2 {
-    flex: 1; /* Allow col2 to take up remaining space */
-    padding-left: 50px; /* Add padding to separate col1 and col2 */
+    flex: 1; 
+    padding-left: 50px; 
 }
 
 @media only screen and (max-width: 768px) {
@@ -136,7 +145,7 @@ tr:hover {
     }
   
     .btn-container {
-        justify-content: center; /* Center the button */
+        justify-content: center; 
     }
 
-  }
+  } 

@@ -335,6 +335,14 @@
     
         return $this->db->resultSet();
     }
+    public function trackingNumberExists($trackingNumber) {
+        $this->db->query('SELECT tracking_no FROM orders WHERE tracking_no = :tracking_no');
+        $this->db->bind(':tracking_no', $trackingNumber);
+        $this->db->execute();
+    
+        return $this->db->rowCount() > 0;
+    }
+    
     
     
 

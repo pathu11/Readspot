@@ -1358,7 +1358,7 @@ private function handleCODForm($order_id,$formType){
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
     $customer_id=$customerDetails[0]->customer_id;
-    $trackingNumber=$this->generateTrackingNumber($order_id);
+    $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
         'customer_id' => $customer_id,
@@ -1385,7 +1385,8 @@ private function handleOnlineDepositForm($order_id,$formType){
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
     $customer_id=$customerDetails[0]->customer_id;
-    $trackingNumber=$this->generateTrackingNumber($order_id);
+    $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
+    print_r($trackingNumber);
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
         'customer_id' => $customer_id,
@@ -1429,11 +1430,16 @@ private function handleOnlineDepositForm($order_id,$formType){
                 $this->view('customer/checkout2',$data);
             }
 }
-    private function generateTrackingNumber($orderId) {
-        $randomNumber = mt_rand(100000000000000000, 999999999999999999);
-        $trackingNumber = $orderId . $randomNumber;
-        return $trackingNumber;
-    }
+private function generateUniqueTrackingNumber($orderId) {
+    do {
+        $timestamp = time(); // Current timestamp
+        $randomNumber = mt_rand(10000, 99999); // Use a range suitable for your application
+        $trackingNumber = $orderId . $timestamp . $randomNumber;
+    } while ($this->ordersModel->trackingNumberExists($trackingNumber));
+
+    return $trackingNumber;
+}
+
 
     public function Calender(){
         if (!isLoggedIn()) {

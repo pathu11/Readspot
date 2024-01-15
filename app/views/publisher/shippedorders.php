@@ -25,17 +25,17 @@
         <?php var_dump($data['customerName']); ?> -->
 
             <tr>
-                <th style="width:7%;background-color: #009D94;">Order ID</th>
-                <th style="width:7%;background-color: #009D94;">Product ID</th>
-                <th style="width:7%;background-color: #009D94;">No of Items</th>
-                <th style="width:14%;background-color: #009D94;">Customer Details</th>
-                <th style="width:10%;background-color: #009D94;">Total Price(Rs)</th>
+                <th style="width:7%;">Tracking Number</th>
+                <th style="width:7%;">Book ID</th>
+                <th style="width:7%;">No of Items</th>
+                <th style="width:7%;">Customer Details</th>
+                <th style="width:7%;">Total Price(Rs)</th>
                 
 
             </tr>
             <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
-                <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->tracking_no; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->book_id; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
                 <th style="width:7%"><?php echo $data['customerName']; ?></th>

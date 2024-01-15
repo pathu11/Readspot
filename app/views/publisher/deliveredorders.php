@@ -28,17 +28,17 @@
         <p>Delivered Orders >></p>
         <table>
             <tr>
-                <th style="width:7%;background-color: #009D94;">Order ID</th>
-                <th style="width:7%;background-color: #009D94;">Product ID</th>
-                <th style="width:7%;background-color: #009D94;">No of Items</th>
-                <th style="width:13%;background-color: #009D94;">Customer Details</th>
-                <th style="width:6%;background-color: #009D94;">Total Price(Rs)</th>
+                <th style="width:7%;">Tracking Number</th>
+                <th style="width:7%;">Book ID</th>
+                <th style="width:7%;">No of Items</th>
+                <th style="width:7%;">Customer Details</th>
+                <th style="width:7%;">Total Price(Rs)</th>
                 
 
             </tr>
             <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
-                <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
+                <th style="width:7%"><?php echo $orderDetails->tracking_no; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->book_id; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
                 <th style="width:7%"><?php echo $data['customerName']; ?></th>
@@ -50,7 +50,12 @@
             
 
         </table>
+        
     </div>
+    <div class="search-container1">
+        <input type="text" id="live-search" autocomplete="off" placeholder="Tracking Number" class="search-bar"><button id="search-button" class="search-button">Search by Tracking Number</button>
+    </div>
+    <div id="searchresult"></div>
   
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
