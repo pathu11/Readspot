@@ -15,6 +15,7 @@
 .prof-content {
     padding: 20px;
     background-color: #E3F2FD;
+    min-height: 500px;
     /* right: 0px; */
     
     /* min-height: 73.5vh; */ 
