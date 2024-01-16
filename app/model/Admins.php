@@ -13,8 +13,6 @@
     public function findAdminById($user_id){
         $this->db->query('SELECT * from admin WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
-       
-
         return $this->db->resultSet();
     }
     
@@ -383,8 +381,6 @@ public function getBookDetailsById($book_id){
   $results = $this->db->resultSet();
   return $results;
 }
-
-
 public function addMessageToPublisher($data) {
   $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
   $this->db->bind(':sender_id', $data['sender_id']);

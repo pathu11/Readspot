@@ -1,7 +1,6 @@
 
 <?php
-    $title = "Processing  Orders";
-    
+    $title = "Processing  Orders";    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +35,7 @@
                 <th style="width:7%"><?php echo $orderDetails->book_id; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
                 <th style="width:7%"><?php echo $data['customerName']; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->total_price; ?></th>
-                
+                <th style="width:7%"><?php echo $orderDetails->total_price; ?></th>               
                 
             </tr>
             <?php endforeach; ?> 
@@ -48,12 +46,6 @@
         <input type="text" id="live-search" autocomplete="off" placeholder="Tracking Number" class="search-bar"><button id="search-button" class="search-button">Search by Tracking Number</button>
     </div>
     <div id="searchresult"></div>
-   
-
-
-
-
-
 </body>
 <script>
         function goBack() {
@@ -118,6 +110,4 @@
             });
         });
     </script>
-
 </html>
-
