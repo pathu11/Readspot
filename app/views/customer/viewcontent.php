@@ -3,85 +3,166 @@
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
-    <div class="main-detail">
-        <div class="sub1">
-            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="main-img"> <!--path changed-->
+    <div class="main-content-div">
+        <h1 class="cont-topic">Explore the Stars</h1>
+        <img src="<?php echo URLROOT; ?>/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img-main"> <!--path changed -->
+        <div class="cont-details">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
+            <br>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
+            <br>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
+            <br>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
         </div>
-        <div class="sub2">
-            <h3>Book Name : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Author of Book : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Book Category : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Condition : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Published Date : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Price : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Price Type : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Weight (grams) : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>ISBN Number : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>ISSN Number : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>ISMN Number : <span>Lorem ipsum dolor sit amet.</span></h3>
-        </div>
-        <div class="sub3">
-            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="sub-img"> <!--path changed-->
-        </div>
-        <div class="sub4">
-            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="sub-img"> <!--path changed-->
-        </div>
-        <div class="sub5">
-            <img src="<?php echo URLROOT; ?>/assets/img/book.jpg" alt="Book3" class="sub-img"> <!--path changed-->
-        </div>
-        <div class="sub6">
-            <h3>Description about the book</h3><br>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing 
-                elit. Pariatur, culpa quam? Accusantium accusamus 
-                deleniti ea dolor. At excepturi, pariatur quis 
-                error aspernatur, eius delectus eveniet ut 
-                expedita architecto ratione culpa. Illo a unde 
-                nihil rerum culpa veniam veritatis nesciunt, fuga 
-                dolorem. Debitis expedita, eaque fugiat harum 
-                animi possimus explicabo natus nihil eum esse 
-                rerum? Laborum doloribus eaque, autem earum 
-                laudantium dignissimos nam itaque rerum quasi enim 
-                sit nisi eligendi tempore. Vitae rem atque 
-                distinctio, odit hic, cupiditate harum corporis 
-                voluptatum repudiandae quaerat blanditiis quos 
-                amet aut labore dicta qui cumque ab culpa omnis 
-                earum optio nam? Consectetur commodi natus iste 
-                eos, dicta illum? Suscipit eveniet ipsum tenetur? 
-                Consectetur magnam sit dolorum aut voluptatum quia 
-                maiores accusantium, consequatur soluta 
-                dignissimos temporibus nam iusto cumque cum. 
-                Repellendus repudiandae doloribus reiciendis iure 
-                nihil sequi alias voluptates nesciunt at laborum 
-                vero minus accusantium corporis ipsam debitis 
-                impedit sit, ipsum delectus. Esse, est veniam sunt 
-                rem commodi animi ullam laborum ab cumque placeat, 
-                consectetur ipsam omnis! Similique animi aperiam 
-                eum hic iusto harum in dolorum libero optio, nihil 
-                culpa aspernatur labore repellat, pariatur ea. 
-                Inventore minus aut, quos quod fuga ipsam 
-                praesentium quasi vitae ab eius amet maxime 
-                similique ex iste sit dolorum explicabo labore, 
-                accusamus magni porro. Minus nulla veritatis totam 
-                expedita corrupti a perspiciatis! Minus, ea 
-                tempora dolor enim saepe tempore laboriosam 
-                facilis atque repellat nisi sunt doloribus 
-                deleniti suscipit iure dolore numquam inventore 
-                debitis, cumque quod commodi quis et eligendi 
-                reprehenderit pariatur? Impedit deserunt mollitia 
-                nisi totam odio similique id hic vitae.
-            </p>
 
-        </div>
-        <div class="sub7">
-            <h3>Town : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>District : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-            <h3>Postal Code : <span>Lorem ipsum dolor sit amet.</span></h3><br>
-        </div>
-        <div class="sub8">
-            <a href="#"><button class="chat-btn">Chat</button></a>
-            <a href="#"><button class="chat-btn">Purchase</button></a>
+        <div class="comment-newbooks">
+            <h1> Reviews and Rating </h1>
+            <div class="send-review">
+                <div class="stars">
+                    <span class="heading">User Rating</span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <p>4.1 average based on 254 reviews.</p>
+                    <hr style="border:3px solid #f1f1f1">
+
+                    <div class="row-rating">
+                        <div class="side">
+                            <div>5 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-5"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>150</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>4 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-4"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>63</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>3 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-3"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>15</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>2 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-2"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>6</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>1 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-1"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>20</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="give-rate">
+                    <div class="my-rate">
+                        <span class="heading">Add your review</span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <div class="my-review">
+                        <textarea id="description" rows="12"  name="descriptions"></textarea>
+                    </div>
+                    <button class="submit-review">Submit</button>
+                </div>
+            </div>
+            <div class="filter-by">
+                <h3>5 star</h3>
+                <h3>4 star</h3>
+                <h3>3 star</h3>
+                <h3>2 star</h3>
+                <h3>1 star</h3>
+            </div>
+            <div class="sort-by-star">
+                <select id="searchBy"  name="category">
+                    <option value="technology">Most relevant</option>
+                    <option value="travel">Most recent</option>
+                </select>
+            </div>
+            <div class="cus-rev">
+                <div class="reviews">
+                    <div class="cus-name-img">
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
+                        <h3>Ramath Perera</h3>
+                    </div>
+                    <div class="rev-date">
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
+                        <h6>01/01/2024</h6>
+                    </div>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
+                    <div class="helpful">
+                        <h4>Was this review helpful?</h4>
+                        <div class="yes-no">
+                            <h3>Yes</h3>
+                            <h3>No</h3>
+                        </div>
+                    </div>
+                    <h5>13 people found this helpful</h5>
+                </div>
+                <div class="reviews">
+                    <div class="cus-name-img">
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
+                        <h3>Ramath Perera</h3>
+                    </div>
+                    <div class="rev-date">
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
+                        <h6>01/01/2024</h6>
+                    </div>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
+                    <div class="helpful">
+                        <h4>Was this review helpful?</h4>
+                        <div class="yes-no">
+                            <h3>Yes</h3>
+                            <h3>No</h3>
+                        </div>
+                    </div>
+                    <h5>13 people found this helpful</h5>
+                </div>
+            </div>
         </div>
     </div>
+
+
 
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed

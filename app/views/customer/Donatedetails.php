@@ -4,6 +4,9 @@
 ?>
 
     <div class="donate-detail">
+        <div class="back-btn-div">
+            <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
         <div class="donate-main">
             <div class="donate-img-div">
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/donate1.jpg" alt="Book3" class="donate-img"> <!--path changed-->

@@ -31,6 +31,10 @@
     font-size: 1em;
     padding: 10px;
     display: block;
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: row;
+    align-items: center;
 }
 
 .menu-list a:hover:not(.active) {
@@ -49,6 +53,14 @@
 .mob-sidebar {
     display: none;
 }
+
+.sidebar-img-main {
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    /* background-color: aqua; */
+}
+
 
 @media screen and (max-width:800px) {
     .sidebar {
@@ -72,8 +84,8 @@
     }
     .sidebar-img {
         padding: 5px;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         background-color: #E0E0E0;
         border: 2px solid blue;
     }
@@ -85,8 +97,8 @@
     }
     .sidebar-img:hover{
         padding: 5px;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         cursor: pointer;
         background-color: wheat;
         border: 2px solid blue;
@@ -108,8 +120,8 @@
     }
     .sidebar-img {
         padding: 4px;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         background-color: #E0E0E0;
         border: 2px solid blue;
     }
@@ -121,8 +133,8 @@
     }
     .sidebar-img:hover{
         padding: 4px;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         cursor: pointer;
         background-color: wheat;
         border: 2px solid blue;

@@ -101,7 +101,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                
+
                     // sanitize post data
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
@@ -133,6 +133,7 @@ class Customer extends Controller {
                 
                 if(empty($data['street_name'])){
                     $data['street_name_err']='Please enter street name';      
+
                 }
                 
                 if(empty($data['town'])){
@@ -1380,6 +1381,36 @@ private function handleOnlineDepositForm($order_id,$formType){
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Calender', $data);
+        }
+    }
+
+    public function BookChallenge(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/BookChallenge', $data);
+        }
+    }
+
+    public function Order(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Order', $data);
         }
     }
 }
