@@ -415,7 +415,7 @@ public function addbooks(){
             'postal_name_err' => '',
             'street_name_err' => '',
             'town_err' => '',
-            'district_err' => '',
+            // 'district_err' => '',
             'postal_code_err' => '',
         ];
            
@@ -433,16 +433,16 @@ public function addbooks(){
             }
 
             
-             if(empty($data['district'])){
-                $data['district_err']='Please select the district';      
-            }
+            //  if(empty($data['district'])){
+            //     $data['district_err']='Please select the district';      
+            // }
             if(empty($data['postal_code'])){
                 $data['postal_code_err']='Please enter the postal code';      
             }
            
 
             //make sure errors are empty
-            if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){                   
+            if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['postal_code_err'])   ){                   
                 if( $this->publisherModel->editpostalInBooks($data)){
                     flash('update_success','You are added the book  successfully');
                     redirect('publisher/editAccountForBooks/'.$book_id);
@@ -1803,7 +1803,30 @@ public function stores(){
             die('Something went wrong');
         }
       }
-
+      public function FindOrdersByTracking(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+            if (isset($_POST['tracking_no'])) {
+                
+                $trackingNumber = $_POST['tracking_no'];
+        
+                $orderDetails = $this->orderModel->FindOrdersByTracking($trackingNumber);
+        
+                // Return order details as JSON
+                header('Content-Type: application/json');
+                echo json_encode($orderDetails);
+            } else {
+                // Handle the case where trackingNumber parameter is not set
+                header('Content-Type: application/json');
+                echo json_encode(['error' => 'Tracking number is missing in the request.']);
+            }
+        } else {
+            // Handle non-POST requests if needed
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Invalid request method.']);
+        }
+    }
+    
 
     
     public function logout(){

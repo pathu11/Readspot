@@ -1,4 +1,4 @@
-body {
+ body {
     margin-top: 90px;
     font-family: Arial, sans-serif;
 }
@@ -15,25 +15,35 @@ table {
     margin-top: 20px;
 }
 
-th {
+
+
+th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    /* border: 2px solid #009D94; */
 }
 
-th {
-    /* background-color: #009D94; */
+ th {
+     background-color:white ;
+    color: #009D94;
+    /* border-radius: 5px; */
+    box-shadow: #009D94;
+
+} 
+tr{
+    border-spacing: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+
+}
+ tr:hover {
+    background-color: #e6f7ea;
+    border: 2px solid #009D94;
     color: black;
-}
+    box-shadow: #009D94;
+}  
 
-tr {
-    background-color: #70BFBA;
-}
 
-tr:hover {
-    background-color: gray;
-    color:black;
-}
 .go-back-link{
     text-decoration: none;
     color:#009D94;
@@ -44,6 +54,80 @@ tr:hover {
     color:#09514C;
     margin-left: 100px;
   }
+  .search-container1{
+    margin-left: 930px;
+    margin-top: 50px;
+  }
+  .search-bar {
+   
+    margin-bottom: 10px;
+    width:30%;
+    box-sizing: border-box;
+    border:none;
+    border-radius: 0;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('<?php echo URLROOT; ?>/assets/images/publisher/search.png');
+    background-size: 20px; 
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding:10px;
+
+}
+.search-bar:focus{
+    background-color: #ddd;
+    
+}
+.search-button{
+    width:300px;
+    border-radius: 0;
+    background-color: #009D94;
+    color:#ddd;
+    border: #009D94;
+    margin-left: 0;
+    padding:10px;
+
+}
+.search-button:hover{
+    background-color: aqua;
+    color:#09514C;
+
+
+}
+.order-container{
+    margin-top:10px;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-radius: 8px;
+    background-color: white;
+    padding:10px;
+
+}
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; 
+   
+    padding: 10px;
+}
+
+.col1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+.col1 img {
+   padding:10px;
+} 
+
+.col2 {
+    flex: 1; 
+    padding-left: 50px; 
+}
+
 @media only screen and (max-width: 768px) {
     .div_table {
         margin-left: 0;
@@ -61,6 +145,7 @@ tr:hover {
     }
   
     .btn-container {
-        justify-content: center; /* Center the button */
+        justify-content: center; 
     }
-  }
+
+  } 

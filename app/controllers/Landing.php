@@ -963,7 +963,7 @@ class Landing extends Controller{
         }elseif ($user->user_role == 'customer') {
             $customerDetails = $this->customerModel->findCustomerById($user->user_id);
             $_SESSION['customer_id'] = $customerDetails->customer_id;
-            redirect('customer/Home');
+            redirect('customer/index');
          
         }elseif ($user->user_role == 'charity') {
             

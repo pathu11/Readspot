@@ -310,6 +310,40 @@
             return 0; 
         }
     }
+
+    public function FindOrdersByTracking($trackingNumber){
+        $this->db->query('SELECT 
+            o.order_id, 
+            o.status,
+            o.quantity,
+            o.total_weight,
+            o.payment_type, 
+            b.book_id,
+            b.book_name,
+            b.img1,
+            b.img2, 
+            o.c_postal_name AS receiver_postal_name, 
+            o.c_street_name AS receiver_street_name,
+            o.c_town AS receiver_town,
+            o.c_district AS receiver_district ,
+            o.c_postal_code AS receiver_postal_code  
+        FROM orders o 
+        JOIN books b ON o.book_id = b.book_id 
+       
+        WHERE o.tracking_no = :tracking_no'); // corrected the WHERE clause
+        $this->db->bind(':tracking_no', $trackingNumber);
+    
+        return $this->db->resultSet();
+    }
+    public function trackingNumberExists($trackingNumber) {
+        $this->db->query('SELECT tracking_no FROM orders WHERE tracking_no = :tracking_no');
+        $this->db->bind(':tracking_no', $trackingNumber);
+        $this->db->execute();
+    
+        return $this->db->rowCount() > 0;
+    }
+    
+    
     
 
     

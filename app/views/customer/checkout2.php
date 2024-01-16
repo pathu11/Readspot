@@ -28,6 +28,7 @@
                     <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
                         <input type="hidden" name="form_type" value="cardPayment">
                         <button onClick="paymentGateway();">Pay here</button>
+                        
                         <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
                     </form>
                     </div>
@@ -48,18 +49,18 @@
                     </form>
                 </div>
                 <div class="COD-form">
-                <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
-                    <input type="hidden" name="form_type" value="COD">
-                    <p>Pay with cash upon delivery. (We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.)
-                    </p>
-                    <button type="submit" >Conform Order</button>
-                </form>
+                    <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
+                        <input type="hidden" name="form_type" value="COD">
+                        <p>Pay with cash upon delivery. (We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.)
+                        </p>
+                        <button type="submit" >Conform Order</button>
+                    </form>
                 </div>
 
 
                 </div>
             </div>
-            <input type="submit" value="Pay 1700.00" class="btn-checkout">
+            <!-- <input type="submit" value="Pay 1700.00" class="btn-checkout"> -->
 </div>
         <!-- </form> -->
     </div>
@@ -70,15 +71,13 @@
 <script>
     function paymentGateway() {
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = () => {
+        xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                alert(xhttp.responseText);
-
                 var obj = JSON.parse(xhttp.responseText);
 
                 // PayHere initialization
                 payhere.onCompleted = function onCompleted(orderId) {
-                    console.log("Payment completed. OrderID:" + obj["order_id"]);
+                    console.log("Payment completed. OrderID: " + obj["order_id"]);
                 };
 
                 payhere.onDismissed = function onDismissed() {
@@ -86,17 +85,17 @@
                 };
 
                 payhere.onError = function onError(error) {
-                    console.log("Error:" + error);
+                    console.log("Error: " + error);
                 };
 
                 var payment = {
                     "sandbox": true,
                     "merchant_id": "1225428",
-                    "return_url": "http://localhost/Readspot/customer/checkoutform",
-                    "cancel_url": "http://localhost/Readspot/customer/checkoutform/",
+                    "return_url": "http://localhost/Readspot/",
+                    "cancel_url": "http://localhost/Readspot/",
                     "notify_url": "http://sample.com/notify",
                     "order_id": obj["order_id"],
-                    "items": "Door bell wireles",
+                    "items": obj["items"],
                     "amount": obj["amount"],
                     "currency": obj["currency"],
                     "hash": obj["hash"],
@@ -106,7 +105,6 @@
                     "phone": obj["phone"],
                     "address": obj["address"],
                     "city": obj["city"],
-
                     "country": "Sri Lanka",
                     "delivery_address": "No. 46, Galle road, Kalutara South",
                     "delivery_city": "Kalutara",
@@ -121,7 +119,7 @@
         };
 
         // AJAX request to retrieve payment details
-        xhttp.open("GET", "<?php echo URLROOT; ?>/customer/checkoutform", true);
+        xhttp.open("GET", "<?php echo URLROOT; ?>/customer/checkout2", true);
         xhttp.send();
     }
     

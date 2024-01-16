@@ -9,7 +9,8 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/Add.js"></script> <!--path changed-->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/dropcategory.js"></script> <!--path changed-->
-    <script src="<?php echo URLROOT; ?>/assets/js/customer/home.js"></script> <!--path changed-->
+    <script src="<?php echo URLROOT; ?>/assets/js/customer/home.js"></script> <
+    
 
     <title><?php echo $title; ?></title>
 </head>
@@ -19,7 +20,7 @@
         <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="logo" class="logo"> <!--path changed-->
         <div class="navig">
             <nav class="navigation">
-                <a href="<?php echo URLROOT; ?>/customer/Home" data-head="Home">Home</a>
+                <a href="<?php echo URLROOT; ?>/customer/index" data-head="Home">Home</a>
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                 <div class="dropdown-services">
                     <button onclick="toggleDropdown('myDropdown-S')">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
@@ -46,7 +47,7 @@
             <div class="mobnav">
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/menu.png" alt="menu" class="menu">
                 <nav id="subNav">
-                    <a href="<?php echo URLROOT; ?>/customer/Home." data-head="Home">Home</a>
+                    <a href="<?php echo URLROOT; ?>/customer/index" data-head="Home">Home</a>
                     <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                     <button class="drop-serv">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
                     <div id="myDropdown-S" class="dropdown-content-services">
