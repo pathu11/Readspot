@@ -31,8 +31,10 @@
                 <a href="<?php echo URLROOT; ?>/customer/TopAuthor">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
+
                 <a href="<?php echo URLROOT; ?>/customer/Recommended"><div class="aut-T">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" alt="Book1">
+
                     <h3>Martin Wickramasignhe</h3>
                 </div></a>
                 <div class="aut-T">
@@ -87,7 +89,9 @@
                 <a href="<?php echo URLROOT; ?>/customer/TopCategory">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/Recommended"><div class="cat-T">
+                <a href="<?php echo URLROOT; ?>/customer/Recommended">
+                
+                <div class="cat-T">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/fantasy.jpg" alt="Book1"> <!--path changed-->
                 </div></a>
                 <div class="cat-T">
@@ -107,29 +111,50 @@
                 <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
+               
+                <?php foreach($data['bookDetails'] as $books): ?>
+                <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
+                <div class="B0-N">
+                    <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> 
+                    <h3><?php echo $books->book_name; ?></h3>
+                    <h3><?php echo $books->price; ?></h3>
                     <div class="fav-cart">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
                     </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
+                </div>
+            </a>
+                <?php endforeach; ?>
+                <!-- <div class="B0-N">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> 
                     <h3>The Adventures</h3>
                     <h3>500/=</h3>
                     <button class="dts-btn">Add to Cart</button>
                     <button class="dts-btn">View Details</button>
                 </div>
                 <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> 
                     <h3>Middlemarch</h3>
                     <h3>500/=</h3>
                     <button class="dts-btn">Add to Cart</button>
                     <button class="dts-btn">View Details</button>
                 </div>
+
+                <div class="B0-N">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> 
+                    <h3>Lolita</h3>
+                    <h3>500/=</h3>
+                    <button class="dts-btn">Add to Cart</button>
+                    <button class="dts-btn">View Details</button>
+                </div>
+                <div class="B0-N">
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> 
+                    <h3>The Great Gatsby</h3>
+                    <h3>500/=</h3>
+                    <button class="dts-btn">Add to Cart</button>
+                    <button class="dts-btn">View Details</button>
+                </div> -->
+
                 <!--  -->
             </div>
         </div>    

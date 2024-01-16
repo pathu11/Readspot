@@ -6,7 +6,11 @@
     padding: 10px 290px 10px 290px;
     border-radius: 10px;
 }
-
+.cardPayment-form,
+.COD-form,
+.onlineBanking-form {
+    display: none;
+}
 .check-form {
     background-color: white;
     min-height: 150px;

@@ -197,6 +197,23 @@ class User{
 
         return $this->db->resultSet();
     }
+    public function findUserByToken($token){
+        $this->db->query('SELECT * from users WHERE token=:token');
+        $this->db->bind(':token',$token);
+        return $this->db->resultSet();
+    }
+    // userModel.php
+
+// public function findUserByToken($token) {
+//     $this->db->query('SELECT * FROM users WHERE token = :token');
+//     $this->db->bind(':token', $token);
+//     $user = $this->db->single();
+
+//     // Ensure that $user is an object
+//     return (is_object($user)) ? $user : null;
+// }
+
+
     public function findUserByPubId($user_id){
         $this->db->query('SELECT * from publishers WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
@@ -250,8 +267,20 @@ class User{
             return false;
         }
     }
+
     
     
+    public function setRememberMeToken($user_id,$token){
+        $this->db->query('UPDATE users SET token = :token WHERE user_id = :user_id');
+        $this->db->bind(':token', $token);
+        $this->db->bind(':user_id', $user_id);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
 
    

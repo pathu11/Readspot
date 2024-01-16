@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=<?php echo URLROOT."/assets/css/charity/charity-home.css"?>>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css">
     <title>ReadSpot Online Book store</title>
 </head>
 
@@ -18,7 +18,7 @@
         </div>
         <nav>
             <a href="#" class="active">Home</a>
-            <a href="charity/event">Event Management</a>
+            <a href="<?php echo URLROOT; ?>/charity/event">Event Management</a>
             <a href="#" id="donorRequestLink">Donor Request</a>
             <a href="#">Customer Support</a>
         </nav>

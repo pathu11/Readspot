@@ -5,12 +5,14 @@
 
 
     <div class="hero-div-M" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
+        
         <div class="content-div-M">
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2><br>
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , Exchanging, and Donating both new & used books.</p>
         </div>
+        
     </div>
     
     <div class="our_ser-div-M">

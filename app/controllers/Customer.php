@@ -2,6 +2,7 @@
 class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
+    private $publisherModel;
   
     private $userModel;
   
@@ -12,7 +13,8 @@ class Customer extends Controller {
         }
         $this->customerModel=$this->model('Customers');
         $this->deliveryModel=$this->model('Deliver');
-        $this->userModel=$this->model('User');  
+        $this->userModel=$this->model('User');
+        $this->publisherModel=$this->model('Publishers')  ;
         $this->db = new Database();
     }
     public function comment() {
@@ -93,103 +95,112 @@ class Customer extends Controller {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
+            
             $user_id = $_SESSION['user_id'];
             $bookDetails=$this->customerModel->findBookById($book_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                
-                $formType = $_POST['form_type'];
-                if ($formType === 'new_address') {
-                    $this->handlenew_addressForm($book_id);
-                } elseif ($formType === 'default_address') {
-                    
-                    $this->handledefault_addressForm($book_id);
+
+                    // sanitize post data
+                $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                $data=[
+                    'book_id'=>$book_id,
+                    'customer_id' => $customerDetails[0]->customer_id,
+                    'postal_name' => trim($_POST['postal_name']),
+                    'street_name' => trim($_POST['street_name']),
+                    'town' => trim($_POST['town']),
+                    'district' => trim($_POST['district']),
+                    'postal_code' => trim($_POST['postal_code']),
+                    'contact_no'=>trim($_POST['contact_no']),
+                    'total_cost' => trim($_POST['totalCost']),
+                    'total_weight'=>trim($_POST['totalWeight']),
+ 
+                    'quantity' => trim($_POST['quantity']), 
+                    'postal_name_err' => '',
+                    'street_name_err' => '',
+                    'town_err' => '',
+                    'district_err' => '',
+                    'postal_code_err' => '',
+                    'contact_no_err'=>''
+
+                ];
+                // var_dump($data);
+                 
+                if(empty($data['postal_name'])){
+                    $data['postal_name_err']='Please enter the  name';      
                 }
+                
+                if(empty($data['street_name'])){
+                    $data['street_name_err']='Please enter street name';      
+
+                }
+                
+                if(empty($data['town'])){
+                    $data['town_err']='Please enter the town';      
+                }
+                if(empty($data['contact_no'])){
+                    $data['contact_no_err']='Please enter the contact number';      
+                }else if(strlen($data['contact_no'])<10){
+                    $data['contact_no_err']='Please enter a valid contact number';
+                }
+                if(empty($data['district'])){
+                    $data['district_err']='Please select the district';      
+                }
+                if(empty($data['postal_code'])){
+                    $data['postal_code_err']='Please enter the postal code';      
+                }
+
+                if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
+                    // print_r($data);
+                    if($this->customerModel->addOrder($data)){
+                        $orderId = $this->customerModel-> getLastInsertedOrderId();
+                        redirect('customer/checkout2/'.$orderId);
+                    }else{
+                      echo  '<script>alert("Error")</script>';
+                    }
+
+                }else{
+                    
+                    echo  '<script>alert("Error")</script>';
+                    }
+        
+              
             } else {
                 // Your existing code for displaying the form
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                        
-                $data = [
-                    'deliveryDetails'=>$deliveryDetails,
-                    'bookDetails'=>$bookDetails,
-                    'book_id'=>$book_id,
-                    'postal_name' => $customerDetails[0]->postal_name,
-                    'street_name' => $customerDetails[0]->street_name,
-                    'town' => $customerDetails[0]->town,
-                    'district' => $customerDetails[0]->district,
-                    'postal_code' => $customerDetails[0]->postal_code,
-
-
-                    'postal_name_err'=>'',
-                    'street_name_err'=>'',
-                    'town_err'=>'',
-                    'district_err'=>'',
-                    'postal_code_err'=>'',
-                    'customerDetails' => $customerDetails,
-                    'customerName' => $customerDetails[0]->name
-                ];
+               
+                 if($customerDetails)   {
+                    $data = [
+                        'deliveryDetails'=>$deliveryDetails,
+                        'bookDetails'=>$bookDetails,
+                        'book_id'=>$book_id,
+                        'postal_name' => $customerDetails[0]->postal_name,
+                        'street_name' => $customerDetails[0]->street_name,
+                        'town' => $customerDetails[0]->town,
+                        'district' => $customerDetails[0]->district,
+                        'postal_code' => $customerDetails[0]->postal_code,
+                        'contact_no'=>'',
+                        'contact_no_err'=>'',
+                        'postal_name_err'=>'',
+                        'street_name_err'=>'',
+                        'town_err'=>'',
+                        'district_err'=>'',
+                        'postal_code_err'=>'',
+                        'customerDetails' => $customerDetails,
+                        'customerName' => $customerDetails[0]->name
+                    ];
+                 }  else{
+                    echo "Not found data";
+                 }  
+                
                 // print_r($data);
-            $this->view('customer/purchase', $data);
+            $this->view('customer/purchase',$data);
         }
     }
 }
 
-private function handledefault_addressForm($book_id) {
-        
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-    $data = [
-        // 'book_id'=>$book_id,
-        'publisher_id' => $publisher_id,
-        'postal_name' => trim($_POST['postal_name']),
-        'street_name' => trim($_POST['street_name']),
-        'town' => trim($_POST['town']),
-        'district' => trim($_POST['district']),
-        'postal_code' => trim($_POST['postal_code']),
-        'postal_name_err' => '',
-        'street_name_err' => '',
-        'town_err' => '',
-        'district_err' => '',
-        'postal_code_err' => '',
-    ];
-       
-        //validate book name
-        if(empty($data['postal_name'])){
-            $data['postal_name_err']='Please enter the  name';      
-        }
-        //validate ISBN
-        if(empty($data['street_name'])){
-            $data['street_name_err']='Please enter street name';      
-        }
-        //validate password
-        if(empty($data['town'])){
-            $data['town_err']='Please enter the town';      
-        }
-
-        
-         if(empty($data['district'])){
-            $data['district_err']='Please select the district';      
-        }
-        if(empty($data['postal_code'])){
-            $data['postal_code_err']='Please enter the postal code';      
-        }
-       
-
-        //make sure errors are empty
-        if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])   ){                   
-            // if( $this->customerModel->editpostalInOrders($data)){
-            //     flash('update_success','You are added the book  successfully');
-            //     redirect('customer/purchase/'.$book_id);
-            // }else{
-            //     die('Something went wrong');
-            // }
-
-        }else{
-                $this->view('customer/purchase',$data);
-            }
-
-}
+   
     public function Home(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -486,16 +497,17 @@ private function handledefault_addressForm($book_id) {
         }
     } 
     
-    public function BookDetails(){
+    public function BookDetails($book_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-           
+            $bookDetails=$this->customerModel->findBookById($book_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails'=>$bookDetails
             ];
             $this->view('customer/BookDetails', $data);
         }
@@ -555,10 +567,15 @@ private function handledefault_addressForm($book_id) {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $bookDetails=$this->publisherModel->findNewBooks() ;
+            // $bookCategoryDetails=$this->adminModel->getBookCategories();
+            
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails'=>$bookDetails,
+                // 'bookCategoryDetails'=>$bookCategoryDetails
             ];
             $this->view('customer/BuyNewBooks', $data);
         }
@@ -578,18 +595,40 @@ private function handledefault_addressForm($book_id) {
             $this->view('customer/BuyUsedBook', $data);
         }
     } 
+    public function addToCart($bookId) {
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $customer_id=$customerDetails[0]->customer_id;
+        $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
+        
+        if ($bookId) {
+            if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
+                echo json_encode(['status' => 'success']);
+                return;
+            }
+        }
+    
+        echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
+
+    }
     
     public function Cart(){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
+
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $cartDetails=$this->customerModel->findCartById($customerDetails[0]->customer_id);
+           
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'cartDetails'=>$cartDetails,
+                
             ];
+            
             $this->view('customer/Cart', $data);
         }
     } 
@@ -1238,19 +1277,96 @@ private function handledefault_addressForm($book_id) {
         }
     }
 
-    public function checkoutform(){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
+    public function checkout2($order_id)
+{
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else {
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $formType = $_POST['form_type'];
+            if ($formType === 'cardPayment') {
+                
+                $this->handleCardPaymentForm($order_id,$formType);
+            } elseif ($formType === 'onlineDeposit') {
+               
+                $this->handleOnlineDepositForm($order_id,$formType);
+            }elseif ($formType === 'COD') {
+                
+                $this->handleCODForm($order_id);
+            }
+        } else {
+            
             $data = [
+                'order_id'=>$order_id,
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name
+                
             ];
-            $this->view('customer/checkoutform', $data);
+    
+            $this->view('customer/checkout2', $data);
         }
+
+        
+      
+    }
+}
+private function handleOnlineDepositForm($order_id,$formType){
+    $user_id = $_SESSION['user_id'];
+    $customerDetails = $this->customerModel->findCustomerById($user_id);
+    $customer_id=$customerDetails[0]->customer_id;
+    $trackingNumber=$this->generateTrackingNumber($order_id);
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $data = [
+        'customer_id' => $customer_id,
+        'order_id'=>$order_id,
+        'recipt' => '',
+        'formType'=>$formType,
+        'trackingNumber'=>$trackingNumber
+        
+    ];
+    if (isset($_FILES['recipt']['name']) AND !empty($_FILES['recipt']['name'])) {
+        
+        
+        $recipt_name = $_FILES['recipt']['name'];
+        $tmp_name = $_FILES['recipt']['tmp_name'];
+        $error = $_FILES['recipt']['error'];
+        
+        if($error === 0){
+        $recipt_ex = pathinfo($recipt_name, PATHINFO_EXTENSION);
+        $recipt_ex_to_lc = strtolower($recipt_ex);
+
+        $allowed_exs = array('jpg', 'jpeg', 'png','pdf');
+        if(in_array($recipt_ex_to_lc, $allowed_exs)){
+            $new_recipt_name = uniqid() . '-' . $recipt_name;
+            $recipt_upload_path = "../public/assets/images/customer/orderRecipt/".$new_recipt_name;
+            move_uploaded_file($tmp_name, $recipt_upload_path);
+
+            $data['recipt']=$new_recipt_name;
+        }
+        }
+    }
+    
+        //make sure errors are empty
+        if($data['recipt'] && $data['trackingNumber']  ){
+            if($this->customerModel->editOrder($data) ){
+                flash('update_success','You are placed an order successfully');
+                redirect('customer/cart');
+            }else{
+                die('Something went wrong');
+            }
+        }else{
+                $this->view('customer/checkout2',$data);
+            }
+}
+    private function generateTrackingNumber($orderId) {
+        $randomNumber = mt_rand(100000000000000000, 999999999999999999);
+        $trackingNumber = $orderId . $randomNumber;
+        return $trackingNumber;
     }
 
     public function Calender(){

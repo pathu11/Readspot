@@ -12,7 +12,33 @@
       // $row = $this->db->single();
       // return $row;
     }
+    public function addToCart($book_id, $customer_id, $quantity) {
+      try {
+          $this->db->query('INSERT INTO cart (book_id, customer_id, quantity) VALUES (:book_id, :customer_id, :quantity)');
+          $this->db->bind(':book_id', $book_id);
+          $this->db->bind(':customer_id', $customer_id);
+          $this->db->bind(':quantity', $quantity);
+  
+          return $this->db->execute();
+      } catch (\Exception $e) {
+          // Handle the exception (e.g., log it, display an error message)
+          echo 'Error: ' . $e->getMessage();
+          return false;
+      }
+  }
 
+ 
+  public function findCartById($customer_id) {
+    $this->db->query('SELECT c.*, b.book_name, b.price FROM cart c
+                      JOIN books b ON c.book_id = b.book_id
+                      WHERE c.customer_id = :customer_id');
+    $this->db->bind(':customer_id', $customer_id);
+
+    return $this->db->resultSet();
+}
+
+  
+  
 
     public function findCustomerById($user_id){
         $this->db->query('SELECT * from customers WHERE user_id=:user_id');
@@ -191,5 +217,63 @@
         return false;
     }
   }
+
+  public function addOrder($data){
+    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :quantity, :status)');
+    
+    $this->db->bind(':book_id',$data['book_id']);
+    $this->db->bind(':customer_id',$data['customer_id']);
+   
+    $this->db->bind(':c_postal_name',$data['postal_name']);
+    $this->db->bind(':c_street_name',$data['street_name']);
+    $this->db->bind(':c_town',$data['town']);
+    $this->db->bind(':c_district',$data['district']);
+    $this->db->bind(':c_postal_code',$data['postal_code']);
+    $this->db->bind(':contact_no', $data['contact_no']);
+    $this->db->bind(':total_price', $data['total_cost']);
+    $this->db->bind(':total_weight', $data['total_weight']);
+    $this->db->bind(':quantity',$data['quantity']);
+    $this->db->bind(':status',"pending");
+   
+   
+   
+    // execute
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }        
+  }
+
+  public function getLastInsertedOrderId() {
+    $this->db->query('SELECT LAST_INSERT_ID() as order_id');
+    $row = $this->db->single();
+    return $row->order_id;
+}
+public function editOrder($data)
+{
+    $this->db->query('UPDATE orders
+              SET recipt = :recipt,
+              payment_type = :payment_type ,
+              tracking_no = :tracking_no
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $data['order_id']);
+    $this->db->bind(':recipt', $data['recipt']);
+    $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+    $this->db->bind(':tracking_no', $data['trackingNumber']);
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+// public function displayOrder(){
+//   $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
+//     return $this->db->resultSet();
+// }
+
 
   }
