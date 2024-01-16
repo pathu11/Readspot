@@ -8,6 +8,9 @@
     <div class="container">
 
         <div class="add-content">
+            <div class="back-btn-div">
+                <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <form action="<?php echo URLROOT; ?>/customer/updateusedbook/<?php echo $data['book_id'];?>" class="book-add" method="post">
 
                 <h1>Update Used Book</h1>

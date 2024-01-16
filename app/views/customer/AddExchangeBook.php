@@ -7,6 +7,9 @@
     ?>
     <div class="container">
         <div class="add-content">
+            <div class="back-btn-div">
+                <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <form action="http://localhost/Group-27/app/controllers/customer/AddExchangedbookController.php" class="book-add">
 
                 <h1>Add a Book</h1>

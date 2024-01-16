@@ -2,6 +2,7 @@
     padding: 20px;
     background-color: #E3F2FD;
     right: 0px;
+    min-height: 500px;
 }
 
 .used-books h2, .exchange-books h2 {
@@ -25,6 +26,7 @@
     margin: 10px;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 200px;
 }
 
 .Book {

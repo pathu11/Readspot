@@ -10,7 +10,7 @@
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2><br>
             <p>Here we introducing a web-based Platform for Buying<br>
-                Selling , exchanging, and Donating both new & used books.</p>
+                Selling , Exchanging, and Donating both new & used books.</p>
         </div>
         
     </div>
@@ -56,11 +56,11 @@
             <h3>Book Challenges</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
-        <div class="service-div-M" onclick="service8()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8" class="Sev1"> <!--path changed-->
+        <!-- <div class="service-div-M" onclick="service8()">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8" class="Sev1">
             <h3>Event Calender</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+        </div> -->
     </div>
     <?php
         require APPROOT . '/views/customer/footer.php';
@@ -101,13 +101,13 @@ function service6() {
 }
 
 function service7() {
-    var url = "#";
+    var url = "<?php echo URLROOT; ?>/customer/BookChallenge";
     window.location.href = url;
 }
 
-function service8() {
-    var url = "#";
-    window.location.href = url;
-}
+// function service8() {
+//     var url = "#";
+//     window.location.href = url;
+// }
 
 </script>

@@ -15,6 +15,7 @@
 .prof-content {
     padding: 20px;
     background-color: #E3F2FD;
+    min-height: 500px;
     /* right: 0px; */
     
     /* min-height: 73.5vh; */ 
@@ -73,7 +74,7 @@
     transform: scale(1.1);
 }
 
-.my-details {
+.my-details, .acc-details {
     display: grid;
     grid-template-columns: 50% 50%;
     grid-gap: 1rem;
@@ -100,11 +101,21 @@
     border-radius: 5px;
 }
 
-.personal-details h2, .postal-details h2 {
+.acc-details input[type="text"], .acc-details input[type="number"]{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+
+.personal-details h2, .postal-details h2, .account-details h2{
     background-color: #81cec9;
     color: black;
     width: fit-content;
-    padding: 5px;
+    padding: 3px;
     border: none;
     border-radius: 5px;
     margin-top: 10px;
@@ -161,7 +172,7 @@
         background-color: yellow;
     }
 
-    .my-details {
+    .my-details, .acc-details {
         display: flex;
         flex-direction: column;
         gap: 0.8em;
@@ -191,8 +202,9 @@
         background-color: yellow;
     }
 
-    .personal-details h2, .postal-details h2 {
+    .personal-details h2, .postal-details h2 .account-details h2 {
         font-size: 18px;
+        padding: 2px;
     }
 
     .prof-picture img {
@@ -203,7 +215,7 @@
 
     .cnge-btn, .sbt-btn {
         width: 120px;
-        height: 32px;
+        height: 26px;
         font-size: 0.9em;
     }
 
@@ -254,8 +266,9 @@
         background-color: yellow;
     }
 
-    .personal-details h2, .postal-details h2 {
+    .personal-details h2, .postal-details h2, .account-details h2 {
         font-size: 14px;
+        padding: 1px;
     }
 
     .prof-picture img {
@@ -266,7 +279,7 @@
 
     .cnge-btn, .sbt-btn {
         width: 100px;
-        height: 28px;
+        height: 22px;
         font-size: 0.7em;
     }
 
@@ -275,7 +288,26 @@
         font-size: 14px;
     }
 
-    .label-FName, .label-LName, .label-Email, .label-Number, .label-F-Name, .label-L-Name, .label-Address, .label-prov, .label-dist, .label-city, .label-p-code{
+    .label-FName, .label-LName, .label-Email, .label-Number, .label-F-Name, .label-L-Name, .label-Address, .label-prov, .label-dist, .label-city, .label-p-code, .label-acc-Name, .label-acc-Number, .label-Bank-Name, .label-Branch-Name {
         font-size: 12px;
+
+    }
+
+    .my-details input[type="email"] , .my-details input[type="text"], .my-details input[type="number"]{
+        padding: 5px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+    
+    .post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"]{
+        padding: 5px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+    
+    .acc-details input[type="text"], .acc-details input[type="number"]{
+        padding: 5px;
+        margin-top: 5px;
+        margin-left: 5px;
     }
 }

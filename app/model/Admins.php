@@ -394,5 +394,37 @@ public function addMessageToPublisher($data) {
       return false;
     }
 }
+public function countTotalBooks(){
+  $this->db->query('SELECT COUNT(*) AS totalBooks FROM books');
+  
+  $result = $this->db->single();
+  if ($result) {
+      return $result->totalBooks;
+  } else {
+      return 0; 
+    }
+}
+
+public function getTopBooks(){
+  $this->db->query("SELECT b.book_name, b.author, COUNT(o.book_id) AS order_count
+  FROM books b
+  JOIN orders o ON b.book_id = o.book_id
+  GROUP BY b.book_name
+  ORDER BY order_count DESC
+  LIMIT 3;
+  ");
+
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getAvailableBooks(){
+  $this->db->query('SELECT * FROM books WHERE quantity>0');
+
+  $results=$this->db->resultSet();
+  return $results;
+
+}
+
   
 }

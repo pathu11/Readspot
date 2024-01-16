@@ -4,11 +4,15 @@
 ?>
 
     <div class="main-cont">
+        <div class="back-btn-div01">
+            <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
         <div class="sub-cont-E1">
             <div class="Exchange-books">
                 <h1>EXCHANGE BOOKS</h2>
             </div>
             <div class="search-bar-E">
+                <button type="submit" class="filter-btn-E" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
                 <form action="#.php" class="searching-E">
                     <select id="searchBy"  name="category">
                         <option value="technology">Title</option>
@@ -79,7 +83,9 @@
                 <a href="<?php echo URLROOT; ?>/customer/ExchangeBookDetails"><button class="dts-btn">View Details</button></a> <!--path changed-->
             </div>
         </div>
-        
+        <?php
+            require APPROOT . '/views/customer/filterbook.php'; //path changed
+        ?>
     </div>
 
 <?php
