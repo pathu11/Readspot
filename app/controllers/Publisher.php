@@ -1388,6 +1388,7 @@ public function processingorders()
                   }
                 $data = [
                     'publisherDetails' => $publisherDetails,
+                    'publisherName' => $publisherDetails[0]->name,
                     'bookCategoryDetails'=>$bookCategoryDetails,
                     'book_id' => $book_id,
                     'book_name' => $books->book_name,

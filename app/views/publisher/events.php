@@ -37,7 +37,7 @@
       <?php foreach($data['eventDetails'] as $event): ?>
         <tr>
           <td><?php echo $event->id; ?></td>
-          <td><img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>" onclick="fullView(this.src)" /></td>
+          <td><img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>" onclick="fullView(this.src)" width=30% /></td>
           <td><?php echo $event->title; ?></td>
           <td><?php echo $event->description; ?></td>
           <td><?php echo $event->location; ?></td>
