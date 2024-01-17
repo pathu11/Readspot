@@ -6,6 +6,23 @@
     padding: 10px 290px 10px 290px;
     border-radius: 10px;
 }
+.submit {
+    width: 100px;
+    height: 40px;
+    background-color: #009D94;
+    border-radius: 5px;
+    margin-top: 0;
+    border: none;
+    color:white;
+}
+
+.submit:hover {
+    background-color: #70BFBA;
+    border-radius: 5px;
+    margin-top: 0;
+    border: none;
+}
+
 .cardPayment-form,
 .COD-form,
 .onlineBanking-form {

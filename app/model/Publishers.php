@@ -357,10 +357,11 @@ class Publishers{
         } 
     }
     public function findMessageByUserId($user_id){
-        $this->db->query('SELECT * from messages WHERE user_id=:user_id ');
-        $this->db->bind(':user_id',$user_id);
+        $this->db->query('SELECT * FROM messages WHERE user_id = :user_id ORDER BY timestamp DESC');
+        $this->db->bind(':user_id', $user_id);
         return $this->db->resultSet();
     }
+    
     public function getMessageById($message_id){
         $this->db->query('SELECT * from messages WHERE message_id=:message_id ');
         $this->db->bind(':message_id',$message_id);

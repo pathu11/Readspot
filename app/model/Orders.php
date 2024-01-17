@@ -342,7 +342,15 @@
     
         return $this->db->rowCount() > 0;
     }
+
+    public function findOrdersByCustomerId($customer_id) {
+        $this->db->query('SELECT * FROM orders 
+                          
+                          WHERE customer_id=:customer_id ');
+        $this->db->bind(':customer_id', $customer_id);
     
+        return $this->db->resultSet();
+    }
     
     
 
