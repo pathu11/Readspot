@@ -1,10 +1,17 @@
 <?php 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require APPROOT . '\vendor\autoload.php';
 class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
     private $publisherModel;
     private $ordersModel;
     private $userModel;
+    private $adminModel;
   
     private $db;
     public function __construct(){
@@ -16,6 +23,7 @@ class Customer extends Controller {
         $this->userModel=$this->model('User');
         $this->ordersModel=$this->model('Orders');
         $this->publisherModel=$this->model('Publishers')  ;
+        $this->adminModel=$this->model('Admins')  ;
         $this->db = new Database();
     }
     public function comment() {
@@ -66,32 +74,7 @@ class Customer extends Controller {
         $comments = $this->customerModel->getComments();
         echo json_encode($comments);
     }
-    public function payhereProcess(){
-        $amount=3000;
-        $merchant_id="1225428";
-        $order_id=79;
-        $merchant_secret="MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA==";
-        $currency="LKR";
-        $hash = strtoupper(
-            md5(
-                $merchant_id . 
-                $order_id . 
-                number_format($amount, 2, '.', '') . 
-                $currency .  
-                strtoupper(md5($merchant_secret)) 
-            ) 
-        );
-        
-        $array=[];
-        $array["amount"]=$amount;
-        $array["merchant_id"]=$merchant_id;
-        $array["currency "]=$currency ;
-        $array["hash "]=$hash ;
-        $array["merchant_secret"]=$merchant_secret;
-        $jsonObj=json_encode($array);
-        echo $jsonObj;
-        // $this->view('customer/payhereProcess');
-    }
+    
     public function purchase($book_id) {
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -1358,23 +1341,56 @@ private function handleCardPaymentForm($order_id, $formType)
 private function handleCODForm($order_id,$formType){
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
+
     $customer_id=$customerDetails[0]->customer_id;
+
     $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
+    $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
+    $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
+    $customerEmail=$orderedCustomerDetails[0]->email;
+    echo $customerEmail;
+    $topic = "New Order Details";
+    $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
+    $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
+
+    $book_id = $orderDetails[0]->book_id;
+    $bookDetails = $this->adminModel->getBookDetailsById($book_id);
+
+    if ($bookDetails[0]->type == 'new') {
+        $user_idPub = $bookDetails[0]->publisher_id;
+        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        $ownerEmail = $ownerDetails[0]->email;
+    } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+        $user_idPub = $bookDetails[0]->customer_id;
+        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        $ownerEmail = $ownerDetails[0]->email;
+    }
+
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
         'customer_id' => $customer_id,
         'order_id'=>$order_id,
-       
         'formType'=>$formType,
-        'trackingNumber'=>$trackingNumber
-        
+        'trackingNumber'=>$trackingNumber,
+        'topic' => $topic,
+        'messageToPublisher' => $messageToPublisher,
+        'message'=>$message,
+        'user_id'=>$orderedCustomerDetails[0]->user_id,
+        'user_idPub' => $ownerDetails[0]->user_id,
+        'sender_name'=>'system administration',
+        'sender_id'=>130,   
     ];
-    
         //make sure errors are empty
         if( $data['trackingNumber']  ){
-            if($this->customerModel->editOrderCOD($data) ){
+            if($this->customerModel->editOrderCOD($data) &&
+            $this->adminModel->addMessage($data) &&
+            $this->adminModel->addMessageToPublisher($data)){
+
+                $this->sendEmails($customerEmail, $ownerEmail, $data);
+                echo '<script>alert("You are placed an order successfully")</script>';
                 flash('update_success','You are placed an order successfully');
                 redirect('customer/cart');
+               
             }else{
                 die('Something went wrong');
             }
@@ -1440,6 +1456,39 @@ private function generateUniqueTrackingNumber($orderId) {
 
     return $trackingNumber;
 }
+private function sendEmails($customerEmail, $ownerEmail, $data) {
+    $this->sendEmail($customerEmail, $data['topic'], $data['message']);
+    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+}
+
+private function sendEmail($recipientEmail, $subject, $body) {
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = MAIL_HOST;  // Specify your SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = MAIL_USER; // SMTP username
+        $mail->Password = MAIL_PASS; // SMTP password
+        $mail->SMTPSecure = MAIL_SECURITY;
+        $mail->Port = MAIL_PORT;
+
+        // Recipients
+        $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+        $mail->addAddress($recipientEmail);  // Add a recipient
+
+        // Content
+        $mail->isHTML(true);  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        $mail->send();
+    } catch (Exception $e) {
+        die('Something went wrong: ' . $mail->ErrorInfo);
+    }
+}
+
 
 
     public function Calender(){
