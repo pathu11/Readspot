@@ -18,78 +18,16 @@
             <br>
             <br>
             <div class="notification">
+            <?php foreach($data['messageDetails'] as $msg) : ?>
                 <div class="notify">
+                    
                     <input type="checkbox">
-                    <p>Lorem ipsum dolor sit amet consectetur, 
-                        adipisicing elit. Accusantium, numquam! 
-                        Voluptas voluptates quas modi debitis molestias
-                        cumque voluptatum fugit laudantium voluptatibus 
-                        repellat facere optio cupiditate, vel, aperiam 
-                        aliquam consequatur perspiciatis iusto enim quaerat. 
-                        Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                        sit ullam sint dolores iure natus commodi veniam aliquid odit.
+                    <h4><?php echo $msg->sender_name ; ?></h4>
+                    <p><?php echo $msg->message ; ?>
+                    <br><span><em><?php echo $msg->timestamp ; ?></em></span>
                     </p>
                 </div>
-                <div class="notify">
-                    <input type="checkbox">
-                    <p>Lorem ipsum dolor sit amet consectetur, 
-                        adipisicing elit. Accusantium, numquam! 
-                        Voluptas voluptates quas modi debitis molestias
-                        cumque voluptatum fugit laudantium voluptatibus 
-                        repellat facere optio cupiditate, vel, aperiam 
-                        aliquam consequatur perspiciatis iusto enim quaerat. 
-                        Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                        sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                    </p>
-                </div>
-                <div class="notify">
-                    <input type="checkbox">
-                    <p>Lorem ipsum dolor sit amet consectetur, 
-                        adipisicing elit. Accusantium, numquam! 
-                        Voluptas voluptates quas modi debitis molestias
-                        cumque voluptatum fugit laudantium voluptatibus 
-                        repellat facere optio cupiditate, vel, aperiam 
-                        aliquam consequatur perspiciatis iusto enim quaerat. 
-                        Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                        sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                    </p>
-                </div>
-                <div class="notify">
-                    <input type="checkbox">
-                    <p>Lorem ipsum dolor sit amet consectetur, 
-                        adipisicing elit. Accusantium, numquam! 
-                        Voluptas voluptates quas modi debitis molestias
-                        cumque voluptatum fugit laudantium voluptatibus 
-                        repellat facere optio cupiditate, vel, aperiam 
-                        aliquam consequatur perspiciatis iusto enim quaerat. 
-                        Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                        sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                    </p>
-                </div>
-                <div class="notify">
-                    <input type="checkbox">
-                    <p>Lorem ipsum dolor sit amet consectetur, 
-                        adipisicing elit. Accusantium, numquam! 
-                        Voluptas voluptates quas modi debitis molestias
-                        cumque voluptatum fugit laudantium voluptatibus 
-                        repellat facere optio cupiditate, vel, aperiam 
-                        aliquam consequatur perspiciatis iusto enim quaerat. 
-                        Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                        sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                    </p>
-                </div>
-                <div class="notify">
-                    <input type="checkbox">
-                    <p>Lorem ipsum dolor sit amet consectetur, 
-                        adipisicing elit. Accusantium, numquam! 
-                        Voluptas voluptates quas modi debitis molestias
-                        cumque voluptatum fugit laudantium voluptatibus 
-                        repellat facere optio cupiditate, vel, aperiam 
-                        aliquam consequatur perspiciatis iusto enim quaerat. 
-                        Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                        sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                    </p>
-                </div>
+                <?php endforeach; ?>
             </div>
             </div>
         </div>

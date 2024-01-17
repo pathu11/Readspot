@@ -783,10 +783,12 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $messageDetails = $this->publisherModel->findMessageByUserId($user_id); 
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'messageDetails'=>$messageDetails
             ];
             $this->view('customer/Notification', $data);
         }
