@@ -1391,7 +1391,7 @@ private function handleCODForm($order_id,$formType){
                 $this->sendEmails($customerEmail, $ownerEmail, $data);
                 echo '<script>alert("You are placed an order successfully")</script>';
                 flash('update_success','You are placed an order successfully');
-                redirect('customer/cart');
+                redirect('customer/Order');
                
             }else{
                 die('Something went wrong');
@@ -1441,7 +1441,7 @@ private function handleOnlineDepositForm($order_id,$formType){
         if($data['recipt'] && $data['trackingNumber']  ){
             if($this->customerModel->editOrder($data) ){
                 flash('update_success','You are placed an order successfully');
-                redirect('customer/cart');
+                redirect('customer/Order');
             }else{
                 die('Something went wrong');
             }
@@ -1530,10 +1530,13 @@ private function sendEmail($recipientEmail, $subject, $body) {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $orderDetails=$this->ordersModel->findOrdersByCustomerId( $customerDetails[0]->customer_id);
+
             $data = [
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'orderDetails'=>$orderDetails
             ];
             $this->view('customer/Order', $data);
         }
