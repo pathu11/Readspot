@@ -270,8 +270,6 @@ public function editOrder($data)
         return false;
     }
 }
-
-
 public function editOrderCOD($data)
 {
     $this->db->query('UPDATE orders
@@ -280,7 +278,6 @@ public function editOrderCOD($data)
               tracking_no = :tracking_no,
               status= :status
               WHERE order_id = :order_id');
-
     // Bind values
     $this->db->bind(':order_id', $data['order_id']);
     $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
@@ -298,5 +295,8 @@ public function editOrderCOD($data)
 //     return $this->db->resultSet();
 // }
 
-
+public function findNewBooksByTime(){
+  $this->db->query('SELECT * FROM books ORDER BY created_at DESC');
+  return $this->db->resultSet();
+}
   }

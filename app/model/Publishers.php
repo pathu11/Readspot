@@ -76,8 +76,7 @@ class Publishers{
         } else {
             return false;
         }
-    }
-    
+    }    
     public function editpostal($data) {
         $this->db->query('UPDATE publishers 
                   SET postal_name = :postal_name, 
@@ -102,8 +101,7 @@ class Publishers{
         } else {
             return false;
         }
-    }
-   
+    }  
     public function getLastInsertedBookId() {
         $this->db->query('SELECT LAST_INSERT_ID() as book_id');
         $row = $this->db->single();
@@ -133,8 +131,7 @@ class Publishers{
         } else {
             return false;
         }
-    }
-   
+    } 
     public function editProfile($data) {
         $this->db->query('UPDATE publishers 
                           SET name = :name, 

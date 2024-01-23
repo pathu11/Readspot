@@ -76,8 +76,6 @@
                         <button class="submit" type="submit" >Conform Order</button>
                     </form>
                 </div>
-
-
                 </div>
             </div>
             <!-- <input type="submit" value="Pay 1700.00" class="btn-checkout"> -->

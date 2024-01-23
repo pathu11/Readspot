@@ -146,7 +146,6 @@ class Superadmin extends Controller{
             $data = [
                 'user_id'=>$user_id,
                 // 'admin_id' => $admin_id,
-                
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'pass' => trim($_POST['pass']),
@@ -165,12 +164,6 @@ class Superadmin extends Controller{
             // validate email
             if(empty($data['email'])){
                 $data['email_err'] = 'Please enter email';      
-            }else{
-                // Check if the email is already taken by another admin
-                $existingAdmin = $this->userModel->findUserByEmail($data['email']);
-                if($existingAdmin ){
-                    $data['email_err'] = 'Email is already taken'; 
-                }
             }
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
@@ -195,7 +188,6 @@ class Superadmin extends Controller{
                     var_dump($data); 
                         flash('Successfully Updated');
                         redirect('superadmin/admins');
-                   
                 }else{
                     echo 'Update Admin Failed';
                     // var_dump($data); 
@@ -260,13 +252,6 @@ class Superadmin extends Controller{
             // validate email
             if(empty($data['email'])){
                 $data['email_err'] = 'Please enter email';      
-            }else{
-                // Check if the email is already taken by another admin
-                $existingModerator = $this->userModel->findUserByEmail($data['email']);
-                if($existingModerator ){
-                    $data['email_err'] = 'Email is already taken'; 
-                }
-            
             }
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
@@ -283,13 +268,10 @@ class Superadmin extends Controller{
                 // hash password if it is provided
                 if(!empty($data['pass'])){
                     $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
-                }
-    
-                
+                }           
                 if($this->superadminModel->updateModerator($data)){   
                     flash('Successfully Updated');
                     redirect('superadmin/moderators');
-                  
                 }else{
                     die('Something went wrong');
                 }
@@ -325,9 +307,10 @@ class Superadmin extends Controller{
         if(!isLoggedIn()){
             redirect('landing/login');
         }
+        $superAdmin_userId=$_SESSION['user_id'];
+        // print_r($superAdmin_userId);
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            // process form
-            // sanitize post data
+       
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             // init data
             $data = [
@@ -349,12 +332,6 @@ class Superadmin extends Controller{
             // validate email
             if(empty($data['email'])){
                 $data['email_err'] = 'Please enter email';      
-            }else{
-                // Check if the email is already taken by another admin
-                $existingDelivery = $this->userModel->findUserByEmail($data['email']);
-                if($existingDelivery ){
-                    $data['email_err'] = 'Email is already taken'; 
-                }
             }
             // validate password
             if(!empty($data['pass']) && strlen($data['pass']) < 6){
@@ -365,31 +342,38 @@ class Superadmin extends Controller{
                 $data['confirm_pass_err'] = 'Passwords do not match';
             }
             // make sure errors are empty
-            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])){
+            if(  empty($data['email_err']) &&empty($data['name_err']) && empty($data['pass_err']) &&empty($data['confirm_pass_err'])){
                 // validate
                 // hash password if it is provided
                 if(!empty($data['pass'])){
                     $data['pass'] = password_hash($data['pass'], PASSWORD_DEFAULT);
+                }else{
+                    echo '<script>alert("error password")</script>';
                 }
                 if($this->superadminModel->updateDelivery($data)){
-                    // if($this->superadminModel->updateUsers($data)){
+                    // echo "successfully:";
+                    if($this->superadminModel->updateUsers($data)){
                         flash('Successfully Updated');
                         redirect('superadmin/delivery');
-                    // }else{
-                    //     die('Something went wrong');
-                    // } 
+                    }else{
+                        die('Something went wrong');
+                    } 
                 }else{
                     die('Something went wrong');
+                    echo '<script>alert("error 1")</script>';
+
                 }
             }else{
+                echo '<script>alert("error 2")</script>';
                 $this->view('superadmin/updateDelivery', $data);
             }
         }else{
             // Display the form with existing data
             $Delivery = $this->superadminModel->findDeliveryById($user_id);
-            
+            $superadminDetails = $this->superadminModel->findSuperAdminById($superAdmin_userId);  
             if ($Delivery) {
                 $data = [
+                    'superadminName'=>$superadminDetails[0]->name,
                     'user_id' => $user_id,
                     'name' => $Delivery[0]->name,
                     'email' => $Delivery[0]->email,
@@ -644,9 +628,6 @@ class Superadmin extends Controller{
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
                 'superadminEmail'=>$superadminDetails[0]->email,
-                
-               
-
             ];
             $this->view('superadmin/delivery', $data);
         }
@@ -800,7 +781,9 @@ public function deletecharity($user_id)
     }
 }
 
-
+public function order(){
+    
+}
 
 
 
