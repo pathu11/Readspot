@@ -1306,7 +1306,7 @@ private function handleCardPaymentForm($order_id, $formType)
     $amount = 3000; // You may need to adjust this value
     $merchant_id = "1225428"; // Your merchant ID
     $order_id = uniqid(); // Generate a unique order ID
-    $merchant_secret = "MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA=="; // Your merchant secret
+    $merchant_secret = "NjY0MjYyODY2MjU1MzMwMjQ1MjQwMjM3MjkxNTkxNzIzMzU0NDUx"; // Your merchant secret
     $currency = "LKR"; // Currency code
 
     // Calculate hash for payment

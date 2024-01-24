@@ -384,7 +384,6 @@
 
 //     return $result;
 // }
-
 public function getUserOrderHistoryWithBooks($customer_id)
 {
     // Check orders table
@@ -396,58 +395,29 @@ public function getUserOrderHistoryWithBooks($customer_id)
                       ORDER BY order_count DESC');
     $this->db->bind(':customer_id', $customer_id);
     $categoriesFromOrders = $this->db->resultSet();
-    $categoriesFromCart = array();
-    // If no orders, check cart table
+    
+    // If no orders, retrieve books from any category in the orders table
     if (empty($categoriesFromOrders)) {
         $this->db->query('SELECT books.category, COUNT(*) as order_count
                           FROM cart
                           INNER JOIN books ON cart.book_id = books.book_id
-                          WHERE cart.customer_id = :customer_id
                           GROUP BY books.category
-                          ORDER BY order_count DESC');
-        $this->db->bind(':customer_id', $customer_id);
-        $categoriesFromCart = $this->db->resultSet();
-
-        // If no cart items, retrieve books from any category in the orders table
-        if (empty($categoriesFromCart)) {
-            $this->db->query('SELECT books.category, COUNT(*) as order_count
-                              FROM orders
-                              INNER JOIN books ON orders.book_id = books.book_id
-                              GROUP BY books.category
-                              ORDER BY order_count DESC
-                              LIMIT 1');
-            $categoriesFromOrders = $this->db->resultSet();
-        }
+                          ORDER BY order_count DESC
+                          LIMIT 1');
+        $categoriesFromOrders = $this->db->resultSet();
     }
 
-    // Combine categories from both sources
-    $categories = array_merge($categoriesFromOrders, $categoriesFromCart);
-
-    // Group and count categories across both tables
-    $result = array();
-
-    foreach ($categories as $category) {
-        $result[$category->category]['order_count'] = 
-            isset($result[$category->category]['order_count']) ? 
-            $result[$category->category]['order_count'] + $category->order_count :
-            $category->order_count;
-    }
-
-    // Sort categories based on the total order count
-    usort($result, function($a, $b) {
-        return $b['order_count'] - $a['order_count'];
-    });
-
-    // Retrieve books for each category
+    // Retrieve books for each category from orders
     $booksResult = array();
 
-    foreach ($result as $category => $orderCount) {
+    foreach ($categoriesFromOrders as $categoryInfo) {
+        $category = $categoryInfo->category;
         $this->db->query('SELECT *
                           FROM books
                           WHERE category = :category');
         $this->db->bind(':category', $category);
         $booksInCategory = $this->db->resultSet();
-        
+
         if ($booksInCategory) {
             $booksResult[$category] = $booksInCategory;
         }
@@ -455,6 +425,77 @@ public function getUserOrderHistoryWithBooks($customer_id)
 
     return $booksResult;
 }
+
+// public function getUserOrderHistoryWithBooks($customer_id)
+// {
+//     // Check orders table
+//     $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                       FROM orders
+//                       INNER JOIN books ON orders.book_id = books.book_id
+//                       WHERE orders.customer_id = :customer_id
+//                       GROUP BY books.category
+//                       ORDER BY order_count DESC');
+//     $this->db->bind(':customer_id', $customer_id);
+//     $categoriesFromOrders = $this->db->resultSet();
+//     $categoriesFromCart = array();
+//     // If no orders, check cart table
+//     if (empty($categoriesFromOrders)) {
+//         $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                           FROM cart
+//                           INNER JOIN books ON cart.book_id = books.book_id
+//                           WHERE cart.customer_id = :customer_id
+//                           GROUP BY books.category
+//                           ORDER BY order_count DESC');
+//         $this->db->bind(':customer_id', $customer_id);
+//         $categoriesFromCart = $this->db->resultSet();
+
+//         // If no cart items, retrieve books from any category in the orders table
+//         if (empty($categoriesFromCart)) {
+//             $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                               FROM orders
+//                               INNER JOIN books ON orders.book_id = books.book_id
+//                               GROUP BY books.category
+//                               ORDER BY order_count DESC
+//                               LIMIT 1');
+//             $categoriesFromOrders = $this->db->resultSet();
+//         }
+//     }
+
+//     // Combine categories from both sources
+//     $categories = array_merge($categoriesFromOrders, $categoriesFromCart);
+
+//     // Group and count categories across both tables
+//     $result = array();
+
+//     foreach ($categories as $category) {
+//         $result[$category->category]['order_count'] = 
+//             isset($result[$category->category]['order_count']) ? 
+//             $result[$category->category]['order_count'] + $category->order_count :
+//             $category->order_count;
+//     }
+
+//     // Sort categories based on the total order count
+//     usort($result, function($a, $b) {
+//         return $b['order_count'] - $a['order_count'];
+//     });
+
+//     // Retrieve books for each category
+//     $booksResult = array();
+
+//     foreach ($result as $category => $orderCount) {
+//         $this->db->query('SELECT *
+//                           FROM books
+//                           WHERE category = :category');
+//         $this->db->bind(':category', $category);
+//         $booksInCategory = $this->db->resultSet();
+        
+//         if ($booksInCategory) {
+//             $booksResult[$category] = $booksInCategory;
+//         }
+//     }
+
+//     return $booksResult;
+// }
 
 
     

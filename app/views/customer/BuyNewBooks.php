@@ -33,17 +33,27 @@
             </div>
             <?php $data['recommendedBooks']; ?>
             <div class="sub-cont-N2">
-            <?php foreach ($data['recommendedBooks'] as $book): ?>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $book['img1']; ?>" alt="Book1" class="Book-N"> 
-                    <h3><?php echo $book['book_name']; ?></h3>
-                    <h3><?php echo $book['price']; ?></h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <a href="<?php echo URLROOT; ?>/customer/Cart"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+            <?php if (empty($data['recommendedBooks'])): ?>
+            <p>No recommended books found.</p>
+            <?php else: ?>
+                <?php foreach ($data['recommendedBooks'] as $category => $booksInCategory): ?>
+                    <?php foreach ($booksInCategory as $book): ?>
+                        <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $book->book_id; ?>">
+                            <div class="B0-N">
+                                <?php if (isset($book->img1)): ?>
+                                    <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $book->img1; ?>" alt="Book1" class="Book-N"> 
+                                <?php endif; ?>
+                                <h3><?php echo isset($book->book_name) ? $book->book_name : ''; ?></h3>
+                                <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
+                                <div class="fav-cart">
+                                    <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                                    <a href="<?php echo URLROOT; ?>/customer/Cart"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>       
 
            
             </div>
