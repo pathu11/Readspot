@@ -29,6 +29,7 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Event Category</th>
+        <th>Event Poster</th>
         <th>Action</th>
       </tr>
       <?php foreach($data['pendingEventDetails'] as $pendingEvent): ?>
@@ -41,6 +42,7 @@
           <td><?php echo $pendingEvent->start_date; ?></td>
           <td><?php echo $pendingEvent->end_date; ?></td>
           <td><?php echo $pendingEvent->category_name; ?></td>
+          <td><img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $pendingEvent->poster; ?>" onclick="fullView(this.src)" /></td>
           <td><a href="<?php echo URLROOT;?>/moderator/approveEvent/<?php echo $pendingEvent->id;?>"><button>Approve</button></a><button>Reject</button></td>
         </tr>
       <?php endforeach; ?>

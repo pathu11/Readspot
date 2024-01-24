@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/stores.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
 
   <title>Events</title>
 </head>
