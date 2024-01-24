@@ -39,6 +39,10 @@
     background-color:  rgb(247,247,247);
 }
 
+.sub3 {
+    width: 100%;
+}
+
 .sub3 p {
     text-align: justify;
 }
