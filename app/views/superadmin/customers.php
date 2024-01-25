@@ -49,7 +49,7 @@
     </tr>
 <?php endforeach; ?>               
         </table>
-        <a href="<?php echo URLROOT; ?>/superadmin/addAdmin" class="btn">Add</a>
+        
     </div>
     
    
