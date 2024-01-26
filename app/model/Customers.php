@@ -299,4 +299,6 @@ public function findNewBooksByTime(){
   $this->db->query('SELECT * FROM books ORDER BY created_at DESC');
   return $this->db->resultSet();
 }
+
+
   }

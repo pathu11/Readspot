@@ -42,7 +42,7 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>landing/login"><button>login</button></a>
+            <a href="<?php echo URLROOT; ?>/landing/login"><button>login</button></a>
         </div>  
       </div>
       <script>
