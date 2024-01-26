@@ -9,6 +9,7 @@
         $this->db->bind(':user_id',$user_id);
         return $this->db->resultSet();
     }
+
     public function insertChat($data) {
         $this->db->query('INSERT INTO message (incoming_msg_id, outgoing_msg_id, msg) VALUES (:incoming_msg_id, :outgoing_msg_id, :msg)');
         $this->db->bind(':incoming_msg_id', $data['incoming_msg_id']);
@@ -24,7 +25,7 @@
     }
   
     public function getChat($data){
-        $this->db->query('SELECT * FROM message
+        $this->db->query('SELECT message.*,users.profile_img AS profile_img FROM message
         LEFT JOIN users ON users.user_id = message.outgoing_msg_id
         WHERE (message.outgoing_msg_id = :outgoing_msg_id AND message.incoming_msg_id = :incoming_msg_id)
         OR (message.outgoing_msg_id = :incoming_msg_id AND message.incoming_msg_id = :outgoing_msg_id)

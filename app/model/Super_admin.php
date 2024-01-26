@@ -76,7 +76,8 @@ public function getDelivery(){
         $this->db->beginTransaction(); // Begin the transaction
 
         // Insert data into the 'users' table
-        $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
+        $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role, :status)');
+        $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':pass', $data['pass']);
         $this->db->bind(':user_role', 'admin');
@@ -115,7 +116,8 @@ public function getDelivery(){
         $this->db->beginTransaction(); // Begin the transaction
 
         // Insert data into the 'users' table
-        $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role,:status)');
+        $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role, :status)');
+        $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':pass', $data['pass']);
         $this->db->bind(':user_role', 'moderator');
@@ -154,7 +156,8 @@ public function getDelivery(){
           $this->db->beginTransaction(); // Begin the transaction
   
           // Insert data into the 'users' table
-          $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
+          $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role, :status)');
+          $this->db->bind(':name', $data['name']);
           $this->db->bind(':email', $data['email']);
           $this->db->bind(':pass', $data['pass']);
           $this->db->bind(':user_role', 'deliver');

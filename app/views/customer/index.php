@@ -5,7 +5,7 @@
     <div class="hero-div-M" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
        
         <div class="content-div-M">
-        <a href="<?php echo URLROOT; ?>/customer/chat">chat</a>
+        <a href="<?php echo URLROOT; ?>/Chats/chat">chat</a>
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2><br>
             <p>Here we introducing a web-based Platform for Buying<br>

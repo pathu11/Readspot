@@ -18,9 +18,15 @@ class Chats extends Controller{
         }
         // $outgoing_id=84;
         $user_id = $_SESSION['user_id'];
+        $incomingUserDetails=$this->chatModel->findUserById($incoming_id);
+
+       
         $data=[
             'user_id'=>$user_id,
-            'incoming_id'=>$incoming_id
+            'incoming_id'=>$incoming_id,
+            'profile_img'=>$incomingUserDetails[0]->profile_img,
+            'name'=>$incomingUserDetails[0]->name,
+
         ];
         
         $this->view('customer/chat',$data);
@@ -101,7 +107,7 @@ class Chats extends Controller{
                                         </div>';
                         }else{
                             $output .= '<div class="chat incoming">
-                                        
+                                        <img src="'.URLROOT.'/assets/images/landing/profile/'.$message->profile_img .'" alt="">
                                         <div class="details">
                                             <p>'. $message->msg .'</p>
                                         </div>

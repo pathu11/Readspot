@@ -11,9 +11,9 @@
       <header>
         
         <a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-        <img src="php/images/<?php echo $row['img']; ?>" alt="">
+        <img src="<?php echo URLROOT; ?>/assets/images/landing/profile/<?php echo $data['profile_img']; ?>" alt="">
         <div class="details">
-          <span>coding nepal</span>
+          <span><?php echo $data['name']; ?></span>
           <p>active now</p>
         </div>
       </header>
@@ -57,7 +57,7 @@
     sendBtn.onclick = () => {
         console.log("Button clicked");
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", urlroot + "/customer/insertChat", true);
+        xhr.open("POST", urlroot + "/Chats/insertChat", true);
 
         xhr.onload = () => {
             console.log("XHR onload called");
@@ -88,7 +88,7 @@
 
     setInterval(() =>{
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", urlroot + "/customer/getChat", true);
+        xhr.open("POST", urlroot + "/Chats/getChat", true);
         xhr.onload = ()=>{
         if(xhr.readyState === XMLHttpRequest.DONE){
             if(xhr.status === 200){
