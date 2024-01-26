@@ -41,9 +41,9 @@
                 <th style="width:7%"><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></th>
                 <th style="width:7%"><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></th>
 
-                <th><a href="<?php echo URLROOT; ?>/delivery/message/?receiver_id=<?php echo $orderDetails->sender_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+                <th><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
 
-                <th><a href="<?php echo URLROOT; ?>/delivery/message/?receiver_id=<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+                <th><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
             </tr>
             <?php endforeach; ?>
         </table>

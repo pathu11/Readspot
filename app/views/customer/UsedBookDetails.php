@@ -43,7 +43,7 @@
             <h3>Postal Code : <span>12500</span></h3><br>
         </div>
         <div class="sub4-U">
-            <a href="#"><button class="chat-btn-used">Chat</button></a>
+            <a href="<?php echo URLROOT; ?>/customer/chat/"><button class="chat-btn-used">Chat</button></a>
         </div>
     </div>
 

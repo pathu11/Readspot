@@ -1111,8 +1111,8 @@ public function processingorders()
 
                     $allowed_exs = array('jpg', 'jpeg', 'png');
                     if (in_array($img_ex_to_lc, $allowed_exs)) {
-                        $new_img_name = $data['name'] . '-profile_img.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/publisher/addbooks/" . $new_img_name;
+                        $new_img_name = $user_id . $data['name'] . '-profile_img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/profile/" . $new_img_name;
 
                         if (!move_uploaded_file($tmp_name, $img_upload_path)) {
                             // Handle file upload error

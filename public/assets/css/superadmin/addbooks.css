@@ -42,7 +42,18 @@ body {
     color: #009D94;
     text-align: center;
 }
-
+.password-wrapper {
+    position: relative;
+  }
+  
+  .password-wrapper i {
+    position: absolute;
+    top: 32%;
+    right: 10px;
+    transform: translateY(-50%); /* Vertically center the icon */
+    cursor: pointer;
+  }
+  
 
 .form1 input[type="text"],.form1 input[type="email"],.form1 input[type="password"],
 .form1 input[type="number"],form1 input[type="file"],

@@ -12,6 +12,7 @@ class Customer extends Controller {
     private $ordersModel;
     private $userModel;
     private $adminModel;
+    private $chatModel;
   
     private $db;
     public function __construct(){
@@ -24,8 +25,125 @@ class Customer extends Controller {
         $this->ordersModel=$this->model('Orders');
         $this->publisherModel=$this->model('Publishers')  ;
         $this->adminModel=$this->model('Admins')  ;
+        $this->chatModel=$this->model('Chat')  ;
         $this->db = new Database();
     }
+    // public function chat($incoming_id=137){
+    //     if (!isLoggedIn()) {
+    //         redirect('landing/login');
+    //     }
+    //     // $outgoing_id=84;
+    //     $user_id = $_SESSION['user_id'];
+    //     $data=[
+    //         'user_id'=>$user_id,
+    //         'incoming_id'=>$incoming_id
+    //     ];
+        
+    //     $this->view('customer/chat',$data);
+    // }
+    // public function insertChat() {
+    //     if (!isLoggedIn()) {
+    //         redirect('landing/login');
+    //     }
+
+    //     $user_id = $_SESSION['user_id'];
+    //     $customerDetails = $this->customerModel->findCustomerById($user_id);
+
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //         $data = [
+    //             // 'name' => $customerDetails[0]->name,
+    //             'incoming_msg_id' => trim($_POST['incoming_id']),
+    //             'outgoing_msg_id' => $user_id,
+    //             'message' =>trim($_POST['message']),
+    //         ];
+
+    //         if (!empty($data)) {
+    //             if ($this->chatModel->insertChat($data)) {
+    //                 flash('Successfully Added');
+                   
+    //                 redirect('customer/chat');
+    //             } else {
+    //                 die('Something went wrong');
+                  
+    //             }
+    //         } else {
+    //             $this->view('customer/chat', $data);
+               
+    //         }
+    //     } else {
+    //         $data = [
+    //             'incoming_id' => '',
+    //             'outgoing_id' => '',
+    //             'message' =>'',
+    //         ];
+
+    //         $this->view('customer/chat', $data);
+    //     }
+    // }
+
+
+    
+    // public function getChat() {
+    //     if (!isLoggedIn()) {
+    //         redirect('landing/login');
+    //     }
+
+    //     $user_id = $_SESSION['user_id'];
+    //     $customerDetails = $this->customerModel->findCustomerById($user_id);
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //         $data = [
+    //             // 'name' => $customerDetails[0]->name,
+    //             'incoming_msg_id' => trim($_POST['incoming_id']),
+    //             'outgoing_msg_id' => $user_id
+                
+    //         ];
+    //         if (!empty($data)) {
+    //             $messages=$this->chatModel->getChat($data);
+    //         //    print_r($messages) ;
+    //             $output = '';
+    //             if($messages){
+    //                 foreach ($messages as $message):
+    //                     if($message->outgoing_msg_id === $data['outgoing_msg_id']){
+    //                         $output .= '<div class="chat outgoing">
+    //                                     <div class="details">
+    //                                         <p>'. $message->msg .'</p>
+    //                                     </div>
+    //                                     </div>';
+    //                     }else{
+    //                         $output .= '<div class="chat incoming">
+                                        
+    //                                     <div class="details">
+    //                                         <p>'. $message->msg .'</p>
+    //                                     </div>
+    //                                     </div>';
+    //                     }
+
+    //                 endforeach;
+
+    //             }else{
+    //                 $output .= '<div class="text">No messages are available. Once you send message they will appear here.</div>';
+    //             }
+    //             echo $output;
+                    
+                   
+    //         } else {
+    //                 die('Something went wrong');
+                  
+    //         }
+    //     } else {
+    //             $this->view('customer/chat', $data);
+               
+    //         }
+    //     }
+        // header('Content-Type: application/json');
+        // $messages = $this->chatModel->getChat($data);
+        // echo json_encode($messages);
+    
+    
     public function comment() {
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -147,8 +265,7 @@ class Customer extends Controller {
                 }else{
                     
                     echo  '<script>alert("Error")</script>';
-                    }
-        
+                    }       
               
             } else {
                 // Your existing code for displaying the form
@@ -182,9 +299,7 @@ class Customer extends Controller {
             $this->view('customer/purchase',$data);
         }
     }
-}
-
-   
+}  
     public function index(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -204,7 +319,6 @@ class Customer extends Controller {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-           
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
@@ -545,25 +659,32 @@ class Customer extends Controller {
         }
     } 
     
-    public function BuyNewBooks(){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id); 
-            $bookDetails=$this->publisherModel->findNewBooks() ;
-            // $bookCategoryDetails=$this->adminModel->getBookCategories();
-            
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name,
-                'bookDetails'=>$bookDetails,
-                // 'bookCategoryDetails'=>$bookCategoryDetails
-            ];
-            $this->view('customer/BuyNewBooks', $data);
-        }
-    } 
+    public function BuyNewBooks()
+{
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else {
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id); 
+        $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+        $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
+        
+        // print_r($recommendedBooks) ;
+       
+        // $recommendedCategories = $this->ordersModel->getRecommendedCategories($customerDetails[0]->customer_id);
+        // $recommendedBooks = $this->ordersModel->getRecommendedBooks($recommendedCategories);
+        $data = [
+            'customerDetails' => $customerDetails,
+            'customerName' => $customerDetails[0]->name,
+            'bookDetails' => $NewbookDetailsByTime,
+            'recommendedBooks'=>$recommendedBooks
+            // 'bookCategoryDetails' => $bookCategoryDetails
+        ];
+
+        $this->view('customer/BuyNewBooks', $data);
+    }
+}
+
     
     public function BuyUsedBook(){
         if (!isLoggedIn()) {
@@ -603,8 +724,9 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
 
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $cartDetails=$this->customerModel->findCartById($customerDetails[0]->customer_id);
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id=$customerDetails[0] ->customer_id;
+            $cartDetails=$this->customerModel->findCartById($customer_id);
            
             $data = [
                 'customerDetails' => $customerDetails,
@@ -1302,7 +1424,7 @@ private function handleCardPaymentForm($order_id, $formType)
     $amount = 3000; // You may need to adjust this value
     $merchant_id = "1225428"; // Your merchant ID
     $order_id = uniqid(); // Generate a unique order ID
-    $merchant_secret = "MTkwMTI0MDQyOTMwOTk0MDQwNjAxNzA1NDIyNTgzMTIwOTk5MTc1MA=="; // Your merchant secret
+    $merchant_secret = "NjY0MjYyODY2MjU1MzMwMjQ1MjQwMjM3MjkxNTkxNzIzMzU0NDUx"; // Your merchant secret
     $currency = "LKR"; // Currency code
 
     // Calculate hash for payment
@@ -1400,55 +1522,75 @@ private function handleCODForm($order_id,$formType){
                 $this->view('customer/checkout2',$data);
             }
 }
-private function handleOnlineDepositForm($order_id,$formType){
+private function handleOnlineDepositForm($order_id, $formType)
+{
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
-    $customer_id=$customerDetails[0]->customer_id;
-    $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
-    print_r($trackingNumber);
+    $customer_id = $customerDetails[0]->customer_id;
+    $trackingNumber = $this->generateUniqueTrackingNumber($order_id);
+
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+    // Initialize data array
     $data = [
         'customer_id' => $customer_id,
-        'order_id'=>$order_id,
+        'order_id' => $order_id,
         'recipt' => '',
-        'formType'=>$formType,
-        'trackingNumber'=>$trackingNumber
-        
+        'formType' => $formType,
+        'trackingNumber' => $trackingNumber,
     ];
-    if (isset($_FILES['recipt']['name']) AND !empty($_FILES['recipt']['name'])) {
-        
-        
+
+    // Check if receipt file is uploaded
+    if (isset($_FILES['recipt']['name']) && !empty($_FILES['recipt']['name'])) {
         $recipt_name = $_FILES['recipt']['name'];
         $tmp_name = $_FILES['recipt']['tmp_name'];
         $error = $_FILES['recipt']['error'];
-        
-        if($error === 0){
-        $recipt_ex = pathinfo($recipt_name, PATHINFO_EXTENSION);
-        $recipt_ex_to_lc = strtolower($recipt_ex);
 
-        $allowed_exs = array('jpg', 'jpeg', 'png','pdf');
-        if(in_array($recipt_ex_to_lc, $allowed_exs)){
-            $new_recipt_name = uniqid() . '-' . $recipt_name;
-            $recipt_upload_path = "../public/assets/images/customer/orderRecipt/".$new_recipt_name;
-            move_uploaded_file($tmp_name, $recipt_upload_path);
+        // Check if there is no error in the file upload
+        if ($error === 0) {
+            $recipt_ex = pathinfo($recipt_name, PATHINFO_EXTENSION);
+            $recipt_ex_to_lc = strtolower($recipt_ex);
 
-            $data['recipt']=$new_recipt_name;
-        }
+            $allowed_exs = array('jpg', 'jpeg', 'png', 'pdf');
+            
+            // Check if the file extension is allowed
+            if (in_array($recipt_ex_to_lc, $allowed_exs)) {
+                $new_recipt_name = uniqid() . '-' . $recipt_name;
+                $recipt_upload_path = "../public/assets/images/customer/orderRecipt/" . $new_recipt_name;
+                
+                // Move the uploaded file to the destination path
+                if (move_uploaded_file($tmp_name, $recipt_upload_path)) {
+                    $data['recipt'] = $new_recipt_name;
+                } else {
+                    // Handle file upload failure
+                    echo 'File upload failed';
+                    return;
+                }
+            } else {
+                // Handle invalid file type
+                echo 'Invalid file type';
+                return;
+            }
+        } else {
+            // Handle file upload error
+            echo 'File upload error';
+            return;
         }
     }
-    
-        //make sure errors are empty
-        if($data['recipt'] && $data['trackingNumber']  ){
-            if($this->customerModel->editOrder($data) ){
-                flash('update_success','You are placed an order successfully');
-                redirect('customer/Order');
-            }else{
-                die('Something went wrong');
-            }
-        }else{
-                $this->view('customer/checkout2',$data);
-            }
+
+    // Make sure errors are empty
+    if ($data['trackingNumber'] && $data['recipt']) {
+        if ($this->customerModel->editOrder($data)) {
+            flash('update_success', 'You have placed an order successfully');
+            redirect('customer/Order');
+        } else {
+            die('Something went wrong');
+        }
+    } else {
+        $this->view('customer/checkout2', $data);
+    }
 }
+
 private function generateUniqueTrackingNumber($orderId) {
     do {
         $timestamp = time(); // Current timestamp
