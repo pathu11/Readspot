@@ -12,7 +12,7 @@ class Chats extends Controller{
         $this->userModel=$this->model('User');
         $this->db = new Database();
     }
-    public function chat($incoming_id=137){
+    public function chat($incoming_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
