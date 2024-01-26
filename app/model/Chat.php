@@ -4,6 +4,11 @@
     public function __construct(){
         $this->db = new Database;
     }
+    public function findUserById($user_id){
+        $this->db->query('SELECT * from users WHERE user_id=:user_id');
+        $this->db->bind(':user_id',$user_id);
+        return $this->db->resultSet();
+    }
     public function insertChat($data) {
         $this->db->query('INSERT INTO message (incoming_msg_id, outgoing_msg_id, msg) VALUES (:incoming_msg_id, :outgoing_msg_id, :msg)');
         $this->db->bind(':incoming_msg_id', $data['incoming_msg_id']);
@@ -17,15 +22,7 @@
             return false;
         }
     }
-    
-    // public function getChat($data) {
-    //     $this->db->query('SELECT * FROM message WHERE (incoming_msg_id = :incoming_msg_id AND outgoing_msg_id = :outgoing_msg_id) OR (incoming_msg_id = :outgoing_msg_id AND outgoing_msg_id = :incoming_msg_id)');
-    //     $this->db->bind(':incoming_msg_id', $data['incoming_id']);
-    //     $this->db->bind(':outgoing_msg_id', $data['outgoing_id']);
-    
-    //     // Return the result set
-    //     return $this->db->resultSet();
-    // }
+  
     public function getChat($data){
         $this->db->query('SELECT * FROM message
         LEFT JOIN users ON users.user_id = message.outgoing_msg_id
