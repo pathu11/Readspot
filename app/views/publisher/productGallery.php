@@ -151,7 +151,7 @@
         }
 
         function proceedDelete(storeId) {
-          window.location.href = '<?php echo URLROOT; ?>/publisher/deleteStore/' + storeId;
+          window.location.href = '<?php echo URLROOT; ?>/publisher/deletebooks/' + storeId;
         }
 
         
