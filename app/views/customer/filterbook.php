@@ -1,4 +1,4 @@
-<div class="filter-category" id="filter-dropdown">
+<!--div class="filter-category" id="filter-dropdown">
             
 </div>
 

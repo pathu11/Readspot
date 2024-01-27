@@ -12,17 +12,31 @@
                 <h1>NEW BOOKS</h1>
             </div>
             <div class="search-bar-N">
-                <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
-                <form action="#.php" class="searching-N">
-                    <select id="searchBy"  name="category">
-                        <option value="technology">Title</option>
-                        <option value="travel">Author</option>
-                        <option value="food">ISBN</option>
-                        <option value="lifestyle">Publisher</option>
-                    </select>
-                    <input type="text" placeholder="Search.." name="search-N">
-                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-                </form>
+                <!--button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button-->
+                <div class="search-form-N">
+                    <form action="<?php echo URLROOT;?>/customer/BuyNewBooks" class="searching-N" method="post">
+                        <!--select id="searchBy"  name="category">
+                            <option value="technology">Title</option>
+                            <option value="travel">Author</option>
+                            <option value="food">ISBN</option>
+                            <option value="lifestyle">Publisher</option>
+                        </select-->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-N" autocomplete="off" id="search-N">
+                        
+                        <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
+                    </form>
+                </div>
+                <div class="filter-category">
+                    <div class="list-group-N" id="show-list">
+                        <?php 
+                        if($_SERVER['REQUEST_METHOD']=='POST'){
+                            foreach($data['searchResults'] as $searchResult): 
+                                echo '<a href="'.URLROOT.'/customer/BookDetails/'.$searchResult->book_id.'">'.$searchResult->book_name.'</a><br>';
+                            endforeach;
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- <div class="recommend">
@@ -166,3 +180,27 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+<script type="text/javascript">
+    $document.ready(function(){
+        $("search-N").keyup(function(){
+            var searchText = $(this).val(); //word which is coming from the input field
+            if(searchText!=''){
+                $ajax({
+                    url:'<?php echo URLROOT;?>/customer/BuyNewBooks',
+                    method : 'post',
+                    data : {query:searchText},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            }else{
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("search-N").val($(this).text());
+            $("show-list").html('');
+        });
+    });
+</script>
