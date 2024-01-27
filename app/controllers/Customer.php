@@ -702,14 +702,28 @@ class Customer extends Controller {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/BuyUsedBook', $data);
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+            
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                if ($customerDetails) {
+                    $customerid = $customerDetails[0]->customer_id;
+                    $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
+                } else {
+                    echo "Not found";
+                }
+            } else {
+                echo "Not a customer";
+            }
+                $data = [
+                    'customerid' => $customerid,
+                    'customerDetails' => $customerDetails,
+                    'bookDetails' => $bookDetails,
+                    'customerName' => $customerDetails[0]->name
+                ];
+                $this->view('customer/BuyUsedBook', $data);
         }
     } 
     public function addToCart($bookId) {
@@ -863,31 +877,81 @@ class Customer extends Controller {
     public function ExchangeBook(){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/ExchangeBook', $data);
+            
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $bookDetails = $this->customerModel->findExchangedBookByNotCusId($customerid);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'bookDetails' => $bookDetails,
+            'customerName' => $customerDetails[0]->name
+        ];
+            $this->view('customer/ExchangeBook', $data);
     } 
 
-    public function ExchangeBookDetails(){
+    public function ExchangeBookDetails($bookId){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/ExchangeBookDetails', $data);
+            
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                
+                $bookDetails = $this->customerModel->findExchangedBookByCusId($customerid);
+                $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
+
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'bookDetails' => $bookDetails,
+            'ExchangeBookId' => $ExchangeBookId,
+            'customerName' => $customerDetails[0]->name,
+
+            'book_id' => $bookId,
+            'book_name' => $ExchangeBookId->book_name,
+            'ISBN_no' => $ExchangeBookId->ISBN_no,
+            'author' => $ExchangeBookId->author,
+            'category' => $ExchangeBookId->category,
+            'weight' => $ExchangeBookId->weight,
+            'descript' => $ExchangeBookId->descript,
+            'booksIWant' => $ExchangeBookId->booksIWant,
+            'img1' => $ExchangeBookId->img1,
+            'img2' => $ExchangeBookId->img2,
+            'img3' => $ExchangeBookId->img3,
+            'condition' => $ExchangeBookId->condition,
+            'published_year' => $ExchangeBookId->published_year,
+            'town' => $ExchangeBookId->town,
+            'district' => $ExchangeBookId->district,
+            'postal_code' => $ExchangeBookId->postal_code
+        ];
+        $this->view('customer/ExchangeBookDetails', $data);
     } 
 
     public function ExchangeBooks(){
@@ -1617,19 +1681,69 @@ class Customer extends Controller {
         }
     }
 
-    public function UsedBookDetails(){
+    public function UsedBookDetails($bookId){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/UsedBookDetails', $data);
+            
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                
+                $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
+                $UsedBookId = $this->customerModel->findUsedBookById($bookId);
+                
+                // if($bookDetails && $UsedBookId ){
+                //     if($this->customerModel->changeStatus($bookId)){
+                //         flash('post_message', 'change status');
+                //     }else {
+                //         echo "Not found";
+                //     }
+                // }
+
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'bookDetails' => $bookDetails,
+            'UsedBookId' => $UsedBookId,
+            'customerName' => $customerDetails[0]->name,
+
+            'book_id' => $bookId,
+            'book_name' => $UsedBookId->book_name,
+            'ISBN_no' => $UsedBookId->ISBN_no,
+            'author' => $UsedBookId->author,
+            'price' => $UsedBookId->price,
+            'category' => $UsedBookId->category,
+            'weight' => $UsedBookId->weight,
+            'descript' => $UsedBookId->descript,
+            'img1' => $UsedBookId->img1,
+            'img2' => $UsedBookId->img2,
+            'img3' => $UsedBookId->img3,
+            'condition' => $UsedBookId->condition,
+            'published_year' => $UsedBookId->published_year,
+            'price_type' => $UsedBookId->price_type,
+            'account_name' => $UsedBookId->account_name,
+            'account_no' => $UsedBookId->account_no,
+            'bank_name' => $UsedBookId->bank_name,
+            'branch_name' => $UsedBookId->branch_name,
+            'town' => $UsedBookId->town,
+            'district' => $UsedBookId->district,
+            'postal_code' => $UsedBookId->postal_code
+        ];
+        $this->view('customer/UsedBookDetails', $data);
     }
 
     public function Favorite(){

@@ -153,6 +153,8 @@
     box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
     margin: 5px;
     border-radius: 10px;
+    width: 160px;
+    height: 200px;
 }
 
 .B0-E:hover .Book-E {
@@ -229,5 +231,10 @@
     .B0-E {
         margin: 20px;
         width: 190px;
+    }
+
+    .hov-aft {
+        width: 140px;
+        height: 180px;
     }
 }

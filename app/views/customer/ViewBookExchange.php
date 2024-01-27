@@ -43,7 +43,7 @@
         </div>
         
         <div class="city-details-E">
-        <h3>Town : <span><?php echo $data['town']; ?></span></h3><br>
+            <h3>Town : <span><?php echo $data['town']; ?></span></h3><br>
             <h3>District : <span><?php echo $data['district']; ?></span></h3><br>
             <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
         </div>

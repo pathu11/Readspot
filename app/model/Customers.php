@@ -57,6 +57,14 @@
       return $this->db->resultSet();
     }
 
+    public function findUsedBookByNotCusId($customer_id) {
+      $this->db->query('SELECT * FROM books WHERE customer_id != :customer_id AND type="used" AND status="approval"');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+  }
+  
+
     public function findExchangedBookByCusId($customer_id){
       $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="exchanged" AND status="approval"');
       $this->db->bind(':customer_id',$customer_id);
@@ -65,6 +73,13 @@
       return $this->db->resultSet();
     }
 
+    public function findExchangedBookByNotCusId($customer_id){
+      $this->db->query('SELECT * from books WHERE customer_id!=:customer_id AND type="exchanged" AND status="approval"');
+      $this->db->bind(':customer_id',$customer_id);
+     
+
+      return $this->db->resultSet();
+    }
     // public function getUsedBookById($book_id){
     //   $this->db->query('SELECT * from books WHERE book_id=:book_id ');
     //   $this->db->bind(':book_id',$book_id);
