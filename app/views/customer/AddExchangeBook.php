@@ -15,19 +15,19 @@
                 <h1>Add a Book</h1>
                 
                 <div class="topic-book">
-                    <label class="label-topic" required>Book Name</label><br>
-                    <input type="text" name="bookName"class="form-topic">
+                    <label class="label-topic">Book Name</label><br>
+                    <input type="text" name="bookName"class="form-topic" required>
                 </div>
                 
                 <div class="topic-book author">
-                    <label class="label-topic" required>Author of Book</label><br>
-                    <input type="text" name="author" class="form-topic">
+                    <label class="label-topic">Author of Book</label><br>
+                    <input type="text" name="author" class="form-topic" required>
                 </div>
                 
 
                 <div class="upload-pages book-cate">
                     <div class="topic-book author">
-                        <label class="label-topic" required>Book Category</label><br>
+                        <label class="label-topic">Book Category</label><br>
                         <select id="category" name="category" required>
                             <option value="technology">Classics</option>
                             <option value="Fantasy">Fantasy</option>
@@ -40,7 +40,7 @@
                     </div>
                 
                     <div class="topic-book author">
-                        <label class="label-topic" required>Condition</label><br>
+                        <label class="label-topic">Condition</label><br>
                         <select id="category" name="bookCondition" required>
                             <option value="Used">Used</option>
                             <option value="Not Used">Not Used</option>
@@ -53,15 +53,15 @@
                     </div>
 
                     <div class="topic-book author">
-                        <label class="label-topic" published_daterequired>Published Year</label><br>
-                        <input type="Number"  name="publishedYear" class="form-topic" min=1800 max=2023>
+                        <label class="label-topic">Published Year</label><br>
+                        <input type="Number"  name="publishedYear" class="form-topic" min=1800 required>
                     </div>
                 </div>
 
 
                 <div class="upload-pages book-cate">
                     <div class="topic-book author weight">
-                        <label class="label-topic" required>Weight (grams)</label><br>
+                        <label class="label-topic">Weight (grams)</label><br>
                         <input type="number"   name="weights" class="form-topic" min=0 required>
                     </div>
                     <div class="topic-book author weight2">
@@ -70,8 +70,8 @@
                 </div>
         
                 <div class="topic-book author">
-                    <label class="label-topic" for="input1" required>ISBN Number</label><br>
-                    <input type="text"    name="isbnNumber" class="form-topic" id="input1">
+                    <label class="label-topic" for="input1">ISBN Number</label><br>
+                    <input type="text"    name="isbnNumber" class="form-topic" id="input1" required>
                 </div>
         
                 <div class="disc-book">
@@ -104,12 +104,12 @@
 
                 <div class="upload-pages book-cate">
                     <div class="topic-book author">
-                        <label class="label-topic" required>Town</label><br>
-                        <input type="text"  name="town" class="form-topic">
+                        <label class="label-topic">Town</label><br>
+                        <input type="text"  name="town" class="form-topic" required>
                     </div>
     
                     <div class="topic-book author">
-                        <label class="label-topic" required>District</label><br>
+                        <label class="label-topic">District</label><br>
                         <select id="category" name="district" required>
                         <!-- <option value="">Select a type</option> -->
                             <option value="Ampara">Ampara</option>
@@ -143,8 +143,8 @@
                     </div>
 
                     <div class="topic-book author">
-                        <label class="label-topic" required>Postal Code</label><br>
-                        <input type="number" name="postalCode" class="form-topic" min=0>
+                        <label class="label-topic">Postal Code</label><br>
+                        <input type="number" name="postalCode" class="form-topic" min=0 required>
                     </div>
                 </div>
 

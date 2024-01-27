@@ -49,7 +49,7 @@
         </div>
         <div class="sub4-E">
             <a href="<?php echo URLROOT; ?>/customer/deleteexchangebook/<?php echo $data['book_id']; ?>"><button class="chat-dlt-btn">Delete</button></a>
-            <a href="<?php echo URLROOT; ?>/customer/updateexchagebook/<?php echo $data['book_id']; ?>"><button class="chat-btn">Edit</button></a>
+            <a href="<?php echo URLROOT; ?>/customer/updateexchangebook/<?php echo $data['book_id']; ?>"><button class="chat-btn">Edit</button></a>
         </div>
     </div>
 
