@@ -17,7 +17,7 @@
             <h2>ReadSpot</h2>
             <p>Here we introducing a web-based Platform for Buying<br>
                 Selling , exchanging, and Donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>/publisher/table">table</a>
+            
         </div>
         <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
         <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a>

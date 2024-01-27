@@ -32,27 +32,27 @@
     <table id="eventTable">
     <thead>
             <tr>
-                <th style="width:15%">Order ID</th>
-                <th style="width:15%">No of Items</th>
-                <th style="width:15%">Total Weight</th>
-                <th style="width:25%">Sender's Address</th>
-                <th style="width:20%">Reciever's Address</th>
-                <th style="width:5%">Contact sender</th>
-                <th style="width:5%">Contact reciever</th>
+                <th >Order ID</th>
+                <th >No of Items</th>
+                <th >Total Weight</th>
+                <th >Sender's Address</th>
+                <th >Reciever's Address</th>
+                <th >Contact sender</th>
+                <th >Contact reciever</th>
             </tr>
     </thead>
     <tbody>
             <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
-                <th style="width:7%"><?php echo $orderDetails->order_id; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->quantity; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->total_weight; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></th>
-                <th style="width:7%"><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></th>
+                <td ><?php echo $orderDetails->order_id; ?></td>
+                <td ><?php echo $orderDetails->quantity; ?></td>
+                <td><?php echo $orderDetails->total_weight; ?></td>
+                <td ><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></td>
+                <td ><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></td>
 
-                <th><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
 
-                <th><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></th>
+                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
             </tr>
             <?php endforeach; ?>
             </tbody>

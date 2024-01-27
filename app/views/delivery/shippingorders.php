@@ -24,7 +24,12 @@
     <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a> -->
     <!-- <?php require APPROOT . '/views/delivery/subnav.php';?> -->
     <div class="container" >
-   
+    <div class="nav">
+        <a href="<?php echo URLROOT; ?>/delivery/processedorders">Processing Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/shippingorders">Shipped Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/deliveredorders">Delivered Orders</a>
+        <a href="<?php echo URLROOT; ?>/delivery/returnedorders">Returned Orders</a>
+    </div>
    
 
     <p> Shipping  Orders >></p>
@@ -53,16 +58,16 @@
                     <td ><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></td>
                 <!-- Add other columns and data as needed -->
                 <td>
-                    <a  href='#' onclick='confirmDelivered(<?php echo $orderDetails->order_id; ?>)'  ><i class='fas fa-check-circle' ></i></a>
+                    <a  href='#' onclick='confirmDelivered(<?php echo $orderDetails->order_id; ?>)'  ><i class='fas fa-check-circle' style='font-size:26px;color:gray;'></i></a>
                     
                 </td>
                 <td>
-                    <a  href='#' onclick='confirmReturned(<?php echo $orderDetails->order_id; ?>)'  ><i class='fas fa-check-circle'></i></a>
+                    <a  href='#' onclick='confirmReturned(<?php echo $orderDetails->order_id; ?>)'  ><i class='fas fa-check-circle' style='font-size:26px;color:gray;'></i></a>
                     
                 </td>
-                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></td>
+                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
 
-                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:36px'></i></a></td>
+                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
             </tr>
             <?php endforeach; ?>
             </tbody>
