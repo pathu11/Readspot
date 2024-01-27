@@ -185,12 +185,12 @@
                         <td>Lorem ipsum dolor sit amet5</td>
                         <td>13/09/2023</td>
                         <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                        <button class="view-button" onclick="viewEvent(1)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="delete-button" onclick="deleteEvent(1)">
+                            <i class="fas fa-trash"></i>
+                        </button>
                         </td>
                         <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
                     </tr>
