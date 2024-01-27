@@ -10,8 +10,10 @@
     <section class="chat-area">
       <header>
         
-        <a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-        <img src="<?php echo URLROOT; ?>/assets/images/landing/profile/<?php echo $data['profile_img']; ?>" alt="">
+        <?php
+                    $profileImage = empty($data['profile_img']) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $data['profile_img'] ;
+                ?>
+        <img src="<?php echo $profileImage; ?>" alt="">
         <div class="details">
           <span><?php echo $data['name']; ?></span>
           <p>active now</p>

@@ -9,38 +9,39 @@
 <html lang="en">
 
 <head>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/productgallery.css" />
+<link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
 
 </head>
 
 <body>
 <?php   require APPROOT . '/views/publisher/sidebar.php';?>
 <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
-    <div class="div_table" >
+    <div class="container">
 
-        <table>
+        <table id="eventTable">
+        <thead>
             <tr>
 
-                <!-- <th style="width:5%;background-color: #C7C7C7;">Product ID</th> -->
-                <th style="width:5%; background-color:#C7C7C7;">Book Name</th>
-                <!-- <th style="width:5%;background-color: #C7C7C7; ">ISBN Number</th> -->
-                <th style="width:5%;background-color: #C7C7C7;">Author</th>
-                <th style="width:5%;background-color: #C7C7C7;">Price</th>
-                <th style="width:5%;background-color: #C7C7C7;">Category</th>
-                <!-- <th style="width:5%;background-color: #C7C7C7;">Weight</th> -->
-                <th style="width:5%;background-color: #C7C7C7;">No of Books</th>
-                <th style="width:10%;background-color: #C7C7C7;">Description</th>
-                 <th style="width:16%;background-color: #C7C7C7;">Cover Image</th>
-                <th style="width:16%;background-color: #C7C7C7;">Inside Image</th>
                 
-                <!-- <th style="width:9%">Image (front)</th>
-
-                <th style="width:9%">Image(back)</th> -->
-                <th style="width:5%;background-color: #C7C7C7;">Update</th>
-                <th style="width:5%;background-color: #C7C7C7;">Delete</th>
+                <th >Book Name</th>
+               
+                <th >Author</th>
+                <th >Price</th>
+                <th >Category</th>
+               
+                <th >No of Books</th>
+                <th >Description</th>
+                <th >Cover Image</th>
+                <th >Inside Image</th>
+                
+                <th>Action</th>
 
             </tr>
-           
+            </thead>
+            <tbody>
             <?php foreach($data['bookDetails'] as $bookDetails): ?>
             <tr>
                 <!-- <th style="width:7%"><?php echo $bookDetails->book_id; ?></th> -->
