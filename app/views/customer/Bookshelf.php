@@ -33,7 +33,7 @@
                         $firstFourBooks2 = array_slice($data['bookDetails2'], 0, 4);
                         foreach($firstFourBooks2 as $bookDetails2): ?>
                         <div class="B-div">
-                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails2->img1 . '" class="Book"><br>';?>
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails2->img1 . '" class="Book"><br>';?>
                         </div>
                     <?php endforeach; ?>
                 </div>

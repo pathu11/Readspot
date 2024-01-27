@@ -10,25 +10,25 @@
             <div class="back-btn-div">
                 <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
             </div>
-            <form action="http://localhost/Group-27/app/controllers/customer/AddExchangedbookController.php" class="book-add">
+            <form action="<?php echo URLROOT; ?>/customer/AddExchangeBook" enctype="multipart/form-data" class="book-add" method="POST">
 
                 <h1>Add a Book</h1>
                 
                 <div class="topic-book">
                     <label class="label-topic" required>Book Name</label><br>
-                    <input type="text" name="book_name"class="form-topic">
+                    <input type="text" name="bookName"class="form-topic">
                 </div>
                 
                 <div class="topic-book author">
                     <label class="label-topic" required>Author of Book</label><br>
-                    <input type="text" name="author_name" class="form-topic">
+                    <input type="text" name="author" class="form-topic">
                 </div>
                 
 
                 <div class="upload-pages book-cate">
                     <div class="topic-book author">
                         <label class="label-topic" required>Book Category</label><br>
-                        <select id="category" name="book_category" required>
+                        <select id="category" name="category" required>
                             <option value="technology">Classics</option>
                             <option value="Fantasy">Fantasy</option>
                             <option value="Novel">Novel</option>
@@ -41,7 +41,7 @@
                 
                     <div class="topic-book author">
                         <label class="label-topic" required>Condition</label><br>
-                        <select id="category" name="book_condition" required>
+                        <select id="category" name="bookCondition" required>
                             <option value="Used">Used</option>
                             <option value="Not Used">Not Used</option>
                             <option value="Good">Good</option>
@@ -54,7 +54,7 @@
 
                     <div class="topic-book author">
                         <label class="label-topic" published_daterequired>Published Year</label><br>
-                        <input type="Number"  name="book_condition" class="form-topic" min=1800 max=2023>
+                        <input type="Number"  name="publishedYear" class="form-topic" min=1800 max=2023>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                 <div class="upload-pages book-cate">
                     <div class="topic-book author weight">
                         <label class="label-topic" required>Weight (grams)</label><br>
-                        <input type="number"   name="weight_grams" class="form-topic" min=0 required>
+                        <input type="number"   name="weights" class="form-topic" min=0 required>
                     </div>
                     <div class="topic-book author weight2">
                         <a href="#"><button  class="weight-cal">Weight Calculator</button></a>
@@ -71,18 +71,8 @@
         
                 <div class="topic-book author">
                     <label class="label-topic" for="input1" required>ISBN Number</label><br>
-                    <input type="text"    name="isbn_number" class="form-topic" id="input1">
+                    <input type="text"    name="isbnNumber" class="form-topic" id="input1">
                 </div>
-        
-                <!-- <div class="topic-book author">
-                    <label class="label-topic" for="input2" required>ISSN Number</label><br>
-                    <input type="text" name="issn_number"  class="form-topic" id="input2">
-                </div>
-        
-                <div class="topic-book author">
-                    <label class="label-topic" for="input3" required>ISMN Number</label><br>
-                    <input type="text" name="ismn_number" class="form-topic" id="input3">
-                </div> -->
         
                 <div class="disc-book">
                     <label class="label-topic">Description</label><br>
@@ -97,17 +87,17 @@
                 <div class="upload-pages">
                     <div class="img-cont">
                         <label class="label-topic">Upload Front Page</label><br>
-                        <input type="file" id="picture" name="front_page_img" accept="image/*" required>
+                        <input type="file" id="picture" name="imgFront" accept="image/*" required>
                     </div>
         
                     <div class="img-cont">
                         <label class="label-topic">Upload Back Page</label><br>
-                        <input type="file" id="picture" name="back_page_img" accept="image/*" required>
+                        <input type="file" id="picture" name="imgBack" accept="image/*" required>
                     </div>
         
                     <div class="img-cont">
                         <label class="label-topic">Upload a Inside Page</label><br>
-                        <input type="file" id="picture" name="inside_page_img" accept="image/*" required>
+                        <input type="file" id="picture" name="imgInside" accept="image/*" required>
                     </div>
                 </div>
                 <hr>
@@ -154,7 +144,7 @@
 
                     <div class="topic-book author">
                         <label class="label-topic" required>Postal Code</label><br>
-                        <input type="number" name="postal_code" class="form-topic" min=0>
+                        <input type="number" name="postalCode" class="form-topic" min=0>
                     </div>
                 </div>
 

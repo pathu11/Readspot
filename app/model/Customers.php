@@ -80,6 +80,13 @@
       return $row;
     }
 
+    public function findExchangeBookById($book_id) {
+      $this->db->query('SELECT * from books WHERE book_id=:book_id');
+      $this->db->bind(':book_id',$book_id);
+      $row = $this->db->single();
+      return $row;
+    }
+
 
 
 
@@ -97,7 +104,35 @@
     return $this->db->resultSet();
   }
 
-
+  public function AddExchangeBook($data){
+    $this->db->query('INSERT INTO books (book_name, ISBN_no, author, category, weight, descript, booksIWant, img1, img2, img3, `condition`, published_year, type, town, district, postal_code, customer_id, status) 
+                                VALUES(:book_name, :ISBN_no, :author, :category, :weight, :descript, :booksIWant, :img1, :img2, :img3, :condition, :published_year, :type, :town, :district, :postal_code, :customer_id, :status)');
+    
+    $this->db->bind(':book_name',$data['book_name']);
+    $this->db->bind(':ISBN_no',$data['ISBN_no']);
+    $this->db->bind(':author',$data['author']);
+    $this->db->bind(':category',$data['category']);
+    $this->db->bind(':weight',$data['weight']);
+    $this->db->bind(':descript',$data['descript']);
+    $this->db->bind(':booksIWant',$data['booksIWant']);
+    $this->db->bind(':img1',$data['img1']);
+    $this->db->bind(':img2',$data['img2']);
+    $this->db->bind(':img3',$data['img3']);
+    $this->db->bind(':condition',$data['condition']);
+    $this->db->bind(':published_year',$data['published_year']);
+    $this->db->bind(':type',$data['type']);
+    $this->db->bind(':town',$data['town']);
+    $this->db->bind(':district',$data['district']);
+    $this->db->bind(':postal_code',$data['postal_code']);
+    $this->db->bind(':customer_id', $data['customer_id']);
+    $this->db->bind(':status', $data['status']);
+    // execute
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }
+  }
 
 
 

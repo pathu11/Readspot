@@ -246,6 +246,139 @@ class Customer extends Controller {
     public function AddExchangeBook(){
         if (!isLoggedIn()) {
             redirect('landing/login');
+        } 
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $customerid = null;
+    
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+                
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                if ($customerDetails) {
+                    $customerName = $customerDetails[0]->name;
+                    $customerid = $customerDetails[0]->customer_id;                 
+                } else {
+                    echo "Not found";
+                }
+            }            
+            $data=[
+                'book_name' => trim($_POST['bookName']),
+                'ISBN_no' => trim($_POST['isbnNumber']),
+                'author' => trim($_POST['author']),
+                'category' => trim($_POST['category']),
+                'weight' => trim($_POST['weights']),
+                'descript' => trim($_POST['description1']),
+                'booksIWant' => trim($_POST['description2']),
+                'img1' => '',
+                'img2' => '',
+                'img3' => '',
+                'condition' => trim($_POST['bookCondition']),
+                'published_year' => trim($_POST['publishedYear']),
+                'type' => trim('exchanged'),
+                'town' => trim($_POST['town']),
+                'district' => trim($_POST['district']),
+                'postal_code' => trim($_POST['postalCode']),
+                'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                'status' => trim('pending'),
+
+                'bookName_err' => '',
+                'publishedYear_err'=>'',
+                'weights_err'=>'',
+                'ISBN_err'=>'',
+                'customerName' => $customerName
+            ];
+
+            if(empty($data['published_year'])){
+                $data['publishedYear_err']='Please enter published year';      
+            }
+            if(empty($data['weight'])){
+                $data['weights_err']='Please enter the weight';      
+            }else if($data['weight']<0 ){
+                $data['weights_err']='Please enter a valid weight'; 
+            }
+
+            if(empty($data['bookName_err']) && empty($data['publishedYear_err']) && empty($data['price_err']) && empty($data['weights_err']) && empty($data['ISBN_err'])){
+
+                //image
+                if (isset($_FILES['imgFront']['name']) AND !empty($_FILES['imgFront']['name'])) {
+                    $img_name = $_FILES['imgFront']['name'];
+                    $tmp_name = $_FILES['imgFront']['tmp_name'];
+                    $error = $_FILES['imgFront']['error'];
+                    
+                    if ($error === 0) {
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+                
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if (in_array($img_ex_to_lc, $allowed_exs)) {
+                            // Generate a unique identifier (e.g., timestamp)
+                            $unique_id = time(); 
+                            $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgFront.' . $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/customer/AddExchangeBook/" . $new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                
+                            $data['img1'] = $new_img_name;
+                        }
+                    }
+                }
+                
+
+                if (isset($_FILES['imgBack']['name']) AND !empty($_FILES['imgBack']['name'])) {
+                    $img_name = $_FILES['imgBack']['name'];
+                    $tmp_name = $_FILES['imgBack']['tmp_name'];
+                    $error = $_FILES['imgBack']['error'];
+                    
+                    if($error === 0){
+                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                       $img_ex_to_lc = strtolower($img_ex);
+           
+                       $allowed_exs = array('jpg', 'jpeg', 'png');
+                       if(in_array($img_ex_to_lc, $allowed_exs)){
+                          // Generate a unique identifier (e.g., timestamp)
+                          $unique_id = time(); 
+                          $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgBack.' . $img_ex_to_lc;
+                          $img_upload_path = "../public/assets/images/customer/AddExchangeBook/".$new_img_name;
+                          move_uploaded_file($tmp_name, $img_upload_path);
+
+                          $data['img2']=$new_img_name;
+                       }
+                    }
+                }
+                if (isset($_FILES['imgInside']['name']) AND !empty($_FILES['imgInside']['name'])) {
+                    $img_name = $_FILES['imgInside']['name'];
+                    $tmp_name = $_FILES['imgInside']['tmp_name'];
+                    $error = $_FILES['imgInside']['error'];
+                    
+                    if($error === 0){
+                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                       $img_ex_to_lc = strtolower($img_ex);
+           
+                       $allowed_exs = array('jpg', 'jpeg', 'png');
+                       if(in_array($img_ex_to_lc, $allowed_exs)){
+                          // Generate a unique identifier (e.g., timestamp)
+                          $unique_id = time(); 
+                          $new_img_name = $data['book_name'] . '-' . $unique_id . '-imgInside.' . $img_ex_to_lc;
+                          $img_upload_path = "../public/assets/images/customer/AddExchangeBook/".$new_img_name;
+                          move_uploaded_file($tmp_name, $img_upload_path);
+
+                          $data['img3']=$new_img_name;
+                       }
+                    }
+                }
+                
+                if($this->customerModel->AddExchangeBook($data)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/UsedBooks');
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('customer/AddExchangeBook',$data);
+            }
+
+
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -760,16 +893,29 @@ class Customer extends Controller {
     public function ExchangeBooks(){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/ExchangeBooks', $data);
+            
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $bookDetails = $this->customerModel->findExchangedBookByCusId($customerid);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'bookDetails' => $bookDetails,
+            'customerName' => $customerDetails[0]->name
+        ];
+            $this->view('customer/ExchangeBooks', $data);
     } 
 
     // public function index(){
@@ -1148,6 +1294,58 @@ class Customer extends Controller {
         ];
         $this->view('customer/ViewBook', $data);
     } 
+
+    public function ViewBookExchange($bookId){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                
+                $bookDetails = $this->customerModel->findExchangedBookByCusId($customerid);
+                $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
+
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'bookDetails' => $bookDetails,
+            'ExchangeBookId' => $ExchangeBookId,
+            'customerName' => $customerDetails[0]->name,
+
+            'book_id' => $bookId,
+            'book_name' => $ExchangeBookId->book_name,
+            'ISBN_no' => $ExchangeBookId->ISBN_no,
+            'author' => $ExchangeBookId->author,
+            'category' => $ExchangeBookId->category,
+            'weight' => $ExchangeBookId->weight,
+            'descript' => $ExchangeBookId->descript,
+            'booksIWant' => $ExchangeBookId->booksIWant,
+            'img1' => $ExchangeBookId->img1,
+            'img2' => $ExchangeBookId->img2,
+            'img3' => $ExchangeBookId->img3,
+            'condition' => $ExchangeBookId->condition,
+            'published_year' => $ExchangeBookId->published_year,
+            'town' => $ExchangeBookId->town,
+            'district' => $ExchangeBookId->district,
+            'postal_code' => $ExchangeBookId->postal_code
+        ];
+        $this->view('customer/ViewBookExchange', $data);
+    }
 
     public function viewcontent(){
         if (!isLoggedIn()) {
