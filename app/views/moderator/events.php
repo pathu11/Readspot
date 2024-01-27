@@ -49,5 +49,22 @@
     </table>
   </div>
 
+  <br>
+  <div id="large-poster-view">
+    <img id="large-event-poster"/>
+    <button id="close-button" onclick="closeFullView()">X</button>
+  </div>
+
+  <script type="text/javascript">
+    function fullView(imgLink){
+      document.getElementById("large-event-poster").src = imgLink;
+      document.getElementById("large-poster-view").style.display = "block";
+    }
+
+    function closeFullView(){
+      document.getElementById("large-poster-view").style.display = "none";
+    }
+  </script>
+
 </body>
 </html>
