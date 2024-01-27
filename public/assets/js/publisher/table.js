@@ -116,9 +116,76 @@ function viewEvent(eventId) {
     table.innerHTML = eventDetails;
     document.getElementById("myModal").style.display = "block";
 }
+function viewBook(bookDetails) {
+    var modal = document.getElementById("myModal");
+    var bookDetailsTable = document.getElementById("bookDetailsTable");
+
+    var detailsHTML = `
+        <table>
+            <tr>
+                <th>Book Name</th>
+                <td>${bookDetails.book_name}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>${bookDetails.author}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>${bookDetails.price}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>${bookDetails.weight}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>${bookDetails.descript}</td>
+            </tr>
+            <tr>
+                <th>Isbn Number</th>
+                <td>${bookDetails.ISBN_no}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>${bookDetails.category}</td>
+            </tr>
+            <tr>
+                <th>No of Books</th>
+                <td>${bookDetails.quantity}</td>
+            </tr>
+        </table>
+    `;
+
+    bookDetailsTable.innerHTML = detailsHTML;
+    modal.style.display = "block";
+}
+
+function viewImage(imageSrc) {
+    var modal = document.getElementById("myModalImage");
+    var imageDetailsTable = document.getElementById("eventDetailsTable");
+
+    // Clear the imageDetailsTable content
+    imageDetailsTable.innerHTML = '';
+
+    var imageHTML = `
+        <img src="${imageSrc}" width="50%" >
+    `;
+
+    imageDetailsTable.innerHTML = imageHTML;
+    modal.style.display = "block";
+}
+
+function viewBookOnly(bookDetails) {
+    // Display only the book details table
+    viewBook(bookDetails);
+}
 
 function closeModal() {
     document.getElementById("myModal").style.display = "none";
+}
+function closeModalImage() {
+    document.getElementById("myModalImage").style.display = "none";
 }
 
 function updateEvent(eventId) {

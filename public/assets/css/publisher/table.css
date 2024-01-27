@@ -394,6 +394,35 @@ button {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
+/* .bookDetails-content{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    width: 40%;
+    color:black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+} */
+#bookDetailsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#bookDetailsTable th, #bookDetailsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    color:black;
+}
+
+#bookDetailsTable th {
+    background-color: #f2f2f2;
+    color:black;
+}
+
 
 .close {
     color: #009D94;
