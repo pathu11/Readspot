@@ -198,19 +198,19 @@
             </table>
             </div>
             <ul class="pagination" id="pagination">
-            <li id="prevButton">«</li>
-            <li class="current">1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li id="nextButton">»</li>
-        </ul>
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
             <div class="c-vw">
                 <a href="<?php echo URLROOT; ?>/customer/AddCont"><button class="c-vw-btn">Add Content</button></a> <!--path changed-->
             </div>

@@ -36,6 +36,7 @@
     padding: 10px;
     text-align: center;
     border: 1px solid #ddd;
+    background-color: #f2f2f2;
 }
 .mycontent td {
     padding: 10px;
@@ -43,20 +44,13 @@
     border: 1px solid #ddd;
 }
 
-.mycontent th {
-    background-color: #f2f2f2;
-}
-
 .mycontent tr {
     background-color: white;
+    height: 30px;
 }
 
 .mycontent tr:hover {
     background-color: #f2f2f2;;
-}
-
-.mycontent tr {
-    height: 30px; /* Adjust the height as needed */
 }
 
 /* Change the width of specific columns */
@@ -163,5 +157,9 @@
         width: 100px;
         height: 28px;
         font-size: 0.7em;
+    }
+
+    .mycontent table {
+        margin-top: 0;
     }
 }
