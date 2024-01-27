@@ -164,6 +164,10 @@ input[type='text']{
     width: 800px;
 }
 
+.list-group-N{
+    padding: 10px;
+}
+
 .searching-N {
     display: flex;
     flex-direction: row;
