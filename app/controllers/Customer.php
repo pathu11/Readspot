@@ -566,30 +566,19 @@ class Customer extends Controller {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                if(isset($_POST['query'])){
-                    $inputText = $_POST['query'];
-                    $searchResults = $this->customerModel->searchNewBooks($inputText);
-                    $data = [
-                        'searchResults' => $searchResults,
-                    ];
-                    $this->view('customer/BuyNewBooks');
-                }
-            }else{
-                $user_id = $_SESSION['user_id'];
+            $user_id = $_SESSION['user_id'];
            
-                $customerDetails = $this->customerModel->findCustomerById($user_id); 
-                $bookDetails=$this->publisherModel->findNewBooks() ;
-                // $bookCategoryDetails=$this->adminModel->getBookCategories();
-                
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'customerName' => $customerDetails[0]->name,
-                    'bookDetails'=>$bookDetails,
-                    // 'bookCategoryDetails'=>$bookCategoryDetails
-                ];
-                $this->view('customer/BuyNewBooks', $data);
-            }
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $bookDetails=$this->publisherModel->findNewBooks() ;
+            // $bookCategoryDetails=$this->adminModel->getBookCategories();
+            
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails'=>$bookDetails,
+                // 'bookCategoryDetails'=>$bookCategoryDetails
+            ];
+            $this->view('customer/BuyNewBooks', $data);
         }
     } 
     
@@ -1499,14 +1488,14 @@ private function generateUniqueTrackingNumber($orderId) {
         }
     }
 
-    /*public function liveSearch(){
+    public function filterbook(){
         if(isset($_POST['query'])){
             $inputText = $_POST['query'];
             $searchResults = $this->customerModel->searchNewBooks($inputText);
             $data = [
                 'searchResults' => $searchResults,
             ];
-            $this->view('customer/BuyNewBooks');
+            $this->view('customer/filterbook',$data);
         }
-    }*/
+    }
 }

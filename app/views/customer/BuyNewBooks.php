@@ -14,7 +14,7 @@
             <div class="search-bar-N">
                 <!--button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button-->
                 <div class="search-form-N">
-                    <form action="<?php echo URLROOT;?>/customer/BuyNewBooks" class="searching-N" method="post">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-N" method="post">
                         <!--select id="searchBy"  name="category">
                             <option value="technology">Title</option>
                             <option value="travel">Author</option>
@@ -28,13 +28,7 @@
                 </div>
                 <div class="filter-category">
                     <div class="list-group-N" id="show-list">
-                        <?php 
-                        if($_SERVER['REQUEST_METHOD']=='POST'){
-                            foreach($data['searchResults'] as $searchResult): 
-                                echo '<a href="'.URLROOT.'/customer/BookDetails/'.$searchResult->book_id.'">'.$searchResult->book_name.'</a><br>';
-                            endforeach;
-                        }
-                        ?>
+                        
                     </div>
                 </div>
             </div>
@@ -182,25 +176,26 @@
 ?>
 
 <script type="text/javascript">
-    $document.ready(function(){
-        $("search-N").keyup(function(){
-            var searchText = $(this).val(); //word which is coming from the input field
+    $(document).ready(function(){
+        $("#search-N").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
             if(searchText!=''){
-                $ajax({
-                    url:'<?php echo URLROOT;?>/customer/BuyNewBooks',
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
                     method : 'post',
                     data : {query:searchText},
                     success:function(response){
                         $("#show-list").html(response);
                     }
                 });
-            }else{
+            } else {
                 $('#show-list').html('');
             }
         });
         $(document).on('click','a',function(){
-            $("search-N").val($(this).text());
-            $("show-list").html('');
+            $("#search-N").val($(this).text());
+            $("#show-list").html('');
         });
     });
 </script>
+
