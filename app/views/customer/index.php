@@ -5,7 +5,7 @@
     <div class="hero-div-M" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
        
         <div class="content-div-M">
-        <a href="<?php echo URLROOT; ?>/Chats/chat">chat</a>
+       
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2><br>
             <p>Here we introducing a web-based Platform for Buying<br>
@@ -17,9 +17,9 @@
     <div class="our_ser-div-M">
         <h3><span>Our Services</span></h3>
     </div>
-    <div class="services-div-M"> <!--path changed-->
+    <div class="services-div-M"> 
         <div class="service-div-M" onclick="service1()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/new1.jpg" alt="Service 1" class="Sev1"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/new1.jpg" alt="Service 1" class="Sev1"> 
             <h3>Buy New Books</h3>
             <p style="font-size:15px;">Purchase brand-new, high-quality books from a wide selection of genres and authors, ensuring you stay up-to-date with the latest literary releases.</p>
         </div>

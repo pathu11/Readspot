@@ -268,9 +268,10 @@ public function getDelivery(){
             return false;
         }
     }
+    
 
     public function deletemoderators($user_id) {
-        $this->db->query('DELETE FROM moderators WHERE user_id = :user_id');
+        $this->db->query('DELETE FROM moderator WHERE user_id = :user_id');
         // Bind values
         $this->db->bind(':user_id', $user_id);
 
