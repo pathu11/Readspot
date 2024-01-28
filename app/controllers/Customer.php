@@ -715,9 +715,10 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
             
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                $UsedbookDetailsByTime = $this->customerModel->findUsedBooksByTime();  
+              
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
+                    $UsedbookDetailsByTime = $this->customerModel->findUsedBooksByTime($customerid);
                     // $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
                 } else {
                     echo "Not found";

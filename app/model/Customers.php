@@ -395,8 +395,9 @@ public function findNewBooksByTime(){
   $this->db->query('SELECT * FROM books WHERE status="approval" AND type="new" ORDER BY created_at DESC');
   return $this->db->resultSet();
 }
-public function findUsedBooksByTime(){
-  $this->db->query('SELECT books.*, customers.user_id AS customer_user_id FROM books INNER JOIN customers ON books.customer_id = customers.customer_id WHERE books.status = "approval" AND books.type = "used" ORDER BY books.created_at DESC');
+public function findUsedBooksByTime($customer_id){
+  $this->db->query('SELECT books.*, customers.user_id AS customer_user_id FROM books INNER JOIN customers ON books.customer_id = customers.customer_id WHERE  books.customer_id != :customer_id AND books.status = "approval" AND books.type = "used" ORDER BY books.created_at DESC');
+  $this->db->bind(':customer_id',$customer_id);
   return $this->db->resultSet();
 }
 
