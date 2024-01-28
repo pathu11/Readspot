@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="exchange-topic">
-        <h3>Book Name : <span><?php echo $data['book_name']; ?></span></h3><br>
+            <h3>Book Name : <span><?php echo $data['book_name']; ?></span></h3><br>
             <h3>Author of Book : <span><?php echo $data['author']; ?></span></h3><br>
             <h3>Book Category : <span><?php echo $data['category']; ?></span></h3><br>
             <h3>Condition : <span><?php echo $data['condition']; ?></span></h3><br>
@@ -48,7 +48,8 @@
             <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
         </div>
         <div class="sub4-E">
-            <a href="#"><button class="chat-btn-Excg">Chat</button></a>
+            <a href="<?php echo URLROOT; ?>/customer/deleteexchangebook/<?php echo $data['book_id']; ?>"><button class="chat-dlt-btn">Delete</button></a>
+            <a href="<?php echo URLROOT; ?>/customer/updateexchangebook/<?php echo $data['book_id']; ?>"><button class="chat-btn">Edit</button></a>
         </div>
     </div>
 

@@ -19,35 +19,14 @@
                 <br>
                 <br>
                 <div class="books">
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry1.jpeg" alt="Book1" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry2.jpeg" alt="Book2" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry3.jpeg" alt="Book3" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry4.jpeg" alt="Book4" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry5.jpeg" alt="Book5" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry6.jpeg" alt="Book5" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
-                    <div class="B-div">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/harry7.jpeg" alt="Book5" class="Book"><br> <!--path changed-->
-                        <button class="eb-dts-btn">View Details</button>
-                    </div>
+                    <?php foreach($data['bookDetails'] as $bookDetails): ?>
+                        <div class="B-div">
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book"><br>';?> <!--path changed-->
+                            <a href="<?php echo URLROOT; ?>/customer/ViewBookExchange/<?php echo $bookDetails->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
+
                 <div class="eb-vw">
                     <a href="<?php echo URLROOT; ?>/customer/AddExchangeBook"><button class="eb-vw-btn">Add a Book</button></a> <!--path changed-->
                 </div>
