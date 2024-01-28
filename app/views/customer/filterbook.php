@@ -5,6 +5,7 @@ if(isset($data['searchResults']) && !empty($data['searchResults'])){
         <img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $searchResult->img1 . '" alt="img1" class="filter-img">
         <a href="'.URLROOT.'/customer/BookDetails/'.$searchResult->book_id.'">'.$searchResult->book_name.'</a><br>
         <p>'.$searchResult->author.'</p>
+        <p>Rs.'.$searchResult->price.'</p>
         </div>';
     endforeach;
 }
