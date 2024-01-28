@@ -401,6 +401,7 @@ public function findUsedBooksByTime($customer_id){
   return $this->db->resultSet();
 }
 
+
 public function findUsedBookById($book_id) {
   // $this->db->query('SELECT * from books WHERE book_id=:book_id');
 
@@ -408,6 +409,18 @@ public function findUsedBookById($book_id) {
   $this->db->bind(':book_id',$book_id);
   $row = $this->db->single();
   return $row;
+}
+
+
+
+public function searchNewBooks($inputText){
+  $this->db->query("SELECT book_id, book_name, ISBN_no, author 
+  FROM books 
+  WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+  AND type = 'new' ");
+  
+  $results = $this->db->resultSet();
+  return $results;
 }
 
 

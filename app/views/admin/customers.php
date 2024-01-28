@@ -28,7 +28,6 @@
     
     <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
-        <i class="bx bx-search-alt icon"></i>
     </div>
     
     <div id="searchresult"></div>
@@ -71,11 +70,12 @@
             </tr>
            
     <?php foreach($data['customerDetails'] as $customer): ?>
-    <tr>
-        <td><?php echo $customer->customer_id; ?></td>
-        <td><?php echo $customer->name; ?></td>
-        <td><?php echo $customer->email; ?></td>
-        <td><?php echo $customer->created_at; ?></td>
+            <tr>
+                <td><?php echo $customer->customer_id; ?></td>
+                <td><?php echo $customer->name; ?></td>
+                <td><?php echo $customer->email; ?></td>
+                <td><?php echo $customer->created_at; ?></td>
+            </tr>
     <?php endforeach; ?>               
         </table>
         

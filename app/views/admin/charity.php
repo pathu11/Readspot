@@ -21,7 +21,6 @@
     
     <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
-        <i class="bx bx-search-alt icon"></i>
     </div>
     
     <div id="searchresult"></div>

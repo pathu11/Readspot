@@ -6,7 +6,39 @@
         <span class="logo-name">ReadSpot</span>
         
         <span class="user"><?php echo $data['adminName']?></span>
-        <i class="bx bxs-user-circle icon"></i>
+        <i class="bx bxs-user-circle icon" onclick="toggleMenu()"></i>
+        
+        <div class="sub-menu-wrap" id="subMenu">
+          <div class="sub-menu">
+            <div class="user-info">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png"> <!--path changed-->
+                <h3><?php echo $data['adminName']; ?></h3><!--NAME COMMENT-->
+            </div>
+            <hr>
+            
+            <a href="<?php echo URLROOT; ?>/customer/Notification" class="sub-menu-link"> <!--path changed-->
+                <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
+                <p>Notifications</p>
+                <span>></span>
+            </a>
+            
+            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+            <i class="bx bxs-log-out icon"></i>  <!--path changed-->
+                <p>Logout</p>
+                <span>></span>
+            </a>
+          </div>
+        </div>
+
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+function toggleMenu(){
+    subMenu.classList.toggle("open-menu");
+}
+</script>
+      
+      
       </div>
       <div class="sidebar">
         <div class="logo">
@@ -72,12 +104,6 @@
                 <span class="link">Settings</span>
               </a>
             </li>
-            <li class="list">
-              <a href="<?php echo URLROOT;?>/landing/logout" class="nav-link">
-                <i class="bx bxs-log-out icon"></i>
-                <span class="link">Logout</span>
-              </a>
-            </li>
           </div>
         </div>
       </div>
@@ -86,4 +112,5 @@
     <section class="overlay"></section>
 
     <script src="<?php echo URLROOT;?>/assets/js/admin/nav.js"></script>
+
   </body>

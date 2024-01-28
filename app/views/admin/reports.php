@@ -170,6 +170,17 @@
     
       echo '<button id=download>Download PDF</button>';
     }
+
+    else{
+      /*echo '<div class="report-img">
+        <img src="'.URLROOT.'/assets/images/admin/report.jpg">
+      </div>';*/
+      echo '<div class="loader">
+      <span class="loader__element"></span>
+      <span class="loader__element"></span>
+      <span class="loader__element"></span>
+    </div>';
+    }
   ?>
 
 <script>

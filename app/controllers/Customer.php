@@ -2072,4 +2072,16 @@ private function sendEmail($recipientEmail, $subject, $body) {
             $this->view('customer/Order', $data);
         }
     }
+
+    public function filterbook(){
+        if(isset($_POST['query'])){
+            $inputText = $_POST['query'];
+            $searchResults = $this->customerModel->searchNewBooks($inputText);
+            $data = [
+                'searchResults' => $searchResults,
+            ];
+            $this->view('customer/filterbook', $data);
+        }
+    }
+    
 }
