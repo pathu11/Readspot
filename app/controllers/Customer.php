@@ -1495,7 +1495,8 @@ private function generateUniqueTrackingNumber($orderId) {
             $data = [
                 'searchResults' => $searchResults,
             ];
-            $this->view('customer/filterbook',$data);
+            $this->view('customer/filterbook', $data);
         }
     }
+    
 }

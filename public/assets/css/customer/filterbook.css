@@ -12,7 +12,12 @@
 a{
     text-decoration: none;
     color: black;
+    padding: 20px;
 }
+
+/*a:hover{
+    background-color: #70BFBA;
+}*/
 
 .show-filter {
     display: block;

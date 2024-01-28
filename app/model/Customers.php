@@ -299,7 +299,10 @@ public function editOrderCOD($data)
 // }
 
 public function searchNewBooks($inputText){
-  $this->db->query("SELECT book_id, book_name,ISBN_no,author from books WHERE book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%'AND type='new' ");
+  $this->db->query("SELECT book_id, book_name, ISBN_no, author 
+  FROM books 
+  WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+  AND type = 'new' ");
   
   $results = $this->db->resultSet();
   return $results;
