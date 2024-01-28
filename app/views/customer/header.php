@@ -10,8 +10,10 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/Add.js"></script> <!--path changed-->
     <script src="<?php echo URLROOT; ?>/assets/js/customer/dropcategory.js"></script> <!--path changed-->
+
     <script src="<?php echo URLROOT; ?>/assets/js/customer/home.js"></script>
     <script src="<?php echo URLROOT; ?>/assets/js/customer/tables.js"></script> 
+
     
 
     <title><?php echo $title; ?></title>

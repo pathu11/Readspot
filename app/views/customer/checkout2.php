@@ -3,6 +3,7 @@
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 <head>
+<script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
     <style>
         .submit {
             width: 100px;
@@ -13,14 +14,12 @@
             border: none;
             color:white;
         }
-
         .submit:hover {
             background-color: #70BFBA;
             border-radius: 5px;
             margin-top: 0;
             border: none;
         }
-
     </style>
 </head>
     <div class="checkout-main">
@@ -65,7 +64,6 @@
                         <input type="hidden" name="form_type" value="onlineDeposit">
                         <input type="file" name="recipt" required><br>
                         <button  class="submit" type="submit" >Conform Order</button>
-
                     </form>
                 </div>
                 <div class="COD-form">
@@ -76,11 +74,8 @@
                         <button class="submit" type="submit" >Conform Order</button>
                     </form>
                 </div>
-
-
                 </div>
-            </div>
-            <!-- <input type="submit" value="Pay 1700.00" class="btn-checkout"> -->
+            </div>           <!-- <input type="submit" value="Pay 1700.00" class="btn-checkout"> -->
 </div>
         <!-- </form> -->
     </div>
@@ -89,24 +84,23 @@
     ?>
     
 <script>
-    function paymentGateway() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                var obj = JSON.parse(xhttp.responseText);
+   function paymentGateway() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            var obj = JSON.parse(xhttp.responseText);
+            // PayHere initialization
+            payhere.onCompleted = function onCompleted(orderId) {
+                console.log("Payment completed. OrderID: " + obj["order_id"]);
+            };
 
-                // PayHere initialization
-                payhere.onCompleted = function onCompleted(orderId) {
-                    console.log("Payment completed. OrderID: " + obj["order_id"]);
-                };
+            payhere.onDismissed = function onDismissed() {
+                console.log("Payment dismissed");
+            };
 
-                payhere.onDismissed = function onDismissed() {
-                    console.log("Payment dismissed");
-                };
-
-                payhere.onError = function onError(error) {
-                    console.log("Error: " + error);
-                };
+            payhere.onError = function onError(error) {
+                console.log("Error: " + error);
+            };
 
                 var payment = {
                     "sandbox": true,
@@ -131,15 +125,12 @@
                     "delivery_country": "Sri Lanka",
                     "custom_1": "",
                     "custom_2": ""
-                };
-
-                // Start PayHere payment
+                };               // Start PayHere payment
                 payhere.startPayment(payment);
             }
         };
-
         // AJAX request to retrieve payment details
-        xhttp.open("GET", "<?php echo URLROOT; ?>/customer/checkout2", true);
+        xhttp.open("GET", "<?php echo URLROOT; ?>/customer/checkout2/" + <?php echo $data['order_id']; ?>, true);
         xhttp.send();
     }
     
@@ -147,7 +138,6 @@
         var cardPaymentForm = document.querySelector('.cardPayment-form');
         var onlineBankingForm = document.querySelector('.onlineBanking-form');
         var codForm = document.querySelector('.COD-form');
-
         document.querySelectorAll('input[name="paymentType"]').forEach(function (radio) {
             radio.addEventListener('change', function () {
                 if (this.value === 'cardPayment') {
@@ -170,5 +160,4 @@
             });
         });
     });
-
 </script>

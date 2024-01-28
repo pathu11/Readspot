@@ -3,8 +3,9 @@
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
     <div class="hero-div-M" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
-        
+       
         <div class="content-div-M">
+        <a href="<?php echo URLROOT; ?>/Chats/chat">chat</a>
             <h3>WELCOME TO</h3>
             <h2>ReadSpot</h2><br>
             <p>Here we introducing a web-based Platform for Buying<br>
