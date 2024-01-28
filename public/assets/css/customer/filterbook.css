@@ -19,9 +19,22 @@ a{
     background-color: #70BFBA;
 }*/
 
+.filter-img{
+    padding: 15px;
+    width: 100px;
+    height: 100px;
+}
+
+.filter-book-N{
+    display: flex;
+    flex-direction: row;
+}
+
 .show-filter {
     display: block;
 }
+
+
 
 @media screen and (max-width:800px) {
     .filter-category {

@@ -402,7 +402,7 @@ public function findNewBooksByTime(){
 }
 
 public function searchNewBooks($inputText){
-  $this->db->query("SELECT book_id, book_name, ISBN_no, author 
+  $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1
   FROM books 
   WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
   AND type = 'new' ");
