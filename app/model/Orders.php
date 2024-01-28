@@ -342,9 +342,269 @@
     
         return $this->db->rowCount() > 0;
     }
+
+    public function findOrdersByCustomerId($customer_id) {
+        $this->db->query('SELECT * FROM orders 
+                          
+                          WHERE customer_id=:customer_id ');
+        $this->db->bind(':customer_id', $customer_id);
     
+        return $this->db->resultSet();
+    }
+
+
+    // recommend books
+   
+    // }
+//     public function getUserOrderHistoryWithBooks($customer_id)
+// {
+//     $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                       FROM orders
+//                       INNER JOIN books ON orders.book_id = books.book_id
+//                       WHERE orders.customer_id = :customer_id
+//                       GROUP BY books.category
+//                       ORDER BY order_count DESC');
+//     $this->db->bind(':customer_id', $customer_id);
+//     $categories = $this->db->resultSet();
+
+//     $result = array();
+
+//     foreach ($categories as $category) {
+//         $this->db->query('SELECT *
+//                           FROM books
+//                           WHERE category = :category');
+//         $this->db->bind(':category', $category->category); // Use -> instead of ['category']
+//         $booksInCategory = $this->db->resultSet();
+        
+//         if ($booksInCategory) {
+//             $result[$category->category] = $booksInCategory; // Use -> instead of ['category']
+//         }
+//     }
     
+
+//     return $result;
+// }
+public function getUserOrderHistoryWithBooks($customer_id)
+{
+    // Check orders table
+    $this->db->query('SELECT books.category, COUNT(*) as order_count
+                      FROM orders
+                      INNER JOIN books ON orders.book_id = books.book_id
+                      WHERE orders.customer_id = :customer_id
+                      GROUP BY books.category
+                      ORDER BY order_count DESC');
+    $this->db->bind(':customer_id', $customer_id);
+    $categoriesFromOrders = $this->db->resultSet();
     
+    // If no orders, retrieve books from any category in the orders table
+    if (empty($categoriesFromOrders)) {
+        $this->db->query('SELECT books.category, COUNT(*) as order_count
+                          FROM cart
+                          INNER JOIN books ON cart.book_id = books.book_id
+                          GROUP BY books.category
+                          ORDER BY order_count DESC
+                          LIMIT 1');
+        $categoriesFromOrders = $this->db->resultSet();
+    }
+
+    // Retrieve books for each category from orders
+    $booksResult = array();
+
+    foreach ($categoriesFromOrders as $categoryInfo) {
+        $category = $categoryInfo->category;
+        $this->db->query('SELECT *
+                          FROM books
+                          WHERE category = :category');
+        $this->db->bind(':category', $category);
+        $booksInCategory = $this->db->resultSet();
+
+        if ($booksInCategory) {
+            $booksResult[$category] = $booksInCategory;
+        }
+    }
+
+    return $booksResult;
+}
+
+// public function getUserOrderHistoryWithBooks($customer_id)
+// {
+//     // Check orders table
+//     $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                       FROM orders
+//                       INNER JOIN books ON orders.book_id = books.book_id
+//                       WHERE orders.customer_id = :customer_id
+//                       GROUP BY books.category
+//                       ORDER BY order_count DESC');
+//     $this->db->bind(':customer_id', $customer_id);
+//     $categoriesFromOrders = $this->db->resultSet();
+//     $categoriesFromCart = array();
+//     // If no orders, check cart table
+//     if (empty($categoriesFromOrders)) {
+//         $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                           FROM cart
+//                           INNER JOIN books ON cart.book_id = books.book_id
+//                           WHERE cart.customer_id = :customer_id
+//                           GROUP BY books.category
+//                           ORDER BY order_count DESC');
+//         $this->db->bind(':customer_id', $customer_id);
+//         $categoriesFromCart = $this->db->resultSet();
+
+//         // If no cart items, retrieve books from any category in the orders table
+//         if (empty($categoriesFromCart)) {
+//             $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                               FROM orders
+//                               INNER JOIN books ON orders.book_id = books.book_id
+//                               GROUP BY books.category
+//                               ORDER BY order_count DESC
+//                               LIMIT 1');
+//             $categoriesFromOrders = $this->db->resultSet();
+//         }
+//     }
+
+//     // Combine categories from both sources
+//     $categories = array_merge($categoriesFromOrders, $categoriesFromCart);
+
+//     // Group and count categories across both tables
+//     $result = array();
+
+//     foreach ($categories as $category) {
+//         $result[$category->category]['order_count'] = 
+//             isset($result[$category->category]['order_count']) ? 
+//             $result[$category->category]['order_count'] + $category->order_count :
+//             $category->order_count;
+//     }
+
+//     // Sort categories based on the total order count
+//     usort($result, function($a, $b) {
+//         return $b['order_count'] - $a['order_count'];
+//     });
+
+//     // Retrieve books for each category
+//     $booksResult = array();
+
+//     foreach ($result as $category => $orderCount) {
+//         $this->db->query('SELECT *
+//                           FROM books
+//                           WHERE category = :category');
+//         $this->db->bind(':category', $category);
+//         $booksInCategory = $this->db->resultSet();
+        
+//         if ($booksInCategory) {
+//             $booksResult[$category] = $booksInCategory;
+//         }
+//     }
+
+//     return $booksResult;
+// }
+
+
+    
+//     public function getUserOrderHistory($customer_id)
+// {
+//     $this->db->query('SELECT books.category, COUNT(*) as order_count
+//                       FROM orders
+//                       INNER JOIN books ON orders.book_id = books.book_id
+//                       WHERE orders.customer_id = :customer_id
+//                       GROUP BY books.category
+//                       ORDER BY order_count DESC');
+//     $this->db->bind(':customer_id', $customer_id);
+
+//     return $this->db->resultSet();
+// }
+// public function getUserCartContents($customer_id)
+// {
+//     $this->db->query('SELECT books.category, COUNT(*) as cart_count
+//                       FROM cart
+//                       INNER JOIN books ON cart.book_id = books.book_id
+//                       WHERE cart.customer_id = :customer_id
+//                       GROUP BY books.category
+//                       ORDER BY cart_count DESC');
+//     $this->db->bind(':customer_id', $customer_id);
+
+//     return $this->db->resultSet();
+// }
+// public function getRecommendedCategories($customer_id)
+// {
+//     $orderHistory = $this->getUserOrderHistory($customer_id);
+//     $cartContents = $this->getUserCartContents($customer_id);
+
+//     $combinedData = [];
+
+//     // Merge order and cart data
+//     foreach ($orderHistory as $order) {
+//         $combinedData[$order->category]['order_count'] = $order->order_count;
+//         $combinedData[$order->category]['cart_count'] = 0;
+//     }
+
+//     foreach ($cartContents as $cart) {
+//         if (!isset($combinedData[$cart->category])) {
+//             $combinedData[$cart->category]['order_count'] = 0;
+//         }
+//         $combinedData[$cart->category]['cart_count'] = $cart->cart_count;
+//     }
+
+//     // Sort categories by the total count (order_count + cart_count)
+//     usort($combinedData, function ($a, $b) {
+//         $countA = $a['order_count'] + $a['cart_count'];
+//         $countB = $b['order_count'] + $b['cart_count'];
+//         return $countB - $countA;
+//     });
+
+//     // Extract category names
+//     $recommendedCategories = array_keys($combinedData);
+
+//     return $recommendedCategories;
+// }
+
+// public function getRecommendedBooks($recommendedCategories)
+// {
+//     // Generate placeholders for binding
+//     $placeholders = rtrim(str_repeat('?, ', count($recommendedCategories)), ', ');
+
+//     // SQL query with placeholders
+//     $query = "SELECT * FROM books
+//               WHERE category IN ($placeholders)
+//               ORDER BY FIELD(category, $placeholders), created_at DESC
+//               LIMIT 5";
+
+//     // Set the query in the Database class
+//     $this->db->query($query);
+
+//     // Bind parameters
+//     foreach ($recommendedCategories as $index => $category) {
+//         // Index starts from 1
+//         $paramName = ":category$index";
+//         $this->db->bind($paramName, $category);
+//     }
+
+//     // Execute and return the result set
+//     return $this->db->resultSet();
+// }
+
+    
+// public function getRecommendedBooks($recommendedCategories)
+// {
+//     // Retrieve books from recommended categories
+//     $placeholders = rtrim(str_repeat(':category, ', count($recommendedCategories)), ', ');
+//     $query = "SELECT * FROM books
+//               WHERE category IN ($placeholders)
+//               ORDER BY FIELD(category, $placeholders), created_at DESC
+//               LIMIT 5";
+
+//     $this->db->query($query);
+
+//     // Bind parameters
+//     foreach ($recommendedCategories as $index => $category) {
+//         $paramName = ":category{$index}";
+//         $this->db->bind($paramName, $category);
+//     }
+
+//     return $this->db->resultSet();
+// }
+
+
+
+     
 
     
   }

@@ -14,7 +14,7 @@
          <span class="user"><?php echo $data['publisherName']?></span>
          <?php foreach($data['publisherDetails'] as $publisherDetails): ?>
         <?php
-                    $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/publisher/addbooks/' . $publisherDetails->profile_img ;
+                    $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $publisherDetails->profile_img ;
                 ?>
         <?php endforeach; ?>
         <img style="border-radius:60%;width:3%;height:3%;" src="<?php echo $profileImage; ?>">

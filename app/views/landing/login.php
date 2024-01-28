@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
     <!-- <link rel="stylesheet" href="./assets/css/LoginPageCSS.css"> -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signupCss.css" />
@@ -13,7 +14,9 @@
         <form class="login" action="<?php echo URLROOT; ?>/landing/login" method="post">
             <h1>Log in</h1>
             <input type="email" name="email" placeholder="Email" value="<?= isset($_COOKIE['email']) ? $_COOKIE['email'] : '' ?>" required >
-            <input type="password" name="pass" placeholder="Password" value="<?= isset($_COOKIE['pass']) ? $_COOKIE['pass'] : '' ?>" required ><br>
+            <div class="password-wrapper">
+            <input type="password" name="pass" placeholder="password" value="<?= isset($_COOKIE['pass']) ? $_COOKIE['pass'] : '' ?>" required ><i class="fa fa-eye-slash" id="togglePassword"></i> <br></div>
+          
             <input type="checkbox" id="rememberMe" name="rememberMe" <?= (isset($_COOKIE['email']) && isset($_COOKIE['pass'])) ? "checked" : '' ?> value=1>
             <span>Remember me</span>
             <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password?</a>
@@ -41,4 +44,15 @@
       </div>
 </body>
 </html>
-                     
+<script>
+   document.getElementById('togglePassword').addEventListener('click', function() {
+  var passwordInput = document.querySelector('input[name="pass"]');
+  var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+
+  this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
+  this.classList.toggle('fa-eye');   // Toggle the eye icon itself
+});
+
+</script>
+          

@@ -26,51 +26,15 @@
                     <th >Delivery Status</th>
                     <th>VIew Details</th>
                 </tr>
+                
+                <?php foreach($data['orderDetails'] as $orders): ?>
                 <tr>
-                    <td>123456789</td>
-                    <td>Pending</td>
+                    <td><?php echo $orders->tracking_no; ?></td>
+                    <td><?php echo $orders->status; ?></td>
                     <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
                 </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Picked up</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Picked up</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Delivered</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Picked up</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Picked up</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Delivered</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Pending</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
-                <tr>
-                    <td>123456789</td>
-                    <td>Delivered</td>
-                    <td><div class="o-vd"><button type="submit" class="o-view" onclick="toggleOrder('order-details')">View</button>
-                </tr>
+                <?php endforeach; ?>
+                
             </table>
             <!-- <br>
             <br> -->

@@ -76,7 +76,8 @@ public function getDelivery(){
         $this->db->beginTransaction(); // Begin the transaction
 
         // Insert data into the 'users' table
-        $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
+        $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role, :status)');
+        $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':pass', $data['pass']);
         $this->db->bind(':user_role', 'admin');
@@ -115,7 +116,8 @@ public function getDelivery(){
         $this->db->beginTransaction(); // Begin the transaction
 
         // Insert data into the 'users' table
-        $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role,:status)');
+        $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role, :status)');
+        $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':pass', $data['pass']);
         $this->db->bind(':user_role', 'moderator');
@@ -154,7 +156,8 @@ public function getDelivery(){
           $this->db->beginTransaction(); // Begin the transaction
   
           // Insert data into the 'users' table
-          $this->db->query('INSERT INTO users (email, pass, user_role,status) VALUES (:email, :pass, :user_role, :status)');
+          $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role, :status)');
+          $this->db->bind(':name', $data['name']);
           $this->db->bind(':email', $data['email']);
           $this->db->bind(':pass', $data['pass']);
           $this->db->bind(':user_role', 'deliver');
@@ -265,9 +268,10 @@ public function getDelivery(){
             return false;
         }
     }
+    
 
     public function deletemoderators($user_id) {
-        $this->db->query('DELETE FROM moderators WHERE user_id = :user_id');
+        $this->db->query('DELETE FROM moderator WHERE user_id = :user_id');
         // Bind values
         $this->db->bind(':user_id', $user_id);
 
@@ -364,20 +368,20 @@ public function updateModerator($data) {
 
 public function updateDelivery($data) {
     // Update moderator table
-    $this->db->query('UPDATE delivery
-                      SET name = :name, email = :email, pass = :pass
-                      WHERE user_id = :user_id');
-    
-    // $this->db->bind(':user_id', $data['user_id']);
+    $this->db->query('UPDATE delivery SET name = :name, email = :email, pass = :pass WHERE user_id = :user_id');
+
     $this->db->bind(':name', $data['name']);
     $this->db->bind(':email', $data['email']);
     $this->db->bind(':pass', $data['pass']);
     $this->db->bind(':user_id', $data['user_id']);
-    if ($this->db->execute()) {
+    try {
+        $this->db->execute();
         return true;
-    } else {
+    } catch (PDOException $e) {
+        // Log or handle the error as needed
         return false;
     }
+    
 }
 public function updateUsers($data) {
     
@@ -399,48 +403,6 @@ public function updateUsers($data) {
 
 }
 
-
-// public function updateDelivery($data) {
-//     // Begin transaction
-//     $this->db->beginTransaction();
-
-//     try {
-//         // Update users table
-//         $this->db->query('UPDATE users
-//                           SET email = :email, pass = :pass
-//                           WHERE user_id = :user_id');
-        
-//         $this->db->bind(':user_id', $data['user_id']);
-//         $this->db->bind(':email', $data['email']);
-//         $this->db->bind(':pass', $data['pass']);
-        
-//         // Execute the query
-//         $this->db->execute();
-
-//         // Update delivery table
-//         $this->db->query('UPDATE delivery
-//                           SET name = :name, email = :email, pass = :pass
-//                           WHERE user_id = :user_id');
-        
-//         $this->db->bind(':user_id', $data['user_id']);
-//         $this->db->bind(':name', $data['name']);
-//         $this->db->bind(':email', $data['email']);
-//         $this->db->bind(':pass', $data['pass']);
-
-//         // Execute the query
-//         $this->db->execute();
-
-//         // Commit the transaction if both updates are successful
-//         $this->db->commit();
-
-//         return true;
-//     } catch (Exception $e) {
-//         // An error occurred, rollback changes
-//         $this->db->rollBack();
-
-//         return false;
-//     }
-// }
 
 public function countAdmins(){    
     $this->db->query('SELECT COUNT(*) as adminCount FROM admin ');

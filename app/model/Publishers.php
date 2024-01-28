@@ -76,8 +76,7 @@ class Publishers{
         } else {
             return false;
         }
-    }
-    
+    }    
     public function editpostal($data) {
         $this->db->query('UPDATE publishers 
                   SET postal_name = :postal_name, 
@@ -102,8 +101,7 @@ class Publishers{
         } else {
             return false;
         }
-    }
-   
+    }  
     public function getLastInsertedBookId() {
         $this->db->query('SELECT LAST_INSERT_ID() as book_id');
         $row = $this->db->single();
@@ -133,8 +131,7 @@ class Publishers{
         } else {
             return false;
         }
-    }
-   
+    } 
     public function editProfile($data) {
         $this->db->query('UPDATE publishers 
                           SET name = :name, 
@@ -357,10 +354,11 @@ class Publishers{
         } 
     }
     public function findMessageByUserId($user_id){
-        $this->db->query('SELECT * from messages WHERE user_id=:user_id ');
-        $this->db->bind(':user_id',$user_id);
+        $this->db->query('SELECT * FROM messages WHERE user_id = :user_id ORDER BY timestamp DESC');
+        $this->db->bind(':user_id', $user_id);
         return $this->db->resultSet();
     }
+    
     public function getMessageById($message_id){
         $this->db->query('SELECT * from messages WHERE message_id=:message_id ');
         $this->db->bind(':message_id',$message_id);

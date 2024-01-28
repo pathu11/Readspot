@@ -15,8 +15,18 @@ body{
     height:100vh;
     font-family: sans-serif;
 }
-
-
+.password-wrapper {
+    position: relative;
+  }
+  
+  .password-wrapper i {
+    position: absolute;
+    top: 32%;
+    right: 10px;
+    transform: translateY(-50%); /* Vertically center the icon */
+    cursor: pointer;
+  }
+  
 
 /* container */
 .container{
