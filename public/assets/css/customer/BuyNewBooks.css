@@ -206,7 +206,6 @@ input[type='text']{
     font-size: 16px;
     border: none;
     border: 1px solid;
-    border-left: 0px;
 }
 
 .searching-N button {
