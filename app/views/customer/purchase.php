@@ -140,7 +140,6 @@
 
             // Update the total price, delivery charge, and total cost display elements
             console.log(totalPrice, deliveryCharge, totalCost);
-
             document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
             document.getElementById('deliveryCharge').innerText = deliveryCharge.toFixed(2);
             document.getElementById('totalCostInput').value = totalCost.toFixed(2);

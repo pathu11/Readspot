@@ -89,7 +89,7 @@
             </div>
         </div>
         <div id="confirmationModal" class="bookDetails">
-            <div class="bookDetails-content">
+            <div class="modal-content">
             <span class="close" onclick="closeConfirmationModal()">&times;</span>
             <h2>Confirmation</h2>
             <p>Are you sure you want to delete this store?</p>

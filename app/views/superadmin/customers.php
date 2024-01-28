@@ -18,7 +18,6 @@
 <body>
  
     <?php require APPROOT . '/views/superadmin/nav.php';?>
-    <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
     <?php require APPROOT . '/views/superadmin/subnav.php';?> -->
     <div class="container" >
     <div class="nav">
@@ -31,14 +30,10 @@
     </div>
         <table id="eventTable">
         <thead>
-            <tr>
-
-               
+            <tr>              
                 <th >Name</th>
                 <th >Email</th>
                 <th >Actions</th>
-                
-
             </tr>
 </thead> 
 <tbody>
