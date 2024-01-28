@@ -28,7 +28,6 @@
     
     <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
-        <i class="bx bx-search-alt icon"></i>
     </div>
     
     <div id="searchresult"></div>
@@ -84,23 +83,24 @@
             </tr>
            
     <?php foreach($data['publisherDetails'] as $publisher): ?>
-    <tr>
-        <td><?php echo $publisher->publisher_id; ?></td>
-        <td><?php echo $publisher->name; ?></td>
-        <td><?php echo $publisher->company_name; ?></td>
-        <td><?php echo $publisher->reg_no; ?></td>
-        <td><?php echo $publisher->email; ?></td>
-        <td><?php echo $publisher->contact_no; ?></td>
-        <td><?php echo $publisher->postal_name; ?></td>
-        <td><?php echo $publisher->street_name; ?></td>
-        <td><?php echo $publisher->town; ?></td>
-        <td><?php echo $publisher->district; ?></td>
-        <td><?php echo $publisher->postal_code; ?></td>
-        <td><?php echo $publisher->account_name; ?></td>
-        <td><?php echo $publisher->account_no; ?></td>
-        <td><?php echo $publisher->bank_name; ?></td>
-        <td><?php echo $publisher->branch_name; ?></td>
-        <td><?php echo $publisher->created_at; ?></td>
+            <tr>
+                <td><?php echo $publisher->publisher_id; ?></td>
+                <td><?php echo $publisher->name; ?></td>
+                <td><?php echo $publisher->company_name; ?></td>
+                <td><?php echo $publisher->reg_no; ?></td>
+                <td><?php echo $publisher->email; ?></td>
+                <td><?php echo $publisher->contact_no; ?></td>
+                <td><?php echo $publisher->postal_name; ?></td>
+                <td><?php echo $publisher->street_name; ?></td>
+                <td><?php echo $publisher->town; ?></td>
+                <td><?php echo $publisher->district; ?></td>
+                <td><?php echo $publisher->postal_code; ?></td>
+                <td><?php echo $publisher->account_name; ?></td>
+                <td><?php echo $publisher->account_no; ?></td>
+                <td><?php echo $publisher->bank_name; ?></td>
+                <td><?php echo $publisher->branch_name; ?></td>
+                <td><?php echo $publisher->created_at; ?></td>
+            </tr>
     <?php endforeach; ?>               
         </table>
         
