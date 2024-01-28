@@ -88,12 +88,7 @@
     //   // return $row;
     // }
 
-    public function findUsedBookById($book_id) {
-      $this->db->query('SELECT * from books WHERE book_id=:book_id');
-      $this->db->bind(':book_id',$book_id);
-      $row = $this->db->single();
-      return $row;
-    }
+    
 
     // public function findExchangeBookById($book_id) {
     //   $this->db->query('SELECT * from books WHERE book_id=:book_id');
@@ -397,9 +392,24 @@ public function editOrderCOD($data)
 // }
 
 public function findNewBooksByTime(){
-  $this->db->query('SELECT * FROM books ORDER BY created_at DESC');
+  $this->db->query('SELECT * FROM books WHERE status="approval" AND type="new" ORDER BY created_at DESC');
   return $this->db->resultSet();
 }
+public function findUsedBooksByTime(){
+  $this->db->query('SELECT books.*, customers.user_id AS customer_user_id FROM books INNER JOIN customers ON books.customer_id = customers.customer_id WHERE books.status = "approval" AND books.type = "used" ORDER BY books.created_at DESC');
+  return $this->db->resultSet();
+}
+
+public function findUsedBookById($book_id) {
+  // $this->db->query('SELECT * from books WHERE book_id=:book_id');
+
+  $this->db->query('SELECT books.*, customers.user_id AS customer_user_id FROM books INNER JOIN customers ON books.customer_id = customers.customer_id WHERE books.book_id=:book_id ');
+  $this->db->bind(':book_id',$book_id);
+  $row = $this->db->single();
+  return $row;
+}
+
+
 
 
   }

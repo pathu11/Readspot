@@ -29,13 +29,13 @@
             <?php foreach($data['bookDetails'] as $bookDetails): ?>
                 <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-U">
                 <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
+                    <h3><?php echo $bookDetails->book_name; ?></h3>
+                    <h3><?php echo $bookDetails->price; ?></h3>
                     <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
                     <div class="fav-cart-msg">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat">
+                        <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a>
                     </div>
                 </div></a>
             <?php endforeach; ?>

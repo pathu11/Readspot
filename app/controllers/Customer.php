@@ -714,10 +714,11 @@ class Customer extends Controller {
             if (isset($_SESSION['user_id'])) {
                 $user_id = $_SESSION['user_id'];
             
-                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $UsedbookDetailsByTime = $this->customerModel->findUsedBooksByTime();  
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
-                    $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
+                    // $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
                 } else {
                     echo "Not found";
                 }
@@ -727,8 +728,9 @@ class Customer extends Controller {
                 $data = [
                     'customerid' => $customerid,
                     'customerDetails' => $customerDetails,
-                    'bookDetails' => $bookDetails,
+                    'bookDetails' => $UsedbookDetailsByTime,
                     'customerName' => $customerDetails[0]->name
+                    
                 ];
                 $this->view('customer/BuyUsedBook', $data);
         }
@@ -1706,6 +1708,7 @@ class Customer extends Controller {
                 
                 $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
                 $UsedBookId = $this->customerModel->findUsedBookById($bookId);
+
                 
                 // if($bookDetails && $UsedBookId ){
                 //     if($this->customerModel->changeStatus($bookId)){
@@ -1723,6 +1726,7 @@ class Customer extends Controller {
         }
 
         $data = [
+            'customer_user_id'=>$UsedBookId->customer_user_id,
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
