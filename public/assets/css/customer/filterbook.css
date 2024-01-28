@@ -12,16 +12,41 @@
 a{
     text-decoration: none;
     color: black;
-    padding: 20px;
+    padding: 15px;
 }
 
 /*a:hover{
     background-color: #70BFBA;
 }*/
 
+.filter-img{
+    padding: 15px;
+    width: 100px;
+    height: 100px;
+}
+
+.filter-book-N{
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-book-N:hover{
+    background-color: #70BFBA;
+}
+
+.filter-book-N p{
+    padding: 15px;
+}
+
+.filter-book-N p label{
+    color: rgb(127, 127, 127);
+}
+
 .show-filter {
     display: block;
 }
+
+
 
 @media screen and (max-width:800px) {
     .filter-category {
