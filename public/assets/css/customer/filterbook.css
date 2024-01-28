@@ -38,6 +38,10 @@ a{
     padding: 15px;
 }
 
+.filter-book-N p label{
+    color: rgb(127, 127, 127);
+}
+
 .show-filter {
     display: block;
 }

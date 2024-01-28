@@ -2074,6 +2074,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
             $searchResults = $this->customerModel->searchNewBooks($inputText);
             $data = [
                 'searchResults' => $searchResults,
+                'inputText' => $inputText,
             ];
             $this->view('customer/filterbook', $data);
         }
