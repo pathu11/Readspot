@@ -15,8 +15,8 @@ class Publisher extends Controller{
         $this->db = new Database();
         
     }
-    public function table(){
-        $this->view('publisher/table');
+    public function test(){
+        $this->view('publisher/test');
     }
     
     public function index(){
