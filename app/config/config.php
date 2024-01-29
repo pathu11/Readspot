@@ -3,12 +3,12 @@
 define('DB_HOST','localhost');
 define('DB_USER','root');
 define('DB_PASS','');
-define('DB_NAME','readspots');
+define('DB_NAME','readspot01');
 
 
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
-define('URLROOT','http://localhost/Readspot');
+define('URLROOT','http://localhost:8080/Group-27');
 
 define('SITENAME','Readspot');
 define('APPVERSION','1.0.0');
