@@ -25,6 +25,7 @@
 
 <div class="flex-parent-element">
     <div class="flex-child-element magenta">
+       
         <h1>
             Payment
     </h1>
@@ -41,7 +42,8 @@
             </tr>
             <?php foreach($data['orderDetails'] as $order): ?>
             <tr>
-                <td> <?php 
+                <td> 
+                    <?php 
                     if ($order->type == "new") {
                         echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $order->img1 . '" alt="Bell Image" width="180px">';
                     } elseif ($order->type == "used") {
@@ -97,6 +99,8 @@
             </div>
             <br><hr><br>
             <div>
+                <br>
+                <h3 style="text-align:center;">Select Your Payment Method</h3><br>
                     <label>
                                 <input type="radio" name="paymentType" value="cardPayment">
                                     Card Payment
@@ -127,21 +131,22 @@
     </div>
     </div>
 </div>
-<div id="onlineDepositPopup" class="onlineBanking-form-popup">
-                       
+<div id="onlineBankingFormPopup" class="onlineBanking-form-popup">
+              
                        <div class="modal-content">
+                       <span class="close" onclick="closeOnlineDepositPopupModal()">&times;</span>
                        
-                       <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.<p>
+                       <p style="color:#009D94;">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.<p>
 
                                <h4>Bank Name: Hatton National Bank - Hulftsdorp Branch</h4>
                                <h4>Acc. Name: M.D. Gunasena & Co. (Pvt.) Ltd.</h4>
                                <h4>Acc. No: 063010004901</h4>
                                <h4> BIC/Swift: HBLILKLX</h4>
-                               <span>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
-                               <label>submit your bank recipt after the payment</label>
+                               <span style="color:#009D94;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
+                               <label >submit your bank recipt after the payment</label>
                            <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST" enctype="multipart/form-data">
-                               <input type="hidden" name="form_type" value="onlineDeposit">
-                               <input type="file" name="recipt" required><br>
+                               <input type="hidden" name="form_type" value="onlineDeposit"><br>
+                               <input type="file" name="recipt" required><br><br>
                                <button  class="submit" type="submit" >Conform Order</button>
                            </form>
                    
@@ -152,12 +157,14 @@
                    <div id="CODPopup" class="COD-form-popup">
                       
                        <div class="modal-content">
-                       
+                       <span class="close" onclick="closeCODModal()">&times;</span>
                        <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
                        <input type="hidden" name="form_type" value="COD">
-                       <p>Pay with cash upon delivery. (We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.)
-                       </p>
-                       <button class="submit" type="submit" >Conform Order</button>
+                       <p style="color:#009D94;">Pay with cash upon delivery.</p>
+                       <p>We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.
+
+                       </p><br>
+                       <button class="submit" type="submit" >Confirm Order</button>
                    </form>
                    </div>
                    </div>
@@ -168,6 +175,16 @@
     ?>
     
 <script>
+     function closeCODModal() {
+        var CODFormPopup = document.getElementById("CODPopup");
+        CODFormPopup.style.display = "none";
+    }
+
+    function closeOnlineDepositPopupModal() {
+        var onlineBankingFormPopup = document.getElementById("onlineBankingFormPopup");
+        onlineBankingFormPopup.style.display = "none";
+    }
+
     let payHereButton=document.querySelector("#payhere");
     payHereButton.addEventListener("click",(e)=>{
         e.preventDefault();
@@ -251,8 +268,7 @@
     }
         
     document.addEventListener('DOMContentLoaded', function () {
-        var onlineBankingFormPopup = document.getElementById('onlineDepositPopup');
-        // var cardPaymentFormPopup = document.getElementById('cardPaymentPopup');
+        var onlineBankingFormPopup = document.getElementById('onlineBankingFormPopup');
         var cardPaymentButton = document.getElementById('cardPaymentButton');
         var CODFormPopup = document.getElementById('CODPopup');
 
@@ -261,10 +277,13 @@
                 if (this.value === 'cardPayment') {
                     cardPaymentButton.style.display = 'block';
                 } else if (this.value === 'OnlineDeposit') {
-                    onlineBankingFormPopup.style.display = 'block';
-                    cardPaymentFormPopup.style.display = 'none';
+                    closeCODModal();
+                    closeOnlineDepositPopupModal();  // Corrected function name
+                    cardPaymentButton.style.display = 'none';
                     CODFormPopup.style.display = 'none';
+                    onlineBankingFormPopup.style.display = 'block';
                 } else if (this.value === 'COD') {
+                    closeOnlineDepositPopupModal();  // Corrected function name
                     CODFormPopup.style.display = 'block';
                     cardPaymentButton.style.display = 'none';
                     onlineBankingFormPopup.style.display = 'none';
@@ -276,4 +295,5 @@
             });
         });
     });
+
 </script>

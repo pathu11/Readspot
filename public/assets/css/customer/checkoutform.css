@@ -121,14 +121,11 @@
         margin-bottom: 8px;
         font-size: 14px;
     }
-
     .billing-address h3, .payment h3 {
         font-size: 18px;
     }
 }
-
 @media screen and (max-width:450px) {
-  
     .check-form-main{ 
         flex-direction: column;
     }
@@ -136,11 +133,10 @@
         width: 100%;
     }
 }
-
  .modal-content {
     background-color: #fefefe;
     
-    margin: 6% auto;
+    margin: 15% auto;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #888;
@@ -165,23 +161,19 @@
             justify-content: center;
         }
 
-        .onlineBanking-form-popup .modal-content,
+        /* .onlineBanking-form-popup .modal-content,
         
         .COD-form-popup .modal-content {
             background-color: white;
             padding: 20px;
             border-radius: 5px;
             text-align: center;
-        }
-
-
-
+        } */
         .flex-parent-element {
          
             margin:70px;
             display: flex;
           }
-          
           .flex-child-element.magenta:nth-child(1) {
             padding: 40px;
             flex: 1;
@@ -235,11 +227,11 @@
         .col2{
             justify-content:space-evenly;
             padding-left: 20px;
-            margin-left: 15px;
+            margin-left: 10px;
         }
         .subcost{
             padding:20px;
-            /* margin-left: 20px; */
+           
         }
         .subcost2{
             padding:20px;
@@ -256,17 +248,23 @@
         }
         
         th, td {
-            border-bottom: 1px solid #ddd; /* Border at the bottom of each row */
-            padding: 10px; /* Adjust the padding as needed */
+            border-bottom: 1px solid #ddd; 
+            padding: 10px; 
             text-align: left;
         }
         
         th {
-            background-color: #f2f2f2; /* Background color for header row */
+            background-color: #f2f2f2; 
         }
         
-        /* Optional: Add space between columns */
+    
         td:not(:last-child) {
-            margin-right: 10px; /* Adjust the margin as needed */
+            margin-right: 10px; 
+        }
+        .close {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
         }
         
