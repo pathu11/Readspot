@@ -1779,7 +1779,7 @@ class Customer extends Controller {
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else {
-        // $orderDetails=$this->ordersModel->getOrderById($order_id);
+        $orderDetails=$this->ordersModel->getOrderById($order_id);
         // print_r($orderDetails->book_name);
    
         
@@ -1804,7 +1804,8 @@ class Customer extends Controller {
             $data = [
                 'order_id'=>$order_id,
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'orderDetails'=>$orderDetails
                 
             ];
     
@@ -1859,6 +1860,7 @@ private function handleCardPaymentForm($order_id, $formType)
 }
 
 private function handleCODForm($order_id,$formType){
+
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
 
@@ -2026,6 +2028,80 @@ private function sendEmail($recipientEmail, $subject, $body) {
         $mail->send();
     } catch (Exception $e) {
         die('Something went wrong: ' . $mail->ErrorInfo);
+    }
+}
+public function successCardPaymentOrder(){
+
+
+    $user_id = $_SESSION['user_id'];
+    $customerDetails = $this->customerModel->findCustomerById($user_id);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Check if the total_price and order_id are set in the POST data
+        if (isset($_POST['total_price'], $_POST['order_id'])) {
+            $totalPrice = $_POST['total_price'];
+            $order_id = $_POST['order_id'];
+
+                    
+         
+
+            $customer_id=$customerDetails[0]->customer_id;
+
+            $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
+            $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
+            $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
+            $customerEmail=$orderedCustomerDetails[0]->email;
+            echo $customerEmail;
+            $topic = "New Order Details";
+            $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
+            $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
+
+            $book_id = $orderDetails[0]->book_id;
+            $bookDetails = $this->adminModel->getBookDetailsById($book_id);
+
+            if ($bookDetails[0]->type == 'new') {
+                $user_idPub = $bookDetails[0]->publisher_id;
+                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+                $ownerEmail = $ownerDetails[0]->email;
+            } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+                $user_idPub = $bookDetails[0]->customer_id;
+                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+                $ownerEmail = $ownerDetails[0]->email;
+            }
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'customer_id' => $customer_id,
+                'order_id'=>$order_id,
+                'formType'=>"cardPayment",
+                'trackingNumber'=>$trackingNumber,
+                'topic' => $topic,
+                'messageToPublisher' => $messageToPublisher,
+                'message'=>$message,
+                'user_id'=>$orderedCustomerDetails[0]->user_id,
+                'user_idPub' => $ownerDetails[0]->user_id,
+                'sender_name'=>'system administration',
+                'sender_id'=>130,   
+            ];
+                //make sure errors are empty
+                if( $data['trackingNumber']  ){
+                    if($this->customerModel->editOrderCardPayment($data) &&
+                    $this->adminModel->addMessage($data) &&
+                    $this->adminModel->addMessageToPublisher($data)){
+
+                        $this->sendEmails($customerEmail, $ownerEmail, $data);
+                        echo '<script>alert("You are placed an order successfully")</script>';
+                        flash('update_success','You are placed an order successfully');
+                        redirect('customer/Order');
+                    
+                    }else{
+                        die('Something went wrong');
+                    }
+                }else{
+                        $this->view('customer/checkout2',$data);
+                    }
+            
+                    
+                }
     }
 }
 

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/checkoutform.css"> 
     <style>
         .submit {
-            width: 100px;
+            width: 90%;
             height: 40px;
             background-color: #009D94;
             border-radius: 5px;
@@ -15,115 +15,116 @@
             color:white;
         }
         .submit:hover {
-            background-color: #70BFBA;
+            background-color: white;
             border-radius: 5px;
             margin-top: 0;
             border: none;
         }
     </style>
 </head>
-<!-- <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script> -->
 
-    <!-- <div class="checkout-main">
-        <div class="check-form">
-        <form action="/action_page.php" class="check-form">
-            <div class="check-form-main">
-                <div class="billing-address">
-                        <label>
-                            <input type="radio" name="paymentType" value="cardPayment">
-                                Card Payment
-                        </label>
-                        <label>
-                            <input type="radio" name="paymentType" value="OnlineDeposit">
-                                Online Deposit
-                        </label>
-                        <label>
-                            <input type="radio" name="paymentType" value="COD">
-                                Cash On Delivery
-                        </label>
-                        
-                        </div>
-                <div class="payment">
-                    
-                    
-                    <label>
-                        <input type="radio" name="paymentType" value="cardPayment">
-                            Card Payment
-                    </label>
-                    <label>
-                        <input type="radio" name="paymentType" value="OnlineDeposit">
-                            Online Deposit
-                    </label>
-                    <label>
-                        <input type="radio" name="paymentType" value="COD">
-                            Cash On Delivery
-                    </label>
-                    
-                    
-                   
-                </div>
-            </div>           
-</div>  -->
 <div class="flex-parent-element">
     <div class="flex-child-element magenta">
+        <h1>
+            Payment
+    </h1>
+    <br>
+        <hr>
+        <br>
         <table>
+      
             <tr>
-                <td>Item</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Subtotal</td>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
             </tr>
+            <?php foreach($data['orderDetails'] as $order): ?>
             <tr>
-                <td>Item</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Subtotal</td>
+                <td> <?php 
+                    if ($order->type == "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $order->img1 . '" alt="Bell Image" width="180px">';
+                    } elseif ($order->type == "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $order->img1 . '" alt="Bell Image" width="180px">';
+                    } else {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                    }
+            ?></td>
+                <td><?php echo $order->total_price; ?></td>
+                <td><?php echo $order->quantity; ?></td>
+                <td><?php echo $order->total_price; ?></td>
             </tr>
+            <?php endforeach; ?>
     </table>
       
     </div>
     <div class="flex-child-element magenta">
+        <?php foreach($data['orderDetails'] as $order): ?>
         <div class="payment-details">
-            <p>Customer Billing Details(Ship to this Address)<p>
+            <h2>Customer Billing Details(Ship to this Address)</h2>
 
-           <div class="billing-details">
-                <p>hi</p>
-                <p>hi</p>
-                <p>hi</p>
+            <div class="cost1">
+                        <div class="subcost">
+                            <p>Name</p>
+                            <p>Address</p>
+                            <p>Phone Number</P>
+                        </div>
+                        <div  class="subcost2">
+                            <p><?php echo $order->c_postal_name; ?></p>
+                            <p><?php echo $order->c_street_name; ?>,<?php echo $order->c_town; ?>,<?php echo $order->c_district; ?>,<?php echo $order->c_postal_code; ?></p>
+                            <p><?php echo $order->contact_no; ?></p>
 
-            </div>
-            <div class="billing-details">
-                <p>hi</p>
-                <p>hi</p>
-                <p>hi</p>
+                        </div> 
 
-            </div>
+                    </div>
         </div>
         <div class="billing-details">
             <div>
-                
+            <div class="cost">
+                        <div class="subcost">
+                            <p>Subtotal</p>
+                            <p>Delivery Fee</p>
+                            <p>Total</P>
+                        </div>
+                        <div  class="subcost2">
+                            <p><?php echo $order->total_price; ?></p>
+                            <p><?php echo $order->total_price; ?></p>
+                            <p><?php echo $order->total_price; ?></p>
+
+                        </div> 
+
+                    </div>
             </div>
-            <hr>
+            <br><hr><br>
             <div>
                     <label>
                                 <input type="radio" name="paymentType" value="cardPayment">
                                     Card Payment
-                            </label>
+                            </label><br>
                             <label>
                                 <input type="radio" name="paymentType" value="OnlineDeposit">
                                     Online Deposit
-                            </label>
+                            </label><br>
                             <label>
                                 <input type="radio" name="paymentType" value="COD">
                                     Cash On Delivery
                             </label>
-            </div>
-        </div>
-        
+            </div><br><br>
+            <div id="cardPaymentButton"style="display: none;" >
+                    
+                       
+                       <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
+                       <input type="hidden" name="form_type" value="cardPayment">
+                       <button id="payhere" class="submit" >Pay here</button>
+                       
+                       <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+                   </form>
+                 
+                   </div>
 
-                            
-                            
-                            </div>
+        </div>  
+        <?php endforeach; ?>                 
+    </div>
     </div>
 </div>
 <div id="onlineDepositPopup" class="onlineBanking-form-popup">
@@ -146,19 +147,7 @@
                    
                    </div>
                    </div>
-                   <div id="cardPaymentPopup" class="cardPayment-form-popup">
-                      
-                       <div class="modal-content">
-                       
-                       <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
-                       <input type="hidden" name="form_type" value="cardPayment">
-                       <button id="payhere" class="submit" >Pay here</button>
-                       
-                       <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
-                   </form>
-                   
-                   </div>
-                   </div>
+                  
 
                    <div id="CODPopup" class="COD-form-popup">
                       
@@ -197,6 +186,8 @@
             // PayHere initialization
             payhere.onCompleted = function onCompleted(orderId) {
                 console.log("Payment completed. OrderID: " + obj["order_id"]);
+                successOrder(obj["total_price"], obj["order_id"]);
+
             };
 
             payhere.onDismissed = function onDismissed() {
@@ -241,28 +232,44 @@
         
         xhttp.send(params);
     }
-    
+    function successOrder(totalPrice, orderId) {
+    // AJAX request to call the controller function
+        var successXhttp = new XMLHttpRequest();
+        var successParams = `total_price=${totalPrice}&order_id=${orderId}`;
+
+        successXhttp.onreadystatechange = function () {
+            if (successXhttp.readyState == 4 && successXhttp.status == 200) {
+                console.log(successXhttp.responseText);
+                // Handle any additional logic after successful order
+            }
+        };
+        // AJAX request to handle successful order
+        successXhttp.open("POST", "<?php echo URLROOT; ?>/customer/successCardPaymentOrder", true);
+        successXhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        successXhttp.send(successParams);
+    }
+        
     document.addEventListener('DOMContentLoaded', function () {
         var onlineBankingFormPopup = document.getElementById('onlineDepositPopup');
-        var cardPaymentFormPopup = document.getElementById('cardPaymentPopup');
+        // var cardPaymentFormPopup = document.getElementById('cardPaymentPopup');
+        var cardPaymentButton = document.getElementById('cardPaymentButton');
         var CODFormPopup = document.getElementById('CODPopup');
 
         document.querySelectorAll('input[name="paymentType"]').forEach(function (radio) {
             radio.addEventListener('change', function () {
                 if (this.value === 'cardPayment') {
-                    cardPaymentFormPopup.style.display = 'block';
-                    onlineBankingFormPopup.style.display = 'none';
-                    CODFormPopup.style.display = 'none';
+                    cardPaymentButton.style.display = 'block';
                 } else if (this.value === 'OnlineDeposit') {
                     onlineBankingFormPopup.style.display = 'block';
                     cardPaymentFormPopup.style.display = 'none';
                     CODFormPopup.style.display = 'none';
                 } else if (this.value === 'COD') {
                     CODFormPopup.style.display = 'block';
-                    cardPaymentFormPopup.style.display = 'none';
+                    cardPaymentButton.style.display = 'none';
                     onlineBankingFormPopup.style.display = 'none';
                 } else {
-                    cardPaymentFormPopup.style.display = 'none';
+                    cardPaymentButton.style.display = 'none';
                     onlineBankingFormPopup.style.display = 'none';
                     CODFormPopup.style.display = 'none';
                 }

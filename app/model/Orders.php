@@ -395,7 +395,7 @@ public function getUserOrderHistoryWithBooks($customer_id)
     return $booksResult;
 }
 public function getOrderById($order_id) {
-    $this->db->query('SELECT o.*, b.book_name AS book_name, c.first_name AS first_name, c.last_name AS last_name, c.email AS email 
+    $this->db->query('SELECT o.*, b.book_name AS book_name, c.first_name AS first_name, c.last_name AS last_name, c.email AS email ,b.type AS type,b.img1 AS img1
     FROM orders o
     INNER JOIN books b ON o.book_id = b.book_id
     INNER JOIN customers c ON o.customer_id = c.customer_id
@@ -405,6 +405,7 @@ public function getOrderById($order_id) {
 
     return $this->db->resultSet();
 }
+
 
     
   }

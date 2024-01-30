@@ -75,7 +75,6 @@
                               
                                 <!-- <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1"> -->
                                 <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1">
-
                                
                                 <input type="number" id="totalCostInput" name="totalCost" step="any" class="visible">
                                 <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">                                
