@@ -94,6 +94,7 @@ class Customer extends Controller {
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
                     'book_id'=>$book_id,
+                    'customerImage' => $customerDetails[0]->profile_img,
                     'customer_id' => $customerDetails[0]->customer_id,
                     'postal_name' => trim($_POST['postal_name']),
                     'street_name' => trim($_POST['street_name']),
@@ -162,6 +163,7 @@ class Customer extends Controller {
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
                         'book_id'=>$book_id,
+                        'customerImage' => $customerDetails[0]->profile_img,
                         'postal_name' => $customerDetails[0]->postal_name,
                         'street_name' => $customerDetails[0]->street_name,
                         'town' => $customerDetails[0]->town,
