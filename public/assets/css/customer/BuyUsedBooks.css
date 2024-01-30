@@ -120,7 +120,17 @@
     font-size: 16px;
     border: none;
     border: 1px solid;
-    border-left: 0px;
+}
+
+.filter-category {
+    position: absolute;
+    width: 835px;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 5px;
+    display:flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 40px;
 }
 
 .searching-U button {

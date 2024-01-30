@@ -13,9 +13,15 @@ if(isset($data['searchResults']) && !empty($data['searchResults'])){
         $highlighted_ISBN_no = preg_replace('/(' . preg_quote($search_query, '/') . ')/i', '<strong>$1</strong>', $ISBN_no);
         
         // Output the filtered book with highlighted search query
-        echo '<div class="filter-book-N">
-                <img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $searchResult->img1 . '" alt="img1" class="filter-img">
-                <a href="' . URLROOT . '/customer/BookDetails/' . $searchResult->book_id . '">' . $highlighted_book_name . '</a><br>
+        echo '<div class="filter-book-N">';
+                if($data['bookType']=='N'){
+                    echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $searchResult->img1 . '" alt="img1" class="filter-img">';
+                }
+                if($data['bookType']=='U'){
+                    echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $searchResult->img1 . '" alt="img1" class="filter-img">';
+                }
+
+                echo '<a href="' . URLROOT . '/customer/BookDetails/' . $searchResult->book_id . '">' . $highlighted_book_name . '</a><br>
                 <p><label>Author:</label> ' . $highlighted_author . '</p>
                 <p><label>ISBN:</label> ' . $highlighted_ISBN_no . '</p>
                 <p>Rs.' . $searchResult->price . '</p>
