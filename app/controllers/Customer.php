@@ -1779,14 +1779,18 @@ class Customer extends Controller {
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else {
+        $orderDetails=$this->ordersModel->getOrderById($order_id);
+        // print_r($orderDetails->book_name);
+   
+        
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);       
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-           
             $formType = $_POST['form_type'];
             if ($formType === 'cardPayment') {
                 
                 $this->handleCardPaymentForm($order_id,$formType);
+
             } elseif ($formType === 'onlineDeposit') {
                
                 $this->handleOnlineDepositForm($order_id,$formType);
@@ -1794,12 +1798,14 @@ class Customer extends Controller {
                 
                 $this->handleCODForm($order_id,$formType);
             }
+
         } else {
             
             $data = [
                 'order_id'=>$order_id,
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'orderDetails'=>$orderDetails
                 
             ];
     
@@ -1809,33 +1815,35 @@ class Customer extends Controller {
 }
 private function handleCardPaymentForm($order_id, $formType)
 {
-    // Set up payment details
-    $amount = 3000; // You may need to adjust this value
-    $merchant_id = "1225428"; // Your merchant ID
-    $order_id = uniqid(); // Generate a unique order ID
-    $merchant_secret = "NjY0MjYyODY2MjU1MzMwMjQ1MjQwMjM3MjkxNTkxNzIzMzU0NDUx"; // Your merchant secret
+    $orderDetails=$this->ordersModel->getOrderById($order_id);
+   
+    $amount = $orderDetails[0]->total_price; // You may need to adjust this value
+    $merchant_id = MERCHANT_ID; // Your merchant ID
+    $order_id = $order_id; // Generate a unique order ID
+    $merchant_secret =MERCHANT_SECRET; // Your merchant secret
     $currency = "LKR"; // Currency code
 
     // Calculate hash for payment
     $hash = strtoupper(
         md5(
-            $merchant_id .
-            $order_id .
-            number_format($amount, 2, '.', '') .
-            $currency .
-            strtoupper(md5($merchant_secret))
-        )
+            $merchant_id . 
+            $order_id . 
+            number_format($amount, 2, '.', '') . 
+            $currency .  
+            strtoupper(md5($merchant_secret)) 
+        ) 
     );
+    // print_r($hash);
 
     // Prepare payment details for JSON response
     $paymentDetails = [
-        "items" => "Door bell wireless", // Adjust based on your products
-        "first_name" => "Hasintha", // Customer's first name
-        "last_name" => "Nirmanie", // Customer's last name
-        "email" => "easyfarm123@mail.com", // Customer's email
-        "phone" => "0715797461", // Customer's phone number
-        "address" => "No 20, Headaketiya, Angunukolapalassa", // Customer's address
-        "city" => "Hambanthota", // Customer's city
+        "items" => $orderDetails[0]->book_name, // Adjust based on your products
+        "first_name" => $orderDetails[0]->first_name, // Customer's first name
+        "last_name" => $orderDetails[0]->last_name, // Customer's last name
+        "email" => $orderDetails[0]->email, // Customer's email
+        "phone" => $orderDetails[0]->contact_no, // Customer's phone number
+        "address" => $orderDetails[0]->c_street_name, // Customer's address
+        "city" => $orderDetails[0]->c_town, // Customer's city
         "amount" => $amount, // Total payment amount
         "merchant_id" => $merchant_id, // Merchant ID
         "order_id" => $order_id, // Order ID
@@ -1848,10 +1856,11 @@ private function handleCardPaymentForm($order_id, $formType)
     $jsonObj = json_encode($paymentDetails);
 
     // Send JSON response
-    // echo $jsonObj;
+    echo $jsonObj;
 }
 
 private function handleCODForm($order_id,$formType){
+
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
 
@@ -2019,6 +2028,80 @@ private function sendEmail($recipientEmail, $subject, $body) {
         $mail->send();
     } catch (Exception $e) {
         die('Something went wrong: ' . $mail->ErrorInfo);
+    }
+}
+public function successCardPaymentOrder(){
+
+
+    $user_id = $_SESSION['user_id'];
+    $customerDetails = $this->customerModel->findCustomerById($user_id);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Check if the total_price and order_id are set in the POST data
+        if (isset($_POST['total_price'], $_POST['order_id'])) {
+            $totalPrice = $_POST['total_price'];
+            $order_id = $_POST['order_id'];
+
+                    
+         
+
+            $customer_id=$customerDetails[0]->customer_id;
+
+            $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
+            $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
+            $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
+            $customerEmail=$orderedCustomerDetails[0]->email;
+            echo $customerEmail;
+            $topic = "New Order Details";
+            $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
+            $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
+
+            $book_id = $orderDetails[0]->book_id;
+            $bookDetails = $this->adminModel->getBookDetailsById($book_id);
+
+            if ($bookDetails[0]->type == 'new') {
+                $user_idPub = $bookDetails[0]->publisher_id;
+                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+                $ownerEmail = $ownerDetails[0]->email;
+            } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+                $user_idPub = $bookDetails[0]->customer_id;
+                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+                $ownerEmail = $ownerDetails[0]->email;
+            }
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'customer_id' => $customer_id,
+                'order_id'=>$order_id,
+                'formType'=>"cardPayment",
+                'trackingNumber'=>$trackingNumber,
+                'topic' => $topic,
+                'messageToPublisher' => $messageToPublisher,
+                'message'=>$message,
+                'user_id'=>$orderedCustomerDetails[0]->user_id,
+                'user_idPub' => $ownerDetails[0]->user_id,
+                'sender_name'=>'system administration',
+                'sender_id'=>130,   
+            ];
+                //make sure errors are empty
+                if( $data['trackingNumber']  ){
+                    if($this->customerModel->editOrderCardPayment($data) &&
+                    $this->adminModel->addMessage($data) &&
+                    $this->adminModel->addMessageToPublisher($data)){
+
+                        $this->sendEmails($customerEmail, $ownerEmail, $data);
+                        echo '<script>alert("You are placed an order successfully")</script>';
+                        flash('update_success','You are placed an order successfully');
+                        redirect('customer/Order');
+                    
+                    }else{
+                        die('Something went wrong');
+                    }
+                }else{
+                        $this->view('customer/checkout2',$data);
+                    }
+            
+                    
+                }
     }
 }
 

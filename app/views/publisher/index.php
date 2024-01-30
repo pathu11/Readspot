@@ -29,6 +29,7 @@
       <canvas id="myChart2"></canvas>
     </div>
   </div>
+  <a href="<?php echo URLROOT; ?>/publisher/test">test</a>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
