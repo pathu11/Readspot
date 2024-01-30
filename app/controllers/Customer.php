@@ -1779,14 +1779,18 @@ class Customer extends Controller {
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else {
+        // $orderDetails=$this->ordersModel->getOrderById($order_id);
+        // print_r($orderDetails->book_name);
+   
+        
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);       
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-           
             $formType = $_POST['form_type'];
             if ($formType === 'cardPayment') {
                 
                 $this->handleCardPaymentForm($order_id,$formType);
+
             } elseif ($formType === 'onlineDeposit') {
                
                 $this->handleOnlineDepositForm($order_id,$formType);
@@ -1794,6 +1798,7 @@ class Customer extends Controller {
                 
                 $this->handleCODForm($order_id,$formType);
             }
+
         } else {
             
             $data = [
@@ -1809,33 +1814,35 @@ class Customer extends Controller {
 }
 private function handleCardPaymentForm($order_id, $formType)
 {
-    // Set up payment details
-    $amount = 3000; // You may need to adjust this value
-    $merchant_id = "1225428"; // Your merchant ID
-    $order_id = uniqid(); // Generate a unique order ID
-    $merchant_secret = "NjY0MjYyODY2MjU1MzMwMjQ1MjQwMjM3MjkxNTkxNzIzMzU0NDUx"; // Your merchant secret
+    $orderDetails=$this->ordersModel->getOrderById($order_id);
+   
+    $amount = $orderDetails[0]->total_price; // You may need to adjust this value
+    $merchant_id = MERCHANT_ID; // Your merchant ID
+    $order_id = $order_id; // Generate a unique order ID
+    $merchant_secret =MERCHANT_SECRET; // Your merchant secret
     $currency = "LKR"; // Currency code
 
     // Calculate hash for payment
     $hash = strtoupper(
         md5(
-            $merchant_id .
-            $order_id .
-            number_format($amount, 2, '.', '') .
-            $currency .
-            strtoupper(md5($merchant_secret))
-        )
+            $merchant_id . 
+            $order_id . 
+            number_format($amount, 2, '.', '') . 
+            $currency .  
+            strtoupper(md5($merchant_secret)) 
+        ) 
     );
+    // print_r($hash);
 
     // Prepare payment details for JSON response
     $paymentDetails = [
-        "items" => "Door bell wireless", // Adjust based on your products
-        "first_name" => "Hasintha", // Customer's first name
-        "last_name" => "Nirmanie", // Customer's last name
-        "email" => "easyfarm123@mail.com", // Customer's email
-        "phone" => "0715797461", // Customer's phone number
-        "address" => "No 20, Headaketiya, Angunukolapalassa", // Customer's address
-        "city" => "Hambanthota", // Customer's city
+        "items" => $orderDetails[0]->book_name, // Adjust based on your products
+        "first_name" => $orderDetails[0]->first_name, // Customer's first name
+        "last_name" => $orderDetails[0]->last_name, // Customer's last name
+        "email" => $orderDetails[0]->email, // Customer's email
+        "phone" => $orderDetails[0]->contact_no, // Customer's phone number
+        "address" => $orderDetails[0]->c_street_name, // Customer's address
+        "city" => $orderDetails[0]->c_town, // Customer's city
         "amount" => $amount, // Total payment amount
         "merchant_id" => $merchant_id, // Merchant ID
         "order_id" => $order_id, // Order ID
@@ -1848,7 +1855,7 @@ private function handleCardPaymentForm($order_id, $formType)
     $jsonObj = json_encode($paymentDetails);
 
     // Send JSON response
-    // echo $jsonObj;
+    echo $jsonObj;
 }
 
 private function handleCODForm($order_id,$formType){

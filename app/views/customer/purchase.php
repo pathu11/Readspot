@@ -15,7 +15,7 @@
 <!-- <div class="flex-parent-element"> -->
     <form method="POST" action="<?php echo URLROOT; ?>/customer/purchase/<?php echo $data['book_id']; ?>"> 
        
-
+    <?php echo  $data['deliveryDetails']->priceperkilo; ?>
         <div class="flex-parent-element">
         <div class="flex-child-element magenta">
             <h1>Billing Details</h1>  
@@ -117,8 +117,12 @@
         window.history.back();
     }
 
+    //Fix DeliveryDetails
     var priceperkilo = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
     var priceperadditional = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
+
+    // var priceperkilo = 20;
+    // var priceperadditional = 20;
     var maxQuantity = <?php echo $data['bookDetails'][0]->quantity; ?>;
     var weightPerBook = <?php echo $data['bookDetails'][0]->weight; ?>/1000;
 
