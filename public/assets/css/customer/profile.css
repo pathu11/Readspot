@@ -165,6 +165,101 @@
     margin-bottom: 10px;
 }
 
+.div-cng-img-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Dark overlay color */
+    z-index: 100;
+}
+
+.div-cng-img {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    max-width: 230px;
+    /* font-size: 14px; */
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    z-index: 101;
+}
+
+.div-cng-img form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image-cng {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#imageInput {
+    display: none;
+}
+
+#imageLabel {
+    background-color: #3498db;
+    /* font-size: 14px; */
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#imageLabel:hover {
+    background-color: #2980b9;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
+    /* justify-content: space-between; */
+    margin-top: 10px;
+}
+
+.buttons-container button {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons-container button.save {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.buttons-container button.cancel {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.buttons-container button:hover {
+    background-color: #555;
+}
+
+
 @media screen and (max-width:800px) {
     .container {
         margin-left: 200px;
@@ -224,6 +319,19 @@
         font-size: 18px;
     }
 
+    .div-cng-img {
+        max-width: 220px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        gap:0.5rem;
+    }
+
+    #imageLabel {
+        padding: 4px;
+        font-size: 14px;
+    }
 
     /* .my-details {
         grid-gap: 0.8rem;
