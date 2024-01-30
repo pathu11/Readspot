@@ -451,6 +451,7 @@ class Customer extends Controller {
                 'price_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName
             ];
 
@@ -597,6 +598,7 @@ class Customer extends Controller {
                 'district' => trim($district),
                 'postal_code' => trim($postalCode),
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName
             ];
 
@@ -614,6 +616,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/BookContents', $data);
@@ -630,6 +633,7 @@ class Customer extends Controller {
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'bookDetails'=>$bookDetails
             ];
             $this->view('customer/BookDetails', $data);
@@ -645,6 +649,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/BookEvents', $data);
@@ -675,6 +680,7 @@ class Customer extends Controller {
 
             $data = [
                 'customerid' => $customerid,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerDetails' => $customerDetails,
                 'bookDetails1' => $bookDetails1,
                 'bookDetails2' => $bookDetails2,
@@ -700,6 +706,7 @@ class Customer extends Controller {
         // $recommendedBooks = $this->ordersModel->getRecommendedBooks($recommendedCategories);
         $data = [
             'customerDetails' => $customerDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name,
             'bookDetails' => $NewbookDetailsByTime,
             'recommendedBooks'=>$recommendedBooks
@@ -734,6 +741,7 @@ class Customer extends Controller {
             }
                 $data = [
                     'customerid' => $customerid,
+                    'customerImage' => $customerDetails[0]->profile_img,
                     'customerDetails' => $customerDetails,
                     'bookDetails' => $UsedbookDetailsByTime,
                     'customerName' => $customerDetails[0]->name
@@ -772,6 +780,7 @@ class Customer extends Controller {
            
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'cartDetails'=>$cartDetails,
                 
@@ -790,6 +799,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/ContactUs', $data);
@@ -805,6 +815,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Content', $data);
@@ -820,6 +831,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Dashboard', $data);
@@ -835,6 +847,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/DonateBooks', $data);
@@ -850,6 +863,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Donatedetails', $data);
@@ -865,6 +879,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Donateform', $data);
@@ -885,6 +900,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Event', $data);
@@ -913,6 +929,7 @@ class Customer extends Controller {
         $data = [
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'bookDetails' => $bookDetails,
             'customerName' => $customerDetails[0]->name
         ];
@@ -950,6 +967,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $ExchangeBookId->book_name,
@@ -994,6 +1012,7 @@ class Customer extends Controller {
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name
         ];
             $this->view('customer/ExchangeBooks', $data);
@@ -1014,6 +1033,7 @@ class Customer extends Controller {
             $messageDetails = $this->publisherModel->findMessageByUserId($user_id); 
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'messageDetails'=>$messageDetails
             ];
@@ -1178,6 +1198,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Services', $data);
@@ -1244,6 +1265,7 @@ class Customer extends Controller {
                 'price_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
 
@@ -1390,6 +1412,7 @@ class Customer extends Controller {
                 'town' => $UsedBookId->town,
                 'district' => $UsedBookId->district,
                 'postal_code' => $UsedBookId->postal_code,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
 
@@ -1447,6 +1470,7 @@ class Customer extends Controller {
                 'price_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             
@@ -1565,6 +1589,7 @@ class Customer extends Controller {
                 'town' => $ExchangeBookId->town,
                 'district' => $ExchangeBookId->district,
                 'postal_code' => $ExchangeBookId->postal_code,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
 
@@ -1623,6 +1648,7 @@ class Customer extends Controller {
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name
         ];
 
@@ -1668,6 +1694,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'UsedBookId' => $UsedBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $UsedBookId->book_name,
@@ -1725,6 +1752,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $ExchangeBookId->book_name,
@@ -1755,6 +1783,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/viewcontent', $data);
@@ -1770,6 +1799,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/viewevents', $data);
@@ -1794,6 +1824,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/TopCategory', $data);
@@ -1809,6 +1840,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/TopAuthor', $data);
@@ -1824,6 +1856,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Recommended', $data);
@@ -1871,6 +1904,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'UsedBookId' => $UsedBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $UsedBookId->book_name,
@@ -1906,6 +1940,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Favorite', $data);
@@ -1937,6 +1972,7 @@ class Customer extends Controller {
             $data = [
                 'order_id'=>$order_id,
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
                 
             ];
@@ -2171,6 +2207,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Calender', $data);
@@ -2187,6 +2224,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/BookChallenge', $data);
@@ -2204,6 +2242,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
 
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'orderDetails'=>$orderDetails
             ];
