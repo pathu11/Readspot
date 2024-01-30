@@ -13,20 +13,23 @@
             </div>
             <div class="search-bar-U">
                 <!--button type="submit" class="filter-btn-U" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button-->
-                <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-U" method="post">
-                    <!--select id="searchBy"  name="category">
-                        <option value="technology">Title</option>
-                        <option value="travel">Author</option>
-                        <option value="food">ISBN</option>
-                        <option value="lifestyle">Publisher</option>
-                    </select-->
-                    <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-U" autocomplete="off" id="search-U">
-                    <!--button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button--> <!--path changed-->
-                </form>
-            </div>
-            <div class="filter-category">
-                <div class="list-group-U" id="show-list">
-                    
+                <div class="search-form-U">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-U" method="post">
+                        <!--select id="searchBy"  name="category">
+                            <option value="technology">Title</option>
+                            <option value="travel">Author</option>
+                            <option value="food">ISBN</option>
+                            <option value="lifestyle">Publisher</option>
+                        </select-->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-U" autocomplete="off" id="search-U">
+                        <!--button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button--> <!--path changed-->
+                    </form>
+                </div>
+            
+                <div class="filter-category">
+                    <div class="list-group-U" id="show-list">
+                        
+                    </div>
                 </div>
             </div>
         </div>
