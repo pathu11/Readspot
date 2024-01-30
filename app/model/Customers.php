@@ -423,6 +423,15 @@ public function searchNewBooks($inputText){
   return $results;
 }
 
+public function searchUsedBooks($inputText){
+  $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+  FROM books 
+  WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+  AND type = 'used' ");
+  
+  $results = $this->db->resultSet();
+  return $results;
+}
 
 
 
