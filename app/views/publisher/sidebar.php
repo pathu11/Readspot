@@ -65,7 +65,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/productGallery" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/NewBooks/productGallery" class="nav-link">
                 <i class="bx bxs-book icon"></i>
                 <span class="link">Books</span>
               </a>

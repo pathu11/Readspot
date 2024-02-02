@@ -19,12 +19,12 @@
         <div class="flex-parent-element">
         <div class="flex-child-element magenta">
             <h1>Billing Details</h1>  
-            <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder="Name" ><br>
+            <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder="Name" required><br>
             <span class="error"><?php echo $data['postal_name_err']; ?></span>
 
-            <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['street_name']; ?>" placeholder="Street Name" >
+            <input type="text" name="street_name" class="<?php echo (!empty($data['street_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['street_name']; ?>" placeholder="Street Name" required >
 
-            <input type="text" name="town" class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['town']; ?>" placeholder="City" ><br>
+            <input type="text" name="town" class="<?php echo (!empty($data['town_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['town']; ?>" placeholder="City" required><br>
             <span class="error"><?php echo $data['town_err']; ?></span>
 
             <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['district']; ?>" name="district" >                                
@@ -39,8 +39,8 @@
             </select>
             <span class="error"><?php echo $data['district_err']; ?></span>
 
-            <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>" placeholder="Postal Code" ><br>
-            <input type="text" name="contact_no" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" ><br>
+            <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>" placeholder="Postal Code" required><br>
+            <input type="text" name="contact_no" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" required><br>
 
             <span class="error"><?php echo $data['contact_no_err']; ?></span>
         </div>
@@ -77,8 +77,8 @@
                                 <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1">
                                
                                 <input type="number" id="totalCostInput" name="totalCost" step="any" class="visible">
-                                <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">                                
-
+                                <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">  
+                                <input type="number" id="totalDeliveryInput" name="totalDelivery" step="any" class="visible">                                
                         </div> 
                     </div>
                     <br><br><br>
@@ -93,25 +93,17 @@
                             <p><span id="totalPrice"><?php echo $books->price; ?></span></p>
                             <p><span id="deliveryCharge"><?php echo $data['deliveryDetails']->priceperkilo; ?></span></p>
                             <p><span id="totalCostSpan"><?php echo $books->price; ?></span></p>
-
                         </div> 
-
                     </div>
                     <input type="submit" value="Place Order" name="submit" class="submit">
-
-
                     <?php endforeach; ?>
                 </div>
-
             </div>
-            
-
         </div>
         </div>
     </form>     
 </body>
 <script>
-
     function goBack() {
         window.history.back();
     }
@@ -147,7 +139,8 @@
             document.getElementById('deliveryCharge').innerText = deliveryCharge.toFixed(2);
             document.getElementById('totalCostInput').value = totalCost.toFixed(2);
             document.getElementById('totalCostSpan').innerText = totalCost.toFixed(2);
-            document.getElementById('totalWeightInput').value = totalWeightG.toFixed(2); // Add this line
+            document.getElementById('totalWeightInput').value = totalWeightG.toFixed(2);
+            document.getElementById('totalDeliveryInput').value = deliveryCharge.toFixed(2); // Add this line
         }
     }
 

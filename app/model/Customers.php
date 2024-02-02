@@ -328,7 +328,7 @@
     $this->db->bind(':contact_no', $data['contact_no']);
     $this->db->bind(':total_price', $data['total_cost']);
     $this->db->bind(':total_weight', $data['total_weight']);
-    $this->db->bind(':total_delivery',$data['total_delivery']);
+    $this->db->bind(':total_delivery',$data['totalDelivery']);
     $this->db->bind(':quantity',$data['quantity']);
     // $this->db->bind(':total_delivery',$data['total_delivery']);
     $this->db->bind(':status',"pending");
