@@ -106,6 +106,7 @@ public function purchase($book_id) {
                
                  if($customerDetails)   {
                     $data = [
+                        'quantityInCart' => $_GET['quantity'],
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
                         'book_id'=>$book_id,
@@ -176,15 +177,16 @@ public function checkout2()
         }     
     }
 }
-private function handleCardPaymentForm($orderDetails, $formType)
+private function handleCardPaymentForm($orderDetails1, $formType)
 {
-    if($this->customerModel->addOrder($orderDetails)){
+    if($this->customerModel->addOrder($orderDetails1)){
         $order_id = $this->customerModel-> getLastInsertedOrderId();
        
    }else{
        echo  '<script>alert("Error")</script>';
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
+    print_r($orderDetails);
     // $book_details=$this->customerModel->findBookById($orderDetails['book_id']);
     $amount = $orderDetails[0]->total_price; // You may need to adjust this value
     $merchant_id = MERCHANT_ID; // Your merchant ID
@@ -228,10 +230,10 @@ private function handleCardPaymentForm($orderDetails, $formType)
     echo $jsonObj;
 }
 
-private function handleCODForm($orderDetails ,$formType){
+private function handleCODForm($orderDetails1 ,$formType){
 
 
-    if($this->customerModel->addOrder($orderDetails)){
+    if($this->customerModel->addOrder($orderDetails1)){
          $order_id = $this->customerModel-> getLastInsertedOrderId();
         
     }else{
@@ -296,9 +298,9 @@ private function handleCODForm($orderDetails ,$formType){
                 $this->view('customer/checkout2',$data);
             }
 }
-private function handleOnlineDepositForm($orderDetails, $formType)
+private function handleOnlineDepositForm($orderDetails1, $formType)
 {
-    if($this->customerModel->addOrder($orderDetails)){
+    if($this->customerModel->addOrder($orderDetails1)){
         $order_id = $this->customerModel-> getLastInsertedOrderId();
        
    }else{

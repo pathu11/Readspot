@@ -244,7 +244,7 @@
             }
         };
         // AJAX request to retrieve payment details
-        xhttp.open("POST", "<?php echo URLROOT; ?>/PurchaseOrder/checkout2/" , true);
+        xhttp.open("POST", "<?php echo URLROOT; ?>/PurchaseOrder/checkout2" , true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         
         xhttp.send(params);

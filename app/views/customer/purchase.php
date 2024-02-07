@@ -47,6 +47,7 @@
         <div class="flex-child-element green">
 
             <h1>Your Order</h1>
+           
             <?php foreach($data['bookDetails'] as $books): ?>
             <div class="order">
                 <div class="col1">
@@ -71,11 +72,8 @@
                         </div>
                         
                         <div>
+                                <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="<?php echo isset($data['quantityInCart']) ? $data['quantityInCart'] : 1; ?>">
                                 
-                              
-                                <!-- <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1"> -->
-                                <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="1">
-                               
                                 <input type="number" id="totalCostInput" name="totalCost" step="any" class="visible">
                                 <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">  
                                 <input type="number" id="totalDeliveryInput" name="totalDelivery" step="any" class="visible">                                
@@ -112,11 +110,16 @@
     var priceperkilo = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
     var priceperadditional = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
 
-    // var priceperkilo = 20;
-    // var priceperadditional = 20;
+   
     var maxQuantity = <?php echo $data['bookDetails'][0]->quantity; ?>;
     var weightPerBook = <?php echo $data['bookDetails'][0]->weight; ?>/1000;
 
+    document.addEventListener('DOMContentLoaded', function () {
+        var defaultQuantity = <?php echo isset($data['quantityInCart']) ? $data['quantityInCart'] : 1; ?>;
+        document.getElementById('quantity').value = defaultQuantity;
+        var unitPrice = parseFloat(document.getElementById('totalPrice').innerText);
+        updatePrice(defaultQuantity, unitPrice);
+    });
     function updatePrice(quantity, unitPrice) {
         quantity = parseInt(quantity);
         unitPrice = parseFloat(unitPrice);

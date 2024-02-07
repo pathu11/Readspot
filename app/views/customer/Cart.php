@@ -33,42 +33,12 @@
                         <td><?php echo $cart->price; ?></td>
                         <td><?php echo $cart->quantity; ?></td>
                         <td><?php echo $cart->cart_id; ?></td>
-                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $cart->book_id; ?>" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
+                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $cart->book_id; ?>?quantity=<?php echo $cart->quantity; ?>" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td>
                     </tr>
                     <?php endforeach; ?>
                     
                 </table>
-                <table border="1" class="tb-cart2">
-                <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
-                    <td>rs200.00 (per book)</td></tr>
-                    <tr><td>3 (quantity)</td></tr>
-                    <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
-
-                    <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
-                    <td>rs200.00 (per book)</td></tr>
-                    <tr><td>3 (quantity)</td></tr>
-                    <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
-
-                    <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
-                    <td>rs200.00 (per book)</td></tr>
-                    <tr><td>3 (quantity)</td></tr>
-                    <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
-
-                    <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
-                    <td>rs200.00 (per book)</td></tr>
-                    <tr><td>3 (quantity)</td></tr>
-                    <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
-
-                    <tr><td rowspan="4">Lorem ipsum dolor sit amet</td>
-                    <td>rs200.00 (per book)</td></tr>
-                    <tr><td>3 (quantity)</td></tr>
-                    <tr><td>rs600.00 (total)</td></tr>
-                    <tr><td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/customer/checkoutform" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div></td></tr>
-                </table>
+               
             </div>
         </div>
         <?php
