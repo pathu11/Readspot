@@ -8,8 +8,8 @@
 
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/reports.css" />
-  <script src="<?php echo URLROOT;?>/assets/js/admin/pdf.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!--script src="<?php echo URLROOT;?>/assets/js/admin/pdf.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script-->
   <title>Reports</title>
 </head>
 <body>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="button">
-          <button type="submit">Generate Report</button>
+          <button type="submit" id="printBtn">Generate Report</button>
         </div>
       </div>
     </form>
@@ -60,9 +60,9 @@
   <?php 
     if($_SERVER['REQUEST_METHOD']=='POST'){
       if($_POST['report-type']=='registration'){
-        echo '<div class="table-container" id="pdf">
+        echo '<div id="pdf">
           <h2><u>'.$data['title'].'</u></h2>
-          <div class="table" id="pdf"> 
+          <div class="table"> 
             <table>
             <thead>
               <tr>
@@ -198,6 +198,11 @@
         dateSection.style.display = "none";
       }
     }
+    
+    const printBtn = document.getElementById('download');
+    printBtn.addEventListener('click',function(){
+      window.print();
+    })
 </script>
 
 </body>

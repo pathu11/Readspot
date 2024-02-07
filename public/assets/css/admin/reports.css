@@ -196,3 +196,17 @@ p{
   100% { transform: scale(2); }
 }
 
+@media print {
+  body * {
+    display: none;
+  }
+  #pdf, #pdf * {
+    display: block !important;
+  }
+}
+
+
+
+
+
+
