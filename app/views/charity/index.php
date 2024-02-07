@@ -34,6 +34,7 @@
     </div>
 
     <div class="box1">
+    <a href="<?php echo URLROOT; ?>/charity/test">test</a>
         <div class="box2">
             <h4> How You Can Help Us !</h4>
             <p> Your support is instrumental in making a positive impact on the lives of individuals

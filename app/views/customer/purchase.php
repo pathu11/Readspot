@@ -13,7 +13,7 @@
 </head>
 <body>
 <!-- <div class="flex-parent-element"> -->
-    <form method="POST" action="<?php echo URLROOT; ?>/customer/purchase/<?php echo $data['book_id']; ?>"> 
+    <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $data['book_id']; ?>"> 
        
     <?php echo  $data['deliveryDetails']->priceperkilo; ?>
         <div class="flex-parent-element">

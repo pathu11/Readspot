@@ -33,35 +33,35 @@
         <hr>
         <br>
         <table>
-      
+       
             <tr>
                 <th>Item</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <?php foreach($data['orderDetails'] as $order): ?>
+          <?php foreach($data['bookDetails'] as $books): ?>
             <tr>
                 <td> 
                     <?php 
-                    if ($order->type == "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $order->img1 . '" alt="Bell Image" width="180px">';
-                    } elseif ($order->type == "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $order->img1 . '" alt="Bell Image" width="180px">';
+                    if ($books->type== "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1. '" alt="Bell Image" width="180px">';
+                    } elseif ($books->type== "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $books->img1 . '" alt="Bell Image" width="180px">';
                     } else {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
             ?></td>
-                <td><?php echo $order->total_price; ?></td>
-                <td><?php echo $order->quantity; ?></td>
-                <td><?php echo $order->total_price; ?></td>
+                <td><?php echo $books->price; ?></td>
+                <td><?php echo $data['orderDetails']['quantity']; ?></td>
+                <td><?php echo $data['orderDetails']['total_cost']; ?></td>
             </tr>
-            <?php endforeach; ?>
+          <?php endforeach ;?>
     </table>
       
     </div>
     <div class="flex-child-element magenta">
-        <?php foreach($data['orderDetails'] as $order): ?>
+        
         <div class="payment-details">
             <h2>Customer Billing Details(Ship to this Address)</h2>
 
@@ -72,9 +72,9 @@
                             <p>Phone Number</P>
                         </div>
                         <div  class="subcost2">
-                            <p><?php echo $order->c_postal_name; ?></p>
-                            <p><?php echo $order->c_street_name; ?>,<?php echo $order->c_town; ?>,<?php echo $order->c_district; ?>,<?php echo $order->c_postal_code; ?></p>
-                            <p><?php echo $order->contact_no; ?></p>
+                            <p><?php echo $data['orderDetails']['postal_name']; ?></p>
+                            <p><?php echo $data['orderDetails']['street_name']; ?>,<?php echo $data['orderDetails']['town']; ?>,<?php echo $data['orderDetails']['district']; ?>,<?php echo $data['orderDetails']['postal_code']; ?></p>
+                            <p><?php echo $data['orderDetails']['contact_no']; ?></p>
 
                         </div> 
 
@@ -89,9 +89,9 @@
                             <p>Total</P>
                         </div>
                         <div  class="subcost2">
-                            <p><?php echo $order->total_price; ?></p>
-                            <p><?php echo $order->total_price; ?></p>
-                            <p><?php echo $order->total_price; ?></p>
+                            <p><?php echo $data['orderDetails']['contact_no']; ?></p>
+                            <p><?php echo $data['orderDetails']['totalDelivery']; ?></p>
+                            <p><?php echo $data['orderDetails']['total_cost']; ?></p>
 
                         </div> 
 
@@ -117,7 +117,7 @@
             <div id="cardPaymentButton"style="display: none;" >
                     
                        
-                       <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
+                       <form action="<?php echo URLROOT; ?>/PurchaseOrder/checkout2" method="POST">
                        <input type="hidden" name="form_type" value="cardPayment">
                        <button id="payhere" class="submit" >Pay here</button>
                        
@@ -127,7 +127,7 @@
                    </div>
 
         </div>  
-        <?php endforeach; ?>                 
+                     
     </div>
     </div>
 </div>
@@ -144,7 +144,7 @@
                                <h4> BIC/Swift: HBLILKLX</h4>
                                <span style="color:#009D94;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
                                <label >submit your bank recipt after the payment</label>
-                           <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST" enctype="multipart/form-data">
+                           <form action="<?php echo URLROOT; ?>/PurchaseOrder/checkout2" method="POST" enctype="multipart/form-data">
                                <input type="hidden" name="form_type" value="onlineDeposit"><br>
                                <input type="file" name="recipt" required><br><br>
                                <button  class="submit" type="submit" >Conform Order</button>
@@ -158,7 +158,7 @@
                       
                        <div class="modal-content">
                        <span class="close" onclick="closeCODModal()">&times;</span>
-                       <form action="<?php echo URLROOT; ?>/customer/checkout2/<?php echo $data['order_id']; ?>" method="POST">
+                       <form action="<?php echo URLROOT; ?>/PurchaseOrder/checkout2" method="POST">
                        <input type="hidden" name="form_type" value="COD">
                        <p style="color:#009D94;">Pay with cash upon delivery.</p>
                        <p>We will confirm the order by a phone call before accepting so make sure to enter a valid mobile number.
@@ -219,7 +219,7 @@
                     "sandbox": true,
                     "merchant_id": "1225428",
                     "return_url": "<?php echo URLROOT; ?>/customer/Cart",
-                    "cancel_url": "<?php echo URLROOT; ?>/customer/checkout2",
+                    "cancel_url": "<?php echo URLROOT; ?>/PurchaseOrder/checkout2",
                     "notify_url": "http://sample.com/notify",
                     "order_id": obj["order_id"],
                     "items": obj["items"],
@@ -244,7 +244,7 @@
             }
         };
         // AJAX request to retrieve payment details
-        xhttp.open("POST", "<?php echo URLROOT; ?>/customer/checkout2/" + <?php echo $data['order_id']; ?>, true);
+        xhttp.open("POST", "<?php echo URLROOT; ?>/PurchaseOrder/checkout2/" , true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         
         xhttp.send(params);
@@ -261,7 +261,7 @@
             }
         };
         // AJAX request to handle successful order
-        successXhttp.open("POST", "<?php echo URLROOT; ?>/customer/successCardPaymentOrder", true);
+        successXhttp.open("POST", "<?php echo URLROOT; ?>/PurchaseOrder/successCardPaymentOrder", true);
         successXhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         successXhttp.send(successParams);
