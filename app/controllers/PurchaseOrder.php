@@ -4,7 +4,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-//Load Composer's autoloader
 require APPROOT . '\vendor\autoload.php';
 class PurchaseOrder extends Controller{
     private $customerModel;
@@ -14,7 +13,7 @@ class PurchaseOrder extends Controller{
     private $userModel;
     private $adminModel;
     private $chatModel;
-  
+
     private $db;
     public function  __construct(){
         $this->customerModel=$this->model('Customers');
@@ -26,8 +25,42 @@ class PurchaseOrder extends Controller{
         $this->chatModel=$this->model('Chat')  ;
         $this->db = new Database();
     }
+    public function purchaseMultiple(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
+                // Check if selectedItems is set in $_POST and is an array
+                if(isset($_POST['selectedItems']) && is_array($_POST['selectedItems'])) {
+                    $selectedBookIds = $_POST['selectedItems'];
+                    $bookDetails = []; // Initialize an empty array
+                    foreach($selectedBookIds as $bookId) {
+                        // Retrieve book details by ID and add them to the bookDetails array
+                        $bookDetails[] = $this->customerModel->findBookById($bookId);
+                    }
+                } else { 
+                    
+                    echo "Error: No books selected" ; 
+                    return;
+                }
     
-
+                $data = [
+                    'customerDetails' => $customerDetails,
+                    'deliveryDetails' => $deliveryDetails,
+                    'bookDetails' => $bookDetails // Add bookDetails to the data array
+                ];
+                $this->view('customer/purchaseMultiple', $data);
+                // print_r($data['bookDetails']);
+            }
+        }
+    }
+    
+   
+    
 public function purchase($book_id) {
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -60,8 +93,7 @@ public function purchase($book_id) {
                     'contact_no_err'=>''
                 ];
                 $_SESSION['PurchaseOrderData']=$data;
-                // var_dump($data);
-                 
+                
                 if(empty($data['postal_name'])){
                     $data['postal_name_err']='Please enter the  name';      
                 }
@@ -87,14 +119,9 @@ public function purchase($book_id) {
                 }
 
                 if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
-                    // print_r($data);
-                    // if($this->customerModel->addOrder($data)){
-                    //     $orderId = $this->customerModel-> getLastInsertedOrderId();
+                   
                     redirect('PurchaseOrder/checkout2/');
-                    // }else{
-                    //   echo  '<script>alert("Error")</script>';
-                    // }
-
+                  
                 }else{
                     
                     echo  '<script>alert("Error")</script>';
@@ -187,14 +214,13 @@ private function handleCardPaymentForm($orderDetails1, $formType)
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
     print_r($orderDetails);
-    // $book_details=$this->customerModel->findBookById($orderDetails['book_id']);
-    $amount = $orderDetails[0]->total_price; // You may need to adjust this value
-    $merchant_id = MERCHANT_ID; // Your merchant ID
-    $order_id = $order_id; // Generate a unique order ID
-    $merchant_secret =MERCHANT_SECRET; // Your merchant secret
-    $currency = "LKR"; // Currency code
+   
+    $amount = $orderDetails[0]->total_price; 
+    $merchant_id = MERCHANT_ID;
+    $order_id = $order_id; 
+    $merchant_secret =MERCHANT_SECRET; 
+    $currency = "LKR"; 
 
-    // Calculate hash for payment
     $hash = strtoupper(
         md5(
             $merchant_id . 
@@ -204,23 +230,21 @@ private function handleCardPaymentForm($orderDetails1, $formType)
             strtoupper(md5($merchant_secret)) 
         ) 
     );
-    // print_r($hash);
-
-    // Prepare payment details for JSON response
+   
     $paymentDetails = [
-        "items" =>$orderDetails->book_name, // Adjust based on your products
-        "first_name" => $orderDetails->first_name, // Customer's first name
-        "last_name" => $orderDetails->last_name, // Customer's last name
-        "email" => $orderDetails->email, // Customer's email
-        "phone" => $orderDetails[0]->contact_no, // Customer's phone number
-        "address" => $orderDetails[0]->c_street_name, // Customer's address
-        "city" => $orderDetails[0]->c_town, // Customer's city
-        "amount" => $amount, // Total payment amount
-        "merchant_id" => $merchant_id, // Merchant ID
-        "order_id" => $order_id, // Order ID
-        "merchant_secret" => $merchant_secret, // Merchant secret
-        "currency" => $currency, // Currency code
-        "hash" => $hash, // Payment hash
+        "items" =>$orderDetails->book_name, 
+        "first_name" => $orderDetails->first_name,
+        "last_name" => $orderDetails->last_name, 
+        "email" => $orderDetails->email, 
+        "phone" => $orderDetails[0]->contact_no,
+        "address" => $orderDetails[0]->c_street_name,
+        "city" => $orderDetails[0]->c_town, 
+        "amount" => $amount, 
+        "merchant_id" => $merchant_id, 
+        "order_id" => $order_id, 
+        "merchant_secret" => $merchant_secret,
+        "currency" => $currency, 
+        "hash" => $hash,
     ];
 
     // Convert payment details to JSON
