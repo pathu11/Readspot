@@ -9,7 +9,7 @@
 }
 body {
   min-height: 100%;
-  background: #e3f2fd;
+  background: #f4f4f4;
 }
 nav {
   position: fixed;
@@ -116,10 +116,11 @@ nav.open ~ .overlay {
   padding-right: 10px;
 }
 
-.bx{
+/* .bx{
   font-size: 40px;
-  color: #707070;
-}
+  color: white;
+
+} */
 
 /*sub nav css*/
 .nav-container2 {
@@ -158,6 +159,88 @@ nav.open ~ .overlay {
   animation-duration: 3s;
   animation-iteration-count: infinite;*/
 }
+.sub-menu-wrap{
+  position: absolute;
+  top: 60%;
+  right: 0%;
+  width: 250px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu{
+  max-height: 370px;
+}
+
+.sub-menu{
+  background: rgb(64, 64, 64, 0.7);
+  padding: 20px;
+  margin: 20px;
+  /* backdrop-filter: blur(5px); */
+  border-radius: 20px;
+}
+
+.user-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info h3{
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.user-info img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* margin-right: 15px; */
+}
+
+
+.sub-menu hr{
+  border: 0;
+  height: 2px;
+  width: 100%;
+  background: #ccc;
+  margin: 15px 0 10px;
+}
+
+.sub-menu-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  margin: 10px 0;
+}
+
+.sub-menu-link p {
+  width: 100%;
+  font-size: large;
+}
+
+
+.sub-menu-link span {
+  font-size: 22px;
+  transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span {
+  transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+  font-weight: 600;
+}
+.bx {
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  padding-left: 5px;
+}
+
 
 @keyframes first{
   0%   {background-color:#70BFBA; left:0px; top:0px;}

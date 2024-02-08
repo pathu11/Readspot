@@ -65,7 +65,7 @@
                 </a>
 
 
-                    <a  href='<?php echo URLROOT; ?>/publisher/update/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a>
+                    <a  href='<?php echo URLROOT; ?>/NewBooks/update/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a>
                     
                     <a  href='#' onclick='confirmDelete(<?php echo $bookDetails->book_id; ?>)'  ><i class='fa fa-trash'></i></a>
 
@@ -125,7 +125,7 @@
             <li id="nextButton">»</li>
         </ul>
         <div class="button-container">
-            <a href="<?php echo URLROOT; ?>/publisher/addbooks"><button>Add a Books</button></a>
+            <a href="<?php echo URLROOT; ?>/NewBooks/addbooks"><button>Add a Books</button></a>
 
             
         </div>
@@ -151,7 +151,7 @@
         }
 
         function proceedDelete(storeId) {
-          window.location.href = '<?php echo URLROOT; ?>/publisher/deletebooks/' + storeId;
+          window.location.href = '<?php echo URLROOT; ?>/NewBooks/deletebooks/' + storeId;
         }
 
         

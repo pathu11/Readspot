@@ -14,7 +14,7 @@
              <!-- <h2>Enter the Details of the Book</h2> -->
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form action="<?php echo URLROOT; ?>/publisher/addbooks" enctype="multipart/form-data" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/NewBooks/addbooks" enctype="multipart/form-data" method="POST">                    
                     <br>
                     <br>           
                     <input type="text" name="book_name" class="<?php echo (!empty($data['book_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['book_name']; ?>" placeholder="Book Name" required><br>
@@ -48,7 +48,7 @@
                             <span class="error"><?php echo $data['weight_err']; ?></span>
                             <br>
         
-                            <a href="<?php echo URLROOT; ?>/publisher/weightcalc" class="calc-button">Weight Calculator</a>
+                            <a href="<?php echo URLROOT; ?>/NewBooks/weightcalc" class="calc-button">Weight Calculator</a>
                            
                         </div>
 </div>                                          
