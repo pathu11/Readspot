@@ -1,11 +1,25 @@
 <div class="user"> 
-    <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" onclick="toggleMenu()"> <!--path changed-->
+    <?php
+        if ($data['customerImage']) {
+            echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$data['customerImage'].'" onclick="toggleMenu()">';
+        } else {
+            echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" onclick="toggleMenu()">';
+        }
+    ?>
+    <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png" onclick="toggleMenu()"> path changed -->
 </div>
 
 <div class="sub-menu-wrap" id="subMenu">
     <div class="sub-menu">
         <div class="user-info">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png"> <!--path changed-->
+            <?php
+                if ($data['customerImage']) {
+                    echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$data['customerImage'].'" onclick="toggleMenu()">';
+                } else {
+                    echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" onclick="toggleMenu()">';
+                }
+            ?>
+            <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png"> path changed -->
             <h3><?php echo $data['customerName']; ?></h3> <!--NAME COMMENT-->
         </div>
         <hr>

@@ -9,7 +9,11 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }*/
 
+
+
+
 .filter-book-N a{
+
     text-decoration: none;
     color: black;
     padding: 15px;
@@ -19,53 +23,53 @@
     background-color: #70BFBA;
 }*/
 
-.filter-img{
+.filter-img-div{
     padding: 15px;
     width: 100px;
     height: 100px;
 }
 
-.filter-book-N{
+.filterBook-Nf{
     display: flex;
     flex-direction: row;
 }
 
-.filter-book-N:hover{
+.filterBook-Nf:hover{
     background-color: #70BFBA;
 }
 
-.filter-book-N p{
+.filterBook-Nf p{
     padding: 15px;
 }
 
-.filter-book-N p label{
+.filterBook-Nf p label{
     color: rgb(127, 127, 127);
 }
 
-.show-filter {
+/* .show-filter {
     display: block;
-}
+} */
 
 
 
 @media screen and (max-width:800px) {
-    .filter-category {
+    /* .filter-category {
         top: 250px;
-    }
+    } */
 }
 
 @media screen and (max-width:600px) {
-    .filter-category {
+    /* .filter-category {
         top: 240px;
         height: 650px;
         width: 320px;
-    }
+    } */
 }
 
 @media screen and (max-width:400px) {
-    .filter-category {
+    /* .filter-category {
         top: 220px;
         height: 850px;
         width: 200px;
-    }
+    } */
 }
