@@ -16,7 +16,7 @@
                 
                 <div class="topic-book">
                     <label class="label-topic">Book Name</label><br>
-                    <input type="text" name="bookName"class="form-topic" required>
+                    <input type="text" name="bookName" class="form-topic" required>
                 </div>
                 
                 <div class="topic-book author">

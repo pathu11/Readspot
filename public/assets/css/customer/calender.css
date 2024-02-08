@@ -1,0 +1,52 @@
+:root {
+    --primary-color:  #81cec9; 
+}
+
+.my-calender {
+    padding: 20px;
+    background-color:  #E3F2FD;
+    right: 0px;
+    min-height: 500px;
+}
+
+.calender-container {
+    position: relative;
+    width: 1000px;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 5px;
+    color: #fff;
+    display: flex;
+    border-radius: 10px;
+    background-color: #70BFBA;
+}
+
+.cal-left {
+    width: 60%;
+    padding: 20px;
+}
+
+.calender-div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #878895;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.calender-div::before, .calender-div::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left:100%;
+    width:12px;
+    height: 97%;
+    border-radius: 0 5px 5px 0;
+    background-color: #d3d5d6d7;
+    transform: translateY(-50%);
+}
