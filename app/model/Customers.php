@@ -315,7 +315,7 @@
   }
 
   public function addOrder($data){
-    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :quantity, :status)');
+    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery, :quantity, :status)');
     
     $this->db->bind(':book_id',$data['book_id']);
     $this->db->bind(':customer_id',$data['customer_id']);
@@ -328,7 +328,9 @@
     $this->db->bind(':contact_no', $data['contact_no']);
     $this->db->bind(':total_price', $data['total_cost']);
     $this->db->bind(':total_weight', $data['total_weight']);
+    $this->db->bind(':total_delivery',$data['totalDelivery']);
     $this->db->bind(':quantity',$data['quantity']);
+    // $this->db->bind(':total_delivery',$data['total_delivery']);
     $this->db->bind(':status',"pending");
    
    
