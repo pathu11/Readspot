@@ -27,12 +27,7 @@
       }
   }
 
-  // public function findCartById($customer_id){
-  //   $this->db->query('SELECT * from cart WHERE customer_id=:customer_id');
-  //   $this->db->bind(':customer_id',$customer_id);
-   
-  //   return $this->db->resultSet();
-  // }
+ 
   public function findCartById($customer_id) {
     $this->db->query('SELECT c.*, b.book_name, b.price FROM cart c
                       JOIN books b ON c.book_id = b.book_id
@@ -62,6 +57,14 @@
       return $this->db->resultSet();
     }
 
+    public function findUsedBookByNotCusId($customer_id) {
+      $this->db->query('SELECT * FROM books WHERE customer_id != :customer_id AND type="used" AND status="approval"');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+  }
+  
+
     public function findExchangedBookByCusId($customer_id){
       $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="exchanged" AND status="approval"');
       $this->db->bind(':customer_id',$customer_id);
@@ -70,6 +73,13 @@
       return $this->db->resultSet();
     }
 
+    public function findExchangedBookByNotCusId($customer_id){
+      $this->db->query('SELECT * from books WHERE customer_id!=:customer_id AND type="exchanged" AND status="approval"');
+      $this->db->bind(':customer_id',$customer_id);
+     
+
+      return $this->db->resultSet();
+    }
     // public function getUsedBookById($book_id){
     //   $this->db->query('SELECT * from books WHERE book_id=:book_id ');
     //   $this->db->bind(':book_id',$book_id);
@@ -78,12 +88,14 @@
     //   // return $row;
     // }
 
-    public function findUsedBookById($book_id) {
-      $this->db->query('SELECT * from books WHERE book_id=:book_id');
-      $this->db->bind(':book_id',$book_id);
-      $row = $this->db->single();
-      return $row;
-    }
+    
+
+    // public function findExchangeBookById($book_id) {
+    //   $this->db->query('SELECT * from books WHERE book_id=:book_id');
+    //   $this->db->bind(':book_id',$book_id);
+    //   $row = $this->db->single();
+    //   return $row;
+    // }
 
 
 
@@ -102,7 +114,35 @@
     return $this->db->resultSet();
   }
 
-
+  public function AddExchangeBook($data){
+    $this->db->query('INSERT INTO books (book_name, ISBN_no, author, category, weight, descript, booksIWant, img1, img2, img3, `condition`, published_year, type, town, district, postal_code, customer_id, status) 
+                                VALUES(:book_name, :ISBN_no, :author, :category, :weight, :descript, :booksIWant, :img1, :img2, :img3, :condition, :published_year, :type, :town, :district, :postal_code, :customer_id, :status)');
+    
+    $this->db->bind(':book_name',$data['book_name']);
+    $this->db->bind(':ISBN_no',$data['ISBN_no']);
+    $this->db->bind(':author',$data['author']);
+    $this->db->bind(':category',$data['category']);
+    $this->db->bind(':weight',$data['weight']);
+    $this->db->bind(':descript',$data['descript']);
+    $this->db->bind(':booksIWant',$data['booksIWant']);
+    $this->db->bind(':img1',$data['img1']);
+    $this->db->bind(':img2',$data['img2']);
+    $this->db->bind(':img3',$data['img3']);
+    $this->db->bind(':condition',$data['condition']);
+    $this->db->bind(':published_year',$data['published_year']);
+    $this->db->bind(':type',$data['type']);
+    $this->db->bind(':town',$data['town']);
+    $this->db->bind(':district',$data['district']);
+    $this->db->bind(':postal_code',$data['postal_code']);
+    $this->db->bind(':customer_id', $data['customer_id']);
+    $this->db->bind(':status', $data['status']);
+    // execute
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }
+  }
 
 
 
@@ -207,6 +247,57 @@
     }
   }
 
+  public function updateexchangebook($data){
+    $this->db->query('UPDATE books 
+              SET book_name = :book_name, 
+              ISBN_no = :ISBN_no, 
+              author = :author, 
+              category = :category,
+              weight = :weight,
+              descript = :descript,
+              booksIWant = :booksIWant,
+              img1 = :img1,
+              img2 = :img2,
+              img3 = :img3,
+              `condition` = :condition, 
+              published_year = :published_year,  
+              type = :type,
+              town = :town, 
+              district = :district,  
+              postal_code = :postal_code, 
+              customer_id = :customer_id,
+              status = :status
+              WHERE book_id = :book_id');
+
+    // Bind values
+    $this->db->bind(':book_id',$data['book_id']);
+    $this->db->bind(':book_name',$data['book_name']);
+    $this->db->bind(':ISBN_no',$data['ISBN_no']);
+    $this->db->bind(':author',$data['author']);
+    $this->db->bind(':category',$data['category']);
+    $this->db->bind(':weight',$data['weight']);
+    $this->db->bind(':descript',$data['descript']);
+    $this->db->bind(':booksIWant',$data['booksIWant']);
+    $this->db->bind(':img1',$data['img1']);
+    $this->db->bind(':img2',$data['img2']);
+    $this->db->bind(':img3',$data['img3']);
+    $this->db->bind(':condition',$data['condition']);
+    $this->db->bind(':published_year',$data['published_year']);
+    $this->db->bind(':type',$data['type']);
+    $this->db->bind(':town',$data['town']);
+    $this->db->bind(':district',$data['district']);
+    $this->db->bind(':postal_code',$data['postal_code']);
+    $this->db->bind(':customer_id', $data['customer_id']);
+    $this->db->bind(':status', $data['status']);
+
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+
   public function deleteusedbook($book_id) {
     $this->db->query('DELETE FROM books WHERE book_id = :book_id');
     // Bind values
@@ -224,7 +315,7 @@
   }
 
   public function addOrder($data){
-    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :quantity, :status)');
+    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery, :quantity, :status)');
     
     $this->db->bind(':book_id',$data['book_id']);
     $this->db->bind(':customer_id',$data['customer_id']);
@@ -237,7 +328,9 @@
     $this->db->bind(':contact_no', $data['contact_no']);
     $this->db->bind(':total_price', $data['total_cost']);
     $this->db->bind(':total_weight', $data['total_weight']);
+    $this->db->bind(':total_delivery',$data['totalDelivery']);
     $this->db->bind(':quantity',$data['quantity']);
+    // $this->db->bind(':total_delivery',$data['total_delivery']);
     $this->db->bind(':status',"pending");
    
    
@@ -255,6 +348,115 @@
     $row = $this->db->single();
     return $row->order_id;
 }
+public function editOrder($data)
+{
+    $this->db->query('UPDATE orders
+              SET recipt = :recipt,
+              payment_type = :payment_type ,
+              tracking_no = :tracking_no
+              WHERE order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $data['order_id']);
+    $this->db->bind(':recipt', $data['recipt']);
+    $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+    $this->db->bind(':tracking_no', $data['trackingNumber']);
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+public function editOrderCOD($data)
+{
+    $this->db->query('UPDATE orders
+              SET 
+              payment_type = :payment_type ,
+              tracking_no = :tracking_no,
+              status= :status
+              WHERE order_id = :order_id');
+    // Bind values
+    $this->db->bind(':order_id', $data['order_id']);
+    $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+    $this->db->bind(':tracking_no', $data['trackingNumber']);
+    $this->db->bind(':status', "processing");
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+// public function displayOrder(){
+//   $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
+//     return $this->db->resultSet();
+// }
+
+public function findNewBooksByTime(){
+  $this->db->query('SELECT * FROM books WHERE status="approval" AND type="new" ORDER BY created_at DESC');
+  return $this->db->resultSet();
+}
+public function findUsedBooksByTime($customer_id){
+  $this->db->query('SELECT books.*, customers.user_id AS customer_user_id FROM books INNER JOIN customers ON books.customer_id = customers.customer_id WHERE  books.customer_id != :customer_id AND books.status = "approval" AND books.type = "used" ORDER BY books.created_at DESC');
+  $this->db->bind(':customer_id',$customer_id);
+  return $this->db->resultSet();
+}
+
+
+public function findUsedBookById($book_id) {
+  // $this->db->query('SELECT * from books WHERE book_id=:book_id');
+
+  $this->db->query('SELECT books.*, customers.user_id AS customer_user_id FROM books INNER JOIN customers ON books.customer_id = customers.customer_id WHERE books.book_id=:book_id ');
+  $this->db->bind(':book_id',$book_id);
+  $row = $this->db->single();
+  return $row;
+}
+
+
+
+public function searchNewBooks($inputText){
+  $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+  FROM books 
+  WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+  AND type = 'new' ");
+  
+  $results = $this->db->resultSet();
+  return $results;
+}
+
+public function searchUsedBooks($inputText){
+  $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+  FROM books 
+  WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+  AND type = 'used' ");
+  
+  $results = $this->db->resultSet();
+  return $results;
+}
+
+public function editOrderCardPayment($data){
+  $this->db->query('UPDATE orders
+    SET 
+    payment_type = :payment_type ,
+    tracking_no = :tracking_no,
+    status= :status
+    WHERE order_id = :order_id');
+  // Bind values
+  $this->db->bind(':order_id', $data['order_id']);
+  $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+  $this->db->bind(':tracking_no', $data['trackingNumber']);
+  $this->db->bind(':status', "processing");
+  // Execute
+  if ($this->db->execute()) {
+  return true;
+  } else {
+  return false;
+  }
+
+}
+
+
 
 
   }

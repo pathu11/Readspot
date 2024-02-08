@@ -4,7 +4,13 @@
 ?>
 
     <div class="main-detail">
+
+        <div class="back-btn-div">
+            <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
+
     <?php foreach($data['bookDetails'] as $books): ?>
+
         <div class="book-img-des">
             <div class="book-img">
                 <div class="sub1">
@@ -12,7 +18,7 @@
                     if ($books->type == "new") {
                         echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
                     } elseif ($books->type == "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                        echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' . $books->img1 . '" alt="Bell Image" width="180px">';
                     } else {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
@@ -21,9 +27,9 @@
                 <div class="sub2">
                 <?php 
                     if ($books->type == "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img2 . '" alt="Bell Image" width="180px">';
                     } elseif ($books->type == "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                        echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' . $books->img2 . '" alt="Bell Image" width="180px">';
                     } else {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
@@ -84,62 +90,66 @@
                     <p>4.1 average based on 254 reviews.</p>
                     <hr style="border:3px solid #f1f1f1">
 
-                    <div class="row">
-                    <div class="side">
-                        <div>5 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                        <div class="bar-5"></div>
+                    <div class="row-rating">
+                        <div class="side">
+                            <div>5 star</div>
                         </div>
-                    </div>
-                    <div class="side right">
-                        <div>150</div>
-                    </div>
-                    <div class="side">
-                        <div>4 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                        <div class="bar-4"></div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-5"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="side right">
-                        <div>63</div>
-                    </div>
-                    <div class="side">
-                        <div>3 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                        <div class="bar-3"></div>
+                        <div class="side right">
+                            <div>150</div>
                         </div>
-                    </div>
-                    <div class="side right">
-                        <div>15</div>
-                    </div>
-                    <div class="side">
-                        <div>2 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                        <div class="bar-2"></div>
+                        
+                        <div class="side">
+                            <div>4 star</div>
                         </div>
-                    </div>
-                    <div class="side right">
-                        <div>6</div>
-                    </div>
-                    <div class="side">
-                        <div>1 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                        <div class="bar-1"></div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-4"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="side right">
-                        <div>20</div>
-                    </div>
+                        <div class="side right">
+                            <div>63</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>3 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-3"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>15</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>2 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-2"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>6</div>
+                        </div>
+                        
+                        <div class="side">
+                            <div>1 star</div>
+                        </div>
+                        <div class="middle">
+                            <div class="bar-container">
+                                <div class="bar-1"></div>
+                            </div>
+                        </div>
+                        <div class="side right">
+                            <div>20</div>
+                        </div>
                     </div>
                 </div>
                 <div class="give-rate">
@@ -210,11 +220,12 @@
                     <h5>13 people found this helpful</h5>
                 </div>
             </div>
+        </div>
 
         <div class="sub8">
             <a href="#"><button class="chat-btn">Chat</button></a>
           
-            <a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
+            <a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
             <?php endforeach; ?>
         </div>
     </div>

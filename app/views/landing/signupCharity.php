@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signuppub.css">
     <title>Sign Up For Charity Organization</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 </head>
-
 <body>
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupCharity" method="post">
@@ -19,12 +18,10 @@
 
                 <span class="invalid-feedback"><?php echo $data['org_name_err']; ?></span>
                 <input type="text" name="org_name" placeholder="Organization Name" class="<?php echo (!empty($data['org_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['org_name']; ?>" required>
-
-                
+               
 
                 <span class="invalid-feedback"><?php echo $data['reg_no_err']; ?></span>
                 <input type="text" name="reg_no" placeholder="Registration Number of the company" class="<?php echo (!empty($data['reg_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reg_no']; ?>" required>
-
 
                 <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
                 <input type="email" name="email" placeholder="Email" class="<?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>" required>
@@ -32,13 +29,17 @@
                 <span class="invalid-feedback"><?php echo $data['contact_no_err']; ?></span>
                 <input type="text" name="contact_no" placeholder="Contact Number" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
 
+                <div class="password-wrapper">
                 <span class="invalid-feedback"><?php echo $data['pass_err']; ?></span>
                 <input type="password" name="pass" placeholder="Password" class="<?php echo (!empty($data['pass_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['pass']; ?>" required>
+                <i class="fa fa-eye-slash" id="togglePassword"></i></div> 
 
+                <div class="password-wrapper">
                 <span class="invalid-feedback"><?php echo $data['confirm_pass_err']; ?></span>
                 <input type="password" name="confirm_pass" placeholder="Confirm Password" class="<?php echo (!empty($data['confirm_pass_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['confirm_pass']; ?>" required>
-                
-                <button onclick="goBack()" class="submit">  Cancel </button> 
+                <i class="fa fa-eye-slash" id="togglePassword2"></i>
+                </div> 
+                <!-- <button onclick="goBack()" class="btn">  Cancel </button>  -->
                 <button type="submit" class="btn" name="submit">Submit</button>
             </div>
         </form>
@@ -57,6 +58,25 @@
             // Use the browser's built-in history object to go back
             window.history.back();
         }
+        document.getElementById('togglePassword').addEventListener('click', function() {
+        var passwordInput = document.querySelector('input[name="pass"]');
+        var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
+        this.classList.toggle('fa-eye');   // Toggle the eye icon itself
+        });
+
+        document.getElementById('togglePassword2').addEventListener('click', function() {
+        var confirmPasswordInput = document.querySelector('input[name="confirm_pass"]');
+        var type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPasswordInput.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
+        this.classList.toggle('fa-eye');   // Toggle the eye icon itself
+    });
+ 
+
         
     </script>
 </html>

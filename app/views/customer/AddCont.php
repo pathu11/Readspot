@@ -7,6 +7,9 @@
     ?>
     <div class="container">
         <div class="add-content">
+            <div class="back-btn-div">
+                <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <form action="#" class="cont-add">
                 <h1>Add a Content</h1>
                 <div class="topic-cont">

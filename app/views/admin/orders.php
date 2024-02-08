@@ -13,7 +13,7 @@
 <body>
   <?php require APPROOT . '/views/admin/nav.php';?>
   
-  <div class="table-container" style="padding-top: 80px;">
+  <div class="table-container" style="margin-top: 100px;" >
 
     <table>
       <tr>

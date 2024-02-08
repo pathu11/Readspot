@@ -27,5 +27,11 @@
 @import url('./GetExchangeBooks.css');
 @import url('./Home.css');
 @import url('./favorite.css');
-@import url('./checkoutform.css');
+/* @import url('./checkoutform.css'); */
+@import url('./viewcontent.css');
+@import url('./filterbook.css');
+@import url('./BookChallenge.css');
+@import url('./order.css');
+@import url('./oderdetails.css');
+@import url('./tables.css');
 /* @import url('./BookDetail.css'); */

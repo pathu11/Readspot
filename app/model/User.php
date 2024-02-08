@@ -18,7 +18,8 @@ class User{
             $this->db->beginTransaction(); // Begin the transaction
 
             // Insert data into the 'users' table
-            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+            $this->db->query('INSERT INTO users (name,email, pass, user_role) VALUES (:name,:email, :pass, :user_role)');
+            $this->db->bind(':name', $data['name']);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'customer');
@@ -75,7 +76,8 @@ class User{
             $this->db->beginTransaction(); // Begin the transaction
 
             // Insert data into the 'users' table
-            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+            $this->db->query('INSERT INTO users (name,email, pass, user_role) VALUES (:name,:email, :pass, :user_role)');
+            $this->db->bind(':name', $data['name']);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'publisher');
@@ -117,7 +119,8 @@ class User{
             $this->db->beginTransaction(); // Begin the transaction
 
             // Insert data into the 'users' table
-            $this->db->query('INSERT INTO users (email, pass, user_role) VALUES (:email, :pass, :user_role)');
+            $this->db->query('INSERT INTO users (name,email, pass, user_role) VALUES (:name,:email, :pass, :user_role)');
+            $this->db->bind(':name', $data['name']);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'charity');

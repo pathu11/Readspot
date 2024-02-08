@@ -13,10 +13,26 @@
     public function findAdminById($user_id){
         $this->db->query('SELECT * from admin WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
-       
-
         return $this->db->resultSet();
     }
+    
+    public function getCustomerDetailsById($customer_id){
+      $this->db->query('SELECT * from customers WHERE customer_id=:customer_id');
+      $this->db->bind(':customer_id',$customer_id);
+      return $this->db->resultSet();
+  }
+  public function getPublisherDetailsById($publisher_id){
+    $this->db->query('SELECT * from publishers WHERE publisher_id=:publisher_id');
+    $this->db->bind(':publisher_id',$publisher_id);
+    return $this->db->resultSet();
+}
+    public function getOrderDetailsById($order_id){
+      $this->db->query('SELECT * from orders WHERE order_id=:order_id');
+      $this->db->bind(':order_id',$order_id);
+     
+
+      return $this->db->resultSet();
+  }
     public function getBookCategories(){
       $this->db->query('SELECT * FROM book_category');
 
@@ -309,6 +325,16 @@ public function getOrderDetails(){
   return $results;
 }
 
+public function getPendingOrderDetails() {
+  $this->db->query("SELECT orders.*, customers.name AS customer_name 
+                    FROM orders 
+                    INNER JOIN customers ON orders.customer_id = customers.customer_id 
+                    WHERE orders.payment_type='OnlineDeposit' AND orders.status='pending'");
+
+  return $this->db->resultSet();
+}
+
+
 public function generateRegistrationReport($data){
   $this->db->query('SELECT
   DATE(created_at) AS registration_date,
@@ -324,6 +350,80 @@ public function generateRegistrationReport($data){
   $results=$this->db->resultSet();
 
   return $results;
+}
+public function approveOrder($order_id) {
+  $this->db->query("UPDATE orders SET status = 'processing' WHERE order_id = :order_id");
+  $this->db->bind(':order_id', $order_id);
+  if ($this->db->execute()) {
+    return true;
+} else {
+    return false;
+}
+}
+
+public function addMessage($data) {
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $data['sender_id']);
+  $this->db->bind(':user_id', $data['user_id']);
+  $this->db->bind(':topic', $data['topic']);
+  $this->db->bind(':message', $data['message']);
+  $this->db->bind(':sender_name', $data['sender_name']);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+}
+
+public function getBookDetailsById($book_id){
+  $this->db->query("SELECT * FROM books WHERE book_id=:book_id");
+  $this->db->bind(':book_id', $book_id); // Use the parameter $book_id here
+  $results = $this->db->resultSet();
+  return $results;
+}
+public function addMessageToPublisher($data) {
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $data['sender_id']);
+  $this->db->bind(':user_id', $data['user_idPub']);
+  $this->db->bind(':topic', $data['topic']);
+  $this->db->bind(':message', $data['messageToPublisher']);
+  $this->db->bind(':sender_name', $data['sender_name']);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+}
+public function countTotalBooks(){
+  $this->db->query('SELECT COUNT(*) AS totalBooks FROM books');
+  
+  $result = $this->db->single();
+  if ($result) {
+      return $result->totalBooks;
+  } else {
+      return 0; 
+    }
+}
+
+public function getTopBooks(){
+  $this->db->query("SELECT b.book_name, b.author, COUNT(o.book_id) AS order_count
+  FROM books b
+  JOIN orders o ON b.book_id = o.book_id
+  GROUP BY b.book_name
+  ORDER BY order_count DESC
+  LIMIT 3;
+  ");
+
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getAvailableBooks(){
+  $this->db->query('SELECT * FROM books WHERE quantity>0');
+
+  $results=$this->db->resultSet();
+  return $results;
+
 }
 
   

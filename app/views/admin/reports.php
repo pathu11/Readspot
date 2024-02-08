@@ -20,19 +20,19 @@
     <form action="<?php echo URLROOT;?>/admin/reports" method="post">
       <div class="title-bar">
       <h3>Title</h3>
-        <input type="text" placeholder="Add a report title" id="title">
+        <input type="text" placeholder="Add a report title" id="title" name="title">
       </div>
       <div class="input-bar">
         <div class="select">
-          <select name="report-type">
+          <select name="report-type" id="report-type" onchange="handleReportSelection()">
             <option value="" disabled selected>Select Report Type</option>
-            <option value="registration" id="registration" name="registration">Registration report</option>
-            <option value="">User report summary</option>
+            <option value="registration" id="registration" name="registration"">Registration report</option>
+            <option value="book-inventory" id="book-inventory" name="book-inventory">Book Inventory Report</option>
             <option value="">Login Activity</option>
           </select>
         </div>
 
-        <div class="date">
+        <div id="date">
           <div class="date-picker">
             <label>Start Date</label>
             <input type="date" placeholder="Start Date" name="start-date" id="start-date">
@@ -41,6 +41,13 @@
             <label>End Date</label>
             <input type="date" placeholder="End Date" name="end-date" id="end-date">
           </div>
+        </div>
+
+        <div id="book_inventory">
+          <div class="checkBox"><input type="checkbox" name="total_books"><label>Total number of books</label></div>
+          <div class="checkBox"><input type="checkbox" name="book_category"><label>Book Categories</label></div>
+          <div class="checkBox"><input type="checkbox" name="top_books"><label>Top Books</label></div>
+          <div class="checkBox"><input type="checkbox" name="book_available"><label>Book Availability</label></div>
         </div>
 
         <div class="button">
@@ -52,8 +59,9 @@
 
   <?php 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-      echo '<div class="table-container" id="pdf">
-          <h2>'.$data['title'].'</h2>
+      if($_POST['report-type']=='registration'){
+        echo '<div class="table-container" id="pdf">
+          <h2><u>'.$data['title'].'</u></h2>
           <div class="table" id="pdf"> 
             <table>
             <thead>
@@ -73,9 +81,124 @@
           '</table>'.
     '</div>'.
     '</div>';
-    echo '<button id=download>Download PDF</button>';
+      }
+
+      elseif($_POST['report-type']=='book-inventory'){
+        echo '<div id="pdf">
+        <h2><u>'.$data['title'].'</u></h2>';
+        if($data['totalBooks']!=''){
+          echo '<div class="total-books"><p>Total Books: '.$data['totalBooks'].'</p></div>';
+        }
+        
+        if($data['bookCategories']!=''){
+          echo '<div class="table-container">
+          <div class="table"> 
+            <h3>Book Categories</h3>
+            <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['bookCategories'] as $bookCategory):
+              echo '<tr>'.
+                '<td>'.$bookCategory->category . '</td>'.
+                '<td>'.$bookCategory->description . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
+    '</div>'.
+    '</div>';
+        }
+
+        if($data['topBooks']!=''){
+          echo '<div class="table-container">
+          <div class="table"> 
+            <h3>Most Ordered Books</h3>
+            <table>
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Number of orders</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['topBooks'] as $topBook):
+              echo '<tr>'.
+                '<td>'.$topBook->book_name . '</td>'.
+                '<td>'.$topBook->author . '</td>'.
+                '<td>'.$topBook->order_count . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
+    '</div>'.
+    '</div>';
+        }
+
+        if($data['availableBooks']!=''){
+          echo '<div class="table-container">
+          <div class="table"> 
+            <h3>Available Books</h3>
+            <table>
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Quantity</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>';
+              foreach ($data['availableBooks'] as $availableBook):
+              echo '<tr>'.
+                '<td>'.$availableBook->book_name . '</td>'.
+                '<td>'.$availableBook->quantity . '</td>'.
+                '<td>'.$availableBook->type . '</td>'.
+              '</tr>';
+              endforeach;
+            echo '</tbody>'.
+          '</table>'.
+    '</div>'.
+    '</div>';
+        }
+      echo '</div>';
+      }
+    
+      echo '<button id=download>Download PDF</button>';
+    }
+
+    else{
+      /*echo '<div class="report-img">
+        <img src="'.URLROOT.'/assets/images/admin/report.jpg">
+      </div>';*/
+      echo '<div class="loader">
+      <span class="loader__element"></span>
+      <span class="loader__element"></span>
+      <span class="loader__element"></span>
+    </div>';
     }
   ?>
+
+<script>
+    function handleReportSelection() {
+      var selectedValue = document.getElementById("report-type").value;
+      var dateSection = document.getElementById("date");
+      var inventorySection = document.getElementById("book_inventory");
+
+      if (selectedValue === "registration") {
+        dateSection.style.display = "flex";
+        inventorySection.style.display = "none";
+      }
+      if(selectedValue==="book-inventory"){
+        inventorySection.style.display = "flex";
+        dateSection.style.display = "none";
+      }
+    }
+</script>
 
 </body>
 </html>

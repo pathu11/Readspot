@@ -4,11 +4,15 @@
 ?>
 
     <div class="main-cont">
+        <div class="back-btn-div01">
+            <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
         <div class="sub-cont-N1">
             <div class="New-books">
                 <h1>NEW BOOKS</h2>
             </div>
             <div class="search-bar-N">
+                <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
                 <form action="#.php" class="searching-N">
                     <select id="searchBy"  name="category" required>
                         <option value="technology">Title</option>
@@ -86,8 +90,9 @@
                 </div>
             </div>
         </div>
-        
-        
+        <?php
+            require APPROOT . '/views/customer/filterbook.php'; //path changed
+        ?>
     </div>
 
 <?php

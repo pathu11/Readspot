@@ -1,0 +1,97 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.pagination li {
+    font-size: 14px;
+    margin: 0 4px;
+    border-radius: 50%;
+    background-color: #919191;
+    color: white;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination li:hover {
+    background-color: #00645f;
+}
+
+.pagination .current {
+    background-color: #00645f;
+}
+
+.pagination .disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.action-buttons button {
+    /* padding: 5px 10px; */
+    cursor: pointer;
+}
+
+.delete-button,
+.view-button {
+    position: relative;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+    background-color:  #919191;
+}
+
+.view-button:hover {
+    opacity: 0.8;
+    background-color: #009D94;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
+    background-color: red;
+}
+@media  screen and (max-width:900px) {
+    .mycontent {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .delete-button,
+    .view-button {
+        width: 20px;
+        height: 20px;
+    }
+
+    .action-buttons i {
+        font-size: 12px;
+    }
+
+    .pagination li {
+        font-size: 12px;
+        margin: 0 3px;
+        padding: 5px 8px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .delete-button,
+    .view-button {
+        width: 20px;
+        height: 20px;
+    }
+
+    .action-buttons i {
+        font-size: 10px;
+    }
+}

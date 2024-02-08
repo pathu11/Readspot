@@ -112,6 +112,7 @@ body{
 }
 
 .service-div-M p {
+    /* position: absolute; */
     padding-top: 20px;
     text-align: justify;
     font-size: 12px;
