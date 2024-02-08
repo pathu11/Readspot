@@ -764,17 +764,21 @@ private function sendEmail($recipientEmail, $subject, $body) {
     }
 }
 
+public function pendingRequestsBooks(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+        $user_id = $_SESSION['user_id'];
+         
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+        ];
+        $this->view('admin/pendingRequestsBooks',$data);
+    }
 
-
-/*public function generatePDF(){
-    require APPROOT.'/fpdf/fpdf.php';
-
-    $pdf = new FPDF();
-    $pdf->AddPage();
-    $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(100,20,'Hello world',1,0,'C');
-    $pdf->Output();
-}*/
+}
 
 }
 

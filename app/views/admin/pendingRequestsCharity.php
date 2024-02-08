@@ -1,10 +1,3 @@
-
-
-<?php
-    $title = "Admin";
-    
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
