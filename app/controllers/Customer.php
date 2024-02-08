@@ -1718,12 +1718,22 @@ class Customer extends Controller {
     }
 
     public function filterbook(){
-        if(isset($_POST['query'])){
+        if(isset($_POST['query']) && isset($_POST['bookType'])){
             $inputText = $_POST['query'];
-            $searchResults = $this->customerModel->searchNewBooks($inputText);
+            $bookType = $_POST['bookType'];
+            $searchResults ='';
+            
+            if($bookType=='N'){
+                $searchResults = $this->customerModel->searchNewBooks($inputText);
+            }
+            else if($bookType=='U'){
+                $searchResults = $this->customerModel->searchUsedBooks($inputText);
+            }
+            
             $data = [
                 'searchResults' => $searchResults,
                 'inputText' => $inputText,
+                'bookType'=>$bookType,
             ];
             $this->view('customer/filterbook', $data);
         }

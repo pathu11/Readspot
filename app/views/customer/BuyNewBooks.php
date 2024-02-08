@@ -124,11 +124,12 @@
     $(document).ready(function(){
         $("#search-N").keyup(function(){
             var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'N';
             if(searchText!=''){
                 $.ajax({
                     url:'<?php echo URLROOT;?>/customer/filterbook',
                     method : 'post',
-                    data : {query:searchText},
+                    data : {query:searchText, bookType:bookType},
                     success:function(response){
                         $("#show-list").html(response);
                     }
