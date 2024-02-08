@@ -170,10 +170,11 @@ nav.open ~ .overlay {
 .nav-container1 a{
   text-decoration: none;
   color: black;
+  font-size: large;
 }
 
-.active1{
-  color: #009D94;
+.nav-container1 .active1 {
+  color: #009D94 !important;
 }
 
 /*sub menu*/
