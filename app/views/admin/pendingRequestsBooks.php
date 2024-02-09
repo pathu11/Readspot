@@ -48,20 +48,30 @@
         <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img2;?>" onclick="viewEvent(this.src)" width=30%></td>
         <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img3;?>" onclick="viewEvent(this.src)" width=30%></td>
         
-        <td><a href='<?php echo URLROOT; ?>/admin/approveBook/<?php echo $book->customer_id; ?>'><button>Approve</button></a>
-        <div class="popup"">
-                    <button onclick="myFunction()">Reject</button>
-                    <div class="popuptext" id="myPopup">
-                    <p>Are you sure you want to  reject and delete this Customer?</p><br>
-                    <a  class="button" href='#' ><button>Yes</button></a>
-                    <a class="button" href='#'><button>No</button></a>
-                    </div>
-                    </div></td>
+        <td><button onclick="showAcceptPopup()">Accept</button>
+        <button onclick="showRejectPopup()">Reject</button></td>
+        
     </tr>
 <?php endforeach; ?>               
         </table>
         
     </div>
+
+        <div id="acceptPopup" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="hidePopup('acceptPopup')">&times;</span>
+                <p>The book was accepted.</p>
+            </div>
+        </div>
+
+        <div id="rejectPopup" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="hidePopup('rejectPopup')">&times;</span>
+                <p>Reason for rejection:</p>
+                <textarea id="rejectReason" rows="4" cols="50"></textarea>
+                <button onclick="sendRejectionEmail()">Send Rejection Email</button>
+            </div>
+        </div>
 
         <div id="myModal" class="modal">
             <div class="modal-content">

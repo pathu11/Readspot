@@ -210,3 +210,15 @@ function redirectToAddEvent() {
   window.location.href = 'addevent.html';
 }
 
+function showAcceptPopup() {
+  document.getElementById('acceptPopup').style.display = 'flex';
+}
+
+function hidePopup(popupId) {
+  document.getElementById(popupId).style.display = 'none';
+}
+
+function showRejectPopup() {
+  document.getElementById('rejectPopup').style.display = 'flex';
+}
+
