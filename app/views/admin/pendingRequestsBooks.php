@@ -49,7 +49,7 @@
         <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img3;?>" onclick="viewEvent(this.src)" width=30%></td>
         
         <td><button onclick="showAcceptPopup()">Accept</button>
-        <button onclick="showRejectPopup()">Reject</button></td>
+        <button onclick="showRejectPopup()" style="background-color: rgb(200, 84, 84);">Reject</button></td>
         
     </tr>
 <?php endforeach; ?>               
@@ -60,7 +60,8 @@
         <div id="acceptPopup" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="hidePopup('acceptPopup')">&times;</span>
-                <p>The book was accepted.</p>
+                <p>Send approval email to the seller.</p>
+                <a href="<?php echo URLROOT;?>/admin/approveBook"><button>Confirm</button></a>
             </div>
         </div>
 
