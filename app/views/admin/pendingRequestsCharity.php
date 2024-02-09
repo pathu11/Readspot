@@ -13,6 +13,12 @@
 <body>
  
 <?php require APPROOT . '/views/admin/nav.php';?>
+
+    <div class="nav-container1">
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub" class="active1">Pending Registration Requests > </a>
+        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsBooks">Pending Books</a> 
+    </div>
+    
     <div class="nav-container2">
         <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Publishers</a>
         <a href="<?php echo URLROOT; ?>/admin/pendingRequestsCharity" class="active">Charity Organizations</a>  

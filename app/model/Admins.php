@@ -426,5 +426,16 @@ public function getAvailableBooks(){
 
 }
 
+public function getPendingBookDetails(){
+  $this->db->query("SELECT b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+                    s.name, s.email
+                    FROM books b
+                    INNER JOIN customers s ON b.customer_id = s.customer_id
+                    WHERE b.type = 'used' AND b.status='pending'");
+
+  $results=$this->db->resultSet();
+  return $results;
+}
+
   
 }

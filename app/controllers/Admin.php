@@ -771,9 +771,11 @@ public function pendingRequestsBooks(){
         $user_id = $_SESSION['user_id'];
          
         $adminDetails = $this->adminModel->findAdminById($user_id);
+        $pendingBookDetails = $this->adminModel->getPendingBookDetails();
         $data = [
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
+            'pendingBookDetails'=>$pendingBookDetails,
         ];
         $this->view('admin/pendingRequestsBooks',$data);
     }
