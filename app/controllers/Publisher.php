@@ -15,6 +15,34 @@ class Publisher extends Controller{
         $this->db = new Database();
         
     }
+    public function test(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $publisher_id =$publisherDetails[0]->publisher_id;
+            $bookCount=$this->publisherModel->countBooks($publisher_id);
+            $orderCount=$this->orderModel->countOrders($publisher_id);
+            $orderProCount=$this->orderModel->countProOrders($publisher_id);
+            $orderDelCount=$this->orderModel->countDelOrders($publisher_id);
+            $orderShipCount=$this->orderModel->countShipOrders($publisher_id);
+            $orderReturnedCount=$this->orderModel->countReturnedOrders($publisher_id);
+            
+            $data = [
+                'publisherDetails' => $publisherDetails, 
+                'bookCount'    =>$bookCount,
+                'orderCount'    =>$orderCount,
+                'orderProCount'    =>$orderProCount,
+                'orderDelCount'    =>$orderDelCount,
+                'orderReturnedCount'    =>$orderReturnedCount,
+                'orderShipCount'    =>$orderShipCount,
+                'publisher_id'   =>$publisher_id ,
+                'publisherName'  =>$publisherDetails[0] ->name
+            ];
+            $this->view('publisher/test', $data);
+        } 
+    }
    
     
     public function index(){

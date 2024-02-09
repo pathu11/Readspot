@@ -410,7 +410,7 @@ require APPROOT . '\vendor\autoload.php';
         try {
             //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
             $mail->Username   = MAIL_USER; // SMTP username
             $mail->Password   = MAIL_PASS;   // SMTP password
