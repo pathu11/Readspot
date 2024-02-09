@@ -782,5 +782,50 @@ public function pendingRequestsBooks(){
 
 }
 
+public function approveBook($customer_id){
+        // Approval successful
+
+        // Retrieve the email from the database
+        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+        $customerEmail = $pendingBook[0]->email;
+
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($customerEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Accepted';
+            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.\n\n" .
+                            "We are pleased to inform you that your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been accepted by our admin for sale.\n\n".
+                            "Thank you for contributing to our platform.\n\n".
+                            "Sincerely,\n".
+                            "The Admin Team";
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            redirect('admin/pendingRequestsBooks');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+    
+}
+
+
+
 }
 

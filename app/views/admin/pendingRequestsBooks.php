@@ -51,17 +51,13 @@
         <td><button onclick="showAcceptPopup()">Accept</button>
         <button onclick="showRejectPopup()" style="background-color: rgb(200, 84, 84);">Reject</button></td>
         
-    </tr>
-<?php endforeach; ?>               
-        </table>
         
-    </div>
-
+    </tr>
         <div id="acceptPopup" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="hidePopup('acceptPopup')">&times;</span>
                 <p>Send approval email to the seller.</p>
-                <a href="<?php echo URLROOT;?>/admin/approveBook"><button>Confirm</button></a>
+                <a href="<?php echo URLROOT;?>/admin/approveBook/<?php echo $book->customer_id;?>"><button>Confirm</button></a>
             </div>
         </div>
 
@@ -73,6 +69,10 @@
                 <button onclick="sendRejectionEmail()">Send Rejection Email</button>
             </div>
         </div>
+<?php endforeach; ?>               
+        </table>
+        
+    </div>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
