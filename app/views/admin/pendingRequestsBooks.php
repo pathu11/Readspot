@@ -44,11 +44,11 @@
         <td><?php echo $book->condition; ?></td>
         <td><?php echo $book->name; ?></td>
         <td><?php echo $book->email; ?></td>
-        <td><img src="<?php echo URLROOT;?>/assests/images/customer/AddUsedBook/<?php echo $book->img1;?>"></td>
-        <td><img src="<?php echo URLROOT;?>/assests/images/customer/AddUsedBook/<?php echo $book->img2;?>"></td>
-        <td><img src="<?php echo URLROOT;?>/assests/images/customer/AddUsedBook/<?php echo $book->img3;?>"></td>
+        <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img1;?>" onclick="viewEvent(this.src)" width=30%></td>
+        <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img2;?>" onclick="viewEvent(this.src)" width=30%></td>
+        <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img3;?>" onclick="viewEvent(this.src)" width=30%></td>
         
-        <td><a href='<?php echo URLROOT; ?>/admin/approveBook/<?php echo $book->seller_id; ?>'><button>Approve</button></a>
+        <td><a href='<?php echo URLROOT; ?>/admin/approveBook/<?php echo $book->customer_id; ?>'><button>Approve</button></a>
         <div class="popup"">
                     <button onclick="myFunction()">Reject</button>
                     <div class="popuptext" id="myPopup">
@@ -62,6 +62,18 @@
         </table>
         
     </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Poster Details</h2>
+                <table id="eventDetailsTable">
+                    <!-- Event details will go here -->
+                </table>
+            </div>
+        </div>
+
+    <script src="<?php echo URLROOT;?>/assets/js/admin/table.js"></script>
    
 </body>
 
