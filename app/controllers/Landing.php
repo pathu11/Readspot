@@ -767,14 +767,14 @@ class Landing extends Controller{
                     $timestamp = $_SERVER["REQUEST_TIME"];
                     $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
     
-                    if (($timestamp - $_SESSION['time']) > $remainingTime) {  // 60 seconds for 1 minute
+                    if (($timestamp - $_SESSION['time']) > $remainingTime) { 
                         $data = [
                             'user_id' => $userId,
                             'otp_err' => "OTP expired. Please try again.",
                             'remaining_time' => 0
                         ];
                         $this->view('landing/enterotp', $data);
-                        exit; // Ensure no further processing after redirection
+                        exit;
                     } else {
                         $data = [
                             'user_id' => $userId,
@@ -787,15 +787,14 @@ class Landing extends Controller{
                         if (empty($data['otp']) || $data['otp'] != $oldOtp) {
                             $data['otp_err'] = 'Incorrect OTP';
                             $this->view('landing/enterotp', $data);
-                            exit; // Ensure no further processing after redirection
+                            exit; 
                         }
     
-                        // make sure errors are empty
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
                                 echo '<script>';
-                                echo 'setTimeout(function() { alert("OTP is correct!"); redirectToUpdatePass(); }, 100);'; // Delayed alert
+                                echo 'setTimeout(function() { alert("OTP is correct!"); redirectToUpdatePass(); }, 100);'; 
                                 echo 'function redirectToUpdatePass() {';
                                 echo '    window.location.href = "' . URLROOT . '/landing/updatepass/' . $userId . '";';  
                                 echo '}';
@@ -816,7 +815,7 @@ class Landing extends Controller{
                 }
             }
         } else {
-            // Handle the case when it's not a POST request
+          
             if (isset($_SESSION['user_email'])) {
                 $userEmail = $_SESSION['user_email'];
                 $userDetails = $this->userModel->findUserByEmail($userEmail);
@@ -838,16 +837,13 @@ class Landing extends Controller{
             $this->view('landing/enterotp', $data);
         }
     }
-    
-    
-        
+     
     public function updatepass($user_id) {
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // var_dump($_SESSION);
-            // process form
+            
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            // $userEmail=$_SESSION['user_email'] ;
+           
             $data = [
                 'user_id' => $user_id,
                 'pass' => trim($_POST['pass']),

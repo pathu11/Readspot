@@ -271,7 +271,7 @@ public function editAccountForBooks($book_id) {
                 // Now add book approval
 
                 flash('update_success', 'You have updated the account and added book approval successfully');
-                redirect('publisher/productGallery');
+                redirect('NewBooks/productGallery');
                
             } else {
                 die('Something went wrong with updating account details');

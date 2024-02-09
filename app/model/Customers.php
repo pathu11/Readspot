@@ -414,7 +414,6 @@ public function findUsedBookById($book_id) {
 }
 
 
-
 public function searchNewBooks($inputText){
   $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
   FROM books 
@@ -443,6 +442,32 @@ public function Profile($data) {
               bank_name = :bank_name,
               branch_name = :branch_name
               WHERE customer_id = :customer_id');
+              
+    // Bind values
+      $this->db->bind(':customer_id',$data['customer_id']);
+      $this->db->bind(':profile_img',$data['profile_img']);
+      $this->db->bind(':first_name',$data['first_name']);
+      $this->db->bind(':last_name',$data['last_name']);
+      $this->db->bind(':email',$data['email']);
+      $this->db->bind(':contact_number',$data['contact_number']);
+      $this->db->bind(':postal_name',$data['postal_name']);
+      $this->db->bind(':street_name',$data['street_name']);
+      $this->db->bind(':town',$data['town']);
+      $this->db->bind(':district',$data['district']);
+      $this->db->bind(':postal_code',$data['postal_code']);
+      $this->db->bind(':account_name',$data['account_name']);
+      $this->db->bind(':account_no',$data['account_no']);
+      $this->db->bind(':bank_name',$data['bank_name']);
+      $this->db->bind(':branch_name',$data['branch_name']);
+      // Execute
+      if ($this->db->execute()) {
+          return true;
+      } else {
+          return false;
+      }
+}
+
+
 
 public function searchUsedBooks($inputText){
   $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
@@ -472,35 +497,7 @@ public function editOrderCardPayment($data){
   } else {
   return false;
   }
-
 }
-
-
-
-    // Bind values
-    $this->db->bind(':customer_id',$data['customer_id']);
-    $this->db->bind(':profile_img',$data['profile_img']);
-    $this->db->bind(':first_name',$data['first_name']);
-    $this->db->bind(':last_name',$data['last_name']);
-    $this->db->bind(':email',$data['email']);
-    $this->db->bind(':contact_number',$data['contact_number']);
-    $this->db->bind(':postal_name',$data['postal_name']);
-    $this->db->bind(':street_name',$data['street_name']);
-    $this->db->bind(':town',$data['town']);
-    $this->db->bind(':district',$data['district']);
-    $this->db->bind(':postal_code',$data['postal_code']);
-    $this->db->bind(':account_name',$data['account_name']);
-    $this->db->bind(':account_no',$data['account_no']);
-    $this->db->bind(':bank_name',$data['bank_name']);
-    $this->db->bind(':branch_name',$data['branch_name']);
-    // Execute
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 public function ChangeProfImage($data) {
   $this->db->query('UPDATE customers 
               SET profile_img = :profile_img
@@ -515,6 +512,16 @@ public function ChangeProfImage($data) {
         return false;
     }
 }
+
+public function findDetailsByCartId($cartId){
+  $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity
+                    FROM cart c 
+                    JOIN books b ON c.book_id = b.book_id 
+                    WHERE c.cart_id != :cart_id ');
+  $this->db->bind(':cart_id', $cartId);
+  return $this->db->resultSet();
+}
+
 
 
   }
