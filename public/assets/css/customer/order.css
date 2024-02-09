@@ -14,48 +14,51 @@
     border-radius: 5px;
     margin-top: 10px;
 }
+
+.myorder {
+    width: 70%;
+    margin: auto;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    /* display: table; Add this line */
+}
+
 .myorder table {
+    font-size: 14px;
     width: 100%;
     border-collapse: collapse;
-    border: 2px solid #333;
+    /* border: 2px solid #333; */
     margin-top: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.myorder th, .myorder td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #333;
-}
-
 .myorder th {
-    background-color: #333;
-    color: white;
-}
-
-.myorder tr:nth-child(even) {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
     background-color: #f2f2f2;
 }
-
-.myorder tr:nth-child(odd) {
-    background-color: #fff;
+.myorder td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
 .myorder tr {
-    height: 50px; /* Adjust the height as needed */
+    background-color: white;
+    height: 30px;
 }
 
-.myorder tr:first-child {
-    height: 60px; /* Adjust the height as needed */
+.myorder tr:hover {
+    background-color: #f2f2f2;;
 }
 
 /* Change the width of specific columns */
 .myorder th:nth-child(1), .myorder td:nth-child(1) {
-    width: 35%; /* Adjust the width as needed */
+    width: 50%; /* Adjust the width as needed */
 }
 
 .myorder th:nth-child(2), .myorder td:nth-child(2) {
-    width: 35%; /* Adjust the width as needed */
+    width: 20%; /* Adjust the width as needed */
 }
 
 .myorder th:nth-child(3), .myorder td:nth-child(3) {
@@ -69,58 +72,10 @@
 .order-search input[type=text] {
     padding: 6px;
     margin-top: 8px;
-    font-size: 17px;
+    font-size: 14px;
     border: none;
-    border-radius: 10px 0px 0px 10px;
-}
-
-.order-search button {
-    float: right;
-    padding: 6px 10px;
-    margin-top: 8px;
-    margin-right: 16px;
-    background: #ddd;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    border-radius: 0px 10px 10px 0px;
-}
-
-.order-search button:hover {
-    background: #ccc;
-}
-
-.order-search img {
-    height:15px;
-    width:15px;
-}
-
-.o-vd .o-view {
-    background-color: rgb(18, 201, 18);
-    text-decoration: none;
-    color: black;
-    border-radius: 6px;
-    padding: 5px;
-    display: block;
-    width: 50%;
-    margin: 5px;
-    transition: .5s;
-    cursor: pointer;
-    text-align: center;
-}
-
-.o-vd .o-view:hover {
-    background-color: rgb(1, 68, 1);
-    color: white;
-    border: none;
-    transform: scale(1.1);
-}
-
-
-.o-vd {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 @media screen and (max-width:600px) {
@@ -138,20 +93,6 @@
     .order-search input[type=text] {
         /* background-color: black; */
         font-size: 12px;
-    }
-    
-    .order-search button {
-        font-size: 12px;
-    }
-
-    .order-search img {
-        height:13px;
-        width:13px;
-    }
-
-    .o-vd .o-view {
-        font-size: 12px;
-        width: 75%;
     }
 }
 
@@ -172,33 +113,11 @@
         font-size: 8px;
     }
     
-    .order-search button {
-        font-size: 8px;
-    }
-
-    .order-search img {
-        height:8px;
-        width:8px;
-    }
-
-    .o-vd .o-view {
-        font-size: 10px;
-        padding: 2px;
-        margin: 2px;
-    }
-
-    .o-vd {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* justify-content: center; */
-    }
-
-    .o-vd .o-view {
-        width: 75%;
-    }
-
     .myorder td:nth-child(2), .myorder th:nth-child(2) {
-      display: none;
+        display: none;
+    }
+
+    .myorder table {
+        margin-top: 0;
     }
 }
