@@ -48,14 +48,16 @@
         <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img2;?>" onclick="viewEvent(this.src)" width=30%></td>
         <td><img src="<?php echo URLROOT;?>/assets/images/customer/AddUsedBook/<?php echo $book->img3;?>" onclick="viewEvent(this.src)" width=30%></td>
         
-        <td><button onclick="showAcceptPopup()">Accept</button>
-        <button onclick="showRejectPopup()" style="background-color: rgb(200, 84, 84);">Reject</button></td>
+        <td>
+        <button onclick="showAcceptPopup('<?php echo $book->customer_id; ?>')">Accept</button>
+        <button onclick="showRejectPopup('<?php echo $book->customer_id; ?>')" style="background-color: rgb(200, 84, 84);">Reject</button>
+        </td>
         
         
     </tr>
-        <div id="acceptPopup" class="modal">
+    <div id="acceptPopup_<?php echo $book->customer_id; ?>" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="hidePopup('acceptPopup')">&times;</span>
+                <span class="close" onclick="hidePopup('acceptPopup_<?php echo $book->customer_id; ?>')">&times;</span>
                 <p>Send approval email to the seller.</p>
                 <a href="<?php echo URLROOT;?>/admin/approveBook/<?php echo $book->customer_id;?>"><button>Confirm</button></a>
             </div>
@@ -74,12 +76,13 @@
         
     </div>
 
+        <!--image div-->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Poster Details</h2>
                 <table id="eventDetailsTable">
-                    <!-- Event details will go here -->
+                    <!-- Event details will go here-->
                 </table>
             </div>
         </div>

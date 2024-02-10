@@ -210,12 +210,13 @@ function redirectToAddEvent() {
   window.location.href = 'addevent.html';
 }
 
-function showAcceptPopup() {
-  document.getElementById('acceptPopup').style.display = 'flex';
+function showAcceptPopup(customerId) {
+  var modalId = 'acceptPopup_' + customerId;
+  document.getElementById(modalId).style.display = 'flex';
 }
 
-function hidePopup(popupId) {
-  document.getElementById(popupId).style.display = 'none';
+function hidePopup(modalId) {
+  document.getElementById(modalId).style.display = 'none';
 }
 
 function showRejectPopup() {
