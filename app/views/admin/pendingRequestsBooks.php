@@ -63,12 +63,14 @@
             </div>
         </div>
 
-        <div id="rejectPopup" class="modal">
+        <div id="rejectPopup_<?php echo $book->customer_id; ?>" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="hidePopup('rejectPopup')">&times;</span>
+                <span class="close" onclick="hidePopup('rejectPopup_<?php echo $book->customer_id; ?>')">&times;</span>
                 <p>Reason for rejection:</p>
-                <textarea id="rejectReason" rows="4" cols="50"></textarea>
-                <button onclick="sendRejectionEmail()">Send Rejection Email</button>
+                <form action="<?php echo URLROOT;?>/admin/rejectBook/<?php echo $book->customer_id;?>">
+                    <textarea id="rejectReason" rows="4" cols="50"></textarea>
+                    <button type="submit">Send Rejection Email</button>
+                </form>
             </div>
         </div>
 <?php endforeach; ?>               
