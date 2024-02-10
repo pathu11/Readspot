@@ -219,7 +219,8 @@ function hidePopup(modalId) {
   document.getElementById(modalId).style.display = 'none';
 }
 
-function showRejectPopup() {
-  document.getElementById('rejectPopup').style.display = 'flex';
+function showRejectPopup(customerId) {
+  var modalId = 'rejectPopup_' + customerId;
+  document.getElementById(modalId).style.display = 'flex';
 }
 

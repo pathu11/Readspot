@@ -67,8 +67,8 @@
             <div class="modal-content">
                 <span class="close" onclick="hidePopup('rejectPopup_<?php echo $book->customer_id; ?>')">&times;</span>
                 <p>Reason for rejection:</p>
-                <form action="<?php echo URLROOT;?>/admin/rejectBook/<?php echo $book->customer_id;?>">
-                    <textarea id="rejectReason" rows="4" cols="50"></textarea>
+                <form action="<?php echo URLROOT;?>/admin/rejectBook/<?php echo $book->customer_id;?>" method="post">
+                    <textarea id="rejectReason" name="rejectReason" rows="4" cols="50" autocomplete="off"></textarea>
                     <button type="submit">Send Rejection Email</button>
                 </form>
             </div>
