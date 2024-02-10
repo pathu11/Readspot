@@ -13,31 +13,22 @@ body {
     padding: 20px;
 }
 
-.l_col {
-    width: 20%;
-    padding: 20px;
-    background-color: #f0f0f0;
-    text-align: center;
-    margin: 40px;
-    border-radius:5px;
-}
+
 .profile-image {
-    width: 200px; /* Adjust the width as needed */
-    height: 200px; /* Set height to make it a perfect circle */
-    border-radius: 50%; /* Create a circular shape */
-    display: block; /* Ensure it's a block-level element */
-    margin: 0 auto; /* Center the image */
+    width: 200px; 
+    height: 200px;
+    border-radius: 50%; 
+    display: block;
+    margin: 0 auto; 
 }
-/* .l_col img{
-    border-radius:50px;
-} */
+
 
 .r_col {
     width: 80%;
     padding-left: 20px;
     margin-right: 40px;
     margin-top:40px;
-    background-color: #e0e0e0;
+    /* background-color: #e0e0e0; */
 }
 
 .r_col table {
@@ -51,12 +42,13 @@ body {
 }
 
 .r_col .r_a_col,
-.r_col .r_b_col {
-    background-color: #f0f0f0;
+.r_col .r_b_col ,.r_col .r_c_col{
+    background-color: white;
     margin: 30px;
     border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
+    box-shadow: 2px 2px 3px 3px #aaaaaa;
 }
 
 .r_col .r_a_col table,
@@ -65,15 +57,46 @@ body {
 }
 
 .r_col .r_a_col span,
-.r_col .r_b_col span {
-    background-color: white;
+.r_col .r_b_col span ,.r_col .r_c_col span{
+    background-color: whitesmoke;
     display: inline-block;
     width: 200px;
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
 }
-
+.r_col .r_a_col span:hover,
+.r_col .r_b_col span:hover,.r_col .r_c_col span:hover {
+    background-color: whitesmoke;
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border:#009D94;
+}
+/* .r_c_col{
+    display: flex;
+    justify-content: space-between;
+} */
+.r_c_col {
+    display: flex;
+  }
+  
+  .r_c_a_col {
+    flex: 0 0 auto;
+    width: 40%;
+  }
+  
+  .r_c_a_col img {
+    width: 90%; 
+    border-radius: 55%;
+  }
+  
+  .r_c_a_col1 {
+    flex: 1; 
+    padding-left: 30px; 
+  }
 
 .l_col h3 {
     margin: 0;

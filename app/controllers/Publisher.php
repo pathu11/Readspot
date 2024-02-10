@@ -1409,9 +1409,26 @@ public function stores(){
             echo json_encode(['error' => 'Invalid request method.']);
         }
     }
-    
 
-    
+    public function messages(){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }else{
+
+            $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+           
+            $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
+           
+            $data=[
+                'chatDetails'=>$ChatDetails,
+                'user_id'=>$user_id
+            ];
+
+            $this->view('publisher/messages',$data);
+
+    }
+}  
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
