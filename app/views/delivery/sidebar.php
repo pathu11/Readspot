@@ -12,7 +12,49 @@
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
         <span class="user"><?php echo $data['deliveryName']?></span>
-        <i class="bx bxs-user-circle icon"></i> 
+
+
+        <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
+        <?php
+                    $profileImage = empty($deliveryDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $deliveryDetails->profile_img ;
+                ?>
+        <?php endforeach; ?>
+        <img style="width: 40px;height: 40px;border-radius: 50%;" src="<?php echo $profileImage; ?>" onclick="toggleMenu()">
+
+
+        <div class="sub-menu-wrap" id="subMenu">
+          <div class="sub-menu">
+            <div class="user-info">
+            <?php foreach($data['deliveryDetails'] as $deliveryDetails): ?>
+                <?php
+                      $profileImage = empty($deliveryDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $deliveryDetails->profile_img ;
+                        ?>
+                <?php endforeach; ?>
+                <img  src="<?php echo $profileImage; ?>" >
+                <h3><?php echo $data['deliveryName']; ?></h3><!--NAME COMMENT-->
+            </div>
+            <hr>
+            
+            <a href="<?php echo URLROOT; ?>/delivery/notification" class="sub-menu-link"> <!--path changed-->
+                <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
+                <p>Notifications</p>
+                <span>></span>
+            </a>
+            
+            <a href="<?php echo URLROOT; ?>/publisher/logout" class="sub-menu-link"> <!--path changed-->
+            <i class="bx bxs-log-out icon"></i>  <!--path changed-->
+                <p>Logout</p>
+                <span>></span>
+            </a>
+          </div>
+
+
+
+
+
+
+
+
       </div>
       <div class="sidebar">
         <div class="logo">
@@ -32,7 +74,7 @@
             
             <li class="list">
               <a href="<?php echo URLROOT; ?>/delivery/processedorders" class="nav-link">
-                <i class="bx bxs-note icon"></i>
+                <i class="bx bxs-credit-card icon"></i>
                 <span class="link">Orders</span>
               </a>
             </li>
@@ -45,7 +87,7 @@
           <div class="bottom-cotent">
             <li class="list">
               <a href="<?php echo URLROOT; ?>/delivery/notification" class="nav-link">
-                <i class="bx bxs-cog icon"></i>
+                <i class="bx bxs-message-alt-dots icon"></i>
                 <span class="link">Notifications</span>
               </a>
             </li>
@@ -64,3 +106,11 @@
 
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/sidebar.js"></script>
   </body>
+
+  <script>
+    let subMenu = document.getElementById("subMenu");
+
+function toggleMenu(){
+    subMenu.classList.toggle("open-menu");
+}
+</script>

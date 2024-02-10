@@ -225,7 +225,7 @@
         <div class="sub8">
             <a href="#"><button class="chat-btn">Chat</button></a>
           
-            <a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
+            <a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
             <?php endforeach; ?>
         </div>
     </div>

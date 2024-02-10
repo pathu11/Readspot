@@ -12,19 +12,29 @@
                 <h1>USED BOOKS</h1>
             </div>
             <div class="search-bar-U">
-                <button type="submit" class="filter-btn-U" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
-                <form action="#.php" class="searching-U">
-                    <select id="searchBy"  name="category">
-                        <option value="technology">Title</option>
-                        <option value="travel">Author</option>
-                        <option value="food">ISBN</option>
-                        <option value="lifestyle">Publisher</option>
-                    </select>
-                    <input type="text" placeholder="Search.." name="search-U">
-                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-                </form>
+                <!--button type="submit" class="filter-btn-U" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button-->
+                <div class="search-form-U">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-U" method="post">
+                        <!--select id="searchBy"  name="category">
+                            <option value="technology">Title</option>
+                            <option value="travel">Author</option>
+                            <option value="food">ISBN</option>
+                            <option value="lifestyle">Publisher</option>
+                        </select-->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-U" autocomplete="off" id="search-U">
+                        <!--button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button--> <!--path changed-->
+                    </form>
+                </div>
+            
+                <div class="filter-category">
+                    <div class="list-group-U" id="show-list">
+                        
+                    </div>
+                </div>
             </div>
         </div>
+        
+        
         <div class="sub-cont-U2">
             <?php foreach($data['bookDetails'] as $bookDetails): ?>
                 <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-U">
@@ -48,3 +58,28 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-U").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'U';
+            if(searchText!=''){
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
+                    method : 'post',
+                    data : {query:searchText, bookType:bookType},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            } else {
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("#search-U").val($(this).text());
+            $("#show-list").html('');
+        });
+    });
+</script>
