@@ -45,7 +45,7 @@
 }
 
 .upload-doc-content {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     min-height: 120px;
     width: 100%;
     padding-left: 50px;
@@ -67,7 +67,7 @@
     padding: auto;
 } */
 
-.topic-cont input[type="text"], .disc-cont textarea, .topic-book input[type="text"], .disc-book textarea, .topic-book input[type="Date"], .upload-doc input[type="file"], .upload-pages input[type="file"], .topic-book select, .topic-book button, .topic-book input[type="number"], .topic-book input[type="email"] {
+.topic-cont input[type="text"], .disc-cont textarea, .topic-book input[type="text"], .disc-book textarea, .topic-book input[type="Date"], .upload-doc input[type="file"], .upload-pages input[type="file"], .topic-book select, .topic-book button, .topic-book input[type="number"], .topic-book input[type="email"], .topic-cont select, .topic-cont input[type="Date"], .topic-cont input[type="time"], .upload-doc-content input[type="file"] {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -77,7 +77,7 @@
     border-radius: 5px;
 }
 
-.upload-doc input[type="file"], .upload-pages input[type="file"] {
+.upload-doc input[type="file"], .upload-pages input[type="file"], .upload-doc-content input[type="file"]{
     background-color: white;
 }
 
@@ -126,7 +126,7 @@
 }
 
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:700px) {
     .add-content {
         padding: 5px;
     }
@@ -181,7 +181,7 @@
         font-size: 16px;
     }
     
-    .topic-cont input[type="text"], .disc-cont textarea, .topic-book input[type="text"], .disc-book textarea, .topic-book input[type="Date"], .upload-doc input[type="file"], .upload-pages input[type="file"], .topic-book select, .topic-book button, .topic-book input[type="number"], .topic-book input[type="email"]{
+    .topic-cont input[type="text"], .disc-cont textarea, .topic-book input[type="text"], .disc-book textarea, .topic-book input[type="Date"], .upload-doc input[type="file"], .upload-pages input[type="file"], .topic-book select, .topic-book button, .topic-book input[type="number"], .topic-book input[type="email"], .topic-cont select, .topic-cont input[type="Date"], .topic-cont input[type="time"], .upload-doc-content input[type="file"]{
         width: 100%;
         padding: 5px;
         margin-top: 5px;

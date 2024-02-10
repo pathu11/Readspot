@@ -19,14 +19,38 @@
             <table border="1" id="eventTable">
                 <thead>
                     <tr>
-                        <th>Contents</th>
-                        <th>Added-Date</th>
+                        <th onclick="sortTable(0)">Contents</th>
+                        <th onclick="sortTable(1)">Added-Date</th>
                         <th>VIew/Delete </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>ALorem ipsum dolor sit amet</td>
+                        <td>01/09/2023</td>
+                        <td class="action-buttons">
+                            <button class="view-button" onclick="viewEvent(1)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="delete-button" onclick="deleteEvent(1)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BLorem ipsum dolor sit amet</td>
+                        <td>02/09/2023</td>
+                        <td class="action-buttons">
+                            <button class="view-button" onclick="viewEvent(1)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="delete-button" onclick="deleteEvent(1)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ALorem ipsum dolor sit amet</td>
                         <td>03/09/2023</td>
                         <td class="action-buttons">
                             <button class="view-button" onclick="viewEvent(1)">
@@ -38,8 +62,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet1</td>
-                        <td>03/09/2023</td>
+                        <td>CLorem ipsum dolor sit amet</td>
+                        <td>03/10/2023</td>
                         <td class="action-buttons">
                             <button class="view-button" onclick="viewEvent(1)">
                                 <i class="fas fa-eye"></i>
@@ -50,8 +74,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>03/09/2023</td>
+                        <td>BLorem ipsum dolor sit amet</td>
+                        <td>03/09/2024</td>
                         <td class="action-buttons">
                             <button class="view-button" onclick="viewEvent(1)">
                                 <i class="fas fa-eye"></i>
@@ -62,8 +86,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>03/09/2023</td>
+                        <td>BLorem ipsum dolor sit amet</td>
+                        <td>02/09/2023</td>
                         <td class="action-buttons">
                             <button class="view-button" onclick="viewEvent(1)">
                                 <i class="fas fa-eye"></i>
@@ -74,20 +98,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>03/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>03/09/2023</td>
+                        <td>ALorem ipsum dolor sit amet</td>
+                        <td>03/10/2021</td>
                         <td class="action-buttons">
                             <button class="view-button" onclick="viewEvent(1)">
                                 <i class="fas fa-eye"></i>
