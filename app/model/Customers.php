@@ -57,6 +57,13 @@
       return $this->db->resultSet();
     }
 
+    public function findEventByUserId($user_id) {
+      $this->db->query('SELECT * FROM events WHERE user_id = :user_id AND status="Approved"');
+      $this->db->bind(':user_id', $user_id);
+  
+      return $this->db->resultSet();
+    }
+
     public function findUsedBookByNotCusId($customer_id) {
       $this->db->query('SELECT * FROM books WHERE customer_id != :customer_id AND type="used" AND status="approval"');
       $this->db->bind(':customer_id', $customer_id);
@@ -144,6 +151,33 @@
       }
     }
 
+    public function AddEvent($data) {
+      $this->db->query('INSERT INTO events (title, description, location, category_name, start_date, end_date, start_time, end_time, poster, img1, img2, img3, img4, img5, user_id, status) 
+                                  VALUES(:title, :description, :location, :category_name, :start_date, :end_date, :start_time, :end_time, :poster, :img1, :img2, :img3, :img4, :img5, :user_id, :status)');
+      
+      $this->db->bind(':title',$data['title']);
+      $this->db->bind(':description',$data['description']);
+      $this->db->bind(':location',$data['location']);
+      $this->db->bind(':category_name',$data['category_name']);
+      $this->db->bind(':start_date',$data['start_date']);
+      $this->db->bind(':end_date',$data['end_date']);
+      $this->db->bind(':start_time',$data['start_time']);
+      $this->db->bind(':end_time',$data['end_time']);
+      $this->db->bind(':poster',$data['poster']);
+      $this->db->bind(':img1',$data['img1']);
+      $this->db->bind(':img2',$data['img2']);
+      $this->db->bind(':img3',$data['img3']);
+      $this->db->bind(':img4',$data['img4']);
+      $this->db->bind(':img5',$data['img5']);
+      $this->db->bind(':user_id', $data['user_id']);
+      $this->db->bind(':status', $data['status']);
+      // execute
+      if($this->db->execute()){
+          return true;
+      }else{
+          return false;
+      } 
+    }
 
 
 
@@ -302,6 +336,22 @@
       $this->db->query('DELETE FROM books WHERE book_id = :book_id');
       // Bind values
       $this->db->bind(':book_id', $book_id);
+
+      // Execute after binding
+      $this->db->execute();
+
+      // Check for row count affected
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
+    public function deleteEvent($id) {
+      $this->db->query('DELETE FROM events WHERE id = :id');
+
+      $this->db->bind(':id', $id);
 
       // Execute after binding
       $this->db->execute();

@@ -25,90 +25,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($data['eventDetails'] as $event): ?>
                     <tr>
-                        <td>ALorem ipsum dolor sit amet</td>
-                        <td>01/09/2023</td>
+                        <td><?php echo $event->title; ?></td>
+                        <td><?php echo $event->start_date; ?></td>
                         <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <!-- <a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $cart->book_id; ?>" style="text-decoration: none;"> -->
+                                <button class="view-button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            <!-- </a> -->
+                            <a href="<?php echo URLROOT; ?>/customer/deleteEvent/<?php echo $event->id; ?>">
+                                <button class="delete-button">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>BLorem ipsum dolor sit amet</td>
-                        <td>02/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ALorem ipsum dolor sit amet</td>
-                        <td>03/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CLorem ipsum dolor sit amet</td>
-                        <td>03/10/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>BLorem ipsum dolor sit amet</td>
-                        <td>03/09/2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>BLorem ipsum dolor sit amet</td>
-                        <td>02/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ALorem ipsum dolor sit amet</td>
-                        <td>03/10/2021</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             </div>
