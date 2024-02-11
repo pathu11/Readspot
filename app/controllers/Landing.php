@@ -513,15 +513,14 @@ class Landing extends Controller{
             $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             if(isset($_POST['rememberMe'])){
                 setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-                setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+                // setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
              }else{
                
                 setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
-                setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
+                // setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
              }
             //init data
-            $data=[
-                
+            $data=[   
                 'email'=>trim($_POST['email']),
                 'pass'=>trim($_POST['pass']),
                 // 'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 

@@ -18,8 +18,8 @@
     <div class="chat">
         <div class="head">
             <div class="head1">
-                <h4>Notifications</h4>
-                <span>You've <?php echo $data['unreadCount']; ?> unread notifications </span>
+                <h4>Your Messages</h4>
+                
             </div>
             <div class="head1">
                 <button id="markAllRead" class="markAllRead" >Mark all as read</button>
@@ -30,23 +30,19 @@
          <?php foreach ($data['chatDetails'] as $message): ?>
             <tr >
             
-            <a href="#"><th style="width:20%" >
-                    
+            <a href="#"><th style="width:20%" >    
                     <!-- <h4><?php echo $message->sender_name; ?></h5> -->
-                
                 </th>
                 <td style="width:80%">
-                    <!-- <h4><?php echo $message->topic; ?>  </h4> -->
-
-                    <p><?php echo $message->msg; ?></p>
-                    <p><?php echo $message->msg_id; ?></p>
-                    <p>incoming<?php echo $message->incoming_msg_id; ?></p>
-                    <p>outgoing<?php echo $message->outgoing_msg_id; ?></p>
-                    
+                    <p><?php
+                    // Display only the first two lines of the message
+                    $lines = explode("\n", $message->msg);
+                    echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
+                ?></p>    
                 </td>
                 <td style="width:10%">
                 
-                <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $message->chat_id; ?>">View</a>   
+                <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $message->chat_id; ?>" class="view">View</a>   
                 
                 </td>
                 

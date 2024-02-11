@@ -7,7 +7,7 @@
   <?php require APPROOT . '/views/publisher/sidebar.php';
   ?>
   <div class="grid-container">
-    <a href="<?php echo URLROOT; ?>/publisher/messages" >testt</a>
+    
 
     <div class="grid-item"><span class="span">Total Books</span>&ensp;&ensp;&ensp;<i class="fa fa-duotone fa-book"></i><br><span class="span1"> <?php echo $data['bookCount']; ?></span></div>
 

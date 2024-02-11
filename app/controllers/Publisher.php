@@ -1422,7 +1422,9 @@ public function stores(){
            
             $data=[
                 'chatDetails'=>$ChatDetails,
-                'user_id'=>$user_id
+                'user_id'=>$user_id,
+                'publisherName'=>$publisherDetails[0]->name,
+                'publisherDetails'=>$publisherDetails
             ];
 
             $this->view('publisher/messages',$data);
