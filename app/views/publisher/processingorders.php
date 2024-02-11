@@ -37,9 +37,9 @@
                 <th >Book ID</th>
                 <th >No of Items</th>
                 <th >Customer Details</th>
-                <th >Total Price(Rs)</th>
-               
-
+                <th >Total Cost(Rs)</th>
+                <th >Total Delivery Fee(Rs)</th>
+                <th >Total Income(Rs)</th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +49,9 @@
                 <td ><?php echo $orderDetails->book_id; ?></td>
                 <td ><?php echo $orderDetails->quantity; ?></td>
                 <td ><?php echo $data['customerName']; ?></td>
-                <td ><?php echo $orderDetails->total_price; ?></td>               
+                <td ><?php echo $orderDetails->total_price; ?></td>
+                <td ><?php echo $orderDetails->total_delivery; ?></td>
+                <td ><?php echo $orderDetails->total_price - $orderDetails->total_delivery; ?></td>               
                 
             </tr>
             <?php endforeach; ?> 

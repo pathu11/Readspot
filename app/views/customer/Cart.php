@@ -28,17 +28,20 @@
                         <th>Total Price</th>
                         <th>Checkout / Remove</th>
                     </tr>
-                <?php foreach($data['cartDetails'] as $cart): ?>
-                    
+                <?php foreach($data['cartDetails'] as $cart): ?>                   
                     <tr>
-                        <td><input type="checkbox" name="selectedItems[]" value="<?php echo $cart->book_id; ?>">
-</td>
+                        <td>
+                            <input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>">
+                        </td>
+                      
                         <td><?php echo $cart->book_name; ?></td>
                         <td><?php echo $cart->price; ?></td>
                         <td><?php echo $cart->quantity; ?></td>
-                        <td><?php echo $cart->cart_id; ?></td>
-
-                        <td><div class="cart-vd"><a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $cart->book_id; ?>?quantity=<?php echo $cart->quantity; ?>" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a></div>
+                        <td><?php echo $cart->quantity * $cart->price; ?></td>
+                        <td>
+                        <div class="cart-vd">
+                            <a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $cart->book_id; ?>?quantity=<?php echo $cart->quantity; ?>" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a>
+                        </div>
                     </td>
                     </tr>
                     <?php endforeach; ?>

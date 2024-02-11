@@ -102,7 +102,13 @@
                 <span class="link">Notifications</span>
               </a>
             </li>
-            <br><br><br><br>
+            <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/messages" class="nav-link">
+                <i class="bx bxs-message-alt-dots icon"></i>
+                <span class="link">Messages</span>
+              </a>
+            </li>
+            <br><br>
             <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/logout" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>

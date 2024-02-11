@@ -34,33 +34,33 @@ class PurchaseOrder extends Controller{
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
-                // Check if selectedItems is set in $_POST and is an array
+               
                 if(isset($_POST['selectedItems']) && is_array($_POST['selectedItems'])) {
-                    $selectedBookIds = $_POST['selectedItems'];
-                    $bookDetails = []; // Initialize an empty array
-                    foreach($selectedBookIds as $bookId) {
-                        // Retrieve book details by ID and add them to the bookDetails array
-                        $bookDetails[] = $this->customerModel->findBookById($bookId);
+                    $selectedCartIds = $_POST['selectedItems'];
+                    $bookDetails = [];
+                    foreach($selectedCartIds as $cartId) {
+                        $bookDetails[] = $this->customerModel->findDetailsByCartId($cartId);
                     }
+                    // echo "<pre>";
+                    // print_r($bookDetails);
+                    // echo "</pre>";
                 } else { 
-                    
                     echo "Error: No books selected" ; 
                     return;
                 }
-    
                 $data = [
                     'customerDetails' => $customerDetails,
                     'deliveryDetails' => $deliveryDetails,
-                    'bookDetails' => $bookDetails // Add bookDetails to the data array
+                    'bookDetails' => $bookDetails
                 ];
+                    // echo "<pre>";
+                    // print_r($data['bookDetails']);
+                    // echo "</pre>";
                 $this->view('customer/purchaseMultiple', $data);
-                // print_r($data['bookDetails']);
+                
             }
         }
-    }
-    
-   
-    
+    }   
 public function purchase($book_id) {
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -69,8 +69,8 @@ public function purchase($book_id) {
             $bookDetails=$this->customerModel->findBookById($book_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
-                                             // sanitize post data
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
+
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
                     'book_id'=>$book_id,

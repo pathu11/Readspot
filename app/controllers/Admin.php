@@ -125,17 +125,14 @@ require APPROOT . '\vendor\autoload.php';
     
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
         $data = [
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
-
             'book_category_err'=>'',
             'description_err'=>''
         ];
-
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
         }
@@ -155,10 +152,8 @@ require APPROOT . '\vendor\autoload.php';
 
         else{
             $this->view('admin/addBookCategories',$data);
-        }
-        
+        }  
     }
-
     else{
         $data=[
             'adminDetails' => $adminDetails,
@@ -170,11 +165,8 @@ require APPROOT . '\vendor\autoload.php';
         ];
 
         $this->view('admin/addBookCategories',$data);
-    }
-    
-    
+    } 
   }
-
   public function updateBookCategory($id)
 {
     $user_id = $_SESSION['user_id'];
@@ -228,8 +220,6 @@ require APPROOT . '\vendor\autoload.php';
         $this->view('admin/updateBookCategory', $data);
     }
 }
-
-
   public function deleteBookCategory($id){
     if($this->adminModel->deleteBookCategory($id)){
         flash('delete_success','You deleted the book category successfully');
@@ -410,7 +400,7 @@ require APPROOT . '\vendor\autoload.php';
         try {
             //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
             $mail->Username   = MAIL_USER; // SMTP username
             $mail->Password   = MAIL_PASS;   // SMTP password
@@ -451,20 +441,15 @@ public function approveCharity($user_id){
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
-            $mail->Username   = MAIL_USER; // SMTP username
-            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->Username   = MAIL_USER;
+            $mail->Password   = MAIL_PASS; 
             $mail->SMTPSecure = MAIL_SECURITY;
             $mail->Port       = MAIL_PORT;
-
-            //Recipients
             $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress($userEmail);  // Add a recipient
-
-            // Content
+            $mail->addAddress($userEmail);  
             $mail->isHTML(true);  // Set email format to HTML
             $mail->Subject = 'Approved the registration by administration';
             $mail->Body    = 'Congratulations! Your registration has been approved. You can now log in to the system.';
