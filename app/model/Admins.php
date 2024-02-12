@@ -10,6 +10,14 @@
       $row = $this->db->single();
       return ($row) ? $row->email : null;
     }
+
+    public function getCustomerEmail($customer_id) {
+      $this->db->query('SELECT email FROM customers WHERE user_id = :user_id');
+      $this->db->bind(':user_id', $customer_id);
+      $row = $this->db->single();
+      return ($row) ? $row->email : null;
+    }
+
     public function findAdminById($user_id){
         $this->db->query('SELECT * from admin WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
@@ -424,6 +432,29 @@ public function getAvailableBooks(){
   $results=$this->db->resultSet();
   return $results;
 
+}
+
+public function getPendingBookDetails(){
+  $this->db->query("SELECT b.customer_id, b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+                    s.name, s.email
+                    FROM books b
+                    INNER JOIN customers s ON b.customer_id = s.customer_id
+                    WHERE b.type = 'used' AND b.status='pending'");
+
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getPendingBookByID($customer_id){
+  $this->db->query("SELECT b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+                    s.name, s.email
+                    FROM books b
+                    INNER JOIN customers s ON b.customer_id = s.customer_id
+                    WHERE b.customer_id=:customer_id ");
+  
+  $this->db->bind(':customer_id', $customer_id);
+  $results=$this->db->resultSet();
+  return $results;
 }
 
   

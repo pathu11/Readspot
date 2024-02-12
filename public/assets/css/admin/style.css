@@ -217,8 +217,9 @@ button{
   border-radius: 4px;
   background-color: #009D94;
   color: white;
-  height: 30px;
-  width: 65px;
+  height: auto;
+  width: auto;
+  padding: 10px;
 }
 
 .chart-container{

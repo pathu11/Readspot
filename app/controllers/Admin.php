@@ -749,17 +749,127 @@ private function sendEmail($recipientEmail, $subject, $body) {
     }
 }
 
+public function pendingRequestsBooks(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+        $user_id = $_SESSION['user_id'];
+         
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $pendingBookDetails = $this->adminModel->getPendingBookDetails();
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'pendingBookDetails'=>$pendingBookDetails,
+        ];
+        $this->view('admin/pendingRequestsBooks',$data);
+    }
+
+}
+
+public function approveBook($customer_id){
+        // Approval successful
+
+        // Retrieve the email from the database
+        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+        $customerEmail = $pendingBook[0]->email;
+
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($customerEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Accepted';
+            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.\n\n" .
+                            "We are pleased to inform you that your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been accepted by our admin for sale.\n\n".
+                            "Thank you for contributing to our platform.\n\n".
+                            "Sincerely,\n".
+                            "The Admin Team";
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            redirect('admin/pendingRequestsBooks');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+    
+}
+
+public function rejectBook($customer_id){
+    $user_id = $_SESSION['user_id'];
+    $adminDetails = $this->adminModel->findAdminById($user_id);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName' => $adminDetails[0]->name,
+            'rejectReason' => trim($_POST['rejectReason']),
+            'rejectReason' => '',
+        ];
+
+        if (empty($data['rejectReason'])) {
+            $data['rejectReason_err'] = 'Please enter the reason for rejection';
+        }
+
+        if (empty($data['rejectReason_err'])) {
+            $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+            $customerEmail = $pendingBook[0]->email;
+
+            // Send email using PHPMailer
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                $mail->SMTPAuth   = true;
+                $mail->Username   = MAIL_USER; // SMTP username
+                $mail->Password   = MAIL_PASS;   // SMTP password
+                $mail->SMTPSecure = MAIL_SECURITY;
+                $mail->Port       = MAIL_PORT;
+
+                //Recipients
+                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                $mail->addAddress($customerEmail);  // Add a recipient
+
+                // Content
+                $mail->isHTML(true);  // Set email format to HTML
+                $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
+                $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
+                                "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
+                                $data['rejectReason']."Thank you for your submission.<br><br>".
+                                "Sincerely,<br>".
+                                "The Admin Team";
+
+                $mail->send();
+
+                // Redirect or perform other actions as needed
+                redirect('admin/pendingRequestsBooks');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
+        }
+    }
+}
 
 
-/*public function generatePDF(){
-    require APPROOT.'/fpdf/fpdf.php';
-
-    $pdf = new FPDF();
-    $pdf->AddPage();
-    $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(100,20,'Hello world',1,0,'C');
-    $pdf->Output();
-}*/
 
 }
 
