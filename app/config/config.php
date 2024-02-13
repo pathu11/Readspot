@@ -1,9 +1,9 @@
 <?php
 // db param
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
-define('DB_NAME','readspots');
+define('DB_HOST','readspot.mysql.database.azure.com');
+define('DB_USER','readspot');
+define('DB_PASS','Admin@1234');
+define('DB_NAME','readspot');
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
 define('URLROOT','http://localhost/Readspot');

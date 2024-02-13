@@ -30,7 +30,7 @@ class PurchaseOrder extends Controller{
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-            $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
+            // $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
@@ -48,19 +48,122 @@ class PurchaseOrder extends Controller{
                     echo "Error: No books selected" ; 
                     return;
                 }
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'deliveryDetails' => $deliveryDetails,
-                    'bookDetails' => $bookDetails
-                ];
-                    // echo "<pre>";
-                    // print_r($data['bookDetails']);
-                    // echo "</pre>";
-                $this->view('customer/purchaseMultiple', $data);
+                
+                
+                $_SESSION['purchaseMultipleBookDetails'] = $bookDetails;
+                if($bookDetails){
+                    redirect('PurchaseOrder/purchaseMultipleView');
+                   
+                }
+              
                 
             }
         }
     }   
+    public function purchaseMultipleView(){
+        // $data= $_SESSION['purchaseMultipleBookDetails'];
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {    
+            $user_id = $_SESSION['user_id'];
+            $bookDetails=$_SESSION['purchaseMultipleBookDetails'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
+
+                $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                $data=[
+                    // 'book_id'=>$book_id,
+                    'customer_id' => $customerDetails[0]->customer_id,
+                    'postal_name' => trim($_POST['postal_name']),
+                    'street_name' => trim($_POST['street_name']),
+                    'town' => trim($_POST['town']),
+                    'district' => trim($_POST['district']),
+                    'postal_code' => trim($_POST['postal_code']),
+                    'contact_no'=>trim($_POST['contact_no']),
+                    // 'total_cost' => trim($_POST['totalCost']),
+                    // 'total_weight'=>trim($_POST['totalWeight']),
+                    // 'totalDelivery'=>trim($_POST['totalDelivery']),
+                    // 'quantity' => trim($_POST['quantity']), 
+                    'postal_name_err' => '',
+                    'street_name_err' => '',
+                    'town_err' => '',
+                    'district_err' => '',
+                    'postal_code_err' => '',
+                    'contact_no_err'=>''
+                ];
+                $_SESSION['PurchaseOrderData']=$data;
+                
+                if(empty($data['postal_name'])){
+                    $data['postal_name_err']='Please enter the  name';      
+                }
+                
+                if(empty($data['street_name'])){
+                    $data['street_name_err']='Please enter street name';      
+
+                }
+                
+                if(empty($data['town'])){
+                    $data['town_err']='Please enter the town';      
+                }
+                if(empty($data['contact_no'])){
+                    $data['contact_no_err']='Please enter the contact number';      
+                }else if(strlen($data['contact_no'])<10){
+                    $data['contact_no_err']='Please enter a valid contact number';
+                }
+                if(empty($data['district'])){
+                    $data['district_err']='Please select the district';      
+                }
+                if(empty($data['postal_code'])){
+                    $data['postal_code_err']='Please enter the postal code';      
+                }
+
+                if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
+                   
+                    redirect('PurchaseOrder/checkout2/');
+                  
+                }else{
+                    
+                    echo  '<script>alert("Error")</script>';
+                    }       
+              
+            } else {
+                // Your existing code for displaying the form
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+               
+                 if($customerDetails)   {
+                    $data = [
+                        // 'quantityInCart' => $_GET['quantity'],
+                        'deliveryDetails'=>$deliveryDetails,
+                        'bookDetails'=>$bookDetails,
+                        // 'book_id'=>$book_id,
+                        'postal_name' => $customerDetails[0]->postal_name,
+                        'street_name' => $customerDetails[0]->street_name,
+                        'town' => $customerDetails[0]->town,
+                        'district' => $customerDetails[0]->district,
+                        'postal_code' => $customerDetails[0]->postal_code,
+                        'contact_no'=>'',
+                        'contact_no_err'=>'',
+                        'postal_name_err'=>'',
+                        'street_name_err'=>'',
+                        'town_err'=>'',
+                        'district_err'=>'',
+                        'postal_code_err'=>'',
+                        'customerDetails' => $customerDetails,
+                        'customerName' => $customerDetails[0]->name,
+                        'customerImage'=>$customerDetails[0]->profile_img
+                    ];
+                 }  else{
+                    echo "Not found data";
+                 }  
+                
+                // print_r($data);
+                $this->view('customer/purchaseMultipleView',$data);
+        }
+    }
+        // print_r($data);
+        // $this->view('customer/purchaseMultipleView',$data);
+    }
 public function purchase($book_id) {
         if (!isLoggedIn()) {
             redirect('landing/login');
