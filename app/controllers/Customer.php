@@ -179,7 +179,7 @@ class Customer extends Controller {
                         // Generate a unique identifier (e.g., timestamp)
                         $unique_id = time(); 
                         $new_img_name = $data['title'] . '-' . $unique_id . '-imgMain.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/customer/AddEvent/" . $new_img_name;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
                         move_uploaded_file($tmp_name, $img_upload_path);
             
                         $data['poster'] = $new_img_name;
@@ -201,7 +201,7 @@ class Customer extends Controller {
                         // Generate a unique identifier (e.g., timestamp)
                         $unique_id = time(); 
                         $new_img_name = $data['title'] . '-' . $unique_id . '-1stImg.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/customer/AddEvent/" . $new_img_name;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
                         move_uploaded_file($tmp_name, $img_upload_path);
             
                         $data['img1'] = $new_img_name;
@@ -223,7 +223,7 @@ class Customer extends Controller {
                         // Generate a unique identifier (e.g., timestamp)
                         $unique_id = time(); 
                         $new_img_name = $data['title'] . '-' . $unique_id . '-2ndImg.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/customer/AddEvent/" . $new_img_name;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
                         move_uploaded_file($tmp_name, $img_upload_path);
             
                         $data['img2'] = $new_img_name;
@@ -245,7 +245,7 @@ class Customer extends Controller {
                         // Generate a unique identifier (e.g., timestamp)
                         $unique_id = time(); 
                         $new_img_name = $data['title'] . '-' . $unique_id . '-3rdImg.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/customer/AddEvent/" . $new_img_name;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
                         move_uploaded_file($tmp_name, $img_upload_path);
             
                         $data['img3'] = $new_img_name;
@@ -267,7 +267,7 @@ class Customer extends Controller {
                         // Generate a unique identifier (e.g., timestamp)
                         $unique_id = time(); 
                         $new_img_name = $data['title'] . '-' . $unique_id . '-4thImg.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/customer/AddEvent/" . $new_img_name;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
                         move_uploaded_file($tmp_name, $img_upload_path);
             
                         $data['img4'] = $new_img_name;
@@ -289,7 +289,7 @@ class Customer extends Controller {
                         // Generate a unique identifier (e.g., timestamp)
                         $unique_id = time(); 
                         $new_img_name = $data['title'] . '-' . $unique_id . '-5thImg.' . $img_ex_to_lc;
-                        $img_upload_path = "../public/assets/images/customer/AddEvent/" . $new_img_name;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
                         move_uploaded_file($tmp_name, $img_upload_path);
             
                         $data['img5'] = $new_img_name;
@@ -713,13 +713,29 @@ class Customer extends Controller {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
-            $user_id = $_SESSION['user_id'];
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+               
+                if ($customerDetails) {
+                    $customerid = $customerDetails[0]->customer_id;
+                    $eventDetails = $this->customerModel->findEventByNotUserId($user_id);
+                    // $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
+                } else {
+                    echo "Not found";
+                }
+            } else {
+                echo "Not a customer";
+            }
             $data = [
+                'customerid' => $customerid,
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'eventDetails' => $eventDetails
             ];
             $this->view('customer/BookEvents', $data);
         }
@@ -1886,20 +1902,51 @@ class Customer extends Controller {
         }
     } 
 
-    public function viewevents(){
+    public function viewevents($eventId){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/viewevents', $data);
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                
+                $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
+                $eventIDdetails = $this->customerModel->findEventById($eventId);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'eventIDdetails' => $eventIDdetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name,
+            
+            'eventId' => $eventId,
+            'Name' => $eventIDdetails[0]->title,
+            'Category' => $eventIDdetails[0]->category_name,
+            'Start_date' => $eventIDdetails[0]->start_date,
+            'End_date' => $eventIDdetails[0]->end_date,
+            'Start_time' => $eventIDdetails[0]->start_time,
+            'End_time' => $eventIDdetails[0]->end_time,
+            'Venue' => $eventIDdetails[0]->location,
+            'mainImg' => $eventIDdetails[0]->poster,
+            'img1' => $eventIDdetails[0]->img1,
+            'img2' => $eventIDdetails[0]->img2,
+            'img3' => $eventIDdetails[0]->img3,
+            'img4' => $eventIDdetails[0]->img4,
+            'img5' => $eventIDdetails[0]->img5
+        ];
+        $this->view('customer/viewevents', $data);
     } 
 
     public function logout(){

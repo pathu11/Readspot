@@ -64,6 +64,21 @@
       return $this->db->resultSet();
     }
 
+    public function findEventByNotUserId($user_id) {
+      $this->db->query('SELECT * FROM events WHERE user_id != :user_id AND status="Approved"');
+      $this->db->bind(':user_id', $user_id);
+  
+      return $this->db->resultSet();
+    }
+
+    public function findEventById($id){
+      $this->db->query('SELECT * from events WHERE id=:id');
+      $this->db->bind(':id',$id);
+      return $this->db->resultSet();
+      // $row = $this->db->single();
+      // return $row;
+    }
+
     public function findUsedBookByNotCusId($customer_id) {
       $this->db->query('SELECT * FROM books WHERE customer_id != :customer_id AND type="used" AND status="approval"');
       $this->db->bind(':customer_id', $customer_id);

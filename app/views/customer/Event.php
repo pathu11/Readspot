@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                         <th onclick="sortTable(0)">Contents</th>
-                        <th onclick="sortTable(1)">Added-Date</th>
+                        <th onclick="sortTable(1)">Category</th>
                         <th>VIew/Delete </th>
                     </tr>
                 </thead>
@@ -28,7 +28,7 @@
                     <?php foreach($data['eventDetails'] as $event): ?>
                     <tr>
                         <td><?php echo $event->title; ?></td>
-                        <td><?php echo $event->start_date; ?></td>
+                        <td><?php echo $event->category_name; ?></td>
                         <td class="action-buttons">
                             <!-- <a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $cart->book_id; ?>" style="text-decoration: none;"> -->
                                 <button class="view-button">
