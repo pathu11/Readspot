@@ -73,7 +73,7 @@ class PurchaseOrder extends Controller{
 
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
-                    // 'book_id'=>$book_id,
+                    'book_id'=>$bookDetails[0]->book_id,
                     'customer_id' => $customerDetails[0]->customer_id,
                     'postal_name' => trim($_POST['postal_name']),
                     'street_name' => trim($_POST['street_name']),
@@ -81,9 +81,9 @@ class PurchaseOrder extends Controller{
                     'district' => trim($_POST['district']),
                     'postal_code' => trim($_POST['postal_code']),
                     'contact_no'=>trim($_POST['contact_no']),
-                    // 'total_cost' => trim($_POST['totalCost']),
-                    // 'total_weight'=>trim($_POST['totalWeight']),
-                    // 'totalDelivery'=>trim($_POST['totalDelivery']),
+                    'total_cost' => trim($_POST['totalCost']),
+                    'total_weight'=>trim($_POST['totalWeight']),
+                    'totalDelivery'=>trim($_POST['totalDelivery']),
                     // 'quantity' => trim($_POST['quantity']), 
                     'postal_name_err' => '',
                     'street_name_err' => '',
@@ -92,6 +92,7 @@ class PurchaseOrder extends Controller{
                     'postal_code_err' => '',
                     'contact_no_err'=>''
                 ];
+                print_r($data['book_id']);
                 $_SESSION['PurchaseOrderData']=$data;
                 
                 if(empty($data['postal_name'])){
@@ -136,7 +137,7 @@ class PurchaseOrder extends Controller{
                         // 'quantityInCart' => $_GET['quantity'],
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
-                        // 'book_id'=>$book_id,
+                        'book_id'=>$bookDetails->book_id,
                         'postal_name' => $customerDetails[0]->postal_name,
                         'street_name' => $customerDetails[0]->street_name,
                         'town' => $customerDetails[0]->town,
@@ -253,7 +254,8 @@ public function purchase($book_id) {
                         'district_err'=>'',
                         'postal_code_err'=>'',
                         'customerDetails' => $customerDetails,
-                        'customerName' => $customerDetails[0]->name
+                        'customerName' => $customerDetails[0]->name,
+                        'customerImage'=>$customerDetails[0]->profile_img
                     ];
                  }  else{
                     echo "Not found data";

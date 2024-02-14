@@ -514,7 +514,7 @@ public function ChangeProfImage($data) {
 }
 
 public function findDetailsByCartId($cartId){
-  $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity,c.quantity AS nowQuantity
+  $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity,c.quantity AS nowQuantity,b.type AS type
                     FROM cart c 
                     JOIN books b ON c.book_id = b.book_id 
                     WHERE c.cart_id = :cart_id ');
