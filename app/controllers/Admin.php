@@ -825,63 +825,46 @@ public function approveBook($customer_id){
     
 }
 
-public function rejectBook($customer_id){
-    $user_id = $_SESSION['user_id'];
-    $adminDetails = $this->adminModel->findAdminById($user_id);
+public function rejectBook(){
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $rejectReason = $_POST['rejectReason'];
+        $customer_id = $_POST['customer_id'];
+        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+        $customerEmail = $pendingBook[0]->email;
 
-        $data = [
-            'adminDetails' => $adminDetails,
-            'adminName' => $adminDetails[0]->name,
-            'rejectReason' => trim($_POST['rejectReason']),
-            'rejectReason' => '',
-        ];
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
 
-        if (empty($data['rejectReason'])) {
-            $data['rejectReason_err'] = 'Please enter the reason for rejection';
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($customerEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
+            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
+                            "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
+                            $rejectReason."Thank you for your submission.<br><br>".
+                            "Sincerely,<br>".
+                            "The Admin Team";
+                
+            // Redirect or perform other actions as needed
+
+            redirect('admin/pendingRequestsBooks');
+            
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
         }
-
-        if (empty($data['rejectReason_err'])) {
-            $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
-            $customerEmail = $pendingBook[0]->email;
-
-            // Send email using PHPMailer
-            $mail = new PHPMailer(true);
-
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
-                $mail->SMTPAuth   = true;
-                $mail->Username   = MAIL_USER; // SMTP username
-                $mail->Password   = MAIL_PASS;   // SMTP password
-                $mail->SMTPSecure = MAIL_SECURITY;
-                $mail->Port       = MAIL_PORT;
-
-                //Recipients
-                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-                $mail->addAddress($customerEmail);  // Add a recipient
-
-                // Content
-                $mail->isHTML(true);  // Set email format to HTML
-                $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
-                $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
-                                "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
-                                $data['rejectReason']."Thank you for your submission.<br><br>".
-                                "Sincerely,<br>".
-                                "The Admin Team";
-
-                $mail->send();
-
-                // Redirect or perform other actions as needed
-                redirect('admin/pendingRequestsBooks');
-            } catch (Exception $e) {
-                die('Something went wrong: ' . $mail->ErrorInfo);
-            }
-        }
-    }
 }
 
 
