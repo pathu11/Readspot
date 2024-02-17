@@ -224,7 +224,7 @@ private function handleCardPaymentForm($orderDetails1, $formType)
        echo  '<script>alert("Error")</script>';
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
-    print_r($orderDetails);
+    // print_r($orderDetails);
    
     $amount = $orderDetails[0]->total_price; 
     $merchant_id = MERCHANT_ID;
@@ -267,7 +267,6 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 
 private function handleCODForm($orderDetails1 ,$formType){
 
-
     if($this->customerModel->addOrder($orderDetails1)){
          $order_id = $this->customerModel-> getLastInsertedOrderId();
         
@@ -280,27 +279,36 @@ private function handleCODForm($orderDetails1 ,$formType){
     $customer_id=$customerDetails[0]->customer_id;
     $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
     $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
-    
-    // $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
-    $customerEmail=$orderedCustomerDetails[0]->email;
 
-    echo $customerEmail;
+
+    $bookIds = json_decode($orderDetails[0]->book_id);
+    $ownerEmails = array();
+    foreach($bookIds as $bookId) {
+        // Fetch book details using book ID
+        $bookDetails = $this->adminModel->getBookDetailsById($bookId); // Adjust this function based on your model implementation
+        // Check book type
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
+        }
+        // Store owner email in the array
+        $ownerEmails[] = $ownerDetails[0]->email;
+    }
+    
+    $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
+   
+    $customerEmail=$orderedCustomerDetails[0]->email;
+    // print_r($customerEmail);
+
+    
     $topic = "New Order Details";
     $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
-    // $book_id = $orderDetails[0]->book_id;
-    // $bookDetails = $this->adminModel->getBookDetailsById($book_id);
-
-    // if ($bookDetails[0]->type == 'new') {
-    //     $user_idPub = $bookDetails[0]->publisher_id;
-    //     $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-    //     $ownerEmail = $ownerDetails[0]->email;
-    // } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-    //     $user_idPub = $bookDetails[0]->customer_id;
-    //     $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-    //     $ownerEmail = $ownerDetails[0]->email;
-    // }
+   
 
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
@@ -324,11 +332,15 @@ private function handleCODForm($orderDetails1 ,$formType){
             if($this->customerModel->editOrderCOD($data) 
                ){
     
-                print_r($orderDetails);
-                // $this->sendEmails($customerEmail, $ownerEmail, $data);
+               
+                $this->sendEmails($customerEmail, $ownerEmails, $data);
+                
+                
+                
+                
                 echo '<script>alert("You are placed an order successfully")</script>';
                 flash('update_success','You are placed an order successfully');
-                // redirect('customer/Order');
+                redirect('customer/Order');
                
             }else{
                 die('Something went wrong');
@@ -422,10 +434,13 @@ private function generateUniqueTrackingNumber($orderId) {
 
     return $trackingNumber;
 }
-private function sendEmails($customerEmail, $ownerEmail, $data) {
+private function sendEmails($customerEmail, $ownerEmails, $data) {
+    foreach ($ownerEmails as $ownerEmail) {
+        $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+    }
     $this->sendEmail($customerEmail, $data['topic'], $data['message']);
-    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
 }
+
 
 private function sendEmail($recipientEmail, $subject, $body) {
     $mail = new PHPMailer(true);
@@ -479,18 +494,23 @@ public function successCardPaymentOrder(){
             $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
             $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
-            $book_id = $orderDetails[0]->book_id;
-            $bookDetails = $this->adminModel->getBookDetailsById($book_id);
-
-            if ($bookDetails[0]->type == 'new') {
-                $user_idPub = $bookDetails[0]->publisher_id;
-                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-                $ownerEmail = $ownerDetails[0]->email;
-            } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-                $user_idPub = $bookDetails[0]->customer_id;
-                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-                $ownerEmail = $ownerDetails[0]->email;
+            $bookIds = json_decode($orderDetails[0]->book_id);
+            $ownerEmails = array();
+            foreach($bookIds as $bookId) {
+                // Fetch book details using book ID
+                $bookDetails = $this->adminModel->getBookDetailsById($bookId); // Adjust this function based on your model implementation
+                // Check book type
+                if ($bookDetails[0]->type == 'new') {
+                    $user_idPub = $bookDetails[0]->publisher_id;
+                    $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+                } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+                    $user_idPub = $bookDetails[0]->customer_id;
+                    $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
+                }
+                // Store owner email in the array
+                $ownerEmails[] = $ownerDetails[0]->email;
             }
+            
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
@@ -502,17 +522,16 @@ public function successCardPaymentOrder(){
                 'messageToPublisher' => $messageToPublisher,
                 'message'=>$message,
                 'user_id'=>$orderedCustomerDetails[0]->user_id,
-                'user_idPub' => $ownerDetails[0]->user_id,
+                // 'user_idPub' => $ownerDetails[0]->user_id,
                 'sender_name'=>'system administration',
                 'sender_id'=>130,   
             ];
                 //make sure errors are empty
                 if( $data['trackingNumber']  ){
-                    if($this->customerModel->editOrderCardPayment($data) &&
-                    $this->adminModel->addMessage($data) &&
-                    $this->adminModel->addMessageToPublisher($data)){
+                    if($this->customerModel->editOrderCardPayment($data) 
+                    ){
 
-                        $this->sendEmails($customerEmail, $ownerEmail, $data);
+                        $this->sendEmails($customerEmail, $ownerEmails, $data);
                         echo '<script>alert("You are placed an order successfully")</script>';
                         flash('update_success','You are placed an order successfully');
                         redirect('customer/Order');
