@@ -1,12 +1,12 @@
 .dashboard{
   margin-top: 100px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .stat-items{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .grid{
@@ -26,5 +26,22 @@
   text-decoration: none;
   height: 100px;
   width: 300px;
+}
+
+.message-panel{
+  margin-left: 50px;
+  padding: 10px;
+}
+
+.messages{
+  background-color: rgb(112, 191, 186, 25%);
+  height: auto;
+  width: auto;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.message{
+  margin-bottom: 15px;
 }
 
