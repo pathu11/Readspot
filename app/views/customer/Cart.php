@@ -40,7 +40,8 @@
                         <td><?php echo $cart->quantity * $cart->price; ?></td>
                         <td>
                         <div class="cart-vd">
-                            <a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $cart->book_id; ?>?quantity=<?php echo $cart->quantity; ?>" class="cart-view">Checkout</a><a href="#" class="cart-delete">Remove</a>
+                        <a href="#" class="cart-view purchase-btn" data-cartid="<?php echo $cart->cart_id; ?>">checkout</a>
+                            <a href="#" class="cart-delete">Remove</a>
                         </div>
                     </td>
                     </tr>
@@ -58,3 +59,35 @@
             require APPROOT . '/views/customer/footer.php'; //path changed
         ?>
     </div>
+
+
+    <script>
+    document.querySelectorAll('.purchase-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor tag behavior
+            
+            const cartId = this.getAttribute('data-cartid');
+            
+            // Create a form element
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple';
+            
+            // Create a hidden input field to hold the cart ID
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'selectedItems[]';
+            input.value = cartId;
+            
+            // Append the input field to the form
+            form.appendChild(input);
+            
+            // Append the form to the document body
+            document.body.appendChild(form);
+            
+            // Submit the form
+            form.submit();
+        });
+    });
+</script>
+

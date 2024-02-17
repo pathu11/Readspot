@@ -11,15 +11,11 @@
     visibility: hidden;
     
   }
-  
-    
 </style>
 </head>
 <body>
-<!-- <div class="flex-parent-element"> -->
+   
     <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultipleView"> 
-       
-    <?php echo  $data['deliveryDetails']->priceperkilo; ?>
         <div class="flex-parent-element">
         <div class="flex-child-element magenta">
             <h1>Billing Details</h1>  
@@ -86,11 +82,25 @@
                         <?php endforeach; ?>
                     </table>
                     <br><hr><br>
-                
-                        <span id="totalCostDisplay">Rs. <?php echo $book[0]->total_price; ?></span><br>
-                        <span id="totalDeliveryDisplay">Rs. <?php echo $data['deliveryDetails']->priceperkilo; ?></span><br>
-                        <span id="totalPriceDisplay">Rs. <?php echo $book[0]->total_price + $data['deliveryDetails']->priceperkilo; ?></span><br>
-                        
+                    <div class="cost">
+                        <div class="subcost">
+                          
+                            <p>Subtotal</p>
+                            <p>Delivery Fee</p>
+                            <p>Total</P>
+                        </div>
+                        <div  class="subcost2">
+                            <p id="totalCostDisplay">Rs. <?php echo $book[0]->total_price; ?></p>
+                            <p id="totalDeliveryDisplay">Rs. <?php echo $data['deliveryDetails']->priceperkilo; ?></p>
+                            <p id="totalPriceDisplay">Rs. <?php echo $book[0]->total_price + $data['deliveryDetails']->priceperkilo; ?></p>
+                            
+                        </div> 
+
+                                <input class="visible" type="number" id="totalCostInput" name="totalCost" step="any" >
+                                <input class="visible" type="number" id="totalWeightInput" name="totalWeight" step="any" >  
+                                <input class="visible" type="number" id="totalDeliveryInput" name="totalDelivery" step="any" > 
+                    </div>
+                       
 
                     <input type="submit" value="Place Order" name="submit" class="submit">
                     
@@ -126,36 +136,38 @@
     
 
     // Function to update total cost, delivery fee, and total weight
-    function updateTotalCost(index) {
-        let totalCost = 0;
-        let totalWeight = 0;
-        let deliveryFee = 0;
-        let bookDetails = <?php echo json_encode($data['bookDetails']); ?>; // Retrieve book details from PHP
+function updateTotalCost(index) {
+    let totalCost = 0;
+    let totalWeight = 0;
+    let deliveryFee = 0;
+    let bookDetails = <?php echo json_encode($data['bookDetails']); ?>; // Retrieve book details from PHP
 
-        // Calculate total price and total weight
-        for (let i = 0; i < bookDetails.length; i++) {
-            let book = bookDetails[i][0];
-            let quantity = parseInt(document.getElementById('quantity_' + i).innerText);
-            totalCost += book.total_price * quantity;
-            totalWeight += book.weight * quantity;
-        }
-
-        // Calculate delivery fee based on total weight
-        let firstKiloCharge = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
-        let additionalKiloCharge = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
-        if (totalWeight <= 1000) {
-            deliveryFee = firstKiloCharge;
-        } else {
-            let additionalWeight = Math.ceil((totalWeight - 1000) / 1000); // Calculate additional kilos
-            deliveryFee = firstKiloCharge + (additionalWeight * additionalKiloCharge);
-        }
-        let totalPrice = totalCost + deliveryFee;
-
-        // Update the hidden input fields with the updated values
-       // Update total cost and delivery fee in span elements
-            document.getElementById('totalCostDisplay').innerText = "Rs. " + totalCost;
-            document.getElementById('totalDeliveryDisplay').innerText = "Rs. " + deliveryFee;
-            document.getElementById('totalPriceDisplay').innerText = "Rs. " + totalPrice;
-
+    // Calculate total price and total weight
+    for (let i = 0; i < bookDetails.length; i++) {
+        let book = bookDetails[i][0];
+        let quantity = parseInt(document.getElementById('quantity_' + i).innerText);
+        totalCost += book.total_price * quantity;
+        totalWeight += book.weight * quantity;
     }
+
+    // Calculate delivery fee based on total weight
+    let firstKiloCharge = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
+    let additionalKiloCharge = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
+    if (totalWeight <= 1000) {
+        deliveryFee = firstKiloCharge;
+    } else {
+        let additionalWeight = Math.ceil((totalWeight - 1000) / 1000); // Calculate additional kilos
+        deliveryFee = firstKiloCharge + (additionalWeight * additionalKiloCharge);
+    }
+    let totalPrice = totalCost + deliveryFee;
+
+    // Update the hidden input fields with the updated values
+    document.getElementById('totalCostDisplay').innerText = "Rs. " + totalCost;
+    document.getElementById('totalDeliveryDisplay').innerText = "Rs. " + deliveryFee;
+    document.getElementById('totalPriceDisplay').innerText = "Rs. " + totalPrice;
+    document.getElementById('totalWeightInput').value = totalWeight;
+    document.getElementById('totalDeliveryInput').value = deliveryFee;
+    document.getElementById('totalCostInput').value = totalPrice;
+}
+
 </script>

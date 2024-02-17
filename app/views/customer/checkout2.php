@@ -32,6 +32,7 @@
     <br>
         <hr>
         <br>
+       
         <table>
        
             <tr>
@@ -40,20 +41,22 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
+            
+          
           <?php foreach($data['bookDetails'] as $books): ?>
             <tr>
                 <td> 
                     <?php 
-                    if ($books->type== "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1. '" alt="Bell Image" width="180px">';
-                    } elseif ($books->type== "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $books->img1 . '" alt="Bell Image" width="180px">';
+                    if ($books[0]->type== "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books[0]->img1. '" alt="Bell Image" width="180px">';
+                    } elseif ($books[0]->type== "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $books[0]->img1 . '" alt="Bell Image" width="180px">';
                     } else {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
             ?></td>
-                <td><?php echo $books->price; ?></td>
-                <td><?php echo $data['orderDetails']['quantity']; ?></td>
+                <td><?php echo $books[0]->price; ?></td>
+                <!-- <td><?php echo $data['orderDetails']['quantity']; ?></td> -->
                 <td><?php echo $data['orderDetails']['total_cost']; ?></td>
             </tr>
           <?php endforeach ;?>
