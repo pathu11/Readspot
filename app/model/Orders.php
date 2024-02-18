@@ -64,7 +64,12 @@
     }
 
     
-
+    public function findBookOrders(){
+        $this->db->query('SELECT * FROM books WHERE JSON_CONTAINS(book_id, "123");
+        ');
+        return $this->db->resultSet();
+    }
+    
     public function findBookProOrders() {
         $this->db->query('SELECT 
             o.order_id, 
@@ -405,6 +410,31 @@ public function getOrderById($order_id) {
 
     return $this->db->resultSet();
 }
+
+public function addOrderDetails($order_id, $book_id, $quantity) {
+    $sql = 'INSERT INTO order_details (order_id, book_id, quantity) VALUES (:order_id, :book_id, :quantity)';
+    echo $sql; // Debugging statement
+    $this->db->query($sql);
+    $this->db->bind(':order_id', $order_id);
+    $this->db->bind(':book_id', $book_id);
+    $this->db->bind(':quantity', $quantity);
+
+    // Execute the query
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function getOrderDetailsFromOrderDetailsById($order_id){
+    $this->db->query('SELECT book_id FROM order_details WHERE order_id = :order_id;
+    ');
+    $this->db->bind(':order_id', $order_id);
+    return $this->db->resultSet();
+
+}
+
 
 
     

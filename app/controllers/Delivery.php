@@ -304,8 +304,8 @@ class Delivery extends Controller{
             $user_id = $_SESSION['user_id'];
     
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
-            $orderDetails = $this->orderModel->findBookProOrders();
-    
+            $orderDetails = $this->orderModel->findBookOrders();
+        
             $sender_id = $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
     
             
@@ -318,8 +318,8 @@ class Delivery extends Controller{
             'deliveryName'=>$deliveryDetails[0]->name
            
         ];
-    
-        $this->view('delivery/processedorders', $data);
+        print_r($orderDetails);
+        // $this->view('delivery/processedorders', $data);
     }
     public function pickedUp($order_id){
         if (!isLoggedIn()) {

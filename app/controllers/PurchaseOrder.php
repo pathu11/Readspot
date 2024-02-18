@@ -48,15 +48,11 @@ class PurchaseOrder extends Controller{
                     echo "Error: No books selected" ; 
                     return;
                 }
-                
-                
                 $_SESSION['purchaseMultipleBookDetails'] = $bookDetails;
                 if($bookDetails){
                     redirect('PurchaseOrder/purchaseMultipleView');
                    
-                }
-              
-                
+                }      
             }
         }
     }   
@@ -71,7 +67,7 @@ class PurchaseOrder extends Controller{
             // Iterate over the result set to extract book IDs
             foreach ($bookDetails as $book) {
                 $bookIds[] = $book[0]->book_id;
-                $bookId = json_encode($bookIds);
+                // $bookId = json_encode($bookIds);
             }
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
@@ -80,7 +76,7 @@ class PurchaseOrder extends Controller{
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
                     'bookDetails'=>$bookDetails,
-                    'book_id'=>$bookId,
+                    'book_id'=>$bookIds,
                     'customer_id' => $customerDetails[0]->customer_id,
                     'postal_name' => trim($_POST['postal_name']),
                     'street_name' => trim($_POST['street_name']),
@@ -91,6 +87,7 @@ class PurchaseOrder extends Controller{
                     'total_cost' => trim($_POST['totalCost']),
                     'total_weight'=>trim($_POST['totalWeight']),
                     'totalDelivery'=>trim($_POST['totalDelivery']),
+                    'bookQuantities' => $_POST['book_quantities'],
                     // 'quantity' => trim($_POST['quantity']), 
                     'postal_name_err' => '',
                     'street_name_err' => '',
@@ -99,7 +96,7 @@ class PurchaseOrder extends Controller{
                     'postal_code_err' => '',
                     'contact_no_err'=>''
                 ];
-               
+            //    print_r($data['bookQuantities']);
                 
                 $_SESSION['PurchaseOrderData']=$data;
                 // print_r($data);
@@ -143,7 +140,7 @@ class PurchaseOrder extends Controller{
                
                  if($customerDetails)   {
                     $data = [
-                        'book_id'=>$bookId,
+                        'book_id'=>$bookIds,
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
                         'postal_name' => $customerDetails[0]->postal_name,
@@ -172,7 +169,7 @@ class PurchaseOrder extends Controller{
         }
     }
         // print_r($bookId);
-        // $this->view('customer/purchaseMultipleView',$data);
+        $this->view('customer/purchaseMultipleView',$data);
     }
 
 
@@ -182,6 +179,7 @@ public function checkout2()
         redirect('landing/login');
     } else {
         $orderDetails=$_SESSION['PurchaseOrderData'];
+        // print_r($orderDetails);
         // $book_details=$this->customerModel->findBookById($orderDetails['book_id']);
         $book_details=$orderDetails['bookDetails'];
         // print_r($orderDetails);
@@ -217,11 +215,15 @@ public function checkout2()
 }
 private function handleCardPaymentForm($orderDetails1, $formType)
 {
-    if($this->customerModel->addOrder($orderDetails1)){
-        $order_id = $this->customerModel-> getLastInsertedOrderId();
-       
-   }else{
-       echo  '<script>alert("Error")</script>';
+    if ($this->customerModel->addOrder($orderDetails1)) {
+        $order_id = $this->customerModel->getLastInsertedOrderId();
+        // Add order details to the order_details table
+        foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $quantity = $orderDetails1['bookQuantities'][$index];
+            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+        }
+    } else {
+        echo '<script>alert("Error")</script>';
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
     // print_r($orderDetails);
@@ -267,23 +269,30 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 
 private function handleCODForm($orderDetails1 ,$formType){
 
-    if($this->customerModel->addOrder($orderDetails1)){
-         $order_id = $this->customerModel-> getLastInsertedOrderId();
-        
-    }else{
-        echo  '<script>alert("Error")</script>';
-     }
+    if ($this->customerModel->addOrder($orderDetails1)) {
+        $order_id = $this->customerModel->getLastInsertedOrderId();
+        // Add order details to the order_details table
+        foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $quantity = $orderDetails1['bookQuantities'][$index];
+            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+        }
+    } else {
+        echo '<script>alert("Error")</script>';
+    }
 
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
     $customer_id=$customerDetails[0]->customer_id;
     $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
     $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
+    
+
+    $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
 
 
-    $bookIds = json_decode($orderDetails[0]->book_id);
     $ownerEmails = array();
-    foreach($bookIds as $bookId) {
+    foreach ($bookIds as $bookIdObj) {
+        $bookId = $bookIdObj->book_id;
         // Fetch book details using book ID
         $bookDetails = $this->adminModel->getBookDetailsById($bookId); // Adjust this function based on your model implementation
         // Check book type
@@ -334,10 +343,6 @@ private function handleCODForm($orderDetails1 ,$formType){
     
                
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
-                
-                
-                
-                
                 echo '<script>alert("You are placed an order successfully")</script>';
                 flash('update_success','You are placed an order successfully');
                 redirect('customer/Order');
@@ -346,16 +351,20 @@ private function handleCODForm($orderDetails1 ,$formType){
                 die('Something went wrong');
             }
         }else{
-                $this->view('customer/checkout2',$data);
+                // $this->view('customer/checkout2',$data);
             }
 }
 private function handleOnlineDepositForm($orderDetails1, $formType)
 {
-    if($this->customerModel->addOrder($orderDetails1)){
-        $order_id = $this->customerModel-> getLastInsertedOrderId();
-       
-   }else{
-       echo  '<script>alert("Error")</script>';
+    if ($this->customerModel->addOrder($orderDetails1)) {
+        $order_id = $this->customerModel->getLastInsertedOrderId();
+        // Add order details to the order_details table
+        foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $quantity = $orderDetails1['bookQuantities'][$index];
+            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+        }
+    } else {
+        echo '<script>alert("Error")</script>';
     }
 
     $user_id = $_SESSION['user_id'];
@@ -494,7 +503,7 @@ public function successCardPaymentOrder(){
             $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
             $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
-            $bookIds = json_decode($orderDetails[0]->book_id);
+            $bookIds = $orderDetails[0]->book_id;
             $ownerEmails = array();
             foreach($bookIds as $bookId) {
                 // Fetch book details using book ID

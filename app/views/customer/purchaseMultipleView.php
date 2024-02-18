@@ -69,6 +69,7 @@
                                     <a class="quantity-button" onclick="decrement(<?php echo $index; ?>)">-</a>
                                     <span id="quantity_<?php echo $index; ?>"><?php echo $book[0]->nowQuantity; ?></span>
                                     <a class="quantity-button" onclick="increment(<?php echo $index; ?>)">+</a>
+                                    <input id="book_quantity_<?php echo $index; ?>" name="book_quantities[]" class="visible" value="<?php echo $book[0]->nowQuantity; ?>">
                         </div>   
                                 <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">
 
@@ -119,7 +120,8 @@
         if (quantity < maxQuantity) {
             quantity++;
             quantityElement.innerText = quantity;
-            updateTotalCost(index); // Call function to update total cost
+            updateTotalCost(index);
+            updateHiddenQuantity(index, quantity); // Call function to update total cost
     }
     }
 
@@ -130,7 +132,8 @@
         if (quantity > 1) {
             quantity--;
             quantityElement.innerText = quantity;
-            updateTotalCost(index); // Call function to update total cost
+            updateTotalCost(index);
+            updateHiddenQuantity(index, quantity); // Call function to update total cost
         }
     }
     
@@ -168,6 +171,9 @@ function updateTotalCost(index) {
     document.getElementById('totalWeightInput').value = totalWeight;
     document.getElementById('totalDeliveryInput').value = deliveryFee;
     document.getElementById('totalCostInput').value = totalPrice;
+}
+function updateHiddenQuantity(index, quantity) {
+    document.getElementById('book_quantity_' + index).value = quantity;
 }
 
 </script>

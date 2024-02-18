@@ -309,9 +309,9 @@
   }
 
   public function addOrder($data){
-    $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery,  :status)');
+    $this->db->query('INSERT INTO orders (customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery,status) VALUES( :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery,  :status)');
     
-    $this->db->bind(':book_id',$data['book_id']);
+    
     $this->db->bind(':customer_id',$data['customer_id']);
     $this->db->bind(':c_postal_name',$data['postal_name']);
     $this->db->bind(':c_street_name',$data['street_name']);

@@ -8,7 +8,7 @@
   ?>
   <div class="grid-container">
     
-
+  
     <div class="grid-item"><span class="span">Total Books</span>&ensp;&ensp;&ensp;<i class="fa fa-duotone fa-book"></i><br><span class="span1"> <?php echo $data['bookCount']; ?></span></div>
 
     <div class="grid-item"><span class="span">Total Orders</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-address-book"></i><br><span class="span1"> <?php echo $data['orderCount']; ?></span></div>
