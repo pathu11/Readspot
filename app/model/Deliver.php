@@ -5,10 +5,14 @@
         $this->db = new Database;
     }
     public function findOrderById($order_id){
-        $this->db->query('SELECT * from orders WHERE order_id=:order_id');
-        $this->db->bind(':order_id',$order_id);
+        $this->db->query('SELECT o.*, od.book_id, od.quantity 
+                          FROM orders o 
+                          INNER JOIN order_details od ON o.order_id = od.order_id 
+                          WHERE o.order_id = :order_id');
+        $this->db->bind(':order_id', $order_id);
         return $this->db->resultSet();
     }
+    
     public function findCustomerById($customer_id){
         $this->db->query('SELECT * from customers WHERE customer_id=:customer_id');
         $this->db->bind(':customer_id',$customer_id);

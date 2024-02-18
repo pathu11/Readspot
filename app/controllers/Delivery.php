@@ -304,11 +304,9 @@ class Delivery extends Controller{
             $user_id = $_SESSION['user_id'];
     
             $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
-            $orderDetails = $this->orderModel->findBookOrders();
+            $orderDetails = $this->orderModel->findBookProOrders();
         
-            $sender_id = $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';
-    
-            
+            $sender_id = $senderName = $receiverName = $senderStreet = $senderTown = $senderDistrict = $senderPostalCode = $receiverStreet = $receiverTown = $receiverDistrict = $receiverPostalCode = '';       
         } else {
             echo "Not logged in as a publisher";
         }
@@ -318,8 +316,8 @@ class Delivery extends Controller{
             'deliveryName'=>$deliveryDetails[0]->name
            
         ];
-        print_r($orderDetails);
-        // $this->view('delivery/processedorders', $data);
+       
+        $this->view('delivery/processedorders', $data);
     }
     public function pickedUp($order_id){
         if (!isLoggedIn()) {
