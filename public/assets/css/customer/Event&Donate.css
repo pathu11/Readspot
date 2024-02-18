@@ -56,7 +56,7 @@
 
 .donate-chat-btn, .event-chat-btn {
     float: right;
-    width: 132px;
+    width: 182px;
     height: 36px;
     background-color: rgb(1, 36, 33);
     border-color: white;
@@ -67,6 +67,10 @@
     transition: .5s;
     margin: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.event-btn-div .hidden {
+    display: none;
 }
 
 .donate-chat-btn:hover, .event-chat-btn:hover {

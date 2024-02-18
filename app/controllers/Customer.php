@@ -1723,6 +1723,86 @@ class Customer extends Controller {
         }
     }
 
+    public function RemoveEventFromCalender($eventId)
+    {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name,
+    
+            'user_id' => trim($user_id),
+            'event_id' => trim($eventId),
+        ];
+        if ($this->customerModel->RemoveEventFromCalender($data)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/BookEvents');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+
+    public function AddEventToCalender($eventId){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $eventIDdetails = $this->customerModel->findEventById($eventId);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'eventIDdetails' => $eventIDdetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name,
+    
+            'user_id' => trim($user_id),
+            'event_id' => trim($eventId),
+            'title' => trim($eventIDdetails[0]->title),
+            'start_date' => trim($eventIDdetails[0]->start_date),
+            'end_date' => trim($eventIDdetails[0]->end_date),
+            'start_time' => trim($eventIDdetails[0]->start_time),
+            'end_time' => trim($eventIDdetails[0]->end_time),
+        ];
+        // $this->view('customer/viewevents', $data);
+
+        if ($this->customerModel->AddEventToCalender($data)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/BookEvents');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+    
     public function deleteexchangebook($bookId)
     {
         if ($this->customerModel->deleteusedbook($bookId)) {   
@@ -1916,8 +1996,9 @@ class Customer extends Controller {
                 
                 $customerid = $customerDetails[0]->customer_id;
                 
-                $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
+                // $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
                 $eventIDdetails = $this->customerModel->findEventById($eventId);
+                $eventInCalendar = $this->customerModel->checkEventInCalendar($user_id, $eventId);
             } else {
                 echo "Not found";
             }
@@ -1934,6 +2015,7 @@ class Customer extends Controller {
             'eventId' => $eventId,
             'Name' => $eventIDdetails[0]->title,
             'Category' => $eventIDdetails[0]->category_name,
+            'Description' => $eventIDdetails[0]->description,
             'Start_date' => $eventIDdetails[0]->start_date,
             'End_date' => $eventIDdetails[0]->end_date,
             'Start_time' => $eventIDdetails[0]->start_time,
@@ -1944,7 +2026,8 @@ class Customer extends Controller {
             'img2' => $eventIDdetails[0]->img2,
             'img3' => $eventIDdetails[0]->img3,
             'img4' => $eventIDdetails[0]->img4,
-            'img5' => $eventIDdetails[0]->img5
+            'img5' => $eventIDdetails[0]->img5,
+            'eventInCalendar' => $eventInCalendar
         ];
         $this->view('customer/viewevents', $data);
     } 

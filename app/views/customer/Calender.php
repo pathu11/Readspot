@@ -25,7 +25,7 @@
                             <div>sat</div>
                         </div>
                         <div class="cal-days">
-                            <div class="cal-day prev-date">30</div>
+                            <!-- <div class="cal-day prev-date">30</div>
                             <div class="cal-day prev-date">31</div>
                             <div class="cal-day">1</div>
                             <div class="cal-day">2</div>
@@ -59,7 +59,7 @@
                             <div class="cal-day">30</div>
                             <div class="cal-day next-date">1</div>
                             <div class="cal-day next-date">2</div>
-                            <div class="cal-day next-date">3</div>
+                            <div class="cal-day next-date">3</div> -->
                         </div>
                         <div class="goto-today">
                             <div class="goto">

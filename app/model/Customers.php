@@ -79,6 +79,15 @@
       // return $row;
     }
 
+    public function checkEventInCalendar($user_id, $eventId){
+      $this->db->query('SELECT * FROM saveevent WHERE user_id = :user_id AND event_id = :eventId');
+      $this->db->bind(':user_id', $user_id);
+      $this->db->bind(':eventId', $eventId);
+      $this->db->execute();
+      return $this->db->rowCount() > 0;
+  }
+  
+
     public function findUsedBookByNotCusId($customer_id) {
       $this->db->query('SELECT * FROM books WHERE customer_id != :customer_id AND type="used" AND status="approval"');
       $this->db->bind(':customer_id', $customer_id);
@@ -194,7 +203,24 @@
       } 
     }
 
+    public function AddEventToCalender($data) {
+      $this->db->query('INSERT INTO saveevent (title, start_date, end_date, start_time, end_time, user_id, event_id)
+                                        VALUES(:title, :start_date, :end_date, :start_time, :end_time, :user_id, :event_id)');
 
+      $this->db->bind(':title',$data['title']);
+      $this->db->bind(':start_date',$data['start_date']);
+      $this->db->bind(':end_date',$data['end_date']);
+      $this->db->bind(':start_time',$data['start_time']);
+      $this->db->bind(':end_time',$data['end_time']);
+      $this->db->bind(':user_id', $data['user_id']);
+      $this->db->bind(':event_id', $data['event_id']);
+      // execute
+      if($this->db->execute()){
+          return true;
+      }else{
+          return false;
+      }
+    }
 
     public function AddUsedBook($data){
       $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, img1, img2, img3, `condition`, published_year, price_type, type, account_name, account_no, bank_name, branch_name, town, district, postal_code, customer_id, status) 
@@ -378,6 +404,24 @@
           return false;
       }
     }
+
+    public function RemoveEventFromCalender($data){
+      $this->db->query('DELETE FROM saveevent WHERE user_id = :user_id AND event_id = :event_id');
+  
+      $this->db->bind(':event_id', $data['event_id']);
+      $this->db->bind(':user_id', $data['user_id']);
+  
+      // Execute after binding
+      $this->db->execute();
+  
+      // Check for row count affected
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+  
 
     public function addOrder($data){
       $this->db->query('INSERT INTO orders (book_id, customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery,quantity,status) VALUES(:book_id, :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery, :quantity, :status)');
