@@ -38,11 +38,13 @@
     <div class="message-panel">
       <h3>Messages for you</h3>
       <div class="messages">
-        <div class="message">
+        <?php foreach($data['messageDetails'] as $message): ?>
+        <a href="<?php echo URLROOT;?>/Chats/chat/<?php echo $message->incoming_msg_id;?>"><div class="message">
           <i class="bx bxs-user-circle icon"></i>
-          <span>Admin</span>
-          <p>There are some events you have to approve quickly</p>
-        </div>
+          <span><?php echo $message->name;?></span>
+          <p><?php echo $message->msg;?></p>
+        </div></a>
+        <?php endforeach;?>
 
         <div class="message">
           <i class="bx bxs-user-circle icon"></i>

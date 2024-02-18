@@ -20,10 +20,11 @@
         $user_id = $_SESSION['user_id'];
 
         $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+        $messageDetails = $this->moderatorModel->getMessageDetails($user_id);
         $data = [
           'moderatorDetails' => $moderatorDetails,
           'moderatorName'=>$moderatorDetails[0]->name,
-
+          'messageDetails'=>$messageDetails,
       ];
         $this->view('moderator/index',$data);
       }
