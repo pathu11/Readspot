@@ -7,6 +7,7 @@
         
         <span class="user"><?php echo $data['moderatorName']?></span>
         <i class="bx bxs-user-circle icon"></i>
+        <a href="<?php echo URLROOT;?>/moderator/chat"><i class="bx bxs-message-dots icon"></i></a>
       </div>
       <div class="sidebar">
         <div class="logo">

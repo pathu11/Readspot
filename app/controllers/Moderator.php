@@ -76,6 +76,22 @@
         die('Something went wrong');
       }
     }
+
+    public function chat(){
+      if (!isLoggedIn()) {
+        redirect('landing/login');
+      }else{
+        $user_id = $_SESSION['user_id'];
+
+        $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+        $data = [
+          'moderatorDetails' => $moderatorDetails,
+          'moderatorName'=>$moderatorDetails[0]->name,
+
+      ];
+        $this->view('moderator/chat',$data);
+      }
+    }
   
   
   }
