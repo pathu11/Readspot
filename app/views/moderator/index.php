@@ -30,8 +30,9 @@
         </div>
       </div>
       <div class="chart">
-
+        <canvas id="myChart"></canvas>
       </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       
     </div>
     <div class="message-panel">
@@ -51,6 +52,8 @@
       </div>
     </div>
   </div>
+
+  <script src="<?php echo URLROOT;?>/assets/js/moderator/chart.js"></script>
 
 </body>
 </html>

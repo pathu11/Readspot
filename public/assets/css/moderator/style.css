@@ -4,9 +4,10 @@
   flex-direction: row;
 }
 
-.stat-items{
+.stat-itmes{
   display: flex;
   flex-direction: column;
+  padding-left: 20px;
 }
 
 .grid{
@@ -26,6 +27,12 @@
   text-decoration: none;
   height: 100px;
   width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fa{
+  font-size: xx-large;
 }
 
 .message-panel{
@@ -43,5 +50,15 @@
 
 .message{
   margin-bottom: 15px;
+}
+
+.chart{
+  padding: 20px;
+}
+
+.chart canvas{
+  height: 400px !important; 
+  width: 100% !important;
+  display: flex !important;
 }
 
