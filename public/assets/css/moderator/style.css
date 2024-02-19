@@ -68,7 +68,6 @@
 
 .message::before {
   content: "";
-  position: absolute;
   top: -15px;
   left: -15px;
   width: calc(100% + 30px); /* Adjust width to include padding */

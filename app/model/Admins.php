@@ -457,5 +457,28 @@ public function getPendingBookByID($customer_id){
   return $results;
 }
 
+public function getMessageDetails($user_id){
+  $this->db->query('
+      SELECT 
+          u.name AS incoming_user_name,
+          u2.name AS outgoing_user_name,
+          m.msg,
+          m.incoming_msg_id,
+          m.outgoing_msg_id
+      FROM 
+          message AS m 
+      JOIN 
+          users AS u ON u.user_id = m.incoming_msg_id 
+      JOIN 
+          users AS u2 ON u2.user_id = m.outgoing_msg_id 
+      WHERE 
+          m.incoming_msg_id = :user_id'
+  );
+  $this->db->bind(':user_id', $user_id);
+
+  return $this->db->resultSet();
+}
+
+
   
 }

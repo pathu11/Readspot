@@ -48,6 +48,7 @@ require APPROOT . '\vendor\autoload.php';
         if (isset($_GET['user_role'])) {
             $user_id = $_SESSION['user_id'];
             $adminDetails = $this->adminModel->findAdminById($user_id);
+            $messageDetails = $this->adminModel->getMessageDetails($user_id);
             $userRoleFilter = $_GET['user_role'];
         
             $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
@@ -66,7 +67,8 @@ require APPROOT . '\vendor\autoload.php';
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'messageDetails'=>$messageDetails,
   
             ];
             $this->view('admin/index', $data);
@@ -75,7 +77,8 @@ require APPROOT . '\vendor\autoload.php';
             $user_id = $_SESSION['user_id'];
          
 
-            $adminDetails = $this->adminModel->findAdminById($user_id); 
+            $adminDetails = $this->adminModel->findAdminById($user_id);
+            $messageDetails = $this->adminModel->getMessageDetails($user_id); 
             $getPendingUserDetails = $this->adminModel->getPendingUsers();
 
             
@@ -93,7 +96,8 @@ require APPROOT . '\vendor\autoload.php';
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'messageDetails' =>$messageDetails,
             ];
             $this->view('admin/index', $data);
         }
