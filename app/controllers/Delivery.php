@@ -342,9 +342,7 @@ class Delivery extends Controller{
             $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
             $ownerEmail = $ownerDetails[0]->email;
         }
-
         $data=[
-           
 
             'sender_name'=>$deliveryDetails[0]->name,
             'messageToPublisher' => "Picked up   your order from  your location  successfully",

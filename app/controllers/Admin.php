@@ -10,10 +10,15 @@ require APPROOT . '\vendor\autoload.php';
  class Admin extends Controller{
   private $adminModel;
   private $userModel;
+  private $ordersModel;
+  
   private $db;
-  public function __construct(){
+  public function __construct(
+
+  ){
       $this->adminModel=$this->model('Admins');
       $this->userModel=$this->model('User');
+      $this->ordersModel = $this->model('Orders');
       $this->db = new Database();
 
   }
@@ -651,6 +656,7 @@ public function payments(){
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else{
+
         $user_id = $_SESSION['user_id'];
          
         $adminDetails = $this->adminModel->findAdminById($user_id);
@@ -676,12 +682,17 @@ public function approveOrder($order_id) {
     $topic = "Approved the Order by administration";
     $message ="Congratulations! Your order has been approved. Your order will be received at home as soon as possible.";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
-    $bookIds = json_decode($orderDetails[0]->book_id);
+
+    $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
+
+
     $ownerEmails = array();
-    foreach($bookIds as $bookId) {
+    foreach ($bookIds as $bookIdObj) {
+        $bookId = $bookIdObj->book_id;
         // Fetch book details using book ID
-        $bookDetails = $this->adminModel->getBookDetailsById($bookId); // Adjust this function based on your model implementation
-        // Check book type
+        $bookDetails = $this->adminModel->getBookDetailsById($bookId); 
+        
+        
         if ($bookDetails[0]->type == 'new') {
             $user_idPub = $bookDetails[0]->publisher_id;
             $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
@@ -692,6 +703,7 @@ public function approveOrder($order_id) {
         // Store owner email in the array
         $ownerEmails[] = $ownerDetails[0]->email;
     }
+    
 
     $data = [
         'adminDetails' => $adminDetails,
