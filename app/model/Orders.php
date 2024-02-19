@@ -8,63 +8,70 @@
 
    
     public function findNewBookOrdersByOrderId($order_id) {
-        $this->db->query('SELECT * FROM orders o JOIN books b ON o.book_id = b.book_id WHERE o.order_id = :order_id AND b.type = "new"');
+        $this->db->query('SELECT od.status AS status,od.quantity AS quantity, b.*, o.*
+                          FROM order_details od
+                          JOIN books b ON od.book_id = b.book_id
+                          JOIN orders o ON od.order_id = o.order_id
+                          WHERE od.order_id = :order_id AND b.type = "new" GROUP BY od.order_id, od.book_id');
         $this->db->bind(':order_id', $order_id);
     
         return $this->db->resultSet();
     }
     
-    public function findNewBookProOrdersBypubId($publisher_id) {
-        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
-                    FROM orders o
-                    JOIN books b ON o.book_id = b.book_id
-                    LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
-                    LEFT JOIN customers c ON o.customer_id = c.customer_id
-                    WHERE b.publisher_id = :publisher_id AND o.status = "processing" AND b.type = "new"');
-            $this->db->bind(':publisher_id', $publisher_id);
-
-            return $this->db->resultSet();
-    }
     
+    public function findNewBookProOrdersBypubId($publisher_id) {
+        $this->db->query('SELECT od.*, b.*,o.*, p.name AS publisher_name, c.name AS customer_name,od.quantity as quantity
+                          FROM order_details od
+                          JOIN orders o ON od.order_id = o.order_id
+                          JOIN books b ON od.book_id = b.book_id
+                          LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
+                          LEFT JOIN customers c ON o.customer_id = c.customer_id
+                          WHERE b.publisher_id = :publisher_id AND od.status = "processing" AND b.type = "new" GROUP BY od.order_id, od.book_id');
+        $this->db->bind(':publisher_id', $publisher_id);
+    
+        return $this->db->resultSet();
+    }
     
     public function findNewBookShippingOrdersBypubId($publisher_id) {
-        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
-                          FROM orders o
-                          JOIN books b ON o.book_id = b.book_id
+        $this->db->query('SELECT od.*, b.*,o.*, p.name AS publisher_name, c.name AS customer_name,od.quantity as quantity
+                          FROM order_details od
+                          JOIN orders o ON od.order_id = o.order_id
+                          JOIN books b ON od.book_id = b.book_id
                           LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
                           LEFT JOIN customers c ON o.customer_id = c.customer_id
-                          WHERE b.publisher_id = :publisher_id AND o.status = "shipping" AND b.type = "new"');
+                          WHERE b.publisher_id = :publisher_id AND od.status = "shipping" AND b.type = "new" GROUP BY od.order_id, od.book_id');
         $this->db->bind(':publisher_id', $publisher_id);
     
         return $this->db->resultSet();
     }
-    
     
     public function findNewBookDeliveredOrdersBypubId($publisher_id) {
-        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
-                          FROM orders o
-                          JOIN books b ON o.book_id = b.book_id
+        $this->db->query('SELECT od.*, b.*,o.*, p.name AS publisher_name, c.name AS customer_name,od.quantity as quantity
+                          FROM order_details od
+                          JOIN orders o ON od.order_id = o.order_id
+                          JOIN books b ON od.book_id = b.book_id
                           LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
                           LEFT JOIN customers c ON o.customer_id = c.customer_id
-                          WHERE b.publisher_id = :publisher_id AND o.status = "delivered" AND b.type = "new"');
+                          WHERE b.publisher_id = :publisher_id AND od.status = "delivered" AND b.type = "new" GROUP BY od.order_id, od.book_id');
         $this->db->bind(':publisher_id', $publisher_id);
     
         return $this->db->resultSet();
     }
+    
     public function findNewBookReturnedOrdersBypubId($publisher_id) {
-        $this->db->query('SELECT o.*, b.*, p.name AS publisher_name, c.name AS customer_name
-                          FROM orders o
-                          JOIN books b ON o.book_id = b.book_id
+        $this->db->query('SELECT od.*, b.*,o.*, p.name AS publisher_name, c.name AS customer_name,od.quantity as quantity
+                          FROM order_details od
+                          JOIN orders o ON od.order_id = o.order_id
+                          JOIN books b ON od.book_id = b.book_id
                           LEFT JOIN publishers p ON b.publisher_id = p.publisher_id
                           LEFT JOIN customers c ON o.customer_id = c.customer_id
-                          WHERE b.publisher_id = :publisher_id AND o.status = "returned" AND b.type = "new"');
+                          WHERE b.publisher_id = :publisher_id AND od.status = "returned" AND b.type = "new" GROUP BY od.order_id, od.book_id');
         $this->db->bind(':publisher_id', $publisher_id);
     
         return $this->db->resultSet();
     }
-
     
-   
+     
     
     public function findBookProOrders() {
         $this->db->query('SELECT 
@@ -73,7 +80,11 @@
                 od.quantity,
                 o.total_weight, 
                 od.book_id, 
-                b.type AS book_type, 
+                b.type AS book_type,
+                CASE 
+                    WHEN b.type = "new" THEN p.user_id
+                    WHEN b.type IN ("exchanged", "used") THEN c_sender.user_id
+                END AS sender_user_id,  
                 CASE 
                     WHEN b.type = "new" THEN p.postal_name
                     WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
@@ -128,6 +139,10 @@
         o.total_weight, 
         od.book_id, 
         b.type AS book_type, 
+        CASE 
+                    WHEN b.type = "new" THEN p.user_id
+                    WHEN b.type IN ("exchanged", "used") THEN c_sender.user_id
+                END AS sender_user_id,  
         CASE 
             WHEN b.type = "new" THEN p.postal_name
             WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
@@ -184,6 +199,10 @@
                 od.book_id, 
                 b.type AS book_type, 
                 CASE 
+                    WHEN b.type = "new" THEN p.user_id
+                    WHEN b.type IN ("exchanged", "used") THEN c_sender.user_id
+                END AS sender_user_id,  
+                CASE 
                     WHEN b.type = "new" THEN p.postal_name
                     WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
                 END AS sender_postal_name, 
@@ -238,6 +257,10 @@
                 od.book_id, 
                 b.type AS book_type, 
                 CASE 
+                    WHEN b.type = "new" THEN p.user_id
+                    WHEN b.type IN ("exchanged", "used") THEN c_sender.user_id
+                END AS sender_user_id,  
+                CASE 
                     WHEN b.type = "new" THEN p.postal_name
                     WHEN b.type IN ("exchanged", "used") THEN c_sender.postal_name
                 END AS sender_postal_name, 
@@ -284,8 +307,8 @@
     }
 
     public function countOrders($publisher_id){    
-        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
-                          INNER JOIN books ON orders.book_id = books.book_id
+        $this->db->query('SELECT COUNT(*) as orderCount FROM order_details 
+                          INNER JOIN books ON order_details.book_id = books.book_id
                           WHERE books.publisher_id = :publisher_id ');
         $this->db->bind(':publisher_id', $publisher_id);
         $result = $this->db->single();
@@ -297,9 +320,9 @@
         }
     }
     public function countReturnedOrders($publisher_id){    
-        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
-                          INNER JOIN books ON orders.book_id = books.book_id
-                          WHERE books.publisher_id = :publisher_id AND orders.status="returned"');
+        $this->db->query('SELECT COUNT(*) as orderCount  FROM order_details 
+        INNER JOIN books ON order_details.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND order_details.status="returned"');
         $this->db->bind(':publisher_id', $publisher_id);
         $result = $this->db->single();
         
@@ -310,9 +333,9 @@
         }
     }
     public function countProOrders($publisher_id){    
-        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
-                          INNER JOIN books ON orders.book_id = books.book_id
-                          WHERE books.publisher_id = :publisher_id AND orders.status="processing"');
+        $this->db->query('SELECT COUNT(*) as orderCount  FROM order_details 
+        INNER JOIN books ON order_details.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND order_details.status="processing"');
         $this->db->bind(':publisher_id', $publisher_id);
         $result = $this->db->single();
         
@@ -323,9 +346,9 @@
         }
     }
     public function countDelOrders($publisher_id){    
-        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
-                          INNER JOIN books ON orders.book_id = books.book_id
-                          WHERE books.publisher_id = :publisher_id AND orders.status="delivered"');
+        $this->db->query('SELECT COUNT(*) as orderCount FROM order_details 
+                        INNER JOIN books ON order_details.book_id = books.book_id
+                        WHERE books.publisher_id = :publisher_id AND order_details.status="delivered"');
         $this->db->bind(':publisher_id', $publisher_id);
         $result = $this->db->single();
         
@@ -335,10 +358,11 @@
             return 0; 
         }
     }
+    
     public function countShipOrders($publisher_id){    
-        $this->db->query('SELECT COUNT(*) as orderCount FROM orders 
-                          INNER JOIN books ON orders.book_id = books.book_id
-                          WHERE books.publisher_id = :publisher_id AND orders.status="shipping"');
+        $this->db->query('SELECT COUNT(*) as orderCount FROM order_details 
+                            INNER JOIN books ON order_details.book_id = books.book_id
+                          WHERE books.publisher_id = :publisher_id AND order_details.status="shipping"');
         $this->db->bind(':publisher_id', $publisher_id);
         $result = $this->db->single();
         

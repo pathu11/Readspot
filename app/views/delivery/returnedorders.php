@@ -50,7 +50,7 @@
                 <td ><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></td>
                 <td ><?php echo $orderDetails->receiver_postal_name . ', ' . $orderDetails->receiver_street_name . ', ' . $orderDetails->receiver_town . ', ' . $orderDetails->receiver_district . ', ' .$orderDetails->receiver_postal_code; ?></td>
 
-                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
+                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->sender_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
 
                 <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
             </tr>
