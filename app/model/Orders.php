@@ -457,13 +457,23 @@ public function getUserOrderHistoryWithBooks($customer_id)
 
     return $booksResult;
 }
+
+
 public function getOrderById($order_id) {
-    $this->db->query('SELECT o.*, b.book_name AS book_name, c.first_name AS first_name, c.last_name AS last_name, c.email AS email ,b.type AS type,b.img1 AS img1
-    FROM orders o
-    INNER JOIN books b ON o.book_id = b.book_id
-    INNER JOIN customers c ON o.customer_id = c.customer_id
-    WHERE order_id = :order_id;
-     ');
+    $this->db->query('SELECT o.*, 
+        b.book_name AS book_name, 
+        cu.first_name AS first_name, 
+        cu.last_name AS last_name, 
+        cu.email AS email, 
+        b.type AS type, 
+        b.img1 AS img1,
+        cu.*
+    FROM order_details od
+    INNER JOIN orders o ON od.order_id = o.order_id
+    INNER JOIN books b ON od.book_id = b.book_id
+    INNER JOIN customers cu ON o.customer_id = cu.customer_id
+    WHERE o.order_id = :order_id');
+
     $this->db->bind(':order_id', $order_id);
 
     return $this->db->resultSet();
@@ -471,7 +481,7 @@ public function getOrderById($order_id) {
 
 public function addOrderDetails($order_id, $book_id, $quantity) {
     $sql = 'INSERT INTO order_details (order_id, book_id, quantity,status) VALUES (:order_id, :book_id, :quantity, :status)';
-    echo $sql; // Debugging statement
+   
     $this->db->query($sql);
     $this->db->bind(':order_id', $order_id);
     $this->db->bind(':book_id', $book_id);

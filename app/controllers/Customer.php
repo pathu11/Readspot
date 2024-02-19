@@ -570,7 +570,6 @@ class Customer extends Controller {
             } else {
                 echo "Not a customer";
             }
-
             $data = [
                 'customerid' => $customerid,
                 'customerImage' => $customerDetails[0]->profile_img,

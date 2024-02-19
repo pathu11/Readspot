@@ -96,13 +96,14 @@
                             <p id="totalPriceDisplay">Rs. <?php echo $book[0]->total_price + $data['deliveryDetails']->priceperkilo; ?></p>
                             
                         </div> 
-
-                                <input class="visible" type="number" id="totalCostInput" name="totalCost" step="any" >
-                                <input class="visible" type="number" id="totalWeightInput" name="totalWeight" step="any" >  
-                                <input class="visible" type="number" id="totalDeliveryInput" name="totalDelivery" step="any" > 
+                               
                     </div>
                        
-
+                    <input type="number" id="subtotalPriceInput" name="subTotalPrice" step="any"class="visible" >
+                    <input class="visible" type="number" id="totalCostInput" name="totalCost" step="any" >
+                    <input class="visible" type="number" id="totalWeightInput" name="totalWeight" step="any" >  
+                     <input class="visible" type="number" id="totalDeliveryInput" name="totalDelivery" step="any" > 
+                     
                     <input type="submit" value="Place Order" name="submit" class="submit">
                     
         </div>
@@ -171,6 +172,8 @@ function updateTotalCost(index) {
     document.getElementById('totalWeightInput').value = totalWeight;
     document.getElementById('totalDeliveryInput').value = deliveryFee;
     document.getElementById('totalCostInput').value = totalPrice;
+    document.getElementById('subtotalPriceInput').value =  totalCost;
+    
 }
 function updateHiddenQuantity(index, quantity) {
     document.getElementById('book_quantity_' + index).value = quantity;
