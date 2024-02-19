@@ -309,7 +309,7 @@
   }
 
   public function addOrder($data){
-    $this->db->query('INSERT INTO orders (customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery,status) VALUES( :customer_id,  :c_postal_name, :c_street_name,  :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery,  :status)');
+    $this->db->query('INSERT INTO orders (customer_id, c_postal_name, c_street_name, c_town, c_district, c_postal_code,contact_no,total_price,total_weight,total_delivery) VALUES( :customer_id,  :c_postal_name, :c_street_name, :c_town, :c_district, :c_postal_code, :contact_no, :total_price, :total_weight, :total_delivery)');
     
     
     $this->db->bind(':customer_id',$data['customer_id']);
@@ -324,7 +324,7 @@
     $this->db->bind(':total_delivery',$data['totalDelivery']);
     // $this->db->bind(':quantity',$data['quantity']);
     // $this->db->bind(':total_delivery',$data['total_delivery']);
-    $this->db->bind(':status',"pending");
+    
    
    
    
@@ -363,17 +363,22 @@ public function editOrder($data)
 }
 public function editOrderCOD($data)
 {
-    $this->db->query('UPDATE orders
-              SET 
-              payment_type = :payment_type ,
-              tracking_no = :tracking_no,
-              status= :status
-              WHERE order_id = :order_id');
+    $this->db->query('UPDATE orders o
+                      JOIN order_details od ON o.order_id = od.order_id
+                      SET 
+                          o.payment_type = :payment_type,
+                          o.tracking_no = :tracking_no,
+                        
+                          od.status = :status_order_details
+                      WHERE o.order_id = :order_id');
+
     // Bind values
     $this->db->bind(':order_id', $data['order_id']);
-    $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
+    $this->db->bind(':payment_type', $data['formType']);
     $this->db->bind(':tracking_no', $data['trackingNumber']);
-    $this->db->bind(':status', "processing");
+   
+    $this->db->bind(':status_order_details', "processing");
+
     // Execute
     if ($this->db->execute()) {
         return true;
@@ -381,6 +386,7 @@ public function editOrderCOD($data)
         return false;
     }
 }
+
 // public function displayOrder(){
 //   $this->db->query('SELECT * FROM orders WHERE payment_type="onlineDeposit"');
 //     return $this->db->resultSet();
@@ -473,23 +479,28 @@ public function searchUsedBooks($inputText){
 }
 
 public function editOrderCardPayment($data){
-  $this->db->query('UPDATE orders
-    SET 
-    payment_type = :payment_type ,
-    tracking_no = :tracking_no,
-    status= :status
-    WHERE order_id = :order_id');
-  // Bind values
-  $this->db->bind(':order_id', $data['order_id']);
-  $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
-  $this->db->bind(':tracking_no', $data['trackingNumber']);
-  $this->db->bind(':status', "processing");
-  // Execute
-  if ($this->db->execute()) {
-  return true;
-  } else {
-  return false;
-  }
+  $this->db->query('UPDATE orders o
+                      JOIN order_details od ON o.order_id = od.order_id
+                      SET 
+                          o.payment_type = :payment_type,
+                          o.tracking_no = :tracking_no,
+                         
+                          od.status = :status_order_details
+                      WHERE o.order_id = :order_id');
+
+    // Bind values
+    $this->db->bind(':order_id', $data['order_id']);
+    $this->db->bind(':payment_type', $data['formType']);
+    $this->db->bind(':tracking_no', $data['trackingNumber']);
+  
+    $this->db->bind(':status_order_details', "processing");
+
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 public function ChangeProfImage($data) {
   $this->db->query('UPDATE customers 

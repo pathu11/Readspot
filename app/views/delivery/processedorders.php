@@ -39,6 +39,7 @@
     <thead>
             <tr>
                 <th >Order ID</th>
+                <th >Book ID</th>
                 <th >No of Items</th>
                 <th >Total Weight</th>
                 <th >Sender's Address</th>
@@ -53,6 +54,7 @@
             <?php foreach($data['orderDetails'] as $orderDetails): ?>
             <tr>
                 <td ><?php echo $orderDetails->order_id; ?></td>
+                <td ><?php echo $orderDetails->book_id; ?></td>
                 <td ><?php echo $orderDetails->quantity; ?></td>
                 <td ><?php echo $orderDetails->total_weight; ?></td>
                 <td ><?php echo $orderDetails->sender_postal_name . ', ' . $orderDetails->sender_street_name . ', ' . $orderDetails->sender_town . ', ' . $orderDetails->sender_district . ', ' .$orderDetails->sender_postal_code ; ?></td>

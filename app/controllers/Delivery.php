@@ -119,6 +119,8 @@ class Delivery extends Controller{
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     
             $data = [
+                
+                'deliveryName'=>$deliveryName,
                 'deliveryDetails'=>$deliveryDetails,
                 'delivery_id' => $delivery_id,
                 'priceperadditional' => trim($_POST['priceperadditional']),
@@ -190,7 +192,8 @@ class Delivery extends Controller{
         $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
-            'deliveryName'=>$deliveryDetails[0]->name
+            'deliveryName'=>$deliveryDetails[0]->name,
+            'deliveryDetails'=>$deliveryDetails
         ];
        
         $this->view('delivery/shippingorders',$data);
@@ -260,7 +263,8 @@ class Delivery extends Controller{
         $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
-            'deliveryName'=>$deliveryDetails[0]->name
+            'deliveryName'=>$deliveryDetails[0]->name,
+            'deliveryDetails'=>$deliveryDetails
            
         ];
        
@@ -288,7 +292,8 @@ class Delivery extends Controller{
         $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
-            'deliveryName'=>$deliveryDetails[0]->name
+            'deliveryName'=>$deliveryDetails[0]->name,
+            'deliveryDetails'=>$deliveryDetails
            
         ];
         $this->view('delivery/returnedorders',$data);
@@ -313,7 +318,8 @@ class Delivery extends Controller{
         $deliveryDetails = $this->deliveryModel->findDeliveryById($user_id);
         $data = [
             'orderDetails'=>$orderDetails,
-            'deliveryName'=>$deliveryDetails[0]->name
+            'deliveryName'=>$deliveryDetails[0]->name,
+            'deliveryDetails'=>$deliveryDetails
            
         ];
        
@@ -355,7 +361,7 @@ class Delivery extends Controller{
             
            
         ];
-        if($this->deliveryModel->pickedUp($order_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
+        if($this->deliveryModel->pickedUp($order_id,$book_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
            $this->sendEmails( $ownerEmail, $data);
            redirect('delivery/shippingorders');
             
@@ -401,7 +407,7 @@ class Delivery extends Controller{
             
            
         ];
-        if($this->deliveryModel->delivered($order_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
+        if($this->deliveryModel->delivered($order_id,$book_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
            $this->sendEmails( $ownerEmail, $data);
            redirect('delivery/shippingorders');
             
@@ -448,7 +454,7 @@ class Delivery extends Controller{
             
            
         ];
-        if($this->deliveryModel->returned($order_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
+        if($this->deliveryModel->returned($order_id,$book_id) && $this->deliveryModel->addMessage($data) && $this->adminModel->addMessageToPublisher($data)){
            $this->sendEmails( $ownerEmail, $data);
            redirect('delivery/shippingorders');
             

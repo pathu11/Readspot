@@ -333,8 +333,6 @@ public function getOrderDetails(){
 
   return $results;
 }
-
-
 public function getPendingOrderDetails() {
   $this->db->query("SELECT orders.*, customers.name AS customer_name 
                     FROM orders 
