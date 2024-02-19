@@ -39,18 +39,15 @@
       <h3>Messages for you</h3>
       <div class="messages">
         <?php foreach($data['messageDetails'] as $message): ?>
-        <a href="<?php echo URLROOT;?>/Chats/chat/<?php echo $message->incoming_msg_id;?>"><div class="message">
-          <i class="bx bxs-user-circle icon"></i>
-          <span><?php echo $message->name;?></span>
+        <a href="<?php echo URLROOT;?>/Chats/chat/<?php echo $message->incoming_msg_id;?>">
+        <div class="message">
+          <div class="user-message">
+            <i class="bx bxs-user-circle icon"></i>
+            <span><?php echo $message->name;?></span>
+          </div>
           <p><?php echo $message->msg;?></p>
         </div></a>
         <?php endforeach;?>
-
-        <div class="message">
-          <i class="bx bxs-user-circle icon"></i>
-          <span>Admin</span>
-          <p>There are some events you have to approve quickly</p>
-        </div>
       </div>
     </div>
   </div>

@@ -34,7 +34,7 @@
     }
 
     public function getMessageDetails($user_id){
-      $this->db->query('SELECT u.name, m.msg , m.incoming_msg_id FROM message AS m JOIN users AS u ON u.user_id = m.outgoing_msg_id WHERE m.outgoing_msg_id=:user_id');
+      $this->db->query('SELECT u.name, m.msg , m.incoming_msg_id FROM message AS m JOIN users AS u ON u.user_id = m.incoming_msg_id WHERE m.outgoing_msg_id=:user_id');
       $this->db->bind(':user_id',$user_id);
 
       return $this->db->resultSet();
