@@ -72,7 +72,7 @@
             <li id="nextButton">»</li>
         </ul>
         <div id="myModal" class="modal">
-            <div class="modal-content-orders">
+            <div class="modal-content-orders" style="width: 70%; height: 600px; overflow-y: auto;">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Order Details</h2>
                 <div id="searchresult"></div>
@@ -86,7 +86,6 @@
 </body>
 <script>
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
         
@@ -126,7 +125,7 @@ function displaySearchResults(response) {
     if (response.length > 0) {
         for (var i = 0; i < response.length; i++) {
             searchresult.append(`
-                <div class="order-container">
+                <div class="order-container" >
                     
                     
                     <div class="order">

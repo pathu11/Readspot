@@ -326,13 +326,13 @@ public function getCharitySearchDetails($input){
 }
 
 public function getOrderDetails(){
-  $this->db->query("SELECT * FROM orders ");
-
-  $results=$this->db->resultSet();
+  $this->db->query("SELECT o.*, od.book_id, od.quantity 
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id");
+  $results = $this->db->resultSet();
 
   return $results;
 }
-
 public function getPendingOrderDetails() {
   $this->db->query("SELECT orders.*, customers.name AS customer_name 
                     FROM orders 

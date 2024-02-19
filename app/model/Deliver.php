@@ -5,10 +5,14 @@
         $this->db = new Database;
     }
     public function findOrderById($order_id){
-        $this->db->query('SELECT * from orders WHERE order_id=:order_id');
-        $this->db->bind(':order_id',$order_id);
+        $this->db->query('SELECT o.*, od.book_id, od.quantity 
+                          FROM orders o 
+                          INNER JOIN order_details od ON o.order_id = od.order_id 
+                          WHERE o.order_id = :order_id');
+        $this->db->bind(':order_id', $order_id);
         return $this->db->resultSet();
     }
+    
     public function findCustomerById($customer_id){
         $this->db->query('SELECT * from customers WHERE customer_id=:customer_id');
         $this->db->bind(':customer_id',$customer_id);
@@ -72,17 +76,16 @@
     }
 }
 
-public function pickedUp($order_id) {
-    $this->db->query('UPDATE orders
-              SET status = :status  
-              
-              WHERE order_id = :order_id');
+public function pickedUp($order_id, $book_id) {
+    $this->db->query('UPDATE order_details
+                      SET status = :status  
+                      WHERE order_id = :order_id AND book_id = :book_id');
 
     // Bind values
     $this->db->bind(':order_id', $order_id);
-   
+    $this->db->bind(':book_id', $book_id);
     $this->db->bind(':status', 'shipping');
-   
+
     // Execute
     if ($this->db->execute()) {
         return true;
@@ -91,41 +94,40 @@ public function pickedUp($order_id) {
     }
 }
 
-public function delivered($order_id) {
-    $this->db->query('UPDATE orders
-              SET status = :status  
-              
-              WHERE order_id = :order_id');
 
-    // Bind values
-    $this->db->bind(':order_id', $order_id);
-   
-    $this->db->bind(':status', 'delivered');
-   
-    // Execute
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
+public function delivered($order_id,$book_id) {
+    $this->db->query('UPDATE order_details
+    SET status = :status  
+    WHERE order_id = :order_id AND book_id = :book_id');
+
+// Bind values
+$this->db->bind(':order_id', $order_id);
+$this->db->bind(':book_id', $book_id);
+$this->db->bind(':status', 'delivered');
+
+// Execute
+if ($this->db->execute()) {
+return true;
+} else {
+return false;
 }
-public function returned($order_id) {
-    $this->db->query('UPDATE orders
-              SET status = :status  
-              
-              WHERE order_id = :order_id');
+}
+public function returned($order_id,$book_id) {
+    $this->db->query('UPDATE order_details
+    SET status = :status  
+    WHERE order_id = :order_id AND book_id = :book_id');
 
-    // Bind values
-    $this->db->bind(':order_id', $order_id);
-   
-    $this->db->bind(':status', 'returned');
-   
-    // Execute
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
+// Bind values
+$this->db->bind(':order_id', $order_id);
+$this->db->bind(':book_id', $book_id);
+$this->db->bind(':status', 'returned');
+
+// Execute
+if ($this->db->execute()) {
+return true;
+} else {
+return false;
+}
 }
 public function addMessage($data) {
     // Assuming $this->db is an instance of your database class

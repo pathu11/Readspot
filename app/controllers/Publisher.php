@@ -1369,14 +1369,11 @@ public function stores(){
                         'publisherName'  =>$publisherDetails[0] ->name
                     
                     ];
-
-
                     $this->view('publisher/updateStore',$data);
 
                 }  
             }
     }
-
     public function deleteStore($store_id){
         if($this->publisherModel->deleteStore($store_id)){
             flash('delete_success','You deleted the store successfully');
