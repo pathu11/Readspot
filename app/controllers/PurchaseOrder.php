@@ -41,9 +41,7 @@ class PurchaseOrder extends Controller{
                     foreach($selectedCartIds as $cartId) {
                         $bookDetails[] = $this->customerModel->findDetailsByCartId($cartId);
                     }
-                    // echo "<pre>";
-                    // print_r($bookDetails);
-                    // echo "</pre>";
+                   
                 } else { 
                     echo "Error: No books selected" ; 
                     return;
@@ -57,17 +55,15 @@ class PurchaseOrder extends Controller{
         }
     }   
     public function purchaseMultipleView(){
-        // $data= $_SESSION['purchaseMultipleBookDetails'];
+      
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {    
             $user_id = $_SESSION['user_id'];
             $bookDetails=$_SESSION['purchaseMultipleBookDetails'];
             $bookIds = [];
-            // Iterate over the result set to extract book IDs
             foreach ($bookDetails as $book) {
                 $bookIds[] = $book[0]->book_id;
-                // $bookId = json_encode($bookIds);
             }
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
@@ -89,7 +85,7 @@ class PurchaseOrder extends Controller{
                     'total_weight'=>trim($_POST['totalWeight']),
                     'totalDelivery'=>trim($_POST['totalDelivery']),
                     'bookQuantities' => $_POST['book_quantities'],
-                    // 'quantity' => trim($_POST['quantity']), 
+                    
                     'postal_name_err' => '',
                     'street_name_err' => '',
                     'town_err' => '',
