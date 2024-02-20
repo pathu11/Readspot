@@ -59,7 +59,11 @@
                     <tbody>
                         <?php foreach($data['cartDetails'] as $cart): ?>
                         <tr>
-                            <td rowspan="4"><?php echo $cart->book_name; ?></td>
+                            <td rowspan="5"><input type="checkbox"></td>
+                            <td rowspan="5"><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
+                            <td><?php echo $cart->book_name; ?></td>
+                        </tr>
+                        <tr>
                             <td><?php echo $cart->price; ?> (per book)</td>
                         </tr>
                         <tr>
@@ -98,7 +102,9 @@
                 <li>10</li>
                 <li id="nextButton">»</li>
             </ul>
-            <button>Checkout All</button>
+            <div class="chk-btn-div">
+                <button class="checkout-btn">Checkout All</button>
+            </div>
         </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
