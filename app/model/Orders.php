@@ -407,13 +407,29 @@
     }
 
     public function findOrdersByCustomerId($customer_id) {
-        $this->db->query('SELECT * FROM orders 
-                          
-                          WHERE customer_id=:customer_id ');
+        $this->db->query('SELECT o.tracking_no, od.status ,o.order_id
+                          FROM orders o
+                          LEFT JOIN order_details od ON o.order_id = od.order_id
+                          WHERE o.customer_id = :customer_id');
         $this->db->bind(':customer_id', $customer_id);
     
         return $this->db->resultSet();
     }
+    public function cancelOrder($orderId, $reason) {
+        $this->db->query('UPDATE order_details SET status = :status, reasonOfCancel = :reason WHERE order_id = :order_id');
+        $this->db->bind(':order_id', $orderId);
+        $this->db->bind(':reason', $reason);
+        $this->db->bind(':status', "cancel");
+        if($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    
+    
 
 
 public function getUserOrderHistoryWithBooks($customer_id)
