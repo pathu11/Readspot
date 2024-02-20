@@ -24,7 +24,7 @@
 </head>
 
 <div class="flex-parent-element">
-    <div class="flex-child-element magenta">
+    <div class="flex-child-element magenta"style="width: 70%; height: 600px; overflow-y: auto;">
        
         <h1>
             Payment
@@ -32,6 +32,7 @@
     <br>
         <hr>
         <br>
+       
         <table>
        
             <tr>
@@ -40,29 +41,32 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-          <?php foreach($data['bookDetails'] as $books): ?>
+            
+           
+          <?php foreach($data['bookDetails'] as $key => $books): ?>
+            
             <tr>
                 <td> 
                     <?php 
-                    if ($books->type== "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1. '" alt="Bell Image" width="180px">';
-                    } elseif ($books->type== "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $books->img1 . '" alt="Bell Image" width="180px">';
+                    if ($books[0]->type== "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books[0]->img1. '" alt="Bell Image" width="180px">';
+                    } elseif ($books[0]->type== "used") {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/addUsedBook/'. $books[0]->img1 . '" alt="Bell Image" width="180px">';
                     } else {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
             ?></td>
-                <td><?php echo $books->price; ?></td>
-                <td><?php echo $data['orderDetails']['quantity']; ?></td>
-                <td><?php echo $data['orderDetails']['total_cost']; ?></td>
+                <td><?php echo $books[0]->price; ?></td>
+                <td><?php echo $data['bookQuantities'][$key]; ?></td>
+                <td><?php echo $books[0]->price * $data['bookQuantities'][$key]; ?></td>
             </tr>
           <?php endforeach ;?>
     </table>
       
     </div>
-    <div class="flex-child-element magenta">
+    <div class="flex-child-element magenta" >
         
-        <div class="payment-details">
+        <div class="payment-details" >
             <h2>Customer Billing Details(Ship to this Address)</h2>
 
             <div class="cost1">
@@ -89,9 +93,9 @@
                             <p>Total</P>
                         </div>
                         <div  class="subcost2">
-                            <p><?php echo $data['orderDetails']['contact_no']; ?></p>
-                            <p><?php echo $data['orderDetails']['totalDelivery']; ?></p>
-                            <p><?php echo $data['orderDetails']['total_cost']; ?></p>
+                            <p>Rs.  <?php echo $data['orderDetails']['subTotalPrice']; ?></p>
+                            <p>Rs.  <?php echo $data['orderDetails']['totalDelivery']; ?></p>
+                            <p>Rs.  <?php echo $data['orderDetails']['total_cost']; ?></p>
 
                         </div> 
 
@@ -218,8 +222,8 @@
                 var payment = {
                     "sandbox": true,
                     "merchant_id": "1225428",
-                    "return_url": "<?php echo URLROOT; ?>/customer/Cart",
-                    "cancel_url": "<?php echo URLROOT; ?>/PurchaseOrder/checkout2",
+                    "return_url": "<?php echo URLROOT; ?>/customer/Order",
+                    "cancel_url": "<?php echo URLROOT; ?>/customer/Order",
                     "notify_url": "http://sample.com/notify",
                     "order_id": obj["order_id"],
                     "items": obj["items"],

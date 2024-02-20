@@ -762,7 +762,6 @@ class Customer extends Controller {
             } else {
                 echo "Not a customer";
             }
-
             $data = [
                 'customerid' => $customerid,
                 'customerImage' => $customerDetails[0]->profile_img,
@@ -783,7 +782,7 @@ class Customer extends Controller {
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id); 
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
-        $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
+        // $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
         
         // print_r($recommendedBooks) ;
        
@@ -794,7 +793,7 @@ class Customer extends Controller {
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name,
             'bookDetails' => $NewbookDetailsByTime,
-            'recommendedBooks'=>$recommendedBooks
+            // 'recommendedBooks'=>$recommendedBooks
             // 'bookCategoryDetails' => $bookCategoryDetails
         ];
 
@@ -2223,8 +2222,26 @@ class Customer extends Controller {
                 'customerName' => $customerDetails[0]->name,
                 'orderDetails'=>$orderDetails
             ];
+           
             $this->view('customer/Order', $data);
         }
+    }
+    public function cancelOrder() {
+        
+        $data = json_decode(file_get_contents('php://input'), true);
+    
+        $orderId = $data['orderId'];
+        $reason = $data['reason'];
+        if($orderId && $reason){
+            if($this->ordersModel->cancelOrder($orderId,$reason)){
+                $response = [
+                    'success' => true 
+                ];
+            }
+        }
+       
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
     public function filterbook(){

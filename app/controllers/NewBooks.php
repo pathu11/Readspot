@@ -240,7 +240,7 @@ public function addbooks(){
 {
     if ($this->publisherModel->deletebooks($book_id)) {   
         flash('post_message', 'book is Removed');
-        redirect('publisher/productGallery');
+        redirect('NewBooks/productGallery');
         
         
     } else {
@@ -417,7 +417,7 @@ public function update($book_id){
                 
                 if($this->publisherModel->update($data)){
                     flash('update_success','You are added the book  successfully');
-                    redirect('publisher/productGallery');
+                    redirect('NewBooks/productGallery');
                 }else{
                     die('Something went wrong');
                 }
@@ -432,7 +432,7 @@ public function update($book_id){
             // ...
             $books = $this->publisherModel->findBookById($book_id);
             if($books->publisher_id != $publisher_id){
-                redirect('publisher/productGallery');
+                redirect('NewBooks/productGallery');
               }
             $data = [
                 'publisherDetails' => $publisherDetails,

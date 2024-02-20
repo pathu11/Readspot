@@ -17,12 +17,22 @@ body {
   background-position: center;
 }
 
+.dashboard{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+.stat-itmes{
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
 .grid-container {
   display: flex;
-  justify-content: center;
   grid-template-columns: auto auto auto auto;
   padding: 10px;
-  margin-top: 125px;
   gap: 100px 50px;
 }
 .grid-item {
@@ -60,6 +70,41 @@ body {
 .fa-list{
   color: lightsalmon;
   font-size: x-large;
+}
+
+/* message -panel*/
+.message-panel{
+  margin-left: 50px;
+  padding: 10px;
+}
+
+.messages {
+  background-color: rgb(112, 191, 186, 25%);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.messages a {
+  text-decoration: none;
+  color: black;
+}
+
+.user-message {
+  display: flex;
+}
+
+.user-message span {
+  padding-left: 5px;
+  font-size: larger;
+}
+
+.message {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.message:hover p {
+  color: white;
 }
 
 /*.table-container{
@@ -217,21 +262,20 @@ button{
   border-radius: 4px;
   background-color: #009D94;
   color: white;
-  height: 30px;
-  width: 65px;
+  height: auto;
+  width: auto;
+  padding: 10px;
 }
 
 .chart-container{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  gap: 0px 30px;
-  padding-top: 20px;
+  padding: 20px;
+  justify-content: center;
 }
 
 .chart{
-  height: 300px;
-  width: 500px;
+  width: 700px;
   box-shadow: 0 0 9px rgba(224, 224, 224, 3);
   border-radius: 5px;
   padding: 5px;

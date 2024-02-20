@@ -140,7 +140,7 @@ function viewBook(bookDetails) {
             </tr>
             <tr>
                 <th>Description</th>
-                <td>${bookDetails.descript}</td>
+                <td><textarea style="border:none;" rows="5" cols="50" readonly>${bookDetails.descript}</textarea></td>
             </tr>
             <tr>
                 <th>Isbn Number</th>

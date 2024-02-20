@@ -15,7 +15,7 @@
             <h1>Log in</h1>
             <input type="email" name="email" placeholder="Email" value="<?= isset($_COOKIE['email']) ? $_COOKIE['email'] : '' ?>" required >
             <div class="password-wrapper">
-            <input type="password" name="pass" placeholder="password" value="<?= isset($_COOKIE['pass']) ? $_COOKIE['pass'] : '' ?>" required ><i class="fa fa-eye-slash" id="togglePassword"></i> <br></div>
+            <input type="password" name="pass" placeholder="password"  required ><i class="fa fa-eye-slash" id="togglePassword"></i> <br></div>
           
             <input type="checkbox" id="rememberMe" name="rememberMe" <?= (isset($_COOKIE['email']) && isset($_COOKIE['pass'])) ? "checked" : '' ?> value=1>
             <span>Remember me</span>

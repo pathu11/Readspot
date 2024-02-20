@@ -15,6 +15,34 @@ class Publisher extends Controller{
         $this->db = new Database();
         
     }
+    public function test(){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+            $publisher_id =$publisherDetails[0]->publisher_id;
+            $bookCount=$this->publisherModel->countBooks($publisher_id);
+            $orderCount=$this->orderModel->countOrders($publisher_id);
+            $orderProCount=$this->orderModel->countProOrders($publisher_id);
+            $orderDelCount=$this->orderModel->countDelOrders($publisher_id);
+            $orderShipCount=$this->orderModel->countShipOrders($publisher_id);
+            $orderReturnedCount=$this->orderModel->countReturnedOrders($publisher_id);
+            
+            $data = [
+                'publisherDetails' => $publisherDetails, 
+                'bookCount'    =>$bookCount,
+                'orderCount'    =>$orderCount,
+                'orderProCount'    =>$orderProCount,
+                'orderDelCount'    =>$orderDelCount,
+                'orderReturnedCount'    =>$orderReturnedCount,
+                'orderShipCount'    =>$orderShipCount,
+                'publisher_id'   =>$publisher_id ,
+                'publisherName'  =>$publisherDetails[0] ->name
+            ];
+            $this->view('publisher/test', $data);
+        } 
+    }
    
     
     public function index(){
@@ -271,7 +299,7 @@ public function editAccountForBooks($book_id) {
                 // Now add book approval
 
                 flash('update_success', 'You have updated the account and added book approval successfully');
-                redirect('publisher/productGallery');
+                redirect('NewBooks/productGallery');
                
             } else {
                 die('Something went wrong with updating account details');
@@ -1341,14 +1369,11 @@ public function stores(){
                         'publisherName'  =>$publisherDetails[0] ->name
                     
                     ];
-
-
                     $this->view('publisher/updateStore',$data);
 
                 }  
             }
     }
-
     public function deleteStore($store_id){
         if($this->publisherModel->deleteStore($store_id)){
             flash('delete_success','You deleted the store successfully');
@@ -1381,9 +1406,28 @@ public function stores(){
             echo json_encode(['error' => 'Invalid request method.']);
         }
     }
-    
 
-    
+    public function messages(){
+        if(!isLoggedIn()){
+            redirect('landing/login');
+        }else{
+
+            $user_id = $_SESSION['user_id'];
+            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+           
+            $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
+           
+            $data=[
+                'chatDetails'=>$ChatDetails,
+                'user_id'=>$user_id,
+                'publisherName'=>$publisherDetails[0]->name,
+                'publisherDetails'=>$publisherDetails
+            ];
+
+            $this->view('publisher/messages',$data);
+
+    }
+}  
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
