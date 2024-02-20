@@ -1,12 +1,13 @@
 .my-cart {
     padding: 20px;
-    background-color:  #E3F2FD;
+    background-color:  white;
     right: 0px;
     min-height: 500px;
 }
 
 .cart-topic h2 {
     background-color: #81cec9;
+    text-decoration: underline;
     color: black;
     width: fit-content;
     padding: 5px;
@@ -54,15 +55,15 @@
 
 /* Change the width of specific columns */
 .mycart th:nth-child(1), .mycart td:nth-child(1) {
-    width: 50%; /* Adjust the width as needed */
+    width: 5%; /* Adjust the width as needed */
 }
 
 .mycart th:nth-child(2), .mycart td:nth-child(2) {
-    width: 10%; /* Adjust the width as needed */
+    width: 20%; /* Adjust the width as needed */
 }
 
 .mycart th:nth-child(3), .mycart td:nth-child(3) {
-    width: 10%; /* Adjust the width as needed */
+    width: 30%; /* Adjust the width as needed */
 }
 
 .mycart th:nth-child(4), .mycart td:nth-child(4) {
@@ -70,7 +71,15 @@
 }
 
 .mycart th:nth-child(5), .mycart td:nth-child(5) {
+    width: 5%; /* Adjust the width as needed */
+}
+
+.mycart th:nth-child(5), .mycart td:nth-child(5) {
     width: 20%; /* Adjust the width as needed */
+}
+
+.mycart th:nth-child(5), .mycart td:nth-child(5) {
+    width: 10%; /* Adjust the width as needed */
 }
 
 .cart-search {
@@ -105,7 +114,12 @@
     background-color: #f2f2f2;;
 }
 
-@media screen and (max-width:810px) {
+.cart-image {
+    width: 80px;
+    height: 100px;
+}
+
+@media screen and (max-width:950px) {
     .tb-cart1 {
         display: none;
     }

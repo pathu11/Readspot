@@ -20,6 +20,8 @@
                 <table border="1" class="tb-cart1" id="eventTable">
                     <thead>
                         <tr>
+                            <th></th>
+                            <th>Image</th>
                             <th>Book Name</th>
                             <th>Price per book</th>
                             <th>Quantity</th>
@@ -30,6 +32,8 @@
                     <tbody>
                         <?php foreach($data['cartDetails'] as $cart): ?>
                         <tr>
+                            <td><input type="checkbox"></td>
+                            <td><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
                             <td><?php echo $cart->book_name; ?></td>
                             <td><?php echo $cart->price; ?></td>
                             <td><?php echo $cart->quantity; ?></td>
@@ -94,6 +98,7 @@
                 <li>10</li>
                 <li id="nextButton">»</li>
             </ul>
+            <button>Checkout All</button>
         </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
