@@ -99,29 +99,11 @@ body {
 }
 
 .message {
-  
+  padding: 10px;
   box-sizing: border-box;
-  position: relative; /* Ensure proper positioning of pseudo-element */
-}
-
-.message::before {
-  content: "";
-  top: -15px;
-  left: -15px;
-  width: calc(100% + 30px); /* Adjust width to include padding */
-  height: calc(100% + 15px);
-  background-color: transparent;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-  z-index: -1;
-}
-
-.message:hover::before {
-  background-color: rgb(112, 191, 186, 50%);
 }
 
 .message:hover p {
-  /* Adjust the text color when hovering */
   color: white;
 }
 

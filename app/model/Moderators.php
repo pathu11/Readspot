@@ -48,12 +48,16 @@
           JOIN 
               users AS u2 ON u2.user_id = m.outgoing_msg_id 
           WHERE 
-              m.incoming_msg_id = :user_id'
+              m.incoming_msg_id = :user_id
+          ORDER BY 
+              m.msg_id DESC
+          LIMIT 5'
       );
       $this->db->bind(':user_id', $user_id);
   
       return $this->db->resultSet();
   }
+  
   
   
   }
