@@ -38,23 +38,34 @@ function setupPagination(rows) {
 function displayRows(rows, rowsPerPage, page) {
     let start = (page - 1) * rowsPerPage;
     let end = start + rowsPerPage;
+    let matchedRows = [];
 
     for (let i = 0; i < rows.length; i++) {
         const contentName = rows[i].cells[0].innerText.toLowerCase(); // Assuming content name is in the first cell
 
-        if (i >= start && i < end && contentName.includes(searchTerm)) {
-            rows[i].style.display = '';
+        if (searchTerm === '' || contentName.includes(searchTerm)) {
+            matchedRows.push(rows[i]);
         } else {
-            rows[i].style.display = 'none';
+            rows[i].style.display = 'none'; // hide irrelevant rows
         }
     }
 
-    updatePaginationUI(page);
+    let totalPages = Math.ceil(matchedRows.length / rowsPerPage);
+
+    for (let i = 0; i < matchedRows.length; i++) {
+        if (i >= start && i < end) {
+            matchedRows[i].style.display = ''; // display relevant rows
+        } else {
+            matchedRows[i].style.display = 'none'; // hide rows not in current page
+        }
+    }
+
+    updatePaginationUI(page, totalPages);
 }
 
-function updatePaginationUI(curtPage) {
+
+function updatePaginationUI(curtPage, totalPages) {
     let pagination = document.getElementById('pagination');
-    let totalPages = Math.ceil(rows.length / rowsPerPage);
 
     // Display exactly maxPaginationNumbers pagination numbers
     let startPage = Math.max(1, Math.min(curtPage - Math.floor(maxPaginationNumbers / 2), totalPages - maxPaginationNumbers + 1));
