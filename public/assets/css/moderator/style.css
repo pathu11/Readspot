@@ -1,0 +1,93 @@
+.dashboard{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+.stat-itmes{
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.grid{
+  display: flex;
+  justify-content: center;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+  gap: 100px 50px;
+}
+
+.grid-item{
+  background-color: rgb(112, 191, 186, 25%);
+  padding: 20px;
+  font-size: 20px;
+  text-align:left;
+  border-radius: 10px;
+  text-decoration: none;
+  height: 100px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fa{
+  font-size: xx-large;
+}
+
+.message-panel{
+  margin-left: 50px;
+  padding: 10px;
+}
+
+.messages {
+  background-color: rgb(112, 191, 186, 25%);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.messages a {
+  text-decoration: none;
+  color: black;
+}
+
+.user-message {
+  display: flex;
+}
+
+.user-message span {
+  padding-left: 5px;
+  font-size: larger;
+}
+
+.message {
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative; /* Ensure proper positioning of pseudo-element */
+}
+
+.message::before {
+  content: "";
+  top: -15px;
+  left: -15px;
+  background-color: transparent;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.message:hover p {
+  /* Adjust the text color when hovering */
+  color: white;
+}
+
+
+.chart{
+  padding: 20px;
+}
+
+.chart canvas{
+  height: 400px !important; 
+  width: 100% !important;
+  display: flex !important;
+}
+

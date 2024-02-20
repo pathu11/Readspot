@@ -14,28 +14,38 @@
   
   ?>
 
-  <div class="grid-container">
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="<?php  echo URLROOT;?>/admin/customers">Customers</a></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="<?php  echo URLROOT;?>/admin/publishers">Publishers</a></div>
-    <div class="grid-item"><i class="fa fa-solid fa-heart"></i><br><a href="<?php  echo URLROOT;?>/admin/charity">Charity Organizations</a></div>
-    <div class="grid-item"><i class="fa fa-solid fa-list"></i><br><a href="<?php  echo URLROOT;?>/admin/orders">Orders</a></div>
-    <!--div class="grid-item"><a href="#complains">Complains</a></div>
-    <div class="grid-item"><a href="#charity organizations">Charity Organizations</a></div>
-    
-    <div class="grid-item"><a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Pending Requests</a></div>
-    <div class="grid-item"><a href="#">Categories</a></div>
-    <div class="grid-item"><a href="#delivary status">Delivery Status</a></div!-->
-  </div>
+  <div class="dashboard">
+    <div class="stat-items">
+      <div class="grid-container">
+        <div class="grid-item"><i class="fa fa-duotone fa-book"></i><br><a href="<?php  echo URLROOT;?>/admin/customers">Customers</a></div>
+        <div class="grid-item"><i class="fa fa-solid fa-address-book"></i><br><a href="<?php  echo URLROOT;?>/admin/publishers">Publishers</a></div>
+        <div class="grid-item"><i class="fa fa-solid fa-heart"></i><br><a href="<?php  echo URLROOT;?>/admin/charity">Charity Organizations</a></div>
+      </div>
 
-  <div class="chart-container">
-    <div class="chart">
-      <canvas id="myChart1"></canvas>
+      <div class="chart-container">
+        <div class="chart">
+          <canvas id="myChart1"></canvas>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </div>
-    <div class="chart">
-      <canvas id="myChart2"></canvas>
+
+    <div class="message-panel">
+      <h3>Messages for you</h3>
+      <div class="messages">
+        <?php foreach($data['messageDetails'] as $message): ?>
+        <a href="<?php echo URLROOT;?>/Chats/chat/<?php echo $message->outgoing_msg_id;?>">
+        <div class="message">
+          <div class="user-message">
+            <i class="bx bxs-user-circle icon"></i>
+            <span><?php echo $message->outgoing_user_name;?></span>
+          </div>
+          <p><?php echo $message->msg;?></p>
+        </div></a>
+        <?php endforeach;?>
+      </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
     // set up block
@@ -94,8 +104,6 @@
     );
 
     </script>
-
-  <script src="<?php echo URLROOT;?>/assets/js/admin/chart2.js"></script>
 
 
   <div class="table-container">
