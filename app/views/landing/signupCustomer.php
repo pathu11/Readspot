@@ -11,9 +11,13 @@
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupCustomer" method="post">
             <h1>Sign up</h1>
-            <input type="text" name="name" placeholder="Full Name" <?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>">
+            <input type="text" name="first_name" placeholder="First Name" <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['first_name']; ?>">
            
-            <span class="invalid-feedback"><?php echo $data['name_err']; ?></span>
+            <span class="invalid-feedback"><?php echo $data['first_name_err']; ?></span>
+            
+            <input type="text" name="last_name" placeholder="Last Name" <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['last_name']; ?>">
+           
+            <span class="invalid-feedback"><?php echo $data['last_name_err']; ?></span>
 
             <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
 

@@ -60,11 +60,13 @@ class Landing extends Controller{
             $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             // init data
             $data=[
-                'name'=>trim($_POST['name']),
+                'first_name'=>trim($_POST['first_name']),
+                'last_name'=>trim($_POST['last_name']),
                 'email'=>trim($_POST['email']),
                 'pass'=>trim($_POST['pass']),
                 'confirm_pass'=>trim($_POST['confirm_pass']),
-                'name_err'=>'',
+                'first_name_err'=>'',
+                'last_name_err'=>'',
                 'email_err'=>'',
                 'pass_err'=>'',
                 'confirm_pass_err'=>'',
@@ -72,8 +74,11 @@ class Landing extends Controller{
 
             // validate email
             //validate lname
-            if(empty($data['name'])){
-                $data['name_err']='Please enter the name';      
+            if(empty($data['first_name'])){
+                $data['first_name_err']='Please enter the first name';      
+            }
+            if(empty($data['last_name'])){
+                $data['last_name_err']='Please enter the last name';      
             }
             //validate email
             if(empty($data['email'])){
@@ -102,7 +107,7 @@ class Landing extends Controller{
             
 
             //make sure errors are empty
-            if( empty($data['name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
+            if( empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
                 //validate
 
                 //hash password
@@ -157,11 +162,13 @@ class Landing extends Controller{
 
         }else{
             $data=[
-                'name'=>'',
+                'first_name'=>'',
+                'last_name'=>'',
                 'email'=>'',
                 'pass'=>'',
                 'confirm_pass'=>'',
-                'name_err'=>'',
+                'first_name_err'=>'',
+                'last_name_err'=>'',
                 'email_err'=>'',
                 'pass_err'=>'',
                 'confirm_pass_err'=>'',
@@ -571,101 +578,8 @@ class Landing extends Controller{
             $this->view('landing/login',$data);
         }       
     }
-    // private function deleteRememberMeCookie() {
-    //     setcookie('userToken', '', time() - 3600); // Set expiration in the past
-    // }
-    // private function setRememberMeCookie($token) {
-    //     setcookie('userToken', $token, time() + 30 * 24 * 60 * 60); // 30 days expiration
-    // }
-    
-    // private function generateUniqueToken($length = 32) {
-    //     $randomBytes = openssl_random_pseudo_bytes($length / 2);
-    //     return bin2hex($randomBytes);
-    // }
-    // private function deleteRememberMeCookie() {
-    //     setcookie('userToken', '', time() - 3600); // Set expiration in the past
-    // }
-    
-    // private function setRememberMeCookie($token) {
-    //     setcookie('userToken', $token, time() + 30 * 24 * 60 * 60); // 30 days expiration
-    // }
-    
-    // public function login() {
-    //     if (isset($_COOKIE['userToken'])) {
-    //         $token = $_COOKIE['userToken'];
-    //         $userDetails = $this->userModel->findUserByToken($token);
-
-    //         if ($userDetails) {
-    //             // Valid token, log in the user
-    //             $this->createUserSession($userDetails);
-    //             return true;
-    //         }
-    //     }
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         // Check if the userToken cookie is set
-            
-    
-    //         // Process form
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-    //         $data = [
-    //             'email' => trim($_POST['email']),
-    //             'pass' => trim($_POST['pass']),
-    //             'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1',
-    //             'email_err' => '',
-    //             'pass_err' => '',
-    //         ];
-    
-    //         // Validate email
-    //         if (empty($data['email'])) {
-    //             $data['email_err'] = 'Please enter email';
-    //         }
-    
-    //         // Validate password
-    //         if (empty($data['pass'])) {
-    //             $data['pass_err'] = 'Please enter password';
-    //         }
-    
-    //         // Check for user/email
-    //         if ($this->userModel->findUserByEmail($data['email'])) {
-    //             // User found
-    //         } else {
-    //             $data['email_err'] = 'No user found';
-    //         }
-    
-    //         // Make sure errors are empty
-    //         if (empty($data['email_err']) && empty($data['password_err'])) {
-    //             // Validate and set logged in user
-    //             $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
-    
-    //             if ($loggedInUser) {
-    //                 if ($data['remember_me']) {
-    //                     $uniqueToken = $this->generateUniqueToken();
-    //                     $this->userModel->setRememberMeToken($loggedInUser->user_id, $uniqueToken);
-    //                     $this->setRememberMeCookie($uniqueToken);
-    //                 }
-    //                 $this->createUserSession($loggedInUser);
-    //             } else {
-    //                 $data['pass_err'] = 'Password incorrect';
-    //                 $this->view('landing/login', $data);
-    //             }
-    //         } else {
-    //             $this->view('landing/login', $data);
-    //         }
-    //     } else {
-    //         $data = [
-    //             'email' => '',
-    //             'pass' => '',
-    //             'remember_me' => '',
-    //             'email_err' => '',
-    //             'pass_err' => '',
-    //             'userDetails'=>$userDetails
-    //         ];
-    
-    //         $this->view('landing/login', $data);
-    //     }
-    // }
-    
+ 
+ 
 
     public function enteremail() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

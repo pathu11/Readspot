@@ -16,10 +16,10 @@ class User{
     public function signupCustomerPending($data) {
         try {
             $this->db->beginTransaction(); // Begin the transaction
-
+            $fullName = $data['first_name'] . ' ' . $data['last_name'];
             // Insert data into the 'users' table
             $this->db->query('INSERT INTO users (name,email, pass, user_role) VALUES (:name,:email, :pass, :user_role)');
-            $this->db->bind(':name', $data['name']);
+            $this->db->bind(':name', $fullName);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'customer');
@@ -29,9 +29,10 @@ class User{
                 $user_id = $this->db->lastInsertId();
 
                 // Insert data into the 'customers' table using the obtained user ID as the foreign key
-                $this->db->query('INSERT INTO customers (user_id, name, email, pass) VALUES (:user_id, :name, :email, :pass)');
+                $this->db->query('INSERT INTO customers (user_id, first_name,last_name, email, pass) VALUES (:user_id, :first_name, :last_name ,:email, :pass)');
                 $this->db->bind(':user_id', $user_id);
-                $this->db->bind(':name', $data['name']);
+                $this->db->bind(':first_name', $data['first_name']);
+                $this->db->bind(':last_name', $data['last_name']);
                 $this->db->bind(':email', $data['email']);
                 $this->db->bind(':pass', $data['pass']);
 
