@@ -13,16 +13,13 @@
             </div>
         </div>
         <div class="sub-cont-E2">
+            <?php foreach($data['eventDetails'] as $event): ?>
             <div class="B0-E">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/event1.jpg" alt="Book1" class="event-E"> <!--path changed-->
+                <img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>" alt="Book1" class="event-E">
                 
-                <a href="<?php echo URLROOT; ?>/customer/viewevents"><button class="dts-btn-E">View Event</button></a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/viewevents/<?php echo $event->id; ?>"><button class="dts-btn-E">View Event</button></a>
             </div>
-            <div class="B0-E">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/event2.jpg" alt="Book2" class="event-E"> <!--path changed-->
-                
-                <a href="<?php echo URLROOT; ?>/customer/viewevents"><button class="dts-btn-E">View Event</button></a> <!--path changed-->
-            </div>
+            <?php endforeach; ?>
         </div>
         
     </div>

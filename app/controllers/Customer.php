@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require APPROOT . '\vendor\autoload.php';
+// require APPROOT . '\vendor\autoload.php';
 class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
@@ -127,7 +127,183 @@ class Customer extends Controller {
     public function Addevnt(){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+                
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                if ($customerDetails) {
+                    $customerName = $customerDetails[0]->name;
+                    $customerid = $customerDetails[0]->customer_id;                 
+                } else {
+                    echo "Not found";
+                }
+            }
+            $data=[
+                'title' => trim($_POST['eventName']),
+                'category_name' => trim($_POST['category']),
+                'description' => trim($_POST['descriptions']),
+                'location' => trim($_POST['location']),
+                'start_date' => trim($_POST['startDate']),
+                'end_date' => trim($_POST['endDate']),
+                'start_time' => trim($_POST['startTime']),
+                'end_time' => trim($_POST['endTime']),
+                'poster' => '',
+                'img1' => '',
+                'img2' => '',
+                'img3' => '',
+                'img4' => '',
+                'img5' => '',
+                'user_id' => trim($user_id),// Replace this with the actual customer ID
+                'status' => trim('pending'),
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerName
+            ];
+
+            if (isset($_FILES['imgMain']['name']) AND !empty($_FILES['imgMain']['name'])) {
+                $img_name = $_FILES['imgMain']['name'];
+                $tmp_name = $_FILES['imgMain']['tmp_name'];
+                $error = $_FILES['imgMain']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['title'] . '-' . $unique_id . '-imgMain.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['poster'] = $new_img_name;
+                    }
+                }
+            }
+
+            if (isset($_FILES['1stImg']['name']) AND !empty($_FILES['1stImg']['name'])) {
+                $img_name = $_FILES['1stImg']['name'];
+                $tmp_name = $_FILES['1stImg']['tmp_name'];
+                $error = $_FILES['1stImg']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['title'] . '-' . $unique_id . '-1stImg.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['img1'] = $new_img_name;
+                    }
+                }
+            }
+
+            if (isset($_FILES['2ndImg']['name']) AND !empty($_FILES['2ndImg']['name'])) {
+                $img_name = $_FILES['2ndImg']['name'];
+                $tmp_name = $_FILES['2ndImg']['tmp_name'];
+                $error = $_FILES['2ndImg']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['title'] . '-' . $unique_id . '-2ndImg.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['img2'] = $new_img_name;
+                    }
+                }
+            }
+
+            if (isset($_FILES['3rdImg']['name']) AND !empty($_FILES['3rdImg']['name'])) {
+                $img_name = $_FILES['3rdImg']['name'];
+                $tmp_name = $_FILES['3rdImg']['tmp_name'];
+                $error = $_FILES['3rdImg']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['title'] . '-' . $unique_id . '-3rdImg.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['img3'] = $new_img_name;
+                    }
+                }
+            }
+
+            if (isset($_FILES['4thImg']['name']) AND !empty($_FILES['4thImg']['name'])) {
+                $img_name = $_FILES['4thImg']['name'];
+                $tmp_name = $_FILES['4thImg']['tmp_name'];
+                $error = $_FILES['4thImg']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['title'] . '-' . $unique_id . '-4thImg.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['img4'] = $new_img_name;
+                    }
+                }
+            }
+
+            if (isset($_FILES['5thImg']['name']) AND !empty($_FILES['5thImg']['name'])) {
+                $img_name = $_FILES['5thImg']['name'];
+                $tmp_name = $_FILES['5thImg']['tmp_name'];
+                $error = $_FILES['5thImg']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['title'] . '-' . $unique_id . '-5thImg.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['img5'] = $new_img_name;
+                    }
+                }
+            }
+            if($this->customerModel->AddEvent($data)){
+                // flash('add_success','You are added the book  successfully');
+                redirect('customer/Addevnt');
+            }else{
+                die('Something went wrong');
+            }
+        }
+        else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
@@ -537,13 +713,29 @@ class Customer extends Controller {
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
-            $user_id = $_SESSION['user_id'];
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+               
+                if ($customerDetails) {
+                    $customerid = $customerDetails[0]->customer_id;
+                    $eventDetails = $this->customerModel->findEventByNotUserId($user_id);
+                    // $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
+                } else {
+                    echo "Not found";
+                }
+            } else {
+                echo "Not a customer";
+            }
             $data = [
+                'customerid' => $customerid,
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'eventDetails' => $eventDetails
             ];
             $this->view('customer/BookEvents', $data);
         }
@@ -787,17 +979,32 @@ class Customer extends Controller {
     public function Event(){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/Event', $data);
+            
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $eventDetails = $this->customerModel->findEventByUserId($user_id);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+           
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'eventDetails' => $eventDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name
+        ];
+        $this->view('customer/Event', $data);
     } 
 
     public function ExchangeBook(){
@@ -1504,6 +1711,98 @@ class Customer extends Controller {
         }
     }
 
+    public function deleteEvent($eventId)
+    {
+        if ($this->customerModel->deleteEvent($eventId)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/Event');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+
+    public function RemoveEventFromCalender($eventId)
+    {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name,
+    
+            'user_id' => trim($user_id),
+            'event_id' => trim($eventId),
+        ];
+        if ($this->customerModel->RemoveEventFromCalender($data)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/BookEvents');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+
+    public function AddEventToCalender($eventId){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $eventIDdetails = $this->customerModel->findEventById($eventId);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'eventIDdetails' => $eventIDdetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name,
+    
+            'user_id' => trim($user_id),
+            'event_id' => trim($eventId),
+            'title' => trim($eventIDdetails[0]->title),
+            'start_date' => trim($eventIDdetails[0]->start_date),
+            'end_date' => trim($eventIDdetails[0]->end_date),
+            'start_time' => trim($eventIDdetails[0]->start_time),
+            'end_time' => trim($eventIDdetails[0]->end_time),
+        ];
+        // $this->view('customer/viewevents', $data);
+
+        if ($this->customerModel->AddEventToCalender($data)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/BookEvents');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+    
     public function deleteexchangebook($bookId)
     {
         if ($this->customerModel->deleteusedbook($bookId)) {   
@@ -1683,20 +1982,54 @@ class Customer extends Controller {
         }
     } 
 
-    public function viewevents(){
+    public function viewevents($eventId){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/viewevents', $data);
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                
+                // $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
+                $eventIDdetails = $this->customerModel->findEventById($eventId);
+                $eventInCalendar = $this->customerModel->checkEventInCalendar($user_id, $eventId);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'eventIDdetails' => $eventIDdetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name,
+            
+            'eventId' => $eventId,
+            'Name' => $eventIDdetails[0]->title,
+            'Category' => $eventIDdetails[0]->category_name,
+            'Description' => $eventIDdetails[0]->description,
+            'Start_date' => $eventIDdetails[0]->start_date,
+            'End_date' => $eventIDdetails[0]->end_date,
+            'Start_time' => $eventIDdetails[0]->start_time,
+            'End_time' => $eventIDdetails[0]->end_time,
+            'Venue' => $eventIDdetails[0]->location,
+            'mainImg' => $eventIDdetails[0]->poster,
+            'img1' => $eventIDdetails[0]->img1,
+            'img2' => $eventIDdetails[0]->img2,
+            'img3' => $eventIDdetails[0]->img3,
+            'img4' => $eventIDdetails[0]->img4,
+            'img5' => $eventIDdetails[0]->img5,
+            'eventInCalendar' => $eventInCalendar
+        ];
+        $this->view('customer/viewevents', $data);
     } 
 
     public function logout(){

@@ -11,82 +11,82 @@
                 <h2>My Favorite</h2>
             </div>
             <div class="myfavorite">
-            <div class="favorite-search" id="searchForm" onsubmit="handleSearch()">
-                <input type="text" placeholder="Search.." name="search" id="searchInput">
-            </div>
-            <br>
-            <br>
-            <table border="1" id="eventTable">
-                <thead>
-                    <tr>
-                        <th>Book Name</th>
-                        <th>Type</th>
-                        <th>VIew/Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>Used</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>Used</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>Used</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>Used</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet1</td>
-                        <td>Used</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="favorite-search" id="searchForm" onsubmit="handleSearch()">
+                    <input type="text" placeholder="Search.." name="search" id="searchInput">
+                </div>
+                <br>
+                <br>
+                <table border="1" id="eventTable">
+                    <thead>
+                        <tr>
+                            <th>Book Name</th>
+                            <th>Type</th>
+                            <th>VIew/Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td>Used</td>
+                            <td class="action-buttons">
+                                <button class="view-button" onclick="viewEvent(1)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="delete-button" onclick="deleteEvent(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td>Used</td>
+                            <td class="action-buttons">
+                                <button class="view-button" onclick="viewEvent(1)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="delete-button" onclick="deleteEvent(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td>Used</td>
+                            <td class="action-buttons">
+                                <button class="view-button" onclick="viewEvent(1)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="delete-button" onclick="deleteEvent(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td>Used</td>
+                            <td class="action-buttons">
+                                <button class="view-button" onclick="viewEvent(1)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="delete-button" onclick="deleteEvent(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lorem ipsum dolor sit amet1</td>
+                            <td>Used</td>
+                            <td class="action-buttons">
+                                <button class="view-button" onclick="viewEvent(1)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="delete-button" onclick="deleteEvent(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <ul class="pagination" id="pagination">
                 <li id="prevButton">«</li>
