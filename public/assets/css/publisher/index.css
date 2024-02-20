@@ -5,46 +5,67 @@ body{
 }
 
 .grid-container {
-    display: flex;
-    justify-content: space-around;
-    grid-template-columns: auto auto auto auto;
-    padding: 10px;
-    margin-top: 125px;
-    gap: 100px 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Responsive grid layout */
+  gap: 20px;
+  padding: 10px;
+  margin-top: 105px;
   }
   .grid-item {
     background-color: white;
-    padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
     font-size: 20px;
     text-align:left;
     border-radius: 4px;
     text-decoration: none;
-    height: 210px;
-    width: 240px;
-   
-    box-shadow: 2px 2px 3px 3px #aaaaaa;
-    
-  }
-  .grid-item {
-    background-color: white;
-    padding: 20px;
-    font-size: 20px;
-    text-align:left;
-    border-radius: 4px;
-    text-decoration: none;
-    height: 210px;
+    height: 200px;
     width: 240px;
    
     box-shadow: 2px 2px 3px 3px #aaaaaa;
     
   }
   
-  
+  .grid-item:hover{
+    background-color: #009D94;
+    color:white;
+  }
+   .span{
+      
+      color:#009D94;
+      font-size:18px ;
+   }
+   .grid-item i{
+   
+    color:#009D94;
+   
+ }
+ .grid-item:hover .span {
+  color: white; 
+}
+.grid-item:hover .span1 {
+  color: white; 
+}
+.grid-item:hover i {
+  color: white; 
+}
+   .span1{
+   
+    color:black;
+    font-size:60px;
+    text-align: center;
+    padding: 60px;
+   
+ }
+   
   .chat-container{
     display: flex;
-   
+    /* flex-wrap: wrap; */
     justify-content: space-between;
-    gap: 50px 50px;
+    margin-top: 20px;
+    gap: 20px;
   }
   .chat-container-left{
     width:1060px;
@@ -57,7 +78,7 @@ body{
   }
   .chat{
     margin-bottom: 20px;
-   
+   padding-left: 150px;
     height:200px;
     background-color: white;
     box-shadow: 2px 2px 3px 3px #aaaaaa;
@@ -83,13 +104,53 @@ body{
    
 
   }
-  .chat-container-left,
+  /* .chat-container-left,
 .chat {
   align-self: flex-start;
 }
 .chat-container-right {
     align-self: flex-end;
+  } */
+
+  @media only screen and (max-width: 480px) {
+    body {
+      margin-left: 0;
+    }
+  
+    .grid-item {
+      font-size: 14px;
+      
+    }
+  
+    .span1 {
+      font-size: 28px;
+    }
   }
+  
+  @media only screen and (max-width: 480px) {
+    .grid-container{
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .grid-item {
+      width: calc(50% - 20px); /* Adjusted width for smaller screens */
+      font-size: 12px; /* Further reduced font size */
+    }
+  
+    .chat-container {
+      flex-direction: column; /* Stack chat containers vertically on smaller screens */
+    }
+  
+    .chat-container-left,
+    .chat-container-right {
+      width: 100%; /* Full width for chat containers */
+    }
+  
+    .chat {
+      padding-left: 20px; /* Adjust padding for chat container */
+    }
+  }
+  
   
 
 

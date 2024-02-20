@@ -10,6 +10,14 @@
       $row = $this->db->single();
       return ($row) ? $row->email : null;
     }
+
+    public function getCustomerEmail($customer_id) {
+      $this->db->query('SELECT email FROM customers WHERE user_id = :user_id');
+      $this->db->bind(':user_id', $customer_id);
+      $row = $this->db->single();
+      return ($row) ? $row->email : null;
+    }
+
     public function findAdminById($user_id){
         $this->db->query('SELECT * from admin WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);
@@ -318,13 +326,13 @@ public function getCharitySearchDetails($input){
 }
 
 public function getOrderDetails(){
-  $this->db->query("SELECT * FROM orders ");
-
-  $results=$this->db->resultSet();
+  $this->db->query("SELECT o.*, od.book_id, od.quantity 
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id");
+  $results = $this->db->resultSet();
 
   return $results;
 }
-
 public function getPendingOrderDetails() {
   $this->db->query("SELECT orders.*, customers.name AS customer_name 
                     FROM orders 
@@ -425,6 +433,56 @@ public function getAvailableBooks(){
   return $results;
 
 }
+
+public function getPendingBookDetails(){
+  $this->db->query("SELECT b.customer_id, b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+                    s.name, s.email
+                    FROM books b
+                    INNER JOIN customers s ON b.customer_id = s.customer_id
+                    WHERE b.type = 'used' AND b.status='pending'");
+
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getPendingBookByID($customer_id){
+  $this->db->query("SELECT b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+                    s.name, s.email
+                    FROM books b
+                    INNER JOIN customers s ON b.customer_id = s.customer_id
+                    WHERE b.customer_id=:customer_id ");
+  
+  $this->db->bind(':customer_id', $customer_id);
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getMessageDetails($user_id){
+  $this->db->query('
+      SELECT 
+          u.name AS incoming_user_name,
+          u2.name AS outgoing_user_name,
+          m.msg,
+          m.incoming_msg_id,
+          m.outgoing_msg_id
+      FROM 
+          message AS m 
+      JOIN 
+          users AS u ON u.user_id = m.incoming_msg_id 
+      JOIN 
+          users AS u2 ON u2.user_id = m.outgoing_msg_id 
+      WHERE 
+          m.incoming_msg_id = :user_id
+      ORDER BY 
+          m.msg_id DESC
+      LIMIT 5'
+  );
+  $this->db->bind(':user_id', $user_id);
+
+  return $this->db->resultSet();
+}
+
+
 
   
 }

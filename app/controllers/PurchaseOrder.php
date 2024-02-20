@@ -30,50 +30,53 @@ class PurchaseOrder extends Controller{
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-            $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
+            // $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
-                // Check if selectedItems is set in $_POST and is an array
+               
                 if(isset($_POST['selectedItems']) && is_array($_POST['selectedItems'])) {
-                    $selectedBookIds = $_POST['selectedItems'];
-                    $bookDetails = []; // Initialize an empty array
-                    foreach($selectedBookIds as $bookId) {
-                        // Retrieve book details by ID and add them to the bookDetails array
-                        $bookDetails[] = $this->customerModel->findBookById($bookId);
+                    $selectedCartIds = $_POST['selectedItems'];
+                    $bookDetails = [];
+                    foreach($selectedCartIds as $cartId) {
+                        $bookDetails[] = $this->customerModel->findDetailsByCartId($cartId);
                     }
+                    // echo "<pre>";
+                    // print_r($bookDetails);
+                    // echo "</pre>";
                 } else { 
-                    
                     echo "Error: No books selected" ; 
                     return;
                 }
-    
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'deliveryDetails' => $deliveryDetails,
-                    'bookDetails' => $bookDetails // Add bookDetails to the data array
-                ];
-                $this->view('customer/purchaseMultiple', $data);
-                // print_r($data['bookDetails']);
+                $_SESSION['purchaseMultipleBookDetails'] = $bookDetails;
+                if($bookDetails){
+                    redirect('PurchaseOrder/purchaseMultipleView');
+                   
+                }      
             }
         }
-    }
-    
-   
-    
-public function purchase($book_id) {
+    }   
+    public function purchaseMultipleView(){
+        // $data= $_SESSION['purchaseMultipleBookDetails'];
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {    
             $user_id = $_SESSION['user_id'];
-            $bookDetails=$this->customerModel->findBookById($book_id);
+            $bookDetails=$_SESSION['purchaseMultipleBookDetails'];
+            $bookIds = [];
+            // Iterate over the result set to extract book IDs
+            foreach ($bookDetails as $book) {
+                $bookIds[] = $book[0]->book_id;
+                // $bookId = json_encode($bookIds);
+            }
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
-                                             // sanitize post data
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
+
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
-                    'book_id'=>$book_id,
+                    'bookDetails'=>$bookDetails,
+                    'book_id'=>$bookIds,
                     'customer_id' => $customerDetails[0]->customer_id,
                     'postal_name' => trim($_POST['postal_name']),
                     'street_name' => trim($_POST['street_name']),
@@ -84,7 +87,8 @@ public function purchase($book_id) {
                     'total_cost' => trim($_POST['totalCost']),
                     'total_weight'=>trim($_POST['totalWeight']),
                     'totalDelivery'=>trim($_POST['totalDelivery']),
-                    'quantity' => trim($_POST['quantity']), 
+                    'bookQuantities' => $_POST['book_quantities'],
+                    // 'quantity' => trim($_POST['quantity']), 
                     'postal_name_err' => '',
                     'street_name_err' => '',
                     'town_err' => '',
@@ -92,7 +96,10 @@ public function purchase($book_id) {
                     'postal_code_err' => '',
                     'contact_no_err'=>''
                 ];
+            //    print_r($data['bookQuantities']);
+                
                 $_SESSION['PurchaseOrderData']=$data;
+                // print_r($data);
                 
                 if(empty($data['postal_name'])){
                     $data['postal_name_err']='Please enter the  name';      
@@ -133,10 +140,9 @@ public function purchase($book_id) {
                
                  if($customerDetails)   {
                     $data = [
-                        'quantityInCart' => $_GET['quantity'],
+                        'book_id'=>$bookIds,
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
-                        'book_id'=>$book_id,
                         'postal_name' => $customerDetails[0]->postal_name,
                         'street_name' => $customerDetails[0]->street_name,
                         'town' => $customerDetails[0]->town,
@@ -150,17 +156,22 @@ public function purchase($book_id) {
                         'district_err'=>'',
                         'postal_code_err'=>'',
                         'customerDetails' => $customerDetails,
-                        'customerName' => $customerDetails[0]->name
+                        'customerName' => $customerDetails[0]->name,
+                        'customerImage'=>$customerDetails[0]->profile_img
                     ];
+                    // print_r($data['book_id']);
                  }  else{
                     echo "Not found data";
                  }  
                 
-                // print_r($data);
-            $this->view('customer/purchase',$data);
+                //  print_r($bookId);
+                $this->view('customer/purchaseMultipleView',$data);
         }
     }
-} 
+        // print_r($bookId);
+        $this->view('customer/purchaseMultipleView',$data);
+    }
+
 
 public function checkout2()
 {
@@ -168,19 +179,16 @@ public function checkout2()
         redirect('landing/login');
     } else {
         $orderDetails=$_SESSION['PurchaseOrderData'];
-        // print_r($PurchaseOrderData);
-        // $orderDetails=$this->ordersModel->getOrderById($order_id);
-        // print_r($orderDetails->book_name);
-   
-        $book_details=$this->customerModel->findBookById($orderDetails['book_id']);
+        // print_r($orderDetails);
+        // $book_details=$this->customerModel->findBookById($orderDetails['book_id']);
+        $book_details=$orderDetails['bookDetails'];
+        // print_r($orderDetails);
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);       
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $formType = $_POST['form_type'];
-            if ($formType === 'cardPayment') {
-                
+            if ($formType === 'cardPayment') {    
                 $this->handleCardPaymentForm($orderDetails,$formType);
-
             } elseif ($formType === 'onlineDeposit') {
                
                 $this->handleOnlineDepositForm($orderDetails,$formType);
@@ -196,7 +204,8 @@ public function checkout2()
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'orderDetails'=>$orderDetails,
-                'bookDetails'=>$book_details
+                'bookDetails'=>$book_details,
+                'customerImage'=>$customerDetails[0]->profile_img
                 
             ];
     
@@ -206,14 +215,18 @@ public function checkout2()
 }
 private function handleCardPaymentForm($orderDetails1, $formType)
 {
-    if($this->customerModel->addOrder($orderDetails1)){
-        $order_id = $this->customerModel-> getLastInsertedOrderId();
-       
-   }else{
-       echo  '<script>alert("Error")</script>';
+    if ($this->customerModel->addOrder($orderDetails1)) {
+        $order_id = $this->customerModel->getLastInsertedOrderId();
+        // Add order details to the order_details table
+        foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $quantity = $orderDetails1['bookQuantities'][$index];
+            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+        }
+    } else {
+        echo '<script>alert("Error")</script>';
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
-    print_r($orderDetails);
+    // print_r($orderDetails);
    
     $amount = $orderDetails[0]->total_price; 
     $merchant_id = MERCHANT_ID;
@@ -256,39 +269,55 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 
 private function handleCODForm($orderDetails1 ,$formType){
 
-
-    if($this->customerModel->addOrder($orderDetails1)){
-         $order_id = $this->customerModel-> getLastInsertedOrderId();
-        
-    }else{
-        echo  '<script>alert("Error")</script>';
-     }
+    if ($this->customerModel->addOrder($orderDetails1)) {
+        $order_id = $this->customerModel->getLastInsertedOrderId();
+        // Add order details to the order_details table
+        foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $quantity = $orderDetails1['bookQuantities'][$index];
+            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+        }
+    } else {
+        echo '<script>alert("Error")</script>';
+    }
 
     $user_id = $_SESSION['user_id'];
     $customerDetails = $this->customerModel->findCustomerById($user_id);
     $customer_id=$customerDetails[0]->customer_id;
     $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
     $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
-    $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
-    $customerEmail=$orderedCustomerDetails[0]->email;
+    
 
-    echo $customerEmail;
+    $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
+
+
+    $ownerEmails = array();
+    foreach ($bookIds as $bookIdObj) {
+        $bookId = $bookIdObj->book_id;
+        // Fetch book details using book ID
+        $bookDetails = $this->adminModel->getBookDetailsById($bookId); // Adjust this function based on your model implementation
+        // Check book type
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
+        }
+        // Store owner email in the array
+        $ownerEmails[] = $ownerDetails[0]->email;
+    }
+    
+    $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
+   
+    $customerEmail=$orderedCustomerDetails[0]->email;
+    // print_r($customerEmail);
+
+    
     $topic = "New Order Details";
     $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
-    $book_id = $orderDetails[0]->book_id;
-    $bookDetails = $this->adminModel->getBookDetailsById($book_id);
-
-    if ($bookDetails[0]->type == 'new') {
-        $user_idPub = $bookDetails[0]->publisher_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
-    } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-        $user_idPub = $bookDetails[0]->customer_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
-    }
+   
 
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
@@ -300,17 +329,20 @@ private function handleCODForm($orderDetails1 ,$formType){
         'messageToPublisher' => $messageToPublisher,
         'message'=>$message,
         'user_id'=>$orderedCustomerDetails[0]->user_id,
-        'user_idPub' => $ownerDetails[0]->user_id,
+        // 'user_idPub' => $ownerDetails[0]->user_id,
         'sender_name'=>'system administration',
         'sender_id'=>130,   
     ];
         //make sure errors are empty
         if( $data['trackingNumber']  ){
-            if($this->customerModel->editOrderCOD($data) &&
-            $this->adminModel->addMessage($data) &&
-            $this->adminModel->addMessageToPublisher($data)){
-
-                $this->sendEmails($customerEmail, $ownerEmail, $data);
+            // if($this->customerModel->editOrderCOD($data) &&
+            // $this->adminModel->addMessage($data) &&
+            // $this->adminModel->addMessageToPublisher($data)){
+            if($this->customerModel->editOrderCOD($data) 
+               ){
+    
+               
+                $this->sendEmails($customerEmail, $ownerEmails, $data);
                 echo '<script>alert("You are placed an order successfully")</script>';
                 flash('update_success','You are placed an order successfully');
                 redirect('customer/Order');
@@ -319,16 +351,20 @@ private function handleCODForm($orderDetails1 ,$formType){
                 die('Something went wrong');
             }
         }else{
-                $this->view('customer/checkout2',$data);
+                // $this->view('customer/checkout2',$data);
             }
 }
 private function handleOnlineDepositForm($orderDetails1, $formType)
 {
-    if($this->customerModel->addOrder($orderDetails1)){
-        $order_id = $this->customerModel-> getLastInsertedOrderId();
-       
-   }else{
-       echo  '<script>alert("Error")</script>';
+    if ($this->customerModel->addOrder($orderDetails1)) {
+        $order_id = $this->customerModel->getLastInsertedOrderId();
+        // Add order details to the order_details table
+        foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $quantity = $orderDetails1['bookQuantities'][$index];
+            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+        }
+    } else {
+        echo '<script>alert("Error")</script>';
     }
 
     $user_id = $_SESSION['user_id'];
@@ -407,10 +443,13 @@ private function generateUniqueTrackingNumber($orderId) {
 
     return $trackingNumber;
 }
-private function sendEmails($customerEmail, $ownerEmail, $data) {
+private function sendEmails($customerEmail, $ownerEmails, $data) {
+    foreach ($ownerEmails as $ownerEmail) {
+        $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+    }
     $this->sendEmail($customerEmail, $data['topic'], $data['message']);
-    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
 }
+
 
 private function sendEmail($recipientEmail, $subject, $body) {
     $mail = new PHPMailer(true);
@@ -464,18 +503,23 @@ public function successCardPaymentOrder(){
             $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
             $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
-            $book_id = $orderDetails[0]->book_id;
-            $bookDetails = $this->adminModel->getBookDetailsById($book_id);
-
-            if ($bookDetails[0]->type == 'new') {
-                $user_idPub = $bookDetails[0]->publisher_id;
-                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-                $ownerEmail = $ownerDetails[0]->email;
-            } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-                $user_idPub = $bookDetails[0]->customer_id;
-                $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-                $ownerEmail = $ownerDetails[0]->email;
+            $bookIds = $orderDetails[0]->book_id;
+            $ownerEmails = array();
+            foreach($bookIds as $bookId) {
+                // Fetch book details using book ID
+                $bookDetails = $this->adminModel->getBookDetailsById($bookId); // Adjust this function based on your model implementation
+                // Check book type
+                if ($bookDetails[0]->type == 'new') {
+                    $user_idPub = $bookDetails[0]->publisher_id;
+                    $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+                } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+                    $user_idPub = $bookDetails[0]->customer_id;
+                    $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
+                }
+                // Store owner email in the array
+                $ownerEmails[] = $ownerDetails[0]->email;
             }
+            
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
@@ -487,17 +531,16 @@ public function successCardPaymentOrder(){
                 'messageToPublisher' => $messageToPublisher,
                 'message'=>$message,
                 'user_id'=>$orderedCustomerDetails[0]->user_id,
-                'user_idPub' => $ownerDetails[0]->user_id,
+                // 'user_idPub' => $ownerDetails[0]->user_id,
                 'sender_name'=>'system administration',
                 'sender_id'=>130,   
             ];
                 //make sure errors are empty
                 if( $data['trackingNumber']  ){
-                    if($this->customerModel->editOrderCardPayment($data) &&
-                    $this->adminModel->addMessage($data) &&
-                    $this->adminModel->addMessageToPublisher($data)){
+                    if($this->customerModel->editOrderCardPayment($data) 
+                    ){
 
-                        $this->sendEmails($customerEmail, $ownerEmail, $data);
+                        $this->sendEmails($customerEmail, $ownerEmails, $data);
                         echo '<script>alert("You are placed an order successfully")</script>';
                         flash('update_success','You are placed an order successfully');
                         redirect('customer/Order');

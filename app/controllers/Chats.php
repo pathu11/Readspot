@@ -54,7 +54,10 @@ class Chats extends Controller{
             if (!empty($data)) {
                 if ($this->chatModel->insertChat($data)) {
                     flash('Successfully Added');
-                   
+                    echo "<script>function getChat() {
+                        document.querySelector('.chat-container').scrollTop = document.querySelector('.chat-container').scrollHeight;
+                    }</script>";// Call JavaScript function to update chat window
+
                     redirect('customer/chat');
                 } else {
                     die('Something went wrong');
@@ -132,7 +135,11 @@ class Chats extends Controller{
             }
         }
 
-
+       
+       
+       
+        
     
 
 }
+

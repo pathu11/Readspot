@@ -13,7 +13,7 @@
 </head>
 <body>
 <!-- <div class="flex-parent-element"> -->
-    <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $data['book_id']; ?>"> 
+    <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $data['cart_id']; ?>"> 
        
     <?php echo  $data['deliveryDetails']->priceperkilo; ?>
         <div class="flex-parent-element">
@@ -47,32 +47,32 @@
         <div class="flex-child-element green">
 
             <h1>Your Order</h1>
-           
+
             <?php foreach($data['bookDetails'] as $books): ?>
             <div class="order">
                 <div class="col1">
-                <?php 
-                    if ($books->type == "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
-                    } elseif ($books->type == "used") {
+                <!-- <?php 
+                    if ($books[0]->type == "new") {
+                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books[0]->img1 . '" alt="Bell Image" width="180px">';
+                    } elseif ($books[0]->type == "used") {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     } else {
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
-            ?>
+            ?> -->
                         
                 </div>
                 <div class="col2">
                     <div class="cost">
                         <div>
                                 <h2><?php echo $books->book_name; ?></h2>
-                                <p><em><?php echo $books->quantity; ?> books  in stock</em></p>
+                                <p><em><?php echo $books[0]->maxQuantity; ?> books  in stock</em></p>
                                 <p><em><?php echo $books->weight; ?>g per book</em></p>
 
                         </div>
                         
                         <div>
-                                <input type="number" id="quantity" max="<?php echo $books->quantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="<?php echo isset($data['quantityInCart']) ? $data['quantityInCart'] : 1; ?>">
+                                <input type="number" id="quantity" max="<?php echo $books->maxQuantity; ?>" min="1" oninput="updatePrice(this.value, <?php echo $books->price; ?>)" name="quantity" value="<?php echo isset($book[0]->nowQuantity) ? $book[0]->nowQuantity : 1; ?>">
                                 
                                 <input type="number" id="totalCostInput" name="totalCost" step="any" class="visible">
                                 <input type="number" id="totalWeightInput" name="totalWeight" step="any" class="visible">  
@@ -83,6 +83,7 @@
                     <hr color="black" size="3" width="100%"> <br> 
                     <div class="cost">
                         <div class="subcost">
+                           
                             <p>Subtotal</p>
                             <p>Delivery Fee</p>
                             <p>Total</P>
@@ -111,7 +112,7 @@
     var priceperadditional = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
 
    
-    var maxQuantity = <?php echo $data['bookDetails'][0]->quantity; ?>;
+    var maxQuantity = <?php echo $data['bookDetails'][0]->maxQuantity; ?>;
     var weightPerBook = <?php echo $data['bookDetails'][0]->weight; ?>/1000;
 
     document.addEventListener('DOMContentLoaded', function () {

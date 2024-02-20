@@ -10,10 +10,15 @@ require APPROOT . '\vendor\autoload.php';
  class Admin extends Controller{
   private $adminModel;
   private $userModel;
+  private $ordersModel;
+  
   private $db;
-  public function __construct(){
+  public function __construct(
+
+  ){
       $this->adminModel=$this->model('Admins');
       $this->userModel=$this->model('User');
+      $this->ordersModel = $this->model('Orders');
       $this->db = new Database();
 
   }
@@ -48,6 +53,7 @@ require APPROOT . '\vendor\autoload.php';
         if (isset($_GET['user_role'])) {
             $user_id = $_SESSION['user_id'];
             $adminDetails = $this->adminModel->findAdminById($user_id);
+            $messageDetails = $this->adminModel->getMessageDetails($user_id);
             $userRoleFilter = $_GET['user_role'];
         
             $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
@@ -66,7 +72,8 @@ require APPROOT . '\vendor\autoload.php';
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'messageDetails'=>$messageDetails,
   
             ];
             $this->view('admin/index', $data);
@@ -75,7 +82,8 @@ require APPROOT . '\vendor\autoload.php';
             $user_id = $_SESSION['user_id'];
          
 
-            $adminDetails = $this->adminModel->findAdminById($user_id); 
+            $adminDetails = $this->adminModel->findAdminById($user_id);
+            $messageDetails = $this->adminModel->getMessageDetails($user_id); 
             $getPendingUserDetails = $this->adminModel->getPendingUsers();
 
             
@@ -93,7 +101,8 @@ require APPROOT . '\vendor\autoload.php';
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'messageDetails' =>$messageDetails,
             ];
             $this->view('admin/index', $data);
         }
@@ -125,17 +134,14 @@ require APPROOT . '\vendor\autoload.php';
     
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
         $data = [
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
-
             'book_category_err'=>'',
             'description_err'=>''
         ];
-
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
         }
@@ -155,10 +161,8 @@ require APPROOT . '\vendor\autoload.php';
 
         else{
             $this->view('admin/addBookCategories',$data);
-        }
-        
+        }  
     }
-
     else{
         $data=[
             'adminDetails' => $adminDetails,
@@ -170,11 +174,8 @@ require APPROOT . '\vendor\autoload.php';
         ];
 
         $this->view('admin/addBookCategories',$data);
-    }
-    
-    
+    } 
   }
-
   public function updateBookCategory($id)
 {
     $user_id = $_SESSION['user_id'];
@@ -228,8 +229,6 @@ require APPROOT . '\vendor\autoload.php';
         $this->view('admin/updateBookCategory', $data);
     }
 }
-
-
   public function deleteBookCategory($id){
     if($this->adminModel->deleteBookCategory($id)){
         flash('delete_success','You deleted the book category successfully');
@@ -410,7 +409,7 @@ require APPROOT . '\vendor\autoload.php';
         try {
             //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
             $mail->Username   = MAIL_USER; // SMTP username
             $mail->Password   = MAIL_PASS;   // SMTP password
@@ -451,20 +450,15 @@ public function approveCharity($user_id){
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
-            $mail->Username   = MAIL_USER; // SMTP username
-            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->Username   = MAIL_USER;
+            $mail->Password   = MAIL_PASS; 
             $mail->SMTPSecure = MAIL_SECURITY;
             $mail->Port       = MAIL_PORT;
-
-            //Recipients
             $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress($userEmail);  // Add a recipient
-
-            // Content
+            $mail->addAddress($userEmail);  
             $mail->isHTML(true);  // Set email format to HTML
             $mail->Subject = 'Approved the registration by administration';
             $mail->Body    = 'Congratulations! Your registration has been approved. You can now log in to the system.';
@@ -666,6 +660,7 @@ public function payments(){
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else{
+
         $user_id = $_SESSION['user_id'];
          
         $adminDetails = $this->adminModel->findAdminById($user_id);
@@ -691,18 +686,28 @@ public function approveOrder($order_id) {
     $topic = "Approved the Order by administration";
     $message ="Congratulations! Your order has been approved. Your order will be received at home as soon as possible.";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
-    $book_id = $orderDetails[0]->book_id;
-    $bookDetails = $this->adminModel->getBookDetailsById($book_id);
 
-    if ($bookDetails[0]->type == 'new') {
-        $user_idPub = $bookDetails[0]->publisher_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
-    } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-        $user_idPub = $bookDetails[0]->customer_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
+    $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
+
+
+    $ownerEmails = array();
+    foreach ($bookIds as $bookIdObj) {
+        $bookId = $bookIdObj->book_id;
+        // Fetch book details using book ID
+        $bookDetails = $this->adminModel->getBookDetailsById($bookId); 
+        
+        
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
+        }
+        // Store owner email in the array
+        $ownerEmails[] = $ownerDetails[0]->email;
     }
+    
 
     $data = [
         'adminDetails' => $adminDetails,
@@ -711,18 +716,16 @@ public function approveOrder($order_id) {
         'messageToPublisher' => $messageToPublisher,
         'message' => $message,
         'user_id' => $customerDetails[0]->user_id,
-        'user_idPub' => $ownerDetails[0]->user_id,
+        // 'user_idPub' => $ownerDetails[0]->user_id,
         'sender_id' => $user_id,
         'sender_name' => $adminDetails[0]->name,
         
     ];
 
     // Assuming your approval logic here...
-    if ($this->adminModel->approveOrder($order_id) &&
-        $this->adminModel->addMessage($data) &&
-        $this->adminModel->addMessageToPublisher($data)) {
+    if ($this->adminModel->approveOrder($order_id)) {
 
-        $this->sendEmails($customerEmail, $ownerEmail, $data);
+        $this->sendEmails($customerEmail, $ownerEmails, $data);
 
         // Redirect or perform other actions as needed
         redirect('admin/payments');
@@ -731,9 +734,11 @@ public function approveOrder($order_id) {
     }
 }
 
-private function sendEmails($customerEmail, $ownerEmail, $data) {
+private function sendEmails($customerEmail, $ownerEmails, $data) {
+    foreach ($ownerEmails as $ownerEmail) {
+        $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+    }
     $this->sendEmail($customerEmail, $data['topic'], $data['message']);
-    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
 }
 
 private function sendEmail($recipientEmail, $subject, $body) {
@@ -764,17 +769,110 @@ private function sendEmail($recipientEmail, $subject, $body) {
     }
 }
 
+public function pendingRequestsBooks(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+        $user_id = $_SESSION['user_id'];
+         
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $pendingBookDetails = $this->adminModel->getPendingBookDetails();
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'pendingBookDetails'=>$pendingBookDetails,
+        ];
+        $this->view('admin/pendingRequestsBooks',$data);
+    }
+
+}
+
+public function approveBook($customer_id){
+        // Approval successful
+
+        // Retrieve the email from the database
+        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+        $customerEmail = $pendingBook[0]->email;
+
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($customerEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Accepted';
+            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.\n\n" .
+                            "We are pleased to inform you that your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been accepted by our admin for sale.\n\n".
+                            "Thank you for contributing to our platform.\n\n".
+                            "Sincerely,\n".
+                            "The Admin Team";
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            redirect('admin/pendingRequestsBooks');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+    
+}
+
+public function rejectBook(){
+
+        $rejectReason = $_POST['rejectReason'];
+        $customer_id = $_POST['customer_id'];
+        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+        $customerEmail = $pendingBook[0]->email;
+
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($customerEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
+            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
+                            "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
+                            $rejectReason."Thank you for your submission.<br><br>".
+                            "Sincerely,<br>".
+                            "The Admin Team";
+                
+            // Redirect or perform other actions as needed
+
+            redirect('admin/pendingRequestsBooks');
+            
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+}
 
 
-/*public function generatePDF(){
-    require APPROOT.'/fpdf/fpdf.php';
-
-    $pdf = new FPDF();
-    $pdf->AddPage();
-    $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(100,20,'Hello world',1,0,'C');
-    $pdf->Output();
-}*/
 
 }
 
