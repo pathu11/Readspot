@@ -17,25 +17,41 @@
 <?php   require APPROOT . '/views/publisher/sidebar.php';?>
     <div class="con">
     <?php foreach($data['publisherDetails'] as $publisherDetails): ?>
-    
-
-        <div class="l_col">
-        <?php
-                    $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $publisherDetails->profile_img ;
-                ?>
-                <img style="border-radius:60%;width:60%;" src="<?php echo $profileImage; ?>">
-               
-                <h3><?php echo $publisherDetails->name; ?></h3><br>
-                <p><?php echo $publisherDetails->company_name; ?></p><br>
-                <p><?php echo $publisherDetails->email; ?></p><br>
-                <p><?php echo $publisherDetails->contact_no; ?></p>
-                <br>
-                
-            <a href="<?php echo URLROOT; ?>/publisher/editProfile/<?php echo  $publisherDetails->publisher_id; ?>" id="btnclick" class="my-button">Edit Profile</a><br>
-            
-        </div>
-
         <div class="r_col">
+            <div class="r_c_col">
+                <div class="r_c_a_col">
+                <?php
+                        $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $publisherDetails->profile_img ;
+                    ?>
+                    <img  src="<?php echo $profileImage; ?>"><br><br><br>
+                   <p> &emsp;&emsp;&emsp; &emsp;&emsp;&emsp; &emsp;&emsp;&emsp;<a href="<?php echo URLROOT; ?>/publisher/editProfile/<?php echo  $publisherDetails->publisher_id; ?>" id="btnclick" class="my-button">Edit Profile</a></p><br>
+                </div> 
+                <div class="r_c_a_col1">
+                    <table>
+                        <tr>
+                        <td>Name </td>
+                        <td><span><?php echo $publisherDetails->name; ?></span></td>
+                        </tr>
+                        <tr>
+                        <td>Company Name </td>
+                        <td><span><?php echo $publisherDetails->company_name; ?></span></td>
+                        </tr>
+                        <tr>
+                        <td><label>Name</label></td> 
+                        <td><span><?php echo $publisherDetails->name; ?></span></td>
+                        </tr>
+                        <tr>
+                        <td><label>Email</label> 
+                        <td><span><?php echo $publisherDetails->email; ?></span>
+                        </tr>
+                        <tr>
+                        <td><label>Contact Number</label> 
+                        <td><span><?php echo $publisherDetails->contact_no; ?></span>
+                        </tr>
+    </table>                
+                    <!-- <a href="<?php echo URLROOT; ?>/publisher/editProfile/<?php echo  $publisherDetails->publisher_id; ?>" id="btnclick" class="my-button">Edit Profile</a><br> -->
+                </div>    
+            </div>
             
             <div class="r_a_col">
                 <h2>Postal Details</h2>
@@ -68,16 +84,11 @@
 
                     <tr>                   
                 </table>
-               
-                
-                <a href="<?php echo URLROOT; ?>/publisher/editpostal/<?php echo  $publisherDetails->publisher_id; ?>" id="btnClick1" class="my-button">Edit</a>
-
-                
+                <a href="<?php echo URLROOT; ?>/publisher/editpostal/<?php echo  $publisherDetails->publisher_id; ?>" id="btnClick1" class="my-button">Edit</a>     
             </div>
             <div class="r_b_col">
                 <h2>Account Details</h2>
                 <table>
-                
                         <tr>
                         <td> 
                             <label>Name</label><br>
@@ -98,27 +109,19 @@
                             <label>Branch Name</label><br>
                             <span><?php echo $publisherDetails->branch_name; ?></span><br>
                         </td>
-                       
-
                     <tr>
-
-
                 </table>
-        
-             
                 <a href="<?php echo URLROOT; ?>/publisher/editAccount/<?php echo $publisherDetails->publisher_id; ?>" id="btnClick1" class="my-button">Edit</a>
             </div>   
         </div>
         <?php endforeach; ?>
     </div>
-
 </body>
 <script>
         function goBack() {
             // Use the browser's built-in history object to go back
             window.history.back();
-        }
-        
+        }    
     </script>
 </html>
 

@@ -387,11 +387,11 @@ button {
 .modal-content {
     background-color: #fefefe;
     /* margin-top: 2px;; */
-    margin: 15% auto;
+    margin: 6% auto;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #888;
-    width: 60%;
+    width: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }

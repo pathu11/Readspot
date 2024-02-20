@@ -37,9 +37,9 @@
                 <th >Book ID</th>
                 <th >No of Items</th>
                 <th >Customer Details</th>
-                <th >Total Price(Rs)</th>
-               
-
+                <th >Total Cost(Rs)</th>
+                <th >Total Delivery Fee(Rs)</th>
+                <th >Total Income(Rs)</th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +49,9 @@
                 <td ><?php echo $orderDetails->book_id; ?></td>
                 <td ><?php echo $orderDetails->quantity; ?></td>
                 <td ><?php echo $data['customerName']; ?></td>
-                <td ><?php echo $orderDetails->total_price; ?></td>               
+                <td ><?php echo $orderDetails->total_price; ?></td>
+                <td ><?php echo $orderDetails->total_delivery; ?></td>
+                <td ><?php echo $orderDetails->total_price - $orderDetails->total_delivery; ?></td>               
                 
             </tr>
             <?php endforeach; ?> 
@@ -70,7 +72,7 @@
             <li id="nextButton">»</li>
         </ul>
         <div id="myModal" class="modal">
-            <div class="modal-content-orders">
+            <div class="modal-content-orders" style="width: 70%; height: 600px; overflow-y: auto;">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Order Details</h2>
                 <div id="searchresult"></div>
@@ -84,7 +86,6 @@
 </body>
 <script>
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
         
@@ -124,7 +125,7 @@ function displaySearchResults(response) {
     if (response.length > 0) {
         for (var i = 0; i < response.length; i++) {
             searchresult.append(`
-                <div class="order-container">
+                <div class="order-container" >
                     
                     
                     <div class="order">

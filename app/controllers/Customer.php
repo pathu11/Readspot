@@ -78,114 +78,7 @@ class Customer extends Controller {
         $comments = $this->customerModel->getComments();
         echo json_encode($comments);
     }
-    
-    public function purchase($book_id) {
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            
-            $user_id = $_SESSION['user_id'];
-            $bookDetails=$this->customerModel->findBookById($book_id);
-            $customerDetails = $this->customerModel->findCustomerById($user_id); 
-            $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                    // sanitize post data
-                $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-                $data=[
-                    'book_id'=>$book_id,
-                    'customer_id' => $customerDetails[0]->customer_id,
-                    'postal_name' => trim($_POST['postal_name']),
-                    'street_name' => trim($_POST['street_name']),
-                    'town' => trim($_POST['town']),
-                    'district' => trim($_POST['district']),
-                    'postal_code' => trim($_POST['postal_code']),
-                    'contact_no'=>trim($_POST['contact_no']),
-                    'total_cost' => trim($_POST['totalCost']),
-                    'total_weight'=>trim($_POST['totalWeight']),
- 
-                    'quantity' => trim($_POST['quantity']), 
-                    'postal_name_err' => '',
-                    'street_name_err' => '',
-                    'town_err' => '',
-                    'district_err' => '',
-                    'postal_code_err' => '',
-                    'contact_no_err'=>''
-
-                ];
-                // var_dump($data);
-                 
-                if(empty($data['postal_name'])){
-                    $data['postal_name_err']='Please enter the  name';      
-                }
-                
-                if(empty($data['street_name'])){
-                    $data['street_name_err']='Please enter street name';      
-
-                }
-                
-                if(empty($data['town'])){
-                    $data['town_err']='Please enter the town';      
-                }
-                if(empty($data['contact_no'])){
-                    $data['contact_no_err']='Please enter the contact number';      
-                }else if(strlen($data['contact_no'])<10){
-                    $data['contact_no_err']='Please enter a valid contact number';
-                }
-                if(empty($data['district'])){
-                    $data['district_err']='Please select the district';      
-                }
-                if(empty($data['postal_code'])){
-                    $data['postal_code_err']='Please enter the postal code';      
-                }
-
-                if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
-                    // print_r($data);
-                    if($this->customerModel->addOrder($data)){
-                        $orderId = $this->customerModel-> getLastInsertedOrderId();
-                        redirect('customer/checkout2/'.$orderId);
-                    }else{
-                      echo  '<script>alert("Error")</script>';
-                    }
-
-                }else{
-                    
-                    echo  '<script>alert("Error")</script>';
-                    }       
-              
-            } else {
-                // Your existing code for displaying the form
-                $customerDetails = $this->customerModel->findCustomerById($user_id);
-               
-                 if($customerDetails)   {
-                    $data = [
-                        'deliveryDetails'=>$deliveryDetails,
-                        'bookDetails'=>$bookDetails,
-                        'book_id'=>$book_id,
-                        'postal_name' => $customerDetails[0]->postal_name,
-                        'street_name' => $customerDetails[0]->street_name,
-                        'town' => $customerDetails[0]->town,
-                        'district' => $customerDetails[0]->district,
-                        'postal_code' => $customerDetails[0]->postal_code,
-                        'contact_no'=>'',
-                        'contact_no_err'=>'',
-                        'postal_name_err'=>'',
-                        'street_name_err'=>'',
-                        'town_err'=>'',
-                        'district_err'=>'',
-                        'postal_code_err'=>'',
-                        'customerDetails' => $customerDetails,
-                        'customerName' => $customerDetails[0]->name
-                    ];
-                 }  else{
-                    echo "Not found data";
-                 }  
-                
-                // print_r($data);
-            $this->view('customer/purchase',$data);
-        }
-    }
-}  
     public function index(){
         if (!isLoggedIn()) {
             redirect('landing/login');
@@ -195,6 +88,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/index', $data);
@@ -208,6 +102,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AboutUs', $data);
@@ -222,6 +117,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AddCont', $data);
@@ -237,6 +133,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Addevnt', $data);
@@ -287,6 +184,7 @@ class Customer extends Controller {
                 'publishedYear_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName
             ];
 
@@ -385,6 +283,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/AddExchangeBook', $data);
@@ -445,6 +344,7 @@ class Customer extends Controller {
                 'price_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName
             ];
 
@@ -591,6 +491,7 @@ class Customer extends Controller {
                 'district' => trim($district),
                 'postal_code' => trim($postalCode),
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName
             ];
 
@@ -608,6 +509,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/BookContents', $data);
@@ -624,6 +526,7 @@ class Customer extends Controller {
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'bookDetails'=>$bookDetails
             ];
             $this->view('customer/BookDetails', $data);
@@ -639,6 +542,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/BookEvents', $data);
@@ -669,6 +573,7 @@ class Customer extends Controller {
 
             $data = [
                 'customerid' => $customerid,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerDetails' => $customerDetails,
                 'bookDetails1' => $bookDetails1,
                 'bookDetails2' => $bookDetails2,
@@ -686,7 +591,7 @@ class Customer extends Controller {
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id); 
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
-        $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
+        // $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
         
         // print_r($recommendedBooks) ;
        
@@ -694,9 +599,10 @@ class Customer extends Controller {
         // $recommendedBooks = $this->ordersModel->getRecommendedBooks($recommendedCategories);
         $data = [
             'customerDetails' => $customerDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name,
             'bookDetails' => $NewbookDetailsByTime,
-            'recommendedBooks'=>$recommendedBooks
+            // 'recommendedBooks'=>$recommendedBooks
             // 'bookCategoryDetails' => $bookCategoryDetails
         ];
 
@@ -728,6 +634,7 @@ class Customer extends Controller {
             }
                 $data = [
                     'customerid' => $customerid,
+                    'customerImage' => $customerDetails[0]->profile_img,
                     'customerDetails' => $customerDetails,
                     'bookDetails' => $UsedbookDetailsByTime,
                     'customerName' => $customerDetails[0]->name
@@ -766,6 +673,7 @@ class Customer extends Controller {
            
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'cartDetails'=>$cartDetails,
                 
@@ -784,6 +692,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/ContactUs', $data);
@@ -799,6 +708,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Content', $data);
@@ -814,6 +724,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Dashboard', $data);
@@ -829,6 +740,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/DonateBooks', $data);
@@ -844,6 +756,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Donatedetails', $data);
@@ -859,6 +772,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Donateform', $data);
@@ -879,6 +793,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Event', $data);
@@ -907,6 +822,7 @@ class Customer extends Controller {
         $data = [
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'bookDetails' => $bookDetails,
             'customerName' => $customerDetails[0]->name
         ];
@@ -944,6 +860,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $ExchangeBookId->book_name,
@@ -988,6 +905,7 @@ class Customer extends Controller {
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name
         ];
             $this->view('customer/ExchangeBooks', $data);
@@ -1008,6 +926,7 @@ class Customer extends Controller {
             $messageDetails = $this->publisherModel->findMessageByUserId($user_id); 
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'messageDetails'=>$messageDetails
             ];
@@ -1015,17 +934,149 @@ class Customer extends Controller {
         }
     } 
 
+    public function ChangeProfImage(){
+        if (!isLoggedIN()) {
+            redirect('landing/login');
+        }
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                if ($customerDetails) {
+                    $customerName = $customerDetails[0]->name;
+                    $customerid = $customerDetails[0]->customer_id;                 
+                } else {
+                    echo "Not found";
+                }
+            }
+            $data=[
+                'customerName' => $customerName,
+                'customer_id' => $customerid,
+                'profile_img' => '',
+            ];
+
+            if (isset($_FILES['newImage']['name']) AND !empty($_FILES['newImage']['name'])) {
+                $img_name = $_FILES['newImage']['name'];
+                $tmp_name = $_FILES['newImage']['tmp_name'];
+                $error = $_FILES['newImage']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $customerName . '-' . $unique_id . '-newImage.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/customer/ProfileImages/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['profile_img'] = $new_img_name;
+                    }
+                }
+            }
+
+            if($this->customerModel->ChangeProfImage($data)){
+                // flash('add_success','You are added the book  successfully');
+                redirect('customer/Profile',$data);
+            }else{
+                die('Something went wrong');
+            }
+        }
+    }
+
     public function Profile(){
         if (!isLoggedIn()) {
             redirect('landing/login');
+        }
+
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $customerid = null;
+    
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                if ($customerDetails) {
+                    $customerName = $customerDetails[0]->name;
+                    $customerid = $customerDetails[0]->customer_id;                 
+                } else {
+                    echo "Not found";
+                }
+            }            
+            $data=[
+                'customerName' => $customerName,
+                'customer_id' => $customerid,
+                'profile_img' => $customerDetails[0]->profile_img,
+                'first_name' => trim($_POST['FName']),
+                'last_name' => trim($_POST['LName']),
+                'email' => trim($_POST['email']),
+                'contact_number' => trim($_POST['ContactNo']),
+                'postal_name' => trim($_POST['Address']),
+                'street_name' => trim($_POST['Province']),
+                'town' => trim($_POST['city']),
+                'district' => trim($_POST['District']),
+                'postal_code' => trim($_POST['PostalCode']),
+                'account_name' => trim($_POST['AccName']),
+                'account_no' => trim($_POST['AccNo']),
+                'bank_name' => trim($_POST['BankName']),
+                'branch_name' => trim($_POST['BranchName']),
+            ];
+            
+            if (isset($_FILES['newImage']['name']) AND !empty($_FILES['newImage']['name'])) {
+                $img_name = $_FILES['newImage']['name'];
+                $tmp_name = $_FILES['newImage']['tmp_name'];
+                $error = $_FILES['newImage']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $customerName . '-' . $unique_id . '-newImage.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/customer/ProfileImages/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['profile_img'] = $new_img_name;
+                    }
+                }
+            }
+
+            if($this->customerModel->Profile($data)){
+                // flash('add_success','You are added the book  successfully');
+                redirect('customer/Profile');
+            }else{
+                die('Something went wrong');
+            }
         } else {
             $user_id = $_SESSION['user_id'];
-           
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
-                'customerEmail' => $customerDetails[0]->email
+                'customerImage' => $customerDetails[0]->profile_img,
+                'FName' => $customerDetails[0]->first_name,
+                'LName' => $customerDetails[0]->last_name,
+                'customerEmail' => $customerDetails[0]->email,
+                'ContactNumber' => $customerDetails[0]->contact_number,
+                'Address' => $customerDetails[0]->postal_name,
+                'Province' => $customerDetails[0]->street_name,
+                'District' => $customerDetails[0]->	district,
+                'City' => $customerDetails[0]->town,
+                'PostalCode' => $customerDetails[0]->postal_code,
+                'AccName' => $customerDetails[0]->account_name,
+                'AccNumber' => $customerDetails[0]->account_no,
+                'BankName' => $customerDetails[0]->bank_name,
+                'BranchName' => $customerDetails[0]->branch_name,
             ];
             $this->view('customer/Profile', $data);
         }
@@ -1040,6 +1091,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Services', $data);
@@ -1106,6 +1158,7 @@ class Customer extends Controller {
                 'price_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
 
@@ -1252,6 +1305,7 @@ class Customer extends Controller {
                 'town' => $UsedBookId->town,
                 'district' => $UsedBookId->district,
                 'postal_code' => $UsedBookId->postal_code,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
 
@@ -1309,6 +1363,7 @@ class Customer extends Controller {
                 'price_err'=>'',
                 'weights_err'=>'',
                 'ISBN_err'=>'',
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             
@@ -1408,7 +1463,7 @@ class Customer extends Controller {
             // $books = $this->publisherModel->findBookById($book_id);
             if($ExchangeBookId->customer_id != $customer_id){
                 redirect('customer/ExchangeBooks');
-              }
+            }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
@@ -1427,6 +1482,7 @@ class Customer extends Controller {
                 'town' => $ExchangeBookId->town,
                 'district' => $ExchangeBookId->district,
                 'postal_code' => $ExchangeBookId->postal_code,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
 
@@ -1485,6 +1541,7 @@ class Customer extends Controller {
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name
         ];
 
@@ -1530,6 +1587,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'UsedBookId' => $UsedBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $UsedBookId->book_name,
@@ -1587,6 +1645,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $ExchangeBookId->book_name,
@@ -1617,6 +1676,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/viewcontent', $data);
@@ -1632,6 +1692,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/viewevents', $data);
@@ -1656,6 +1717,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/TopCategory', $data);
@@ -1671,6 +1733,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/TopAuthor', $data);
@@ -1686,6 +1749,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Recommended', $data);
@@ -1733,6 +1797,7 @@ class Customer extends Controller {
             'bookDetails' => $bookDetails,
             'UsedBookId' => $UsedBookId,
             'customerName' => $customerDetails[0]->name,
+            'customerImage' => $customerDetails[0]->profile_img,
 
             'book_id' => $bookId,
             'book_name' => $UsedBookId->book_name,
@@ -1768,259 +1833,12 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Favorite', $data);
         }
     }
-
-    public function checkout2($order_id)
-{
-    if (!isLoggedIn()) {
-        redirect('landing/login');
-    } else {
-        $user_id = $_SESSION['user_id'];
-        $customerDetails = $this->customerModel->findCustomerById($user_id);       
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-           
-            $formType = $_POST['form_type'];
-            if ($formType === 'cardPayment') {
-                
-                $this->handleCardPaymentForm($order_id,$formType);
-            } elseif ($formType === 'onlineDeposit') {
-               
-                $this->handleOnlineDepositForm($order_id,$formType);
-            }elseif ($formType === 'COD') {
-                
-                $this->handleCODForm($order_id,$formType);
-            }
-        } else {
-            
-            $data = [
-                'order_id'=>$order_id,
-                'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name
-                
-            ];
-    
-            $this->view('customer/checkout2', $data);
-        }     
-    }
-}
-private function handleCardPaymentForm($order_id, $formType)
-{
-    // Set up payment details
-    $amount = 3000; // You may need to adjust this value
-    $merchant_id = "1225428"; // Your merchant ID
-    $order_id = uniqid(); // Generate a unique order ID
-    $merchant_secret = "NjY0MjYyODY2MjU1MzMwMjQ1MjQwMjM3MjkxNTkxNzIzMzU0NDUx"; // Your merchant secret
-    $currency = "LKR"; // Currency code
-
-    // Calculate hash for payment
-    $hash = strtoupper(
-        md5(
-            $merchant_id .
-            $order_id .
-            number_format($amount, 2, '.', '') .
-            $currency .
-            strtoupper(md5($merchant_secret))
-        )
-    );
-
-    // Prepare payment details for JSON response
-    $paymentDetails = [
-        "items" => "Door bell wireless", // Adjust based on your products
-        "first_name" => "Hasintha", // Customer's first name
-        "last_name" => "Nirmanie", // Customer's last name
-        "email" => "easyfarm123@mail.com", // Customer's email
-        "phone" => "0715797461", // Customer's phone number
-        "address" => "No 20, Headaketiya, Angunukolapalassa", // Customer's address
-        "city" => "Hambanthota", // Customer's city
-        "amount" => $amount, // Total payment amount
-        "merchant_id" => $merchant_id, // Merchant ID
-        "order_id" => $order_id, // Order ID
-        "merchant_secret" => $merchant_secret, // Merchant secret
-        "currency" => $currency, // Currency code
-        "hash" => $hash, // Payment hash
-    ];
-
-    // Convert payment details to JSON
-    $jsonObj = json_encode($paymentDetails);
-
-    // Send JSON response
-    // echo $jsonObj;
-}
-
-private function handleCODForm($order_id,$formType){
-    $user_id = $_SESSION['user_id'];
-    $customerDetails = $this->customerModel->findCustomerById($user_id);
-
-    $customer_id=$customerDetails[0]->customer_id;
-
-    $trackingNumber=$this->generateUniqueTrackingNumber($order_id);
-    $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
-    $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
-    $customerEmail=$orderedCustomerDetails[0]->email;
-    echo $customerEmail;
-    $topic = "New Order Details";
-    $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
-    $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
-
-    $book_id = $orderDetails[0]->book_id;
-    $bookDetails = $this->adminModel->getBookDetailsById($book_id);
-
-    if ($bookDetails[0]->type == 'new') {
-        $user_idPub = $bookDetails[0]->publisher_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
-    } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-        $user_idPub = $bookDetails[0]->customer_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
-    }
-
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $data = [
-        'customer_id' => $customer_id,
-        'order_id'=>$order_id,
-        'formType'=>$formType,
-        'trackingNumber'=>$trackingNumber,
-        'topic' => $topic,
-        'messageToPublisher' => $messageToPublisher,
-        'message'=>$message,
-        'user_id'=>$orderedCustomerDetails[0]->user_id,
-        'user_idPub' => $ownerDetails[0]->user_id,
-        'sender_name'=>'system administration',
-        'sender_id'=>130,   
-    ];
-        //make sure errors are empty
-        if( $data['trackingNumber']  ){
-            if($this->customerModel->editOrderCOD($data) &&
-            $this->adminModel->addMessage($data) &&
-            $this->adminModel->addMessageToPublisher($data)){
-
-                $this->sendEmails($customerEmail, $ownerEmail, $data);
-                echo '<script>alert("You are placed an order successfully")</script>';
-                flash('update_success','You are placed an order successfully');
-                redirect('customer/Order');
-               
-            }else{
-                die('Something went wrong');
-            }
-        }else{
-                $this->view('customer/checkout2',$data);
-            }
-}
-private function handleOnlineDepositForm($order_id, $formType)
-{
-    $user_id = $_SESSION['user_id'];
-    $customerDetails = $this->customerModel->findCustomerById($user_id);
-    $customer_id = $customerDetails[0]->customer_id;
-    $trackingNumber = $this->generateUniqueTrackingNumber($order_id);
-
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-    // Initialize data array
-    $data = [
-        'customer_id' => $customer_id,
-        'order_id' => $order_id,
-        'recipt' => '',
-        'formType' => $formType,
-        'trackingNumber' => $trackingNumber,
-    ];
-
-    // Check if receipt file is uploaded
-    if (isset($_FILES['recipt']['name']) && !empty($_FILES['recipt']['name'])) {
-        $recipt_name = $_FILES['recipt']['name'];
-        $tmp_name = $_FILES['recipt']['tmp_name'];
-        $error = $_FILES['recipt']['error'];
-
-        // Check if there is no error in the file upload
-        if ($error === 0) {
-            $recipt_ex = pathinfo($recipt_name, PATHINFO_EXTENSION);
-            $recipt_ex_to_lc = strtolower($recipt_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png', 'pdf');
-            
-            // Check if the file extension is allowed
-            if (in_array($recipt_ex_to_lc, $allowed_exs)) {
-                $new_recipt_name = uniqid() . '-' . $recipt_name;
-                $recipt_upload_path = "../public/assets/images/customer/orderRecipt/" . $new_recipt_name;
-                
-                // Move the uploaded file to the destination path
-                if (move_uploaded_file($tmp_name, $recipt_upload_path)) {
-                    $data['recipt'] = $new_recipt_name;
-                } else {
-                    // Handle file upload failure
-                    echo 'File upload failed';
-                    return;
-                }
-            } else {
-                // Handle invalid file type
-                echo 'Invalid file type';
-                return;
-            }
-        } else {
-            // Handle file upload error
-            echo 'File upload error';
-            return;
-        }
-    }
-
-    // Make sure errors are empty
-    if ($data['trackingNumber'] && $data['recipt']) {
-        if ($this->customerModel->editOrder($data)) {
-            flash('update_success', 'You have placed an order successfully');
-            redirect('customer/Order');
-        } else {
-            die('Something went wrong');
-        }
-    } else {
-        $this->view('customer/checkout2', $data);
-    }
-}
-
-private function generateUniqueTrackingNumber($orderId) {
-    do {
-        $timestamp = time(); // Current timestamp
-        $randomNumber = mt_rand(10000, 99999); // Use a range suitable for your application
-        $trackingNumber = $orderId . $timestamp . $randomNumber;
-    } while ($this->ordersModel->trackingNumberExists($trackingNumber));
-
-    return $trackingNumber;
-}
-private function sendEmails($customerEmail, $ownerEmail, $data) {
-    $this->sendEmail($customerEmail, $data['topic'], $data['message']);
-    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
-}
-
-private function sendEmail($recipientEmail, $subject, $body) {
-    $mail = new PHPMailer(true);
-
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = MAIL_HOST;  // Specify your SMTP server
-        $mail->SMTPAuth = true;
-        $mail->Username = MAIL_USER; // SMTP username
-        $mail->Password = MAIL_PASS; // SMTP password
-        $mail->SMTPSecure = MAIL_SECURITY;
-        $mail->Port = MAIL_PORT;
-
-        // Recipients
-        $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-        $mail->addAddress($recipientEmail);  // Add a recipient
-
-        // Content
-        $mail->isHTML(true);  // Set email format to HTML
-        $mail->Subject = $subject;
-        $mail->Body = $body;
-
-        $mail->send();
-    } catch (Exception $e) {
-        die('Something went wrong: ' . $mail->ErrorInfo);
-    }
-}
 
 
 
@@ -2033,6 +1851,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/Calender', $data);
@@ -2049,6 +1868,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name
             ];
             $this->view('customer/BookChallenge', $data);
@@ -2066,6 +1886,7 @@ private function sendEmail($recipientEmail, $subject, $body) {
 
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'orderDetails'=>$orderDetails
             ];
@@ -2095,4 +1916,6 @@ private function sendEmail($recipientEmail, $subject, $body) {
         }
     }
     
+
+
 }

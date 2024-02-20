@@ -104,3 +104,25 @@ input[type="number"]
     margin-top: 0;
     border: none;
 }
+table {
+    border-collapse: collapse;
+    /* border:white; */
+    width: 100%;
+    border: none; 
+}
+
+th, td {
+    /* border-bottom: 1px solid white;  */
+    padding: 10px; 
+    text-align: left;
+    border:none;
+}
+
+th {
+    background-color: #f2f2f2; 
+}
+
+
+td:not(:last-child) {
+    margin-right: 10px; 
+}

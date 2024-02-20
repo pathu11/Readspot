@@ -65,7 +65,7 @@
                     <a  href='#' onclick='confirmReturned(<?php echo $orderDetails->order_id; ?>)'  ><i class='fas fa-check-circle' style='font-size:26px;color:gray;'></i></a>
                     
                 </td>
-                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
+                <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->sender_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
 
                 <td><a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $orderDetails->receiver_user_id; ?>"><i class='fas fa-comment-dots' style='font-size:26px;color:gray;'></i></a></td>
             </tr>

@@ -10,10 +10,15 @@ require APPROOT . '\vendor\autoload.php';
  class Admin extends Controller{
   private $adminModel;
   private $userModel;
+  private $ordersModel;
+  
   private $db;
-  public function __construct(){
+  public function __construct(
+
+  ){
       $this->adminModel=$this->model('Admins');
       $this->userModel=$this->model('User');
+      $this->ordersModel = $this->model('Orders');
       $this->db = new Database();
 
   }
@@ -129,17 +134,14 @@ require APPROOT . '\vendor\autoload.php';
     
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
         $data = [
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
-
             'book_category_err'=>'',
             'description_err'=>''
         ];
-
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
         }
@@ -159,10 +161,8 @@ require APPROOT . '\vendor\autoload.php';
 
         else{
             $this->view('admin/addBookCategories',$data);
-        }
-        
+        }  
     }
-
     else{
         $data=[
             'adminDetails' => $adminDetails,
@@ -174,11 +174,8 @@ require APPROOT . '\vendor\autoload.php';
         ];
 
         $this->view('admin/addBookCategories',$data);
-    }
-    
-    
+    } 
   }
-
   public function updateBookCategory($id)
 {
     $user_id = $_SESSION['user_id'];
@@ -232,8 +229,6 @@ require APPROOT . '\vendor\autoload.php';
         $this->view('admin/updateBookCategory', $data);
     }
 }
-
-
   public function deleteBookCategory($id){
     if($this->adminModel->deleteBookCategory($id)){
         flash('delete_success','You deleted the book category successfully');
@@ -414,7 +409,7 @@ require APPROOT . '\vendor\autoload.php';
         try {
             //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
             $mail->Username   = MAIL_USER; // SMTP username
             $mail->Password   = MAIL_PASS;   // SMTP password
@@ -455,20 +450,15 @@ public function approveCharity($user_id){
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
             $mail->isSMTP();
-            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->Host       = MAIL_HOST;  
             $mail->SMTPAuth   = true;
-            $mail->Username   = MAIL_USER; // SMTP username
-            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->Username   = MAIL_USER;
+            $mail->Password   = MAIL_PASS; 
             $mail->SMTPSecure = MAIL_SECURITY;
             $mail->Port       = MAIL_PORT;
-
-            //Recipients
             $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress($userEmail);  // Add a recipient
-
-            // Content
+            $mail->addAddress($userEmail);  
             $mail->isHTML(true);  // Set email format to HTML
             $mail->Subject = 'Approved the registration by administration';
             $mail->Body    = 'Congratulations! Your registration has been approved. You can now log in to the system.';
@@ -670,6 +660,7 @@ public function payments(){
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else{
+
         $user_id = $_SESSION['user_id'];
          
         $adminDetails = $this->adminModel->findAdminById($user_id);
@@ -695,18 +686,28 @@ public function approveOrder($order_id) {
     $topic = "Approved the Order by administration";
     $message ="Congratulations! Your order has been approved. Your order will be received at home as soon as possible.";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
-    $book_id = $orderDetails[0]->book_id;
-    $bookDetails = $this->adminModel->getBookDetailsById($book_id);
 
-    if ($bookDetails[0]->type == 'new') {
-        $user_idPub = $bookDetails[0]->publisher_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
-    } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
-        $user_idPub = $bookDetails[0]->customer_id;
-        $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
-        $ownerEmail = $ownerDetails[0]->email;
+    $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
+
+
+    $ownerEmails = array();
+    foreach ($bookIds as $bookIdObj) {
+        $bookId = $bookIdObj->book_id;
+        // Fetch book details using book ID
+        $bookDetails = $this->adminModel->getBookDetailsById($bookId); 
+        
+        
+        if ($bookDetails[0]->type == 'new') {
+            $user_idPub = $bookDetails[0]->publisher_id;
+            $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+        } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
+            $user_idPub = $bookDetails[0]->customer_id;
+            $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
+        }
+        // Store owner email in the array
+        $ownerEmails[] = $ownerDetails[0]->email;
     }
+    
 
     $data = [
         'adminDetails' => $adminDetails,
@@ -715,18 +716,16 @@ public function approveOrder($order_id) {
         'messageToPublisher' => $messageToPublisher,
         'message' => $message,
         'user_id' => $customerDetails[0]->user_id,
-        'user_idPub' => $ownerDetails[0]->user_id,
+        // 'user_idPub' => $ownerDetails[0]->user_id,
         'sender_id' => $user_id,
         'sender_name' => $adminDetails[0]->name,
         
     ];
 
     // Assuming your approval logic here...
-    if ($this->adminModel->approveOrder($order_id) &&
-        $this->adminModel->addMessage($data) &&
-        $this->adminModel->addMessageToPublisher($data)) {
+    if ($this->adminModel->approveOrder($order_id)) {
 
-        $this->sendEmails($customerEmail, $ownerEmail, $data);
+        $this->sendEmails($customerEmail, $ownerEmails, $data);
 
         // Redirect or perform other actions as needed
         redirect('admin/payments');
@@ -735,9 +734,11 @@ public function approveOrder($order_id) {
     }
 }
 
-private function sendEmails($customerEmail, $ownerEmail, $data) {
+private function sendEmails($customerEmail, $ownerEmails, $data) {
+    foreach ($ownerEmails as $ownerEmail) {
+        $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
+    }
     $this->sendEmail($customerEmail, $data['topic'], $data['message']);
-    $this->sendEmail($ownerEmail, $data['topic'], $data['messageToPublisher']);
 }
 
 private function sendEmail($recipientEmail, $subject, $body) {

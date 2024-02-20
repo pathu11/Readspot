@@ -18,7 +18,7 @@
              <!-- <h2>Enter the Details of the Book</h2> -->
             <div class="form1">
                 <h2>Enter the Details of the Book</h2>
-                <form action="<?php echo URLROOT; ?>/publisher/update/<?php echo $data['book_id'];?>"  enctype="multipart/form-data" method="POST">                    
+                <form action="<?php echo URLROOT; ?>/NewBooks/update/<?php echo $data['book_id'];?>"  enctype="multipart/form-data" method="POST">                    
                     <br>
                     <br>
                                    
@@ -60,17 +60,15 @@
                     <br><label>Description about the book</label>
                     <textarea type="text" placeholder="Briefly describe about the content" name="descript" class="<?php echo (!empty($data['descript_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['descript']; ?>"><?php echo $data['descript']; ?> </textarea><br>
                     <span class="error"><?php echo $data['descript_err']; ?></span>
-                            
                   
                     <label>Upload two Clear images (Cover Page & Inside Paper)</label><br><br>
                     <div class="table">
                         <div class="table1">
-                            <input type="file" id="pdfUpload1" name="img1" required>
-
+                            <input type="file" id="pdfUpload1" name="img1"  value="<?php echo $data['img1']; ?>" >
 
                         </div>
                         <div class="table1">
-                            <input type="file" id="pdfUpload2" name="img2" required>
+                            <input type="file" id="pdfUpload2" name="img2" value="<?php echo $data['img2']; ?>" >
 
                         </div>
                     </div> 
