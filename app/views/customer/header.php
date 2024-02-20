@@ -15,6 +15,7 @@
 
     <script src="<?php echo URLROOT; ?>/assets/js/customer/home.js"></script>
     <script src="<?php echo URLROOT; ?>/assets/js/customer/tables.js"></script> 
+    <script src="<?php echo URLROOT; ?>/assets/js/customer/calender.js"></script> 
 
     
 

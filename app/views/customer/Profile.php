@@ -8,7 +8,13 @@
     <div class="container">
         <div class="prof-content">
             <div class="prof-picture">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $data['customerImage']; ?>" alt="Profile Image" class="profile-image"> <!--path changed-->
+                <?php
+                    if ($data['customerImage']) {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$data['customerImage'].'" alt="Profile Image" class="profile-image"';
+                    } else {
+                        echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">';
+                    }
+                ?>
                 <?php 
                 if (isset($_SESSION["user_id"])){
                     echo '<center><h2 class="profile-name2">'.$data['customerName'].'<br><span>'.$data["customerEmail"].'<span></h2></center>';
@@ -23,7 +29,13 @@
             <div class="div-cng-img-overlay" id="DivCngImgOverlay"></div>
             <div class="div-cng-img" id="DivCngImg">
                 <form action="<?php echo URLROOT; ?>/customer/ChangeProfImage" enctype="multipart/form-data" method="POST">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $data['customerImage']; ?>" alt="Profile Image" class="profile-image-cng" id="profileImage">
+                    <?php
+                        if ($data['customerImage']) {
+                            echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$data['customerImage'].'" alt="Profile Image" class="profile-image-cng" id="profileImage"';
+                        } else {
+                            echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" alt="Profile Image" class="profile-image-cng" id="profileImage">';
+                        }
+                    ?>
                     <label for="imageInput" id="imageLabel">Choose a new image</label>
                     <input type="file" name="newImage" accept="image/*" id="imageInput" onchange="previewImage()" style="display: none">
                     <div class="buttons-container">
