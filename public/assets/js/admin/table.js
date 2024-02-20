@@ -98,10 +98,10 @@ function changePage(page) {
   displayRows(rows, rowsPerPage, currentPage);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  let rows = document.getElementById("eventTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-  setupPagination(rows);
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   let rows = document.getElementById("eventTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+//   setupPagination(rows);
+// });
 
 
 
