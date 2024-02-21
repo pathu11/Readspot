@@ -1,3 +1,48 @@
-.form-container{
-  margin-top: 150px;
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  margin-top: 100px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 600px;
+  
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px;
+}
+
+input,
+select,
+textarea {
+    width: calc(100% - 12px);
+    padding: 6px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgb(59, 59, 59);
+    height: 40px;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+button {
+  background-color: #009D94;
+  height: 40px;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 49%;
+  font-size: 14px;
 }
