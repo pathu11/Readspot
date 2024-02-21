@@ -16,7 +16,7 @@
     <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
     </div>
-    <button>Create a challenge</button>
+    <a href="<?php echo URLROOT;?>/moderator/createChallenge"><button>Create a challenge</button></a>
   </div>
 
   <div class="table-container">
@@ -28,15 +28,6 @@
         <th>Start Date</th>
         <th>End Date</th>
       </tr>
-      <?php foreach($data['challengeDetails'] as $challenge): ?>
-        <tr>
-          <td><?php echo $challenge->challenge_id; ?></td>
-          <td><?php echo $challenge->title; ?></td>
-          <td><?php echo $challenge->description; ?></td>
-          <td><?php echo $challenge->start_date; ?></td>
-          <td><?php echo $challenge->end_date; ?></td>
-        </tr>
-      <?php endforeach; ?>
     </table>
   </div>
 
