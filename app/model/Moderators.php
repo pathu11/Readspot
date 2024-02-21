@@ -56,7 +56,26 @@
       $this->db->bind(':user_id', $user_id);
   
       return $this->db->resultSet();
-  }
+    }
+
+    public function addQuiz($data){
+      $this->db->query('INSERT INTO quiz(title,number_of_questions,marks_right_answer,time_limit,description) VALUES (:title,:number_of_questions,:marks_right_answer,:time_limit,:description)');
+
+      $this->db->bind(':title',$data['title']);
+      $this->db->bind(':number_of_questions',$data['number_of_questions']);
+      $this->db->bind(':marks_right_answer',$data['marks_right_answer']);
+      $this->db->bind(':time_limit',$data['time_limit']);
+      $this->db->bind(':description',$data['description']);
+
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+
   
   
   

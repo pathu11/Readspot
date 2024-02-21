@@ -59,19 +59,17 @@
         if($_SERVER['REQUEST_METHOD']=='POST'){
           $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
           $data = [
-              'adminDetails' => $moderatorDetails,
-              'adminName'=>$moderatorDetails[0]->name,
+              'moderatorDetails' => $moderatorDetails,
+              'moderatorName'=>$moderatorDetails[0]->name,
               'title'=>trim($_POST['title']),
               'number_of_questions'=>trim($_POST['number_of_questions']),
               'marks_right_answer'=>trim($_POST['marks_right_answer']),
-              'marks_wrong_answer'=>trim($_POST['marks_wrong_answer']),
               'time_limit'=>trim($_POST['time_limit']),
               'description'=>trim($_POST['description']),
               
               'title_err'=>'',
               'number_of_questions_err'=>'',
               'marks_right_answer_err'=>'',
-              'marks_wrong_answer_err'=>'',
               'time_limit_err'=>'',
               'description_err'=>'',
           ];
@@ -79,36 +77,59 @@
               $data['title_err']='Please enter the qyuiz title';      
           }
   
-          if(empty($data['description'])){
-              $data['description_err']='Please enter the category description';      
+          if(empty($data['number_of_questions'])){
+              $data['number_of_questions_err']='Please enter the number of questions';      
           }
-  
-          if(empty($data['book_category_err']) && empty($data['description_err'])){
-              if($this->moderatorModel->addBookCategory($data)){
-                  flash('add_success','You are added the book category successfully');
-                  redirect('admin/categories');
+
+          if(empty($data['marks_right_answer'])){
+            $data['marks_right_answer_err']='Please enter the marks for right answer';      
+          }
+
+          if(empty($data['time_limit'])){
+            $data['time_limit_err']='Please enter the quiz time limit';      
+          }
+
+          if(empty($data['description'])){
+            $data['description_err']='Please enter the quiz description';      
+          }
+
+          if(empty($data['title_err']) && empty($data['number_of_questions_err']) && empty($data['marks_right_answer_err']) && empty($data['time_limit_err']) && empty($data['description_err'])){
+              if($this->moderatorModel->addQuiz($data)){
+                  flash('add_success','You are added the quiz successfully');
+                  redirect('moderator/createChallengeQuestions');
               }else{
                   die('Something went wrong');
               }
           }
   
           else{
-              $this->view('admin/addBookCategories',$data);
+              $this->view('moderator/createChallenge',$data);
           }  
       }
       else{
           $data=[
-              'adminDetails' => $moderatorDetails,
-              'adminName'=>$moderatorDetails[0]->name,
-              'book_category'=>'',
+              'moderatorDetails' => $moderatorDetails,
+              'moderatorName'=>$moderatorDetails[0]->name,
+              'title'=>'',
+              'number_of_questions'=>'',
+              'marks_right_answer'=>'',
+              'time_limit'=>'',
               'description'=>'',
-              'book_category_err'=>'',
-              'description_err'=>''
+              
+              'title_err'=>'',
+              'number_of_questions_err'=>'',
+              'marks_right_answer_err'=>'',
+              'time_limit_err'=>'',
+              'description_err'=>'',
           ];
   
           $this->view('moderator/createChallenge',$data);
       } 
       }
+    }
+
+    public function createChallengeQuestions(){
+      $this->view('moderator/createChallengeQuestions');
     }
 
     public function events(){

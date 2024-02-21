@@ -17,11 +17,10 @@
       <input type="text" name="title" id="title" placeholder="Enter Quiz Title">
       <input type="number" name="number_of_questions" id="number_of_questions" placeholder="Enter total number of questions">
       <input type="number" name="marks_right_answer" id="marks_right_answer" placeholder="Enter marks on right answer">
-      <input type="number" name="marks_wrong_answer" id="marks_wrong_answer" placeholder="Enter marks on wrong answer">
       <input type="number" name="time_limit" id="time_limit" placeholder="Enter Time Limit in minutes">
       <input type="textarea" name="description" id="description" placeholder="Enter Quiz Description">
+      <button type="submit">Submit</button>
     </form>
-    <button type="submit">Submit</button>
   </div>
 
 </body>
