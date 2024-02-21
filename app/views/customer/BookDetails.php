@@ -224,8 +224,10 @@
 
         <div class="sub8">
             <a href="#"><button class="chat-btn">Chat</button></a>
-          
-            <a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
+            
+       
+
+            <a href="#" onclick="addToCart2(<?php echo $books->book_id; ?>)"><button class="chat-btn">Purchase</button></a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -262,15 +264,15 @@
                                 // ... (rest of the code)
                             } else {
                                 console.error('Error adding to cart:', response.message);
-                                // Display an error message to the user
+                               
                             }
                         } catch (error) {
                             console.error('Error parsing JSON:', error);
-                            // Display a generic error message to the user
+                           
                         }
                     } else {
                         console.error('HTTP error:', this.status);
-                        // Handle HTTP errors (e.g., display a generic error message)
+                       
                     }
                 }
     };
@@ -278,6 +280,40 @@
     xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
     xhttp.send();
 }
+function addToCart2(bookId) {
+            var quantity = document.getElementById('quantity').innerText;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        console.log('Response:', this.responseText);
+                        console.log('Response Type:', typeof this.responseText);
+
+                        try {
+                            var response = JSON.parse(this.responseText);
+                            if (response.status === 'success') {
+                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                // ... (rest of the code)
+                            } else {
+                                console.error('Error adding to cart:', response.message);
+                               
+                            }
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                           
+                        }
+                    } else {
+                        console.error('HTTP error:', this.status);
+                       
+                    }
+                }
+    };
+
+    xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
+    xhttp.send();
+}
+
 
 
 

@@ -873,6 +873,14 @@ class Customer extends Controller {
             $this->view('customer/Cart', $data);
         }
     } 
+    public function deleteCart($cart_id){
+        $user_id = $_SESSION['user_id'];
+        if($this->customerModel->deleteFromCart($cart_id)){
+            echo '<script>alert("Successfully deleted");</script>';
+            redirect('customer/Cart');
+        }
+
+    }
     
     public function ContactUs(){
         if (!isLoggedIn()) {

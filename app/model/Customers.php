@@ -588,59 +588,6 @@ public function editOrderCOD($data)
       $results = $this->db->resultSet();
       return $results;
     }
-
-    public function editOrderCardPayment($data){
-      $this->db->query('UPDATE orders
-        SET 
-        payment_type = :payment_type ,
-        tracking_no = :tracking_no,
-        status= :status
-        WHERE order_id = :order_id');
-      // Bind values
-      $this->db->bind(':order_id', $data['order_id']);
-      $this->db->bind(':payment_type', $data['formType']);  // Use 'formType' instead of 'payment_type'
-      $this->db->bind(':tracking_no', $data['trackingNumber']);
-      $this->db->bind(':status', "processing");
-      // Execute
-      if ($this->db->execute()) {
-      return true;
-      } else {
-      return false;
-      }
-
-    }
-
-    public function ChangeProfImage($data) {
-      $this->db->query('UPDATE customers 
-                  SET profile_img = :profile_img
-                  WHERE customer_id = :customer_id');
-                
-        $this->db->bind(':customer_id',$data['customer_id']);
-        $this->db->bind(':profile_img',$data['profile_img']);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-}
-
-}
-
-
-
-public function searchUsedBooks($inputText){
-  $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
-  FROM books 
-  WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-  AND type = 'used' ");
-  
-  $results = $this->db->resultSet();
-  return $results;
-}
-
 public function editOrderCardPayment($data){
   $this->db->query('UPDATE orders o
                       JOIN order_details od ON o.order_id = od.order_id
@@ -665,20 +612,7 @@ public function editOrderCardPayment($data){
         return false;
     }
 }
-public function ChangeProfImage($data) {
-  $this->db->query('UPDATE customers 
-              SET profile_img = :profile_img
-              WHERE customer_id = :customer_id');
-            
-    $this->db->bind(':customer_id',$data['customer_id']);
-    $this->db->bind(':profile_img',$data['profile_img']);
 
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 public function findDetailsByCartId($cartId){
   $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity,c.quantity AS nowQuantity,b.type AS type,b.book_id AS book_id
@@ -696,6 +630,34 @@ public function findBookById($book_id){
   // $row = $this->db->single();
   // return $row;
 }
+
+public function ChangeProfImage($data) {
+  $this->db->query('UPDATE customers 
+              SET profile_img = :profile_img
+              WHERE customer_id = :customer_id');
+            
+    $this->db->bind(':customer_id',$data['customer_id']);
+    $this->db->bind(':profile_img',$data['profile_img']);
+
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+public function  deleteFromCart($cart_id){
+  $this->db->query('DELETE  from cart WHERE cart_id=:cart_id');
+  $this->db->bind(':cart_id',$cart_id);
+  $this->db->execute();
+
+  // Check for row count affected
+  if ($this->db->rowCount() > 0) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
 
 
 

@@ -1,28 +1,13 @@
 <?php
-<<<<<<< HEAD
 // db param
-=======
-
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
-
-define('DB_NAME','readspots');
-
->>>>>>> 97991fc08d66542e789702ba02fad1e06cd860e6
 // define('DB_HOST','readspot.mysql.database.azure.com');
 // define('DB_USER','readspot');
 // define('DB_PASS','Admin@1234');
 // define('DB_NAME','readspot');
-<<<<<<< HEAD
 define('DB_HOST','localhost');
 define('DB_USER','root');
 define('DB_PASS','');
 define('DB_NAME','readspot');
-=======
-
-
->>>>>>> 97991fc08d66542e789702ba02fad1e06cd860e6
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
 define('URLROOT','http://localhost/Readspot');

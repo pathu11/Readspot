@@ -32,13 +32,13 @@ class PurchaseOrder extends Controller{
             $user_id = $_SESSION['user_id'];
             // $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
             $customerDetails = $this->customerModel->findCustomerById($user_id);
-            
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
                
                 if(isset($_POST['selectedItems']) && is_array($_POST['selectedItems'])) {
                     $selectedCartIds = $_POST['selectedItems'];
                     $bookDetails = [];
                     foreach($selectedCartIds as $cartId) {
+                        $cart_id[]=$cartId;
                         $bookDetails[] = $this->customerModel->findDetailsByCartId($cartId);
                     }
                    
@@ -47,6 +47,7 @@ class PurchaseOrder extends Controller{
                     return;
                 }
                 $_SESSION['purchaseMultipleBookDetails'] = $bookDetails;
+                $_SESSION['cart_id']=$cart_id;
                 if($bookDetails){
                     redirect('PurchaseOrder/purchaseMultipleView');
                    
@@ -61,16 +62,19 @@ class PurchaseOrder extends Controller{
         } else {    
             $user_id = $_SESSION['user_id'];
             $bookDetails=$_SESSION['purchaseMultipleBookDetails'];
+            $cart_id=$_SESSION['cart_id'];
             $bookIds = [];
             foreach ($bookDetails as $book) {
                 $bookIds[] = $book[0]->book_id;
             }
+
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
 
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
+                    'cart_id'=>$cart_id,
                     'bookDetails'=>$bookDetails,
                     'book_id'=>$bookIds,
                     'customer_id' => $customerDetails[0]->customer_id,
@@ -176,11 +180,11 @@ public function checkout2()
         redirect('landing/login');
     } else {
         $orderDetails=$_SESSION['PurchaseOrderData'];
-        
+        $cart_id=$orderDetails['cart_id'];
         $book_details=$orderDetails['bookDetails'];
         $bookQuantities=$orderDetails['bookQuantities'];
         $user_id = $_SESSION['user_id'];
-        $customerDetails = $this->customerModel->findCustomerById($user_id);       
+        $customerDetails = $this->customerModel->findCustomerById($user_id);   
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $formType = $_POST['form_type'];
             if ($formType === 'cardPayment') {    
@@ -270,8 +274,13 @@ private function handleCODForm($orderDetails1 ,$formType){
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $cart_id=$orderDetails['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
-            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+           if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
+                $this->customerModel->deleteFromCart($cart_id);
+           }
+           
+
         }
     } else {
         echo '<script>alert("Error")</script>';
