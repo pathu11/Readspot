@@ -11,15 +11,23 @@ body{
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  width: 600px;
-  
+  width: 1000px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .form-grid {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 25px;
-}
+  grid-gap: 25px; */
+  width: 100%; /* Make the form fill the container */
+  max-width: 600px; /* Optional: Limit the width of the form */
+  padding: 20px; /* Optional: Add padding to the form */
+  box-sizing: border-box;
+} 
 
 input,
 select,
@@ -43,6 +51,6 @@ button {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  width: 49%;
+  width: 30%;
   font-size: 14px;
 }

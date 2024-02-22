@@ -12,8 +12,8 @@
 <body>
   <?php require APPROOT . '/views/moderator/nav.php';?>
   <div class="form-container">
+    <h2><strong>Enter Quiz Details</strong></h2>
     <div class="form-grid">
-      <span>Enter Quiz Details</span>
       <form action="<?php echo URLROOT;?>/moderator/createChallenge" method="post">
         <input type="text" name="title" id="title" placeholder="Enter Quiz Title">
         <input type="number" name="number_of_questions" id="number_of_questions" placeholder="Enter total number of questions">
