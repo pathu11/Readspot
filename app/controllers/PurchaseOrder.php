@@ -43,6 +43,7 @@ class PurchaseOrder extends Controller{
                     }
                    
                 } else { 
+                    
                     echo "Error: No books selected" ; 
                     return;
                 }
@@ -53,7 +54,7 @@ class PurchaseOrder extends Controller{
                    
                 }      
             }
-        }
+}
     }   
     public function purchaseMultipleView(){
       
@@ -218,17 +219,17 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 {
     if ($this->customerModel->addOrder($orderDetails1)) {
         $order_id = $this->customerModel->getLastInsertedOrderId();
-        // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
-            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+           if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
+                $this->customerModel->deleteFromCart($cart_id);
+           }
         }
     } else {
         echo '<script>alert("Error")</script>';
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
-   
-   
     $amount = $orderDetails[0]->total_price; 
     $merchant_id = MERCHANT_ID;
     $order_id = $order_id; 
@@ -274,7 +275,7 @@ private function handleCODForm($orderDetails1 ,$formType){
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
-            $cart_id=$orderDetails['cart_id'][$index];
+            $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
@@ -366,8 +367,13 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
-            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+           if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
+                $this->customerModel->deleteFromCart($cart_id);
+           }
+           
+
         }
     } else {
         echo '<script>alert("Error")</script>';

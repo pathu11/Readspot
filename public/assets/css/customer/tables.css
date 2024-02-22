@@ -32,7 +32,7 @@
     cursor: not-allowed;
 }
 
-.action-buttons button {
+.action-buttons .delete-button, .action-buttons .view-button {
     /* padding: 5px 10px; */
     cursor: pointer;
 }

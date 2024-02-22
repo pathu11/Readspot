@@ -615,17 +615,16 @@ public function editOrderCardPayment($data){
 
 
 public function findDetailsByCartId($cartId){
-  $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity,c.quantity AS nowQuantity,b.type AS type,b.book_id AS book_id
-                    FROM cart c 
-                    JOIN books b ON c.book_id = b.book_id 
-                    WHERE c.cart_id = :cart_id ');
+  $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
+  FROM cart c 
+  JOIN books b ON c.book_id = b.book_id 
+  WHERE c.cart_id = :cart_id');
   $this->db->bind(':cart_id', $cartId);
   return $this->db->resultSet();
 }
-
 public function findBookById($book_id){
-  $this->db->query('SELECT * from books WHERE book_id=:book_id ');
-  $this->db->bind(':book_id',$book_id);
+  $this->db->query('SELECT b.*, p.user_id AS pub_user_id FROM books b JOIN publishers p ON b.publisher_id = p.publisher_id WHERE book_id = :book_id');
+  $this->db->bind(':book_id', $book_id);
   return $this->db->resultSet();
   // $row = $this->db->single();
   // return $row;

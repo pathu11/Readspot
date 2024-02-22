@@ -19,7 +19,7 @@
                 <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple">
                 <table border="1" class="tb-cart1" id="eventTable">
                     <thead>
-                        <tr>
+                        <tr> 
                             <th></th>
                             <th>Image</th>
                             <th>Book Name</th>
@@ -39,10 +39,9 @@
                             <td><?php echo $cart->quantity; ?></td>
                             <td><?php echo $cart->price*$cart->quantity; ?></td>
                             <td class="action-buttons">
-                               
-                                    <a href="#" class="view-button" data-cartid="<?php echo $cart->cart_id; ?>">
-                                            <i class="fas fa-shopping-cart"></i>
-                                    </a>   
+                                <a href="#" class="view-button" data-cartid="<?php echo $cart->cart_id; ?>">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>   
                                 <a class="delete-button" href="<?php echo URLROOT; ?>/customer/deleteCart/<?php echo $cart->cart_id; ?>">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -50,12 +49,17 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
+                    <button type="submit" class="cart-view">Purchase Selected  All Items</button>
                 </table>
                 <br><br>
-                <button type="submit" class="cart-view">Purchase Selected  All Items</button>
+                
                 </form>  
-                <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple">      
+
+
+                
+
                 <table border="1" class="tb-cart2" id="eventTable">
+                <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple"> 
                     <tbody>
                         <?php foreach($data['cartDetails'] as $cart): ?>
                         <tr>

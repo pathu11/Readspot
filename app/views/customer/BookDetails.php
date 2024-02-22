@@ -223,8 +223,8 @@
         </div>
 
         <div class="sub8">
-            <a href="#"><button class="chat-btn">Chat</button></a>
-            
+          
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $books->pub_user_id; ?>"><button class="chat-btn">Chat</button></a>
        
 
             <a href="#" onclick="addToCart2(<?php echo $books->book_id; ?>)"><button class="chat-btn">Purchase</button></a>
