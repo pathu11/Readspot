@@ -2240,6 +2240,10 @@ class Customer extends Controller {
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'question'=>$question[0]->question,
+                'option1'=>$question[0]->option1,
+                'option2'=>$question[0]->option2,
+                'option3'=>$question[0]->option3,
+                'quiz_id'=>$quiz_id,
             ];
             $this->view('customer/quizQuestion1', $data);
         }
