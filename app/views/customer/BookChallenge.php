@@ -25,15 +25,24 @@
                         echo '<h3>Already Attemped</h3>';
                     }
                     else{
-                        echo '<a href="'.URLROOT.'/customer/quiz/'.$challenge->quiz_id.'"><button>Attempt</button></a>';
+                        echo '<button onclick="showAcceptPopup(\'' . $challenge->quiz_id . '\')">Attempt</button>';
+
                     }
                     ?>
                     </td>
                 </tr>
+                <div id="acceptPopup_<?php echo $challenge->quiz_id; ?>" class="model">
+                    <div class="modal-content">
+                        <span class="close" onclick="hidePopup('acceptPopup_<?php echo $challenge->quiz_id; ?>')">&times;</span>
+                        <p><?php echo $challenge->description;?></p>
+                        <a href="<?php echo URLROOT; ?>/customer/quizQuestion1/<?php echo $challenge->quiz_id; ?>"><button>Attemp Now</button></a>
+                    </div>
+                </div>
                 <?php endforeach;?>
             </table>
         </div>
     </div>
+    <script src="<?php echo URLROOT;?>/assets/js/customer/tables.js"></script>
 
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed

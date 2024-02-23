@@ -2227,6 +2227,24 @@ class Customer extends Controller {
         }   
     }
 
+    public function quizQuestion1($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $question = $this->customerModel->getQuizQuestion1($quiz_id);
+            
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'question'=>$question[0]->question,
+            ];
+            $this->view('customer/quizQuestion1', $data);
+        }
+    }
+
     public function Order(){
         if (!isLoggedIn()) {
             redirect('landing/login');

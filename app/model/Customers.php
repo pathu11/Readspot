@@ -699,8 +699,9 @@ public function getOngoingChallenges(){
   return $this->db->resultSet();
 }
 
-public function getQuiz($quiz_id){
-  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id');
+public function getQuizQuestion1($quiz_id){
+  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=1');
+  $this->db->bind(':quiz_id',$quiz_id);
   return $this->db->resultSet();
 }
 
