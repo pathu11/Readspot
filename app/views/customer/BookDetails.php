@@ -83,14 +83,27 @@
             <h1> Reviews and Rating </h1>
             <div class="send-review">
                 <div class="stars">
-                    
-                    <span class="heading">User Rating</span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span> 
-                    <p>4.1 average based on 254 reviews.</p>
+                <?php 
+                    if (isset($data['averageRatingCount']->average_rating)) {
+                        $rating = ceil($data['averageRatingCount']->average_rating);
+                        for ($i = 0; $i < $rating; $i++) {
+                            echo '<span class="fas fa-star checked"></span>';
+                        }
+                        for ($i = $rating; $i < 5; $i++) {
+                            echo '<span class="fas fa-star"></span>';
+                        }
+                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on 254 reviews.</p>';
+                    } else {
+                        echo '<p>No reviews</p>';
+                    }
+    ?>
+                    <!-- <?php if (isset($data['averageRatingCount']->average_rating)) : ?>
+                        <p><?php echo $data['averageRatingCount']->average_rating; ?> average based on 254 reviews.</p>
+                    <?php else : ?>
+                        <p>No reviews</p>
+                    <?php endif; ?> -->
+
+
                     <hr style="border:3px solid #f1f1f1">
 
                     <div class="row-rating">
@@ -191,13 +204,7 @@
                 </form>
 
             </div>
-            <!-- <div class="filter-by">
-                <h3>5 star</h3>
-                <h3>4 star</h3>
-                <h3>3 star</h3>
-                <h3>2 star</h3>
-                <h3>1 star</h3>
-            </div> -->
+            
             <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>

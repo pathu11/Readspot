@@ -700,12 +700,14 @@ class Customer extends Controller {
             $bookDetails=$this->customerModel->findBookById($book_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $reviewDetails=$this->customerModel->findReviewsByBookId($book_id)  ;
+            $averageRatingCount=$this->customerModel->getAverageRatingByBookId($book_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'bookDetails'=>$bookDetails,
-                'reviewDetails'=>$reviewDetails
+                'reviewDetails'=>$reviewDetails,
+                'averageRatingCount'=>$averageRatingCount
             ];
             $this->view('customer/BookDetails', $data);
         }

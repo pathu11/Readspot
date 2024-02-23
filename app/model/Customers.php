@@ -666,6 +666,14 @@ public function addReview($data){
   return $this->db->execute();
 
 }
+public function getAverageRatingByBookId($book_id) {
+ 
+  $this->db->query('SELECT AVG(rate) AS average_rating FROM reviews WHERE book_id = :book_id');
+  $this->db->bind(':book_id', $book_id);
+  return $this->db->single(); // Assuming you only expect one result
+}
+
+
 public function findReviewsByBookId($book_id){
   $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM reviews r JOIN customers c ON r.customer_id = c.customer_id WHERE book_id = :book_id');
   $this->db->bind(':book_id', $book_id);
