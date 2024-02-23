@@ -2197,14 +2197,34 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $challengeDetails = $this->customerModel->getOngoingChallenges(); 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'challengeDetails'=>$challengeDetails,
             ];
             $this->view('customer/BookChallenge', $data);
         }
+    }
+
+    public function quiz($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $quizDetails = $this->customerModel->getQuiz($quiz_id);
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'quizDetails'=>$quizDetails,
+            ];
+            $this->view('customer/quiz', $data);
+        }   
     }
 
     public function Order(){
@@ -2266,6 +2286,5 @@ class Customer extends Controller {
         }
     }
     
-
 
 }

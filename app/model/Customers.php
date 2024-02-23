@@ -694,6 +694,16 @@ public function findBookById($book_id){
   // return $row;
 }
 
+public function getOngoingChallenges(){
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description,q.time_limit, h.user_id FROM quiz q LEFT JOIN history h ON q.quiz_id = h.quiz_id WHERE q.end_date > NOW()');
+  return $this->db->resultSet();
+}
+
+public function getQuiz($quiz_id){
+  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id');
+  return $this->db->resultSet();
+}
+
 
 
   }
