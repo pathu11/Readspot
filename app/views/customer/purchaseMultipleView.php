@@ -2,7 +2,6 @@
     $title = "Profile";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
 <head>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/purchase.css">
     <style>
@@ -11,9 +10,7 @@
         }
     </style>
 </head>
-
-<body>
-    
+<body> 
     <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultipleView">
         <div class="flex-parent-element">
             <div class="flex-child-element magenta">
@@ -111,7 +108,6 @@
         </div>
     </form>
 </body>
-
 <script>
     // Call updateTotalCost for each book when the page is loaded
     window.addEventListener('DOMContentLoaded', (event) => {
@@ -119,7 +115,6 @@
             updateTotalCost(<?php echo $index; ?>, <?php echo $book[0]->nowQuantity; ?>);
         <?php endforeach; ?>
     });
-
     // Function to increment the quantity
     function increment(index) {
         let quantityElement = document.getElementById('quantity_' + index);
@@ -134,7 +129,6 @@
             updateHiddenQuantity(index, quantity);
         }
     }
-
     // Function to decrement the quantity
     function decrement(index) {
         let quantityElement = document.getElementById('quantity_' + index);
@@ -146,7 +140,6 @@
             updateHiddenQuantity(index, quantity);
         }
     }
-
     // Function to update total cost, delivery fee, and total weight
     function updateTotalCost(index, quantity) {
         let totalCost = 0;

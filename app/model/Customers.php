@@ -656,6 +656,23 @@ public function  deleteFromCart($cart_id){
       return false;
   }
 }
+public function addReview($data){
+  $this->db->query('INSERT INTO reviews(book_id,customer_id,review,rate) VALUES(:book_id, :customer_id, :review, :rate)');
+  $this->db->bind(':book_id',$data['book_id']);
+  $this->db->bind(':customer_id',$data['customer_id']);
+  $this->db->bind(':review',$data['review']);
+  $this->db->bind(':rate',$data['rate']);
+  
+  return $this->db->execute();
+
+}
+public function findReviewsByBookId($book_id){
+  $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM reviews r JOIN customers c ON r.customer_id = c.customer_id WHERE book_id = :book_id');
+  $this->db->bind(':book_id', $book_id);
+  
+  return $this->db->resultSet();
+}
+
 
 
 

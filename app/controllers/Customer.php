@@ -698,16 +698,57 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
             $bookDetails=$this->customerModel->findBookById($book_id);
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $reviewDetails=$this->customerModel->findReviewsByBookId($book_id)  ;
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'bookDetails'=>$bookDetails
+                'bookDetails'=>$bookDetails,
+                'reviewDetails'=>$reviewDetails
             ];
             $this->view('customer/BookDetails', $data);
         }
-    } 
+    }
+    public function addReview() {
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            // Assuming user_id is stored in the session as 'user_id'
+            $user_id = $_SESSION['user_id'];
+    
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+    
+            // Initialize $data array outside the POST condition
+            $data = [];
+    
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data = [
+                    'user_id' => $user_id,
+                    'customer_id' => $customer_id,
+                    'book_id' => trim($_POST['book_id']),
+                    'review' => isset($_POST['descriptions']) ? trim($_POST['descriptions']) : '',
+                    'rate' => isset($_POST['rate']) ? trim($_POST['rate']) : ''
+                ];
+            }
+    
+            // Check if review or rate is provided
+            if (!empty($data['review']) || !empty($data['rate'])) {
+                if ($this->customerModel->addReview($data)) {
+                    echo '<script>alert("added a review successfully");</script>';
+                    header("Location: " . URLROOT . "/customer/BookDetails/" . $data['book_id']);
+                    exit();
+                }
+            } else {
+                echo "no any reviews";
+                header("Location: " . URLROOT . "/customer/BookDetails/" . $data['book_id']);
+                exit();
+            }
+        }
+    }
+    
     
     public function BookEvents(){
         if (!isLoggedIn()) {
