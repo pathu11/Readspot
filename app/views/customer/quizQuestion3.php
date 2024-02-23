@@ -15,7 +15,7 @@
   </div>
   <div class="img-options">
     <div class="image">
-      <img src="<?php echo URLROOT;?>/assets/images/customer/q1.jpg">
+      <img src="<?php echo URLROOT;?>/assets/images/customer/q3.jpg">
     </div>
     <div class="options">
       <div class="container">
