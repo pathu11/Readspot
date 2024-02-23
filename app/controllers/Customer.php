@@ -2249,6 +2249,94 @@ class Customer extends Controller {
         }
     }
 
+    public function quizQuestion2($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $question = $this->customerModel->getQuizQuestion2($quiz_id);
+            
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'question'=>$question[0]->question,
+                'option1'=>$question[0]->option1,
+                'option2'=>$question[0]->option2,
+                'option3'=>$question[0]->option3,
+                'quiz_id'=>$quiz_id,
+            ];
+            $this->view('customer/quizQuestion2', $data);
+        }
+    }
+
+    public function quizQuestion3($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $question = $this->customerModel->getQuizQuestion3($quiz_id);
+            
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'question'=>$question[0]->question,
+                'option1'=>$question[0]->option1,
+                'option2'=>$question[0]->option2,
+                'option3'=>$question[0]->option3,
+                'quiz_id'=>$quiz_id,
+            ];
+            $this->view('customer/quizQuestion3', $data);
+        }
+    }
+
+    public function quizQuestion4($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $question = $this->customerModel->getQuizQuestion4($quiz_id);
+            
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'question'=>$question[0]->question,
+                'option1'=>$question[0]->option1,
+                'option2'=>$question[0]->option2,
+                'option3'=>$question[0]->option3,
+                'quiz_id'=>$quiz_id,
+            ];
+            $this->view('customer/quizQuestion4', $data);
+        }
+    }
+
+    public function quizQuestion5($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $question = $this->customerModel->getQuizQuestion5($quiz_id);
+            
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'question'=>$question[0]->question,
+                'option1'=>$question[0]->option1,
+                'option2'=>$question[0]->option2,
+                'option3'=>$question[0]->option3,
+                'quiz_id'=>$quiz_id,
+            ];
+            $this->view('customer/quizQuestion5', $data);
+        }
+    }
+
     public function Order(){
         if (!isLoggedIn()) {
             redirect('landing/login');
