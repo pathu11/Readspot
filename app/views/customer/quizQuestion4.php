@@ -18,21 +18,23 @@
       <img src="<?php echo URLROOT;?>/assets/images/customer/q1.jpg">
     </div>
     <div class="options">
-      <div class="container">
-        <input type="radio" name="option1" value="option1">
-        <label><?php echo $data['option1'];?></label">
-      </div>
-      <div class="container">
-        <input type="radio" name="option2" value="option1">
-        <label><?php echo $data['option2'];?></label">
-      </div>
-      <div class="container">
-        <input type="radio" name="option3" value="option1">
-        <label><?php echo $data['option3'];?></label">
-      </div>
-      <div class="next">
-        <a href="<?php echo URLROOT; ?>/customer/quizQuestion5/<?php echo $data['quiz_id']; ?>"><strong>Question 05</strong><i class="fa fa-solid fa-forward fa-lg"></i></a>
-      </div>
+      <form id="quizForm" action="<?php echo URLROOT; ?>/customer/quizQuestion4/<?php echo $data['quiz_id']; ?>" method="post">
+        <div class="container">
+          <input type="radio" name="option" value="opt1">
+          <label><?php echo $data['option1'];?></label">
+        </div>
+        <div class="container">
+          <input type="radio" name="option" value="opt2">
+          <label><?php echo $data['option2'];?></label">
+        </div>
+        <div class="container">
+          <input type="radio" name="option" value="opt3">
+          <label><?php echo $data['option3'];?></label">
+        </div>
+        <div class="next">
+          <button type="submit"><strong>Question 05</strong><i class="fa fa-solid fa-forward fa-lg"></i></button>
+        </div>
+      </form>
     </div>
   </div>
 </body>

@@ -699,6 +699,27 @@ public function getOngoingChallenges(){
   return $this->db->resultSet();
 }
 
+public function addQuizAttempt($quiz_id,$user_id){
+  $this->db->query('INSERT INTO history(quiz_id,user_id) VALUES (:quiz_id,:user_id)');
+  $this->db->bind(':quiz_id',$quiz_id);
+  $this->db->bind(':user_id',$user_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+public function incrementScore($user_id) {
+  $this->db->query('UPDATE history SET score = score + 2 WHERE user_id = :user_id');
+  $this->db->bind(':user_id',$user_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 public function getQuizQuestion1($quiz_id){
   $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=1');
   $this->db->bind(':quiz_id',$quiz_id);
