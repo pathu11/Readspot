@@ -13,7 +13,7 @@ class Superadmin extends Controller{
         $this->db = new Database();
     }
     public function index(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -43,7 +43,7 @@ class Superadmin extends Controller{
     }
 
     public function addAdmin(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         }
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -134,7 +134,7 @@ class Superadmin extends Controller{
         }   
     }
     public function updateAdmin($user_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInSuperAdmin()){
             redirect('landing/login');
         }
         // $user_id = $_SESSION['user_id'];
@@ -223,7 +223,7 @@ class Superadmin extends Controller{
     }
 
     public function updateModerator($user_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInSuperAdmin()){
             redirect('landing/login');
         }
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -304,7 +304,7 @@ class Superadmin extends Controller{
         }
     }
     public function updateDelivery($user_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInSuperAdmin()){
             redirect('landing/login');
         }
         $superAdmin_userId=$_SESSION['user_id'];
@@ -394,7 +394,7 @@ class Superadmin extends Controller{
         }
     }
     public function addModerator(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         }
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -488,7 +488,7 @@ class Superadmin extends Controller{
     }
 
     public function admins(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -505,7 +505,7 @@ class Superadmin extends Controller{
         }
     }
     public function moderators(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -522,7 +522,7 @@ class Superadmin extends Controller{
         }
     }
     public function addDelivery(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         }
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -616,7 +616,7 @@ class Superadmin extends Controller{
     }
 
     public function delivery(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -633,7 +633,7 @@ class Superadmin extends Controller{
         }
     }
     public function customers(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -653,7 +653,7 @@ class Superadmin extends Controller{
         }
     }
     public function publishers(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -674,7 +674,7 @@ class Superadmin extends Controller{
     }
 
     public function charity(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInSuperAdmin()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -712,7 +712,7 @@ class Superadmin extends Controller{
 public function deletemoderators($user_id)
 
 {
-    if (!isLoggedIn()) {
+    if (!isLoggedInSuperAdmin()) {
         redirect('landing/login');
     }
     if ($this->superadminModel->deletemoderators($user_id)) {
@@ -781,9 +781,9 @@ public function deletecharity($user_id)
     }
 }
 
-public function order(){
+// public function order(){
     
-}
+// }
 
 
 

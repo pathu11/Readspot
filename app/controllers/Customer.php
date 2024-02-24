@@ -31,7 +31,7 @@ class Customer extends Controller {
    
     
     public function comment() {
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
 
@@ -80,7 +80,7 @@ class Customer extends Controller {
     }
 
     public function index(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -95,7 +95,7 @@ class Customer extends Controller {
         }
     }
     public function AboutUs(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -109,23 +109,103 @@ class Customer extends Controller {
         }
     } 
     public function AddCont(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/AddCont', $data);
-        }
-    } 
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                $customerid = null;
     
+                if (isset($_SESSION['user_id'])) {
+                    $user_id = $_SESSION['user_id'];
+                    
+                    $customerDetails = $this->customerModel->findCustomerById($user_id);
+                    // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                    if ($customerDetails) {
+                        $customerName = $customerDetails[0]->name;
+                        $customerid = $customerDetails[0]->customer_id;                 
+                    } else {
+                        echo "Not found";
+                    }
+                }
+                $data=[
+                    'topic' => trim($_POST['topic']),
+                    'text' => trim($_POST['description']),
+                    'picture' => '',
+                    'pdf' => '',
+                    'user_id' => $user_id,// Replace this with the actual customer ID
+                    'customer_id'=>$customerDetails[0]->customer_id,
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerName
+                ];
+    
+               
+    
+                if (isset($_FILES['picture']['name']) AND !empty($_FILES['picture']['name'])) {
+                    $img_name = $_FILES['picture']['name'];
+                    $tmp_name = $_FILES['picture']['tmp_name'];
+                    $error = $_FILES['picture']['error'];
+                    
+                    if ($error === 0) {
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+                
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if (in_array($img_ex_to_lc, $allowed_exs)) {
+                            // Generate a unique identifier (e.g., timestamp)
+                            $unique_id = time(); 
+                            $new_img_name = $data['topic'] . '-' . $unique_id . 'img.' . $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/landing/addcontents/" . $new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                
+                            $data['picture'] = $new_img_name;
+                        }
+                    }
+                }
+    
+                if (isset($_FILES['pdf']['name']) AND !empty($_FILES['pdf']['name'])) {
+                    $img_name = $_FILES['pdf']['name'];
+                    $tmp_name = $_FILES['pdf']['tmp_name'];
+                    $error = $_FILES['pdf']['error'];
+                    
+                    if ($error === 0) {
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+                
+                        $allowed_exs = array('pdf');
+                        if (in_array($img_ex_to_lc, $allowed_exs)) {
+                            // Generate a unique identifier (e.g., timestamp)
+                            $unique_id = time(); 
+                            $new_img_name = $data['topic'] . '-' . $unique_id . 'pdf.' . $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/landing/addcontents/" . $new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                
+                            $data['pdf'] = $new_img_name;
+                        }
+                    }
+                }
+                if($this->customerModel->AddCont($data)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/AddCont');
+                }else{
+                    die('Something went wrong');
+                }
+            }
+            else {
+                $user_id = $_SESSION['user_id'];
+               
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $data = [
+                    'customerDetails' => $customerDetails,
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerDetails[0]->name
+                ];
+                $this->view('customer/AddCont', $data);
+            }
+    } 
+}
     public function Addevnt(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -317,7 +397,7 @@ class Customer extends Controller {
     } 
 
     public function AddExchangeBook(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -467,7 +547,7 @@ class Customer extends Controller {
     } 
     
     public function AddUsedBook(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -677,40 +757,131 @@ class Customer extends Controller {
     } 
     
     public function BookContents(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $content_Details=$this->customerModel->findContent();
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'contentDetails'=>$content_Details
             ];
             $this->view('customer/BookContents', $data);
         }
     } 
     
     public function BookDetails($book_id){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
             $bookDetails=$this->customerModel->findBookById($book_id);
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $reviewDetails=$this->customerModel->findReviewsByBookId($book_id)  ;
+            $averageRatingCount=$this->customerModel->getAverageRatingByBookId($book_id);
+            $ratingCount = $this->customerModel->getRating($book_id);
+           
+           
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'bookDetails'=>$bookDetails
+                'bookDetails'=>$bookDetails,
+                'reviewDetails'=>$reviewDetails,
+                'ratingCount'=>$ratingCount,
+                'averageRatingCount'=>$averageRatingCount
+                // 'ratingDistribution'=>$ratingDistribution
             ];
+            // print_r($data['ratingCount']);
+            // var_dump($data['rating_1']->rate_1_count);
             $this->view('customer/BookDetails', $data);
         }
-    } 
+    }
+    public function addReview() {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            // Assuming user_id is stored in the session as 'user_id'
+            $user_id = $_SESSION['user_id'];
+    
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+    
+            // Initialize $data array outside the POST condition
+            $data = [];
+    
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data = [
+                    'user_id' => $user_id,
+                    'customer_id' => $customer_id,
+                    'book_id' => trim($_POST['book_id']),
+                    'review' => isset($_POST['descriptions']) ? trim($_POST['descriptions']) : '',
+                    'rate' => isset($_POST['rate']) ? trim($_POST['rate']) : ''
+                ];
+            }
+    
+            // Check if review or rate is provided
+            if (!empty($data['review']) || !empty($data['rate'])) {
+                if ($this->customerModel->addReview($data)) {
+                    echo '<script>alert("added a review successfully");</script>';
+                    header("Location: " . URLROOT . "/customer/BookDetails/" . $data['book_id']);
+                    exit();
+                }
+            } else {
+                echo "no any reviews";
+                header("Location: " . URLROOT . "/customer/BookDetails/" . $data['book_id']);
+                exit();
+            }
+        }
+    }
+
+    public function addContentReview() {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            // Assuming user_id is stored in the session as 'user_id'
+            $user_id = $_SESSION['user_id'];
+    
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+    
+            // Initialize $data array outside the POST condition
+            $data = [];
+    
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data = [
+                    'user_id' => $user_id,
+                    'customer_id' => $customer_id,
+                    'content_id' => trim($_POST['content_id']),
+                    'review' => isset($_POST['descriptions']) ? trim($_POST['descriptions']) : '',
+                    'rate' => isset($_POST['rate']) ? trim($_POST['rate']) : ''
+                ];
+            }
+    
+            // Check if review or rate is provided
+            if (!empty($data['review']) || !empty($data['rate'])) {
+                if ($this->customerModel->addContentReview($data)) {
+                    echo '<script>alert("added a review successfully");</script>';
+                    header("Location: " . URLROOT . "/customer/viewcontent/" . $data['content_id']);
+                    exit();
+                }
+            } else {
+                echo "no any reviews";
+                header("Location: " . URLROOT . "/customer/viewcontent/" . $data['content_id']);
+                exit();
+            }
+        }
+    }
+    
     
     public function BookEvents(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $customerid = null;
@@ -742,7 +913,7 @@ class Customer extends Controller {
     } 
     
     public function Bookshelf(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $customerid = null;
@@ -776,7 +947,7 @@ class Customer extends Controller {
     
     public function BuyNewBooks()
 {
-    if (!isLoggedIn()) {
+    if (!isLoggedInCustomer()) {
         redirect('landing/login');
     } else {
         $user_id = $_SESSION['user_id'];
@@ -803,7 +974,7 @@ class Customer extends Controller {
 
     
     public function BuyUsedBook(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $customerid = null;
@@ -835,6 +1006,9 @@ class Customer extends Controller {
         }
     } 
     public function addToCart($bookId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        }
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $customer_id=$customerDetails[0]->customer_id;
@@ -852,7 +1026,7 @@ class Customer extends Controller {
     }
     
     public function Cart(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -873,9 +1047,17 @@ class Customer extends Controller {
             $this->view('customer/Cart', $data);
         }
     } 
+    public function deleteCart($cart_id){
+        $user_id = $_SESSION['user_id'];
+        if($this->customerModel->deleteFromCart($cart_id)){
+            echo '<script>alert("Successfully deleted");</script>';
+            redirect('customer/Cart');
+        }
+
+    }
     
     public function ContactUs(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -891,23 +1073,29 @@ class Customer extends Controller {
     } 
     
     public function Content(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id=$customerDetails[0]->customer_id;
+            $contentDetails = $this->customerModel->findContentByCusId( $customer_id); 
+
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'contentDetails'=>$contentDetails,
+                'customer_id'=> $customer_id
             ];
+           
             $this->view('customer/Content', $data);
         }
     } 
     
     public function Dashboard(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -923,7 +1111,7 @@ class Customer extends Controller {
     } 
     
     public function DonateBooks(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -939,7 +1127,7 @@ class Customer extends Controller {
     } 
 
     public function Donatedetails(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -955,7 +1143,7 @@ class Customer extends Controller {
     } 
 
     public function Donateform(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -976,7 +1164,7 @@ class Customer extends Controller {
     // }
 
     public function Event(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         $customerid = null;
@@ -1007,7 +1195,7 @@ class Customer extends Controller {
     } 
 
     public function ExchangeBook(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         $customerid = null;
@@ -1036,9 +1224,9 @@ class Customer extends Controller {
     } 
 
     public function ExchangeBookDetails($bookId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -1089,9 +1277,9 @@ class Customer extends Controller {
     } 
 
     public function ExchangeBooks(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
@@ -1123,7 +1311,7 @@ class Customer extends Controller {
     // } 
 
     public function Notification(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -1141,7 +1329,7 @@ class Customer extends Controller {
     } 
 
     public function ChangeProfImage(){
-        if (!isLoggedIN()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -1197,10 +1385,9 @@ class Customer extends Controller {
     }
 
     public function Profile(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
-
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             $customerid = null;
@@ -1289,7 +1476,7 @@ class Customer extends Controller {
     } 
 
     public function Services(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -1310,20 +1497,15 @@ class Customer extends Controller {
     // }
 
     public function updateusedbook($bookId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $user_id = $_SESSION['user_id'];
        
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $customer_id=$customerDetails[0]->customer_id;
 
-        // $data = [
-        //     'customerDetails' => $customerDetails,
-        //     'customerName' => $customerDetails[0]->name
-        // ];
-        //     $this->view('customer/updateusedbook', $data);
-
+       
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
@@ -1369,15 +1551,6 @@ class Customer extends Controller {
             ];
 
            
-            //validate book name
-            // if(empty($data['bookName'])){
-            //     $data['bookName_err']='Please enter the Book name';      
-            // // }else{
-            // //     if($this->publisherModel->findbookByName($data['book_name'])){
-            // //         $data['book_name_err']='Book name is already taken'; 
-            // //     }
-            // }
-            
             if(empty($data['published_year'])){
                 $data['publishedYear_err']='Please enter published year';      
             }
@@ -1394,11 +1567,6 @@ class Customer extends Controller {
                 $data['weights_err']='Please enter a valid weight'; 
             }
 
-            //validate ISBN
-            // if(empty($data['ISBN_no']) && empty($data['ISSN_no']) && empty($data['ISMN_no'])){
-            //     $data['ISBN_err']='Please enter ISBN _NO or ISSN_NO or ISSM_NO';      
-            // }
-           
             
             //make sure errors are empty
             if(empty($data['bookName_err']) && empty($data['publishedYear_err']) && empty($data['price_err']) && empty($data['weights_err']) && empty($data['ISBN_err'])){
@@ -1522,9 +1690,9 @@ class Customer extends Controller {
     } 
 
     public function updateexchangebook($bookId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $user_id = $_SESSION['user_id'];
        
         $customerDetails = $this->customerModel->findCustomerById($user_id);
@@ -1724,9 +1892,9 @@ class Customer extends Controller {
 
     public function RemoveEventFromCalender($eventId)
     {
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
@@ -1759,9 +1927,9 @@ class Customer extends Controller {
     }
 
     public function AddEventToCalender($eventId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
@@ -1815,9 +1983,9 @@ class Customer extends Controller {
     }
 
     public function UsedBooks(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -1847,7 +2015,7 @@ class Customer extends Controller {
     } 
 
     public function ViewBook($bookId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         $customerid = null;
@@ -1913,9 +2081,9 @@ class Customer extends Controller {
     } 
 
     public function ViewBookExchange($bookId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -1965,24 +2133,34 @@ class Customer extends Controller {
         $this->view('customer/ViewBookExchange', $data);
     }
 
-    public function viewcontent(){
-        if (!isLoggedIn()) {
+    public function viewcontent($content_id){
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
+            $contentDetails=$this->customerModel->findContentById($content_id);
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
+            $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
+            // $ratingCount = $this->customerModel->getRating($book_id);
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+           
             $data = [
                 'customerDetails' => $customerDetails,
+                'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'contentDetails'=>$contentDetails,
+                'reviewDetails'=>$reviewDetails,
+                // 'ratingCount'=>$ratingCount,
+                'averageRatingCount'=>$averageRatingCount
+                // 'ratingDistribution'=>$ratingDistribution
             ];
             $this->view('customer/viewcontent', $data);
         }
     } 
 
     public function viewevents($eventId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         $customerid = null;
@@ -2041,7 +2219,7 @@ class Customer extends Controller {
     }
 
     public function TopCategory(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -2057,7 +2235,7 @@ class Customer extends Controller {
     }
 
     public function TopAuthor(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -2073,7 +2251,7 @@ class Customer extends Controller {
     }
 
     public function Recommended(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -2089,9 +2267,9 @@ class Customer extends Controller {
     }
 
     public function UsedBookDetails($bookId){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } 
+        }
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -2157,7 +2335,7 @@ class Customer extends Controller {
     }
 
     public function Favorite(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -2175,9 +2353,9 @@ class Customer extends Controller {
 
 
     public function Calender(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } else {
+        }else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
@@ -2192,7 +2370,7 @@ class Customer extends Controller {
 
     
     public function BookChallenge(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -2208,7 +2386,7 @@ class Customer extends Controller {
     }
 
     public function Order(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];

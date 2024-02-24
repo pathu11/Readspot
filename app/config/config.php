@@ -1,20 +1,17 @@
 <?php
-
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
-
-define('DB_NAME','readspots');
-
-// define('DB_HOST','readspot.mysql.database.azure.com');
-// define('DB_USER','readspot');
-// define('DB_PASS','Admin@1234');
+// db param
+define('DB_HOST','readspot.mysql.database.azure.com');
+define('DB_USER','readspot');
+define('DB_PASS','Admin@1234');
+define('DB_NAME','readspot');
+// define('DB_HOST','localhost');
+// define('DB_USER','root');
+// define('DB_PASS','');
 // define('DB_NAME','readspot');
-
-
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
-define('URLROOT','http://localhost/Readspot');
+// define('URLROOT','http://localhost/Readspot');
+define('URLROOT','  https://969d-2402-4000-20c2-1549-315b-bd8-6008-83ce.ngrok-free.app/Readspot');
 
 define('SITENAME','Readspot');
 define('APPVERSION','1.0.0');
