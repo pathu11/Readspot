@@ -26,69 +26,24 @@
             </div>
         </div>
         <div class="sub-cont-C2">
+        <?php foreach($data['contentDetails'] as $content): ?>
             <div class="content0-C">
+                
                 <div class="content1-C">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img-C"> <!--path changed-->
                     <div class="content2-C">
-                        <h1>Explore the Stars</h1><br>
-                        <p>Lorem ipsum dolor sit amet consectetur, 
-                            adipisicing elit. Accusantium, numquam! 
-                            Voluptas voluptates quas modi debitis molestias
-                            cumque voluptatum fugit laudantium voluptatibus 
-                            repellat facere optio cupiditate, vel, aperiam 
-                            aliquam consequatur perspiciatis iusto enim quaerat. 
-                            Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                            sit ullam sint dolores iure natus commodi veniam aliquid odit.
+                        <h1><?php echo $content->topic; ?></h1><br>
+                        <p><?php echo $content->text; ?>
                         </p>
                     </div>
                 </div>
                 <div class="view-fav">
                     <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                    <a href="<?php echo URLROOT; ?>/customer/viewcontent"><button class="vw-btn-C">View Details</button></a>
+                    <a href="<?php echo URLROOT; ?>/customer/viewcontent/<?php echo $content->content_id; ?>"><button class="vw-btn-C">View Details</button></a>
                 </div>
             </div>
-            <div class="content0-C">
-                <div class="content1-C">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/cont2.jpeg" alt="Book3" class="content-img-C"> <!--path changed-->
-                    <div class="content2-C">
-                        <h1>Business Law</h1><br>
-                        <p>Lorem ipsum dolor sit amet consectetur, 
-                            adipisicing elit. Accusantium, numquam! 
-                            Voluptas voluptates quas modi debitis molestias
-                            cumque voluptatum fugit laudantium voluptatibus 
-                            repellat facere optio cupiditate, vel, aperiam 
-                            aliquam consequatur perspiciatis iusto enim quaerat. 
-                            Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                            sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                        </p>
-                    </div>
-                </div>
-                <div class="view-fav">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                    <a href="<?php echo URLROOT; ?>/customer/viewcontent"><button class="vw-btn-C">View Details</button></a>
-                </div>
-            </div>
-            <div class="content0-C">
-                <div class="content1-C">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/cont3.jpg" alt="Book3" class="content-img-C"> <!--path changed-->
-                    <div class="content2-C">
-                        <h1>New Educators</h1><br>
-                        <p>Lorem ipsum dolor sit amet consectetur, 
-                            adipisicing elit. Accusantium, numquam! 
-                            Voluptas voluptates quas modi debitis molestias
-                            cumque voluptatum fugit laudantium voluptatibus 
-                            repellat facere optio cupiditate, vel, aperiam 
-                            aliquam consequatur perspiciatis iusto enim quaerat. 
-                            Laboriosam, debitis cum. Pariatur consequatur rem tenetur, 
-                            sit ullam sint dolores iure natus commodi veniam aliquid odit.
-                        </p>
-                    </div>
-                </div>
-                <div class="view-fav">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                    <a href="<?php echo URLROOT; ?>/customer/viewcontent"><button class="vw-btn-C">View Details</button></a>
-                </div>
-            </div>
+            <?php endforeach; ?>
+            
         </div>
         <?php
             require APPROOT . '/views/customer/filterbook.php'; //path changed

@@ -10,11 +10,12 @@
             <div class="back-btn-div">
                 <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
             </div>
-            <form action="#" class="cont-add">
+            <form action="<?php echo  URLROOT; ?>/customer/AddCont"  method="POST" enctype="multipart/form-data" class="cont-add">
                 <h1>Add a Content</h1>
                 <div class="topic-cont">
                     <label class="label-topic" required>Topic</label><br>
-                    <input type="text" class="form-topic">
+                    <input type="text" name="topic" class="form-topic">
+                    
                 </div>
                 <div class="disc-cont">
                     <label class="label-topic">Description</label><br>
@@ -27,7 +28,7 @@
                     </div>
                     <div class="pdf-cont">
                         <label class="label-topic">Upload Document</label><br>
-                        <input type="file" id="pdf" name="pdf" accept=".pdf" required>
+                        <input type="file" id="pdf" name="pdf" accept=".pdf" >
                     </div>
                 </div>
                 <input type="submit" value="Submit">

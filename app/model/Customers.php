@@ -445,6 +445,27 @@
         return false;
     }        
   }
+  
+  public function addCont($data){
+    $this->db->query('INSERT INTO content (customer_id,topic,text,img, doc) VALUES( :customer_id, :topic, :text, :img,  :doc)'); 
+    $this->db->bind(':customer_id',$data['customer_id']);
+    $this->db->bind(':topic',$data['topic']);
+    $this->db->bind(':text',$data['text']);
+    $this->db->bind(':img',$data['picture']);
+    $this->db->bind(':doc',$data['pdf']);
+    // execute
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }        
+  }
+  
+  public function findContentById($customer_id){
+    $this->db->query('SELECT * from content WHERE customer_id=:customer_id');
+    $this->db->bind('customer_id',$customer_id);
+    return $this->db->resultSet();
+  }
 
   public function getLastInsertedOrderId() {
     $this->db->query('SELECT LAST_INSERT_ID() as order_id');
@@ -629,7 +650,18 @@ public function findBookById($book_id){
   // $row = $this->db->single();
   // return $row;
 }
-
+public function findContentByCusId($customer_id){
+  $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id');
+  $this->db->bind(':customer_id', $customer_id);
+  return $this->db->resultSet();
+  // $row = $this->db->single();
+  // return $row;
+}
+public function findContent(){
+  $this->db->query('SELECT * FROM content  ');
+ 
+  return $this->db->resultSet();
+}
 public function ChangeProfImage($data) {
   $this->db->query('UPDATE customers 
               SET profile_img = :profile_img
@@ -680,9 +712,41 @@ public function findReviewsByBookId($book_id){
   
   return $this->db->resultSet();
 }
+public function getRating($book_id) {
+  $query = "SELECT 
+            CONCAT(rate, ' Star') AS rating, 
+            COUNT(*) AS count,
+            COUNT(*) * 100 / (SELECT COUNT(*) FROM reviews WHERE book_id = :book_id) AS percentage 
+            FROM  reviews 
+            WHERE book_id = :book_id 
+            GROUP BY rate 
+            ORDER BY rate ASC";
+  $this->db->query($query);
+  $this->db->bind(':book_id', $book_id);
+  $this->db->execute();
+}
+public function addContentReview($data){
+  $this->db->query('INSERT INTO content_review(content_id,customer_id,review,rate) VALUES(:content_id, :customer_id, :review, :rate)');
+  $this->db->bind(':content_id',$data['content_id']);
+  $this->db->bind(':customer_id',$data['customer_id']);
+  $this->db->bind(':review',$data['review']);
+  $this->db->bind(':rate',$data['rate']);
+  
+  return $this->db->execute();
 
-
-
+}
+public function getAverageRatingByContentId($content_id) {
+ 
+  $this->db->query('SELECT AVG(rate) AS average_rating FROM content_review WHERE content_id = :content_id');
+  $this->db->bind(':content_id', $content_id);
+  return $this->db->single(); // Assuming you only expect one result
+}
+public function findReviewsByContentId($content_id){
+  $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM content_review r JOIN customers c ON r.customer_id = c.customer_id WHERE content_id = :content_id');
+  $this->db->bind(':content_id', $content_id);
+  
+  return $this->db->resultSet();
+}
 
 
   }

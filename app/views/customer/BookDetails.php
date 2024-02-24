@@ -83,27 +83,14 @@
             <h1> Reviews and Rating </h1>
             <div class="send-review">
                 <div class="stars">
-                <?php 
-                    if (isset($data['averageRatingCount']->average_rating)) {
-                        $rating = ceil($data['averageRatingCount']->average_rating);
-                        for ($i = 0; $i < $rating; $i++) {
-                            echo '<span class="fas fa-star checked"></span>';
-                        }
-                        for ($i = $rating; $i < 5; $i++) {
-                            echo '<span class="fas fa-star"></span>';
-                        }
-                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on 254 reviews.</p>';
-                    } else {
-                        echo '<p>No reviews</p>';
-                    }
-    ?>
-                    <!-- <?php if (isset($data['averageRatingCount']->average_rating)) : ?>
-                        <p><?php echo $data['averageRatingCount']->average_rating; ?> average based on 254 reviews.</p>
-                    <?php else : ?>
-                        <p>No reviews</p>
-                    <?php endif; ?> -->
-
-
+                    
+                    <span class="heading">User Rating</span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span> 
+                    <p>4.1 average based on 254 reviews.</p>
                     <hr style="border:3px solid #f1f1f1">
 
                     <div class="row-rating">
@@ -173,38 +160,36 @@
                         <div class="text">Thanks for rating us!</div>
                         <div class="edit">EDIT</div>
                     </div>
-                    <form action="<?php echo URLROOT; ?>/customer/addReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
-                        <input type="radio" name="rate" id="rate-5" value="5">
+                        <input type="radio" name="rate" id="rate-5">
                         <label for="rate-5" class="fas fa-star"></label>
-
-                        <input type="radio" name="rate" id="rate-4" value="4">
+                        <input type="radio" name="rate" id="rate-4">
                         <label for="rate-4" class="fas fa-star"></label>
-
-                        <input type="radio" name="rate" id="rate-3" value="3">
+                        <input type="radio" name="rate" id="rate-3">
                         <label for="rate-3" class="fas fa-star"></label>
-
-                        <input type="radio" name="rate" id="rate-2" value="2">
+                        <input type="radio" name="rate" id="rate-2">
                         <label for="rate-2" class="fas fa-star"></label>
-
-                        <input type="radio" name="rate" id="rate-1" value="1">
+                        <input type="radio" name="rate" id="rate-1">
                         <label for="rate-1" class="fas fa-star"></label>
-
                     </div>
-               
+                <form action="#">
                     <header></header>
                     <div class="my-review">
                         <textarea id="description" placeholder="Describe your experience.." rows="12"  name="descriptions"></textarea>
-                        <input type="hidden" name="book_id" value="<?php echo $books->book_id; ?>">
-                       
                     </div>
                     <button type="submit" class="submit-review">Submit</button>
                 </div>
                 </form>
 
             </div>
-            
+            <div class="filter-by">
+                <h3>5 star</h3>
+                <h3>4 star</h3>
+                <h3>3 star</h3>
+                <h3>2 star</h3>
+                <h3>1 star</h3>
+            </div>
             <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>
@@ -212,31 +197,16 @@
                 </select>
             </div>
             <div class="cus-rev">
-            <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
-                    
                     <div class="cus-name-img">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
-                        <h3><?php echo $reviews->name; ?></h3>
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
+                        <h3>Ramath Perera</h3>
                     </div>
                     <div class="rev-date">
-                    <div class="rating-stars">
-                        <?php 
-                            $rating = $reviews->rate;
-                            // Loop to generate the appropriate number of star icons based on the rating
-                            for ($i = 0; $i < $rating; $i++) {
-                                echo '<span class="fas fa-star checked"></span>';
-                            }
-                            // Fill the remaining stars with empty stars
-                            for ($i = $rating; $i < 5; $i++) {
-                                echo '<span class="fas fa-star"></span>';
-                            }
-                        ?>
-                     </div>
-                        <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png"> -->
-                        <h6><?php echo $reviews->time; ?></h6>
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
+                        <h6>01/01/2024</h6>
                     </div>
-                    <p><?php echo $reviews->review; ?></p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
                     <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <div class="yes-no">
@@ -246,8 +216,25 @@
                     </div>
                     <h5>13 people found this helpful</h5>
                 </div>
-                <?php endforeach; ?>
-                
+                <div class="reviews">
+                    <div class="cus-name-img">
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
+                        <h3>Ramath Perera</h3>
+                    </div>
+                    <div class="rev-date">
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
+                        <h6>01/01/2024</h6>
+                    </div>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
+                    <div class="helpful">
+                        <h4>Was this review helpful?</h4>
+                        <div class="yes-no">
+                            <h3>Yes</h3>
+                            <h3>No</h3>
+                        </div>
+                    </div>
+                    <h5>13 people found this helpful</h5>
+                </div>
             </div>
         </div>
 
@@ -261,32 +248,19 @@
         </div>
     </div>
     <script>
-    
-    const btn = document.querySelector("button");
-    const post = document.querySelector(".post");
-    const widget = document.querySelector(".my-rate");
-    const editBtn = document.querySelector(".edit");
-
-    btn.onclick = () => {
+      const btn = document.querySelector("button");
+      const post = document.querySelector(".post");
+      const widget = document.querySelector(".my-rate");
+      const editBtn = document.querySelector(".edit");
+      btn.onclick = ()=>{
         widget.style.display = "none";
         post.style.display = "block";
-    }
-
-    editBtn.onclick = () => {
-        widget.style.display = "block";
-        post.style.display = "none";
-    }
-
-    const starLabels = document.querySelectorAll('.my-rate label');
-
-    starLabels.forEach((label, index) => {
-        label.addEventListener('click', () => {
-            const rating = index + 1;
-            const header = document.querySelector('.give-rate .post .text');
-            header.textContent = `You rated it ${rating} stars.`;
-        });
-    });
-
+        editBtn.onclick = ()=>{
+          widget.style.display = "block";
+          post.style.display = "none";
+        }
+        return false;
+      }
     </script>
     <script>
         

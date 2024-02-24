@@ -171,10 +171,12 @@
     flex-direction: column;
     margin-top: 10px;
     padding: 10px;
+    width:90%;
     border-radius: 10px;
 }
 
 .send-review {
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -251,11 +253,11 @@
 }
   
 /* Individual bars */
-.bar-5 {width: 60%; height: 18px; background-color: #04AA6D;}
-.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
-.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
-.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
-.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+.bar-5 { height: 18px; background-color: #04AA6D;}
+.bar-4 { height: 18px; background-color: #2196F3;}
+.bar-3 { height: 18px; background-color: #00bcd4;}
+.bar-2 { height: 18px; background-color: #ff9800;}
+.bar-1 { height: 18px; background-color: #f44336;}
 
 .my-review {
     /* background-color: #00bcd4; */
@@ -339,10 +341,12 @@
     margin-top: 0px;
     padding: 10px;
     border-radius: 10px;
+    width:100%;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .reviews {
+    width:100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

@@ -2,117 +2,78 @@
     $title = "View Contents";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+<?php foreach($data['contentDetails'] as $content): ?>
     <div class="main-content-div">
-        <h1 class="cont-topic">Explore the Stars</h1>
+    
+        <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
         <img src="<?php echo URLROOT; ?>/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img-main"> <!--path changed -->
         <div class="cont-details">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
-            <br>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
-            <br>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
-            <br>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat quas amet nihil velit. Praesentium consequuntur odit, eius maxime reiciendis officia ducimus iure excepturi sapiente minima repudiandae maiores labore iusto. Modi laudantium placeat laboriosam excepturi iusto facilis voluptatum inventore ipsam quod reprehenderit cumque maxime sunt distinctio, perferendis voluptate tempore reiciendis illo sit explicabo quis, dicta ab expedita. Reiciendis, facere distinctio? Temporibus quidem numquam id! Aliquid ea, nam reiciendis qui dignissimos sunt perspiciatis minus sit dolorem ratione cupiditate dolore accusamus veniam quisquam? Odit maxime incidunt necessitatibus temporibus. Aut, sint autem assumenda quis ab modi optio numquam provident quaerat reprehenderit libero, labore, dolores quibusdam laboriosam pariatur odit animi mollitia nisi? Qui quisquam magnam dolore culpa, tenetur dolor aliquam quas veritatis rem ipsam autem, animi omnis delectus quaerat temporibus. At quos magnam accusantium tempora recusandae voluptates, animi porro deleniti exercitationem optio eius! Odio nam quasi at veniam nesciunt est numquam. Voluptatibus quo quibusdam omnis.</p>
+            <p><?php echo $content->text; ?></p>
         </div>
-
+        <?php endforeach; ?>
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
             <div class="send-review">
                 <div class="stars">
-                    <span class="heading">User Rating</span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <p>4.1 average based on 254 reviews.</p>
+                <?php 
+                    if (isset($data['averageRatingCount']->average_rating)) {
+                        $rating = ceil($data['averageRatingCount']->average_rating);
+                        for ($i = 0; $i < $rating; $i++) {
+                            echo '<span class="fas fa-star checked"></span>';
+                        }
+                        for ($i = $rating; $i < 5; $i++) {
+                            echo '<span class="fas fa-star"></span>';
+                        }
+                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on 254 reviews.</p>';
+                    } else {
+                        echo '<p>No reviews</p>';
+                    }
+    ?>
                     <hr style="border:3px solid #f1f1f1">
+                    
+                    <div class="row-rating" id="rating_graph">
+                        <canvas id="ratingChart" width="400" height="200"></canvas>
 
-                    <div class="row-rating">
-                        <div class="side">
-                            <div>5 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-5"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>150</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>4 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-4"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>63</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>3 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-3"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>15</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>2 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-2"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>6</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>1 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-1"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>20</div>
-                        </div>
                     </div>
                 </div>
                 <div class="give-rate">
+                    <div class="post">
+                        <div class="text">Thanks for rating us!</div>
+                        <div class="edit">EDIT</div>
+                    </div>
+                    <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
+                        <input type="radio" name="rate" id="rate-5" value="5">
+                        <label for="rate-5" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-4" value="4">
+                        <label for="rate-4" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-3" value="3">
+                        <label for="rate-3" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-2" value="2">
+                        <label for="rate-2" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-1" value="1">
+                        <label for="rate-1" class="fas fa-star"></label>
+
                     </div>
+               
+                    <header></header>
                     <div class="my-review">
-                        <textarea id="description" rows="12"  name="descriptions"></textarea>
+                        <textarea id="description" placeholder="Describe your experience.." rows="12"  name="descriptions"></textarea>
+                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>"> <!-- Pass the content_id here -->
+                       
                     </div>
-                    <button class="submit-review">Submit</button>
+                    <button type="submit" class="submit-review">Submit</button>
+                    </form>
                 </div>
+               
+
             </div>
-            <div class="filter-by">
-                <h3>5 star</h3>
-                <h3>4 star</h3>
-                <h3>3 star</h3>
-                <h3>2 star</h3>
-                <h3>1 star</h3>
-            </div>
+            
             <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>
@@ -120,16 +81,31 @@
                 </select>
             </div>
             <div class="cus-rev">
+            <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
+                    
                     <div class="cus-name-img">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
-                        <h3>Ramath Perera</h3>
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
+                        <h3><?php echo $reviews->name; ?></h3>
                     </div>
                     <div class="rev-date">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
-                        <h6>01/01/2024</h6>
+                    <div class="rating-stars">
+                        <?php 
+                            $rating = $reviews->rate;
+                            // Loop to generate the appropriate number of star icons based on the rating
+                            for ($i = 0; $i < $rating; $i++) {
+                                echo '<span class="fas fa-star checked"></span>';
+                            }
+                            // Fill the remaining stars with empty stars
+                            for ($i = $rating; $i < 5; $i++) {
+                                echo '<span class="fas fa-star"></span>';
+                            }
+                        ?>
+                     </div>
+                        <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png"> -->
+                        <h6><?php echo $reviews->time; ?></h6>
                     </div>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
+                    <p><?php echo $reviews->review; ?></p>
                     <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <div class="yes-no">
@@ -139,29 +115,83 @@
                     </div>
                     <h5>13 people found this helpful</h5>
                 </div>
-                <div class="reviews">
-                    <div class="cus-name-img">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
-                        <h3>Ramath Perera</h3>
-                    </div>
-                    <div class="rev-date">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
-                        <h6>01/01/2024</h6>
-                    </div>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
-                    <div class="helpful">
-                        <h4>Was this review helpful?</h4>
-                        <div class="yes-no">
-                            <h3>Yes</h3>
-                            <h3>No</h3>
-                        </div>
-                    </div>
-                    <h5>13 people found this helpful</h5>
-                </div>
+                <?php endforeach; ?>
+                
             </div>
         </div>
     </div>
+    
+    <script>
+        // Sample data representing count and percentage for each rating
+// Sample data representing count and percentage for each rating
+const ratingData = [
+    { rating: '1 Star', count: 10, percentage: 20 },
+    { rating: '2 Star', count: 20, percentage: 40 },
+    { rating: '3 Star', count: 15, percentage: 30 },
+    { rating: '4 Star', count: 5, percentage: 10 },
+    { rating: '5 Star', count: 2, percentage: 4 }
+];
 
+// Get the canvas element
+const ctx = document.getElementById('ratingChart').getContext('2d');
+
+// Generate labels, data, and colors from the rating data
+const labels = ratingData.map(data => data.rating);
+const counts = ratingData.map(data => data.count);
+const percentages = ratingData.map(data => data.percentage);
+const colors = ['#ff0000', '#ff6600', '#ffcc00', '#99ff00', '#00ff00']; // Customize colors as needed
+
+// Create the chart
+const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Count',
+            data: counts,
+            backgroundColor: colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+    
+    const btn = document.querySelector("button");
+    const post = document.querySelector(".post");
+    const widget = document.querySelector(".my-rate");
+    const editBtn = document.querySelector(".edit");
+
+    btn.onclick = () => {
+        widget.style.display = "none";
+        post.style.display = "block";
+    }
+
+    editBtn.onclick = () => {
+        widget.style.display = "block";
+        post.style.display = "none";
+    }
+
+    const starLabels = document.querySelectorAll('.my-rate label');
+
+    starLabels.forEach((label, index) => {
+        label.addEventListener('click', () => {
+            const rating = index + 1;
+            const header = document.querySelector('.give-rate .post .text');
+            header.textContent = `You rated it ${rating} stars.`;
+        });
+    });
+
+    </script>
 
 
 <?php
