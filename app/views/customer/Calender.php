@@ -76,7 +76,7 @@
                         <div class="event-date">16 November 2022</div>
                     </div>
                     <div class="events">
-                        <div class="event">
+                        <!-- <div class="event">
                             <div class="title">
                                 <i class="fas fa-circle"></i>
                                 <h3 class="event-title">Event 1</h3>
@@ -145,13 +145,44 @@
                                 <h3 class="event-title">Event 1</h3>
                             </div>
                             <div class="event-time">10.00AM - 12:00PM</div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
+
+        <?php
+            // Your PHP backend code to fetch data from the database or any other source
+            // For demonstration purposes, let's assume you have fetched event data from the database
+            $eventsFromBackend = [
+                [
+                    'day' => 13,
+                    'month' => 2,
+                    'year' => 2024,
+                    'title' => 'Event 1',
+                    'from' => '10:00 AM',
+                    'to' => '10:00 PM'
+                ],
+                [
+                    'day' => 15,
+                    'month' => 2,
+                    'year' => 2024,
+                    'title' => 'Event 2',
+                    'from' => '11:00 AM',
+                    'to' => '12:00 PM'
+                ],
+                // Add more event data as needed
+            ];
+        ?>
+
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
         ?>
     </div>
+
+    <script>
+        // Assign the PHP array to a JavaScript variable
+        const eventsArr = <?php echo json_encode($eventsFromBackend); ?>;
+        console.log(eventsArr); // Verify the data in the browser console
+    </script>
     

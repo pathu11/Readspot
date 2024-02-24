@@ -3,8 +3,8 @@
     display: flex;
     flex-direction: column;
     min-height: 725px;
-    margin: 90px 10px 10px 10px;
-    background-color: #CACACA;
+    margin: 90px 50px 30px 50px;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
 }
@@ -69,6 +69,9 @@
 }
 
 @media screen and (max-width:600px) {
+    .about-cont {
+        margin: 90px 20px 20px 20px;
+    }
     .mission-topic h1{
         font-size: 24px;
     }
@@ -91,6 +94,9 @@
 }
 
 @media screen and (max-width:400px) {
+    .about-cont {
+        margin: 90px 10px 10px 10px;
+    }
     .mission-topic h1{
         font-size: 16px;
     }

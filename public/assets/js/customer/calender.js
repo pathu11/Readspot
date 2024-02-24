@@ -39,41 +39,43 @@ const months = [
   "December",
 ];
 
-const eventsArr = [
-    { day: 12, month: 1, year: 2024 }, // Example event on January 12, 2024
-    { day: 15, month: 1, year: 2024 }, // Example event on January 15, 2024
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    { day: 15, month: 1, year: 2024 },
-    
-    // Add more event data as needed
-];
-
 // const eventsArr = [];
+
+// const eventsArr = [
+//     { day: 12, month: 1, year: 2024 }, // Example event on January 12, 2024
+//     { day: 15, month: 1, year: 2024 }, // Example event on January 15, 2024
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+//     { day: 15, month: 1, year: 2024 },
+    
+//     // Add more event data as needed
+// ];
+
+// const eventsArr = json_encode($eventsFromBackend);
 // getEvents();
 // console.log(eventsArr);
 

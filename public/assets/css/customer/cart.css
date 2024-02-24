@@ -7,7 +7,7 @@
 
 .cart-topic h2 {
     background-color: #81cec9;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     color: black;
     width: fit-content;
     padding: 5px;
@@ -74,12 +74,12 @@
     width: 5%; /* Adjust the width as needed */
 }
 
-.mycart th:nth-child(5), .mycart td:nth-child(5) {
-    width: 20%; /* Adjust the width as needed */
+.mycart th:nth-child(6), .mycart td:nth-child(6) {
+    width: 10%; /* Adjust the width as needed */
 }
 
-.mycart th:nth-child(5), .mycart td:nth-child(5) {
-    width: 10%; /* Adjust the width as needed */
+.mycart th:nth-child(7), .mycart td:nth-child(7) {
+    width: 20%; /*Adjust the width as needed*/
 }
 
 .cart-search {
@@ -93,6 +93,40 @@
     border: none;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.delete-button-c,
+.view-button-c {
+    position: relative;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+    background-color:  #919191;
+    padding-top: 5px;
+}
+
+.view-button-c:hover {
+    opacity: 0.8;
+    background-color: #009D94;
+}
+
+.delete-button-c:hover {
+    opacity: 0.8;
+    background-color: red;
+}
+
+.action-buttons-cart i {
+    color: white;
+    cursor: pointer;
 }
 
 .tb-cart2 {
@@ -169,6 +203,17 @@
         /* background-color: black; */
         font-size: 12px;
     }
+
+    .delete-button-c,
+    .view-button-c {
+        width: 20px;
+        height: 20px;
+        padding-top: 0px;
+    }
+
+    .action-buttons-cart i {
+        font-size: 12px;
+    }
 }
 
 @media screen and (max-width:400px) {
@@ -186,5 +231,24 @@
     .cart-search input[type=text] {
         /* background-color: black; */
         font-size: 8px;
+    }
+
+    .view-button-c {
+        width: 20px;
+        height: 20px;
+        padding-top: 0px;
+        /* margin-top: 0; */
+    }
+
+    .delete-button-c {
+        /* background-color: #81cec9; */
+        width: 20px;
+        height: 20px;
+        top: -1.5px;
+        padding-top: 1.5px;
+    }
+
+    .action-buttons-cart i {
+        font-size: 10px;
     }
 }
