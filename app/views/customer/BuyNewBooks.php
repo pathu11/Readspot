@@ -25,6 +25,7 @@
                         
                         <!--button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button--> <!--path changed-->
                     </form>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 </div>
                 <div class="filter-category">
                     <div class="list-group-N" id="show-list">

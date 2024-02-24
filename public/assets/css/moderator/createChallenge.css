@@ -1,0 +1,56 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  margin-top: 100px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 1000px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-grid {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px; */
+  width: 100%; /* Make the form fill the container */
+  max-width: 600px; /* Optional: Limit the width of the form */
+  padding: 20px; /* Optional: Add padding to the form */
+  box-sizing: border-box;
+} 
+
+input,
+select,
+textarea {
+    width: calc(100% - 12px);
+    padding: 6px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgb(59, 59, 59);
+    height: 40px;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+button {
+  background-color: #009D94;
+  height: 40px;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 30%;
+  font-size: 14px;
+}

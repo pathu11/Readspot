@@ -2394,13 +2394,96 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $challengeDetails = $this->customerModel->getOngoingChallenges(); 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'challengeDetails'=>$challengeDetails,
             ];
             $this->view('customer/BookChallenge', $data);
+        }
+    }
+
+    public function quiz($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $quizDetails = $this->customerModel->getQuiz($quiz_id);
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'quizDetails'=>$quizDetails,
+            ];
+            $this->view('customer/quiz', $data);
+        }   
+    }
+
+    public function quizQuestion($quiz_id,$question_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $question = $this->customerModel->getQuizQuestion($quiz_id,$question_id);
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $selectedOption = $_POST['option'];
+                if($selectedOption == $question[0]->correctAnswer){
+                    $this->customerModel->incrementScore($user_id);
+                }
+                $question_id = $question_id + 1;
+                if($question_id<6) redirect('customer/quizQuestion/'.$quiz_id.'/'.$question_id);
+                else redirect('customer/result/'.$quiz_id);
+
+            }
+            else{
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
+            
+                $data = [
+                    'customerDetails' => $customerDetails,
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerDetails[0]->name,
+                    'question'=>$question[0]->question,
+                    'option1'=>$question[0]->option1,
+                    'option2'=>$question[0]->option2,
+                    'option3'=>$question[0]->option3,
+                    'quiz_id'=>$quiz_id,
+                ];
+                $this->view('customer/quizQuestion'.$question_id, $data);
+            }
+        }
+    }
+
+    public function result($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $score = $this->customerModel->getQuizScore($quiz_id,$user_id);
+            $answers = $this->customerModel->getAllQuizQuestions($quiz_id);
+            $scoreObject = $score[0];
+            $score = $scoreObject->score;
+            $numberOfRightAnswers = $score/2;
+            $numberOfWrongAnswers = 5- $numberOfRightAnswers;
+            $percentage = $score*10;
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'score'=>$score,
+                'numberOfRightAnswers'=>$numberOfRightAnswers,
+                'numberOfWrongAnswers'=>$numberOfWrongAnswers,
+                'percentage'=>$percentage,
+                'answers'=>$answers,
+            ];
+            $this->view('customer/result', $data);
         }
     }
 
@@ -2463,6 +2546,5 @@ class Customer extends Controller {
         }
     }
     
-
 
 }

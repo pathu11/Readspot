@@ -115,3 +115,13 @@ function handleSearch() {
 
     displayRows(rows, rowsPerPage, curtPage);
 }
+
+// Kaumadi js
+function showAcceptPopup(customerId) {
+    var modalId = 'acceptPopup_' + customerId;
+    document.getElementById(modalId).style.display = 'flex';
+  }
+  
+function hidePopup(modalId) {
+document.getElementById(modalId).style.display = 'none';
+}
