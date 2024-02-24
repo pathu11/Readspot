@@ -2240,7 +2240,7 @@ class Customer extends Controller {
                 }
                 $question_id = $question_id + 1;
                 if($question_id<6) redirect('customer/quizQuestion/'.$quiz_id.'/'.$question_id);
-                else redirect('customer/result/'.$user_id);
+                else redirect('customer/result/'.$quiz_id);
 
             }
             else{
@@ -2262,8 +2262,32 @@ class Customer extends Controller {
         }
     }
 
-    public function result($user_id){
-        $this->view('customer/result'); 
+    public function result($quiz_id){
+        if (!isLoggedIn()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $score = $this->customerModel->getQuizScore($quiz_id,$user_id);
+            $answers = $this->customerModel->getAllQuizQuestions($quiz_id);
+            $scoreObject = $score[0];
+            $score = $scoreObject->score;
+            $numberOfRightAnswers = $score/2;
+            $numberOfWrongAnswers = 5- $numberOfRightAnswers;
+            $percentage = $score*10;
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'score'=>$score,
+                'numberOfRightAnswers'=>$numberOfRightAnswers,
+                'numberOfWrongAnswers'=>$numberOfWrongAnswers,
+                'percentage'=>$percentage,
+                'answers'=>$answers,
+            ];
+            $this->view('customer/result', $data);
+        }
     }
 
     public function Order(){

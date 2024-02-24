@@ -7,9 +7,53 @@
   <title>Result</title>
 </head>
 <body>
-  <h2>Result</h2>
+  <div class="answers">
+      <h2>Did you guess the right Answers? Let's see!</h2>
+      <table>
+        <?php foreach($data['answers'] as $answer):?>
+        <tr>
+          <td><?php echo $answer->question_id .')';?></td>
+          <td><?php echo $answer->question;?></td>
+        </tr>
+        <tr>
+          <td></td> <!-- Empty cell for alignment -->
+          <td>
+            <ul>
+              <li <?php echo ($answer->correctAnswer == 'opt1') ? 'class="correct-answer"' : ''; ?>><?php echo $answer->option1;?></li>
+              <li <?php echo ($answer->correctAnswer == 'opt2') ? 'class="correct-answer"' : ''; ?>><?php echo $answer->option2;?></li>
+              <li <?php echo ($answer->correctAnswer == 'opt3') ? 'class="correct-answer"' : ''; ?>><?php echo $answer->option3;?></li>
+            </ul>
+          </td>
+        </tr>
+        <?php endforeach;?>
+      </table>
+  </div>
+
+
   <div class="result">
-    <div class="pie animate" style="--p:50;--c:lightgreen"> 70%</div>
+    <h2>Your Result</h2>
+    <div class="result-chart">
+      <div class="pie animate" style="--p:<?php echo $data['percentage']?>;--c:lightgreen"><?php echo $data['numberOfRightAnswers']?>/5</div>
+    </div>
+    
+    <div class="result-sheet">
+      <div>
+          <p style="color: green;">Number of right answers</p>
+          <p class="number" style="color: green;"><?php echo $data['numberOfRightAnswers'];?></p>
+      </div>
+      <div>
+          <p style="color: red;">Number of wrong answers</p>
+          <p class="number" style="color: red;"><?php echo $data['numberOfWrongAnswers'];?></p>
+      </div>
+      <div>
+          <p>Challenge Points</p>
+          <p class="number"><?php echo $data['score'];?></p>
+      </div>
+      <div>
+          <p>Total Points</p>
+          <p class="number">15</p>
+      </div>
+    </div>
   </div>
   
 </body>

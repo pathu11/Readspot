@@ -101,8 +101,7 @@
     public function findExchangedBookByNotCusId($customer_id){
       $this->db->query('SELECT * from books WHERE customer_id!=:customer_id AND type="exchanged" AND status="approval"');
       $this->db->bind(':customer_id',$customer_id);
-     
-
+  
       return $this->db->resultSet();
     }
     // public function getUsedBookById($book_id){
@@ -724,6 +723,19 @@ public function getQuizQuestion($quiz_id,$question_id){
   $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=:question_id');
   $this->db->bind(':quiz_id',$quiz_id);
   $this->db->bind(':question_id',$question_id);
+  return $this->db->resultSet();
+}
+
+public function getAllQuizQuestions($quiz_id){
+  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id');
+  $this->db->bind(':quiz_id',$quiz_id);
+  return $this->db->resultSet();
+}
+
+public function getQuizScore($quiz_id,$user_id){
+  $this->db->query('SELECT score FROM history WHERE quiz_id=:quiz_id AND user_id=:user_id');
+  $this->db->bind(':quiz_id',$quiz_id);
+  $this->db->bind(':user_id',$user_id);
   return $this->db->resultSet();
 }
 
