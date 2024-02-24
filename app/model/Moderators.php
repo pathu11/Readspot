@@ -56,7 +56,52 @@
       $this->db->bind(':user_id', $user_id);
   
       return $this->db->resultSet();
-  }
+    }
+
+    public function addQuiz($data){
+      $this->db->query('INSERT INTO quiz(title,number_of_questions,time_limit,description) VALUES (:title,:number_of_questions,:time_limit,:description)');
+
+      $this->db->bind(':title',$data['title']);
+      $this->db->bind(':number_of_questions',$data['number_of_questions']);
+      $this->db->bind(':time_limit',$data['time_limit']);
+      $this->db->bind(':description',$data['description']);
+
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function getQuizID(){
+      $this->db->query('SELECT MAX(quiz_id) AS max_quiz_id FROM quiz');
+      $result = $this->db->single();
+      if ($result) {
+        return $result->max_quiz_id;
+      } else {
+        return 1; 
+      }
+    }
+
+    public function addQuestion($data){
+      $this->db->query('INSERT INTO quiz_questions(quiz_id,question_id,question,option1,option2,option3,correctAnswer) VALUES (:quiz_id,:question_id,:question,:option1,:option2,:option3,:correctAnswer)');
+
+      $this->db->bind(':quiz_id',$data['quiz_id']);
+      $this->db->bind(':question_id',$data['question_id']);
+      $this->db->bind(':question',$data['question']);
+      $this->db->bind(':option1',$data['option1']);
+      $this->db->bind(':option2',$data['option2']);
+      $this->db->bind(':option3',$data['option3']);
+      $this->db->bind(':correctAnswer',$data['correctAnswer']);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
   
   
   

@@ -107,8 +107,7 @@
     public function findExchangedBookByNotCusId($customer_id){
       $this->db->query('SELECT * from books WHERE customer_id!=:customer_id AND type="exchanged" AND status="approval"');
       $this->db->bind(':customer_id',$customer_id);
-     
-
+  
       return $this->db->resultSet();
     }
     // public function getUsedBookById($book_id){
@@ -616,6 +615,7 @@ public function editOrderCOD($data)
       return $results;
     }
 
+
 public function editOrderCardPayment($data){
   $this->db->query('UPDATE orders o
                       JOIN order_details od ON o.order_id = od.order_id
@@ -752,6 +752,52 @@ public function findReviewsByContentId($content_id){
   $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM content_review r JOIN customers c ON r.customer_id = c.customer_id WHERE content_id = :content_id');
   $this->db->bind(':content_id', $content_id);
   
+  return $this->db->resultSet();
+}
+
+public function getOngoingChallenges(){
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description,q.time_limit, h.user_id FROM quiz q LEFT JOIN history h ON q.quiz_id = h.quiz_id WHERE q.end_date > NOW()');
+  return $this->db->resultSet();
+}
+
+public function addQuizAttempt($quiz_id,$user_id){
+  $this->db->query('INSERT INTO history(quiz_id,user_id) VALUES (:quiz_id,:user_id)');
+  $this->db->bind(':quiz_id',$quiz_id);
+  $this->db->bind(':user_id',$user_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+public function incrementScore($user_id) {
+  $this->db->query('UPDATE history SET score = score + 2 WHERE user_id = :user_id');
+  $this->db->bind(':user_id',$user_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+public function getQuizQuestion($quiz_id,$question_id){
+  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=:question_id');
+  $this->db->bind(':quiz_id',$quiz_id);
+  $this->db->bind(':question_id',$question_id);
+  return $this->db->resultSet();
+}
+
+public function getAllQuizQuestions($quiz_id){
+  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id');
+  $this->db->bind(':quiz_id',$quiz_id);
+  return $this->db->resultSet();
+}
+
+public function getQuizScore($quiz_id,$user_id){
+  $this->db->query('SELECT score FROM history WHERE quiz_id=:quiz_id AND user_id=:user_id');
+  $this->db->bind(':quiz_id',$quiz_id);
+  $this->db->bind(':user_id',$user_id);
   return $this->db->resultSet();
 }
 
