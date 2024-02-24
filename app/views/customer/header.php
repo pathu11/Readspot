@@ -27,12 +27,12 @@
         <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png" alt="logo" class="logo"> <!--path changed-->
         <div class="navig">
             <nav class="navigation">
-                <a href="<?php echo URLROOT; ?>/customer/index" data-head="Home">Home</a>
+                <a href="<?php echo URLROOT; ?>/customer/index" data-head="index">Home</a>
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                 <div class="dropdown-services">
-                    <button onclick="toggleDropdown('myDropdown-S')">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
+                    <button onclick="toggleDropdown('myDropdown-S')" data-head="Services" data-head="BuyNewBooks">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
                     <div id="myDropdown-S" class="dropdown-content-services">
-                        <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks" data-head="BuyNewBooks">Buy New Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
@@ -74,7 +74,7 @@
         </div>
     </header>
 
-    <script>
+    <!-- <script>
         // Get the current page URL
         var currentPage = window.location.href;
 
@@ -123,5 +123,33 @@
         var dropdown = document.getElementById(dropdownId);
         dropdown.classList.toggle("show-S");
     }
+    </script> -->
+
+    <script>
+        // Get the current page URL
+        var currentPage = window.location.href;
+
+        // Get all menu items
+        var menuItem = document.querySelectorAll('.navigation a');
+
+        // Loop through menu items to find the active one
+        for (var i = 0; i < menuItem.length; i++) {
+            var page = menuItem[i].getAttribute('data-head');
+            if (currentPage.includes(page)) {
+                menuItem[i].classList.add('active');
+                if (page !== 'index') {
+                    var parentDropdown = document.querySelector('.dropdown-services button');
+                    parentDropdown.classList.add('active');
+                }
+                break; // Exit the loop once the active item is found
+            }
+        }
+
+        function toggleDropdown(dropdownId) {
+            var dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle("show-S");
+            var parentDropdown = document.querySelector('.dropdown-services button');
+            parentDropdown.classList.toggle("active");
+        }
     </script>
     

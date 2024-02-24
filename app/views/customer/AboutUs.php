@@ -109,30 +109,30 @@
                     quisquam debitis cupiditate ipsa!</p>
             </div>
         </div>
-        <div class="our-team">
+        <!-- <div class="our-team">
             <div class="team-topic">
                 <h1>---OUR TEAM---</h1>
             </div>
             <div class="teammembers">
                 <div class="member1">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/pathumi.png" alt="Book3" class="memb-img"> <!--path changed-->
-                    <!-- <h3>M.K.P.Ahinsa</h3> -->
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/pathumi.png" alt="Book3" class="memb-img"> 
+                    
                 </div>
                 <div class="member2">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/kaumadi.png" alt="Book3" class="memb-img"> <!--path changed-->
-                    <!-- <h3>P.D.Kaumadi</h3> -->
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/kaumadi.png" alt="Book3" class="memb-img"> 
+                    
                 </div>
                 <div class="member3">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/kokul.png" alt="Book3" class="memb-img"> <!--path changed-->
-                    <!-- <h3>S.Kokularaj</h3> -->
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/kokul.png" alt="Book3" class="memb-img"> 
+                    
                 </div>
                 <div class="member4">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/ramath.png" alt="Book3" class="memb-img"> <!--path changed-->
-                    <!-- <h3>K.R.S.Perera</h3> -->
+                    <img src="<?php echo URLROOT; ?>/assets/images/customer/ramath.png" alt="Book3" class="memb-img"> 
+                    
                 </div>
             </div>
             
-        </div>
+        </div> -->
     </div>
     
 <?php

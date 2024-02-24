@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-// require APPROOT . '\vendor\autoload.php';
+//  require APPROOT . '\vendor\autoload.php';
 class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
@@ -2355,14 +2355,33 @@ class Customer extends Controller {
     public function Calender(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        }else {
-            $user_id = $_SESSION['user_id'];
+
+        } else {
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+            
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+              
+                if ($customerDetails) {
+                    $customerid = $customerDetails[0]->customer_id;
+                    $mysaveevent = $this->customerModel->findsaveevent($user_id);
+                    // $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
+                } else {
+                    echo "Not found";
+                }
+            } else {
+                echo "Not a customer";
+            }
+
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $data = [
+                'customerid' => $customerid,
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'eventDetails' => $mysaveevent
             ];
             $this->view('customer/Calender', $data);
         }
