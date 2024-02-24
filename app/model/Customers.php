@@ -720,33 +720,10 @@ public function incrementScore($user_id) {
   }
 }
 
-public function getQuizQuestion1($quiz_id){
-  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=1');
+public function getQuizQuestion($quiz_id,$question_id){
+  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=:question_id');
   $this->db->bind(':quiz_id',$quiz_id);
-  return $this->db->resultSet();
-}
-
-public function getQuizQuestion2($quiz_id){
-  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=2');
-  $this->db->bind(':quiz_id',$quiz_id);
-  return $this->db->resultSet();
-}
-
-public function getQuizQuestion3($quiz_id){
-  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=3');
-  $this->db->bind(':quiz_id',$quiz_id);
-  return $this->db->resultSet();
-}
-
-public function getQuizQuestion4($quiz_id){
-  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=4');
-  $this->db->bind(':quiz_id',$quiz_id);
-  return $this->db->resultSet();
-}
-
-public function getQuizQuestion5($quiz_id){
-  $this->db->query('SELECT * FROM quiz_questions WHERE quiz_id=:quiz_id AND question_id=5');
-  $this->db->bind(':quiz_id',$quiz_id);
+  $this->db->bind(':question_id',$question_id);
   return $this->db->resultSet();
 }
 

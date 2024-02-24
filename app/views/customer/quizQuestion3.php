@@ -18,7 +18,7 @@
       <img src="<?php echo URLROOT;?>/assets/images/customer/q3.jpg">
     </div>
     <div class="options">
-      <form id="quizForm" action="<?php echo URLROOT; ?>/customer/quizQuestion3/<?php echo $data['quiz_id']; ?>" method="post">
+      <form id="quizForm" action="<?php echo URLROOT; ?>/customer/quizQuestion/<?php echo $data['quiz_id']; ?>/3" method="post">
         <div class="container">
           <input type="radio" name="option" value="opt1">
           <label><?php echo $data['option1'];?></label">

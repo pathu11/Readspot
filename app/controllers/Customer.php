@@ -2227,24 +2227,25 @@ class Customer extends Controller {
         }   
     }
 
-    public function quizQuestion1($quiz_id){
+    public function quizQuestion($quiz_id,$question_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-            $question = $this->customerModel->getQuizQuestion1($quiz_id);
+            $question = $this->customerModel->getQuizQuestion($quiz_id,$question_id);
             if($_SERVER['REQUEST_METHOD']=='POST'){
-                $question = $this->customerModel->getQuizQuestion1($quiz_id);
                 $selectedOption = $_POST['option'];
                 if($selectedOption == $question[0]->correctAnswer){
                     $this->customerModel->incrementScore($user_id);
                 }
-                redirect('customer/quizQuestion2/'.$quiz_id);
+                $question_id = $question_id + 1;
+                if($question_id<6) redirect('customer/quizQuestion/'.$quiz_id.'/'.$question_id);
+                else redirect('customer/result/'.$user_id);
 
             }
             else{
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                $this->customerModel->addQuizAttempt($quiz_id,$user_id);
+                if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
             
                 $data = [
                     'customerDetails' => $customerDetails,
@@ -2256,137 +2257,13 @@ class Customer extends Controller {
                     'option3'=>$question[0]->option3,
                     'quiz_id'=>$quiz_id,
                 ];
-                $this->view('customer/quizQuestion1', $data);
+                $this->view('customer/quizQuestion'.$question_id, $data);
             }
         }
     }
 
-    public function quizQuestion2($quiz_id){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-            $question = $this->customerModel->getQuizQuestion2($quiz_id);
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $selectedOption = $_POST['option'];
-                if($selectedOption == $question[0]->correctAnswer){
-                    $this->customerModel->incrementScore($user_id);
-                }
-                redirect('customer/quizQuestion3/'.$quiz_id);
-
-            }
-            else{
-                $customerDetails = $this->customerModel->findCustomerById($user_id);
-                
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerDetails[0]->name,
-                    'question'=>$question[0]->question,
-                    'option1'=>$question[0]->option1,
-                    'option2'=>$question[0]->option2,
-                    'option3'=>$question[0]->option3,
-                    'quiz_id'=>$quiz_id,
-                ];
-                $this->view('customer/quizQuestion2', $data);
-            }
-        }
-    }
-
-    public function quizQuestion3($quiz_id){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-            $question = $this->customerModel->getQuizQuestion3($quiz_id);
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $selectedOption = $_POST['option'];
-                if($selectedOption == $question[0]->correctAnswer){
-                    $this->customerModel->incrementScore($user_id);
-                }
-                redirect('customer/quizQuestion4/'.$quiz_id);
-
-            }
-            else{
-                $customerDetails = $this->customerModel->findCustomerById($user_id);
-            
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerDetails[0]->name,
-                    'question'=>$question[0]->question,
-                    'option1'=>$question[0]->option1,
-                    'option2'=>$question[0]->option2,
-                    'option3'=>$question[0]->option3,
-                    'quiz_id'=>$quiz_id,
-                ];
-                $this->view('customer/quizQuestion3', $data);
-            }
-        }
-    }
-
-    public function quizQuestion4($quiz_id){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-            $question = $this->customerModel->getQuizQuestion4($quiz_id);
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $selectedOption = $_POST['option'];
-                if($selectedOption == $question[0]->correctAnswer){
-                    $this->customerModel->incrementScore($user_id);
-                }
-                redirect('customer/quizQuestion5/'.$quiz_id);
-
-            }
-            else{
-                $customerDetails = $this->customerModel->findCustomerById($user_id);
-            
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerDetails[0]->name,
-                    'question'=>$question[0]->question,
-                    'option1'=>$question[0]->option1,
-                    'option2'=>$question[0]->option2,
-                    'option3'=>$question[0]->option3,
-                    'quiz_id'=>$quiz_id,
-                ];
-                $this->view('customer/quizQuestion4', $data);
-            }
-        }
-    }
-
-    public function quizQuestion5($quiz_id){
-        if (!isLoggedIn()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-            $question = $this->customerModel->getQuizQuestion5($quiz_id);
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $selectedOption = $_POST['option'];
-                if($selectedOption == $question[0]->correctAnswer){
-                    $this->customerModel->incrementScore($user_id);
-                }
-                redirect('customer/challenges');
-
-            }
-            else{
-                $customerDetails = $this->customerModel->findCustomerById($user_id);
-            
-                $data = [
-                    'customerDetails' => $customerDetails,
-                    'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerDetails[0]->name,
-                    'question'=>$question[0]->question,
-                    'option1'=>$question[0]->option1,
-                    'option2'=>$question[0]->option2,
-                    'option3'=>$question[0]->option3,
-                    'quiz_id'=>$quiz_id,
-                ];
-                $this->view('customer/quizQuestion5', $data);
-            }
-        }
+    public function result($user_id){
+        $this->view('customer/result'); 
     }
 
     public function Order(){

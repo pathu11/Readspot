@@ -35,7 +35,7 @@
                     <div class="modal-content">
                         <span class="close" onclick="hidePopup('acceptPopup_<?php echo $challenge->quiz_id; ?>')">&times;</span>
                         <p><?php echo $challenge->description;?></p>
-                        <a href="<?php echo URLROOT; ?>/customer/quizQuestion1/<?php echo $challenge->quiz_id; ?>"><button>Attemp Now</button></a>
+                        <a href="<?php echo URLROOT; ?>/customer/quizQuestion/<?php echo $challenge->quiz_id;?>/1"><button>Attemp Now</button></a>
                     </div>
                 </div>
                 <?php endforeach;?>
