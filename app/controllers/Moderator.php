@@ -14,7 +14,7 @@
     }
 
     public function index(){
-      if (!isLoggedIn()) {
+      if (!isLoggedInModerator()) {
         redirect('landing/login');
       }else{
         $user_id = $_SESSION['user_id'];
@@ -32,7 +32,7 @@
     }
 
     public function challenges(){
-      if (!isLoggedIn()) {
+      if (!isLoggedInModerator()) {
         redirect('landing/login');
       }else{
         $user_id = $_SESSION['user_id'];
@@ -218,7 +218,7 @@
   
 
     public function events(){
-      if (!isLoggedIn()) {
+      if (!isLoggedInModerator()) {
         redirect('landing/login');
       }else{
         $user_id = $_SESSION['user_id'];
@@ -247,7 +247,7 @@
     }
 
     public function chat(){
-      if (!isLoggedIn()) {
+      if (!isLoggedInModerator()) {
         redirect('landing/login');
       }else{
         $user_id = $_SESSION['user_id'];

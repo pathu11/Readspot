@@ -25,9 +25,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($data['contentDetails'] AS $content): ?>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>01/09/2023</td>
+                        <td><?php echo $content->topic; ?></td>
+                        <td><?php echo $content->time; ?></td>
                         <td class="action-buttons">
                             <button class="view-button" onclick="viewEvent(1)">
                                 <i class="fas fa-eye"></i>
@@ -38,162 +39,8 @@
                         </td>
                         <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
                     </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet2</td>
-                        <td>02/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>03/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>04/09/2023</td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1Lorem ipsum dolor sit amet</td>
-                        <td>05/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>06/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>07/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>08/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>09/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>10/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>11/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet1</td>
-                        <td>12/09/2023</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
-                    <tr>
-                        <td>Lorem ipsum dolor sit amet5</td>
-                        <td>13/09/2023</td>
-                        <td class="action-buttons">
-                        <button class="view-button" onclick="viewEvent(1)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="delete-button" onclick="deleteEvent(1)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        </td>
-                        <!-- <td><div class="c-vd"><a href="#" class="c-view">View</a><a href="#" class="c-delete">Delete</a></div></td> -->
-                    </tr>
+                    <?php endforeach; ?>
+                    
                 </tbody>
             </table>
             </div>
