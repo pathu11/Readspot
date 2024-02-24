@@ -73,6 +73,12 @@
       // return $row;
     }
 
+    public function findsaveevent($user_id){
+      $this->db->query('SELECT * from saveevent WHERE user_id=:user_id');
+      $this->db->bind(':user_id',$user_id);
+      return $this->db->resultSet();
+    }
+
     public function checkEventInCalendar($user_id, $eventId){
       $this->db->query('SELECT * FROM saveevent WHERE user_id = :user_id AND event_id = :eventId');
       $this->db->bind(':user_id', $user_id);
@@ -609,6 +615,7 @@ public function editOrderCOD($data)
       $results = $this->db->resultSet();
       return $results;
     }
+
 public function editOrderCardPayment($data){
   $this->db->query('UPDATE orders o
                       JOIN order_details od ON o.order_id = od.order_id
@@ -635,21 +642,8 @@ public function editOrderCardPayment($data){
 }
 
 
-public function findDetailsByCartId($cartId){
-  $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
-  FROM cart c 
-  JOIN books b ON c.book_id = b.book_id 
-  WHERE c.cart_id = :cart_id');
-  $this->db->bind(':cart_id', $cartId);
-  return $this->db->resultSet();
-}
-public function findBookById($book_id){
-  $this->db->query('SELECT b.*, p.user_id AS pub_user_id FROM books b JOIN publishers p ON b.publisher_id = p.publisher_id WHERE book_id = :book_id');
-  $this->db->bind(':book_id', $book_id);
-  return $this->db->resultSet();
-  // $row = $this->db->single();
-  // return $row;
-}
+
+
 public function findContentByCusId($customer_id){
   $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id');
   $this->db->bind(':customer_id', $customer_id);
@@ -749,5 +743,42 @@ public function findReviewsByContentId($content_id){
 }
 
 
+      // Execute
+      // if ($this->db->execute()) {
+      //     return true;
+      // } else {
+      //     return false;
+      // }
+  // }
+  public function findDetailsByCartId($cartId){
+    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
+    FROM cart c 
+    JOIN books b ON c.book_id = b.book_id 
+    WHERE c.cart_id = :cart_id');
+    $this->db->bind(':cart_id', $cartId);
+    return $this->db->resultSet();
   }
+  // public function findDetailsByCartId($cartId){
+  //   $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity,c.quantity AS nowQuantity,b.type AS type,b.book_id AS book_id
+  //                     FROM cart c 
+  //                     JOIN books b ON c.book_id = b.book_id 
+  //                     WHERE c.cart_id = :cart_id ');
+  //   $this->db->bind(':cart_id', $cartId);
+  //   return $this->db->resultSet();
+  // }
 
+  public function findBookById($book_id){
+    $this->db->query('SELECT * from books WHERE book_id=:book_id ');
+    $this->db->bind(':book_id',$book_id);
+    return $this->db->resultSet();
+    // $row = $this->db->single();
+    // return $row;
+  }
+  // public function findBookById($book_id){
+  //   $this->db->query('SELECT b.*, p.user_id AS pub_user_id FROM books b JOIN publishers p ON b.publisher_id = p.publisher_id WHERE book_id = :book_id');
+  //   $this->db->bind(':book_id', $book_id);
+  //   return $this->db->resultSet();
+  //   // $row = $this->db->single();
+  //   // return $row;
+  // }
+}
