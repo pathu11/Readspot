@@ -26,55 +26,56 @@ class PurchaseOrder extends Controller{
         $this->db = new Database();
     }
     public function purchaseMultiple(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
             // $deliveryDetails = $this->deliveryModel->finddeliveryCharge();
             $customerDetails = $this->customerModel->findCustomerById($user_id);
-            
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {    
                
                 if(isset($_POST['selectedItems']) && is_array($_POST['selectedItems'])) {
                     $selectedCartIds = $_POST['selectedItems'];
                     $bookDetails = [];
                     foreach($selectedCartIds as $cartId) {
+                        $cart_id[]=$cartId;
                         $bookDetails[] = $this->customerModel->findDetailsByCartId($cartId);
                     }
-                    // echo "<pre>";
-                    // print_r($bookDetails);
-                    // echo "</pre>";
+                   
                 } else { 
+                    
                     echo "Error: No books selected" ; 
                     return;
                 }
                 $_SESSION['purchaseMultipleBookDetails'] = $bookDetails;
+                $_SESSION['cart_id']=$cart_id;
                 if($bookDetails){
                     redirect('PurchaseOrder/purchaseMultipleView');
                    
                 }      
             }
-        }
+}
     }   
     public function purchaseMultipleView(){
-        // $data= $_SESSION['purchaseMultipleBookDetails'];
-        if (!isLoggedIn()) {
+      
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {    
             $user_id = $_SESSION['user_id'];
             $bookDetails=$_SESSION['purchaseMultipleBookDetails'];
+            $cart_id=$_SESSION['cart_id'];
             $bookIds = [];
-            // Iterate over the result set to extract book IDs
             foreach ($bookDetails as $book) {
                 $bookIds[] = $book[0]->book_id;
-                // $bookId = json_encode($bookIds);
             }
+
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
 
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
+                    'cart_id'=>$cart_id,
                     'bookDetails'=>$bookDetails,
                     'book_id'=>$bookIds,
                     'customer_id' => $customerDetails[0]->customer_id,
@@ -89,7 +90,7 @@ class PurchaseOrder extends Controller{
                     'total_weight'=>trim($_POST['totalWeight']),
                     'totalDelivery'=>trim($_POST['totalDelivery']),
                     'bookQuantities' => $_POST['book_quantities'],
-                    // 'quantity' => trim($_POST['quantity']), 
+                    
                     'postal_name_err' => '',
                     'street_name_err' => '',
                     'town_err' => '',
@@ -176,15 +177,15 @@ class PurchaseOrder extends Controller{
 
 public function checkout2()
 {
-    if (!isLoggedIn()) {
+    if (!isLoggedInCustomer()) {
         redirect('landing/login');
     } else {
         $orderDetails=$_SESSION['PurchaseOrderData'];
-        
+        $cart_id=$orderDetails['cart_id'];
         $book_details=$orderDetails['bookDetails'];
         $bookQuantities=$orderDetails['bookQuantities'];
         $user_id = $_SESSION['user_id'];
-        $customerDetails = $this->customerModel->findCustomerById($user_id);       
+        $customerDetails = $this->customerModel->findCustomerById($user_id);   
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $formType = $_POST['form_type'];
             if ($formType === 'cardPayment') {    
@@ -218,17 +219,17 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 {
     if ($this->customerModel->addOrder($orderDetails1)) {
         $order_id = $this->customerModel->getLastInsertedOrderId();
-        // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
-            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+           if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
+                $this->customerModel->deleteFromCart($cart_id);
+           }
         }
     } else {
         echo '<script>alert("Error")</script>';
     }
     $orderDetails=$this->ordersModel->getOrderById($order_id);
-   
-   
     $amount = $orderDetails[0]->total_price; 
     $merchant_id = MERCHANT_ID;
     $order_id = $order_id; 
@@ -274,8 +275,13 @@ private function handleCODForm($orderDetails1 ,$formType){
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
-            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+           if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
+                $this->customerModel->deleteFromCart($cart_id);
+           }
+           
+
         }
     } else {
         echo '<script>alert("Error")</script>';
@@ -361,8 +367,13 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
+            $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
-            $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity);
+           if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
+                $this->customerModel->deleteFromCart($cart_id);
+           }
+           
+
         }
     } else {
         echo '<script>alert("Error")</script>';

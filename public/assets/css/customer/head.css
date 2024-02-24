@@ -240,6 +240,7 @@
 
 .dropdown-services a:hover {
     background-color: #ddd;
+    cursor: pointer;
 }
 
 .show-S {

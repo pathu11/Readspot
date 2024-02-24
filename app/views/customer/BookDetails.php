@@ -2,7 +2,11 @@
     $title = "Used Book Details";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
+<head> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+</head>
     <div class="main-detail">
 
         <div class="back-btn-div">
@@ -81,99 +85,64 @@
             <h1> Reviews and Rating </h1>
             <div class="send-review">
                 <div class="stars">
-                    <span class="heading">User Rating</span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <p>4.1 average based on 254 reviews.</p>
+                <?php 
+                    if (isset($data['averageRatingCount']->average_rating)) {
+                        $rating = ceil($data['averageRatingCount']->average_rating);
+                        for ($i = 0; $i < $rating; $i++) {
+                            echo '<span class="fas fa-star checked"></span>';
+                        }
+                        for ($i = $rating; $i < 5; $i++) {
+                            echo '<span class="fas fa-star"></span>';
+                        }
+                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on 254 reviews.</p>';
+                    } else {
+                        echo '<p>No reviews</p>';
+                    }
+    ?>
                     <hr style="border:3px solid #f1f1f1">
+                    
+                    <div class="row-rating" id="rating_graph">
+                        <canvas id="ratingChart" width="400" height="200"></canvas>
 
-                    <div class="row-rating">
-                        <div class="side">
-                            <div>5 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-5"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>150</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>4 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-4"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>63</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>3 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-3"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>15</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>2 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-2"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>6</div>
-                        </div>
-                        
-                        <div class="side">
-                            <div>1 star</div>
-                        </div>
-                        <div class="middle">
-                            <div class="bar-container">
-                                <div class="bar-1"></div>
-                            </div>
-                        </div>
-                        <div class="side right">
-                            <div>20</div>
-                        </div>
                     </div>
                 </div>
                 <div class="give-rate">
+                    <div class="post">
+                        <div class="text">Thanks for rating us!</div>
+                        <div class="edit">EDIT</div>
+                    </div>
+                    <form action="<?php echo URLROOT; ?>/customer/addReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
+                        <input type="radio" name="rate" id="rate-5" value="5">
+                        <label for="rate-5" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-4" value="4">
+                        <label for="rate-4" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-3" value="3">
+                        <label for="rate-3" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-2" value="2">
+                        <label for="rate-2" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-1" value="1">
+                        <label for="rate-1" class="fas fa-star"></label>
+
                     </div>
+               
+                    <header></header>
                     <div class="my-review">
-                        <textarea id="description" rows="12"  name="descriptions"></textarea>
+                        <textarea id="description" placeholder="Describe your experience.." rows="12"  name="descriptions"></textarea>
+                        <input type="hidden" name="book_id" value="<?php echo $books->book_id; ?>">
+                       
                     </div>
-                    <button class="submit-review">Submit</button>
+                    <button type="submit" class="submit-review">Submit</button>
                 </div>
+                </form>
+
             </div>
-            <div class="filter-by">
-                <h3>5 star</h3>
-                <h3>4 star</h3>
-                <h3>3 star</h3>
-                <h3>2 star</h3>
-                <h3>1 star</h3>
-            </div>
+            
             <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>
@@ -181,16 +150,31 @@
                 </select>
             </div>
             <div class="cus-rev">
+            <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
+                    
                     <div class="cus-name-img">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
-                        <h3>Ramath Perera</h3>
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
+                        <h3><?php echo $reviews->name; ?></h3>
                     </div>
                     <div class="rev-date">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
-                        <h6>01/01/2024</h6>
+                    <div class="rating-stars">
+                        <?php 
+                            $rating = $reviews->rate;
+                            // Loop to generate the appropriate number of star icons based on the rating
+                            for ($i = 0; $i < $rating; $i++) {
+                                echo '<span class="fas fa-star checked"></span>';
+                            }
+                            // Fill the remaining stars with empty stars
+                            for ($i = $rating; $i < 5; $i++) {
+                                echo '<span class="fas fa-star"></span>';
+                            }
+                        ?>
+                     </div>
+                        <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png"> -->
+                        <h6><?php echo $reviews->time; ?></h6>
                     </div>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
+                    <p><?php echo $reviews->review; ?></p>
                     <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <div class="yes-no">
@@ -200,37 +184,93 @@
                     </div>
                     <h5>13 people found this helpful</h5>
                 </div>
-                <div class="reviews">
-                    <div class="cus-name-img">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/profile.png">
-                        <h3>Ramath Perera</h3>
-                    </div>
-                    <div class="rev-date">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png">
-                        <h6>01/01/2024</h6>
-                    </div>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda saepe obcaecati ratione nostrum neque exercitationem aliquam dignissimos accusantium numquam esse.</p>
-                    <div class="helpful">
-                        <h4>Was this review helpful?</h4>
-                        <div class="yes-no">
-                            <h3>Yes</h3>
-                            <h3>No</h3>
-                        </div>
-                    </div>
-                    <h5>13 people found this helpful</h5>
-                </div>
+                <?php endforeach; ?>
+                
             </div>
         </div>
 
         <div class="sub8">
-            <a href="#"><button class="chat-btn">Chat</button></a>
           
-            <a href="<?php echo URLROOT; ?>/PurchaseOrder/purchase/<?php echo $books->book_id; ?>"><button class="chat-btn">Purchase</button></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $books->pub_user_id; ?>"><button class="chat-btn">Chat</button></a>
+       
+
+            <a href="#" onclick="addToCart2(<?php echo $books->book_id; ?>)"><button class="chat-btn">Purchase</button></a>
             <?php endforeach; ?>
         </div>
     </div>
-    
     <script>
+        // Sample data representing count and percentage for each rating
+// Sample data representing count and percentage for each rating
+const ratingData = [
+    { rating: '1 Star', count: 10, percentage: 20 },
+    { rating: '2 Star', count: 20, percentage: 40 },
+    { rating: '3 Star', count: 15, percentage: 30 },
+    { rating: '4 Star', count: 5, percentage: 10 },
+    { rating: '5 Star', count: 2, percentage: 4 }
+];
+
+// Get the canvas element
+const ctx = document.getElementById('ratingChart').getContext('2d');
+
+// Generate labels, data, and colors from the rating data
+const labels = ratingData.map(data => data.rating);
+const counts = ratingData.map(data => data.count);
+const percentages = ratingData.map(data => data.percentage);
+const colors = ['#ff0000', '#ff6600', '#ffcc00', '#99ff00', '#00ff00']; // Customize colors as needed
+
+// Create the chart
+const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Count',
+            data: counts,
+            backgroundColor: colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+    
+    const btn = document.querySelector("button");
+    const post = document.querySelector(".post");
+    const widget = document.querySelector(".my-rate");
+    const editBtn = document.querySelector(".edit");
+
+    btn.onclick = () => {
+        widget.style.display = "none";
+        post.style.display = "block";
+    }
+
+    editBtn.onclick = () => {
+        widget.style.display = "block";
+        post.style.display = "none";
+    }
+
+    const starLabels = document.querySelectorAll('.my-rate label');
+
+    starLabels.forEach((label, index) => {
+        label.addEventListener('click', () => {
+            const rating = index + 1;
+            const header = document.querySelector('.give-rate .post .text');
+            header.textContent = `You rated it ${rating} stars.`;
+        });
+    });
+
+    </script>
+    <script>
+        
         let quantity = 1;
 
         function increment() {
@@ -262,15 +302,15 @@
                                 // ... (rest of the code)
                             } else {
                                 console.error('Error adding to cart:', response.message);
-                                // Display an error message to the user
+                               
                             }
                         } catch (error) {
                             console.error('Error parsing JSON:', error);
-                            // Display a generic error message to the user
+                           
                         }
                     } else {
                         console.error('HTTP error:', this.status);
-                        // Handle HTTP errors (e.g., display a generic error message)
+                       
                     }
                 }
     };
@@ -278,6 +318,40 @@
     xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
     xhttp.send();
 }
+function addToCart2(bookId) {
+            var quantity = document.getElementById('quantity').innerText;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        console.log('Response:', this.responseText);
+                        console.log('Response Type:', typeof this.responseText);
+
+                        try {
+                            var response = JSON.parse(this.responseText);
+                            if (response.status === 'success') {
+                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                // ... (rest of the code)
+                            } else {
+                                console.error('Error adding to cart:', response.message);
+                               
+                            }
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                           
+                        }
+                    } else {
+                        console.error('HTTP error:', this.status);
+                       
+                    }
+                }
+    };
+
+    xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
+    xhttp.send();
+}
+
 
 
 
