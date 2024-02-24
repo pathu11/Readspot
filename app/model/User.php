@@ -12,7 +12,13 @@ class User{
 
         return $results;
     }
+    public function getUserDetails($user_id){
+        $this->db->query('SELECT * FROM users WHERE user_id=:user_id');
+        $this->db->bind(':user_id',$user_id);
+        $results=$this->db->resultSet();
 
+        return $results;
+    }
     public function signupCustomerPending($data) {
         try {
             $this->db->beginTransaction(); // Begin the transaction

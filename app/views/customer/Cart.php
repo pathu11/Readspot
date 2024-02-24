@@ -19,7 +19,7 @@
                 <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple">
                 <table border="1" class="tb-cart1" id="eventTable">
                     <thead>
-                        <tr>
+                        <tr> 
                             <th></th>
                             <th>Image</th>
                             <th>Book Name</th>
@@ -33,7 +33,6 @@
                         <?php foreach($data['cartDetails'] as $cart): ?>
                         <tr>
                             <td><input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>"></td>
-
                             <td><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
                             <td><?php echo $cart->book_name; ?></td>
                             <td><?php echo $cart->price; ?></td>
@@ -71,20 +70,22 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
+                    <button type="submit" class="cart-view">Purchase Selected  All Items</button>
                 </table>
                 <button type="submit" class="cart-view">Purchase Selected  All Items</button>
                 
 
                 
+
                 <table border="1" class="tb-cart2" id="eventTable">
+                <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple"> 
                     <tbody>
                         <?php foreach($data['cartDetails'] as $cart): ?>
                         <tr>
-                            <td rowspan="5"><input type="checkbox"></td>
-                            <td rowspan="5"><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
-                            <td><?php echo $cart->book_name; ?></td>
-                        </tr>
-                        <tr>
+                        <td rowspan="4" style="width:5%;"> 
+                            <input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>">
+                        </td>
+                            <td rowspan="4"><?php echo $cart->book_name; ?></td>
                             <td><?php echo $cart->price; ?> (per book)</td>
                         </tr>
                         <tr>
@@ -147,12 +148,11 @@
 
 
     <script>
-    document.querySelectorAll('.purchase-btn').forEach(button => {
+    document.querySelectorAll('.view-button').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // Prevent default anchor tag behavior
             
-            const cartId = this.getAttribute('data-cartid');
-            
+            const cartId = this.getAttribute('data-cartid');  
             // Create a form element
             const form = document.createElement('form');
             form.method = 'POST';

@@ -1,19 +1,19 @@
 <?php
 
-// define('DB_HOST','localhost');
-// define('DB_USER','root');
-// define('DB_PASS','');
-// define('DB_NAME','readspot02');
+// db param
 
 define('DB_HOST','readspot.mysql.database.azure.com');
 define('DB_USER','readspot');
 define('DB_PASS','Admin@1234');
 define('DB_NAME','readspot');
-
-
+// define('DB_HOST','localhost');
+// define('DB_USER','root');
+// define('DB_PASS','');
+// define('DB_NAME','readspot');
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
-define('URLROOT','http://localhost:8080/Group-27');
+ define('URLROOT','http://localhost/Readspot');
+
 
 define('SITENAME','Readspot');
 define('APPVERSION','1.0.0');
