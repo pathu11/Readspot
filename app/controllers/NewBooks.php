@@ -16,7 +16,7 @@ class NewBooks extends Controller{
         
     }
     public function weightcalc(){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }else{
             $user_id = $_SESSION['user_id'];
@@ -40,7 +40,7 @@ class NewBooks extends Controller{
     }
 
 public function addbooks(){
-    if(!isLoggedIn()){
+    if(!isLoggedInPublisher()){
         redirect('/landing/login');
     }else{
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -248,7 +248,7 @@ public function addbooks(){
     }
 }
 public function productGallery() {
-    if (!isLoggedIn()) {
+    if (!isLoggedInPublisher()) {
         redirect('landing/login');
     }else{
         $publisherid = null;
@@ -282,7 +282,7 @@ public function productGallery() {
 }
 }
 public function update($book_id){
-    if(!isLoggedIn()){
+    if(!isLoggedInPublisher()){
         redirect('landing/login');
     }
         $user_id = $_SESSION['user_id'];

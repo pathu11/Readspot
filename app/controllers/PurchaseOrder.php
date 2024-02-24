@@ -26,7 +26,7 @@ class PurchaseOrder extends Controller{
         $this->db = new Database();
     }
     public function purchaseMultiple(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -58,7 +58,7 @@ class PurchaseOrder extends Controller{
     }   
     public function purchaseMultipleView(){
       
-        if (!isLoggedIn()) {
+        if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {    
             $user_id = $_SESSION['user_id'];
@@ -177,7 +177,7 @@ class PurchaseOrder extends Controller{
 
 public function checkout2()
 {
-    if (!isLoggedIn()) {
+    if (!isLoggedInCustomer()) {
         redirect('landing/login');
     } else {
         $orderDetails=$_SESSION['PurchaseOrderData'];

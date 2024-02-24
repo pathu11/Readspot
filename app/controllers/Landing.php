@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-// require APPROOT . '\vendor\autoload.php';
+require APPROOT . '\vendor\autoload.php';
 
 class Landing extends Controller{
     private $userModel;
