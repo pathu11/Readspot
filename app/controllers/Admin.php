@@ -30,27 +30,7 @@ require APPROOT . '\vendor\autoload.php';
     //     redirect('landing/login');
     // }
 }
-  //testing comment
-  /*public function index(){
-      
-      if (!isLoggedIn()) {
-          redirect('landing/login');
-      } else {
-          $user_id = $_SESSION['user_id'];
-         
-
-          $adminDetails = $this->adminModel->findAdminById($user_id); 
-          $getPendingUserDetails = $this->adminModel->getPendingUsers();
-          
-          $data = [
-              'adminDetails' => $adminDetails,
-              'adminName'=>$adminDetails[0]->name,
-              'pendingUserDetails'=>$getPendingUserDetails
-
-          ];
-          $this->view('admin/index', $data);
-      }
-  }*/
+ 
 
   public function index(){
     if (!isLoggedInAdmin()) {
