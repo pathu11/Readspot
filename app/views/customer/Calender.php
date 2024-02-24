@@ -152,28 +152,58 @@
         </div>
 
         <?php
-            // Your PHP backend code to fetch data from the database or any other source
-            // For demonstration purposes, let's assume you have fetched event data from the database
-            $eventsFromBackend = [
-                [
-                    'day' => 13,
-                    'month' => 2,
-                    'year' => 2024,
-                    'title' => 'Event 1',
-                    'from' => '10:00 AM',
-                    'to' => '10:00 PM'
-                ],
-                [
-                    'day' => 15,
-                    'month' => 2,
-                    'year' => 2024,
-                    'title' => 'Event 2',
-                    'from' => '11:00 AM',
-                    'to' => '12:00 PM'
-                ],
-                // Add more event data as needed
-            ];
+            // $eventsFromBackend = [
+            //     [
+            //         'day' => 13,
+            //         'month' => 2,
+            //         'year' => 2024,
+            //         'title' => 'Event 1',
+            //         'from' => '10:00 AM',
+            //         'to' => '10:00 PM'
+            //     ],
+            //     [
+            //         'day' => 15,
+            //         'month' => 2,
+            //         'year' => 2024,
+            //         'title' => 'Event 2',
+            //         'from' => '11:00 AM',
+            //         'to' => '12:00 PM'
+            //     ],
+            // ];
         ?>
+
+        <?php
+            $eventsFromBackend = []; // Initialize an empty array to store events
+            foreach($data['eventDetails'] as $eventDetails):
+                $startDate = new DateTime($eventDetails->start_date);
+                $endDate = new DateTime($eventDetails->end_date);
+                
+                // Loop through each date between start and end dates
+                $currentDate = clone $startDate;
+                while ($currentDate <= $endDate) {
+                    // Extract year, month, and day from the current date
+                    $year = (int)$currentDate->format('Y');
+                    $month = (int)$currentDate->format('m');
+                    $day = (int)$currentDate->format('d');
+                    
+                    // Add event details for the current date to the array
+                    $eventsFromBackend[] = [
+                        'day' => $day,
+                        'month' => $month,
+                        'year' => $year,
+                        'title' => $eventDetails->title,
+                        'from' => $eventDetails->start_time,
+                        'to' => $eventDetails->end_time,
+                        'eventID' => $eventDetails->event_id
+                    ];
+                    
+                    // Move to the next date
+                    $currentDate->modify('+1 day');
+                }
+                
+            endforeach;
+        ?>
+
 
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
@@ -184,5 +214,10 @@
         // Assign the PHP array to a JavaScript variable
         const eventsArr = <?php echo json_encode($eventsFromBackend); ?>;
         console.log(eventsArr); // Verify the data in the browser console
+
+        function redirectToEvent(index) {
+            let eventID = index;
+            window.location.href = '<?php echo URLROOT; ?>/customer/viewevents/' + eventID;
+        }
     </script>
     

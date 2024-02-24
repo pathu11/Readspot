@@ -73,6 +73,12 @@
       // return $row;
     }
 
+    public function findsaveevent($user_id){
+      $this->db->query('SELECT * from saveevent WHERE user_id=:user_id');
+      $this->db->bind(':user_id',$user_id);
+      return $this->db->resultSet();
+    }
+
     public function checkEventInCalendar($user_id, $eventId){
       $this->db->query('SELECT * FROM saveevent WHERE user_id = :user_id AND event_id = :eventId');
       $this->db->bind(':user_id', $user_id);

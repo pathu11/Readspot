@@ -257,7 +257,7 @@ function getActiveDay(date) {
   eventDate.innerHTML = date + " " + months[month] + " " + year;
 }
 
-//function update events when a day is active
+// function update events when a day is active
 function updateEvents(date) {
   let events = "";
   eventsArr.forEach((event) => {
@@ -266,7 +266,7 @@ function updateEvents(date) {
       event.month === month + 1 &&
       event.year === year
     ) {
-      events += `<div class="event">
+      events += `<div class="event" onclick="redirectToEvent(${event.eventID})">
         <div class="title">
           <i class="fas fa-circle"></i>
           <h3 class="event-title">${event.title}</h3>
@@ -279,15 +279,15 @@ function updateEvents(date) {
 }
 
 //function to get events from localstorage
-function getEvents() {
-  let events = JSON.parse(localStorage.getItem("events"));
-  if (events) {
-    eventsArr.length = 0;
-    events.forEach((event) => {
-      eventsArr.push(event);
-    });
-  }
-}
+// function getEvents() {
+//   let events = JSON.parse(localStorage.getItem("events"));
+//   if (events) {
+//     eventsArr.length = 0;
+//     events.forEach((event) => {
+//       eventsArr.push(event);
+//     });
+//   }
+// }
 
 //add event button click show add event wrapper
 addEventBtn.addEventListener("click", () => {
