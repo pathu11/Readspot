@@ -1,54 +1,63 @@
-<?php
-    $title = "Enter email";
-    
-?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
-    
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
-    <div>
-   
-        <div class="form-container">
-             
-            <div class="form1">
-                <span>Enter your registered email address </span>
-                
-                <form action="<?php echo URLROOT; ?>/landing/enteremail" method="POST">                    
-                    <br>
-                    <br>
-                    <span class="error"><?php echo $data['email_err']; ?></span>
+    <div class="container">
+        <form class="login" action="<?php echo URLROOT; ?>/landing/enteremail" method="post">
+        <br><br>
+            <h2>Enter your registered email address</h2>
+           
+            <br><br><br>
+                <span class="error"><?php echo $data['email_err']; ?></span>
               
-                    <input type="email" name="email"  placeholder="Email address " required><br>
-                    
-                    <button onclick="goBack()" class="submit">  Back </button> 
-                    <input  type="submit" placeholder="Submit" name="submit" class="submit">
-                    </div> 
-                    <br>       
-                    
-
-                </form>
-            </div>
-        </div>
-
-</div> 
-    </div>
+              <input type="email" name="email"  placeholder="Email address " required><br>
+              
+           <br>
+            <button class="btn" name="submit" type="submit">Submit</button><br>
+            <div>
+                <span class="copyright">&copy;2023</span> 
+            </div>  
+        </form>
+        <div class="register">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
+            <h3>WELCOME TO</h3>
+            <h2>Read Spot</h2>
+            <p>Here we introducing a web-based Platform for Buying
+                Selling, exchanging, and Donating both new & used books.</p>
+            <a href="#"><button onclick="goBack()" class="submit">  Back </button> </a>
+        </div>  
+      </div>
+      <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.querySelector('input[type="email"]');
+            const emailError = document.getElementById('email-error');
+            emailInput.addEventListener('input', function() {
+                if (!/@/.test(emailInput.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.display = 'block';
+                } else {
+                    emailError.textContent = '';
+                    emailError.style.display = 'none';
+                }
+            });
+        });
+      </script>
+</body>
+<script>
    
-    <script>
+ 
+        // Toggle the eye icon itself
         function goBack() {
             // Use the browser's built-in history object to go back
             window.history.back();
         }
         
     </script>
-</body>
-
 </html>
+                     
