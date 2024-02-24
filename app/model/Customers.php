@@ -693,8 +693,13 @@ public function findBookById($book_id){
   // return $row;
 }
 
-public function getOngoingChallenges(){
-  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description,q.time_limit, h.user_id FROM quiz q LEFT JOIN history h ON q.quiz_id = h.quiz_id WHERE q.end_date > NOW()');
+public function getOngoingChallenges($user_id){
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, 
+                    h.user_id AS attempted_by_user
+                    FROM quiz q 
+                    LEFT JOIN history h ON q.quiz_id = h.quiz_id AND h.user_id = :user_id
+                    WHERE q.end_date > NOW()');
+  $this->db->bind(':user_id',$user_id);
   return $this->db->resultSet();
 }
 

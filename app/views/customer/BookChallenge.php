@@ -21,7 +21,7 @@
                     <td><?php echo $challenge->title?></td>
                     <td><?php echo $challenge->time_limit?> minutes</td>
                     <td>
-                    <?php if($challenge->user_id==$_SESSION['user_id']){
+                    <?php if($challenge->attempted_by_user==$_SESSION['user_id']){
                         echo '<h3>Already Attemped</h3>';
                     }
                     else{
