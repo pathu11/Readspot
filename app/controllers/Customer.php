@@ -155,7 +155,7 @@ class Customer extends Controller {
                             // Generate a unique identifier (e.g., timestamp)
                             $unique_id = time(); 
                             $new_img_name = $data['topic'] . '-' . $unique_id . 'img.' . $img_ex_to_lc;
-                            $img_upload_path = "../public/assets/images/landing/addcontent/" . $new_img_name;
+                            $img_upload_path = "../public/assets/images/landing/addcontents/" . $new_img_name;
                             move_uploaded_file($tmp_name, $img_upload_path);
                 
                             $data['picture'] = $new_img_name;
@@ -177,7 +177,7 @@ class Customer extends Controller {
                             // Generate a unique identifier (e.g., timestamp)
                             $unique_id = time(); 
                             $new_img_name = $data['topic'] . '-' . $unique_id . 'pdf.' . $img_ex_to_lc;
-                            $img_upload_path = "../public/assets/images/landing/addcontent/" . $new_img_name;
+                            $img_upload_path = "../public/assets/images/landing/addcontents/" . $new_img_name;
                             move_uploaded_file($tmp_name, $img_upload_path);
                 
                             $data['pdf'] = $new_img_name;

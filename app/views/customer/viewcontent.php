@@ -2,15 +2,27 @@
     $title = "View Contents";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+</head>
 <?php foreach($data['contentDetails'] as $content): ?>
     <div class="main-content-div">
     
         <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
-        <img src="<?php echo URLROOT; ?>/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img-main"> <!--path changed -->
+    <div class="img-summary">
+        <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
+       <div>
+         <p><?php echo $content->text; ?></p>
+       </div>
+    </div>
         <div class="cont-details">
-            <p><?php echo $content->text; ?></p>
+            
+            <div id="pdf-viewer"></div>
+            <button id="prev-page">Previous Page</button>
+            <button id="next-page">Next Page</button>
         </div>
-        <?php endforeach; ?>
+<?php endforeach; ?>
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
             <div class="send-review">
@@ -64,7 +76,7 @@
                     <header></header>
                     <div class="my-review">
                         <textarea id="description" placeholder="Describe your experience.." rows="12"  name="descriptions"></textarea>
-                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>"> <!-- Pass the content_id here -->
+                        <input type="hidden" name="content_id" value="4"> <!-- Pass the content_id here -->
                        
                     </div>
                     <button type="submit" class="submit-review">Submit</button>
@@ -192,7 +204,57 @@ const chart = new Chart(ctx, {
     });
 
     </script>
+<script>
+        // PDF.js script
+        // URL of the PDF file
+        var pdfUrl = '<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/my.pdf';
+        var currentPage = 1; 
+        function renderPage(pageNumber) {
+            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+                // Check if the page number is within the bounds
+                if (pageNumber >= 1 && pageNumber <= pdf.numPages) {
+                    pdf.getPage(pageNumber).then(function(page) {
+                        var scale = 1.5;
+                        var viewport = page.getViewport({ scale: scale });
 
+                        // Prepare canvas using PDF page dimensions
+                        var canvas = document.createElement('canvas');
+                        var context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        // Render PDF page into canvas context
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext).promise.then(function() {
+                            // Clear previous content before appending new page
+                            document.getElementById('pdf-viewer').innerHTML = '';
+                            document.getElementById('pdf-viewer').appendChild(canvas);
+                        });
+                    });
+                }
+            });
+        }
+
+        // Initial render of the first page
+        renderPage(currentPage);
+
+        // Event listener for next page button
+        document.getElementById('next-page').addEventListener('click', function() {
+            currentPage++; // Increment current page
+            renderPage(currentPage); // Render the next page
+        });
+
+        // Event listener for previous page button
+        document.getElementById('prev-page').addEventListener('click', function() {
+            currentPage--; // Decrement current page
+            renderPage(currentPage); // Render the previous page
+        });
+    </script>
+</body>
+</html>
 
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed

@@ -5,6 +5,9 @@
     <?php
         require APPROOT . '/views/customer/sidebar.php'; //path changed
     ?>
+    <head>
+        
+    </head>
     <div class="container">
         <div class="add-content">
             <div class="back-btn-div">
@@ -18,17 +21,17 @@
                     
                 </div>
                 <div class="disc-cont">
-                    <label class="label-topic">Description</label><br>
+                    <label class="label-topic">Summary about your content</label><br>
                     <textarea id="description" name="description" rows="12" class="form-topic" required></textarea>
                 </div>
                 <div class="upload-doc">
                     <div class="img-cont">
-                        <label class="label-topic">Upload Image</label><br>
+                        <label class="label-topic">Upload an relevent Image</label><br>
                         <input type="file" id="picture" name="picture" accept="image/*" required>
                     </div>
                     <div class="pdf-cont">
-                        <label class="label-topic">Upload Document</label><br>
-                        <input type="file" id="pdf" name="pdf" accept=".pdf" >
+                        <label class="label-topic">Upload Your content Document</label><br>
+                        <input type="file" id="pdf" name="pdf" accept=".pdf" required>
                     </div>
                 </div>
                 <input type="submit" value="Submit">

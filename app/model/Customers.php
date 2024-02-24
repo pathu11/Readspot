@@ -461,9 +461,9 @@
     }        
   }
   
-  public function findContentById($customer_id){
-    $this->db->query('SELECT * from content WHERE customer_id=:customer_id');
-    $this->db->bind('customer_id',$customer_id);
+  public function findContentById($content_id){
+    $this->db->query('SELECT * from content WHERE content_id=:content_id');
+    $this->db->bind('content_id',$content_id);
     return $this->db->resultSet();
   }
 

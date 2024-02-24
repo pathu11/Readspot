@@ -32,6 +32,113 @@
     }else{
         return false;
     }
+   }
+    
+    function isLoggedInAdmin(){
+      if(isset($_SESSION['user_id'])){
+          
+          $userRole = $_SESSION['user_role']; 
+          switch($userRole) {
+              case 'admin':
+                  return true;
+              
+              default:
+                  return false;
+          }
+      } else {
+          return false;
+      }
+  }
+  function isLoggedInPublisher(){
+    if(isset($_SESSION['user_id'])){
+        
+        $userRole = $_SESSION['user_role']; 
+        switch($userRole) {
+            case 'publisher':
+                return true;
+            
+            default:
+                return false;
+        }
+    } else {
+        return false;
+    }
+}
+function isLoggedInCharity(){
+  if(isset($_SESSION['user_id'])){
+      
+      $userRole = $_SESSION['user_role']; 
+      switch($userRole) {
+          case 'charity':
+              return true;
+          
+          default:
+              return false;
+      }
+  } else {
+      return false;
+  }
+}
+function isLoggedInCustomer(){
+  if(isset($_SESSION['user_id'])){
+      
+      $userRole = $_SESSION['user_role']; 
+      switch($userRole) {
+          case 'customer':
+              return true;
+          
+          default:
+              return false;
+      }
+  } else {
+      return false;
+  }
+}
+function isLoggedInDeliver(){
+  if(isset($_SESSION['user_id'])){
+      
+      $userRole = $_SESSION['user_role']; 
+      switch($userRole) {
+          case 'deliver':
+              return true;
+          
+          default:
+              return false;
+      }
+  } else {
+      return false;
+  }
+}
+function isLoggedInSuperAdmin(){
+  if(isset($_SESSION['user_id'])){
+      
+      $userRole = $_SESSION['user_role']; 
+      switch($userRole) {
+          case 'super_admin':
+              return true;
+          
+          default:
+              return false;
+      }
+  } else {
+      return false;
+  }
+}
+function isLoggedInModerator(){
+  if(isset($_SESSION['user_id'])){
+      
+      $userRole = $_SESSION['user_role']; 
+      switch($userRole) {
+          case 'moderator':
+              return true;
+          
+          default:
+              return false;
+      }
+  } else {
+      return false;
+  }
 }
   
+
 

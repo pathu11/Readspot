@@ -837,39 +837,30 @@ class Landing extends Controller{
         }
     }    
     public function createUserSession($user) {
-        // if (is_object($userDetails)) {
-        //     $_SESSION['user_id'] = $userDetails->user_id;
-        //     $_SESSION['user_email'] = $userDetails->email;
-    
-        //     // ... handle other roles ...
-        // } elseif (is_array($userDetails) && !empty($userDetails)) {
-        //     // Handle the case when $userDetails is an array
-        //     $_SESSION['user_id'] = $userDetails[0]->user_id;
-        //     $_SESSION['user_email'] = $userDetails[0]->email;
-    
-        //     // ... handle other roles ...
-        // }
+
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['user_email'] = $user->email;
-    
+        $_SESSION['user_role']=$user->user_role;
         if ($user->user_role == 'publisher') {
+
             $publisherDetails = $this->publisherModel->findPublisherById($user->user_id);
             $_SESSION['publisher_id'] = $publisherDetails->publisher_id;
-            // $publisher=$this->userModel->findUserByPubId(user_id);           
+                    
             redirect('publisher/index');
         } elseif ($user->user_role == 'admin') {
+
             $adminDetails = $this->adminModel->findAdminById($user->user_id);
-            $_SESSION['admin_id'] = $adminDetails->admin_id;
-            // $publisher=$this->userModel->findUserByPubId(user_id);           
+            $_SESSION['admin_id'] = $adminDetails->admin_id;          
             redirect('admin/index');
          
         }elseif ($user->user_role == 'deliver') {
-            $deliverDetails = $this->deliveryModel->findDeliveryById($user->user_id);
 
+            $deliverDetails = $this->deliveryModel->findDeliveryById($user->user_id);
             $_SESSION['delivery_id'] = $deliveryDetails->delivery_id;
             redirect('delivery/index');
          
         }elseif ($user->user_role == 'customer') {
+
             $customerDetails = $this->customerModel->findCustomerById($user->user_id);
             $_SESSION['customer_id'] = $customerDetails->customer_id;
             redirect('customer/index');
@@ -879,6 +870,7 @@ class Landing extends Controller{
             redirect('charity/index');
         
         }elseif ($user->user_role == 'super_admin') {
+
             $superadminDetails = $this->superadminModel->findSuperAdminById($user->user_id);
             $_SESSION['superadmin_id'] = $superadminDetails->superadmin_id;
             // $publisher=$this->userModel->findUserByPubId(user_id);           
@@ -888,17 +880,16 @@ class Landing extends Controller{
             // $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
             // $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
             // $publisher=$this->userModel->findUserByPubId(user_id);           
-            redirect('moderator/index');
-        
+            redirect('moderator/index');   
         }
-
         elseif ($user->user_role == 'moderator'){
+
             $moderatorDetails = $this->moderatorModel->findModeratorById($user->user_id);
             $_SESSION['moderator_id'] = $moderatorDetails->moderator_id;
             redirect('moderator/index');
         }
-    
     }
+
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);    

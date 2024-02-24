@@ -13,15 +13,23 @@ require APPROOT . '\vendor\autoload.php';
   private $ordersModel;
   
   private $db;
-  public function __construct(
+  public function __construct() {
+    $this->adminModel = $this->model('Admins');
+    $this->userModel = $this->model('User'); // Instantiate User model directly
+    $this->ordersModel = $this->model('Orders');
+    $this->db = new Database();
 
-  ){
-      $this->adminModel=$this->model('Admins');
-      $this->userModel=$this->model('User');
-      $this->ordersModel = $this->model('Orders');
-      $this->db = new Database();
-
-  }
+    // if(isset($_SESSION['user_id'])) {
+    //     $user_id = $_SESSION['user_id'];
+    //     // Use $this->userModel to access getUserDetails method
+    //     $user = $this->userModel->getUserDetails($user_id);
+    //     if(!$user[0]->user_role == 'admin') {
+    //         redirect('landing/login');
+    //     }
+    // } else {
+    //     redirect('landing/login');
+    // }
+}
   //testing comment
   /*public function index(){
       
@@ -45,7 +53,7 @@ require APPROOT . '\vendor\autoload.php';
   }*/
 
   public function index(){
-    if (!isLoggedIn()) {
+    if (!isLoggedInAdmin()) {
         redirect('landing/login');
     } else {
 

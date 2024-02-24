@@ -30,11 +30,24 @@
             <div class="content0-C">
                 
                 <div class="content1-C">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/cont1.jpeg" alt="Book3" class="content-img-C"> <!--path changed-->
+                    <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>"  alt="Book3" class="content-img-C"> <!--path changed-->
                     <div class="content2-C">
                         <h1><?php echo $content->topic; ?></h1><br>
-                        <p><?php echo $content->text; ?>
-                        </p>
+                        <p>
+                            <?php 
+                                // Limit the text to 150 characters
+                                $limitedText = substr($content->text, 0, 400);
+                                echo $limitedText;
+                            ?>
+                            <?php if(strlen($content->text) > 150): ?>
+                                <span id="dots">...</span>
+                                <span id="more" style="display: none;">
+                                    <?php echo substr($content->text, 150); ?>
+                                </span>
+                                <a style="text-decoration:none;" href="<?php echo URLROOT; ?>/customer/viewcontent/<?php echo $content->content_id; ?> ">Read more</a>
+
+                            <?php endif; ?>
+            </p>
                     </div>
                 </div>
                 <div class="view-fav">
@@ -53,3 +66,5 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+
