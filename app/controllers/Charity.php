@@ -10,7 +10,9 @@ class Charity extends Controller{
         }
     }
     public function index(){
-        
+        // if(!isLoggedInCharity()){
+        //     redirect('landing/login');
+        // }
         
         $this->view('charity/index');
     }

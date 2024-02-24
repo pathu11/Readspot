@@ -21,7 +21,7 @@ class Delivery extends Controller{
         $this->db = new Database();
     }
     public function index(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -41,7 +41,7 @@ class Delivery extends Controller{
        
     }
     public function updatePricePerOne($delivery_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInDeliver()){
             redirect('landing/login');
         }
     
@@ -105,7 +105,7 @@ class Delivery extends Controller{
         
     }
     public function updatepriceAdditional($delivery_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInDeliver()){
             redirect('landing/login');
         }
     
@@ -171,7 +171,7 @@ class Delivery extends Controller{
     }
     
     public function shippingorders(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
     
@@ -199,7 +199,7 @@ class Delivery extends Controller{
         $this->view('delivery/shippingorders',$data);
     }
     public function notification(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
         if (isset($_SESSION['user_id'])) {
@@ -242,7 +242,7 @@ class Delivery extends Controller{
     }
     
     public function deliveredorders(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
     
@@ -271,7 +271,7 @@ class Delivery extends Controller{
         $this->view('delivery/deliveredorders',$data);
     }
     public function returnedorders(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
     
@@ -299,7 +299,7 @@ class Delivery extends Controller{
         $this->view('delivery/returnedorders',$data);
     }
     public function processedorders() {
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
     
@@ -326,7 +326,7 @@ class Delivery extends Controller{
         $this->view('delivery/processedorders', $data);
     }
     public function pickedUp($order_id){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
 
         }
@@ -371,7 +371,7 @@ class Delivery extends Controller{
         }
     }
     public function delivered($order_id){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
         $user_id = $_SESSION['user_id'];
@@ -418,7 +418,7 @@ class Delivery extends Controller{
     }
     
     public function returned($order_id){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
         $user_id = $_SESSION['user_id'];
@@ -499,7 +499,7 @@ class Delivery extends Controller{
    
     
     public function message(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
         $user_id = $_SESSION['user_id'];
@@ -552,7 +552,7 @@ class Delivery extends Controller{
     }
 
     public function viewMessage($message_id){
-        if (!isLoggedIn()) {
+        if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
         $deliveryid = null;

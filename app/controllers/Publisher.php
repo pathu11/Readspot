@@ -16,7 +16,7 @@ class Publisher extends Controller{
         
     }
     public function test(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -46,7 +46,7 @@ class Publisher extends Controller{
    
     
     public function index(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -75,7 +75,7 @@ class Publisher extends Controller{
     }
     
     public function editPostalForBooks($book_id) {
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }else{                  
             $user_id = $_SESSION['user_id'];
@@ -266,7 +266,7 @@ class Publisher extends Controller{
 
 
 public function editAccountForBooks($book_id) {
-    if (!isLoggedIn()) {
+    if (!isLoggedInPublisher()) {
         redirect('landing/login');
     }else{
 
@@ -329,7 +329,7 @@ public function editAccountForBooks($book_id) {
 }
    
     public function customerSupport(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         }else{
             $publisherid = null;
@@ -368,7 +368,7 @@ public function editAccountForBooks($book_id) {
 }
 
     public function viewMessage($message_id){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         }else{
             $publisherid = null;
@@ -413,7 +413,7 @@ public function editAccountForBooks($book_id) {
     
     public function deliveredorders()
 {
-    if (!isLoggedIn()) {
+    if (!isLoggedInPublisher()) {
         redirect('landing/login');
     }else{
 
@@ -466,7 +466,7 @@ public function editAccountForBooks($book_id) {
 }
 public function processingorders()
 {
-    if (!isLoggedIn()) {
+    if (!isLoggedInPublisher()) {
         redirect('landing/login');
     }else{
 
@@ -520,7 +520,7 @@ public function processingorders()
 
    
     public function shippedorders(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         }else{
             $publisherid = null;
@@ -574,7 +574,7 @@ public function processingorders()
 }
     
     public function returnedorders(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         }else{
             $publisherid = null;
@@ -631,7 +631,7 @@ public function processingorders()
     
     
     public function setting(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
@@ -646,7 +646,7 @@ public function processingorders()
       
     }
     public function editpostal($publisher_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }
     
@@ -742,7 +742,7 @@ public function processingorders()
     }
 
     public function editAccount($publisher_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }
     
@@ -826,7 +826,7 @@ public function processingorders()
     }
 
     public function editProfile($publisher_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }
     
@@ -946,7 +946,7 @@ public function processingorders()
             }  
     }
     public function message(){
-        if (!isLoggedIn()) {
+        if (!isLoggedInPublisher()) {
             redirect('landing/login');
         }
         $user_id = $_SESSION['user_id'];
@@ -1029,7 +1029,7 @@ public function processingorders()
 
 
     public function events(){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }
         else{
@@ -1047,7 +1047,7 @@ public function processingorders()
     }
 
     public function addEvent(){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('/landing/login');
         }
         
@@ -1164,7 +1164,7 @@ public function processingorders()
 
 
     public function addStore(){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }else{
     
@@ -1263,7 +1263,7 @@ public function processingorders()
 }
 
 public function stores(){
-    if(!isLoggedIn()){
+    if(!isLoggedInPublisher()){
         redirect('landing/login');
     }
     else{
@@ -1281,7 +1281,7 @@ public function stores(){
 }
 
     public function updateStore($store_id){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }else{
 
@@ -1408,7 +1408,7 @@ public function stores(){
     }
 
     public function messages(){
-        if(!isLoggedIn()){
+        if(!isLoggedInPublisher()){
             redirect('landing/login');
         }else{
 
