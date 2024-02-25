@@ -467,7 +467,7 @@
   }
   
   public function findContentById($content_id){
-    $this->db->query('SELECT c.*, cus.* FROM content c JOIN customers cus ON c.customer_id = cus.customer_id WHERE content_id = :content_id');
+    $this->db->query('SELECT c.*, cus.* FROM content c JOIN customers cus ON c.customer_id = cus.customer_id WHERE c.content_id = :content_id AND c.status="approval"');
     $this->db->bind(':content_id', $content_id);
     return $this->db->resultSet();
 }
@@ -653,7 +653,7 @@ public function findContentByCusId($customer_id){
   // return $row;
 }
 public function findContent(){
-  $this->db->query('SELECT * FROM content  ');
+  $this->db->query('SELECT * FROM content WHERE status="approval" ');
  
   return $this->db->resultSet();
 }

@@ -185,6 +185,7 @@ class Customer extends Controller {
                     }
                 }
                 if($this->customerModel->AddCont($data)){
+                    echo '<script>alert("Your content is successfully added!,Waiting for moderator\'s approval");</script>';
                     // flash('add_success','You are added the book  successfully');
                     redirect('customer/AddCont');
                 }else{
@@ -2143,7 +2144,7 @@ class Customer extends Controller {
             $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
             // $ratingCount = $this->customerModel->getRating($book_id);
-           
+        //    print_r($reviewDetails);
            
             $data = [
                 'customerDetails' => $customerDetails,

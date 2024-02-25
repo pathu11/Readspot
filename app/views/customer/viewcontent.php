@@ -13,16 +13,23 @@
     <div class="img-summary">
         <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
     <div class="text-summary">
+        <h3>Article Summary</h3>
+        <br>
+        <hr>
+        <br>
          <p><?php echo $content->text; ?></p>
     </div>
 </div>
 <div class="cont-details">
     <div class="pdf-view" style="overflow: auto;">
+    
+            <input id="pdf-url" style="display:none;" type="text" value="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>">
             <div id="pdf-viewer"></div>
             <button class="prev-btn" id="prev-page">Previous</button>
             <button class="next-btn" id="next-page">Next </button>
     </div>
     <div class="writer-details">
+   
         <h3>Writer's Information </h3>
         <br>
         <hr>
@@ -32,7 +39,7 @@
         <p style="font-size:15px;"><?php echo $content->email; ?></p>
         <br><br><br>
         <p class="down"><b>Download this Content as a PDF</b></p><br><br>
-            <a href="<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/Coursera KXRLQMGF3BZX.pdf" download>
+            <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
                 <button class="btn-d">Click Here</button>
             </a>
 
@@ -66,10 +73,10 @@
                     </div>
                 </div>
                 <div class="give-rate">
-                    <div class="post">
+                    <!-- <div class="post">
                         <div class="text">Thanks for rating us!</div>
                         <div class="edit">EDIT</div>
-                    </div>
+                    </div> -->
                     <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
@@ -236,19 +243,18 @@ const chart = new Chart(ctx, {
     // Function to render a specific page
     function renderPage(pageNumber) {
         pdf.getPage(pageNumber).then(function(page) {
-           // Get the viewport and calculate the scale
-        const viewport = page.getViewport({ scale: 1 });
-        const desiredWidth = 800; // Set your desired width here
-        const desiredHeight = 600; // Set your desired height here
-        const scale = Math.min(desiredWidth / viewport.width, desiredHeight / viewport.height);
+            // Get the viewport and calculate the scale
+            const viewport = page.getViewport({ scale: 1 });
+            const desiredWidth = 800; // Set your desired width here
+            const desiredHeight = 600; // Set your desired height here
+            const scale = Math.min(desiredWidth / viewport.width, desiredHeight / viewport.height);
 
-        // Get the scaled viewport and set canvas dimensions
-        const scaledViewport = page.getViewport({ scale: scale });
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = scaledViewport.width;
-        canvas.height = scaledViewport.height;
-
+            // Get the scaled viewport and set canvas dimensions
+            const scaledViewport = page.getViewport({ scale: scale });
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = scaledViewport.width;
+            canvas.height = scaledViewport.height;
 
             const renderContext = {
                 canvasContext: context,
@@ -263,17 +269,21 @@ const chart = new Chart(ctx, {
     }
 
     // Function to load the PDF
-    function loadPdf(url) {
-        pdfjsLib.getDocument(url).promise.then(function(pdfDocument) {
+    function loadPdf() {
+        const pdfUrl = document.getElementById('pdf-url').value;
+        // const pdfUrl='<?php echo URLROOT; ?>/assets/images/landing/addContents/1708867735pdf.pdf';
+        console.log('pdfUrl:', pdfUrl); // Check if the URL is retrieved correctly
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDocument) {
             pdf = pdfDocument;
             renderPage(currentPageNumber);
+        }).catch(function(error) {
+            console.error('Error loading PDF:', error); // Log any errors that occur during PDF loading
         });
     }
 
     // Load PDF when the page is loaded
     document.addEventListener('DOMContentLoaded', function() {
-        const pdfUrl = '<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/Coursera KXRLQMGF3BZX.pdf'; // Replace with your PDF URL
-        loadPdf(pdfUrl);
+        loadPdf();
     });
 
     // Event listener for previous page button
@@ -292,6 +302,8 @@ const chart = new Chart(ctx, {
         }
     });
 </script>
+
+
 </body>
 </html>
 
