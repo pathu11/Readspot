@@ -640,8 +640,6 @@ button:hover {
     th, td {
         display: none;
     }
-
-    /* Show specific columns */
     th:nth-child(1),
     td:nth-child(1), /* Book Name column */
     th:nth-child(7),
@@ -654,6 +652,38 @@ button:hover {
     td:nth-child(10) 
     {
         display: table-cell;
+    }
+
+    /* Ensure the action buttons are displayed */
+    .action-buttons a{
+        display: table-cell !important;
+    }
+    
+    /* Ensure the view details column is displayed */
+    .view-details-column {
+        display: table-cell !important;
+    }
+    
+    /* Style the buttons within the view details column */
+    .view-details-column button {
+        display: block;
+        margin: auto;
+        padding: 5px 10px;
+        background-color: #009D94;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    /* Style hover effect for buttons within the view details column */
+    .view-details-column button:hover {
+        background-color: #009D94;
+    }
+    
+    /* Ensure the view order button is displayed */
+    .view-order-button {
+        display: inline-block; /* Display the button for small screens */
     }
 
     #bookDetailsTable th,
@@ -669,10 +699,10 @@ button:hover {
     #bookDetailsTable td {
         border-bottom: 1px solid #ddd;
     }
-    .view-details-column {
+    /* .view-details-column {
         display: table-cell !important;
     }
-    
+   
     .view-details-column button {
         display: block;
         margin: auto;
@@ -688,8 +718,8 @@ button:hover {
         background-color: #009D94;
     }
     .view-order-button {
-        display: inline-block; /* Display the button for small screens */
-    }
+        display: inline-block; 
+    } */
 
   
 /* Style modal */

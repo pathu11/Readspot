@@ -467,10 +467,11 @@
   }
   
   public function findContentById($content_id){
-    $this->db->query('SELECT * from content WHERE content_id=:content_id');
-    $this->db->bind('content_id',$content_id);
+    $this->db->query('SELECT c.*, cus.* FROM content c JOIN customers cus ON c.customer_id = cus.customer_id WHERE content_id = :content_id');
+    $this->db->bind(':content_id', $content_id);
     return $this->db->resultSet();
-  }
+}
+
 
   public function getLastInsertedOrderId() {
     $this->db->query('SELECT LAST_INSERT_ID() as order_id');
