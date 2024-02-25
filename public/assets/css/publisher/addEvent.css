@@ -101,3 +101,21 @@ form{
   border-radius: 10px 0px 0px 10px;
 }
 
+@media screen and (max-width: 768px) {
+  .form-container {
+      flex-direction: column; /* Stack elements vertically */
+      width: 100%; /* Set full width */
+      margin: 0; /* Remove margin */
+  }
+
+  .form1 {
+      width: 100%; /* Set full width */
+      border-radius: 0; /* Remove border radius */
+  }
+
+  .bg img {
+      border-radius: 0; /* Remove border radius */
+  }
+}
+
+

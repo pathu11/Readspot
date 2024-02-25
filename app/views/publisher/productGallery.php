@@ -21,7 +21,7 @@
 <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a> -->
     <div class="container">
 
-        <table id="eventTable">
+        <table id="eventTable" class="responsive-table">
             <h2>Books Details</h2>
         <thead>
             <tr>
@@ -79,6 +79,7 @@
            
                 
         </table><br>
+        
         <div id="myModalImage" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModalImage()">&times;</span>

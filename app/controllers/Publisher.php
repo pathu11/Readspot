@@ -1048,7 +1048,7 @@ public function processingorders()
 
     public function addEvent(){
         if(!isLoggedInPublisher()){
-            redirect('/landing/login');
+            redirect('landing/login');
         }
         
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -1139,6 +1139,8 @@ public function processingorders()
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             }
             $data=[
+                'publisherDetails' => $publisherDetails,
+                'publisher_id' => $publisherDetails[0]->publisher_id,
                 'publisherName' => $publisherDetails[0]->name,
                 'eventCategoryDetails'=>$eventCategoryDetails,
                 'user_type'=> 'Publisher',
