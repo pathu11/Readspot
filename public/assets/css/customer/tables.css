@@ -32,13 +32,14 @@
     cursor: not-allowed;
 }
 
-.action-buttons .delete-button, .action-buttons .view-button {
+.action-buttons .delete-button, .action-buttons .view-button, .buttons-buttons .update-button {
     /* padding: 5px 10px; */
     cursor: pointer;
 }
 
 .delete-button,
-.view-button {
+.view-button,
+.update-button {
     position: relative;
     border-radius: 50px;
     cursor: pointer;
@@ -60,6 +61,12 @@
     opacity: 0.8;
     background-color: red;
 }
+
+.update-button:hover {
+    opacity: 0.8;
+    background-color: black;
+}
+
 @media  screen and (max-width:900px) {
     .mycontent {
         width: 100%;
@@ -68,7 +75,8 @@
 
 @media screen and (max-width:600px) {
     .delete-button,
-    .view-button {
+    .view-button,
+    .update-button {
         width: 20px;
         height: 20px;
     }
@@ -86,7 +94,8 @@
 
 @media screen and (max-width:400px) {
     .delete-button,
-    .view-button {
+    .view-button,
+    .update-button {
         width: 20px;
         height: 20px;
     }
