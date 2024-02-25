@@ -15,7 +15,7 @@ define('DB_NAME','readspot');
 
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
- define('URLROOT','http://localhost/Readspot');
+define('URLROOT','http://localhost:8080/Group-27');
 
 
 define('SITENAME','Readspot');
