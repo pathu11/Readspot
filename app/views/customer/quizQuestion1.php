@@ -12,6 +12,8 @@
   <div class="question">
     <p style="color:#0B5E70"><strong>Question 01</strong></p>
     <p><?php echo $data['question'];?>?</p>
+    <p class="timer" id="countdown" style="color: red;"></p>
+    <script src="<?php echo URLROOT;?>/assets/js/moderator/quiz.js"></script>
   </div>
   <div class="img-options">
     <div class="image">
