@@ -39,12 +39,12 @@
             }
             ?>
           <td class="action-buttons">
-                    <button class="view-button" onclick="viewEvent('<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>')">
+                    <button class="view-button" onclick="viewContent('<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->poster; ?>')">
                         <i class="fas fa-eye"></i>
                     </button>
 
                         <button class="update-button" data-content-id="<?php echo $content->content_id; ?>" >
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-check"></i>
                         </button>
                         <button class="delete-button" onclick="RejectContent(<?php echo $content->content_id; ?>)">
                             <i class="fas fa-trash"></i>
