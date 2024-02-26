@@ -15,8 +15,8 @@ define('DB_NAME','readspot');
 
 define('APPROOT', dirname(dirname(__FILE__)));
 // url root-public folder
-//  define('URLROOT','http://localhost/Readspot');
- define('URLROOT','https://59ce-2402-4000-21c3-1ca1-b0bc-6160-a6ca-ad07.ngrok-free.app/Readspot');
+ define('URLROOT','http://localhost/Readspot');
+//  define('URLROOT','https://59ce-2402-4000-21c3-1ca1-b0bc-6160-a6ca-ad07.ngrok-free.app/Readspot');
  
 
 define('SITENAME','Readspot');
