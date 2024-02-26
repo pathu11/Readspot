@@ -28,11 +28,11 @@
                     <div class="topic-book author">
                         <label class="label-topic">Event Category</label><br>
                         <select id="category"  name="category" required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <option value="Author Talks">Author Talks</option>
+                            <option value="Book Launch">Book Launch</option>
+                            <option value="Book Fair">Book Fair</option>
+                            <option value="Book Club Meeting">Book Club Meeting</option>
+                            <option value="Book Swap Event">Book Swap Event</option>
                         </select>
                     </div>
                 </div>

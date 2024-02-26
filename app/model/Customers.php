@@ -372,6 +372,53 @@
       }
     }
 
+    public function UpdateEvent($data){
+      $this->db->query('UPDATE events 
+                SET title = :title, 
+                description = :description, 
+                location = :location, 
+                category_name = :category_name,
+                start_date = :start_date,
+                end_date = :end_date,
+                start_time = :start_time,
+                end_time = :end_time,
+                poster = :poster,
+                img1 = :img1,
+                img2 = :img2,
+                img3 = :img3,
+                img4 = :img4,
+                img5 = :img5,
+                user_id = :user_id,
+                status = :status
+                WHERE id = :id');
+
+      // Bind values
+      $this->db->bind(':title',$data['title']);
+      $this->db->bind(':description',$data['description']);
+      $this->db->bind(':location',$data['location']);
+      $this->db->bind(':category_name',$data['category_name']);
+      $this->db->bind(':start_date',$data['start_date']);
+      $this->db->bind(':end_date',$data['end_date']);
+      $this->db->bind(':start_time',$data['start_time']);
+      $this->db->bind(':end_time',$data['end_time']);
+      $this->db->bind(':poster',$data['poster']);
+      $this->db->bind(':img1',$data['img1']);
+      $this->db->bind(':img2',$data['img2']);
+      $this->db->bind(':img3',$data['img3']);
+      $this->db->bind(':img4',$data['img4']);
+      $this->db->bind(':img5',$data['img5']);
+      $this->db->bind(':user_id', $data['user_id']);
+      $this->db->bind(':id', $data['id']);
+      $this->db->bind(':status', $data['status']);
+
+      // Execute
+      if ($this->db->execute()) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
     public function deleteusedbook($book_id) {
       $this->db->query('DELETE FROM books WHERE book_id = :book_id');
       // Bind values
