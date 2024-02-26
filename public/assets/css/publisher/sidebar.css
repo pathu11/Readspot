@@ -12,6 +12,7 @@ body {
   background: #f4f4f4;
 }
 nav {
+  padding-right:10px;
   position: fixed;
   top: 0;
   left: 0;
@@ -248,4 +249,23 @@ nav.open ~ .overlay {
   50%  {background-color:#066761; left:200px; top:200px;}
   75%  {background-color:#02514C; left:0px; top:200px;}
   100% {background-color:#70BFBA; left:0px; top:0px;}
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+      margin-left: 12px; /* Adjust the margin for smaller screens */
+  }
+
+  .logo-name {
+      font-size: 24px; /* Decrease font size for smaller screens */
+  }
+
+  .user-info {
+      margin-right: 12px; /* Adjust the margin for smaller screens */
+  }
+
+  .user-info img {
+      width: 30px; /* Decrease image size for smaller screens */
+      height: 30px;
+  }
 }

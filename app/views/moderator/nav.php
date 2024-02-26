@@ -24,7 +24,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT;?>/moderator/contents" class="nav-link">
                 <i class="bx bxs-book-content icon"></i>
                 <span class="link">Contents</span>
               </a>

@@ -39,7 +39,7 @@
                 <th >Customer Details</th>
                 <th >Total Price(Rs)</th>
                
-
+                <th class="view-details-column">View</th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +49,11 @@
                 <td ><?php echo $orderDetails->book_id; ?></td>
                 <td ><?php echo $orderDetails->quantity; ?></td>
                 <td ><?php echo $data['customerName']; ?></td>
-                <td ><?php echo $orderDetails->total_price; ?></td>               
+                <td ><?php echo $orderDetails->total_price; ?></td>   
+                <td class="view-details-column">
+                <button class="view-order-button" data-tracking="<?php echo $orderDetails->tracking_no; ?>">View </button>
+
+                </td>            
                 
             </tr>
             <?php endforeach; ?> 
@@ -93,6 +97,30 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+    $('.view-order-button').on('click', function () {
+        var trackingNumber = $(this).data('tracking');
+        $.ajax({
+            url: '<?php echo URLROOT; ?>/publisher/FindOrdersByTracking',
+            type: 'POST',
+            data: { tracking_no: trackingNumber },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+
+                if (response.error) {
+                    console.log(response.error);
+                } else {
+                    displaySearchResults(response);
+                }
+            },
+            error: function () {
+                console.log('Error fetching order details.');
+            }
+        });
+    });
+});
+
         $(document).ready(function () {
     $('#search-button').on('click', function () {
         var trackingNumber = $('#live-search').val();

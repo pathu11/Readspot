@@ -22,7 +22,11 @@
       $this->db->query('SELECT * FROM events WHERE status = "Pending"');
       return $this->db->resultSet();
     }
-
+    
+    public function findPendingContents(){
+      $this->db->query('SELECT * FROM content WHERE status = "pending"');
+      return $this->db->resultSet();
+    }
     public function approveEvent($id){
       $this->db->query("UPDATE events SET status = 'Approved' WHERE id = :id");
       $this->db->bind(':id', $id);
@@ -32,7 +36,26 @@
         return false;
       }
     }
-
+    public function approveContent($content_id){
+      $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
+      $this->db->bind(':status',"approval");
+      $this->db->bind(':content_id',$content_id);
+      if ($this->db->execute()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    public function rejectContent($content_id){
+      $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
+      $this->db->bind(':status',"reject");
+      $this->db->bind(':content_id',$content_id);
+      if ($this->db->execute()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
     public function getMessageDetails($user_id){
       $this->db->query('
           SELECT 

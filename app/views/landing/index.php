@@ -103,22 +103,22 @@
         }
 
         function service3() {
-            var url = "http://localhost/Group-27/app/views/customer/Exchange-Book.php";
+            var url = "<?php echo URLROOT; ?>/customer/Exchange-Book.php";
             window.location.href = url;
         }
 
         function service4() {
-            var url = "http://localhost/Group-27/app/views/customer/DonateBooks.php";
+            var url = "<?php echo URLROOT; ?>/customer/DonateBooks.php";
             window.location.href = url;
         }
 
         function service5() {
-            var url = "http://localhost/Group-27/app/views/customer/BookContents.php";
+            var url = "<?php echo URLROOT; ?>/customer/BookContents.php";
             window.location.href = url;
         }
 
         function service6() {
-            var url = "http://localhost/Group-27/app/views/customer/BookEvents.php";
+            var url = "<?php echo URLROOT; ?>/customer/Event.php";
             window.location.href = url;
         }
 
