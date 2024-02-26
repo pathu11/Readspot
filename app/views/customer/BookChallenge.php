@@ -12,20 +12,15 @@
             <h2>Ongoing Challenges</h2>
             <table>
                 <tr>
-                    <th>Quiz Name</th>
-                    <th>Time Limit</th>
-                    <th>Attempt/Already Attempted</th>
-                </tr>
-                <tr>
                    <?php foreach($data['challengeDetails'] as $challenge):?>
                     <td><?php echo $challenge->title?></td>
-                    <td><?php echo $challenge->time_limit?> minutes</td>
+                
                     <td>
-                    <?php if($challenge->user_id==$_SESSION['user_id']){
+                    <?php if($challenge->attempted_by_user==$_SESSION['user_id']){
                         echo '<h3>Already Attemped</h3>';
                     }
                     else{
-                        echo '<button onclick="showAcceptPopup(\'' . $challenge->quiz_id . '\')">Attempt</button>';
+                        echo '<div class="wrap"><button onclick="showAcceptPopup(\'' . $challenge->quiz_id . '\')" class="btn">Attempt</button></div>';
 
                     }
                     ?>

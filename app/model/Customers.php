@@ -643,8 +643,6 @@ public function editOrderCardPayment($data){
 }
 
 
-
-
 public function findContentByCusId($customer_id){
   $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id');
   $this->db->bind(':customer_id', $customer_id);
@@ -743,8 +741,13 @@ public function findReviewsByContentId($content_id){
   return $this->db->resultSet();
 }
 
-public function getOngoingChallenges(){
-  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description,q.time_limit, h.user_id FROM quiz q LEFT JOIN history h ON q.quiz_id = h.quiz_id WHERE q.end_date > NOW()');
+public function getOngoingChallenges($user_id){
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, 
+                    h.user_id AS attempted_by_user
+                    FROM quiz q 
+                    LEFT JOIN history h ON q.quiz_id = h.quiz_id AND h.user_id = :user_id
+                    WHERE q.end_date > NOW()');
+  $this->db->bind(':user_id',$user_id);
   return $this->db->resultSet();
 }
 
@@ -789,14 +792,6 @@ public function getQuizScore($quiz_id,$user_id){
   return $this->db->resultSet();
 }
 
-
-      // Execute
-      // if ($this->db->execute()) {
-      //     return true;
-      // } else {
-      //     return false;
-      // }
-  // }
   public function findDetailsByCartId($cartId){
     $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
     FROM cart c 
@@ -805,14 +800,7 @@ public function getQuizScore($quiz_id,$user_id){
     $this->db->bind(':cart_id', $cartId);
     return $this->db->resultSet();
   }
-  // public function findDetailsByCartId($cartId){
-  //   $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price,b.quantity AS maxQuantity,c.quantity AS nowQuantity,b.type AS type,b.book_id AS book_id
-  //                     FROM cart c 
-  //                     JOIN books b ON c.book_id = b.book_id 
-  //                     WHERE c.cart_id = :cart_id ');
-  //   $this->db->bind(':cart_id', $cartId);
-  //   return $this->db->resultSet();
-  // }
+
 
   public function findBookById($book_id){
     $this->db->query('SELECT * from books WHERE book_id=:book_id ');
