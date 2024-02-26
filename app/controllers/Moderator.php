@@ -261,6 +261,67 @@
         $this->view('moderator/chat',$data);
       }
     }
+    public function contents(){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        $user_id = $_SESSION['user_id'];
+        $contentDetails=$this->moderatorModel->findPendingContents();
+        $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+        $data = [
+          'moderatorDetails' => $moderatorDetails,
+          'moderatorName'=>$moderatorDetails[0]->name,
+          'contentDetails'=>$contentDetails
+      ];
+        $this->view('moderator/contents',$data);
+      }
+    }
+    public function approveContent(){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $data = json_decode(file_get_contents("php://input"));
+          $content_id = $data->content_id;
+  
+          if($content_id){
+            if($this->moderatorModel->approveContent($content_id)){
+              $response = ['success' => true]; 
+              echo json_encode($response);
+            }
+          }
+          
+      } else {
+          // If the request method is not POST, return an error response
+          $response = ['success' => false, 'message' => 'Invalid request method'];
+          echo json_encode($response);
+      }
+      }
+    }
+    public function RejectContent($content_id) {
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $data = json_decode(file_get_contents("php://input"));
+          $content_id = $data->content_id;
+          $reason=$data->reason;
+  
+          if($content_id && reason){
+            if($this->moderatorModel->rejectContent($content_id)){
+              
+              $response = ['success' => true]; 
+              echo json_encode($response);
+            }
+          }
+          
+      } else {
+          // If the request method is not POST, return an error response
+          $response = ['success' => false, 'message' => 'Invalid request method'];
+          echo json_encode($response);
+      }
+      }
+    }
   
   
   }

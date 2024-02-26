@@ -7,21 +7,45 @@
 
 </head>
 <?php foreach($data['contentDetails'] as $content): ?>
-    <div class="main-content-div">
+<div class="main-content-div">
     
         <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
     <div class="img-summary">
         <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
-       <div>
+    <div class="text-summary">
+        <h3>Article Summary</h3>
+        <br>
+        <hr>
+        <br>
          <p><?php echo $content->text; ?></p>
-       </div>
     </div>
-        <div class="cont-details">
-            
+</div>
+<div class="cont-details">
+    <div class="pdf-view" style="overflow: auto;">
+    
+            <input id="pdf-url" style="display:none;" type="text" value="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>">
             <div id="pdf-viewer"></div>
-            <button id="prev-page">Previous Page</button>
-            <button id="next-page">Next Page</button>
-        </div>
+            <button class="prev-btn" id="prev-page">Previous</button>
+            <button class="next-btn" id="next-page">Next </button>
+    </div>
+    <div class="writer-details">
+   
+        <h3>Writer's Information </h3>
+        <br>
+        <hr>
+        <br>
+        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $content->profile_img; ?>"><br><br>
+        <p style="font-size:18px;"><?php echo $content->name; ?> </p>
+        <p style="font-size:15px;"><?php echo $content->email; ?></p>
+        <br><br><br>
+        <p class="down"><b>Download this Content as a PDF</b></p><br><br>
+            <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
+                <button class="btn-d">Click Here</button>
+            </a>
+
+</div>
+</div>
+
 <?php endforeach; ?>
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
@@ -49,10 +73,10 @@
                     </div>
                 </div>
                 <div class="give-rate">
-                    <div class="post">
+                    <!-- <div class="post">
                         <div class="text">Thanks for rating us!</div>
                         <div class="edit">EDIT</div>
-                    </div>
+                    </div> -->
                     <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
@@ -205,54 +229,81 @@ const chart = new Chart(ctx, {
 
     </script>
 <script>
-        // PDF.js script
-        // URL of the PDF file
-        var pdfUrl = '<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/my.pdf';
-        var currentPage = 1; 
-        function renderPage(pageNumber) {
-            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
-                // Check if the page number is within the bounds
-                if (pageNumber >= 1 && pageNumber <= pdf.numPages) {
-                    pdf.getPage(pageNumber).then(function(page) {
-                        var scale = 1.5;
-                        var viewport = page.getViewport({ scale: scale });
+    // Initialize variables
+    let pdf = null;
+    let currentPageNumber = 1;
+    const pdfViewer = document.getElementById('pdf-viewer');
+    const prevPageButton = document.getElementById('prev-page');
+    const nextPageButton = document.getElementById('next-page');
 
-                        // Prepare canvas using PDF page dimensions
-                        var canvas = document.createElement('canvas');
-                        var context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
+    // PDF.js rendering
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
 
-                        // Render PDF page into canvas context
-                        var renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext).promise.then(function() {
-                            // Clear previous content before appending new page
-                            document.getElementById('pdf-viewer').innerHTML = '';
-                            document.getElementById('pdf-viewer').appendChild(canvas);
-                        });
-                    });
-                }
+    // Function to render a specific page
+    function renderPage(pageNumber) {
+        pdf.getPage(pageNumber).then(function(page) {
+            // Get the viewport and calculate the scale
+            const viewport = page.getViewport({ scale: 1 });
+            const desiredWidth = 800; // Set your desired width here
+            const desiredHeight = 600; // Set your desired height here
+            const scale = Math.min(desiredWidth / viewport.width, desiredHeight / viewport.height);
+
+            // Get the scaled viewport and set canvas dimensions
+            const scaledViewport = page.getViewport({ scale: scale });
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = scaledViewport.width;
+            canvas.height = scaledViewport.height;
+
+            const renderContext = {
+                canvasContext: context,
+                viewport: scaledViewport
+            };
+
+            page.render(renderContext).promise.then(function() {
+                pdfViewer.innerHTML = ''; // Clear previous page
+                pdfViewer.appendChild(canvas);
             });
+        });
+    }
+
+    // Function to load the PDF
+    function loadPdf() {
+        const pdfUrl = document.getElementById('pdf-url').value;
+        // const pdfUrl='<?php echo URLROOT; ?>/assets/images/landing/addContents/1708867735pdf.pdf';
+        console.log('pdfUrl:', pdfUrl); // Check if the URL is retrieved correctly
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDocument) {
+            pdf = pdfDocument;
+            renderPage(currentPageNumber);
+        }).catch(function(error) {
+            console.error('Error loading PDF:', error); // Log any errors that occur during PDF loading
+        });
+    }
+
+    // Load PDF when the page is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        loadPdf();
+    });
+
+    // Event listener for previous page button
+    prevPageButton.addEventListener('click', function() {
+        if (pdf && currentPageNumber > 1) {
+            currentPageNumber--;
+            renderPage(currentPageNumber);
         }
+    });
 
-        // Initial render of the first page
-        renderPage(currentPage);
+    // Event listener for next page button
+    nextPageButton.addEventListener('click', function() {
+        if (pdf && currentPageNumber < pdf.numPages) {
+            currentPageNumber++;
+            renderPage(currentPageNumber);
+        }
+    });
+</script>
 
-        // Event listener for next page button
-        document.getElementById('next-page').addEventListener('click', function() {
-            currentPage++; // Increment current page
-            renderPage(currentPage); // Render the next page
-        });
 
-        // Event listener for previous page button
-        document.getElementById('prev-page').addEventListener('click', function() {
-            currentPage--; // Decrement current page
-            renderPage(currentPage); // Render the previous page
-        });
-    </script>
 </body>
 </html>
 

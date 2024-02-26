@@ -13,7 +13,7 @@
         <div class="login">
             <h1>Sign up <br>as a</h1>
             <div class="types">
-                <a href="<?php echo URLROOT; ?>/landing/signupCustomer"><button class="ctg">CUSTOMER</button></a>
+                <a href="<?php echo URLROOT; ?>/landing/sendEmailCustomer"><button class="ctg">CUSTOMER</button></a>
                 <a href="<?php echo URLROOT; ?>/landing/signupPub"><button class="ctg">PUBLISHER</button></a>
                 <a href="<?php echo URLROOT; ?>/landing/signupCharity"><button class="ctg">CHARITY ORGANIZATION</button></a>
             </div>

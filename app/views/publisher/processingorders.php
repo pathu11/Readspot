@@ -40,6 +40,7 @@
                 <th >Total Cost(Rs)</th>
                 <th >Total Delivery Fee(Rs)</th>
                 <th >Total Income(Rs)</th>
+                <th class="view-details-column">View</th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +53,11 @@
                 <td ><?php echo $orderDetails->total_price; ?></td>
                 <td ><?php echo $orderDetails->total_delivery; ?></td>
                 <td ><?php echo $orderDetails->total_price - $orderDetails->total_delivery; ?></td>               
-                
+                <td class="view-details-column">
+                <button class="view-order-button" data-tracking="<?php echo $orderDetails->tracking_no; ?>">View </button>
+
+                </td>
+
             </tr>
             <?php endforeach; ?> 
             </tbody>
@@ -117,6 +122,30 @@
         });
     });
 });
+$(document).ready(function () {
+    $('.view-order-button').on('click', function () {
+        var trackingNumber = $(this).data('tracking');
+        $.ajax({
+            url: '<?php echo URLROOT; ?>/publisher/FindOrdersByTracking',
+            type: 'POST',
+            data: { tracking_no: trackingNumber },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+
+                if (response.error) {
+                    console.log(response.error);
+                } else {
+                    displaySearchResults(response);
+                }
+            },
+            error: function () {
+                console.log('Error fetching order details.');
+            }
+        });
+    });
+});
+
 
 function displaySearchResults(response) {
     var searchresult = $('#searchresult');
@@ -184,6 +213,7 @@ function displaySearchResults(response) {
     // Show the modal after updating the content
     document.getElementById("myModal").style.display = "block";
 }
+
 
     </script>
 </html>
