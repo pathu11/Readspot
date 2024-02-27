@@ -1029,6 +1029,28 @@ class Customer extends Controller {
         echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
 
     }
+    public function addToCartByEachBook($bookId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        }
+        print_r($bookId);
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $customer_id=$customerDetails[0]->customer_id;
+        $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
+        
+        if ($bookId && $quantity && $customer_id) {
+            if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
+               redirect('customer/Cart');
+            }
+        }else{
+            echo '<script>alert("eroor");</script>';
+            redirect('customer/BuyNewBooks');
+        }
+    
+       
+
+    }
     
     public function Cart(){
         if (!isLoggedInCustomer()) {

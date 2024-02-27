@@ -56,7 +56,7 @@
                                 <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
                                 <div class="fav-cart">
                                     <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                                    <a href="<?php echo URLROOT; ?>/customer/Cart"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
                                 </div>
                             </div>
                         </a>
@@ -104,7 +104,7 @@
                     <h3><?php echo $books->price; ?></h3>
                     <div class="fav-cart">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <a href="<?php echo URLROOT; ?>/customer/Cart"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
                     </div>
                 </div>
             </a>

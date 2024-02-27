@@ -171,14 +171,14 @@
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
                     <p><?php echo $reviews->review; ?></p>
-                    <div class="helpful">
+                    <!-- <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <div class="yes-no">
                             <h3>Yes</h3>
                             <h3>No</h3>
                         </div>
                     </div>
-                    <h5>13 people found this helpful</h5>
+                    <h5>13 people found this helpful</h5> -->
                 </div>
                 <?php endforeach; ?>
                 

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/sidebar.css" />
     <style>
+      
         .new-store-form,
         .select-store-form,
         .default-store-form {
@@ -18,7 +19,7 @@
 </head>
 
 <body>
-   
+<?php require APPROOT . '/views/publisher/sidebar.php';?>
     <div>
         <div class="form-container">
             <div class="form1">
@@ -26,22 +27,20 @@
                 <br>
                     <br>
 
-                    <label>
-                        <input type="radio" name="addressType" value="selectStore">
-                        Select Address from Store Table
-                    </label>
-                    <br>
-                    <br>
-
-                    <label>
-                        <input type="radio" name="addressType" value="newStore">
-                        Add New Store
-                    </label>
-                    <br><br>
-                    <label>
-                        <input type="radio" name="addressType" value="defaultAddress">
-                        Use Default Address
-                    </label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="addressType" value="selectStore">
+                            Select Address from Store Table
+                        </label>
+                        <label>
+                            <input type="radio" name="addressType" value="newStore">
+                            Add New Store
+                        </label>
+                        <label>
+                            <input type="radio" name="addressType" value="defaultAddress">
+                            Use Default Address
+                        </label>
+                    </div>
                     
                     <br><br>
                     <div class="new-store-form">
@@ -93,20 +92,18 @@
                     </form>
                     </div>
                     <div class="select-store-form">
-                    <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
-                        <input type="hidden" name="form_type" value="selectStore">
-                        <?php foreach($data['storeDetails'] as $store): ?>
-                            <label>
-                                <input type="radio" name="selectedStore" value="<?php echo $store->store_id; ?>">
-                                <?php echo  $store->postal_name . ", " . $store->street_name . ", " . $store->town . ", " . $store->district . ", " . $store->postal_code; ?>
-                            </label>
-                            <br>
-                        <?php endforeach; ?>
-                        <br><br>
-                        <button class="submit" type="button" onclick="goBack()">Back</button>
-                        <input type="submit" value="Next" name="submit" class="submit">
-                    </form>
-                       
+                        <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">
+                            <input type="hidden" name="form_type" value="selectStore">
+                            <?php foreach($data['storeDetails'] as $store): ?>
+                                <input type="radio" id="<?php echo $store->store_id; ?>" name="selectedStore" value="<?php echo $store->store_id; ?>" <?php if(isset($_POST['selectedStore']) && $_POST['selectedStore'] == $store->store_id) echo 'checked'; ?>>
+                                <label for="<?php echo $store->store_id; ?>">
+                                    <?php echo  $store->postal_name . ", " . $store->street_name . ", " . $store->town . ", " . $store->district . ", " . $store->postal_code; ?>
+                                </label>
+                            <?php endforeach; ?>
+                            <br><br>
+                            <button class="submit" type="button" onclick="goBack()">Back</button>
+                            <input type="submit" value="Next" name="submit" class="submit">
+                        </form>
                     </div>
                     <div class="default-store-form">
                     <form action="<?php echo URLROOT; ?>/publisher/editPostalForBooks/<?php echo $data['book_id']; ?>" method="POST">

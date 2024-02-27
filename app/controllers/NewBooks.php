@@ -41,7 +41,7 @@ class NewBooks extends Controller{
 
 public function addbooks(){
     if(!isLoggedInPublisher()){
-        redirect('/landing/login');
+        redirect('landing/login');
     }else{
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
@@ -57,7 +57,7 @@ public function addbooks(){
                 if ($publisherDetails) {
                 
                     $publisherid = $publisherDetails[0]->publisher_id;
-                    $publisherName = $publisherDetails[1]->name;                   
+                    $publisherName = $publisherDetails[0]->name;                   
                 } else {
                     echo "Not found";
                 }
@@ -71,10 +71,8 @@ public function addbooks(){
                 'weight' => trim($_POST['weight']),
                 'descript' => trim($_POST['descript']),
                 'quantity' => trim($_POST['quantity']),
-                'publisher_id' => trim($publisherid),// Replace this with the actual publisher ID
-                // 'img1' => trim($_POST['img1']),
-                // 'img2' => trim($_POST['img2']),
-                // 'book_name'=>trim($_POST['book_name']),
+                'publisher_id' => trim($publisherid),
+               
                 'img1'=>'',
                 'img2'=>'',
                 'book_name_err'=>'',
@@ -110,7 +108,7 @@ public function addbooks(){
             
             if(empty($data['price'])){
                 $data['price_err']='Please enter the price';      
-            }else if($data['price']<0 ){
+            }else if($data['price']<1 ){
                 $data['price_err']='Please enter a valid price'; 
             }
             if(empty($data['category'])){
@@ -118,7 +116,7 @@ public function addbooks(){
             }
             if(empty($data['weight'])){
                 $data['weight_err']='Please enter the weight';      
-            }else if($data['weight']<0 ){
+            }else if($data['weight']<1 ){
                 $data['weight_err']='Please enter a valid weight'; 
             }
             if(empty($data['descript'])){
@@ -127,7 +125,7 @@ public function addbooks(){
             // Validate book quantity
             if (empty($data['quantity'])) {
                 $data['quantity_err'] = 'Please enter the number of books';
-            } else if (!filter_var($data['quantity'], FILTER_VALIDATE_INT) || $data['quantity'] < 0) {
+            } else if (!filter_var($data['quantity'], FILTER_VALIDATE_INT) || $data['quantity'] < 1) {
                 $data['quantity_err'] = 'Please enter a valid positive integer';
             }
             //make sure errors are empty
@@ -198,7 +196,8 @@ public function addbooks(){
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($publisherDetails) {
-                    $publisherName = $publisherDetails[0]->name;                   
+                    $publisherName = $publisherDetails[0]->name;  
+                    // $publisherName = $publisherDetails[0]->name;                   
                 } else {
                     echo "Not found";
                 }
@@ -206,7 +205,7 @@ public function addbooks(){
             $data=[
                 'publisherDetails' => $publisherDetails,
                 'bookCategoryDetails'=>$bookCategoryDetails,
-                'publisherName'=>$publisherName,
+                'publisherName'=>$publisherDetails[0] ->name,
                 'book_name' => '',
                 'ISBN_no' => '',
                 'author' => '',
