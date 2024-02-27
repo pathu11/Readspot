@@ -9,6 +9,8 @@
             visibility: hidden;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body> 
     <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultipleView">
@@ -46,14 +48,14 @@
                
                 <table border="1">
                     <tr>
-                        <th style="width:17%;">Item</th>
+                        <th >Item</th>
                         <th>Quantity</th>
                         <th>Subcost</th>
                     </tr>
 
                     <?php foreach ($data['bookDetails'] as $index => $book): ?>
                         <tr>
-                            <td style="width:17%;">
+                            <td >
                                 <?php
                                 if ($book[0]->type == "new") {
                                     echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $book[0]->img1 . '" alt="Bell Image" width="100px">';
@@ -66,11 +68,11 @@
                             </td>
                             <td>
                                 <div style="justify-content: flex-start;" class="cart-item">
-                                    <a class="quantity-button" onclick="decrement(<?php echo $index; ?>)">-</a>
-                                    <span id="quantity_<?php echo $index; ?>" onchange="updateQuantity(<?php echo $index; ?>)">
+                                    <a class="quantity-button-p" onclick="decrement(<?php echo $index; ?>)"><i class="fas fa-minus"></i></a>
+                                    <span class="span" id="quantity_<?php echo $index; ?>" onchange="updateQuantity(<?php echo $index; ?>)">
                                         <?php echo $book[0]->nowQuantity; ?>
                                     </span>
-                                    <a class="quantity-button" onclick="increment(<?php echo $index; ?>)">+</a>
+                                    <a class="quantity-button-p" onclick="increment(<?php echo $index; ?>)"><i class="fas fa-plus"></i></a>
                                     <input id="book_quantity_<?php echo $index; ?>" name="book_quantities[]" class="visible" value="<?php echo $book[0]->nowQuantity; ?>">
                                 </div>
                                 <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">

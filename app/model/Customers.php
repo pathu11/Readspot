@@ -695,18 +695,47 @@ public function addReview($data){
 }
 public function getAverageRatingByBookId($book_id) {
  
-  $this->db->query('SELECT AVG(rate) AS average_rating FROM reviews WHERE book_id = :book_id');
+  $this->db->query('SELECT AVG(rate) AS average_rating , COUNT(*) AS total_reviews  FROM reviews WHERE book_id = :book_id');
   $this->db->bind(':book_id', $book_id);
   return $this->db->single(); // Assuming you only expect one result
 }
 
-
-public function findReviewsByBookId($book_id){
-  $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM reviews r JOIN customers c ON r.customer_id = c.customer_id WHERE book_id = :book_id');
-  $this->db->bind(':book_id', $book_id);
-  
-  return $this->db->resultSet();
-}
+  public function countStar_1($book_id){
+    $this->db->query('SELECT COUNT(*) AS total_1 FROM reviews WHERE book_id = :book_id AND rate=:rate ');
+    $this->db->bind(':book_id', $book_id);
+    $this->db->bind(':rate', "1");
+    return $this->db->single();
+  }
+  public function countStar_2($book_id){
+    $this->db->query('SELECT COUNT(*) AS total_2 FROM reviews WHERE book_id = :book_id AND rate=:rate ');
+    $this->db->bind(':book_id', $book_id);
+    $this->db->bind(':rate', "2");
+    return $this->db->single();
+  }
+  public function countStar_3($book_id){
+    $this->db->query('SELECT COUNT(*) AS total_3 FROM reviews WHERE book_id = :book_id AND rate=:rate ');
+    $this->db->bind(':book_id', $book_id);
+    $this->db->bind(':rate', "3");
+    return $this->db->single();
+  }
+  public function countStar_4($book_id){
+    $this->db->query('SELECT COUNT(*) AS total_4 FROM reviews WHERE book_id = :book_id AND rate=:rate ');
+    $this->db->bind(':book_id', $book_id);
+    $this->db->bind(':rate', "4");
+    return $this->db->single();
+  }
+  public function countStar_5($book_id){
+    $this->db->query('SELECT COUNT(*) AS total_5 FROM reviews WHERE book_id = :book_id AND rate=:rate ');
+    $this->db->bind(':book_id', $book_id);
+    $this->db->bind(':rate', "5");
+    return $this->db->single();
+  }
+  public function findReviewsByBookId($book_id){
+    $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM reviews r JOIN customers c ON r.customer_id = c.customer_id WHERE book_id = :book_id');
+    $this->db->bind(':book_id', $book_id);
+    
+    return $this->db->resultSet();
+  }
 public function getRating($book_id) {
   $query = "SELECT 
             CONCAT(rate, ' Star') AS rating, 

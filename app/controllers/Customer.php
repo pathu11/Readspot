@@ -784,21 +784,25 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $reviewDetails=$this->customerModel->findReviewsByBookId($book_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByBookId($book_id);
-            $ratingCount = $this->customerModel->getRating($book_id);
-           
-           
+            $countStar_1 = $this->customerModel->countStar_1($book_id);
+            $countStar_2 = $this->customerModel->countStar_2($book_id);
+            $countStar_3 = $this->customerModel->countStar_3($book_id);
+            $countStar_4 = $this->customerModel->countStar_4($book_id);
+            $countStar_5 = $this->customerModel->countStar_5($book_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'bookDetails'=>$bookDetails,
                 'reviewDetails'=>$reviewDetails,
-                'ratingCount'=>$ratingCount,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
                 'averageRatingCount'=>$averageRatingCount
-                // 'ratingDistribution'=>$ratingDistribution
             ];
-            // print_r($data['ratingCount']);
-            // var_dump($data['rating_1']->rate_1_count);
+            // print_r($data['countStar_1']);
             $this->view('customer/BookDetails', $data);
         }
     }
