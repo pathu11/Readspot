@@ -267,4 +267,56 @@
             font-weight: bold;
             cursor: pointer;
         }
+        @media screen and (max-width: 600px) {
+            /* Center the flex parent element */
+            .flex-parent-element {
+                /* margin: 20px auto;  */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .flex-child-element.magenta:nth-child(2) {
+                width: 100%;
+            }
+            .flex-child-element.magenta {
+                width: 100%; 
+                margin-top: 10px;
+            }
         
+            .order {
+                flex-direction: column;
+                width: 100%;
+            }
+        
+            .payment-details,
+            .billing-details {
+                margin-top: 20px;
+                width: 100%;
+            }
+            .payment-details h2{
+                font-size:20px;
+            }
+            .cost1 {
+                /* padding: 20px; */
+                margin-top: 20px;
+                /* border-radius: 9px; */
+                /* background-color: #70BFBA; */
+                width: 100%; 
+                margin: 10px auto; 
+            }
+            .subcost2 {
+                padding: 3px;
+                /* margin-left: 80px; */
+            }
+            .subcost {
+                padding: 3px;
+            }
+            .col2 {
+                display: flex;
+                flex-wrap: wrap; 
+                justify-content: space-evenly; 
+            }
+        }
+        
+              

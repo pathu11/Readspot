@@ -102,6 +102,88 @@ body {
 
 }
 
+/* .tooltip {
+    position: relative;
+   
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip .tip-icon {
+    cursor: pointer;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+input[type="number"] {
+    padding-left: 20px; 
+    box-sizing: border-box; 
+    width: calc(100% - 20px); 
+} */
+/* input[type="number"] {
+    padding-left: 20px; 
+} */
+.tooltip {
+    position: relative;
+    /* display: inline-block; */
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: -1;
+    top: -40px;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+}
+
+.tooltip .tip-icon {
+    cursor: pointer;
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    font-weight: bold;
+    transform: translateY(-50%);
+}
+
+input[type="number"] {
+    padding-left: 20px; /* Adjust this to the width of your icon */
+}
 @media only screen and (max-width: 600px) {
     .form-container {
         width: 100%;

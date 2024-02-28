@@ -19,29 +19,70 @@ class User{
 
         return $results;
     }
-    public function signupCustomerPending($data) {
+    // public function signupCustomerPending($data) {
+    //     try {
+    //         $this->db->beginTransaction(); // Begin the transaction
+    //         $fullName = $data['first_name'] . ' ' . $data['last_name'];
+    //         // Insert data into the 'users' table
+    //         $this->db->query('INSERT INTO users (name,email, pass, user_role) VALUES (:name,:email, :pass, :user_role)');
+    //         $this->db->bind(':name', $fullName);
+    //         $this->db->bind(':email', $data['email']);
+    //         $this->db->bind(':pass', $data['pass']);
+    //         $this->db->bind(':user_role', 'customer');
+    //         // $this->db->bind(':status', 'approval');
+
+    //         if ($this->db->execute()) {
+    //             $user_id = $this->db->lastInsertId();
+
+    //             // Insert data into the 'customers' table using the obtained user ID as the foreign key
+    //             $this->db->query('INSERT INTO customers (user_id, first_name,last_name, email, pass) VALUES (:user_id, :first_name, :last_name ,:email, :pass)');
+    //             $this->db->bind(':user_id', $user_id);
+    //             $this->db->bind(':first_name', $data['first_name']);
+    //             $this->db->bind(':last_name', $data['last_name']);
+    //             $this->db->bind(':email', $data['email']);
+    //             $this->db->bind(':pass', $data['pass']);
+
+    //             if ($this->db->execute()) {
+    //                 $this->db->commit(); // Commit the transaction
+    //                 return true;
+    //             } else {
+    //                 $this->db->rollBack(); // Roll back the transaction if 'customers' insert fails
+    //             }
+    //         } else {
+    //             $this->db->rollBack(); // Roll back the transaction if 'users' insert fails
+    //         }
+    //     } catch (PDOException $e) {
+    //         echo "Transaction failed: " . $e->getMessage();
+    //         $this->db->rollBack(); // Roll back the transaction on exception
+    //     }
+
+    //     return false;
+    // }
+    public function signupCustomer($data) {
         try {
             $this->db->beginTransaction(); // Begin the transaction
             $fullName = $data['first_name'] . ' ' . $data['last_name'];
             // Insert data into the 'users' table
-            $this->db->query('INSERT INTO users (name,email, pass, user_role) VALUES (:name,:email, :pass, :user_role)');
+            $this->db->query('INSERT INTO users (name,email, pass, user_role,status) VALUES (:name,:email, :pass, :user_role,:status)');
             $this->db->bind(':name', $fullName);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':pass', $data['pass']);
             $this->db->bind(':user_role', 'customer');
-            // $this->db->bind(':status', 'approval');
+            $this->db->bind(':status', 'approval');
 
             if ($this->db->execute()) {
                 $user_id = $this->db->lastInsertId();
 
                 // Insert data into the 'customers' table using the obtained user ID as the foreign key
-                $this->db->query('INSERT INTO customers (user_id, first_name,last_name, email, pass) VALUES (:user_id, :first_name, :last_name ,:email, :pass)');
+                $this->db->query('INSERT INTO customers (user_id, name,first_name,last_name, email, pass,status) VALUES (:user_id,:name, :first_name, :last_name ,:email, :pass,:status)');
+
                 $this->db->bind(':user_id', $user_id);
+                $this->db->bind(':name', $fullName);
                 $this->db->bind(':first_name', $data['first_name']);
                 $this->db->bind(':last_name', $data['last_name']);
                 $this->db->bind(':email', $data['email']);
                 $this->db->bind(':pass', $data['pass']);
-
+                $this->db->bind(':status', 'approval');
                 if ($this->db->execute()) {
                     $this->db->commit(); // Commit the transaction
                     return true;
@@ -58,24 +99,24 @@ class User{
 
         return false;
     }
-    public function verifyemailCustomer($user_id) {
-        $this->db->query("UPDATE customers SET status = 'approval' WHERE user_id = :user_id");
-        $this->db->bind(':user_id', $user_id);
-        if ($this->db->execute()) {
-          return true;
-      } else {
-          return false;
-      }
-    }
-    public function verifyemailUsers($user_id) {
-        $this->db->query("UPDATE users SET status = 'approval' WHERE user_id = :user_id");
-        $this->db->bind(':user_id', $user_id);
-        if ($this->db->execute()) {
-          return true;
-      } else {
-          return false;
-      }
-    }
+    // public function verifyemailCustomer($user_id) {
+    //     $this->db->query("UPDATE customers SET status = 'approval' WHERE user_id = :user_id");
+    //     $this->db->bind(':user_id', $user_id);
+    //     if ($this->db->execute()) {
+    //       return true;
+    //   } else {
+    //       return false;
+    //   }
+    // }
+    // public function verifyemailUsers($user_id) {
+    //     $this->db->query("UPDATE users SET status = 'approval' WHERE user_id = :user_id");
+    //     $this->db->bind(':user_id', $user_id);
+    //     if ($this->db->execute()) {
+    //       return true;
+    //   } else {
+    //       return false;
+    //   }
+    // }
     
 
     public function signupPubPending($data){

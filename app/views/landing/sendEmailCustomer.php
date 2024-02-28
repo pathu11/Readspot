@@ -9,17 +9,16 @@
 </head>
 <body>
     <div class="container">
-        <form class="login" action="<?php echo URLROOT; ?>/landing/enteremail" method="post">
-        <br><br>
-            <h2>Enter your registered email address</h2>
+        <form class="login" action="<?php echo URLROOT; ?>/landing/sendEmailCustomer" method="post">
+            <h1>Sign up AS A Customer</h1>
            
-            <br><br><br>
-                <span class="error"><?php echo $data['email_err']; ?></span>
-              
-              <input type="email" name="email"  placeholder="Email address " required><br>
-              
+<br><br>
+            <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
+
+            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
+
            <br>
-            <button class="btn" name="submit" type="submit">Submit</button><br>
+            <button class="btn" name="submit" type="submit">sign up</button><br>
             <div>
                 <span class="copyright">&copy;2023</span> 
             </div>  
@@ -30,7 +29,7 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="#"><button onclick="goBack()" class="submit">  Back </button> </a>
+            <a href="<?php echo URLROOT; ?>/landing/login"><button>login</button></a>
         </div>  
       </div>
       <script>
@@ -50,7 +49,23 @@
       </script>
 </body>
 <script>
-   
+     document.getElementById('togglePassword').addEventListener('click', function() {
+        var passwordInput = document.querySelector('input[name="pass"]');
+        var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
+        this.classList.toggle('fa-eye');   // Toggle the eye icon itself
+        });
+
+        document.getElementById('togglePassword2').addEventListener('click', function() {
+        var confirmPasswordInput = document.querySelector('input[name="confirm_pass"]');
+        var type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPasswordInput.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
+        this.classList.toggle('fa-eye');   // Toggle the eye icon itself
+    });
  
         // Toggle the eye icon itself
         function goBack() {

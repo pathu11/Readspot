@@ -26,7 +26,8 @@
                     <span class="error"><?php echo $data['author_err']; ?></span>
                     <div class="table">
                         <div class="table1">
-                            <input type="number" step="0.01" min="0" id="priceInput" name="price"  class="<?php echo (!empty($data['price_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['price']; ?>"placeholder="Price (Rs.)" required>
+                            <input type="number" step="0.01" min="1" id="priceInput" name="price"  class="<?php echo (!empty($data['price_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['price']; ?>"placeholder="Price (Rs.)" required>
+                            <span class="error"><?php echo $data['price_err']; ?></span>
                             </div>
                         <div class="table1">
                             <input type="number" step="1" min="1" id="quantityInput" placeholder="No of Books in your stock" name="quantity"  class="<?php echo (!empty($data['quantity_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['quantity']; ?>"placeholder="No of Books" required><br>
@@ -44,7 +45,7 @@
                             </select>
                         </div>
                         <div class="table1">
-                            <input type="number" step="0.01" min="0" placeholder="Approximate weight of the book(g)" name="weight" class="<?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>"  required> 
+                            <input type="number" step="0.01" min="1" placeholder="Approximate weight of the book(g)" name="weight" class="<?php echo (!empty($data['weight_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['weight']; ?>"  required> 
                             <span class="error"><?php echo $data['weight_err']; ?></span>
                             <br>
         

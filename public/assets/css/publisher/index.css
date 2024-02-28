@@ -112,7 +112,7 @@ body{
     align-self: flex-end;
   } */
 
-  @media only screen and (max-width: 480px) {
+  /* @media only screen and (max-width: 480px) {
     body {
       margin-left: 0;
     }
@@ -126,28 +126,46 @@ body{
       font-size: 28px;
     }
   }
-  
+   */
   @media only screen and (max-width: 480px) {
-    .grid-container{
+    body {
       margin-left: 0;
       margin-right: 0;
     }
+  
+    .grid-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center items horizontally */
+      text-align: center; /* Center text content */
+    }
+  
     .grid-item {
-      width: calc(50% - 20px); /* Adjusted width for smaller screens */
-      font-size: 12px; /* Further reduced font size */
+      width: calc(50% - 20px);
+      font-size: 12px;
+      margin-bottom: 20px;
     }
   
     .chat-container {
-      flex-direction: column; /* Stack chat containers vertically on smaller screens */
+      flex-direction: column; /* Stack chat containers vertically */
     }
   
     .chat-container-left,
     .chat-container-right {
       width: 100%; /* Full width for chat containers */
+      padding: 0; /* Remove padding */
     }
   
     .chat {
-      padding-left: 20px; /* Adjust padding for chat container */
+      padding: 20px; /* Adjust padding for chat container */
+      margin-bottom: 20px; /* Adjust margin for chat container */
+      padding-left: 0; /* Reset padding-left */
+    }
+  
+    .chat1 {
+      padding: 20px; /* Adjust padding for chat container */
+      margin-bottom: 20px; /* Adjust margin for chat container */
+      padding-left: 0; /* Reset padding-left */
     }
   }
   

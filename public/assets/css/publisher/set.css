@@ -1,34 +1,31 @@
 body {
-    width:90%;
+    width: 100%;
     background-size: cover;
     font-family: Arial, sans-serif;
-    margin-left: 230px;
-    margin-top:70px;
+    margin: 0;
     padding: 0;
 }
 
 .con {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
 }
 
-
 .profile-image {
-    width: 200px; 
+    width: 200px;
     height: 200px;
-    border-radius: 50%; 
+    border-radius: 50%;
     display: block;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
-
 
 .r_col {
     width: 80%;
     padding-left: 20px;
     margin-right: 40px;
-    margin-top:40px;
-    /* background-color: #e0e0e0; */
+    margin-top: 40px;
 }
 
 .r_col table {
@@ -38,11 +35,11 @@ body {
 
 .r_col table td {
     padding: 10px;
-    /* border: 1px solid #ccc; */
 }
 
 .r_col .r_a_col,
-.r_col .r_b_col ,.r_col .r_c_col{
+.r_col .r_b_col,
+.r_col .r_c_col {
     background-color: white;
     margin: 30px;
     border-radius: 10px;
@@ -50,7 +47,6 @@ body {
     box-sizing: border-box;
     box-shadow: 2px 2px 3px 3px #aaaaaa;
 }
-
 .r_col .r_a_col table,
 .r_col .r_b_col table {
     width: 100%;
@@ -75,9 +71,15 @@ body {
     border-radius: 5px;
     border:#009D94;
 }
-/* .r_c_col{
+/* .r_c_col {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.r_c_a_col {
+    flex: 0 0 auto;
+    width: 40%;
 } */
 .r_c_col {
     display: flex;
@@ -87,16 +89,16 @@ body {
     flex: 0 0 auto;
     width: 40%;
   }
-  
-  .r_c_a_col img {
-    width: 90%; 
+.r_c_a_col img {
+    width: 100%;
+    /* max-width: 200px; */
     border-radius: 55%;
-  }
-  
-  .r_c_a_col1 {
-    flex: 1; 
-    padding-left: 30px; 
-  }
+}
+
+/* .r_c_a_col1 {
+    flex: 1;
+    padding-left: 30px;
+} */
 
 .l_col h3 {
     margin: 0;
@@ -108,24 +110,18 @@ body {
 
 .my-button {
     width: 200px;
-    height:40px;
+    height: 40px;
     margin-top: 10px;
     color: white;
     background-color: #009D94;
-
     padding: 7px;
-    
     border-radius: 8px;
-    border:none;
-    text-decoration:none;
+    border: none;
+    text-decoration: none;
 }
 
 .my-button:hover {
-    width: 200px;
-    height:40px;
     background-color: #ccc;
-    border:none;
-    text-decoration:none;
 }
 
 .select {
@@ -173,5 +169,24 @@ body {
     .l_col,
     .r_col {
         margin: 10px 0;
+    }
+
+    .r_c_col {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center items horizontally */
+    }
+
+    .r_c_a_col img {
+        width: 100%; /* Full width for the image */
+        max-width: 200px; /* Limit image size for smaller screens */
+    }
+
+    .r_c_a_col1 {
+        width: 100%; /* Full width */
+    }
+
+    .my-button {
+        width: 100%; /* Adjust button width */
+        margin: auto; /* Center the button */
     }
 }

@@ -19,9 +19,9 @@
            
             <span class="invalid-feedback"><?php echo $data['last_name_err']; ?></span>
 
-            <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
+            <!-- <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
 
-            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
+            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span> -->
 
             <div class="password-wrapper">
             <input type="password" name="pass" placeholder="Password" <?php echo (!empty($data['pass_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['pass']; ?>">

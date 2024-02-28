@@ -158,13 +158,12 @@
 }
 
 .chk-btn-div {
-    float: right;
+    float: center;
 }
 
 .checkout-btn {
-    /* float: right; */
-    width: 132px;
-    height: 36px;
+    width: 180px;
+    height: 45px;
     background-color: rgb(1, 36, 33);
     border-color: white;
     outline: none;
@@ -172,6 +171,24 @@
     cursor: pointer;
     color: white;
     transition: .5s;
+    padding:3px;
+    /* margin: 10px; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.delete-btn {
+    
+    background-color: rgb(227, 53, 76);
+    width: 180px;
+    height: 45px;
+    
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    padding:3px;
     /* margin: 10px; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
@@ -185,6 +202,7 @@
     .tb-cart2 {
         display: block;
     }
+    
 }
 
 @media screen and (max-width:600px) {
@@ -214,6 +232,9 @@
     .action-buttons-cart i {
         font-size: 12px;
     }
+    /* .checkout-btn {
+        display: none; 
+    } */
 }
 
 @media screen and (max-width:400px) {
@@ -251,4 +272,7 @@
     .action-buttons-cart i {
         font-size: 10px;
     }
+    /* .checkout-btn {
+        display: none; 
+    } */
 }

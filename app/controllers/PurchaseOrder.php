@@ -539,7 +539,7 @@ public function successCardPaymentOrder(){
                 'sender_name' => 'system administration',
                 'sender_id' => 130,   
             ];
-            print_r($data);
+            // print_r($data);
 
             if ($this->customerModel->editOrderCardPayment($data)) {
                 $this->sendEmails($customerEmail, $ownerEmails, $data);

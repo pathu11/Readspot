@@ -53,33 +53,246 @@ class Landing extends Controller{
        
         $this->view('landing/selectuser');
     }
-    public function signupCustomer(){
+    // public function signupCustomer(){
+    //     if($_SERVER['REQUEST_METHOD']=='POST'){
+    //         // process form
+    //         // sanitize post data
+    //         $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+    //         // init data
+    //         $data=[
+    //             'first_name'=>trim($_POST['first_name']),
+    //             'last_name'=>trim($_POST['last_name']),
+    //             'email'=>trim($_POST['email']),
+    //             'pass'=>trim($_POST['pass']),
+    //             'confirm_pass'=>trim($_POST['confirm_pass']),
+    //             'first_name_err'=>'',
+    //             'last_name_err'=>'',
+    //             'email_err'=>'',
+    //             'pass_err'=>'',
+    //             'confirm_pass_err'=>'',
+    //         ];
+
+    //         // validate email
+    //         //validate lname
+    //         if(empty($data['first_name'])){
+    //             $data['first_name_err']='Please enter the first name';      
+    //         }
+    //         if(empty($data['last_name'])){
+    //             $data['last_name_err']='Please enter the last name';      
+    //         }
+    //         //validate email
+    //         if(empty($data['email'])){
+    //             $data['email_err']='Please enter email';      
+    //         }else{
+    //             if($this->userModel->findUserByEmail($data['email'])){
+    //                 $data['email_err']='Email is already taken'; 
+    //             }
+    //         }
+    //         //validate password
+    //         if(empty($data['pass'])){
+    //             $data['pass_err']='Please enter password';      
+    //         }elseif(strlen($data['pass'])<6){
+    //             $data['pass_err']='Password must be atleast 6 characters'; 
+    //         }
+
+    //          //validate confirm password
+    //          if(empty($data['confirm_pass'])){
+    //             $data['confirm_pass_err']='Please confirm password';      
+    //         }else{
+    //             if($data['pass']!=$data['confirm_pass']){
+    //                 $data['confirm_pass_err']='password not matching';
+    //             }
+    //         }
+
+            
+
+    //         //make sure errors are empty
+    //         if( empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
+    //             //validate
+
+    //             //hash password
+    //             $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
+                
+
+    //             //regsiter user
+    //             if($this->userModel->signupCustomerPending($data)){
+    //                 // send the email
+    //                 $userEmail = $data['email'];
+    //                 $mail = new PHPMailer(true);
+    //                 $otp = mt_rand(1000000, 9999999);
+    //                 $timestamp = $_SERVER["REQUEST_TIME"];
+    //                 $_SESSION['time'] = $timestamp;
+    //                 $_SESSION['otp'] = $otp;
+    //                 $_SESSION['user_email'] = $userEmail;
+        
+    //                 try {
+    //                     //Server settings
+    //                     $mail->isSMTP();
+    //                     $mail->Host       = MAIL_HOST;
+    //                     $mail->SMTPAuth   = true;
+    //                     $mail->Username   = MAIL_USER;
+    //                     $mail->Password   = MAIL_PASS;
+    //                     $mail->SMTPSecure = MAIL_SECURITY;
+    //                     $mail->Port       = MAIL_PORT;
+        
+    //                     //Recipients
+    //                     $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+    //                     $mail->addAddress($userEmail);
+        
+    //                     // Content
+    //                     $mail->isHTML(true);
+    //                     $mail->Subject = 'Verify your email';
+    //                     $mail->Body = "Enter this OTP for verify your email account: $otp";
+        
+    //                     $mail->send();
+    //                     redirect('landing/verifyemail');
+    //                 }catch (Exception $e) {
+    //                         error_log('Email sending failed: ' . $e->getMessage());
+    //                         $data['email_err'] = 'Something went wrong. Please try again later.';
+    //                         $this->view('landing/signupCustomer', $data); // Pass $data to the view
+    //                         exit; 
+    //                     }
+    //             } else{
+    //                     die('Something went wrong');
+    //                 }  
+    //         }else{
+    //                 $this->view('landing/signupCustomer',$data);
+    //             }
+
+
+    //     }else{
+    //         $data=[
+    //             'first_name'=>'',
+    //             'last_name'=>'',
+    //             'email'=>'',
+    //             'pass'=>'',
+    //             'confirm_pass'=>'',
+    //             'first_name_err'=>'',
+    //             'last_name_err'=>'',
+    //             'email_err'=>'',
+    //             'pass_err'=>'',
+    //             'confirm_pass_err'=>'',
+    //         ];
+
+    //         $this->view('landing/signupCustomer',$data);
+    //     }  
+    // }
+    // public function verifyemail(){
+    //     $userId = null; // Initialize $userId
+    
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         // sanitize post data
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+    //         if (isset($_SESSION['otp']) && isset($_SESSION['time'])) {
+    //             $oldOtp = $_SESSION['otp'];
+    //             $userEmail = $_SESSION['user_email'];
+    
+    //             $userDetails = $this->userModel->findUserByEmail($userEmail);
+    
+    //             if ($userDetails) {
+    //                 $userId = $userDetails[0]->user_id;
+    
+    //                 $timestamp = $_SERVER["REQUEST_TIME"];
+    //                 $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
+    
+    //                 if (($timestamp - $_SESSION['time']) > $remainingTime) {  // 60 seconds for 1 minute
+    //                     $data = [
+    //                         'user_id' => $userId,
+    //                         'otp_err' => "OTP expired. Please try again.",
+    //                         'remaining_time' => 0
+    //                     ];
+    //                     $this->view('landing/verifyemail', $data);
+    //                     exit; // Ensure no further processing after redirection
+    //                 } else {
+    //                     $data = [
+    //                         'user_id' => $userId,
+    //                         'otp' => trim($_POST['otp']),
+    //                         'otp_err' => '',
+    //                         'remaining_time' => $remainingTime - ($timestamp - $_SESSION['time'])
+    //                     ];
+    
+    //                     // validate otp
+    //                     if (empty($data['otp']) || $data['otp'] != $oldOtp) {
+    //                         $data['otp_err'] = 'Incorrect OTP';
+    //                         $this->view('landing/verifyemail', $data);
+    //                         exit; // Ensure no further processing after redirection
+    //                     }
+    
+    //                     // make sure errors are empty
+    //                     if (empty($data['otp_err'])) {
+    //                         // validate
+    //                         if ($data['otp'] == $oldOtp) {
+    //                             if($this->userModel->verifyemailCustomer($userId) && $this->userModel->verifyemailUsers($userId) ){
+    //                                 echo '<script>';
+    //                                 echo 'setTimeout(function() { alert("OTP is correct!"); redirectToLogin(); }, 100);'; // Delayed alert
+    //                                 echo 'function redirectToLogin() {';
+    //                                 echo '    window.location.href = "' . URLROOT . '/landing/login"; ';  
+    //                                 echo '}';
+    //                                 echo '</script>';
+    //                                 exit;
+    //                             } else {
+    //                                 // Log the error or redirect to an error page
+    //                                 error_log('Verification failed: Something went wrong');
+    //                                 // Redirect to an error page
+    //                                 redirect('error');
+    //                                 // OR display a specific error message
+    //                                 $data['error_message'] = 'Verification failed. Please try again later.';
+    //                                 $this->view('error_page', $data);
+    //                                 exit;
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             } else {
+    //                 $data = [
+    //                     'user_id' => $userId,
+    //                     'otp_err' => "User not found. Please request a new OTP.",
+    //                     'remaining_time' => 0
+    //                 ];
+    //                 $this->view('landing/verifyemail', $data);
+    //                 exit;
+    //             }
+    //         }
+    //     } else {
+    //         // Handle the case when it's not a POST request
+    //         if (isset($_SESSION['user_email'])) {
+    //             $userEmail = $_SESSION['user_email'];
+    //             $userDetails = $this->userModel->findUserByEmail($userEmail);
+    
+    //             if ($userDetails) {
+    //                 $userId = $userDetails[0]->user_id;
+    //             }
+    //         }
+    
+    //         $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
+    
+    //         $data = [
+    //             'user_id' => $userId,
+    //             'otp' => '',
+    //             'otp_err' => '',
+    //             'remaining_time' => $remainingTime,
+    //         ];
+    
+    //         $this->view('landing/verifyemail', $data);
+    //     }
+    // }
+    
+    public function sendEmailCustomer(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form
             // sanitize post data
             $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             // init data
             $data=[
-                'first_name'=>trim($_POST['first_name']),
-                'last_name'=>trim($_POST['last_name']),
+                
                 'email'=>trim($_POST['email']),
-                'pass'=>trim($_POST['pass']),
-                'confirm_pass'=>trim($_POST['confirm_pass']),
-                'first_name_err'=>'',
-                'last_name_err'=>'',
+               
                 'email_err'=>'',
-                'pass_err'=>'',
-                'confirm_pass_err'=>'',
+               
             ];
 
-            // validate email
-            //validate lname
-            if(empty($data['first_name'])){
-                $data['first_name_err']='Please enter the first name';      
-            }
-            if(empty($data['last_name'])){
-                $data['last_name_err']='Please enter the last name';      
-            }
+           
             //validate email
             if(empty($data['email'])){
                 $data['email_err']='Please enter email';      
@@ -88,34 +301,13 @@ class Landing extends Controller{
                     $data['email_err']='Email is already taken'; 
                 }
             }
-            //validate password
-            if(empty($data['pass'])){
-                $data['pass_err']='Please enter password';      
-            }elseif(strlen($data['pass'])<6){
-                $data['pass_err']='Password must be atleast 6 characters'; 
-            }
-
-             //validate confirm password
-             if(empty($data['confirm_pass'])){
-                $data['confirm_pass_err']='Please confirm password';      
-            }else{
-                if($data['pass']!=$data['confirm_pass']){
-                    $data['confirm_pass_err']='password not matching';
-                }
-            }
-
+          
             
 
             //make sure errors are empty
-            if( empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['email_err']) && empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
-                //validate
-
-                //hash password
-                $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
-                
-
-                //regsiter user
-                if($this->userModel->signupCustomerPending($data)){
+            if( empty($data['email_err'])  ){
+                $_SESSION['penEmailOfCustomer'] = $data['email'];
+                if($data['email']){
                     // send the email
                     $userEmail = $data['email'];
                     $mail = new PHPMailer(true);
@@ -149,14 +341,14 @@ class Landing extends Controller{
                     }catch (Exception $e) {
                             error_log('Email sending failed: ' . $e->getMessage());
                             $data['email_err'] = 'Something went wrong. Please try again later.';
-                            $this->view('landing/signupCustomer', $data); // Pass $data to the view
+                            $this->view('landing/sendEmailCustomer', $data); // Pass $data to the view
                             exit; 
                         }
                 } else{
                         die('Something went wrong');
                     }  
             }else{
-                    $this->view('landing/signupCustomer',$data);
+                    $this->view('landing/sendEmailCustomer',$data);
                 }
 
 
@@ -174,11 +366,11 @@ class Landing extends Controller{
                 'confirm_pass_err'=>'',
             ];
 
-            $this->view('landing/signupCustomer',$data);
+            $this->view('landing/sendEmailCustomer',$data);
         }  
     }
     public function verifyemail(){
-        $userId = null; // Initialize $userId
+        // Initialize $userId
     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // sanitize post data
@@ -186,19 +378,15 @@ class Landing extends Controller{
     
             if (isset($_SESSION['otp']) && isset($_SESSION['time'])) {
                 $oldOtp = $_SESSION['otp'];
-                $userEmail = $_SESSION['user_email'];
+                // $userEmail = $_SESSION['user_email'];
     
-                $userDetails = $this->userModel->findUserByEmail($userEmail);
-    
-                if ($userDetails) {
-                    $userId = $userDetails[0]->user_id;
     
                     $timestamp = $_SERVER["REQUEST_TIME"];
                     $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
     
                     if (($timestamp - $_SESSION['time']) > $remainingTime) {  // 60 seconds for 1 minute
                         $data = [
-                            'user_id' => $userId,
+                          
                             'otp_err' => "OTP expired. Please try again.",
                             'remaining_time' => 0
                         ];
@@ -206,7 +394,7 @@ class Landing extends Controller{
                         exit; // Ensure no further processing after redirection
                     } else {
                         $data = [
-                            'user_id' => $userId,
+                            // 'user_id' => $userId,
                             'otp' => trim($_POST['otp']),
                             'otp_err' => '',
                             'remaining_time' => $remainingTime - ($timestamp - $_SESSION['time'])
@@ -223,52 +411,27 @@ class Landing extends Controller{
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
-                                if($this->userModel->verifyemailCustomer($userId) && $this->userModel->verifyemailUsers($userId) ){
+                                // if($this->userModel->verifyemailCustomer($userId) && $this->userModel->verifyemailUsers($userId) ){
                                     echo '<script>';
                                     echo 'setTimeout(function() { alert("OTP is correct!"); redirectToLogin(); }, 100);'; // Delayed alert
                                     echo 'function redirectToLogin() {';
-                                    echo '    window.location.href = "' . URLROOT . '/landing/login"; ';  
+                                    echo '    window.location.href = "' . URLROOT . '/landing/signupCustomer"; ';  
                                     echo '}';
                                     echo '</script>';
                                     exit;
-                                } else {
-                                    // Log the error or redirect to an error page
-                                    error_log('Verification failed: Something went wrong');
-                                    // Redirect to an error page
-                                    redirect('error');
-                                    // OR display a specific error message
-                                    $data['error_message'] = 'Verification failed. Please try again later.';
-                                    $this->view('error_page', $data);
-                                    exit;
-                                }
+                              
                             }
                         }
                     }
-                } else {
-                    $data = [
-                        'user_id' => $userId,
-                        'otp_err' => "User not found. Please request a new OTP.",
-                        'remaining_time' => 0
-                    ];
-                    $this->view('landing/verifyemail', $data);
-                    exit;
-                }
+                
             }
         } else {
-            // Handle the case when it's not a POST request
-            if (isset($_SESSION['user_email'])) {
-                $userEmail = $_SESSION['user_email'];
-                $userDetails = $this->userModel->findUserByEmail($userEmail);
-    
-                if ($userDetails) {
-                    $userId = $userDetails[0]->user_id;
-                }
-            }
+          
     
             $remainingTime = isset($_SESSION['remaining_time']) ? $_SESSION['remaining_time'] : 60;
     
             $data = [
-                'user_id' => $userId,
+                // 'user_id' => $userId,
                 'otp' => '',
                 'otp_err' => '',
                 'remaining_time' => $remainingTime,
@@ -277,7 +440,90 @@ class Landing extends Controller{
             $this->view('landing/verifyemail', $data);
         }
     }
-    
+
+    public function signupCustomer(){
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $email=$_SESSION['penEmailOfCustomer'];
+            // process form
+            // sanitize post data
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            // init data
+            $data=[
+                'first_name'=>trim($_POST['first_name']),
+                'last_name'=>trim($_POST['last_name']),
+                'email'=>$email,
+                'pass'=>trim($_POST['pass']),
+                'confirm_pass'=>trim($_POST['confirm_pass']),
+                'first_name_err'=>'',
+                'last_name_err'=>'',
+               
+                'pass_err'=>'',
+                'confirm_pass_err'=>'',
+            ];
+
+            // validate email
+            //validate lname
+            if(empty($data['first_name'])){
+                $data['first_name_err']='Please enter the first name';      
+            }
+            if(empty($data['last_name'])){
+                $data['last_name_err']='Please enter the last name';      
+            }
+           
+            //validate password
+            if(empty($data['pass'])){
+                $data['pass_err']='Please enter password';      
+            }elseif(strlen($data['pass'])<6){
+                $data['pass_err']='Password must be atleast 6 characters'; 
+            }
+
+             //validate confirm password
+             if(empty($data['confirm_pass'])){
+                $data['confirm_pass_err']='Please confirm password';      
+            }else{
+                if($data['pass']!=$data['confirm_pass']){
+                    $data['confirm_pass_err']='password not matching';
+                }
+            }
+
+            
+
+            //make sure errors are empty
+            if( empty($data['first_name_err']) && empty($data['last_name_err'])  && empty($data['pass_err']) && empty($data['confirm_pass_err'])  ){
+                //validate
+
+                //hash password
+                $data['pass']=password_hash($data['pass'],PASSWORD_DEFAULT);
+                
+
+                //regsiter user
+                if($this->userModel->signupCustomer($data)){
+                   redirect('landing/login');
+                } else{
+                        die('Something went wrong');
+                    }  
+            }else{
+                    $this->view('landing/signupCustomer',$data);
+                }
+
+
+        }else{
+            $data=[
+                'first_name'=>'',
+                'last_name'=>'',
+               
+                'pass'=>'',
+                'confirm_pass'=>'',
+                'first_name_err'=>'',
+                'last_name_err'=>'',
+                
+                'pass_err'=>'',
+                'confirm_pass_err'=>'',
+            ];
+
+            $this->view('landing/signupCustomer',$data);
+        }  
+    }
     public function signupPub(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             // process form

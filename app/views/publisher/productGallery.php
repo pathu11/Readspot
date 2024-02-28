@@ -21,7 +21,7 @@
 <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a> -->
     <div class="container">
 
-        <table id="eventTable">
+        <table id="eventTable" class="responsive-table">
             <h2>Books Details</h2>
         <thead>
             <tr>
@@ -56,15 +56,10 @@
 
                 <td ><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img1 . '" alt="img1" style="width:30%;" onclick="viewImage(this.src)"> ';?></th>
                 <td ><?php echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/' .  $bookDetails->img2 . '" alt="img2" style="width:30%;" onclick="viewImage(this.src)"> ';?></th>
-
-
-                <td class="action-buttons">
-
-                <a href='#' onclick='viewBookOnly(<?php echo htmlspecialchars(json_encode($bookDetails)); ?>)'>
+                <td >
+                    <a href='#' onclick='viewBookOnly(<?php echo htmlspecialchars(json_encode($bookDetails)); ?>)'>
                     <i class="fas fa-eye"></i>
-                </a>
-
-
+                    </a>
                     <a  href='<?php echo URLROOT; ?>/NewBooks/update/<?php echo $bookDetails->book_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a>
                     
                     <a  href='#' onclick='confirmDelete(<?php echo $bookDetails->book_id; ?>)'  ><i class='fa fa-trash'></i></a>
@@ -73,12 +68,9 @@
                 
             </tr>
                 <?php endforeach; ?>
-            </tbody>
-            
-            
-           
-                
+            </tbody>         
         </table><br>
+        
         <div id="myModalImage" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModalImage()">&times;</span>

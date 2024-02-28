@@ -12,6 +12,7 @@ body {
   background: #f4f4f4;
 }
 nav {
+  padding-right:10px;
   position: fixed;
   top: 0;
   left: 0;
@@ -248,4 +249,38 @@ nav.open ~ .overlay {
   50%  {background-color:#066761; left:200px; top:200px;}
   75%  {background-color:#02514C; left:0px; top:200px;}
   100% {background-color:#70BFBA; left:0px; top:0px;}
+}
+
+@media only screen and (max-width: 768px) {
+  .bx-menu.menu-icon {
+      display: block;
+  }
+
+  .logo-name {
+      display: none;
+  }
+
+  .user {
+      display: none;
+  }
+
+  .logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .logo img {
+      display: block;
+  }
+
+  .img {
+
+      /* display: block; */
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right:auto;
+      margin-left: 400px; 
+  }
 }
