@@ -24,4 +24,15 @@ class Charity extends Controller{
     }
     
 
+    public function customerSupport(){
+        $this->view('charity/customerSupport');
+    }
+
+    public function aboutUs(){
+        $this->view('charity/aboutus');
+    }
+
+    public function donationQuery(){
+        $this->view('charity/donationQuery');
+    }
 }
