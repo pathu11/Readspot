@@ -15,11 +15,31 @@
             color:white;
         }
         .submit:hover {
-            background-color: white;
+            background-color:#81cec9;
             border-radius: 5px;
             margin-top: 0;
             border: none;
         }
+        
+        .bank-details-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bank-details-row {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .label {
+        font-weight: bold;
+        width: 120px;
+    }
+
+    .detail {
+        flex: 1;
+    }
+
     </style>
 </head>
 
@@ -140,18 +160,36 @@
                        <div class="modal-content">
                        <span class="close" onclick="closeOnlineDepositPopupModal()">&times;</span>
                        
-                       <p style="color:#009D94;">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.<p>
+                       <p style="color:#009D94;">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                        <br>
+                        <div class="bank-details-container">
+                            <div class="bank-details-row">
+                                <span class="label">Bank Name:</span>
+                                <span class="detail">Hatton National Bank - Hulftsdorp Branch</span>
+                            </div>
+                            <div class="bank-details-row">
+                                <span class="label">Acc. Name:</span>
+                                <span class="detail">M.D. Gunasena & Co. (Pvt.) Ltd.</span>
+                            </div>
+                            <div class="bank-details-row">
+                                <span class="label">Acc. No:</span>
+                                <span class="detail">063010004901</span>
+                            </div>
+                            <div class="bank-details-row">
+                                <span class="label">BIC/Swift:</span>
+                                <span class="detail">HBLILKLX</span>
+                            </div>
+                        </div>
+                        <br>
+                        <span style="color:#009D94;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span><br>
 
-                               <h4>Bank Name: Hatton National Bank - Hulftsdorp Branch</h4>
-                               <h4>Acc. Name: M.D. Gunasena & Co. (Pvt.) Ltd.</h4>
-                               <h4>Acc. No: 063010004901</h4>
-                               <h4> BIC/Swift: HBLILKLX</h4>
-                               <span style="color:#009D94;">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our Privacy Policy.</span>
-                               <label >submit your bank recipt after the payment</label>
+
+                               <label >submit your bank recipt after the payment</label><br>
+
                            <form action="<?php echo URLROOT; ?>/PurchaseOrder/checkout2" method="POST" enctype="multipart/form-data">
                                <input type="hidden" name="form_type" value="onlineDeposit"><br>
                                <input type="file" name="recipt" required><br><br>
-                               <button  class="submit" type="submit" >Conform Order</button>
+                               <button  class="submit" type="submit" >Confirm Order</button>
                            </form>
                    
                    </div>

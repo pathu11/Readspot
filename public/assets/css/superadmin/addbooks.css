@@ -2,6 +2,7 @@ body {
     width: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: white;
 }
 
 
@@ -26,6 +27,7 @@ body {
 .form-container {
     width: 70%;
     margin-top:100px;
+    /* background-color: white; */
 }
 
 .form1 {
@@ -33,7 +35,7 @@ body {
     margin-left: 390px;
     margin-right: 300px;
     text-align: center;
-    background-color: #f0f0f0; /* Set your desired background color */
+    background-color: white; /* Set your desired background color */
     padding: 20px; /* Add padding for better appearance */
     border-radius: 10px; /* Add border-radius for rounded corners */
 }
@@ -62,7 +64,7 @@ body {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    border: none;
+    border: 2px solid #ccc;
     border-radius: 5px;
     outline: none; /* Remove default input focus border */
 }
@@ -114,6 +116,116 @@ body {
 
 }
 
+
+/* body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+} */
+
+.radio-group {
+    margin-top: 20px;
+}
+
+.radio-group label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group input[type="radio"] + label {
+    position: relative;
+}
+
+.radio-group input[type="radio"] + label:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    vertical-align: middle;
+    transition: background-color 0.3s, border-color 0.3s;
+    position: absolute;
+    left: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.radio-group input[type="radio"]:checked + label:before {
+    background-color: #333;
+    border-color: #333;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: #f0f0f0;
+    border-color: #333;
+}
+
+.radio-group label:hover {
+    background-color: #009D94;
+    color:white;
+}
+.select-store-form {
+    margin-top: 20px;
+}
+
+.select-store-form label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    list-style-type: none; /* Remove default bullet points */
+}
+
+.select-store-form input[type="radio"] {
+    display: none;
+}
+
+.select-store-form input[type="radio"] + label {
+    position: relative;
+}
+
+.select-store-form input[type="radio"] + label:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    vertical-align: middle;
+    transition: background-color 0.3s, border-color 0.3s;
+    position: absolute;
+    left: 5px; /* Adjust distance between bullet point and text */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.select-store-form input[type="radio"]:checked + label:before {
+    background-color: #009D94;
+    border-color: #009D94;
+}
+
+.select-store-form input[type="radio"]:checked + label {
+    font-weight: bold; /* Highlight selected label */
+}
+
+.select-store-form label:hover {
+    
+    border-radius: 5px;
+    padding: 5px;
+    border: 2px solid #ccc;
+    transition: all 0.3s ease;
+   
+}
 @media only screen and (max-width: 600px) {
     .form-container {
         width: 100%;

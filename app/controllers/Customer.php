@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-//  require APPROOT . '\vendor\autoload.php';
+require APPROOT . '\vendor\autoload.php';
 class Customer extends Controller {
     private $customerModel;
     private $deliveryModel;
@@ -185,6 +185,7 @@ class Customer extends Controller {
                     }
                 }
                 if($this->customerModel->AddCont($data)){
+                    echo '<script>alert("Your content is successfully added!,Waiting for moderator\'s approval");</script>';
                     // flash('add_success','You are added the book  successfully');
                     redirect('customer/AddCont');
                 }else{
@@ -783,21 +784,25 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $reviewDetails=$this->customerModel->findReviewsByBookId($book_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByBookId($book_id);
-            $ratingCount = $this->customerModel->getRating($book_id);
-           
-           
+            $countStar_1 = $this->customerModel->countStar_1($book_id);
+            $countStar_2 = $this->customerModel->countStar_2($book_id);
+            $countStar_3 = $this->customerModel->countStar_3($book_id);
+            $countStar_4 = $this->customerModel->countStar_4($book_id);
+            $countStar_5 = $this->customerModel->countStar_5($book_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'bookDetails'=>$bookDetails,
                 'reviewDetails'=>$reviewDetails,
-                'ratingCount'=>$ratingCount,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
                 'averageRatingCount'=>$averageRatingCount
-                // 'ratingDistribution'=>$ratingDistribution
             ];
-            // print_r($data['ratingCount']);
-            // var_dump($data['rating_1']->rate_1_count);
+            // print_r($data['countStar_1']);
             $this->view('customer/BookDetails', $data);
         }
     }
@@ -1022,6 +1027,28 @@ class Customer extends Controller {
         }
     
         echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
+
+    }
+    public function addToCartByEachBook($bookId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        }
+        print_r($bookId);
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $customer_id=$customerDetails[0]->customer_id;
+        $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
+        
+        if ($bookId && $quantity && $customer_id) {
+            if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
+               redirect('customer/Cart');
+            }
+        }else{
+            echo '<script>alert("eroor");</script>';
+            redirect('customer/BuyNewBooks');
+        }
+    
+       
 
     }
     
@@ -2143,7 +2170,7 @@ class Customer extends Controller {
             $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
             // $ratingCount = $this->customerModel->getRating($book_id);
-           
+        //    print_r($reviewDetails);
            
             $data = [
                 'customerDetails' => $customerDetails,

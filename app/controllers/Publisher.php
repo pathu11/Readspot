@@ -90,22 +90,23 @@ class Publisher extends Controller{
                 // Handle "Edit Postal for Books" form submission
                 $this->handleaddStoreToBooksForm($book_id);
             } elseif ($formType === 'default_address') {
-                // Handle "Default Address" form submission
+                
                 $this->handleDefaultAddressForm($book_id);
             }elseif ($formType === 'selectStore') {
-                // Handle "Default Address" form submission
+                
                 $this->handleselectStoreForm($book_id);
             }
         } else {
+            $publisher_id=$publisherDetails[0]->publisher_id;
             // Your existing code for displaying the form
-            $publishers = $this->publisherModel->findPublisherBypubId($publisherDetails[0]->publisher_id);
+            $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
                     
             $data = [
-                 'book_id'=>$bookDetails->book_id,
+                 'book_id'=>$book_id,
                  'bookDetails'=>$bookDetails,
                  'storeDetails'=>$storeDetails,
                  'publisherDetails' => $publisherDetails,
-                 'publisher_id' =>$publisherDetails[0]->publisher_id,
+                 'publisher_id' =>$publisher_id,
                  
                  'postal_name' => $publishers->postal_name,
                  'street_name' => $publishers->street_name,
@@ -1048,7 +1049,7 @@ public function processingorders()
 
     public function addEvent(){
         if(!isLoggedInPublisher()){
-            redirect('/landing/login');
+            redirect('landing/login');
         }
         
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -1139,6 +1140,8 @@ public function processingorders()
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             }
             $data=[
+                'publisherDetails' => $publisherDetails,
+                'publisher_id' => $publisherDetails[0]->publisher_id,
                 'publisherName' => $publisherDetails[0]->name,
                 'eventCategoryDetails'=>$eventCategoryDetails,
                 'user_type'=> 'Publisher',

@@ -89,13 +89,14 @@ input[type="number"]
 
 }
 .submit {
-    width: 100px;
+    width: 90%;
     height: 40px;
     background-color: #009D94;
     border-radius: 5px;
     margin-top: 0;
     border: none;
     color:white;
+    
 }
 
 .submit:hover {
@@ -126,3 +127,41 @@ th {
 td:not(:last-child) {
     margin-right: 10px; 
 }
+.quantity-button-p {
+    width: 40px;
+    height: 40px;
+    background-color: #eee;
+    border: none;
+    cursor: pointer;
+    /* font-weight: bold; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-button-p i {
+    font-size: 10px;
+}
+.span {
+    margin: 0 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .flex-parent-element {
+      flex-direction: column; /* Stack elements vertically */
+    }
+  
+    .flex-child-element {
+        width:100%;
+      margin-right: 0; /* Remove right margin */
+      margin-top: 20px; /* Adjust top margin */
+    }
+    .flex-child-element.green {
+        overflow: auto; /* Enable vertical scrolling if necessary */
+        max-height: 400px; /* Set a maximum height for the container */
+      }
+      th, td {
+        white-space: nowrap; /* Prevent wrapping of table cells */
+      }
+  }
+  
