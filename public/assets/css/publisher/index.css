@@ -110,9 +110,9 @@ body{
 }
 .chat-container-right {
     align-self: flex-end;
-  } */
+  }  */
 
-  /* @media only screen and (max-width: 480px) {
+   @media only screen and (max-width: 480px) {
     body {
       margin-left: 0;
     }
@@ -126,7 +126,7 @@ body{
       font-size: 28px;
     }
   }
-   */
+  
   @media only screen and (max-width: 480px) {
     body {
       margin-left: 0;

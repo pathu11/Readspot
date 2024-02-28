@@ -334,10 +334,17 @@ public function getOrderDetails(){
   return $results;
 }
 public function getPendingOrderDetails() {
-  $this->db->query("SELECT orders.*, customers.name AS customer_name 
-                    FROM orders 
-                    INNER JOIN customers ON orders.customer_id = customers.customer_id 
-                    WHERE orders.payment_type='OnlineDeposit' AND orders.status='pending'");
+  $this->db->query("SELECT orders.*, 
+        customers.name AS customer_name,
+        order_details.order_id,
+        order_details.book_id,
+        order_details.status,
+        orders.tracking_no
+      FROM orders 
+      INNER JOIN customers ON orders.customer_id = customers.customer_id 
+      INNER JOIN order_details ON orders.order_id = order_details.order_id
+      WHERE orders.payment_type='OnlineDeposit' AND order_details.status='pending'
+");
 
   return $this->db->resultSet();
 }
@@ -360,7 +367,7 @@ public function generateRegistrationReport($data){
   return $results;
 }
 public function approveOrder($order_id) {
-  $this->db->query("UPDATE orders SET status = 'processing' WHERE order_id = :order_id");
+  $this->db->query("UPDATE order_details SET status = 'processing' WHERE order_id = :order_id");
   $this->db->bind(':order_id', $order_id);
   if ($this->db->execute()) {
     return true;
