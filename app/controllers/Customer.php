@@ -1277,6 +1277,7 @@ class Customer extends Controller {
         }
 
         $data = [
+            'customer_user_id'=>$ExchangeBookId->customer_user_id,
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
@@ -1902,6 +1903,7 @@ class Customer extends Controller {
         $customerDetails = $this->customerModel->findCustomerById($user_id);  
         $customer_id=$customerDetails[0]->customer_id;
 
+
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
@@ -1923,7 +1925,7 @@ class Customer extends Controller {
                 'user_id' => trim($user_id),// Replace this with the actual customer ID
                 'status' => trim('pending'),
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName,
+                'customerName' => $customerDetails[0]->name,
                 'id' => $eventId
             ];
 

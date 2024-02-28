@@ -48,7 +48,7 @@
             <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
         </div>
         <div class="sub4-E">
-            <a href="#"><button class="chat-btn-Excg">Chat</button></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $data['customer_user_id']; ?>"><button class="chat-btn-Excg">Chat</button></a>
         </div>
     </div>
 

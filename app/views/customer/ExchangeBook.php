@@ -46,7 +46,7 @@
                     <h3>End Game</h3>
                     <div class="fav-msg">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat">
+                        <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a>
                     </div>
                 </div></a>
             <?php endforeach; ?>

@@ -768,19 +768,19 @@ public function pendingRequestsBooks(){
         $data = [
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
-            'pendingBookDetails'=>$pendingBookDetails,
+            'pendingBookDetails'=>$pendingBookDetails
         ];
         $this->view('admin/pendingRequestsBooks',$data);
     }
 
 }
 
-public function approveBook($customer_id){
+public function approveBook($book_id){
         // Retrieve the email from the database
-        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
+        $pendingBook = $this->adminModel->getPendingBookByID($book_id);
         $customerEmail = $pendingBook[0]->email;
 
-        if($this->adminModel->approveBook($customer_id)){
+        if($this->adminModel->approveBook($book_id)){
             // Send email using PHPMailer
             $mail = new PHPMailer(true);
 

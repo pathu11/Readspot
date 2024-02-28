@@ -219,9 +219,9 @@ public function approveusers($user_id){
   }
 }
 
-public function approveBook($customer_id){
-  $this->db->query("UPDATE books SET status = 'approval' WHERE customer_id = :customer_id");
-  $this->db->bind(':customer_id', $customer_id);
+public function approveBook($book_id){
+  $this->db->query("UPDATE books SET status = 'approval' WHERE book_id = :book_id");
+  $this->db->bind(':book_id', $book_id);
 
   // Execute the query
   if ($this->db->execute()) {
@@ -454,24 +454,24 @@ public function getAvailableBooks(){
 }
 
 public function getPendingBookDetails(){
-  $this->db->query("SELECT b.customer_id, b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+  $this->db->query("SELECT b.book_id, b.customer_id, b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, b.type,
                     s.name, s.email
                     FROM books b
                     INNER JOIN customers s ON b.customer_id = s.customer_id
-                    WHERE b.type = 'used' AND b.status='pending'");
+                    WHERE b.type = 'used' OR b.type='exchanged' AND b.status='pending'");
 
   $results=$this->db->resultSet();
   return $results;
 }
 
-public function getPendingBookByID($customer_id){
-  $this->db->query("SELECT b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
+public function getPendingBookByID($book_id){
+  $this->db->query("SELECT b.book_id,b.book_name, b.author, b.price, b.price_type, b.condition, b.img1, b.img2, b.img3, 
                     s.name, s.email
                     FROM books b
                     INNER JOIN customers s ON b.customer_id = s.customer_id
-                    WHERE b.customer_id=:customer_id ");
+                    WHERE b.book_id=:book_id ");
   
-  $this->db->bind(':customer_id', $customer_id);
+  $this->db->bind(':book_id', $book_id);
   $results=$this->db->resultSet();
   return $results;
 }
