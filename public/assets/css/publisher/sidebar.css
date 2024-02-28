@@ -252,20 +252,35 @@ nav.open ~ .overlay {
 }
 
 @media only screen and (max-width: 768px) {
-  .logo {
-      margin-left: 12px; /* Adjust the margin for smaller screens */
+  .bx-menu.menu-icon {
+      display: block;
   }
 
   .logo-name {
-      font-size: 24px; /* Decrease font size for smaller screens */
+      display: none;
   }
 
-  .user-info {
-      margin-right: 12px; /* Adjust the margin for smaller screens */
+  .user {
+      display: none;
   }
 
-  .user-info img {
-      width: 30px; /* Decrease image size for smaller screens */
-      height: 30px;
+  .logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .logo img {
+      display: block;
+  }
+
+  .img {
+
+      /* display: block; */
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right:auto;
+      margin-left: 400px; 
   }
 }

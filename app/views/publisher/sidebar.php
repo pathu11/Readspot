@@ -17,8 +17,7 @@
                     $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $publisherDetails->profile_img ;
                 ?>
         <?php endforeach; ?>
-        <img style="width: 40px;height: 40px;border-radius: 50%;" src="<?php echo $profileImage; ?>" onclick="toggleMenu()">
-
+        <img class="img" style="width: 40px;height: 40px;border-radius: 50%;" src="<?php echo $profileImage; ?>" onclick="toggleMenu()">
 
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
