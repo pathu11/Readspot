@@ -24,6 +24,7 @@
                         <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-U" autocomplete="off" id="search-U">
                         <!--button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button--> <!--path changed-->
                     </form>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 </div>
             
                 <div class="filter-category">

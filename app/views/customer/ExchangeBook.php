@@ -12,17 +12,25 @@
                 <h1>EXCHANGE BOOKS</h2>
             </div>
             <div class="search-bar-E">
-                <button type="submit" class="filter-btn-E" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
-                <form action="#.php" class="searching-E">
-                    <select id="searchBy"  name="category">
-                        <option value="technology">Title</option>
-                        <option value="travel">Author</option>
-                        <option value="food">ISBN</option>
-                        <option value="lifestyle">Publisher</option>
-                    </select>
-                    <input type="text" placeholder="Search.." name="search-E">
-                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-                </form>
+                <!-- <button type="submit" class="filter-btn-E" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button> -->
+                <div class="search-form-E">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-E" method="post">
+                        <!-- <select id="searchBy"  name="category">
+                            <option value="technology">Title</option>
+                            <option value="travel">Author</option>
+                            <option value="food">ISBN</option>
+                            <option value="lifestyle">Publisher</option>
+                        </select> -->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-E" id="search-E" autocomplete="off">
+                        <!-- <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> path changed -->
+                    </form>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                </div>
+                <div class="filter-category">
+                    <div class="list-group-E" id="show-list">
+                        
+                    </div>
+                </div>
             </div>
         </div>
         <div class="sub-cont-E2">
@@ -38,7 +46,7 @@
                     <h3>End Game</h3>
                     <div class="fav-msg">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat">
+                        <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a>
                     </div>
                 </div></a>
             <?php endforeach; ?>
@@ -51,3 +59,28 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-E").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'E';
+            if(searchText!=''){
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
+                    method : 'post',
+                    data : {query:searchText, bookType:bookType},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            } else {
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("#search-N").val($(this).text());
+            $("#show-list").html('');
+        });
+    });
+</script>
