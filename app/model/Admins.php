@@ -219,6 +219,18 @@ public function approveusers($user_id){
   }
 }
 
+public function approveBook($customer_id){
+  $this->db->query("UPDATE books SET status = 'approval' WHERE customer_id = :customer_id");
+  $this->db->bind(':customer_id', $customer_id);
+
+  // Execute the query
+  if ($this->db->execute()) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
 public function getCustomerDetails(){
   $this->db->query('SELECT * FROM customers');
   $results=$this->db->resultSet();
