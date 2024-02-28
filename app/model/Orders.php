@@ -410,7 +410,7 @@
         $this->db->query('SELECT o.tracking_no, od.status ,o.order_id
                           FROM orders o
                           LEFT JOIN order_details od ON o.order_id = od.order_id
-                          WHERE o.customer_id = :customer_id');
+                          WHERE o.customer_id = :customer_id ORDER BY o.order_date DESC');
         $this->db->bind(':customer_id', $customer_id);
     
         return $this->db->resultSet();

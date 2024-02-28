@@ -44,22 +44,31 @@
                     <td><?php echo $book->condition; ?></td>
                     <td><?php echo $book->name; ?></td>
                     <td><?php echo $book->email; ?></td>
-                    <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/<?php echo $book->img1; ?>" onclick="viewEvent(this.src)" width=30%></td>
-                    <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/<?php echo $book->img2; ?>" onclick="viewEvent(this.src)" width=30%></td>
-                    <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/<?php echo $book->img3; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                    <?php if($book->type =='used'): ?>
+                        <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/<?php echo $book->img1; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                        <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/<?php echo $book->img2; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                        <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/<?php echo $book->img3; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                    <?php endif;?>
+
+                    <?php if($book->type =='exchanged'): ?>
+                        <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddExchangeBook/<?php echo $book->img1; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                        <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddExchangeBook/<?php echo $book->img2; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                        <td><img src="<?php echo URLROOT; ?>/assets/images/customer/AddExchangeBook/<?php echo $book->img3; ?>" onclick="viewEvent(this.src)" width=30%></td>
+                    <?php endif;?>
+
 
                     <td>
-                        <button onclick="showAcceptPopup('<?php echo $book->customer_id; ?>')">Accept</button>
+                        <button onclick="showAcceptPopup('<?php echo $book->book_id; ?>')">Accept</button>
                         <button onclick="showRejectPopup('<?php echo $book->customer_id; ?>')" style="background-color: rgb(200, 84, 84);">Reject</button>
                     </td>
 
 
                 </tr>
-                <div id="acceptPopup_<?php echo $book->customer_id; ?>" class="modal">
+                <div id="acceptPopup_<?php echo $book->book_id; ?>" class="modal">
                     <div class="modal-content">
-                        <span class="close" onclick="hidePopup('acceptPopup_<?php echo $book->customer_id; ?>')">&times;</span>
+                        <span class="close" onclick="hidePopup('acceptPopup_<?php echo $book->book_id; ?>')">&times;</span>
                         <p>Send approval email to the seller.</p>
-                        <a href="<?php echo URLROOT; ?>/admin/approveBook/<?php echo $book->customer_id; ?>"><button>Confirm</button></a>
+                        <a href="<?php echo URLROOT; ?>/admin/approveBook/<?php echo $book->book_id; ?>"><button>Confirm</button></a>
                     </div>
                 </div>
 

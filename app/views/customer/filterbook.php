@@ -21,6 +21,10 @@ if(isset($data['searchResults']) && !empty($data['searchResults'])){
                     echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $searchResult->img1 . '" alt="img1" class="filter-img">';
                 }
 
+                if($data['bookType']=='E'){
+                    echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $searchResult->img1 . '" alt="img1" class="filter-img">';
+                }
+
                 echo '<a href="' . URLROOT . '/customer/BookDetails/' . $searchResult->book_id . '">' . $highlighted_book_name . '</a><br>
                 <p><label>Author:</label> ' . $highlighted_author . '</p>
                 <p><label>ISBN:</label> ' . $highlighted_ISBN_no . '</p>
