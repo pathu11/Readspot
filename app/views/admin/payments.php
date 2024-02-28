@@ -43,8 +43,6 @@
         <td><a href="<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/<?php echo $order->recipt; ?>">payment Recipt</a></td>
         <td><?php echo $order->customer_name; ?></td>
         <td><?php echo $order->contact_no; ?></td>
-        
-       
         <td><a href='<?php echo URLROOT; ?>/admin/approveOrder/<?php echo $order->order_id; ?>'><button>Approve</button></a>
         <div class="popup"">
                     <button onclick="myFunction()">Reject</button>
