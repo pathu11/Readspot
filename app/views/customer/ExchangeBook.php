@@ -21,7 +21,7 @@
                             <option value="food">ISBN</option>
                             <option value="lifestyle">Publisher</option>
                         </select> -->
-                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-E">
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-E" id="search-E" autocomplete="off">
                         <!-- <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> path changed -->
                     </form>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -59,3 +59,28 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-E").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'E';
+            if(searchText!=''){
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
+                    method : 'post',
+                    data : {query:searchText, bookType:bookType},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            } else {
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("#search-N").val($(this).text());
+            $("#show-list").html('');
+        });
+    });
+</script>
