@@ -54,8 +54,10 @@
 
                     <div class="topic-book author">
                         <label class="label-topic">Published Year</label><br>
-                        <input type="Number"  name="publishedYear" class="form-topic" min=1800 required>
+                        <input type="number" id="publishedYear" name="publishedYear" class="form-topic" min="1500" max="<?php echo date('Y'); ?>" required>
+                        <span id="publishedYearError" style="color: red; display: none;">Please select a year.</span>
                     </div>
+
                 </div>
 
 
@@ -155,3 +157,18 @@
             include_once 'footer.php';
         ?>
     </div>
+
+    <script>
+        // JavaScript code for validating published year
+        document.getElementById("publishedYear").addEventListener("input", function() {
+            var year = this.value;
+            // Validate if the year is within the allowed range
+            var minYear = 1800; // Adjusted to 1800 based on typical use cases
+            var maxYear = new Date().getFullYear(); // Get the current year
+            if (year < minYear || year > maxYear) {
+                document.getElementById("publishedYearError").style.display = "block";
+            } else {
+                document.getElementById("publishedYearError").style.display = "none";
+            }
+        });
+    </script>

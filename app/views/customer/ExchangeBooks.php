@@ -19,12 +19,18 @@
                 <br>
                 <br>
                 <div class="books">
-                    <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                        <div class="B-div">
-                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book"><br>';?> <!--path changed-->
-                            <a href="<?php echo URLROOT; ?>/customer/ViewBookExchange/<?php echo $bookDetails->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
+                    <?php if (empty($data['bookDetails'])): ?>
+                        <div class="B-div-noBook">
+                            <p>No books added yet.</p>
                         </div>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php foreach ($data['bookDetails'] as $bookDetails): ?>
+                            <div class="B-div">
+                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book"><br>'; ?>
+                                <a href="<?php echo URLROOT; ?>/customer/ViewBookExchange/<?php echo $bookDetails->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
 
                 <div class="eb-vw">

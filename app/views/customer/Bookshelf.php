@@ -10,16 +10,23 @@
             <div class="used-books">
                 <h2>Used Books</h2>
                 <div class="books">
-                    <?php
-                        $firstFourBooks1 = array_slice($data['bookDetails1'], 0, 4);
-                        foreach($firstFourBooks1 as $bookDetails1): ?>
-                        <div class="B-div">
-                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails1->img1 . '" class="Book"><br>';?>
+                    <?php if (empty($data['bookDetails1'])): ?>
+                        <div class="B-div-noBook">
+                            <p>No books added yet.</p>
                         </div>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php
+                        $firstFourBooks1 = array_slice($data['bookDetails1'], 0, 4);
+                        foreach ($firstFourBooks1 as $bookDetails1): ?>
+                            <div class="B-div">
+                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails1->img1 . '" class="Book"><br>'; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="ub-vw">
+                <a href="<?php echo URLROOT; ?>/customer/AddUsedBook"><button class="ub-vw-btn">Add a Book</button></a>
                 <a href="<?php echo URLROOT; ?>/customer/UsedBooks"><button class="ub-vw-btn">View All >></button></a> <!--path changed-->
             </div>
             <br>
@@ -29,16 +36,23 @@
             <div class="exchange-books">
                 <h2>Exchange Books</h2>
                 <div class="books">
-                    <?php
-                        $firstFourBooks2 = array_slice($data['bookDetails2'], 0, 4);
-                        foreach($firstFourBooks2 as $bookDetails2): ?>
-                        <div class="B-div">
-                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails2->img1 . '" class="Book"><br>';?>
+                    <?php if (empty($data['bookDetails2'])): ?>
+                        <div class="B-div-noBook">
+                            <p>No books added yet.</p>
                         </div>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php
+                        $firstFourBooks2 = array_slice($data['bookDetails2'], 0, 4);
+                        foreach ($firstFourBooks2 as $bookDetails2): ?>
+                            <div class="B-div">
+                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails2->img1 . '" class="Book"><br>'; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="eb-vw">
+                <a href="<?php echo URLROOT; ?>/customer/AddExchangeBook"><button class="eb-vw-btn">Add a Book</button></a>
                 <a href="<?php echo URLROOT; ?>/customer/ExchangeBooks"><button class="eb-vw-btn">View All >></button></a> <!--path changed-->
             </div>
             <br>
