@@ -124,7 +124,7 @@
         let maxQuantityInput = document.getElementById('maxQuantity_' + index);
         let maxQuantity = parseInt(maxQuantityInput.value);
 
-        if (quantity <= maxQuantity) {
+        if (quantity < maxQuantity) {
             quantity++;
             quantityElement.innerText = quantity;
             updateTotalCost(index, quantity); // Pass the updated quantity to updateTotalCost function
