@@ -75,6 +75,11 @@
     transform: scaleX(1);
 }
 
+.dropdown-content-services a::after{
+    transition: transform 0s;
+    background: transparent;
+}
+
 .navigation a.active {
     background-color: #70BFBA;
     border-radius: 10px;
@@ -220,7 +225,7 @@
     position: absolute;
     background-color: rgba(255, 255, 255, 0.8);
     min-width: 200px;
-    height: 325px;
+    height: 285px;
     /* overflow: auto; */
     border: 1px solid #ddd;
     z-index: 1;

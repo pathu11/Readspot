@@ -30,16 +30,16 @@
                 <a href="<?php echo URLROOT; ?>/customer/index" data-head="index">Home</a>
                 <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                 <div class="dropdown-services">
-                    <button onclick="toggleDropdown('myDropdown-S')" data-head="Services" data-head="BuyNewBooks">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
+                    <button onclick="toggleDropdown('myDropdown-S')" data-head="Services">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
                     <div id="myDropdown-S" class="dropdown-content-services">
-                        <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks" data-head="BuyNewBooks">Buy New Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookContents">Contents</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
-                        <a href="#">Event Calender</a>
+                        <!-- <a href="#">Event Calender</a> -->
                     </div>
                 </div>
                 <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
@@ -65,7 +65,7 @@
                         <a href="<?php echo URLROOT; ?>/customer/BookContents">Contents</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
                         <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
-                        <a href="#">Event Calender</a>
+                        <!-- <a href="#">Event Calender</a> -->
                     </div>
                     <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
                 </nav>
@@ -74,7 +74,7 @@
         </div>
     </header>
 
-    <!-- <script>
+    <script>
         // Get the current page URL
         var currentPage = window.location.href;
 
@@ -123,9 +123,9 @@
         var dropdown = document.getElementById(dropdownId);
         dropdown.classList.toggle("show-S");
     }
-    </script> -->
+    </script>
 
-    <script>
+    <!-- <script>
         // Get the current page URL
         var currentPage = window.location.href;
 
@@ -151,5 +151,5 @@
             var parentDropdown = document.querySelector('.dropdown-services button');
             parentDropdown.classList.toggle("active");
         }
-    </script>
+    </script> -->
     
