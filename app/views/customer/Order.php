@@ -91,11 +91,13 @@
                 <p>Sorry, you cannot cancel the order. It is already in shipping.</p>
             </div>
         </div>
-
     </div>
+    <?php 
+        require APPROOT . '/views/customer/footer.php'; //path changed 
+    ?>
 </div>
 
-<?php require APPROOT . '/views/customer/footer.php'; //path changed ?>
+
 
 <script>
     function cancelOrder(orderId, orderStatus) {

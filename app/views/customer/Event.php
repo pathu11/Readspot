@@ -30,11 +30,16 @@
                         <td><?php echo $event->title; ?></td>
                         <td><?php echo $event->category_name; ?></td>
                         <td class="action-buttons">
-                            <!-- <a href="<?php echo URLROOT; ?>/customer/purchase/<?php echo $cart->book_id; ?>" style="text-decoration: none;"> -->
+                            <a href="<?php echo URLROOT; ?>/customer/UpdateEvent/<?php echo $event->id; ?>" style="text-decoration: none;">
+                                <button class="update-button">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </a>
+                            <a href="<?php echo URLROOT; ?>/customer/ViewMyEvent/<?php echo $event->id; ?>" style="text-decoration: none;">
                                 <button class="view-button">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                            <!-- </a> -->
+                            </a>
                             <a href="<?php echo URLROOT; ?>/customer/deleteEvent/<?php echo $event->id; ?>">
                                 <button class="delete-button">
                                     <i class="fas fa-trash"></i>
