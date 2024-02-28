@@ -326,7 +326,7 @@ public function getCharitySearchDetails($input){
 }
 
 public function getOrderDetails(){
-  $this->db->query("SELECT o.*, od.book_id, od.quantity 
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
                     FROM orders o
                     INNER JOIN order_details od ON o.order_id = od.order_id");
   $results = $this->db->resultSet();
