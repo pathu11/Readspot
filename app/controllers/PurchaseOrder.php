@@ -546,6 +546,7 @@ public function successCardPaymentOrder(){
                 echo '<script>alert("You have placed an order successfully")</script>';
                 flash('update_success', 'You have placed an order successfully');
                 redirect('customer/Order');
+                // $this->view('customer/Order', $data);
             } else {
                 die('Something went wrong');
             }

@@ -104,13 +104,6 @@ function toggleMenu(){
                 <span class="link">Settings</span>
               </a>
             </li>
-            <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/logout" class="sub-menu-link"> <!--path changed-->
-              <i class="bx bxs-log-out icon"></i>  <!--path changed-->
-                  
-              <span class="link">Logout</span>
-              </a>
-            </li>
           </div>
         </div>
       </div>
