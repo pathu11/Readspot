@@ -200,7 +200,7 @@ class Publishers{
         }
     }
     public function addBooks($data){
-        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id)');
+        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id,type) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:type)');
         $this->db->bind(':book_name',$data['book_name']);
         $this->db->bind(':ISBN_no',$data['ISBN_no']);
         $this->db->bind(':author',$data['author']);
@@ -212,6 +212,7 @@ class Publishers{
         $this->db->bind(':img1',$data['img1']);
         $this->db->bind(':img2',$data['img2']);
         $this->db->bind(':publisher_id',$data['publisher_id']);
+        $this->db->bind(':type',"new");
         // $this->db->bind(':status','approval');
         // execute
         if($this->db->execute()){

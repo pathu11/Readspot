@@ -74,13 +74,9 @@
             <div class="cart-item">
                 <button class="quantity-button" onclick="decrement()">-</button>
                 <span id="quantity">1</span>
-                <button class="quantity-button" onclick="increment()">+</button>
+                <button class="quantity-button" onclick="increment(<?php echo $books->quantity; ?>)">+</button>
                 <button class="add-to-cart" onclick="addToCart(<?php echo $books->book_id; ?>)">Add to Cart</button>
-
     </div>
-
-      
-
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
             <div class="send-review">
@@ -94,7 +90,7 @@
                         for ($i = $rating; $i < 5; $i++) {
                             echo '<span class="fas fa-star"></span>';
                         }
-                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on 254 reviews.</p>';
+                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on ' .$data['averageRatingCount']->total_reviews . ' reviews.</p>';
                     } else {
                         echo '<p>No reviews</p>';
                     }
@@ -175,14 +171,14 @@
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
                     <p><?php echo $reviews->review; ?></p>
-                    <div class="helpful">
+                    <!-- <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <div class="yes-no">
                             <h3>Yes</h3>
                             <h3>No</h3>
                         </div>
                     </div>
-                    <h5>13 people found this helpful</h5>
+                    <h5>13 people found this helpful</h5> -->
                 </div>
                 <?php endforeach; ?>
                 
@@ -199,49 +195,7 @@
         </div>
     </div>
     <script>
-        // Sample data representing count and percentage for each rating
-// Sample data representing count and percentage for each rating
-const ratingData = [
-    { rating: '1 Star', count: 10, percentage: 20 },
-    { rating: '2 Star', count: 20, percentage: 40 },
-    { rating: '3 Star', count: 15, percentage: 30 },
-    { rating: '4 Star', count: 5, percentage: 10 },
-    { rating: '5 Star', count: 2, percentage: 4 }
-];
-
-// Get the canvas element
-const ctx = document.getElementById('ratingChart').getContext('2d');
-
-// Generate labels, data, and colors from the rating data
-const labels = ratingData.map(data => data.rating);
-const counts = ratingData.map(data => data.count);
-const percentages = ratingData.map(data => data.percentage);
-const colors = ['#ff0000', '#ff6600', '#ffcc00', '#99ff00', '#00ff00']; // Customize colors as needed
-
-// Create the chart
-const chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Count',
-            data: counts,
-            backgroundColor: colors,
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-
-
+ 
     
     const btn = document.querySelector("button");
     const post = document.querySelector(".post");
@@ -273,9 +227,11 @@ const chart = new Chart(ctx, {
         
         let quantity = 1;
 
-        function increment() {
-            quantity++;
-            document.getElementById('quantity').innerText = quantity;
+        function increment(maxQuantity) {
+            if (quantity < maxQuantity) {
+                quantity++;
+                document.getElementById('quantity').innerText = quantity;
+            }
         }
 
         function decrement() {
@@ -352,7 +308,54 @@ function addToCart2(bookId) {
     xhttp.send();
 }
 
+    const star_1=<?php echo $data['countStar_1']->total_1; ?>;
+    const star_2=<?php echo $data['countStar_2']->total_2; ?>;
+    const star_3=<?php echo $data['countStar_3']->total_3; ?>;
+    const star_4=<?php echo $data['countStar_4']->total_4; ?>;
+    const star_5=<?php echo $data['countStar_5']->total_5; ?>;
+    
 
+   
+    const starCounts = [star_1,star_2, star_3,star_4,star_5]; // Counts for 1 star, 2 stars, 3 stars, 4 stars, and 5 stars respectively
+    // Get the canvas element
+    const ctx = document.getElementById('ratingChart').getContext('2d');
+    // Create the chart
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'],
+            datasets: [{
+                label: 'Number of Reviews',
+                data: starCounts,
+               
+                backgroundColor: [
+                    '#ff0000', 
+                    '#ff6600', 
+                    '#ffcc00', 
+                    '#99ff00',
+                    '#00ff00' 
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1 // Ensure ticks are whole numbers
+                    }
+                }]
+            }
+        }
+    });
 
 
 
