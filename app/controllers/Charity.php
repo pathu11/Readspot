@@ -2,12 +2,8 @@
 <?php
 class Charity extends Controller{
     public function  __construct(){
-        parent::__construct();
+       
 
-        // Check login status
-        // if(!isLoggedInCharity()){
-        //     redirect('charity/index');
-        // }
     }
     public function index(){
         if(!isLoggedInCharity()){
@@ -24,4 +20,15 @@ class Charity extends Controller{
     }
     
 
+    public function customerSupport(){
+        $this->view('charity/customerSupport');
+    }
+
+    public function aboutUs(){
+        $this->view('charity/aboutus');
+    }
+
+    public function donationQuery(){
+        $this->view('charity/donationQuery');
+    }
 }

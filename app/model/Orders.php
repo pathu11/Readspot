@@ -426,11 +426,6 @@
             return false;
         }
     }
-    
-    
-    
-    
-
 
 public function getUserOrderHistoryWithBooks($customer_id)
 {

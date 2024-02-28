@@ -18,14 +18,10 @@
         </div>
         <nav>
             <a href="#" class="active">Home</a>
-            <a href="<?php echo URLROOT; ?>/charity/event">Event Management</a>
-            <a href="#" id="donorRequestLink">Donor Request</a>
-            <a href="#">Customer Support</a>
-        </nav>
-
-        <div id="signup">
-            <a href="Login.html">Login</a>
-        </div>
+            <a href="event">Event Management</a>
+            <a href="customerSupport" id="donorRequestLink">Customer Support</a>
+            <a href="aboutUs">About Us</a>
+        </nav>  
     </header>
 
     <div class="body-container">
@@ -46,8 +42,6 @@
             <h4> Become a Charity Member !</h4>
             <img id="joinUs" src=<?=URLROOT."/assets/images/charity/join-with-us-logo.png"?>>
             <p> Join a supportive network of individuals who share your commitment to kindness.
-                <a href="#" id="sublogin">LOGIN</a>
-                <br>
             </p>
         </div>
         <div class="box4">

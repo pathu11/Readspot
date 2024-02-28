@@ -95,7 +95,7 @@ nav a:hover {
     border-radius: 10px;
     background-color: #ffffff;
     border: #f7f7f7;
-    top: 150%;
+    top: 160%;
     transform: translateY(-50%);
     left: 44%;
     font-family: "Poppins";
@@ -119,7 +119,7 @@ nav a:hover {
 .postevent {
     position: absolute;
     width: 300px;
-    height: 44px;
+    height: 40px;
     border-radius: 10px;
     /*background: linear-gradient(135deg, #00686b, rgb(0, 170, 142));*/
     background-color: #ffffff;
@@ -777,7 +777,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #70BFBA;
+    background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

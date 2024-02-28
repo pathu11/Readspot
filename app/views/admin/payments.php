@@ -1,10 +1,8 @@
 
 
 <?php
-    $title = "Approve Payment Reciepts";
-    
+    $title = "Approve Payment Reciepts";  
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 

@@ -105,7 +105,9 @@
     }
 
     public function findExchangedBookByNotCusId($customer_id){
+
       $this->db->query('SELECT b.* , c.user_id AS customer_user_id from books b JOIN customers c ON b.customer_id=c.customer_id  WHERE b.customer_id!=:customer_id AND b.type="exchanged" AND b.status="approval"');
+
       $this->db->bind(':customer_id',$customer_id);
 
       return $this->db->resultSet();
