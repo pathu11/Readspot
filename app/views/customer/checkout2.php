@@ -5,6 +5,30 @@
 <head>
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/checkoutform.css"> 
     <style>
+          #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 30, 30, 0.5);/* Semi-transparent black overlay */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading-message {
+            background-color: white; /* Message background color */
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
         .submit {
             width: 90%;
             height: 40px;
@@ -245,6 +269,8 @@
             // PayHere initialization
             payhere.onCompleted = function onCompleted(orderId) {
                 console.log("Payment completed. OrderID: " + obj["order_id"]);
+                // document.write("Redirecting")
+                showLoading(); 
                 successOrder(obj["total_price"], obj["order_id"]);
 
             };
@@ -281,7 +307,6 @@
                     "custom_1": "",
                     "custom_2": ""
                 };  
-                console.log(payment) ;            // Start PayHere payment
                 payhere.startPayment(payment);
             }
         };
@@ -291,6 +316,15 @@
         
         xhttp.send(params);
     }
+    function showLoading() {
+        var loadingOverlay = document.createElement('div');
+        loadingOverlay.setAttribute('id', 'loading-overlay');
+        var loadingMessage = document.createElement('div');
+        loadingMessage.setAttribute('id', 'loading-message');
+        loadingMessage.textContent = 'Redirecting...';
+        loadingOverlay.appendChild(loadingMessage);
+        document.body.appendChild(loadingOverlay);
+}
     function successOrder(totalPrice, orderId) {
     // AJAX request to call the controller function
         var successXhttp = new XMLHttpRequest();
@@ -298,7 +332,7 @@
 
         successXhttp.onreadystatechange = function () {
             if (successXhttp.readyState == 4 && successXhttp.status == 200) {
-                console.log(successXhttp.responseText);
+                window.location="../../customer/Order"
                 // Handle any additional logic after successful order
             }
         };
