@@ -905,7 +905,6 @@ class Landing extends Controller{
             $this->view('landing/enteremail', $data);
         }
     }
-    
     public function enterotp() {
 
         $userId = null; // Initialize $userId
