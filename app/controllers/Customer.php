@@ -981,7 +981,11 @@ class Customer extends Controller {
     
     public function BuyUsedBook(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $UsedbookDetails = $this->customerModel->findAllUsedBooks();
+            $data = [
+                'bookDetails' => $UsedbookDetails,
+            ];
+            $this->view('customer/BuyUsedBook', $data);
         } else {
             $customerid = null;
 
@@ -2550,8 +2554,34 @@ class Customer extends Controller {
 
     public function UsedBookDetails($bookId){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        }
+            $UsedBookId = $this->customerModel->findUsedBookById($bookId);
+            $data = [
+                'UsedBookId' => $UsedBookId,
+                
+                'book_id' => $bookId,
+                'book_name' => $UsedBookId->book_name,
+                'ISBN_no' => $UsedBookId->ISBN_no,
+                'author' => $UsedBookId->author,
+                'price' => $UsedBookId->price,
+                'category' => $UsedBookId->category,
+                'weight' => $UsedBookId->weight,
+                'descript' => $UsedBookId->descript,
+                'img1' => $UsedBookId->img1,
+                'img2' => $UsedBookId->img2,
+                'img3' => $UsedBookId->img3,
+                'condition' => $UsedBookId->condition,
+                'published_year' => $UsedBookId->published_year,
+                'price_type' => $UsedBookId->price_type,
+                'account_name' => $UsedBookId->account_name,
+                'account_no' => $UsedBookId->account_no,
+                'bank_name' => $UsedBookId->bank_name,
+                'branch_name' => $UsedBookId->branch_name,
+                'town' => $UsedBookId->town,
+                'district' => $UsedBookId->district,
+                'postal_code' => $UsedBookId->postal_code
+            ];
+            $this->view('customer/UsedBookDetails', $data);
+        } else {
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -2614,6 +2644,7 @@ class Customer extends Controller {
             'postal_code' => $UsedBookId->postal_code
         ];
         $this->view('customer/UsedBookDetails', $data);
+        }
     }
 
     public function Favorite(){

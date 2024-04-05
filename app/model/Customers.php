@@ -895,4 +895,9 @@ public function getQuizScore($quiz_id,$user_id){
   //   // $row = $this->db->single();
   //   // return $row;
   // }
+
+  public function findAllUsedBooks() {
+    $this->db->query('SELECT * FROM books WHERE status="approval" AND type="used" ORDER BY created_at DESC');
+    return $this->db->resultSet();
+  }
 }
