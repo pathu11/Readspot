@@ -1145,19 +1145,19 @@ class Landing extends Controller{
     }
 
 
-    public function AboutUs(){
-        if (isLoggedInCustomer()) {
-            redirect('customer/AboutUs');
-        } else {
-            $this->view('landing/AboutUs');
-        }
-    }
+    // public function AboutUs(){
+    //     if (isLoggedInCustomer()) {
+    //         redirect('customer/AboutUs');
+    //     } else {
+    //         $this->view('landing/AboutUs');
+    //     }
+    // }
 
-    public function ContactUs(){
-        if (isLoggedInCustomer()) {
-            redirect('customer/ContactUs');
-        } else {
-            $this->view('landing/ContactUs');
-        }
-    } 
+    // public function ContactUs(){
+    //     if (isLoggedInCustomer()) {
+    //         redirect('customer/ContactUs');
+    //     } else {
+    //         $this->view('landing/ContactUs');
+    //     }
+    // } 
 }

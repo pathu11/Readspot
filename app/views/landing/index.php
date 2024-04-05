@@ -69,45 +69,45 @@
         </div> -->
     </div>
     <?php
-        require APPROOT . '/views/landing/footer.php';
+        require APPROOT . '/views/customer/footer.php';
     ?>
 
 <script>
     function service1() {
     // Define the URL you want to redirect to
-    var url = "<?php echo URLROOT; ?>/landing/BuyNewBooks"; //path changed
+    var url = "<?php echo URLROOT; ?>/customer/BuyNewBooks"; //path changed
 
     // Use the window.location.href property to navigate to the specified URL
     window.location.href = url;
 }
 
 function service2() {
-    var url = "<?php echo URLROOT; ?>/landing/BuyUsedBook"; //path changed
+    var url = "<?php echo URLROOT; ?>/customer/BuyUsedBook"; //path changed
     window.location.href = url;
 }
 
 function service3() {
-    var url = "<?php echo URLROOT; ?>/landing/ExchangeBook"; //path changed
+    var url = "<?php echo URLROOT; ?>/customer/ExchangeBook"; //path changed
     window.location.href = url;
 }
 
 function service4() {
-    var url = "<?php echo URLROOT; ?>/landing/DonateBooks"; //path changed
+    var url = "<?php echo URLROOT; ?>/customer/DonateBooks"; //path changed
     window.location.href = url;
 }
 
 function service5() {
-    var url = "<?php echo URLROOT; ?>/landing/BookContents"; //path changed
+    var url = "<?php echo URLROOT; ?>/customer/BookContents"; //path changed
     window.location.href = url;
 }
 
 function service6() {
-    var url = "<?php echo URLROOT; ?>/landing/BookEvents"; //path changed
+    var url = "<?php echo URLROOT; ?>/customer/BookEvents"; //path changed
     window.location.href = url;
 }
 
 function service7() {
-    var url = "<?php echo URLROOT; ?>/landing/BookChallenge";
+    var url = "<?php echo URLROOT; ?>/customer/BookChallenge";
     window.location.href = url;
 }
 

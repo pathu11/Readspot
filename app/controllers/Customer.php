@@ -17,7 +17,7 @@ class Customer extends Controller {
     private $db;
     public function __construct(){
         if (!isLoggedIn()) {
-            redirect('landing/login');
+            // redirect('landing/login');
         }
         $this->customerModel=$this->model('Customers');
         $this->deliveryModel=$this->model('Deliver');
@@ -96,7 +96,7 @@ class Customer extends Controller {
     }
     public function AboutUs(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/AboutUs');
+            $this->view('customer/AboutUs');
         } else {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
@@ -1086,7 +1086,7 @@ class Customer extends Controller {
     
     public function ContactUs(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/ContactUs');
         } else {
             $user_id = $_SESSION['user_id'];
            

@@ -28,27 +28,27 @@
         <div class="navig">
             <nav class="navigation">
                 <a href="<?php echo URLROOT; ?>/landing/index" data-head="index">Home</a>
-                <a href="<?php echo URLROOT; ?>/landing/AboutUs" data-head="About">About</a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                 <div class="dropdown-services">
                     <button onclick="toggleDropdown('myDropdown-S')" data-head="Services">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
                     <div id="myDropdown-S" class="dropdown-content-services">
-                        <a href="<?php echo URLROOT; ?>/landing/BuyNewBooks">Buy New Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BuyUsedBook">Buy Used Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/ExchangeBook">Exchange Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/DonateBooks">Donate Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BookContents">Contents</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BookEvents">Events</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BookChallenge">Book Challenges</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookContents">Contents</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
                         <!-- <a href="#">Event Calender</a> -->
                     </div>
                 </div>
-                <a href="<?php echo URLROOT; ?>/landing/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
+                <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
             </nav>
             <?php 
                 if (isset($_SESSION["user_id"])){
                     include_once 'dropdownmenu.php';
                 } else {
-                    echo '<a href="' . URLROOT . '/landing/login"><button class="Login">Login</button></a>';
+                    echo '<a href="' . URLROOT . '/customer/login"><button class="Login">Login</button></a>';
                 }
             ?>
 
@@ -56,19 +56,19 @@
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/menu.png" alt="menu" class="menu">
                 <nav id="subNav">
                     <a href="<?php echo URLROOT; ?>/landing/index" data-head="Home">Home</a>
-                    <a href="<?php echo URLROOT; ?>/landing/AboutUs" data-head="About">About</a> <!--path changed-->
+                    <a href="<?php echo URLROOT; ?>/customer/AboutUs" data-head="About">About</a> <!--path changed-->
                     <button class="drop-serv">Services <i class="fa fa-caret-down"></i></button> <!--path changed-->
                     <div id="myDropdown-S" class="dropdown-content-services">
-                        <a href="<?php echo URLROOT; ?>/landing/BuyNewBooks">Buy New Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BuyUsedBook">Buy Used Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/ExchangeBook">Exchange Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/DonateBooks">Donate Books</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BookContents">Contents</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BookEvents">Events</a>
-                        <a href="<?php echo URLROOT; ?>/landing/BookChallenge">Book Challenges</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookContents">Contents</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
+                        <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
                         <!-- <a href="#">Event Calender</a> -->
                     </div>
-                    <a href="<?php echo URLROOT; ?>/landing/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
+                    <a href="<?php echo URLROOT; ?>/customer/ContactUs" data-head="Contact">Contact</a> <!--path changed-->
                 </nav>
             </div>
         </div>
