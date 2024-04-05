@@ -96,7 +96,7 @@ class Customer extends Controller {
     }
     public function AboutUs(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            redirect('landing/AboutUs');
         } else {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
