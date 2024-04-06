@@ -2726,7 +2726,7 @@ class Customer extends Controller {
             }
             else{
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                //if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
+                if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
             
                 $data = [
                     'customerDetails' => $customerDetails,

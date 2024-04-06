@@ -55,6 +55,7 @@
       </div>
     </div>
   </div>
+  <a href="<?php echo URLROOT;?>/customer/BookChallenge">go</a>
   
 </body>
 </html>

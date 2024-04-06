@@ -830,7 +830,7 @@ public function getOngoingChallenges($user_id){
 }
 
 public function addQuizAttempt($quiz_id,$user_id){
-  $this->db->query('INSERT INTO history(quiz_id,user_id) VALUES (:quiz_id,:user_id)');
+  $this->db->query('INSERT INTO history(quiz_id,user_id,score) VALUES (:quiz_id,:user_id,0)');
   $this->db->bind(':quiz_id',$quiz_id);
   $this->db->bind(':user_id',$user_id);
   if ($this->db->execute()) {
