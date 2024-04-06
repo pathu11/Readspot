@@ -39,24 +39,24 @@
             </div>
 
             <div class="score">
-                <h2>scoreboard</h2>
+                <h2>Scoreboard</h2>
+                <table>
                 <?php
-                $userFound = false; 
+                $userFound = false;
                 foreach($data['quizDetails'] as $score):
                 ?>
-                    <table>
-                        <tr>
-                            <?php if($score->user_id==$_SESSION['user_id']):
-                                $userFound = true; 
-                            ?>
-                                <td>You</td>
-                            <?php else:?>
-                                <td><?php echo $score->name;?></td>
-                            <?php endif;?>
-                            <td><?php echo $score->total_score?></td>
-                        </tr>
-                    </table>
+                    <tr>
+                        <?php if($score->user_id==$_SESSION['user_id']):
+                            $userFound = true; 
+                        ?>
+                            <td>You</td>
+                        <?php else:?>
+                            <td><?php echo $score->name;?></td>
+                        <?php endif;?>
+                        <td><?php echo $score->total_score?></td>
+                    </tr>
                 <?php endforeach;?>
+                </table>
                 <?php if(!$userFound): ?>
                     <tr>
                         <td>You haven't attempted any quizzes yet. Try them to get on the scoreboard!</td>
