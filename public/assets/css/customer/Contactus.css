@@ -22,6 +22,11 @@
 }
 
 .topic-name1 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
     min-height: 120px;
     width: 100%;
@@ -29,7 +34,21 @@
     padding: 10px;
 }
 
+.first-name-div{
+    width: 45%;
+    margin-right: 10px;
+}
+
+.last-name-div {
+    width: 45%;
+    margin-left: 10px;
+}
 .topic-name2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 0px;
     min-height: 120px;
     width: 100%;
@@ -44,7 +63,7 @@
     padding: 20px;
 }
 
-.topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"] {
+.topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"], .topic-name2 select {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -83,12 +102,14 @@
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:500px) {
     .contact-us h1{
         font-size: 16px;
     }
 
     .topic-name1 {
+        flex-direction: column;
+        align-items: flex-start;
         margin-top: 5px;
         min-height: 60px;
         width: 100%;
@@ -97,6 +118,9 @@
     }
     
     .topic-name2 {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items:flex-start;
         margin-top: 0px;
         min-height: 60px;
         width: 100%;
@@ -111,7 +135,7 @@
         padding: 10px;
     }
     
-    .topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"] {
+    .topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"], .topic-name2 select {
         width: 100%;
         padding: 5px;
         margin-top: 5px;
@@ -119,5 +143,15 @@
         border: none;
         background-color: #eeeeef;
         border-radius: 5px;
+    }
+
+    .first-name-div{
+        width: 100%;
+        margin: 0px;
+    }
+    
+    .last-name-div {
+        width: 100%;
+        margin: 0px;
     }
 }
