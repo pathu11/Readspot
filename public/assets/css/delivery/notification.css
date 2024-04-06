@@ -25,9 +25,9 @@ body{
      justify-content:space-between;
  }
  .head button {
-     display: block;
+     /* display: block; */
      margin-top: 20px;
-     margin-left: 800px;
+     /* margin-left: 800px; */
      margin-right: 60px;
      padding: 10px;
      background-color: #009D94;
@@ -37,10 +37,12 @@ body{
      border-radius: 5px;
      cursor: pointer;
  }
+ 
  .head1 h4{
      color:#09514C;
      font-size:20px;
  }
+ 
  .head button:hover {
      background-color: #09514C;
  } 
