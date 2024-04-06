@@ -411,6 +411,7 @@ class Customer extends Controller {
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -539,10 +540,13 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
+
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookCategoryDetails'=>$bookCategoryDetails
             ];
             $this->view('customer/AddExchangeBook', $data);
         }
@@ -562,7 +566,8 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();  
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -724,6 +729,7 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $accName = $customerDetails[0]->account_name;
@@ -750,7 +756,8 @@ class Customer extends Controller {
                 'postal_code' => trim($postalCode),
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName
+                'customerName' => $customerName,
+                'bookCategoryDetails'=>$bookCategoryDetails
             ];
 
             $this->view('customer/AddUsedBook',$data);
@@ -1596,6 +1603,8 @@ class Customer extends Controller {
         $user_id = $_SESSION['user_id'];
        
         $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
+        
         $customer_id=$customerDetails[0]->customer_id;
 
        
@@ -1746,12 +1755,14 @@ class Customer extends Controller {
         }else{
             $UsedBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
             if($UsedBookId->customer_id != $customer_id){
                 redirect('customer/UsedBooks');
               }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
+                'bookCategoryDetails'=>$bookCategoryDetails,
                 'book_name' => $UsedBookId->book_name,
                 'ISBN_no' => $UsedBookId->ISBN_no,
                 'author' => $UsedBookId->author,
@@ -1791,6 +1802,7 @@ class Customer extends Controller {
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $customer_id=$customerDetails[0]->customer_id;
 
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
         // $data = [
         //     'customerDetails' => $customerDetails,
         //     'customerName' => $customerDetails[0]->name
@@ -1928,12 +1940,14 @@ class Customer extends Controller {
         }else{
             $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
             if($ExchangeBookId->customer_id != $customer_id){
                 redirect('customer/ExchangeBooks');
             }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
+                'bookCategoryDetails'=>$bookCategoryDetails,
                 'book_name' => $ExchangeBookId->book_name,
                 'ISBN_no' => $ExchangeBookId->ISBN_no,
                 'author' => $ExchangeBookId->author,

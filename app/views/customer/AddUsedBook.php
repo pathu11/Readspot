@@ -30,11 +30,10 @@
                     <div class="topic-book author">
                         <label class="label-topic">Book Category</label><br>
                         <select id="category"  name="category" required>
-                            <option value="technology">Technology</option>
-                            <option value="travel">Travel</option>
-                            <option value="food">Food</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="health">Health</option>
+                            <!-- <option value="" selected disabled>Select Book Category</option> -->
+                            <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
+                                <option><?php echo $bookCategoryDetails->category; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 
