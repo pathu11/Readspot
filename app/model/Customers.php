@@ -870,6 +870,16 @@ public function getQuizScore($quiz_id,$user_id){
   return $this->db->resultSet();
 }
 
+public function getQuizDetails(){
+  $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score
+  FROM history s
+  INNER JOIN users u ON s.user_id = u.user_id
+  GROUP BY u.user_id
+  ORDER BY total_score ASC');
+
+  return $this->db->resultSet();
+}
+
   public function findDetailsByCartId($cartId){
     $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
     FROM cart c 
