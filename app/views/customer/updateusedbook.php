@@ -30,11 +30,16 @@
                 <div class="topic-book author">
                         <label class="label-topic">Book Category</label><br>
                         <select id="category" name="category" required>
-                            <option value="technology" <?php echo ($data['category'] == 'technology') ? 'selected' : ''; ?>>Technology</option>
+                            <!-- <option value="" selected disabled>Select Book Category</option> -->
+                            <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
+                                <option value="<?php echo $bookCategoryDetails->category; ?>" <?php echo ($data['category'] == $bookCategoryDetails->category) ? 'selected' : ''; ?>><?php echo $bookCategoryDetails->category; ?></option>
+                            <?php endforeach; ?>
+                        
+                            <!-- <option value="technology" <?php echo ($data['category'] == 'technology') ? 'selected' : ''; ?>>Technology</option>
                             <option value="travel" <?php echo ($data['category'] == 'travel') ? 'selected' : ''; ?>>Travel</option>
                             <option value="food" <?php echo ($data['category'] == 'food') ? 'selected' : ''; ?>>Food</option>
                             <option value="lifestyle" <?php echo ($data['category'] == 'lifestyle') ? 'selected' : ''; ?>>Lifestyle</option>
-                            <option value="health" <?php echo ($data['category'] == 'health') ? 'selected' : ''; ?>>Health</option>
+                            <option value="health" <?php echo ($data['category'] == 'health') ? 'selected' : ''; ?>>Health</option> -->
                         </select>
                     </div>
                 

@@ -1013,4 +1013,20 @@ public function getQuizScore($quiz_id,$user_id){
   //   // $row = $this->db->single();
   //   // return $row;
   // }
+
+  public function findAllUsedBooks() {
+    $this->db->query('SELECT * FROM books WHERE status="approval" AND type="used" ORDER BY created_at DESC');
+    return $this->db->resultSet();
+  }
+
+  public function findAllExchangedBook() {
+    $this->db->query('SELECT * FROM books WHERE status="approval" AND type="exchanged" ORDER BY created_at DESC');
+    return $this->db->resultSet();
+  }
+
+
+  public function findAllEvents() {
+    $this->db->query('SELECT * FROM events WHERE status="Approved"');
+    return $this->db->resultSet();
+  }
 }
