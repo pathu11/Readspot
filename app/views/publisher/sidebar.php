@@ -76,6 +76,12 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/payments" class="nav-link">
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Payments</span>
+              </a>
+            </li>
+            <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/events" class="nav-link">
                 <i class="bx bxs-calendar-event icon"></i>
                 <span class="link">Events</span>

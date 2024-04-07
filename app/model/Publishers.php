@@ -466,7 +466,11 @@ class Publishers{
             return false;
         }
     } 
-    
+    public function finduserDetails($sender_id){
+        $this->db->query('SELECT * FROM users WHERE user_id=:user_id');
+        $this->db->bind(':user_id', $sender_id);
+        return $this->db->single(); // Return the result of the query
+    }
     public function getChatDetailsById($user_id){
         $this->db->query('SELECT m.*, last_msgs.chat_id 
                          FROM message m 

@@ -31,7 +31,7 @@
             <tr >
             
             <a href="#"><th style="width:20%" >    
-                    <!-- <h4><?php echo $message->sender_name; ?></h5> -->
+                    <h4><?php echo $data['senderName']; ?></h5>
                 </th>
                 <td style="width:80%">
                     <p><?php

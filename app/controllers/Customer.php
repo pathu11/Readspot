@@ -951,34 +951,36 @@ class Customer extends Controller {
         }
     } 
     
-    public function BuyNewBooks()
+public function BuyNewBooks()
 {
     if (!isLoggedInCustomer()) {
-        redirect('landing/login');
+        // redirect('landing/login');
+        $recommendedBooks = $this->customerModel->topSelling();
+        $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+        $data = [  
+            'bookDetails' => $NewbookDetailsByTime,
+            'recommendedBooks' => $recommendedBooks
+        ];
+        $this->view('customer/BuyNewBooks', $data);
+
     } else {
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id); 
+        $customer_id = $customerDetails[0]->customer_id;
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
-        // $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
-        
-        // print_r($recommendedBooks) ;
-       
-        // $recommendedCategories = $this->ordersModel->getRecommendedCategories($customerDetails[0]->customer_id);
-        // $recommendedBooks = $this->ordersModel->getRecommendedBooks($recommendedCategories);
+        $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
         $data = [
             'customerDetails' => $customerDetails,
+            'user_id'=>$user_id,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name,
             'bookDetails' => $NewbookDetailsByTime,
-            // 'recommendedBooks'=>$recommendedBooks
-            // 'bookCategoryDetails' => $bookCategoryDetails
+            'recommendedBooks' => $recommendedBooks
         ];
 
         $this->view('customer/BuyNewBooks', $data);
     }
-}
-
-    
+}   
     public function BuyUsedBook(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
@@ -2538,11 +2540,15 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id = $customerDetails[0]->customer_id;
+            
+            $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'recommendedBooks'=>$recommendedBooks
             ];
             $this->view('customer/Recommended', $data);
         }
