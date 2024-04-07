@@ -29,12 +29,10 @@
                     <div class="topic-book author">
                         <label class="label-topic">Book Category</label><br>
                         <select id="category" name="category" required>
-                            <option value="technology">Classics</option>
-                            <option value="Fantasy">Fantasy</option>
-                            <option value="Novel">Novel</option>
-                            <option value="Romance">Romance</option>
-                            <option value="Science Fiction">Science Fiction</option>
-                            <!-- Add more categories as needed -->
+                            <!-- <option value="" selected disabled>Select Book Category</option> -->
+                            <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
+                                <option><?php echo $bookCategoryDetails->category; ?></option>
+                            <?php endforeach; ?>
                         </select>
                         <!-- <input type="text" class="form-topic"> -->
                     </div>

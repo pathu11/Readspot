@@ -17,7 +17,7 @@ class Customer extends Controller {
     private $db;
     public function __construct(){
         if (!isLoggedIn()) {
-            redirect('landing/login');
+            // redirect('landing/login');
         }
         $this->customerModel=$this->model('Customers');
         $this->deliveryModel=$this->model('Deliver');
@@ -96,7 +96,7 @@ class Customer extends Controller {
     }
     public function AboutUs(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/AboutUs');
         } else {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
@@ -411,6 +411,7 @@ class Customer extends Controller {
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -539,10 +540,13 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
+
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookCategoryDetails'=>$bookCategoryDetails
             ];
             $this->view('customer/AddExchangeBook', $data);
         }
@@ -562,7 +566,8 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();  
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -724,6 +729,7 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $accName = $customerDetails[0]->account_name;
@@ -750,7 +756,8 @@ class Customer extends Controller {
                 'postal_code' => trim($postalCode),
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName
+                'customerName' => $customerName,
+                'bookCategoryDetails'=>$bookCategoryDetails
             ];
 
             $this->view('customer/AddUsedBook',$data);
@@ -760,7 +767,11 @@ class Customer extends Controller {
     
     public function BookContents(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $content_Details=$this->customerModel->findContent();
+            $data = [
+                'contentDetails'=>$content_Details
+            ];
+            $this->view('customer/BookContents', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -778,7 +789,27 @@ class Customer extends Controller {
     
     public function BookDetails($book_id){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $bookDetails=$this->customerModel->findBookById($book_id);
+            $reviewDetails=$this->customerModel->findReviewsByBookId($book_id)  ;
+            $averageRatingCount=$this->customerModel->getAverageRatingByBookId($book_id);
+            $countStar_1 = $this->customerModel->countStar_1($book_id);
+            $countStar_2 = $this->customerModel->countStar_2($book_id);
+            $countStar_3 = $this->customerModel->countStar_3($book_id);
+            $countStar_4 = $this->customerModel->countStar_4($book_id);
+            $countStar_5 = $this->customerModel->countStar_5($book_id);
+
+            $data = [
+                'bookDetails'=>$bookDetails,
+                'reviewDetails'=>$reviewDetails,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
+                'averageRatingCount'=>$averageRatingCount
+            ];
+            // print_r($data['countStar_1']);
+            $this->view('customer/BookDetails', $data);
         } else {
             $user_id = $_SESSION['user_id'];
             $bookDetails=$this->customerModel->findBookById($book_id);
@@ -888,7 +919,11 @@ class Customer extends Controller {
     
     public function BookEvents(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $eventDetails = $this->customerModel->findAllEvents();
+            $data = [
+                'eventDetails' => $eventDetails
+            ];
+            $this->view('customer/BookEvents', $data);
         } else {
             $customerid = null;
 
@@ -954,7 +989,11 @@ class Customer extends Controller {
     public function BuyNewBooks()
 {
     if (!isLoggedInCustomer()) {
-        redirect('landing/login');
+        $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+        $data = [
+            'bookDetails' => $NewbookDetailsByTime,
+        ];
+        $this->view('customer/BuyNewBooks', $data);
     } else {
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id); 
@@ -981,7 +1020,11 @@ class Customer extends Controller {
     
     public function BuyUsedBook(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $UsedbookDetails = $this->customerModel->findAllUsedBooks();
+            $data = [
+                'bookDetails' => $UsedbookDetails,
+            ];
+            $this->view('customer/BuyUsedBook', $data);
         } else {
             $customerid = null;
 
@@ -1086,7 +1129,7 @@ class Customer extends Controller {
     
     public function ContactUs(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/ContactUs');
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -1140,7 +1183,7 @@ class Customer extends Controller {
     
     public function DonateBooks(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/DonateBooks');
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -1156,7 +1199,7 @@ class Customer extends Controller {
 
     public function Donatedetails(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/Donatedetails');
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -1224,8 +1267,12 @@ class Customer extends Controller {
 
     public function ExchangeBook(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        } 
+            $bookDetails = $this->customerModel->findAllExchangedBook();
+            $data = [
+                'bookDetails' => $bookDetails,
+            ];
+                $this->view('customer/ExchangeBook', $data);
+        } else {
         $customerid = null;
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
@@ -1249,12 +1296,35 @@ class Customer extends Controller {
             'customerName' => $customerDetails[0]->name
         ];
             $this->view('customer/ExchangeBook', $data);
-    } 
+        } 
+    }
 
     public function ExchangeBookDetails($bookId){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        }
+            $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
+            $data = [
+                'customer_user_id'=>$ExchangeBookId->customer_user_id,
+                'ExchangeBookId' => $ExchangeBookId,
+    
+                'book_id' => $bookId,
+                'book_name' => $ExchangeBookId->book_name,
+                'ISBN_no' => $ExchangeBookId->ISBN_no,
+                'author' => $ExchangeBookId->author,
+                'category' => $ExchangeBookId->category,
+                'weight' => $ExchangeBookId->weight,
+                'descript' => $ExchangeBookId->descript,
+                'booksIWant' => $ExchangeBookId->booksIWant,
+                'img1' => $ExchangeBookId->img1,
+                'img2' => $ExchangeBookId->img2,
+                'img3' => $ExchangeBookId->img3,
+                'condition' => $ExchangeBookId->condition,
+                'published_year' => $ExchangeBookId->published_year,
+                'town' => $ExchangeBookId->town,
+                'district' => $ExchangeBookId->district,
+                'postal_code' => $ExchangeBookId->postal_code
+            ];
+            $this->view('customer/ExchangeBookDetails', $data);
+        } else {
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -1303,6 +1373,7 @@ class Customer extends Controller {
             'postal_code' => $ExchangeBookId->postal_code
         ];
         $this->view('customer/ExchangeBookDetails', $data);
+        }
     } 
 
     public function ExchangeBooks(){
@@ -1532,6 +1603,8 @@ class Customer extends Controller {
         $user_id = $_SESSION['user_id'];
        
         $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
+        
         $customer_id=$customerDetails[0]->customer_id;
 
        
@@ -1682,12 +1755,14 @@ class Customer extends Controller {
         }else{
             $UsedBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
             if($UsedBookId->customer_id != $customer_id){
                 redirect('customer/UsedBooks');
               }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
+                'bookCategoryDetails'=>$bookCategoryDetails,
                 'book_name' => $UsedBookId->book_name,
                 'ISBN_no' => $UsedBookId->ISBN_no,
                 'author' => $UsedBookId->author,
@@ -1727,6 +1802,7 @@ class Customer extends Controller {
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $customer_id=$customerDetails[0]->customer_id;
 
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
         // $data = [
         //     'customerDetails' => $customerDetails,
         //     'customerName' => $customerDetails[0]->name
@@ -1864,12 +1940,14 @@ class Customer extends Controller {
         }else{
             $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
             if($ExchangeBookId->customer_id != $customer_id){
                 redirect('customer/ExchangeBooks');
             }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
+                'bookCategoryDetails'=>$bookCategoryDetails,
                 'book_name' => $ExchangeBookId->book_name,
                 'ISBN_no' => $ExchangeBookId->ISBN_no,
                 'author' => $ExchangeBookId->author,
@@ -2368,7 +2446,17 @@ class Customer extends Controller {
 
     public function viewcontent($content_id){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $contentDetails=$this->customerModel->findContentById($content_id);
+            $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
+            $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
+            $data = [
+                'contentDetails'=>$contentDetails,
+                'reviewDetails'=>$reviewDetails,
+                // 'ratingCount'=>$ratingCount,
+                'averageRatingCount'=>$averageRatingCount
+                // 'ratingDistribution'=>$ratingDistribution
+            ];
+            $this->view('customer/viewcontent', $data);
         } else {
             $user_id = $_SESSION['user_id'];
             $contentDetails=$this->customerModel->findContentById($content_id);
@@ -2394,8 +2482,30 @@ class Customer extends Controller {
 
     public function viewevents($eventId){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        } 
+            $eventIDdetails = $this->customerModel->findEventById($eventId);
+            $eventInCalendar = $this->customerModel->checkEventInCalendar(-100000, $eventId);
+            $data = [
+                'eventIDdetails' => $eventIDdetails,
+                
+                'eventId' => $eventId,
+                'Name' => $eventIDdetails[0]->title,
+                'Category' => $eventIDdetails[0]->category_name,
+                'Description' => $eventIDdetails[0]->description,
+                'Start_date' => $eventIDdetails[0]->start_date,
+                'End_date' => $eventIDdetails[0]->end_date,
+                'Start_time' => $eventIDdetails[0]->start_time,
+                'End_time' => $eventIDdetails[0]->end_time,
+                'Venue' => $eventIDdetails[0]->location,
+                'mainImg' => $eventIDdetails[0]->poster,
+                'img1' => $eventIDdetails[0]->img1,
+                'img2' => $eventIDdetails[0]->img2,
+                'img3' => $eventIDdetails[0]->img3,
+                'img4' => $eventIDdetails[0]->img4,
+                'img5' => $eventIDdetails[0]->img5,
+                'eventInCalendar' => $eventInCalendar
+            ];
+            $this->view('customer/viewevents', $data);
+        } else {
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -2440,6 +2550,7 @@ class Customer extends Controller {
             'eventInCalendar' => $eventInCalendar
         ];
         $this->view('customer/viewevents', $data);
+        }
     } 
 
     public function ViewMyEvent($eventId){
@@ -2502,7 +2613,7 @@ class Customer extends Controller {
 
     public function TopCategory(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/TopCategory');
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -2534,7 +2645,8 @@ class Customer extends Controller {
 
     public function Recommended(){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
+            $this->view('customer/Recommended');
+
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -2550,8 +2662,34 @@ class Customer extends Controller {
 
     public function UsedBookDetails($bookId){
         if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        }
+            $UsedBookId = $this->customerModel->findUsedBookById($bookId);
+            $data = [
+                'UsedBookId' => $UsedBookId,
+                
+                'book_id' => $bookId,
+                'book_name' => $UsedBookId->book_name,
+                'ISBN_no' => $UsedBookId->ISBN_no,
+                'author' => $UsedBookId->author,
+                'price' => $UsedBookId->price,
+                'category' => $UsedBookId->category,
+                'weight' => $UsedBookId->weight,
+                'descript' => $UsedBookId->descript,
+                'img1' => $UsedBookId->img1,
+                'img2' => $UsedBookId->img2,
+                'img3' => $UsedBookId->img3,
+                'condition' => $UsedBookId->condition,
+                'published_year' => $UsedBookId->published_year,
+                'price_type' => $UsedBookId->price_type,
+                'account_name' => $UsedBookId->account_name,
+                'account_no' => $UsedBookId->account_no,
+                'bank_name' => $UsedBookId->bank_name,
+                'branch_name' => $UsedBookId->branch_name,
+                'town' => $UsedBookId->town,
+                'district' => $UsedBookId->district,
+                'postal_code' => $UsedBookId->postal_code
+            ];
+            $this->view('customer/UsedBookDetails', $data);
+        } else {
         $customerid = null;
         
         if (isset($_SESSION['user_id'])) {
@@ -2614,6 +2752,7 @@ class Customer extends Controller {
             'postal_code' => $UsedBookId->postal_code
         ];
         $this->view('customer/UsedBookDetails', $data);
+        }
     }
 
     public function Favorite(){

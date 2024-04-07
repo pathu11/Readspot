@@ -52,6 +52,21 @@ footer {
     /* background-color:chartreuse; */
 }
 
+.contactus-div {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.contactus-div2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.contactus {
+    display: none;
+    margin-top: 15px;
+}
+
 .quicklink {
     text-align: left;
     /* background-color: blue; */
@@ -87,6 +102,17 @@ footer {
     font-size: 14px;
     align-self: flex-end;
 } */
+
+@media screen and (max-width:600px) {
+    .followus {
+        display: none;
+    }
+
+    .contactus {
+        display: block;
+    }
+}
+
 
 @media screen and (max-width:400px) {
     .footer-logo {

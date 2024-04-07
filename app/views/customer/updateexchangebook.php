@@ -29,11 +29,17 @@
                     <div class="topic-book author">
                         <label class="label-topic">Book Category</label><br>
                         <select id="category" name="category" required>
-                            <option value="classics" <?php echo ($data['category'] == 'classics') ? 'selected' : ''; ?>>Classics</option>
+                            <!-- <option value="" selected disabled>Select Book Category</option> -->
+                            <?php foreach($data['bookCategoryDetails'] as $bookCategoryDetails): ?>
+                                <option value="<?php echo $bookCategoryDetails->category; ?>" <?php echo ($data['category'] == $bookCategoryDetails->category) ? 'selected' : ''; ?>><?php echo $bookCategoryDetails->category; ?></option>
+                            <?php endforeach; ?>
+
+                            
+                            <!-- <option value="classics" <?php echo ($data['category'] == 'classics') ? 'selected' : ''; ?>>Classics</option>
                             <option value="Fantasy" <?php echo ($data['category'] == 'Fantasy') ? 'selected' : ''; ?>>Fantasy</option>
                             <option value="Novel" <?php echo ($data['category'] == 'Novel') ? 'selected' : ''; ?>>Novel</option>
                             <option value="Romance" <?php echo ($data['category'] == 'Romance') ? 'selected' : ''; ?>>Romance</option>
-                            <option value="Science Fiction" <?php echo ($data['category'] == 'Science Fiction') ? 'selected' : ''; ?>>Science Fiction</option>
+                            <option value="Science Fiction" <?php echo ($data['category'] == 'Science Fiction') ? 'selected' : ''; ?>>Science Fiction</option> -->
                             <!-- Add more categories as needed -->
                         </select>
                         <!-- <input type="text" class="form-topic"> -->

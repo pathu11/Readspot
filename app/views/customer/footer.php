@@ -3,11 +3,22 @@
 <div class="footer-content">
     <div class="footer-content1">
         <div class="followus">
-            <h4>Follow Us</h4>
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/twitter.png" alt="Service 3">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/instagram.png" alt="Service 3">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/facebook.png" alt="Service 3">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/linkedin.png" alt="Service 3">
+            <div class="contactus-div">
+                <h4><center>Contact Details</center></h4>
+                <ul>
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i> &ensp;readspot@gmail.com</li>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i> &ensp;0712345689</li>
+                    <li><i class="fa fa-address-card" aria-hidden="true"></i> &ensp;265, Main Street, Colombo 04</li>
+                </ul>
+            </div>
+            <div class="followus-div">
+                <h4>Follow Us</h4>
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/twitter.png" alt="Service 3">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/instagram.png" alt="Service 3">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/facebook.png" alt="Service 3">
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/linkedin.png" alt="Service 3">
+            </div>
+            
         </div>
         <div class="bookcata">
             <h4>Book category</h4>
@@ -30,6 +41,23 @@
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Terms of Service</a></li>
             </ul>
+        </div>
+    </div>
+    <div class="contactus">
+        <div class="contactus-div2">
+            <h4><center>Contact Details</center></h4>
+            <ul>
+                <li><i class="fa fa-envelope" aria-hidden="true"></i> &ensp;readspot@gmail.com</li>
+                <li><i class="fa fa-phone" aria-hidden="true"></i> &ensp;0712345689</li>
+                <li><i class="fa fa-address-card" aria-hidden="true"></i> &ensp;265, Main Street, Colombo 04</li>
+            </ul>
+        </div>
+        <div class="followus-div">
+            <h4>Follow Us</h4>
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/twitter.png" alt="Service 3">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/instagram.png" alt="Service 3">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/facebook.png" alt="Service 3">
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/linkedin.png" alt="Service 3">
         </div>
     </div>
     <div class="footer-content2">
