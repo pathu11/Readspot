@@ -104,6 +104,20 @@ ul li:before {
   left: -2em;
 }
 
+.result-go{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-go a{
+  padding: 30px;
+  text-decoration: none;
+  font-size: large;
+  color: darkred;
+  font-weight: bolder;
+}
+
 .result{
   display: flex;
   flex-direction: column;
