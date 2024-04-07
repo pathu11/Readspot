@@ -21,6 +21,11 @@
       document.getElementById('countdown').innerHTML = `${minutes}:${seconds}`;
       time--;
 
+      if(time<=0){
+        localStorage.removeItem('remainingTime');
+        window.location.href = 'http://localhost/Readspot/customer/BookChallenge';
+      }
+
       // Continue countdown
       setTimeout(updateCountdown, 1000);
     }

@@ -29,33 +29,34 @@
       </table>
   </div>
 
-
-  <div class="result">
-    <h2>Your Result</h2>
-    <div class="result-chart">
-      <div class="pie animate" style="--p:<?php echo $data['percentage']?>;--c:lightgreen"><?php echo $data['numberOfRightAnswers']?>/5</div>
-    </div>
-    
-    <div class="result-sheet">
-      <div>
-          <p style="color: green;">Number of right answers</p>
-          <p class="number" style="color: green;"><?php echo $data['numberOfRightAnswers'];?></p>
+  <div class="result-go">
+    <a href="<?php echo URLROOT?>/customer/BookChallenge">Go back to quizes</a>
+    <div class="result">
+      <h2>Your Result</h2>
+      <div class="result-chart">
+        <div class="pie animate" style="--p:<?php echo $data['percentage']?>;--c:lightgreen"><?php echo $data['numberOfRightAnswers']?>/5</div>
       </div>
-      <div>
-          <p style="color: red;">Number of wrong answers</p>
-          <p class="number" style="color: red;"><?php echo $data['numberOfWrongAnswers'];?></p>
-      </div>
-      <div>
-          <p>Challenge Points</p>
-          <p class="number"><?php echo $data['score'];?></p>
-      </div>
-      <div>
-          <p>Total Points</p>
-          <p class="number">15</p>
+      
+      <div class="result-sheet">
+        <div>
+            <p style="color: green;">Number of right answers😀</p>
+            <p class="number" style="color: green;"><?php echo $data['numberOfRightAnswers'];?></p>
+        </div>
+        <div>
+            <p style="color: red;">Number of wrong answers😞</p>
+            <p class="number" style="color: red;"><?php echo $data['numberOfWrongAnswers'];?></p>
+        </div>
+        <div>
+            <p>Challenge Points</p>
+            <p class="number"><?php echo $data['score'];?></p>
+        </div>
+        <div>
+            <p>Total Points</p>
+            <p class="number">15</p>
+        </div>
       </div>
     </div>
   </div>
-  <a href="<?php echo URLROOT;?>/customer/BookChallenge">go</a>
   
 </body>
 </html>
