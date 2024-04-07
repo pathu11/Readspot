@@ -30,54 +30,54 @@ class Customer extends Controller {
     }
    
     
-    public function comment() {
-        if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        }
+    // public function comment() {
+    //     if (!isLoggedInCustomer()) {
+    //         redirect('landing/login');
+    //     }
 
-        $user_id = $_SESSION['user_id'];
-        $customerDetails = $this->customerModel->findCustomerById($user_id);
+    //     $user_id = $_SESSION['user_id'];
+    //     $customerDetails = $this->customerModel->findCustomerById($user_id);
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'name' => $customerDetails[0]->name,
-                'comment' => trim($_POST['comment']),
-                'parentComment' => trim($_POST['parentComment']),
-                'comment_err' => '',
-            ];
+    //         $data = [
+    //             'name' => $customerDetails[0]->name,
+    //             'comment' => trim($_POST['comment']),
+    //             'parentComment' => trim($_POST['parentComment']),
+    //             'comment_err' => '',
+    //         ];
 
-            if (empty($data['comment'])) {
-                $data['comment_err'] = 'Please enter a comment';
-            }
+    //         if (empty($data['comment'])) {
+    //             $data['comment_err'] = 'Please enter a comment';
+    //         }
 
-            if (empty($data['comment_err'])) {
-                if ($this->customerModel->addComment($data)) {
-                    flash('Successfully Added');
-                    redirect('customer/comment');
-                } else {
-                    die('Something went wrong');
-                }
-            } else {
-                $this->view('customer/comment', $data);
-            }
-        } else {
-            $data = [
-                'comment' => '',
-                'parentComment' => '',
-                'comment_err' => '',
-            ];
+    //         if (empty($data['comment_err'])) {
+    //             if ($this->customerModel->addComment($data)) {
+    //                 flash('Successfully Added');
+    //                 redirect('customer/comment');
+    //             } else {
+    //                 die('Something went wrong');
+    //             }
+    //         } else {
+    //             $this->view('customer/comment', $data);
+    //         }
+    //     } else {
+    //         $data = [
+    //             'comment' => '',
+    //             'parentComment' => '',
+    //             'comment_err' => '',
+    //         ];
 
-            $this->view('customer/comment', $data);
-        }
-    }
+    //         $this->view('customer/comment', $data);
+    //     }
+    // }
 
-    public function getComments() {
-        header('Content-Type: application/json');
-        $comments = $this->customerModel->getComments();
-        echo json_encode($comments);
-    }
+    // public function getComments() {
+    //     header('Content-Type: application/json');
+    //     $comments = $this->customerModel->getComments();
+    //     echo json_encode($comments);
+    // }
 
     public function index(){
         if (!isLoggedInCustomer()) {
@@ -1150,7 +1150,7 @@ public function BuyNewBooks()
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0]->customer_id;
             $contentDetails = $this->customerModel->findContentByCusId( $customer_id); 
-
+            print_r($content_Details);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,

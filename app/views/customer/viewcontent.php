@@ -77,6 +77,7 @@
                         <div class="text">Thanks for rating us!</div>
                         <div class="edit">EDIT</div>
                     </div> -->
+                    <?php foreach($data['contentDetails'] as $content): ?>
                     <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
@@ -100,16 +101,17 @@
                     <header></header>
                     <div class="my-review">
                         <textarea id="description" placeholder="Describe your experience.." rows="12"  name="descriptions"></textarea>
-                        <input type="hidden" name="content_id" value="4"> <!-- Pass the content_id here -->
+                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>"> <!-- Pass the content_id here -->
                        
                     </div>
                     <button type="submit" class="submit-review">Submit</button>
                     </form>
+                    <?php endforeach; ?>
                 </div>
                
 
             </div>
-            
+           
             <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>

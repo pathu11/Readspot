@@ -849,7 +849,7 @@ private function getCategoriesFromAllCart() {
                                   FROM cart c
                                   JOIN books b ON c.book_id = b.book_id
                                   WHERE b.type="new"');
-  $this->db->bind(':customer_id', $customerId);
+ 
   $result = $this->db->resultSet();
   foreach ($result as $row) {
       $categories[] = $row->category;
