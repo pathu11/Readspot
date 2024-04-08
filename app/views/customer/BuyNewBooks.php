@@ -235,17 +235,23 @@
             cycleItems();
         }
 
-        // Automatically change every 5 seconds
-        var autoSlide = setInterval(nextItem, 5000);
+        // Check if there are 4 or fewer books
+        if (itemAmt <= 4) {
+            // Display all books without slideshow functionality
+            cycleItems();
+        } else {
+            // Automatically change every 5 seconds
+            var autoSlide = setInterval(nextItem, 5000);
 
-        // Arrow click handlers
-        document.querySelector('.left-arrow').addEventListener('click', function() {
-            prevItem();
-        });
+            // Arrow click handlers
+            document.querySelector('.left-arrow').addEventListener('click', function() {
+                prevItem();
+            });
 
-        document.querySelector('.right-arrow').addEventListener('click', function() {
-            nextItem();
-        });
+            document.querySelector('.right-arrow').addEventListener('click', function() {
+                nextItem();
+            });
+        }
 
         // Adjust number of visible books based on screen size
         function updateNumVisible() {
@@ -267,6 +273,7 @@
         window.addEventListener('resize', updateNumVisible);
     });
 </script>
+
 
 
 
