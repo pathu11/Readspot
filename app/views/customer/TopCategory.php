@@ -37,7 +37,7 @@
             <div class="recommend">
                 <div class="viewall">
                     <h2><?php echo $bookCategory->category; ?></h2>
-                    <a href="<?php echo URLROOT; ?>/customer/Recommended/<?php echo $bookCategory->category; ?>">VIEW ALL>></a>
+                    <a href="<?php echo URLROOT; ?>/customer/Category/<?php echo $bookCategory->category; ?>">VIEW ALL>></a>
                 </div>
                 <div class="sub-cont-N2">
                     <?php

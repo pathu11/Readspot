@@ -2668,6 +2668,25 @@ class Customer extends Controller {
         }
     }
 
+
+    public function Category(){
+        if (!isLoggedInCustomer()) {
+            $this->view('customer/Category');
+
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/Category', $data);
+        }
+    }
+
+
     public function NewArrival(){
         if (!isLoggedInCustomer()) {
             $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
