@@ -35,28 +35,34 @@
         </div>
         <div class="recommend">
             <div class="sub-cont-E2">
-                <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                    <a href="<?php echo URLROOT; ?>/customer/ExchangeBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-E">
-                    <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book-E"><br>';?> <!--path changed-->
-                        <div class="hov-aft">
-                            <h4>Which Books I Want</h4>
-                            <ul>
-                                <li><?php echo $bookDetails->booksIWant; ?></li>
-                            </ul>
-                        </div>
-                        <h3><?php echo $bookDetails->book_name; ?></h3>
-                        <div class="fav-msg">
-                            <button class="book-button-E">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                            </button>
-                            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
+                <?php if (empty($data['bookDetails'])): ?>
+                    <div class="B-div-noBook">
+                        <p>No books added yet.</p>
+                    </div>
+                <?php else: ?>
+                    <?php foreach($data['bookDetails'] as $bookDetails): ?>
+                        <a href="<?php echo URLROOT; ?>/customer/ExchangeBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-E">
+                        <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book-E"><br>';?> <!--path changed-->
+                            <div class="hov-aft">
+                                <h4>Which Books I Want</h4>
+                                <ul>
+                                    <li><?php echo $bookDetails->booksIWant; ?></li>
+                                </ul>
+                            </div>
+                            <h3><?php echo $bookDetails->book_name; ?></h3>
+                            <div class="fav-msg">
                                 <button class="book-button-E">
-                                    <i class="fas fa-comment-alt" aria-hidden="true"></i>
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
                                 </button>
-                            </a>
-                        </div>
-                    </div></a>
-                <?php endforeach; ?>
+                                <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
+                                    <button class="book-button-E">
+                                        <i class="fas fa-comment-alt" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div></a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
             <ul class="pagination" id="pagination">
                 <li id="prevButton">«</li>

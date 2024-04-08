@@ -95,30 +95,36 @@
                 <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
-                <i class="fas fa-chevron-circle-left arrow left-arrow" aria-hidden="true"></i>
-                <?php
-                // Extract first 10 books from the array
-                $firstTenBooks = array_slice($data['bookDetails'], 0, 10);
-                foreach($firstTenBooks as $books): ?>
-                    <div class="B0-N">
-                        <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
-                            <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> 
-                            <h3><?php echo $books->book_name; ?></h3>
-                            <h3><?php echo $books->price; ?></h3>
-                        </a>
-                        <div class="fav-cart">
-                            <button class="book-button">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                            </button>
-                            <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
-                                <button class="book-button">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </button>
-                            </a>
-                        </div>
+                <?php if (empty($data['bookDetails'])): ?>
+                    <div class="B-div-noBook">
+                        <p>No books added yet.</p>
                     </div>
-                <?php endforeach; ?>
-                <i class="fas fa-chevron-circle-right arrow right-arrow" aria-hidden="true"></i>
+                <?php else: ?>
+                    <i class="fas fa-chevron-circle-left arrow left-arrow" aria-hidden="true"></i>
+                    <?php
+                    // Extract first 10 books from the array
+                    $firstTenBooks = array_slice($data['bookDetails'], 0, 10);
+                    foreach($firstTenBooks as $books): ?>
+                        <div class="B0-N">
+                            <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
+                                <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> 
+                                <h3><?php echo $books->book_name; ?></h3>
+                                <h3><?php echo $books->price; ?></h3>
+                            </a>
+                            <div class="fav-cart">
+                                <button class="book-button">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </button>
+                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                    <button class="book-button">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <i class="fas fa-chevron-circle-right arrow right-arrow" aria-hidden="true"></i>
+                <?php endif; ?>
             </div>
         </div>
           
