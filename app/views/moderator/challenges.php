@@ -12,7 +12,7 @@
 <body>
   <?php require APPROOT . '/views/moderator/nav.php';?>
   <div class="sub-nav">
-    <p class="table-head">Ongoing Challenges</p>
+    <h2>Ongoing Challenges</h2>
     <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
     </div>
@@ -21,15 +21,56 @@
 
   <div class="table-container">
     <table>
-      <tr>
-        <th>Challenge ID</th>
+      <tr> 
         <th>Challenge title</th>
+        <th>Time Limit</th>
         <th>Description</th>
         <th>Start Date</th>
         <th>End Date</th>
+        <th>Delete Challenge</th>
       </tr>
+      <?php foreach($data['challengeDetails'] as $challenge): ?>
+        <tr>
+          <td><?php echo $challenge->title;?></td>
+          <td><?php echo $challenge->time_limit.' minutes';?></td>
+          <td>
+            <div id="description-wrapper">
+              <p><?php echo $challenge->description;?></p>
+              <!-- <button class="see-more-btn" onclick="view()">See more..</button> -->
+            </div>
+            <button class="see-more-btn" onclick="view()">See more..</button>
+          </td>
+          <td><?php echo $challenge->date;?></td>
+          <td><?php echo $challenge->end_date;?></td>
+          <td><i class="fa fa-solid fa-trash"></i></td>
+        </tr>
+      <?php endforeach;?>
     </table>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Full Description</h2>
+        <table id="eventDetailsTable">
+            <!-- Event details will go here -->
+        </table>
+      </div>
+    </div>
   </div>
+
+  <script>
+    function view() {
+      var eventDetails = '<p><?php echo $challenge->description;?></p>';
+      var table = document.getElementById("eventDetailsTable");
+      table.innerHTML = eventDetails;
+      document.getElementById("myModal").style.display = "block";
+    }
+
+
+  function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+  }
+  </script>
 
 </body>
 </html>

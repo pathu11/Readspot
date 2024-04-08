@@ -1,6 +1,7 @@
 .sub-nav{
   display: flex;
   padding-top: 100px;
+  padding-bottom: 100px;
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
@@ -17,85 +18,168 @@
   font-size: large;
 }
 
-button{
+.sub-nav button{
   border-style: none;
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: #009D94;
   color: white;
-  height: 30px;
-  padding: 0 10px;
-}
-
-.table-head{
-  font-weight: 100px;
-  font-size: x-large;
-  color: #333333;
-}
-
-.table-container{
-  padding-top: 30px;
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
-table{
-  margin-top: 20px;
-  margin-bottom: 30px;
-  border-collapse: collapse; 
-  border-spacing: 0 3px;
-  width: 100%;
-  border-style: none;
-  height: 100%;
-  border-radius: 5px;
-  background: rgb(112, 191, 186, 25%);
-}
-
-tr{
-  text-align: left; /* Adjust the desired top and bottom padding */
-  
-  border-radius: 15px;
-  border-top: 1px solid rgb(112, 191, 186, 50%);
-}
-
-tr:first-child {
-  border: none;
-}
-
-td{
-  text-align: center;
-  padding: 15px;
-}
-
-th{
+  height: auto;
   padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid rgb(112, 191, 186, 50%);
+  font-size: large;
 }
 
-/*Pending event css */
-#large-poster-view{
+/* body {
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: white;
+} */
+
+.table-container {
+  display: flex;
+  background-color: white;
+  width: 90%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+  max-height: 600px;
+  overflow-y: auto;
+  margin-left: 100px;
+}
+
+td {
+  height: 50px;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: medium;
+}
+
+.description-wrapper {
+  max-height: 50px; /* Adjust the maximum height as needed */
+  overflow: hidden;
+}
+
+.description-wrapper.expanded {
+  max-height: none;
+}
+
+td div {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  height: auto;
+  max-height: 500px; /* Adjust this value based on your requirement */
+  overflow: hidden; /* This will prevent the table from becoming scrollable */
+
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  overflow: hidden;
+  height: 30px;
+  width: 40px;
+}
+
+td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 30px;
+  width: 40px;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-size: medium;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Style for the modal */
+.modal {
   display: none;
-  position: absolute;
-  top: 0;
+  position: fixed;
+  z-index: 0;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.9);
-  text-align: center;
+  overflow: hidden; /* Fix the size and hide overflow */
+  backdrop-filter: blur(5px); /* Add blur for glass effect */
 }
 
-#large-event-poster{
-  padding: 24px;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-#close-button{
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 1rem;
+.modal-content {
+  background-color: #2c2c2c;
   color: white;
-  cursor: pointer;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #2c2c2c;
+  width: 60%;
+  font-family: "Poppins";
+  font-size: 9px;
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: auto; /* Add overflow for content scrolling */
 }
+
+.modal-content table :hover {
+  background-color: #2c2c2c;
+}
+
+.modal-content h2 {
+  color: white;
+  font-size: 14px;
+}
+
+.close {
+  color: #009D94;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.close:hover,
+.close:focus {
+  color: #ffffff;
+  background-color: #009D94;
+  text-decoration: none;
+  cursor: pointer;
+  animation: rotate360 0.5s ease-in-out;
+}
+
+@keyframes rotate360 {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
 

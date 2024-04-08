@@ -38,11 +38,11 @@
         $user_id = $_SESSION['user_id'];
 
         $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
-        //$challengeDetails = $this->moderatorModel->getChallengeDetails();
+        $challengeDetails = $this->moderatorModel->getChallengeDetails();
         $data = [
           'moderatorDetails' => $moderatorDetails,
           'moderatorName'=>$moderatorDetails[0]->name,
-          //'challengeDetails'=>$challengeDetails,
+          'challengeDetails'=>$challengeDetails,
 
       ];
         $this->view('moderator/challenges',$data);

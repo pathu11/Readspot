@@ -14,7 +14,7 @@
     }
 
     public function getChallengeDetails(){
-      $this->db->query('SELECT * FROM book_challenges');
+      $this->db->query('SELECT * FROM quiz');
       return $this->db->resultSet();
     }
 
