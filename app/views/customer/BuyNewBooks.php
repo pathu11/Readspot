@@ -92,7 +92,7 @@
         <div class="recommend">
             <div class="viewall">
                 <h2>New Arrival</h2>
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
+                <a href="<?php echo URLROOT; ?>/customer/NewArrival">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
                 <?php if (empty($data['bookDetails'])): ?>
