@@ -35,21 +35,49 @@
             </div>
         </div>
         
-        
-        <div class="sub-cont-U2">
-            <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-U">
-                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
-                    <h3><?php echo $bookDetails->book_name; ?></h3>
-                    <h3><?php echo $bookDetails->price; ?></h3>
-                    <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
-                    <div class="fav-cart-msg">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                        <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a>
-                    </div>
-                </div></a>
-            <?php endforeach; ?>
+        <div class="recommend">
+            <div class="sub-cont-U2">
+                <?php foreach($data['bookDetails'] as $bookDetails): ?>
+                    <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-U">
+                    <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
+                        <h3><?php echo $bookDetails->book_name; ?></h3>
+                        <h3><?php echo $bookDetails->price; ?></h3>
+                        <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
+                        <div class="fav-cart-msg">
+                            <button class="book-button-U">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                            <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                <button class="book-button-U">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
+                                <button class="book-button-U">
+                                    <i class="fas fa-comment-alt" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                            <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                            <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
+                            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a> -->
+                        </div>
+                    </div></a>
+                <?php endforeach; ?>
+            </div>
+            <ul class="pagination" id="pagination">
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
         </div>
         <?php
             require APPROOT . '/views/customer/filterbook.php'; //path changed
