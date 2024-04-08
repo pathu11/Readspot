@@ -830,7 +830,7 @@ public function getOngoingChallenges($user_id){
 }
 
 public function addQuizAttempt($quiz_id,$user_id){
-  $this->db->query('INSERT INTO history(quiz_id,user_id) VALUES (:quiz_id,:user_id)');
+  $this->db->query('INSERT INTO history(quiz_id,user_id,score) VALUES (:quiz_id,:user_id,0)');
   $this->db->bind(':quiz_id',$quiz_id);
   $this->db->bind(':user_id',$user_id);
   if ($this->db->execute()) {
@@ -867,6 +867,16 @@ public function getQuizScore($quiz_id,$user_id){
   $this->db->query('SELECT score FROM history WHERE quiz_id=:quiz_id AND user_id=:user_id');
   $this->db->bind(':quiz_id',$quiz_id);
   $this->db->bind(':user_id',$user_id);
+  return $this->db->resultSet();
+}
+
+public function getQuizDetails(){
+  $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score
+  FROM history s
+  INNER JOIN users u ON s.user_id = u.user_id
+  GROUP BY u.user_id
+  ORDER BY total_score ASC');
+
   return $this->db->resultSet();
 }
 

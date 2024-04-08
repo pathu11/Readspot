@@ -2816,12 +2816,14 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
-            $challengeDetails = $this->customerModel->getOngoingChallenges($user_id); 
+            $challengeDetails = $this->customerModel->getOngoingChallenges($user_id);
+            $quizDetails = $this->customerModel->getQuizDetails();
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
                 'challengeDetails'=>$challengeDetails,
+                'quizDetails'=>$quizDetails,
             ];
             $this->view('customer/BookChallenge', $data);
         }
@@ -2863,7 +2865,7 @@ class Customer extends Controller {
             }
             else{
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                //if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
+                if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
             
                 $data = [
                     'customerDetails' => $customerDetails,

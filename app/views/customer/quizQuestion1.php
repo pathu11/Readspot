@@ -5,22 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="<?php echo URLROOT;?>/assets/css/customer/question.css" rel="stylesheet">
-
   <title>Quiz</title>
+
+  <script>
+    // JavaScript code for the countdown timer
+    const startingMinutes = 5;
+    let time = startingMinutes * 60;
+
+    // Function to update the countdown timer
+    function updateCountdown() {
+      const minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      document.getElementById('countdown').innerHTML = `${minutes}:${seconds}`;
+      time--;
+
+      if(time<=0){
+        localStorage.removeItem('remainingTime');
+        window.location.href = 'http://localhost/Readspot/customer/BookChallenge';
+      }
+
+      // Continue countdown
+      setTimeout(updateCountdown, 1000);
+    }
+
+    // Start the countdown timer when the page loads
+    window.onload = function() {
+      updateCountdown();
+    };
+
+    // Call the function to update remaining time when the form is submitted
+    function handleSubmit() {
+      localStorage.setItem('remainingTime',time);
+    }
+  </script>
 </head>
 <body>
   <div class="question">
     <p style="color:#0B5E70"><strong>Question 01</strong></p>
     <p><?php echo $data['question'];?>?</p>
-    <p class="timer" id="countdown" style="color: red;"></p>
-    <script src="<?php echo URLROOT;?>/assets/js/moderator/quiz.js"></script>
+    <p class="timer" id="countdown" style="color: red;"></p> 
   </div>
   <div class="img-options">
     <div class="image">
       <img src="<?php echo URLROOT;?>/assets/images/customer/q1.jpg">
     </div>
     <div class="options">
-      <form id="quizForm" action="<?php echo URLROOT; ?>/customer/quizQuestion/<?php echo $data['quiz_id'];?>/1" method="post">
+      <form id="quizForm" action="<?php echo URLROOT; ?>/customer/quizQuestion/<?php echo $data['quiz_id'];?>/1" method="post" onsubmit="handleSubmit()">
         <div class="container">
           <input type="radio" name="option" value="opt1">
           <label><?php echo $data['option1'];?></label">
