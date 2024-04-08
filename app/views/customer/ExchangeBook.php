@@ -33,23 +33,45 @@
                 </div>
             </div>
         </div>
-        <div class="sub-cont-E2">
-            <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                <a href="<?php echo URLROOT; ?>/customer/ExchangeBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-E">
-                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book-E"><br>';?> <!--path changed-->
-                    <div class="hov-aft">
-                        <h4>Which Books I Want</h4>
-                        <ul>
-                            <li><?php echo $bookDetails->booksIWant; ?></li>
-                        </ul>
-                    </div>
-                    <h3>End Game</h3>
-                    <div class="fav-msg">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a>
-                    </div>
-                </div></a>
-            <?php endforeach; ?>
+        <div class="recommend">
+            <div class="sub-cont-E2">
+                <?php foreach($data['bookDetails'] as $bookDetails): ?>
+                    <a href="<?php echo URLROOT; ?>/customer/ExchangeBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-E">
+                    <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book-E"><br>';?> <!--path changed-->
+                        <div class="hov-aft">
+                            <h4>Which Books I Want</h4>
+                            <ul>
+                                <li><?php echo $bookDetails->booksIWant; ?></li>
+                            </ul>
+                        </div>
+                        <h3><?php echo $bookDetails->book_name; ?></h3>
+                        <div class="fav-msg">
+                            <button class="book-button-E">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
+                                <button class="book-button-E">
+                                    <i class="fas fa-comment-alt" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div></a>
+                <?php endforeach; ?>
+            </div>
+            <ul class="pagination" id="pagination">
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
         </div>
         <?php
             require APPROOT . '/views/customer/filterbook.php'; //path changed
@@ -83,4 +105,84 @@
             $("#show-list").html('');
         });
     });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var items = document.querySelectorAll('.B0-E'); // Select all book items
+    var itemsPerPage = 10; // Number of items per page
+    var currentPage = 1; // Current page
+    var numPages = Math.ceil(items.length / itemsPerPage); // Total number of pages
+    var pagination = document.getElementById('pagination');
+
+    // Function to display items for the current page
+    function displayItems() {
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = Math.min(startIndex + itemsPerPage, items.length);
+
+        // Hide all items
+        items.forEach(function(item) {
+            item.style.display = 'none';
+        });
+
+        // Display items for the current page
+        for (var i = startIndex; i < endIndex; i++) {
+            items[i].style.display = 'block';
+        }
+    }
+
+    // Function to update pagination buttons
+    function updatePaginationButtons() {
+        // Clear previous pagination buttons
+        pagination.innerHTML = '';
+
+        // Previous button
+        pagination.innerHTML += '<li id="prevButton">«</li>';
+
+        // Display only necessary pagination numbers
+        for (var i = 1; i <= numPages; i++) {
+            pagination.innerHTML += '<li class="' + (currentPage === i ? 'current' : '') + '">' + i + '</li>';
+        }
+
+        // Next button
+        pagination.innerHTML += '<li id="nextButton">»</li>';
+
+        // Add event listeners to newly created pagination buttons
+        var pageButtons = pagination.querySelectorAll('li:not(#prevButton):not(#nextButton)');
+        pageButtons.forEach(function(button, index) {
+            button.addEventListener('click', function() {
+                currentPage = index + 1;
+                displayItems();
+                updatePaginationButtons();
+            });
+        });
+
+        // Add event listeners for previous and next buttons
+        document.getElementById('prevButton').addEventListener('click', goToPrevPage);
+        document.getElementById('nextButton').addEventListener('click', goToNextPage);
+    }
+
+    // Initial display
+    displayItems();
+    updatePaginationButtons();
+
+    // Function to go to the previous page
+    function goToPrevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayItems();
+            updatePaginationButtons();
+        }
+    }
+
+    // Function to go to the next page
+    function goToNextPage() {
+        if (currentPage < numPages) {
+            currentPage++;
+            displayItems();
+            updatePaginationButtons();
+        }
+    }
+});
 </script>
