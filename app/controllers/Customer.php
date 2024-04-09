@@ -2614,10 +2614,14 @@ class Customer extends Controller {
     public function TopCategory(){
         if (!isLoggedInCustomer()) {
             $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
+
             $data = [
                 'bookDetails' => $NewbookDetailsByTime,
+                'bookCategoryDetails'=>$bookCategoryDetails
             ];
-            $this->view('customer/TopCategory');
+
+            $this->view('customer/TopCategory', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
@@ -2693,7 +2697,7 @@ class Customer extends Controller {
             $data = [
                 'bookDetails' => $NewbookDetailsByTime,
             ];
-            $this->view('customer/NewArrival');
+            $this->view('customer/NewArrival', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
