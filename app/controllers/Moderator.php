@@ -1,4 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require APPROOT . '\vendor\autoload.php';
 
   class Moderator extends Controller{
     private $moderatorModel;
@@ -249,15 +255,46 @@
       }
     }
 
-    public function approveEvent($id){
-      if ($this->moderatorModel->approveEvent($id)) {   
-        flash('post_message', 'Event is Approved');
-        redirect('moderator/events');
-        
-        
-      } else {
-        die('Something went wrong');
+    public function approveEvent($userid,$eventid){
+      $pendingEventOwner = $this->moderatorModel->getPendingEventOwner($userid);
+      $pendingEvent = $this->moderatorModel->getPendingEventById($eventid);
+
+      if ($this->moderatorModel->approveEvent($eventid)) {   
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($pendingEventOwner->email);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Event Has Been Accepted';
+            $mail->Body    = "Dear ".$pendingEventOwner->name. ". Your event ".$pendingEvent->title." has been approved.";
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            redirect('moderator/events');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
       }
+      else{
+        echo 'Something Went Wrong';
+      }
+        
+  
     }
 
     public function chat(){

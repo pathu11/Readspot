@@ -36,6 +36,19 @@
         return false;
       }
     }
+
+    public function getPendingEventOwner($id){
+      $this->db->query('SELECT name,email FROM users WHERE user_id = :id');
+      $this->db->bind(':id', $id);
+      return $this->db->single();
+    }
+
+    public function getPendingEventById($eventid){
+      $this->db->query('SELECT title FROM events WHERE id = :eventid');
+      $this->db->bind(':eventid', $eventid);
+      return $this->db->single();
+    }
+    
     public function approveContent($content_id){
       $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
       $this->db->bind(':status',"approval");
