@@ -38,11 +38,11 @@
               <p><?php echo $challenge->description;?></p>
               <!-- <button class="see-more-btn" onclick="view()">See more..</button> -->
             </div>
-            <button class="see-more-btn" onclick="view()">See more..</button>
+            <button class="see-more-btn" onclick="view('<?php echo $challenge->description;?>')">See more..</button>
           </td>
           <td><?php echo $challenge->date;?></td>
           <td><?php echo $challenge->end_date;?></td>
-          <td><i class="fa fa-solid fa-trash"></i></td>
+          <td><i class="fa fa-solid fa-trash" onclick="deleteChallenge('<?php echo $challenge->quiz_id;?>')"></i></td>
         </tr>
       <?php endforeach;?>
     </table>
@@ -50,7 +50,7 @@
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Full Description</h2>
+        <h2></h2>
         <table id="eventDetailsTable">
             <!-- Event details will go here -->
         </table>
@@ -59,17 +59,24 @@
   </div>
 
   <script>
-    function view() {
-      var eventDetails = '<p><?php echo $challenge->description;?></p>';
+    function view(description) {
+      var eventDetails = '<p>'+`${description}`+'</p>';
       var table = document.getElementById("eventDetailsTable");
       table.innerHTML = eventDetails;
       document.getElementById("myModal").style.display = "block";
     }
 
 
-  function closeModal() {
-      document.getElementById("myModal").style.display = "none";
-  }
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    function deleteChallenge(challengeId){
+      var deleteChallenge = '<div class="deleteChallenge"><p>Are you sure you want to delete this challenge?</p><br><a href="<?php echo URLROOT;?>/moderator/deleteChallenge/'+ `${challengeId}`+'"><button>Delete</button></a><button onclick="closeModal()">Cancel</button></div>';
+      var table = document.getElementById("eventDetailsTable");
+      table.innerHTML = deleteChallenge;
+      document.getElementById("myModal").style.display = "block";
+    }
   </script>
 
 </body>

@@ -81,6 +81,17 @@
       return $this->db->resultSet();
     }
 
+    public function deleteChallenge($challengeId){
+      $this->db->query('DELETE FROM quiz WHERE quiz_id = :challengeId');
+      $this->db->bind(':challengeId',$challengeId);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     public function addQuiz($data){
       $this->db->query('INSERT INTO quiz(title,number_of_questions,time_limit,description) VALUES (:title,:number_of_questions,:time_limit,:description)');
 

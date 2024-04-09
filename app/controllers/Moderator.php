@@ -49,6 +49,20 @@
       }
     }
 
+    public function deleteChallenge($challengeId){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        if($this->moderatorModel->deleteChallenge($challengeId)){
+          flash('delete_success','You deleted the challenge successfully');
+          redirect('moderator/challenges');
+        }
+        else{
+            die('Something went wrong');
+        }
+      }
+    }
+
     public function createChallenge(){
       if (!isLoggedIn()) {
         redirect('landing/login');
