@@ -15,7 +15,7 @@ define('DB_NAME','readspot');
 
 define('APPROOT', dirname(dirname(__FILE__)));
 
-define('URLROOT','http://localhost:8080/Group-27');
+define('URLROOT','http://localhost:8080/Readspot');
 //  define('URLROOT',' https://9ff5-2402-4000-20c1-7887-70e5-3bb2-bacc-32b3.ngrok-free.app/Readspot');
  
 
