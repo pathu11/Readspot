@@ -46,7 +46,7 @@
                         <button class="update-button" data-content-id="<?php echo $content->content_id; ?>" >
                             <i class="fas fa-check"></i>
                         </button>
-                        <button class="delete-button" onclick="RejectContent(<?php echo $content->content_id; ?>)">
+                        <button class="delete-button" data-content-id="<?php echo $content->content_id; ?>">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td> 
@@ -60,20 +60,21 @@
     <span class="close">&times;</span>
     <p>Are you sure you want to approve this content?</p><br><br>
     <button class="button" id="approveButton">Yes</button>
-    <button  class="button" id="cancelApprove">Cancel</button>
+    <button class="button cancel-button" id="cancelApprove">Cancel</button>
   </div>
 </div>
 
-<div id="rejectModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Are you sure you want to reject this content?</p><br>
-    <input type="text" placeholder="Give a reason for rejecting shortly" id="rejectReason" name="reason" class="input">
-    <br><br>
-    <button  class="button" id="rejectButton">Yes</button>
-    <button  class="button" id="cancelReject">Cancel</button>
-  </div>
-</div>
+<<div id="rejectModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Are you sure you want to reject this content?</p><br>
+        <!-- Input field for rejection reason -->
+        <input type="text" placeholder="Give a reason for rejecting shortly" id="rejectReason" name="reason" class="input">
+        <br><br>
+        <button class="button" id="rejectButton">Yes</button>
+        <button class="button cancel-button" id="cancelReject">Cancel</button>
+      </div>
+    </div>
 
     <ul class="pagination" id="pagination">
             <li id="prevButton">«</li>
@@ -95,8 +96,8 @@
 <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
 </html>
 <script>
-     // Get the approve and reject modals
-     const approveModal = document.getElementById('approveModal');
+    // Get the approve and reject modals
+    const approveModal = document.getElementById('approveModal');
     const rejectModal = document.getElementById('rejectModal');
 
     const approveButtons = document.querySelectorAll('.update-button');
@@ -104,6 +105,18 @@
 
     const closeApproveBtn = approveModal.querySelector('.close');
     const closeRejectBtn = rejectModal.querySelector('.close');
+
+    const cancelApproveBtn = document.getElementById('cancelApprove');
+    const cancelRejectBtn = document.getElementById('cancelReject');
+     // Function to close the approve modal
+     function closeApproveModal() {
+        approveModal.style.display = "none";
+    }
+    function closeRejectModal() {
+        rejectModal.style.display = "none";
+    }
+    cancelApproveBtn.addEventListener('click', closeApproveModal);
+    cancelRejectBtn.addEventListener('click', closeRejectModal);
 
     approveButtons.forEach(button => {
         button.onclick = function() {
@@ -116,7 +129,6 @@
         }
     });
 
-    // When the user clicks on the button, open the reject modal
     rejectButtons.forEach(button => {
         button.onclick = function() {
             rejectModal.style.display = "block";
@@ -147,6 +159,7 @@
             rejectModal.style.display = "none";
         }
     }
+
     function approveContent(content_id) {
         fetch('<?php echo URLROOT; ?>/moderator/approveContent', {
             method: 'POST',
@@ -158,7 +171,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('content approved successfully!');
+                alert('Content approved successfully!');
                 window.location.href = window.location.href; // Redirect to current page
             } else {
                 alert('Failed to approve content. Please try again.');
@@ -169,28 +182,36 @@
             alert('An error occurred while approving the content. Please try again later.');
         });
     }
-    function RejectContent(content_id) {
-        const reason = document.getElementById('rejectReason').value;
 
+    function rejectContent(content_id) {
+        const reason=document.getElementById('rejectReason').value;
+        console.log(reason);
         fetch('<?php echo URLROOT; ?>/moderator/rejectContent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ content_id: content_id, reason: reason })
+            body: JSON.stringify({ content_id: content_id , reason: reason })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 alert('Content rejected successfully!');
-                window.location.href = window.location.href; // Redirect to current page
+                // Optionally redirect to another page or refresh the current page
             } else {
-                alert('Failed to reject event. Please try again.');
+                alert('Failed to reject content. Please try again.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while rejecting. Please try again later.');
+            alert('An error occurred while rejecting the content. Please try again later.');
         });
     }
+
 </script>
+

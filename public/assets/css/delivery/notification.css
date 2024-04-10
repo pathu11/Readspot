@@ -50,6 +50,7 @@ body{
      margin-top:10px;
  }
  table {
+    z-index:-1;
      width: 100%;
      border-collapse: collapse;
      margin-top: 20px;
@@ -103,11 +104,13 @@ body{
      border-radius: 5px;
      cursor: pointer;
      transform:scale(1,1);
+     z-index:-100;
  
  }
  .view:hover{
-     background-color: 09514C;
+     background-color: #09514C;
      transform:scale(1.1,1.1);
+     z-index:-100;
  
  }
  

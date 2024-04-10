@@ -30,8 +30,8 @@
          <table>
          <?php foreach ($data['messageDetails'] as $message): ?>
     <tr style="background-color: <?php echo $message->status === 'read' ? 'white' : '#ddd'; ?>; border-radius: 5px;">
-    <td style="width:5%"><input type="checkbox" class="messageCheckbox" data-message-id="<?php echo $message->message_id; ?>"></td>
-    <a href="#"><th style="width:20%" >
+        <td style="width:5%"><input type="checkbox" class="messageCheckbox" data-message-id="<?php echo $message->message_id; ?>"></td>
+        <a href="#"><th style="width:20%" >
             
             <h4><?php echo $message->sender_name; ?></h5>
            
@@ -50,7 +50,7 @@
             
         </td>
         <td style="width:10%">
-        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>"  data-user-id="<?php echo $message->user_id; ?>"  style="background-color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>; ">View</a>   
+        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>"  data-user-id="<?php echo $message->user_id; ?>"  style="background-color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>;position: absolute; bottom: 0; left: 0; z-index: 1; ">View</a>   
         
         </td>
         
