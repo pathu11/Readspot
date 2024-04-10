@@ -13,11 +13,42 @@
   <?php require APPROOT . '/views/moderator/nav.php';?>
   <div class="sub-nav">
     <h2>Ongoing Challenges</h2>
-    <!-- <div class="search-bar">
+    <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
-    </div> -->
+    </div>
     <a href="<?php echo URLROOT;?>/moderator/createChallenge"><button>Create a challenge</button></a>
   </div>
+
+  <div id="searchresult"></div>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#live-search").keyup(function(){
+          var input = $(this).val();
+          var searchType = 'challenges';
+          //alert(input);
+          if(input != ""){
+              $.ajax({
+                url:"<?php echo URLROOT;?>/moderator/livesearch",
+                method:"POST",
+                data:{input:input, searchType:searchType},
+
+                success:function(data){
+                    $(".table-container").hide();
+                    $("#searchresult").html(data);
+                    $("#searchresult").css("display","block");
+                    console.log(data);
+                }
+              });
+          }else{
+              $(".table-container").show();
+              $("#searchresult").css("display","none");
+          }
+      });
+    });
+  </script>
 
   <div class="table-container">
     <table>

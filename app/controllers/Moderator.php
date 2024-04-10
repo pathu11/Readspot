@@ -427,10 +427,12 @@ require APPROOT . '\vendor\autoload.php';
       if(isset($_POST['input'])){
           $input = $_POST['input'];
           $eventSearchDetails = $this->moderatorModel->geteventSearchDetails($input);
+          $challengeSearchDetails = $this->moderatorModel->getChallengeSearchDetails($input);
       }
   
       $data = [
           'eventSearchDetails'=>$eventSearchDetails,
+          'challengeSearchDetails'=>$challengeSearchDetails,
       ];
       
       $this->view('moderator/livesearch',$data);

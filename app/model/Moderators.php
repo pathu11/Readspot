@@ -166,6 +166,13 @@
 
     }
 
+    public function getchallengeSearchDetails($input){
+      $this->db->query("SELECT * FROM quiz WHERE title LIKE '{$input}%' ");
+      $results=$this->db->resultSet();
+      return $results;
+
+    }
+
   
   
   
