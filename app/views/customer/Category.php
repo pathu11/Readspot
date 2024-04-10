@@ -26,6 +26,7 @@
                     </form>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 </div>
+
                 <div class="filter-category">
                     <div class="list-group-N" id="show-list">
                         
@@ -33,70 +34,54 @@
                 </div>
             </div>
         </div>
+
         <div class="recommend">
             <div class="viewall">
-                <h2> Topic </h2>
+                <h2> <?php echo $data['category'] ?> </h2>
             </div>
             <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
+                <?php if (empty($data['bookDetails'])): ?>
+                    <div class="B-div-noBook">
+                        <p>No books added yet.</p>
                     </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
-                    <h3>The Adventures</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
+                <?php else: ?>
+                    <?php foreach($data['bookDetails'] as $books): ?>
+                        <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
+                            <div class="B0-N">
+                                <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> <!--path changed-->
+                                <h3><?php echo $books->book_name; ?></h3>
+                                <h3><?php echo $books->price; ?></h3>
+                                <div class="fav-cart">
+                                    <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                                    <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"> -->
+                                    <button class="book-button">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                        <button class="book-button">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
+            <ul class="pagination" id="pagination">
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
         </div>
         <?php
             require APPROOT . '/views/customer/filterbook.php'; //path changed
@@ -106,3 +91,111 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-N").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'N';
+            if(searchText!=''){
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
+                    method : 'post',
+                    data : {query:searchText, bookType:bookType},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            } else {
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("#search-N").val($(this).text());
+            $("#show-list").html('');
+        });
+    });
+</script>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var items = document.querySelectorAll('.B0-N'); // Select all book items
+    var itemsPerPage = 10; // Number of items per page
+    var currentPage = 1; // Current page
+    var numPages = Math.ceil(items.length / itemsPerPage); // Total number of pages
+    var pagination = document.getElementById('pagination');
+
+    // Function to display items for the current page
+    function displayItems() {
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = Math.min(startIndex + itemsPerPage, items.length);
+
+        // Hide all items
+        items.forEach(function(item) {
+            item.style.display = 'none';
+        });
+
+        // Display items for the current page
+        for (var i = startIndex; i < endIndex; i++) {
+            items[i].style.display = 'block';
+        }
+    }
+
+    // Function to update pagination buttons
+    function updatePaginationButtons() {
+        // Clear previous pagination buttons
+        pagination.innerHTML = '';
+
+        // Previous button
+        pagination.innerHTML += '<li id="prevButton">«</li>';
+
+        // Display only necessary pagination numbers
+        for (var i = 1; i <= numPages; i++) {
+            pagination.innerHTML += '<li class="' + (currentPage === i ? 'current' : '') + '">' + i + '</li>';
+        }
+
+        // Next button
+        pagination.innerHTML += '<li id="nextButton">»</li>';
+
+        // Add event listeners to newly created pagination buttons
+        var pageButtons = pagination.querySelectorAll('li:not(#prevButton):not(#nextButton)');
+        pageButtons.forEach(function(button, index) {
+            button.addEventListener('click', function() {
+                currentPage = index + 1;
+                displayItems();
+                updatePaginationButtons();
+            });
+        });
+
+        // Add event listeners for previous and next buttons
+        document.getElementById('prevButton').addEventListener('click', goToPrevPage);
+        document.getElementById('nextButton').addEventListener('click', goToNextPage);
+    }
+
+    // Initial display
+    displayItems();
+    updatePaginationButtons();
+
+    // Function to go to the previous page
+    function goToPrevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayItems();
+            updatePaginationButtons();
+        }
+    }
+
+    // Function to go to the next page
+    function goToNextPage() {
+        if (currentPage < numPages) {
+            currentPage++;
+            displayItems();
+            updatePaginationButtons();
+        }
+    }
+});
+</script>

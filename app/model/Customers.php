@@ -598,7 +598,11 @@ public function editOrderCOD($data)
       return $row;
     }
 
-
+    public function findBooksByCategory($category) {
+      $this->db->query('SELECT * FROM books WHERE status="approval" AND type="new" AND category=:category');
+      $this->db->bind(':category',$category);
+      return $this->db->resultSet();
+    }    
 
 
     public function searchNewBooks($inputText){

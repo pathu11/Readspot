@@ -2673,18 +2673,25 @@ class Customer extends Controller {
     }
 
 
-    public function Category(){
+    public function Category($category){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/Category');
+            $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
+            $data = [
+                'bookDetails' => $NewbookDetailsByCategory
+            ];
 
+            $this->view('customer/Category', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails' => $NewbookDetailsByCategory,
+                'category' => $category
             ];
             $this->view('customer/Category', $data);
         }
