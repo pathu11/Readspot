@@ -422,6 +422,19 @@ require APPROOT . '\vendor\autoload.php';
       }
       }
     }
+
+    public function livesearch(){
+      if(isset($_POST['input'])){
+          $input = $_POST['input'];
+          $eventSearchDetails = $this->moderatorModel->geteventSearchDetails($input);
+      }
+  
+      $data = [
+          'eventSearchDetails'=>$eventSearchDetails,
+      ];
+      
+      $this->view('moderator/livesearch',$data);
+    }
   
   
   }

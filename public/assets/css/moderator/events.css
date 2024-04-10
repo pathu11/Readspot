@@ -14,8 +14,8 @@
   border-style: none;
   border-bottom: 2px solid rgb(112, 191, 186);
   outline: none;
-  background-color:#e3f2fd ;
   font-size: large;
+  padding: 10px;
 }
 
 button{

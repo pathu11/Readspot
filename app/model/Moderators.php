@@ -159,6 +159,13 @@
       }
     }
 
+    public function geteventSearchDetails($input){
+      $this->db->query("SELECT * FROM events WHERE title LIKE '{$input}%' AND status='Pending'");
+      $results=$this->db->resultSet();
+      return $results;
+
+    }
+
   
   
   
