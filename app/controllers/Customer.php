@@ -2677,7 +2677,8 @@ class Customer extends Controller {
         if (!isLoggedInCustomer()) {
             $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
             $data = [
-                'bookDetails' => $NewbookDetailsByCategory
+                'bookDetails' => $NewbookDetailsByCategory,
+                'category' => $category
             ];
 
             $this->view('customer/Category', $data);
