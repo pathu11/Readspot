@@ -43,7 +43,8 @@
           <td><?php echo $pendingEvent->end_date; ?></td>
           <td><?php echo $pendingEvent->category_name; ?></td>
           <td><img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $pendingEvent->poster; ?>" onclick="fullView(this.src)"  style="width: 30%;"/></td>
-          <td><button onclick="approvePopup('<?php echo $pendingEvent->user_id;?>','<?php echo $pendingEvent->id; ?>')">Approve</button><button class="action-btn">Reject</button></td>
+          <td><button onclick="approvePopup('<?php echo $pendingEvent->user_id;?>','<?php echo $pendingEvent->id; ?>')">Approve</button>
+          <button onclick="rejectPopup('<?php echo $pendingEvent->user_id;?>','<?php echo $pendingEvent->id; ?>')">Reject</button></td>
         </tr>
       <?php endforeach; ?>
     </table>
@@ -65,15 +66,25 @@
     <div id="myModal1" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeFullView()">&times;</span>
-        <h2></h2>
-        <img id="large-event-poster" width="60%"/>
+        <h2>Approve Event</h2>
         <table id="eventApprovalTable">
             <!-- Event details will go here -->
         </table>
       </div>
     </div>
 
-
+    <div id="myModal2" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeFullView()">&times;</span>
+        <h2>Reject Reason</h2>
+        <form action="<?php echo URLROOT;?>/moderator/rejectEvent" method="post">
+          <textarea id="rejectReason" name="rejectReason" rows="4" cols="50" placeholder="Enter reject reason..."></textarea>
+          <input type="hidden" id="user_id" name="user_id">
+          <input type="hidden" id="event_id" name="event_id">
+          <button type="submit">Send Rejection Email</button>
+        </form>
+      </div>
+    </div>
 
   <script type="text/javascript">
     function fullView(imgLink){
@@ -84,6 +95,7 @@
     function closeFullView(){
       document.getElementById("myModal").style.display = "none";
       document.getElementById("myModal1").style.display = "none";
+      document.getElementById("myModal2").style.display = "none";
     }
 
     function approvePopup(user_id,event_id){
@@ -92,6 +104,13 @@
       eventApproval.innerHTML = approval;
       document.getElementById("myModal1").style.display = "block";
     }
+
+    function rejectPopup(user_id, event_id) {
+      document.getElementById("user_id").value = user_id;
+      document.getElementById("event_id").value = event_id;
+      document.getElementById("myModal2").style.display = "block";
+    }
+
   </script>
 
 </body>

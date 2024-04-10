@@ -293,8 +293,57 @@ require APPROOT . '\vendor\autoload.php';
       else{
         echo 'Something Went Wrong';
       }
-        
-  
+    }
+
+    public function rejectEvent(){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          $rejectReason = $_POST["rejectReason"];
+          $user_id = $_POST["user_id"];
+          $event_id = $_POST["event_id"];
+
+          $pendingEventOwner = $this->moderatorModel->getPendingEventOwner($user_id);
+          $pendingEvent = $this->moderatorModel->getPendingEventById($event_id);
+
+          if ($this->moderatorModel->rejectEvent($event_id)) {   
+            // Send email using PHPMailer
+            $mail = new PHPMailer(true);
+    
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                $mail->SMTPAuth   = true;
+                $mail->Username   = MAIL_USER; // SMTP username
+                $mail->Password   = MAIL_PASS;   // SMTP password
+                $mail->SMTPSecure = MAIL_SECURITY;
+                $mail->Port       = MAIL_PORT;
+    
+                //Recipients
+                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                $mail->addAddress($pendingEventOwner->email);  // Add a recipient
+    
+                // Content
+                $mail->isHTML(true);  // Set email format to HTML
+                $mail->Subject = 'Your Event Has Been Rejected';
+                $mail->Body    = "Dear ".$pendingEventOwner->name. ". Your event ".$pendingEvent->title." has been rejected. The reason for the rejection is '".$rejectReason."'.";
+    
+                $mail->send();
+    
+                // Redirect or perform other actions as needed
+                redirect('moderator/events');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
+          }
+          else{
+            echo 'Something Went Wrong';
+          }
+
+        }
+      }
     }
 
     public function chat(){

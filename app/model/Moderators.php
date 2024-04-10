@@ -37,6 +37,16 @@
       }
     }
 
+    public function rejectEvent($id){
+      $this->db->query("UPDATE events SET status = 'Rejected' WHERE id = :id");
+      $this->db->bind(':id', $id);
+      if ($this->db->execute()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     public function getPendingEventOwner($id){
       $this->db->query('SELECT name,email FROM users WHERE user_id = :id');
       $this->db->bind(':id', $id);
