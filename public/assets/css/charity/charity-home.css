@@ -369,6 +369,22 @@ nav a:hover .notification-text {
 }
 
 
+.dropdown-content a {
+    color: black;
+    padding: 8px 16px;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.6s ease;
+}
+
+.dropdown-content a i {
+    margin-right: 8px;
+    font-size: 14px;
+    transition: transform 0.6s ease;
+}
+
 .dropdown-button {
     position: relative;
     border: none;
@@ -404,28 +420,16 @@ nav a:hover .notification-text {
     min-width: 140px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
-    border-radius: 5px;
+    border-radius: 10px 10px;
 }
 
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    font-size: 16px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    transition: color 0.6s ease;
-}
 
 .dropdown-content a:hover {
     background-color: #f1f1f1;
+    border-radius: 10px 10px;
     color: rgb(19, 128, 128);
 }
 
-.dropdown-content a i {
-    margin-right: 10px;
-    transition: transform 0.6s ease;
-}
 
 .dropdown-content a:hover i {
     animation: shake 0.6s ease;
