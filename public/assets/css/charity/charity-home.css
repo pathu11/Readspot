@@ -124,8 +124,8 @@ nav a:hover {
 
 .postevent {
     position: absolute;
-    width: 300px;
-    height: 40px;
+    width: 200px;
+    height: 36px;
     border-radius: 10px;
     /*background: linear-gradient(135deg, #00686b, rgb(0, 170, 142));*/
     background-color: #ffffff;
@@ -133,12 +133,12 @@ nav a:hover {
     border: none;
     top: 75%;
     transform: translateY(-40%);
-    left: 39%;
+    left: 42%;
     text-align: center;
     font-family: "Poppins";
     color: #2c2c2c;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     line-height: 40px;
     transition: box-shadow 0.3s;
@@ -207,17 +207,46 @@ nav a:hover {
     transition: transform 0.3s ease;
     opacity: 0;
     pointer-events: none;
-    
+
 }
+
 nav a:hover .notification-text {
     display: block;
-    transform: translate(-50%, -9px);
+    transform: translate(2%, -32.5px);
     color: #70BFBA;
     opacity: 0.6;
 
 }
 
+@keyframes bellShake {
+    0% {
+        transform: rotate(0);
+    }
 
+    20% {
+        transform: rotate(10deg);
+    }
+
+    40% {
+        transform: rotate(-10deg);
+    }
+
+    60% {
+        transform: rotate(5deg);
+    }
+
+    80% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+#bell:hover {
+    animation: bellShake 0.5s ease-in-out;
+}
 
 
 .box3 {
@@ -338,6 +367,109 @@ nav a:hover .notification-text {
 
 
 }
+
+
+.dropdown-button {
+    position: relative;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+#profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    left: -45px;
+    margin-top: 8px;
+    box-shadow: 0 0 0 4px #005853;
+    transition: box-shadow 0.3s ease;
+}
+
+#profile:hover {
+    box-shadow: 0 0 0 3px rgb(255, 255, 255);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 140px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.6s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: rgb(19, 128, 128);
+}
+
+.dropdown-content a i {
+    margin-right: 10px;
+    transition: transform 0.6s ease;
+}
+
+.dropdown-content a:hover i {
+    animation: shake 0.6s ease;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.profile-img {
+    width: 30px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dropdown:hover .profile-img {
+    transform: translateY(-5px);
+}
+
+@keyframes profileshake {
+    0% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(-5px);
+    }
+
+    50% {
+        transform: translateY(5px);
+    }
+
+    75% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
 
 /*
 @keyframes glow {
@@ -558,7 +690,7 @@ footer p {
     opacity: 1;
 }
 
-
+/* 
 .aboutus {
     width: 650px;
     height: 300px;
@@ -568,8 +700,8 @@ footer p {
     margin: 10px;
     margin-right: 0;
 
-}
-
+} */
+/* 
 h3 {
     color: #ffffff;
     margin: 10px;
@@ -581,7 +713,7 @@ h3 {
     max-height: 500px;
     transition: max-height 0.5s ease;
     margin: 10px;
-}
+} */
 
 .read-more-btn {
     cursor: pointer;

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href=<?php echo URLROOT."/assets/css/charity/charity-home.css"?>>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
 </head>
 
@@ -17,13 +19,16 @@
             <img id="logo" src=<?=URLROOT."/assets/images/charity/ReadSpot.png"?> alt="Logo">
         </div>
         <nav>
-            <a href="#" >Home</a>
+            <a href="./" >Home</a>
             <a href="event">Event Management</a>
             <a href="customerSupport" id="donorRequestLink">Customer Support</a>
-            <a href="#" class="active">About Us</a>
+            <a href="aboutUs" class="active">
+                <i class="fas fa-bell" id="bell"></i>
+                <span class="notification-text">Notification</span>
+            </a>
         </nav>  
     </header>
-
+<!-- 
     <div class="aboutusandcontactus">
         <div class="aboutus">
             <h3>About Us</h3>
@@ -57,7 +62,7 @@
             </form>
         </div>
 
-    </div>
+    </div> -->
 
     <footer>
         <div>

@@ -22,7 +22,10 @@
             <a href="./">Home</a>
             <a href="event" class="active">Event Management</a>
             <a href="customerSupport" id="donorRequestLink">Customer Support</a>
-            <a href="aboutUs"><i class="fas fa-bell"></i></a>
+            <a href="aboutUs">
+                <i class="fas fa-bell" id="bell"></i>
+                <span class="notification-text">Notification</span>
+            </a>
         </nav>
 
     </header>
