@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
 </head>
 
@@ -14,23 +15,26 @@
     </div>
     <header>
         <div>
-            <img id="logo" src=<?=URLROOT."/assets/images/charity/ReadSpot.png"?> alt="Logo">
+            <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
         </div>
         <nav>
             <a href="#" class="active">Home</a>
             <a href="event">Event Management</a>
             <a href="customerSupport" id="donorRequestLink">Customer Support</a>
-            <a href="aboutUs">About Us</a>
-        </nav>  
+            <a href="aboutUs">
+                <i class="fas fa-bell" id="bell"></i>
+                <span class="notification-text">Notification</span>
+            </a>
+        </nav>
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?=URLROOT."/assets/images/charity/rr.jpg"?>>
+        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/rr.jpg" ?>>
         <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a>
     </div>
 
     <div class="box1">
-    <a href="<?php echo URLROOT; ?>/charity/test">test</a>
+        <a href="<?php echo URLROOT; ?>/charity/test">test</a>
         <div class="box2">
             <h4> How You Can Help Us !</h4>
             <p> Your support is instrumental in making a positive impact on the lives of individuals
@@ -40,13 +44,13 @@
         </div>
         <div class="box3" style="background-color: #303030;">
             <h4> Become a Charity Member !</h4>
-            <img id="joinUs" src=<?=URLROOT."/assets/images/charity/join-with-us-logo.png"?>>
+            <img id="joinUs" src=<?= URLROOT . "/assets/images/charity/join-with-us-logo.png" ?>>
             <p> Join a supportive network of individuals who share your commitment to kindness.
             </p>
         </div>
         <div class="box4">
             <h4> Hire events Donate Books !</h4>
-            <img src=<?=URLROOT."/assets/images/charity/donate.png"?>>
+            <img src=<?= URLROOT . "/assets/images/charity/donate.png" ?>>
             <p> Join a supportive individual of Charity Organization
                 <br>
             </p>
@@ -118,23 +122,23 @@
     <br><br><br>
 
     <div class="gifs">
-       <!-- <img src="/images/book-39.gif">
-        <img src="/images/book-38.gif">--> v
-        <img id="loc" src=<?=URLROOT."/assets/images/charity/locationn.gif"?>>
+        <!-- <img src="/images/book-39.gif">
+        <img src="/images/book-38.gif">-->
+        <img id="loc" src=<?= URLROOT . "/assets/images/charity/locationn.gif" ?>>
         <div class="location">
             <p> <b>Event locations revealed:</b> "Drop your suggested locations, and let's make a positive difference!"</p>
         </div>
-        <img src=<?=URLROOT."/assets/images/charity/book-38.gif"?>>
+        <img src=<?= URLROOT . "/assets/images/charity/book-38.gif" ?>>
         <div class="location">
             <p><b>Quality of Books:</b> "Let's make this event a memorable chapter in our shared love for exceptional books!"</p>
         </div>
-        <img src=<?=URLROOT."/assets/images/charity/customer-support.gif"?>>
+        <img src=<?= URLROOT . "/assets/images/charity/customer-support.gif" ?>>
         <div class="location">
             <p><b>customer Satisfaction</b> "Their satisfaction is not just a goal; it's our standard !"</p>
         </div>
     </div>
 
-<!-- 
+    <!-- 
     <div class="aboutusandcontactus">
         <div class="aboutus">
             <h3>About Us</h3>
@@ -167,6 +171,7 @@
 
             </form>
         </div> -->
+    <!--         
         <div id="contact-bar">
             <div class="contact-info" onclick="toggleDetails('email-details')">
                 <span class="contact-icon">✉️</span>
@@ -181,7 +186,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
     <footer>
         <div>
@@ -196,7 +201,7 @@
         </div>
     </footer>
 
-    <script src=<?=URLROOT."assets/charity/script.js"?>></script>
+    <script src=<?= URLROOT . "assets/charity/script.js" ?>></script>
 </body>
 
 </html>

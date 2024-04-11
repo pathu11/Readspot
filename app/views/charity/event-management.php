@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/charity-home.css" ?>>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css" ?>>
     <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/eveTable1.css" ?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
     <script src=<?php echo URLROOT . "/assets/js/charity/script.js" ?>></script>
     <script src=<?php echo URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
@@ -21,7 +22,7 @@
             <a href="./">Home</a>
             <a href="event" class="active">Event Management</a>
             <a href="customerSupport" id="donorRequestLink">Customer Support</a>
-            <a href="aboutUs">About Us</a>
+            <a href="aboutUs"><i class="fas fa-bell"></i></a>
         </nav>
 
     </header>
@@ -646,8 +647,8 @@
             </div>
         </div>
 
-
-        <div id="contact-bar">
+<!-- 
+        <div id="contact-bar_2">
             <div class="contact-info" onclick="toggleDetails('email-details')">
                 <span class="contact-icon">✉️</span>
                 <span>Email</span>
@@ -660,7 +661,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
     <footer>
         <div>

@@ -41,14 +41,16 @@ nav a {
     font-size: 14px;
     position: relative;
 }
+
 nav a.active {
-    color:aqua;
+    color: aqua;
 }
 
 
 nav a:hover {
     color: aqua;
 }
+
 #login {
     border: 1px thin;
     background-color: transparent;
@@ -77,13 +79,17 @@ nav a:hover {
     margin-right: 0%;
 }
 
-#login a , #signup a{
+#login a,
+#signup a {
     text-decoration: none;
     color: #ffffff;
     font-size: 14px;
 }
-#login a{    
-    color: white;}
+
+#login a {
+    color: white;
+}
+
 #signup:hover {
     background-color: #009d94;
 }
@@ -100,7 +106,7 @@ nav a:hover {
     left: 44%;
     font-family: "Poppins";
     color: #363636;
-    font-weight:600;
+    font-weight: 600;
     font-size: 16px;
     text-decoration: none;
     text-align: center;
@@ -137,6 +143,7 @@ nav a:hover {
     line-height: 40px;
     transition: box-shadow 0.3s;
 }
+
 #eventnote {
     position: absolute;
     width: 300px;
@@ -190,6 +197,27 @@ nav a:hover {
     color: white;
 }
 
+.notification-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-60%);
+    padding: 5px 10px;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    
+}
+nav a:hover .notification-text {
+    display: block;
+    transform: translate(-50%, -9px);
+    color: #70BFBA;
+    opacity: 0.6;
+
+}
+
+
 
 
 .box3 {
@@ -204,7 +232,7 @@ nav a:hover {
     padding: 100px;
     width: 100%;
     height: 400px;
-    background-color :#70BFBA;
+    background-color: #70BFBA;
     display: flex;
     justify-content: space-between;
 }
@@ -310,6 +338,7 @@ nav a:hover {
 
 
 }
+
 /*
 @keyframes glow {
     0% {
@@ -537,8 +566,8 @@ footer p {
     color: #ffffff;
     font-size: 12px;
     margin: 10px;
-    margin-right:0;
-    
+    margin-right: 0;
+
 }
 
 h3 {
@@ -563,16 +592,17 @@ h3 {
     margin: 10px;
 }
 
+
 #contact-bar {
     position: absolute;
-    bottom: -39px;
-    left: 31%;
-    transform: translateX(-50%);
-    width: 500px;
+    bottom: 4%;
+    left: 33%;
+    transform: translateX(-30%);
+    width: 450px;
     height: 40px;
     border: 0px solid #ffffff;
     color: #fff;
-    background-color:#005e59;
+    background-color: #005e59;
     backdrop-filter: blur(10px);
     border-radius: 40px;
     font-size: 13px;
@@ -583,6 +613,7 @@ h3 {
     transition: transform 0.6s ease;
     transform: translateY(100%);
 }
+
 #contact-bar:hover {
     transform: translateY(1);
     box-shadow: 0 0 20px rgba(77, 77, 77, 0.7);
@@ -648,7 +679,7 @@ h3 {
     font-weight: 500;
     width: 100%;
     text-align: left;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .contactus-container form input {
@@ -739,7 +770,9 @@ textarea::-webkit-scrollbar-thumb {
     margin-bottom: 10px;
 }
 
-.location,.cusSAT,.qlty {
+.location,
+.cusSAT,
+.qlty {
     text-align: left;
     margin-top: 10px;
 }
@@ -752,7 +785,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .location b {
-    color:rgb(43, 43, 43);
+    color: rgb(43, 43, 43);
 }
 
 
@@ -767,7 +800,8 @@ textarea::-webkit-scrollbar-thumb {
 .gifs img:hover {
     transform: scale(1.1) translateX(18px);
 }
-#loc{
+
+#loc {
     height: 137px;
 }
 
@@ -781,7 +815,8 @@ table {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
+th,
+td {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
@@ -796,7 +831,8 @@ th {
     gap: 5px;
 }
 
-.update-button, .delete-button {
+.update-button,
+.delete-button {
     cursor: pointer;
     padding: 5px 10px;
     background-color: #4CAF50;
@@ -809,6 +845,7 @@ th {
     background-color: #f44336;
 }
 
-.update-button:hover, .delete-button:hover {
+.update-button:hover,
+.delete-button:hover {
     transform: translateY(-2px);
 }
