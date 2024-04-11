@@ -28,14 +28,14 @@
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
-        <button class="dropdown-button">
-            <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
-        </button>
-        <div class="dropdown-content">
-            <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
-            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <button class="dropdown-button">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+            </button>
+            <div class="dropdown-content">
+                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
         </div>
-    </div>
 
     </header>
 

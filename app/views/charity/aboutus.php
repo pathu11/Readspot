@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=<?php echo URLROOT."/assets/css/charity/charity-home.css"?>>
+    <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/charity-home.css" ?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
@@ -16,19 +16,28 @@
     </div>
     <header>
         <div>
-            <img id="logo" src=<?=URLROOT."/assets/images/charity/ReadSpot.png"?> alt="Logo">
+            <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
         </div>
         <nav>
-            <a href="./" >Home</a>
+            <a href="./">Home</a>
             <a href="event">Event Management</a>
             <a href="customerSupport" id="donorRequestLink">Customer Support</a>
             <a href="aboutUs" class="active">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
             </a>
-        </nav>  
+        </nav>
+        <div class="dropdown" style="float:right;">
+            <button class="dropdown-button">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+            </button>
+            <div class="dropdown-content">
+                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
     </header>
-<!-- 
+    <!-- 
     <div class="aboutusandcontactus">
         <div class="aboutus">
             <h3>About Us</h3>
@@ -77,7 +86,7 @@
         </div>
     </footer>
 
-    <script src=<?=URLROOT."assets/charity/script.js"?>></script>
+    <script src=<?= URLROOT . "assets/charity/script.js" ?>></script>
 </body>
 
 </html>
