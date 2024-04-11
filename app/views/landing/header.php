@@ -48,7 +48,7 @@
                 if (isset($_SESSION["user_id"])){
                     include_once 'dropdownmenu.php';
                 } else {
-                    echo '<a href="' . URLROOT . '/customer/login"><button class="Login">Login</button></a>';
+                    echo '<a href="' . URLROOT . '/landing/login"><button class="Login">Login</button></a>';
                 }
             ?>
 

@@ -10,13 +10,17 @@
         <div class="cart-topic">
             <h2>My Cart</h2>
         </div>
+       
         <div class="mycart">
             <div class="cart-search" id="searchForm" onsubmit="handleSearch()">
                 <input type="text" placeholder="Search.." name="search" id="searchInput">
             </div>
+
             <br>
             <br>
+          
             <form method="POST" action="<?php echo URLROOT; ?>/PurchaseOrder/purchaseMultiple">
+            
                 <table border="1" class="tb-cart1" id="eventTable">
                     <thead>
                         <tr> 
@@ -29,9 +33,12 @@
                             <th>Checkout / Remove</th>
                         </tr>
                     </thead>
+              
                     <tbody>
                         <?php foreach($data['cartDetails'] as $cart): ?>
+                            
                         <tr>
+
                             <td><input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>"></td>
                             <td><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
                             <td><?php echo $cart->book_name; ?></td>
@@ -49,7 +56,9 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
+                    
                 </table>
+               
                 <br><br>
                 <!-- <div class="chk-btn-div">
                     <button type="submit" class="checkout-btn">Purchase Selected Items</button>
@@ -57,6 +66,10 @@
             <!-- </form> -->
 
             <table border="1" class="tb-cart2" id="eventTable">
+            <?php if(empty($data['cartDetails'])): ?>
+                    <?php echo '
+                    <h3 style="text-align:center;">No Books in Your Cart.Continue Shopping </h3>'; ?>
+                        <?php else : ?>
                 <tbody>
                     <?php foreach($data['cartDetails'] as $cart): ?>
                     <tr>
@@ -83,7 +96,9 @@
                         </td>
                     </tr>
                     <?php endforeach; ?>
+                    <?php endif ; ?>
                 </tbody>
+                
             </table>
             <br>
             <div class="chk-btn-div">
@@ -91,6 +106,7 @@
                 <button id="deleteBtn" class="delete-btn">Delete Selected Items</button>
                 </div>
                     </form>
+                   
         </div>
         <ul class="pagination" id="pagination">
             <li id="prevButton">«</li>
@@ -106,7 +122,9 @@
             <li>10</li>
             <li id="nextButton">»</li>
         </ul>
+        
     </div>
+    
     <?php
         require APPROOT . '/views/customer/footer.php'; //path changed
     ?>
