@@ -88,22 +88,32 @@
                     <div class="subcost">
 
                         <p>Subtotal</p>
+                        
                         <p>Delivery Fee</p>
+                       
+                        <p> Redeem Points</p>
                         <p>Total</P>
                     </div>
                     <div class="subcost2">
                         <p id="totalCostDisplay">Rs. <?php echo $book[0]->total_price; ?></p>
+                       
                         <p id="totalDeliveryDisplay">Rs. <?php echo $data['deliveryDetails']->priceperkilo; ?></p>
-                        <p id="totalPriceDisplay">Rs. <?php echo $book[0]->total_price + $data['deliveryDetails']->priceperkilo; ?></p>
-
+                       
+                        <p id="addRedeemPoints" onclick="toggleRedeemPoints()">Add Your Redeem Points <i class="fas fa-chevron-down"></i></p>
+                        <p id="totalPriceDisplay">Rs. <?php echo $book[0]->total_price + $data['deliveryDetails']->priceperkilo; ?></p>  
                     </div>
 
                 </div>
-
+                <div id="redeemPointsDetails" style="display: none;">
+                    <span>You have  <?php echo $data['redeempoint']->redeem_points; ?> redeem points.Use them for buy this order</span><br>
+                    <input type="number" name="totalRedeem"  id="redeemPointsInput" value="<?php echo $data['redeempoint']->redeem_points; ?>" min="0" max="10">
+                    <a href="#" onclick="applyRedeemPoints()">Apply</a>
+                            </div>
                 <input type="number" id="subtotalPriceInput" name="subTotalPrice" step="any" class="visible">
                 <input class="visible" type="number" id="totalCostInput" name="totalCost" step="any">
                 <input class="visible" type="number" id="totalWeightInput" name="totalWeight" step="any">
                 <input class="visible" type="number" id="totalDeliveryInput" name="totalDelivery" step="any">
+            
                 <input type="submit" value="Place Order" name="submit" class="submit">
 
             </div>
@@ -111,6 +121,15 @@
     </form>
 </body>
 <script>
+
+function toggleRedeemPoints() {
+        var x = document.getElementById("redeemPointsDetails");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
     // Call updateTotalCost for each book when the page is loaded
     window.addEventListener('DOMContentLoaded', (event) => {
         <?php foreach ($data['bookDetails'] as $index => $book): ?>
@@ -186,8 +205,18 @@
         document.getElementById('totalDeliveryInput').value = deliveryFee;
         document.getElementById('totalCostInput').value = totalPrice;
     }
+// Function to apply redeem points and update total price
+function applyRedeemPoints() {
+        // Get the redeem points entered by the user
+        let redeemPoints = parseInt(document.getElementById('redeemPointsInput').value);
+        let totalCost = parseFloat(document.getElementById('totalCostDisplay').innerText.split(' ')[1]);
+        let deliveryFee = parseFloat(document.getElementById('totalDeliveryDisplay').innerText.split(' ')[1]);
+        let newTotalPrice = totalCost + deliveryFee - redeemPoints;
+        document.getElementById('totalPriceDisplay').innerText = "Rs. " + newTotalPrice;
 
-    // Function to update the hidden quantity input field
+        document.getElementById('totalCostInput').value = newTotalPrice;
+    }
+   
     function updateHiddenQuantity(index, quantity) {
         document.getElementById('book_quantity_' + index).value = quantity;
     }

@@ -1087,4 +1087,9 @@ public function getQuizDetails(){
     $this->db->query('SELECT * FROM events WHERE status="Approved"');
     return $this->db->resultSet();
   }
+  public function FindRedeemPoints($customer_id){
+    $this->db->query('SELECT redeem_points FROM customers WHERE customer_id=:customer_id');
+    $this->db->bind(':customer_id',$customer_id);
+    return $this->db->single();
+  }
 }

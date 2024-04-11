@@ -25,6 +25,21 @@ class PurchaseOrder extends Controller{
         $this->chatModel=$this->model('Chat')  ;
         $this->db = new Database();
     }
+    public function index(){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/index', $data);
+        }
+    }
     public function purchaseMultiple(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
@@ -70,11 +85,15 @@ class PurchaseOrder extends Controller{
             }
 
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id=$customerDetails[0]->customer_id;
+            $redeem_points=$this->customerModel->FindRedeemPoints($customer_id);
+            // print_r($redeem_points);
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
 
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
+                    'redeempoint'=>$redeem_points,
                     'cart_id'=>$cart_id,
                     'bookDetails'=>$bookDetails,
                     'book_id'=>$bookIds,
@@ -90,7 +109,7 @@ class PurchaseOrder extends Controller{
                     'total_weight'=>trim($_POST['totalWeight']),
                     'totalDelivery'=>trim($_POST['totalDelivery']),
                     'bookQuantities' => $_POST['book_quantities'],
-                    
+                    'totalRedeem'=>trim($_POST['totalRedeem']),
                     'postal_name_err' => '',
                     'street_name_err' => '',
                     'town_err' => '',
@@ -134,6 +153,7 @@ class PurchaseOrder extends Controller{
                 }else{
                     
                     echo  '<script>alert("Error")</script>';
+                    redirect('PurchaseOrder/purchaseMultipleView/');
                     }       
               
             } else {
@@ -142,6 +162,7 @@ class PurchaseOrder extends Controller{
                
                  if($customerDetails)   {
                     $data = [
+                        'redeempoint'=>$redeem_points,
                         'book_id'=>$bookIds,
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
