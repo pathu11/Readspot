@@ -92,7 +92,7 @@
                         <p>Delivery Fee</p>
                        
                         <p> Redeem Points</p>
-                        <p>Total</P>
+                        
                     </div>
                     <div class="subcost2">
                         <p id="totalCostDisplay">Rs. <?php echo $book[0]->total_price; ?></p>
@@ -100,15 +100,28 @@
                         <p id="totalDeliveryDisplay">Rs. <?php echo $data['deliveryDetails']->priceperkilo; ?></p>
                        
                         <p id="addRedeemPoints" onclick="toggleRedeemPoints()">Add Your Redeem Points <i class="fas fa-chevron-down"></i></p>
+                        
+                    </div>
+
+                </div>
+                <div id="redeemPointsDetails" class="redeem" style="display: none;">
+                    <span>You have  <?php echo $data['redeempoint']->redeem_points; ?> redeem points.Use them for buy this order</span><br><br>
+                    <input type="number" name="totalRedeem"  id="redeemPointsInput" value="<?php echo $data['redeempoint']->redeem_points; ?>" min="0" max="<?php echo $data['redeempoint']->redeem_points; ?>">
+                    <a href="#" class="apply" onclick="applyRedeemPoints()">Apply</a>
+                </div>
+                <div class="cost">
+                    <div class="subcost">
+
+                       
+                        <p>Total</P>
+                    </div>
+                    <div class="subcost2">
+                       
                         <p id="totalPriceDisplay">Rs. <?php echo $book[0]->total_price + $data['deliveryDetails']->priceperkilo; ?></p>  
                     </div>
 
                 </div>
-                <div id="redeemPointsDetails" style="display: none;">
-                    <span>You have  <?php echo $data['redeempoint']->redeem_points; ?> redeem points.Use them for buy this order</span><br>
-                    <input type="number" name="totalRedeem"  id="redeemPointsInput" value="<?php echo $data['redeempoint']->redeem_points; ?>" min="0" max="10">
-                    <a href="#" onclick="applyRedeemPoints()">Apply</a>
-                            </div>
+                
                 <input type="number" id="subtotalPriceInput" name="subTotalPrice" step="any" class="visible">
                 <input class="visible" type="number" id="totalCostInput" name="totalCost" step="any">
                 <input class="visible" type="number" id="totalWeightInput" name="totalWeight" step="any">

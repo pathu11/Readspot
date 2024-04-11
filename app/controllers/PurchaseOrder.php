@@ -149,6 +149,8 @@ class PurchaseOrder extends Controller{
                 if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
                    
                     redirect('PurchaseOrder/checkout2/');
+                   
+                    
                   
                 }else{
                     
@@ -236,15 +238,20 @@ public function checkout2()
         }     
     }
 }
+
 private function handleCardPaymentForm($orderDetails1, $formType)
 {
+    // $redeemPoints=$orderDetails1['totalRedeem'];
+    // $customer_id=$orderDetails1['customer_id'];
     if ($this->customerModel->addOrder($orderDetails1)) {
         $order_id = $this->customerModel->getLastInsertedOrderId();
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
             $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
+
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                // $this->customerModel->updateRedeem($customer_id,$redeemPoints);
            }
         }
     } else {
@@ -291,7 +298,8 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 }
 
 private function handleCODForm($orderDetails1 ,$formType){
-
+    $redeemPoints=$orderDetails1['totalRedeem'];
+    $customer_id=$orderDetails1['customer_id'];
     if ($this->customerModel->addOrder($orderDetails1)) {
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
@@ -300,6 +308,7 @@ private function handleCODForm($orderDetails1 ,$formType){
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                $this->customerModel->updateRedeem($customer_id,$redeemPoints);
            }
            
 

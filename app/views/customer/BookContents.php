@@ -28,11 +28,11 @@
         <!-- top contents -->
         <div class="sub-cont-C2">
          
-        <?php foreach($data['contentDetails'] as $content): ?>
+        <?php foreach($data['topRatedContent'] as $content): ?>
             <div class="content0-C">
             <h1>Top Content of This Week</h1>
                 <div class="content1-C">
-                   
+                  
                     <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>"  alt="Book3" class="content-img-C"> <!--path changed-->
                     <div class="content2-C">
                         <h1><?php echo $content->topic; ?></h1><br>

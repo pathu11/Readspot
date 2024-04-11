@@ -160,7 +160,29 @@ td:not(:last-child) {
 .span {
     margin: 0 5px;
 }
+.redeem{
+    border-radius: 3px;
+    border:black;
+    padding:10px;
+    text-align: center;
 
+}
+.redeem input{
+    background-color: #eee;
+    border-radius: 5px;
+    border-collapse: calc();
+
+}
+.apply{
+    width:60px;
+    height: 20px;
+    background-color: #009D94;
+    border-radius: 5px;
+    text-decoration: none;
+    color:white;
+    padding:5px;
+    margin-left:6px;
+}
 @media screen and (max-width: 768px) {
     .flex-parent-element {
       flex-direction: column; /* Stack elements vertically */

@@ -767,9 +767,16 @@ class Customer extends Controller {
     
     public function BookContents(){
         if (!isLoggedInCustomer()) {
+             // Calculate the start and end date of the current week
+            $startOfWeek = date('Y-m-d', strtotime('monday this week'));
+            $endOfWeek = date('Y-m-d', strtotime('sunday this week'));
+            
+            // Query to find the content with the highest rating within the current week
+            $topRatedContent = $this->customerModel->getTopRatedContentOfWeek($startOfWeek, $endOfWeek);
             $content_Details=$this->customerModel->findContent();
             $data = [
-                'contentDetails'=>$content_Details
+                'contentDetails'=>$content_Details,
+                'topRatedContent'=>$topRatedContent
             ];
             $this->view('customer/BookContents', $data);
         } else {
@@ -777,12 +784,20 @@ class Customer extends Controller {
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $content_Details=$this->customerModel->findContent();
+             
+             $startOfWeek = date('Y-m-d', strtotime('monday this week'));
+             $endOfWeek = date('Y-m-d', strtotime('sunday this week'));
+             
+             $topRatedContent = $this->customerModel->getTopRatedContentOfWeek($startOfWeek, $endOfWeek);
+            //  print_r($topRatedContent);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->name,
-                'contentDetails'=>$content_Details
+                'contentDetails'=>$content_Details,
+                'topRatedContent'=>$topRatedContent
             ];
+            // print_r($data['topRatedContent']);
             $this->view('customer/BookContents', $data);
         }
     } 

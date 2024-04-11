@@ -1092,4 +1092,24 @@ public function getQuizDetails(){
     $this->db->bind(':customer_id',$customer_id);
     return $this->db->single();
   }
+  public function updateRedeem($customer_id, $totalRedeem) {
+    $this->db->query('UPDATE customers SET redeem_points = redeem_points - :redeem_points WHERE customer_id = :customer_id');
+    $this->db->bind(':redeem_points', $totalRedeem); // Removed space after ':redeem_points'
+    $this->db->bind(':customer_id', $customer_id);
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
+ 
+
+  $this->db->query("SELECT content.*, SUM(content_review.rate) AS total_rating FROM content INNER JOIN content_review ON content.content_id= content_review.content_id WHERE WEEK(content_review.time) = WEEK(:startOfWeek) AND YEAR(content_review.time) = YEAR(:startOfWeek) AND content.status = 'approval' GROUP BY content.content_id ORDER BY total_rating DESC;");
+  $this->db->bind(':startOfWeek', $startOfWeek);
+  $this->db->bind(':endOfWeek', $endOfWeek);
+  
+  return $this->db->resultSet(); // Assuming you only want the top-rated content
+}
+
 }
