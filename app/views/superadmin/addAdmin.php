@@ -1,17 +1,14 @@
-<?php
-    $title = "Add Admins";
-    
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    
+<link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
-
+    <title>Add Admin</title>
 </head>
 
 <body>

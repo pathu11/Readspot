@@ -1,16 +1,14 @@
 
-<?php
-    $title = "Processing  Orders";    
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
    
-    <title>Pending Orders</title>
+    <title>Processing Orders</title>
    
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
-
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 </head>
 
 <body>

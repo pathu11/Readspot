@@ -1,12 +1,11 @@
-<?php
-    $title = "Notification";
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Messages</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 

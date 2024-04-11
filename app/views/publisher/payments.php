@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
 
-  <title>Events</title>
+  <title>Payments</title>
 </head>
 
 <body>
