@@ -134,7 +134,7 @@
         </div>
     </div>
 
-
+<!-- 
     <div class="aboutusandcontactus">
         <div class="aboutus">
             <h3>About Us</h3>
@@ -166,7 +166,7 @@
                 <input type="submit" value="Submit" id="submitbtn">
 
             </form>
-        </div>
+        </div> -->
         <div id="contact-bar">
             <div class="contact-info" onclick="toggleDetails('email-details')">
                 <span class="contact-icon">✉️</span>
