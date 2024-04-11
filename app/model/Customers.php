@@ -740,10 +740,135 @@ public function addReview($data){
   return $this->db->execute();
 
 }
+public function recommendBooks($customerId) {
+  // Initialize an empty array to store recommended books
+  $recommendedBooks = [];
+
+  // Get categories based on the customer's orders
+  $orderCategories = $this->getCategoriesFromOrders($customerId);
+  // Get categories based on the customer's cart
+  $cartCategories = $this->getCategoriesFromCart($customerId);
+  // Get categories based on all users' orders
+  $allOrdersCategories = $this->getCategoriesFromAllOrders();
+
+  // Merge all categories and remove duplicates
+  $categories = array_unique(array_merge($orderCategories, $cartCategories, $allOrdersCategories));
+
+  // Retrieve books for each category
+  foreach ($categories as $category) {
+      $booksQuery = $this->db->query('SELECT * FROM books WHERE category = :category AND type="new"');
+      $this->db->bind(':category', $category);
+      $books = $this->db->resultSet();
+
+      // Check the number of books for each category
+      if (count($books) > 3) {
+          // If more than 3 books, retrieve only the first three books
+          $recommendedBooks[$category] = array_slice($books, 0, 3);
+      } else {
+          // If less than or equal to 3 books, retrieve all books
+          $recommendedBooks[$category] = $books;
+      }
+  }
+
+  // Return the array of recommended books
+  return $recommendedBooks;
+}
+
+// Helper function to get categories from a customer's orders
+private function getCategoriesFromOrders($customerId) {
+  $categories = [];
+  $ordersQuery = $this->db->query('SELECT DISTINCT b.category 
+                                  FROM orders o
+                                  JOIN order_details od ON o.order_id = od.order_id
+                                  JOIN books b ON od.book_id = b.book_id
+                                  WHERE o.customer_id = :customer_id');
+  $this->db->bind(':customer_id', $customerId);
+  $result = $this->db->resultSet();
+  foreach ($result as $row) {
+      $categories[] = $row->category;
+  }
+  return $categories;
+}
+
+// Helper function to get categories from a customer's cart
+private function getCategoriesFromCart($customerId) {
+  $categories = [];
+  $cartQuery = $this->db->query('SELECT DISTINCT b.category 
+                                  FROM cart c
+                                  JOIN books b ON c.book_id = b.book_id
+                                  WHERE c.customer_id = :customer_id');
+  $this->db->bind(':customer_id', $customerId);
+  $result = $this->db->resultSet();
+  foreach ($result as $row) {
+      $categories[] = $row->category;
+  }
+  return $categories;
+}
+
+// Helper function to get categories from all users' orders
+private function getCategoriesFromAllOrders() {
+  $categories = [];
+  $ordersQuery = $this->db->query('SELECT DISTINCT b.category 
+                                  FROM orders o
+                                  JOIN order_details od ON o.order_id = od.order_id
+                                  JOIN books b ON od.book_id = b.book_id');
+  $result = $this->db->resultSet();
+  foreach ($result as $row) {
+      $categories[] = $row->category;
+  }
+  return $categories;
+}
+
+
+public function topSelling(){
+  $recommendedBooks = [];
+
+  $cartCategories = $this->getCategoriesFromAllCart();
+  $allOrdersCategories = $this->getCategoriesFromAllOrders();
+
+  $categories = array_unique(array_merge($cartCategories, $allOrdersCategories));
+
+  foreach ($categories as $category) {
+    $booksQuery = $this->db->query('SELECT * FROM books WHERE category = :category AND type="new"');
+    $this->db->bind(':category', $category);
+    $books = $this->db->resultSet();
+
+    if (count($books) > 3) {
+       
+        $recommendedBooks[$category] = array_slice($books, 0, 3);
+    } else {
+        $recommendedBooks[$category] = $books;
+    }
+}
+return $recommendedBooks;
+}
+
+private function getCategoriesFromAllCart() {
+  $categories = [];
+  $cartQuery = $this->db->query('SELECT DISTINCT b.category 
+                                  FROM cart c
+                                  JOIN books b ON c.book_id = b.book_id
+                                  WHERE b.type="new"');
+ 
+  $result = $this->db->resultSet();
+  foreach ($result as $row) {
+      $categories[] = $row->category;
+  }
+  return $categories;
+}
+
+
 public function getAverageRatingByBookId($book_id) {
  
   $this->db->query('SELECT AVG(rate) AS average_rating , COUNT(*) AS total_reviews  FROM reviews WHERE book_id = :book_id');
   $this->db->bind(':book_id', $book_id);
+  return $this->db->single(); // Assuming you only expect one result
+}
+
+public function getAverageRatingByContentId($content_id) {
+ 
+  $this->db->query('SELECT AVG(rate) AS average_rating , COUNT(*) AS total_reviews  FROM content_review WHERE content_id = :content_id');
+  $this->db->bind(':content_id', $content_id);
   return $this->db->single(); // Assuming you only expect one result
 }
 
@@ -777,12 +902,58 @@ public function getAverageRatingByBookId($book_id) {
     $this->db->bind(':rate', "5");
     return $this->db->single();
   }
+  public function countStar_1c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_1 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "1");
+    return $this->db->single();
+  }
+  public function countStar_2c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_2 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "2");
+    return $this->db->single();
+  }
+  public function countStar_3c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_3 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "3");
+    return $this->db->single();
+  }
+  public function countStar_4c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_4 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "4");
+    return $this->db->single();
+  }
+  public function countStar_5c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_5 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "5");
+    return $this->db->single();
+  }
   public function findReviewsByBookId($book_id){
     $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM reviews r JOIN customers c ON r.customer_id = c.customer_id WHERE book_id = :book_id');
     $this->db->bind(':book_id', $book_id);
     
     return $this->db->resultSet();
   }
+
+  public function markReview($reviewId) {
+    $this->db->query('UPDATE content_review
+              SET help = help + 1 
+              WHERE review_id = :review_id');
+            
+    $this->db->bind(':review_id', $reviewId);
+
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+  
 public function getRating($book_id) {
   $query = "SELECT 
             CONCAT(rate, ' Star') AS rating, 
@@ -806,12 +977,7 @@ public function addContentReview($data){
   return $this->db->execute();
 
 }
-public function getAverageRatingByContentId($content_id) {
- 
-  $this->db->query('SELECT AVG(rate) AS average_rating FROM content_review WHERE content_id = :content_id');
-  $this->db->bind(':content_id', $content_id);
-  return $this->db->single(); // Assuming you only expect one result
-}
+
 public function findReviewsByContentId($content_id){
   $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM content_review r JOIN customers c ON r.customer_id = c.customer_id WHERE content_id = :content_id');
   $this->db->bind(':content_id', $content_id);

@@ -1,6 +1,3 @@
-<?php
-    $title = "Events"; 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +9,7 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
 
-  <title>Events</title>
+  <title>Payments</title>
 </head>
 
 <body>
@@ -36,36 +33,11 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+           
                
                 
                
-                <?php foreach($data['eventDetails'] as $event): ?>
-                <tr>
-                    <td><?php echo $event->id; ?></td>
-                    <td><img src="<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>" onclick="viewEvent(this.src)" width=30% /></td>
-                    <td><?php echo $event->title; ?></td>
-                    <td><?php echo $event->description; ?></td>
-                    <td><?php echo $event->location; ?></td>
-                    <td><?php echo $event->start_date; ?></td>
-                    <td><?php echo $event->end_date; ?></td>
-                    <td><?php echo $event->category_name; ?></td>
-                    <td><?php echo $event->status; ?></td>
-                    <td class="action-buttons">
-                    <button class="view-button" onclick="viewEvent('<?php echo URLROOT; ?>/assets/images/landing/addevents/<?php echo $event->poster; ?>')">
-                        <i class="fas fa-eye"></i>
-                    </button>
-
-                        <button class="update-button" onclick="updateEvent(12)">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-button" onclick="deleteEvent(12)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
- <?php endforeach; ?>
-            </tbody>
+                
         </table>
 
   

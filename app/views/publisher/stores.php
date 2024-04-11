@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
-  <title>Add Stores</title>
+  <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+  <title> Stores</title>
 </head>
 <body>
   <?php require APPROOT . '/views/publisher/sidebar.php';?>

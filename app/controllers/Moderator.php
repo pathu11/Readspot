@@ -398,30 +398,47 @@ require APPROOT . '\vendor\autoload.php';
       }
       }
     }
-    public function RejectContent($content_id) {
-      if (!isLoggedInModerator()) {
+
+  public function rejectContent() {
+    // Check if user is logged in as a moderator
+    if (!isLoggedInModerator()) {
         redirect('landing/login');
-      }else{
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          $data = json_decode(file_get_contents("php://input"));
-          $content_id = $data->content_id;
-          $reason=$data->reason;
-  
-          if($content_id && reason){
-            if($this->moderatorModel->rejectContent($content_id)){
-              
-              $response = ['success' => true]; 
-              echo json_encode($response);
-            }
-          }
-          
-      } else {
-          // If the request method is not POST, return an error response
-          $response = ['success' => false, 'message' => 'Invalid request method'];
-          echo json_encode($response);
-      }
-      }
     }
+
+
+    // Ensure the request method is POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        // If the request method is not POST, return an error response
+        $response = ['success' => false, 'message' => 'Invalid request method'];
+        echo json_encode($response);
+        return;
+    }
+
+    // Get the content ID from the request body
+    $data = json_decode(file_get_contents("php://input"));
+    $content_id = $data->content_id;
+    $reason = $data->reason;
+
+    // Validate content ID
+    if (!($content_id || $reason)) {
+        // If content ID is missing, return an error response
+        $response = ['success' => false, 'message' => 'Invalid content ID'];
+        echo json_encode($response);
+        return;
+    }
+
+    // Perform the rejection operation in the model
+    if ($this->moderatorModel->rejectContent($content_id,$reason)) {
+        // If rejection is successful, return a success response
+        $response = ['success' => true];
+        echo json_encode($response);
+    } else {
+        // If rejection fails, return an error response
+        $response = ['success' => false, 'message' => 'Failed to reject content'];
+        echo json_encode($response);
+    }
+}
+
 
     public function livesearch(){
       if(isset($_POST['input'])){
@@ -438,6 +455,7 @@ require APPROOT . '\vendor\autoload.php';
       $this->view('moderator/livesearch',$data);
     }
   
+
   
   }
 

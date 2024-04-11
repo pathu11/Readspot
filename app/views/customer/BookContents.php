@@ -26,6 +26,7 @@
             </div>
         </div>
         <div class="sub-cont-C2">
+         
         <?php foreach($data['contentDetails'] as $content): ?>
             <div class="content0-C">
                 

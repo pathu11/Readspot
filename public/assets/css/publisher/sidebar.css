@@ -161,6 +161,7 @@ nav.open ~ .overlay {
   animation-iteration-count: infinite;*/
 }
 .sub-menu-wrap{
+  z-index:100;
   position: absolute;
   top: 60%;
   right: 0%;
@@ -172,9 +173,11 @@ nav.open ~ .overlay {
 
 .sub-menu-wrap.open-menu{
   max-height: 370px;
+  z-index:100;
 }
 
 .sub-menu{
+  z-index:100;
   background: rgb(64, 64, 64, 0.7);
   padding: 20px;
   margin: 20px;
