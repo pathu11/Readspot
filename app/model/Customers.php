@@ -865,6 +865,13 @@ public function getAverageRatingByBookId($book_id) {
   return $this->db->single(); // Assuming you only expect one result
 }
 
+public function getAverageRatingByContentId($content_id) {
+ 
+  $this->db->query('SELECT AVG(rate) AS average_rating , COUNT(*) AS total_reviews  FROM content_review WHERE content_id = :content_id');
+  $this->db->bind(':content_id', $content_id);
+  return $this->db->single(); // Assuming you only expect one result
+}
+
   public function countStar_1($book_id){
     $this->db->query('SELECT COUNT(*) AS total_1 FROM reviews WHERE book_id = :book_id AND rate=:rate ');
     $this->db->bind(':book_id', $book_id);
@@ -895,12 +902,58 @@ public function getAverageRatingByBookId($book_id) {
     $this->db->bind(':rate', "5");
     return $this->db->single();
   }
+  public function countStar_1c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_1 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "1");
+    return $this->db->single();
+  }
+  public function countStar_2c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_2 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "2");
+    return $this->db->single();
+  }
+  public function countStar_3c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_3 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "3");
+    return $this->db->single();
+  }
+  public function countStar_4c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_4 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "4");
+    return $this->db->single();
+  }
+  public function countStar_5c($content_id){
+    $this->db->query('SELECT COUNT(*) AS total_5 FROM content_review WHERE content_id = :content_id AND rate=:rate ');
+    $this->db->bind(':content_id', $content_id);
+    $this->db->bind(':rate', "5");
+    return $this->db->single();
+  }
   public function findReviewsByBookId($book_id){
     $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM reviews r JOIN customers c ON r.customer_id = c.customer_id WHERE book_id = :book_id');
     $this->db->bind(':book_id', $book_id);
     
     return $this->db->resultSet();
   }
+
+  public function markReview($reviewId) {
+    $this->db->query('UPDATE content_review
+              SET help = help + 1 
+              WHERE review_id = :review_id');
+            
+    $this->db->bind(':review_id', $reviewId);
+
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+  
 public function getRating($book_id) {
   $query = "SELECT 
             CONCAT(rate, ' Star') AS rating, 
@@ -924,12 +977,7 @@ public function addContentReview($data){
   return $this->db->execute();
 
 }
-public function getAverageRatingByContentId($content_id) {
- 
-  $this->db->query('SELECT AVG(rate) AS average_rating FROM content_review WHERE content_id = :content_id');
-  $this->db->bind(':content_id', $content_id);
-  return $this->db->single(); // Assuming you only expect one result
-}
+
 public function findReviewsByContentId($content_id){
   $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM content_review r JOIN customers c ON r.customer_id = c.customer_id WHERE content_id = :content_id');
   $this->db->bind(':content_id', $content_id);

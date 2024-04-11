@@ -2447,9 +2447,20 @@ public function BuyNewBooks()
             $contentDetails=$this->customerModel->findContentById($content_id);
             $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
+            $countStar_1 = $this->customerModel->countStar_1c($content_id);
+            $countStar_2 = $this->customerModel->countStar_2c($content_id);
+            $countStar_3 = $this->customerModel->countStar_3c($content_id);
+            $countStar_4 = $this->customerModel->countStar_4c($content_id);
+            $countStar_5 = $this->customerModel->countStar_5c($content_id);
+            
             $data = [
                 'contentDetails'=>$contentDetails,
                 'reviewDetails'=>$reviewDetails,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
                 // 'ratingCount'=>$ratingCount,
                 'averageRatingCount'=>$averageRatingCount
                 // 'ratingDistribution'=>$ratingDistribution
@@ -2461,8 +2472,11 @@ public function BuyNewBooks()
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
-            // $ratingCount = $this->customerModel->getRating($book_id);
-        //    print_r($reviewDetails);
+            $countStar_1 = $this->customerModel->countStar_1c($content_id);
+            $countStar_2 = $this->customerModel->countStar_2c($content_id);
+            $countStar_3 = $this->customerModel->countStar_3c($content_id);
+            $countStar_4 = $this->customerModel->countStar_4c($content_id);
+            $countStar_5 = $this->customerModel->countStar_5c($content_id);
            
             $data = [
                 'customerDetails' => $customerDetails,
@@ -2470,6 +2484,11 @@ public function BuyNewBooks()
                 'customerImage' => $customerDetails[0]->profile_img,
                 'contentDetails'=>$contentDetails,
                 'reviewDetails'=>$reviewDetails,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
                 // 'ratingCount'=>$ratingCount,
                 'averageRatingCount'=>$averageRatingCount
                 // 'ratingDistribution'=>$ratingDistribution
@@ -2477,6 +2496,33 @@ public function BuyNewBooks()
             $this->view('customer/viewcontent', $data);
         }
     } 
+
+
+// Inside your controller file (e.g., CustomerController.php)
+
+public function markReview()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      
+        $data = json_decode(file_get_contents("php://input"));
+        $reviewId = $data->reviewId;
+        $action = $data->action;
+        if($action=='yes'){
+            if($this->$customerModel->markReview($reviewId)){
+                echo json_encode(['success' => true]);
+            } else {
+                // Return an error response for non-POST requests
+                http_response_code(405); // Method Not Allowed
+                echo json_encode(['error' => 'Method Not Allowed']);
+            }
+        }
+        
+    }     
+       
+    
+}
+
+
 
     public function viewevents($eventId){
         if (!isLoggedInCustomer()) {
