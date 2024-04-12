@@ -2695,6 +2695,37 @@ class Customer extends Controller {
         $this->view('customer/ViewMyEvent', $data);
     }
 
+    public function ViewFavorite($fav_id){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                $favDetails = $this->customerModel->findFavoriteById($fav_id);
+                $category = $favDetails[0]->category;
+                $item_id = $favDetails[0]->item_id;
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+        
+        if ($category == "New Book") {
+            redirect('customer/BookDetails/'.$item_id);
+            // $this->view('customer/BookDetails',$item_id);
+        } else {
+            $this->view('customer/Favorite');
+        }
+    }
+
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);

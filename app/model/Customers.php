@@ -80,6 +80,14 @@
       // return $row;
     }
 
+    public function findFavoriteById($fav_id){
+      $this->db->query('SELECT * from favorite WHERE fav_id=:fav_id');
+      $this->db->bind(':fav_id',$fav_id);
+      return $this->db->resultSet();
+      // $row = $this->db->single();
+      // return $row;
+    }
+
     public function findsaveevent($user_id){
       $this->db->query('SELECT * from saveevent WHERE user_id=:user_id');
       $this->db->bind(':user_id',$user_id);
