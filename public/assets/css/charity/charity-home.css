@@ -144,25 +144,27 @@ nav a:hover {
     transition: box-shadow 0.3s;
 }
 
-#eventnote{
+/* #eventnote{
     position: absolute;
-    width: 260px;
+    -webkit-text-stroke: 0.1VW gray;
+    font-size: 30PX;
+    text-transform: uppercase;
+    width: 300px;
     height: 36px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     border: none;
     top: 75%;
     transform: translateY(-40%);
-    left: 39%;
+    left: 42%;
     text-align: center;
     font-family: "Poppins";
-    color: #ffffff;
-    font-weight: 600;
+    /* font-weight: 600;
     font-size: 14px;
     text-decoration: none;
     line-height: 40px;
-    transition: box-shadow 0.3s;
-}
+    transition: box-shadow 0.3s; */
+
+
 
 @keyframes shake {
     0% {

@@ -41,9 +41,7 @@
 
     <div class="body-container">
         <img id="bcnd" src=<?php echo URLROOT . "/assets/images/charity/Readspot_Bcrnd-Events.png" ?>>
-        <div id="blinkingBox">
-            <p id="eventnote">Here You can Post Charity events!</p>
-        </div>
+        <!-- <p id="eventnote">POST EVENTS HERE !</p> -->
     </div>
 
     <div class="box1">
