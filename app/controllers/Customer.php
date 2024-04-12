@@ -2282,6 +2282,18 @@ class Customer extends Controller {
         }
     }
 
+    public function deleteFavorite($fav_id)
+    {
+        if ($this->customerModel->deleteFavorite($fav_id)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/Favorite');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+
     public function RemoveEventFromCalender($eventId)
     {
         if (!isLoggedInCustomer()) {

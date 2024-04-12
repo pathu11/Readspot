@@ -460,6 +460,22 @@
       }
     }
 
+    public function deleteFavorite($fav_id) {
+      $this->db->query('DELETE FROM favorite WHERE fav_id = :fav_id');
+
+      $this->db->bind(':fav_id', $fav_id);
+
+      // Execute after binding
+      $this->db->execute();
+
+      // Check for row count affected
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
     public function RemoveEventFromCalender($data){
       $this->db->query('DELETE FROM saveevent WHERE user_id = :user_id AND event_id = :event_id');
   

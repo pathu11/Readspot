@@ -30,12 +30,12 @@
                             <td><?php echo $favorite->topic; ?></td>
                             <td><?php echo $favorite->category; ?></td>
                             <td class="action-buttons">
-                                <a href="<?php echo URLROOT; ?>/customer/ViewMyEvent/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
+                                <a href="<?php echo URLROOT; ?>/customer/ViewFavorite/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
                                     <button class="view-button">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="<?php echo URLROOT; ?>/customer/deleteEvent/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
+                                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
                                     <button class="delete-button">
                                         <i class="fas fa-trash"></i>
                                     </button>
