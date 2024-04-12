@@ -58,6 +58,13 @@
       return $this->db->resultSet();
     }
 
+    public function findFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT * FROM favorite WHERE customer_id = :customer_id');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
     public function findEventByNotUserId($user_id) {
       $this->db->query('SELECT * FROM events WHERE user_id != :user_id AND status="Approved"');
       $this->db->bind(':user_id', $user_id);

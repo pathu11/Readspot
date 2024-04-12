@@ -19,72 +19,30 @@
                 <table border="1" id="eventTable">
                     <thead>
                         <tr>
-                            <th>Book Name</th>
-                            <th>Type</th>
+                            <th onclick="sortTable(0)">Book Name</th>
+                            <th onclick="sortTable(1)">Type</th>
                             <th>VIew/Remove</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($data['favoriteDetails'] as $favorite): ?>
                         <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
+                            <td><?php echo $favorite->topic; ?></td>
+                            <td><?php echo $favorite->category; ?></td>
                             <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <a href="<?php echo URLROOT; ?>/customer/ViewMyEvent/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
+                                    <button class="view-button">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </a>
+                                <a href="<?php echo URLROOT; ?>/customer/deleteEvent/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
+                                    <button class="delete-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet1</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

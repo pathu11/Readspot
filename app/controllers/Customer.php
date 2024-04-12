@@ -2900,17 +2900,32 @@ class Customer extends Controller {
     public function Favorite(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/Favorite', $data);
+            
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $favoriteDetails = $this->customerModel->findFavoriteByCustomerId($customerid);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+           
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'favoriteDetails' => $favoriteDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name
+        ];
+        $this->view('customer/Favorite', $data);
     }
 
 
