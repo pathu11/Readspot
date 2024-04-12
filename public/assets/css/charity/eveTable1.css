@@ -6,15 +6,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; 
+    min-height: 100vh;
     background-color: #70BFBA;
     flex-direction: column;
 } */
 
-/* .event_container {
+/* .container {
     background-color: white;
     width: 90%;
-    padding: 20px;
+    padding: 20px; 
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in-out;
@@ -29,18 +29,18 @@
     align-items: center;
 } */
 
-/* h2 {
+h2 {
     color: #333;
     font-size: 14px;
-} */
+}
 
 #searchInput {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 14px;
-    margin-top: 10px;
-    margin-left: 39%;
+    margin-top: 0px;
+    margin-left: 74%;
     width: 285px;
 }
 
@@ -63,8 +63,8 @@ table {
     margin-top: 20px;
     font-size: 14px;
     height: auto;
-    max-height: 500px;
-    overflow: hidden;
+    max-height: 500px; /* Adjust this value based on your requirement */
+    overflow: hidden; /* This will prevent the table from becoming scrollable */
 
 }
 
@@ -82,13 +82,12 @@ td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 50px;
-    width: 120px;
+    height: 30px;
+    width: 40px;
 }
 
 th {
     background-color: #f2f2f2;
-    
 }
 
 tr:hover {
@@ -123,7 +122,6 @@ tr:hover {
 #addEventBtn {
     background-color: #009D94;
     border-radius: 5px;
-    margin-bottom: 10px;
     cursor: pointer;
     width: 200px;
     height: 35px;

@@ -1,0 +1,11 @@
+
+.wrapper{
+    display: inline-flex;
+}
+.wrapper .static-text{
+    color: white;
+    font-size: 30px;
+    font-weight: 300px;
+    align-items: center;
+    justify-content: center;
+}
