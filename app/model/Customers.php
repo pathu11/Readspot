@@ -946,4 +946,37 @@ public function getQuizDetails(){
           return false;
       }   
   }
+
+  // public function Addtofavorie($item_id, $customer_id, $topic, $category) {
+  //   $this->db-query('INSERT INTO favorite (item_id, customer_id, topic, category)
+  //                               VALUE (:item_id, :customer_id, :topic, :category)');
+  
+  //   $this->db->bind(':item_id',$item_id);
+  //   $this->db->bind(':customer_id',$customer_id);
+  //   $this->db->bind(':topic',$topic);
+  //   $this->db->bind(':category',$category);
+
+  //   // execute
+  //   if($this->db->execute()){
+  //     return true;
+  //   }else{
+  //       return false;
+  //   }   
+  // }
+
+  public function Addtofavorite($item_id, $customer_id, $topic, $category) {
+    try {
+        $this->db->query('INSERT INTO favorite (item_id, customer_id, topic, category) VALUES (:item_id, :customer_id, :topic, :category)');
+        $this->db->bind(':item_id',$item_id);
+        $this->db->bind(':customer_id',$customer_id);
+        $this->db->bind(':topic',$topic);
+        $this->db->bind(':category',$category);
+
+        return $this->db->execute();
+    } catch (\Exception $e) {
+        // Handle the exception (e.g., log it, display an error message)
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+  }
 }

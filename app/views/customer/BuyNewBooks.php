@@ -112,9 +112,11 @@
                                 <h3><?php echo $books->price; ?></h3>
                             </a>
                             <div class="fav-cart">
-                                <button class="book-button">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </button>
+                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $books->book_id; ?>">
+                                    <button class="book-button">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
                                 <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
                                     <button class="book-button">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
