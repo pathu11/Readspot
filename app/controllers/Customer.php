@@ -1131,15 +1131,54 @@ class Customer extends Controller {
         if (!isLoggedInCustomer()) {
             $this->view('customer/ContactUs');
         } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/ContactUs', $data);
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                $customerid = null;
+    
+                if (isset($_SESSION['user_id'])) {
+                    $user_id = $_SESSION['user_id'];
+                    
+                    $customerDetails = $this->customerModel->findCustomerById($user_id);
+                    // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                    if ($customerDetails) {
+                        $customerName = $customerDetails[0]->name;
+                        $customerid = $customerDetails[0]->customer_id;                 
+                    } else {
+                        echo "Not found";
+                    }
+                }
+                $data=[
+                    'first_name' => trim($_POST['Fname']),
+                    'last_name' => trim($_POST['Lname']),
+                    'email' => trim($_POST['Email']),
+                    'contact_number' => trim($_POST['PhoneNumber']),
+                    'reason' => trim($_POST['Reason']),
+                    'other' => trim($_POST['OtherReason']),
+                    'descript' => trim($_POST['description']),
+                    'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerName
+                ];
+    
+                
+                if($this->customerModel->complaint($data)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/ContactUs');
+                }else{
+                    die('Something went wrong');
+                }
+            } 
+            else {
+                $user_id = $_SESSION['user_id'];
+            
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $data = [
+                    'customerDetails' => $customerDetails,
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerDetails[0]->name
+                ];
+                $this->view('customer/ContactUs', $data);
+            }
         }
     } 
     

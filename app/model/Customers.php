@@ -925,4 +925,25 @@ public function getQuizDetails(){
     $this->db->query('SELECT * FROM events WHERE status="Approved"');
     return $this->db->resultSet();
   }
+
+  public function complaint($data) {
+      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, customer_id)
+                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :customer_id)');
+
+      $this->db->bind(':first_name',$data['first_name']);
+      $this->db->bind(':last_name',$data['last_name']);
+      $this->db->bind(':email',$data['email']);
+      $this->db->bind(':contact_number',$data['contact_number']);
+      $this->db->bind(':reason',$data['reason']);
+      $this->db->bind(':other',$data['other']);
+      $this->db->bind(':descript',$data['descript']);
+      $this->db->bind(':customer_id',$data['customer_id']);
+
+      // execute
+      if($this->db->execute()){
+        return true;
+      }else{
+          return false;
+      }   
+  }
 }

@@ -4,14 +4,14 @@
     flex-direction: column;
     min-height: 725px;
     margin: 90px 10px 10px 10px;
-    background-color: #CACACA;
-    padding: 40px;
+    background-color: none;
+    padding: 10px 30px 30px 30px;
     border-radius: 10px;
 }
 
 .contact-us {
     background-color: white;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
     min-height: 200px;
     display: flex;
     flex-direction: column;
