@@ -45,7 +45,7 @@
     </div>
 
     <div class="box1">
-        <a href="<?php echo URLROOT; ?>/charity/test">test</a>
+        <!-- <a href="<?php echo URLROOT; ?>/charity/test">test</a> -->
         <div class="box2">
             <h4> Keep in MIND!</h4>
             <p> I am not just organizing things; also helping create a community where people love to share and read books<br>
@@ -60,7 +60,7 @@
         <div class="box4">
             <h4> Hire events Donate Books !</h4>
             <img src=<?= URLROOT . "/assets/images/charity/donate.png" ?>>
-            <p> Joined asz a supportive individual of Charity Organization
+            <p> Joined as a supportive individual of Charity Organization
                 <br>
             </p>
         </div>
