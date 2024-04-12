@@ -45,23 +45,22 @@
     </div>
 
     <div class="box1">
+        <a href="<?php echo URLROOT; ?>/charity/test">test</a>
         <div class="box2">
-            <h4> How You Can Help Us !</h4>
-            <p> Your support is instrumental in making a positive impact on the lives of individuals
-                through the joy of reading. Together, we can build a more literate and informed community.
-                <br>
-            <p style="color:#006e69;"><b>Thank you for being a part of our journey!</b></p>
+            <h4> Keep in MIND!</h4>
+            <p> I am not just organizing things; also helping create a community where people love to share and read books<br>
+            <p style="color:#006e69;"><b>being a part of "ReadSpot" journey!</b></p>
         </div>
-        <div class="box3" style="background-color: #006e69;">
-            <h4> WOW ! You are a Charity Member now,</h4>
-            <img id="joinUs" src=<?php echo URLROOT . "/assets/images/charity/join-with-us-logo.png" ?>>
-            <p> Now share your commitment to kindness.
+        <div class="box3" style="background-color: #303030;">
+            <h4> a Charity Member !</h4>
+            <img id="joinUs" src=<?= URLROOT . "/assets/images/charity/join-with-us-logo.png" ?>>
+            <p> Don't forget the impact of my actions on others; every effort counts
             </p>
         </div>
         <div class="box4">
             <h4> Hire events Donate Books !</h4>
-            <img src=<?php echo URLROOT . "/assets/images/charity/donate.png" ?>>
-            <p> You are a supportive individual of Charity Organization
+            <img src=<?= URLROOT . "/assets/images/charity/donate.png" ?>>
+            <p> Joined as a supportive individual of Charity Organization
                 <br>
             </p>
         </div>
