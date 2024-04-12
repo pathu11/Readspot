@@ -44,7 +44,6 @@
 
     <div class="body-container">
         <img id="bcnd" src=<?php echo URLROOT . "/assets/images/charity/Event_man.jpg" ?>>
-        <p id="eventnote">Here You can Post Charity events!</p>
     </div>
 
     <div class="row">
@@ -121,7 +120,7 @@
         </div>
     </div>
 
-    <div class="chart-container">
+    <!-- <div class="chart-container">
         <canvas id="myChart"></canvas>
     </div>
 
@@ -129,7 +128,7 @@
         <div class="notification-content">
             <span id="messageContent"></span>
         </div>
-    </div>
+    </div> -->
 
 
     <script>

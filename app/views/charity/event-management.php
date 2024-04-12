@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css" ?>>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css">
     <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/eveTable1.css" ?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -40,12 +40,14 @@
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?php echo URLROOT . "/assets/images/charity/Event_man.jpg" ?>>
-        <p id="eventnote">Here You can Post Charity events!</p>
+        <img id="bcnd" src=<?php echo URLROOT . "/assets/images/charity/Readspot_Bcrnd-Events.png" ?>>
+        <div id="blinkingBox">
+            <p id="eventnote">Here You can Post Charity events!</p>
+        </div>
     </div>
 
     <div class="box1">
-        <a href="<?php echo URLROOT; ?>/charity/test">test</a>
+        <!-- <a href="<?php echo URLROOT; ?>/charity/test">test</a> -->
         <div class="box2">
             <h4> Keep in MIND!</h4>
             <p> I am not just organizing things; also helping create a community where people love to share and read books<br>
@@ -658,7 +660,7 @@
             </div>
         </div>
 
-<!-- 
+        <!-- 
         <div id="contact-bar_2">
             <div class="contact-info" onclick="toggleDetails('email-details')">
                 <span class="contact-icon">✉️</span>
@@ -674,18 +676,18 @@
 
     </div> -->
 
-    <footer>
-        <div>
-            <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,
-                audio clips, digital downloads, data compilations,<br>
-                and software, is the property of READSPOT or its content suppliers and protected by Sri Lanka and
-                international copyright laws...
-            </p>
-        </div>
-        <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
-        </div>
-    </footer>
+        <footer>
+            <div>
+                <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,
+                    audio clips, digital downloads, data compilations,<br>
+                    and software, is the property of READSPOT or its content suppliers and protected by Sri Lanka and
+                    international copyright laws...
+                </p>
+            </div>
+            <div>
+                <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            </div>
+        </footer>
 
 
 </body>
