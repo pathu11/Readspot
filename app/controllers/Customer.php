@@ -3225,6 +3225,25 @@ class Customer extends Controller {
             $this->view('customer/filterbook', $data);
         }
     }
+
+    public function filtercontent(){
+        if(isset($_POST['query']) && isset($_POST['bookType'])){
+            $inputText = $_POST['query'];
+            $bookType = $_POST['bookType'];
+            $searchResults ='';
+            
+            if($bookType=='C'){
+                $searchResults = $this->customerModel->searchContent($inputText);
+            }
+            
+            $data = [
+                'searchResults' => $searchResults,
+                'inputText' => $inputText,
+                'bookType'=>$bookType,
+            ];
+            $this->view('customer/filtercontent', $data);
+        }
+    }
     
 
 }

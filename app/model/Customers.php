@@ -700,6 +700,15 @@ public function editOrderCOD($data)
       return $results;
     }
 
+    public function searchContent($inputText){
+      $this->db->query("SELECT content_id, topic, img, text
+      FROM content 
+      WHERE (topic LIKE '%$inputText%' OR text LIKE '%$inputText%')");
+      
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
 
 public function editOrderCardPayment($data){
   $this->db->query('UPDATE orders o
