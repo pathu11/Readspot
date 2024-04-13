@@ -454,6 +454,30 @@ require APPROOT . '\vendor\autoload.php';
       }
     }
   
+  public function addPoints(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER['REQUEST_METHOD']=='POST'){
+        $customer_id = $_POST["customer_id"];
+        $numberOfPoints = $_POST["numberOfPoints"];
+        $content_id = $_POST["content_id"];
+
+        if($this->moderatorModel->addPoints($customer_id,$numberOfPoints)){
+          if($this->moderatorModel->markPointsAdd($content_id)){
+            redirect('moderator/topContents');
+          }
+        }
+        else{
+          echo 'Something went wrong';
+        }
+
+      }
+      else{
+        echo 'Something went wrong';
+      }
+    }
+  }
   
   }
 

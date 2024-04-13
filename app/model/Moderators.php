@@ -174,7 +174,7 @@
     }
 
     public function getTopContents(){
-      $this->db->query("SELECT c.content_id, c.topic, c.text, c.customer_id, c.img, COUNT(cr.rate) AS rating_count
+      $this->db->query("SELECT c.content_id, c.topic, c.text, c.customer_id, c.img, c.pointsAdd, COUNT(cr.rate) AS rating_count
       FROM content c
       JOIN content_review cr ON c.content_id = cr.content_id
       GROUP BY c.content_id
@@ -185,9 +185,30 @@
       return $results;
     }
 
-  
-  
-  
+    public function addPoints($customer_id,$numberOfPoints){
+      $this->db->query("UPDATE customers SET redeem_points = redeem_points + :numberOfPoints WHERE customer_id = :customer_id");
+
+      $this->db->bind(":numberOfPoints",$numberOfPoints);
+      $this->db->bind(":customer_id",$customer_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function markPointsAdd($content_id){
+      $this->db->query("UPDATE content SET pointsAdd = 1 WHERE content_id = :content_id");
+      $this->db->bind(":content_id",$content_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
   }
 
 
