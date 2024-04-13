@@ -15,19 +15,19 @@
 
   <div class="dashboard">
     <div class="stat-itmes">
-      <div class="grid">
+      <a href="<?php echo URLROOT;?>/moderator/challenge"><div class="grid">
         <div class="grid-item">
           <i class="fa fa-solid fa-chess" style="color: #B197FC;"></i>
           <span>Ongoing Challenges</span>
-        </div>
-        <div class="grid-item">
+        </div></a>
+        <a href="<?php echo URLROOT;?>/moderator/topContents"><div class="grid-item">
           <i class="fa fa-solid fa-newspaper" style="color: #FFD43B;"></i>
           <span>Top Contents</span>
-        </div>
-        <div class="grid-item">
+        </div></a>
+        <a href="<?php echo URLROOT;?>/moderator/events"><div class="grid-item">
           <i class="fa fa-solid fa-calendar-day" style="color: #74C0FC;"></i>
           <span>Pending Events</span>
-        </div>
+        </div></a>
       </div>
       <div class="chart">
         <canvas id="myChart"></canvas>

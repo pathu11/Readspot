@@ -173,6 +173,18 @@
 
     }
 
+    public function getTopContents(){
+      $this->db->query("SELECT c.content_id, c.topic, c.text, c.customer_id, c.img, COUNT(cr.rate) AS rating_count
+      FROM content c
+      JOIN content_review cr ON c.content_id = cr.content_id
+      GROUP BY c.content_id
+      ORDER BY rating_count DESC
+      LIMIT 3");
+
+      $results=$this->db->resultSet();
+      return $results;
+    }
+
   
   
   

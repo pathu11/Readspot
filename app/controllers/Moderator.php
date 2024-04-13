@@ -437,6 +437,22 @@ require APPROOT . '\vendor\autoload.php';
       
       $this->view('moderator/livesearch',$data);
     }
+
+    public function topContents(){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        $user_id = $_SESSION['user_id'];
+        $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+        $topContentDetails = $this->moderatorModel->getTopContents();
+        $data = [
+          'moderatorDetails' => $moderatorDetails,
+          'moderatorName'=>$moderatorDetails[0]->name,
+          'topContentDetails'=>$topContentDetails,
+      ];
+        $this->view('moderator/topContents',$data);
+      }
+    }
   
   
   }
