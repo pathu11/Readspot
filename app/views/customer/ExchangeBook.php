@@ -33,6 +33,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="recommend">
             <div class="sub-cont-E2">
                 <?php if (empty($data['bookDetails'])): ?>
@@ -109,7 +110,7 @@
             }
         });
         $(document).on('click','a',function(){
-            $("#search-N").val($(this).text());
+            $("#search-E").val($(this).text());
             $("#show-list").html('');
         });
     });

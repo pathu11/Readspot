@@ -3238,11 +3238,18 @@ class Customer extends Controller {
             $bookType = $_POST['bookType'];
             $searchResults ='';
             
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+
             if($bookType=='N'){
                 $searchResults = $this->customerModel->searchNewBooks($inputText);
             }
             else if($bookType=='U'){
-                $searchResults = $this->customerModel->searchUsedBooks($inputText);
+                $searchResults = $this->customerModel->searchUsedBooks($inputText, $customer_id);
+            }
+            else if($bookType=='E'){
+                $searchResults = $this->customerModel->searchExchangeBooks($inputText, $customer_id);
             }
             
             $data = [
@@ -3260,8 +3267,12 @@ class Customer extends Controller {
             $bookType = $_POST['bookType'];
             $searchResults ='';
             
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+            
             if($bookType=='C'){
-                $searchResults = $this->customerModel->searchContent($inputText);
+                $searchResults = $this->customerModel->searchContent($inputText, $customer_id);
             }
             
             $data = [

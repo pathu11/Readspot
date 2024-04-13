@@ -640,7 +640,7 @@ public function editOrderCOD($data)
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
       WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-      AND type = 'new' ");
+      AND type = 'new' AND status = 'approval' ");
       
       $results = $this->db->resultSet();
       return $results;
@@ -690,21 +690,35 @@ public function editOrderCOD($data)
 
     }
 
-    public function searchUsedBooks($inputText){
+    public function searchUsedBooks($inputText, $customer_id){
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
       WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-      AND type = 'used' ");
+      AND type = 'used' AND status = 'approval' AND customer_id != :customer_id");
       
+      $this->db->bind(':customer_id', $customer_id);
       $results = $this->db->resultSet();
       return $results;
     }
 
-    public function searchContent($inputText){
+    public function searchExchangeBooks($inputText, $customer_id){
+      $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+      FROM books 
+      WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+      AND type = 'exchanged' AND status = 'approval' AND customer_id != :customer_id ");
+      
+      $this->db->bind(':customer_id', $customer_id);
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function searchContent($inputText, $customer_id){
       $this->db->query("SELECT content_id, topic, img, text
       FROM content 
-      WHERE (topic LIKE '%$inputText%' OR text LIKE '%$inputText%')");
+      WHERE (topic LIKE '%$inputText%' OR text LIKE '%$inputText%')
+      AND status = 'approval' AND customer_id != :customer_id");
       
+      $this->db->bind(':customer_id', $customer_id);
       $results = $this->db->resultSet();
       return $results;
     }
