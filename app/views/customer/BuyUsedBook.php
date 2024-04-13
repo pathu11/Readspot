@@ -49,10 +49,12 @@
                             <h3><?php echo $bookDetails->price; ?></h3>
                             <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
                             <div class="fav-cart-msg">
-                                <button class="book-button-U">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </button>
-                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteUsedBooks/<?php echo $bookDetails->book_id; ?>">
+                                    <button class="book-button-U">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $bookDetails->book_id; ?>">
                                     <button class="book-button-U">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     </button>
