@@ -762,6 +762,14 @@ public function findContent(){
  
   return $this->db->resultSet();
 }
+
+public function findContentByNotCusId($customer_id){
+  $this->db->query('SELECT * FROM content  WHERE customer_id != :customer_id AND status="approval"');
+  $this->db->bind(':customer_id', $customer_id);
+  return $this->db->resultSet();
+  // $row = $this->db->single();
+  // return $row;
+}
 public function ChangeProfImage($data) {
   $this->db->query('UPDATE customers 
               SET profile_img = :profile_img

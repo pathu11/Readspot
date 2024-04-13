@@ -776,7 +776,8 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $content_Details=$this->customerModel->findContent();
+            $customerid = $customerDetails[0]->customer_id;
+            $content_Details=$this->customerModel->findContentByNotCusId($customerid);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
