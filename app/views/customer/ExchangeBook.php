@@ -51,9 +51,11 @@
                             </div>
                             <h3><?php echo $bookDetails->book_name; ?></h3>
                             <div class="fav-msg">
-                                <button class="book-button-E">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </button>
+                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteExchangeBooks/<?php echo $bookDetails->book_id; ?>">
+                                    <button class="book-button-E">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
                                 <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
                                     <button class="book-button-E">
                                         <i class="fas fa-comment-alt" aria-hidden="true"></i>
