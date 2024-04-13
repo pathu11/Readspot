@@ -201,6 +201,40 @@
     /* border: none; */
 }
 
+.view-fav i {
+    /* width: 50px;
+    height: 50px; */
+    font-size: 15px;
+    color: white;
+}
+
+.view-fav i:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform .5s;
+}
+
+.book-button-C {
+    position: relative;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    border-radius: 50px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border: none;
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+    background-color:  #919191;
+}
+
+.book-button-C:hover {
+    opacity: 0.8;
+    background-color: #009D94;
+}
+
 @media screen and (max-width:800px) { 
     .sub-cont-C1 {
         flex-direction: column;

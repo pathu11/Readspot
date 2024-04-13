@@ -60,7 +60,11 @@
                         </div>
                     </div>
                     <div class="view-fav">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                        <a href="<?php echo URLROOT; ?>/customer/addToFavoriteContent/<?php echo $content->content_id; ?>">
+                            <button class="book-button-C">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                        </a>
                         <a href="<?php echo URLROOT; ?>/customer/viewcontent/<?php echo $content->content_id; ?>"><button class="vw-btn-C">View Details</button></a>
                     </div>
                 </div>

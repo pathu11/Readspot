@@ -1189,6 +1189,32 @@ class Customer extends Controller {
         }
 
     }
+
+    public function addToFavoriteContent($ContentId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customerName = $customerDetails[0]->name;
+            $customer_id = $customerDetails[0]->customer_id;
+            $contentDetails=$this->customerModel->findContentById($ContentId);
+            $topic = $contentDetails[0]->topic;
+            $category = 'Content';
+            $item_id = $ContentId;
+
+            if ($item_id && $customer_id && $topic && $category) {
+                if($this->customerModel->Addtofavorite($item_id, $customer_id, $topic, $category)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/Favorite');
+                }
+            }else{
+                echo '<script>alert("eroor");</script>';
+                redirect('customer/BookContents');
+            }
+        }
+
+    }
     
     public function Cart(){
         if (!isLoggedInCustomer()) {
@@ -2777,6 +2803,8 @@ class Customer extends Controller {
             redirect('customer/UsedBookDetails/'.$item_id);
         } elseif ($category == "Exchange Book") {
             redirect('customer/ExchangeBookDetails/'.$item_id);
+        } elseif ($category == "Content") {
+            redirect('customer/viewcontent/'.$item_id);
         }
         else {
             $this->view('customer/Favorite');
