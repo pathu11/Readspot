@@ -45,16 +45,7 @@
         <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/Readspot_Bcrnd-Donation.png" ?>>
     </div>
 
-    <div class="wrapper">
-        <div class="static-text">What im going to Do Here : </div>
-        <ul class="dynamic-text">
-            <li><span>Accept Requests</span></li>
-            <li><span>Make Events</span></li>
-            <li><span>Add posters</span></li>
-            <li><span>Add Locations</span></li>
-        </ul>
 
-    </div>
 
     <footer>
         <div>
