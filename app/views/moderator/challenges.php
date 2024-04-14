@@ -12,24 +12,103 @@
 <body>
   <?php require APPROOT . '/views/moderator/nav.php';?>
   <div class="sub-nav">
-    <p class="table-head">Ongoing Challenges</p>
+    <h2>Ongoing Challenges</h2>
     <div class="search-bar">
         <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search..." >
     </div>
     <a href="<?php echo URLROOT;?>/moderator/createChallenge"><button>Create a challenge</button></a>
   </div>
 
+  <div id="searchresult"></div>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#live-search").keyup(function(){
+          var input = $(this).val();
+          var searchType = 'challenges';
+          //alert(input);
+          if(input != ""){
+              $.ajax({
+                url:"<?php echo URLROOT;?>/moderator/livesearch",
+                method:"POST",
+                data:{input:input, searchType:searchType},
+
+                success:function(data){
+                    $(".table-container").hide();
+                    $("#searchresult").html(data);
+                    $("#searchresult").css("display","block");
+                    console.log(data);
+                }
+              });
+          }else{
+              $(".table-container").show();
+              $("#searchresult").css("display","none");
+          }
+      });
+    });
+  </script>
+
   <div class="table-container">
     <table>
-      <tr>
-        <th>Challenge ID</th>
+      <tr> 
         <th>Challenge title</th>
+        <th>Time Limit</th>
         <th>Description</th>
         <th>Start Date</th>
         <th>End Date</th>
+        <th>Delete Challenge</th>
       </tr>
+      <?php foreach($data['challengeDetails'] as $challenge): ?>
+        <tr>
+          <td><?php echo $challenge->title;?></td>
+          <td><?php echo $challenge->time_limit.' minutes';?></td>
+          <td>
+            <div id="description-wrapper">
+              <p><?php echo $challenge->description;?></p>
+              <!-- <button class="see-more-btn" onclick="view()">See more..</button> -->
+            </div>
+            <button class="see-more-btn" onclick="view('<?php echo $challenge->description;?>')">See more..</button>
+          </td>
+          <td><?php echo $challenge->date;?></td>
+          <td><?php echo $challenge->end_date;?></td>
+          <td><i class="fa fa-solid fa-trash" onclick="deleteChallenge('<?php echo $challenge->quiz_id;?>')"></i></td>
+        </tr>
+      <?php endforeach;?>
     </table>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2></h2>
+        <table id="eventDetailsTable">
+            <!-- Event details will go here -->
+        </table>
+      </div>
+    </div>
   </div>
+
+  <script>
+    function view(description) {
+      var eventDetails = '<p>'+`${description}`+'</p>';
+      var table = document.getElementById("eventDetailsTable");
+      table.innerHTML = eventDetails;
+      document.getElementById("myModal").style.display = "block";
+    }
+
+
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    function deleteChallenge(challengeId){
+      var deleteChallenge = '<div class="deleteChallenge"><p>Are you sure you want to delete this challenge?</p><br><a href="<?php echo URLROOT;?>/moderator/deleteChallenge/'+ `${challengeId}`+'"><button>Delete</button></a><button onclick="closeModal()">Cancel</button></div>';
+      var table = document.getElementById("eventDetailsTable");
+      table.innerHTML = deleteChallenge;
+      document.getElementById("myModal").style.display = "block";
+    }
+  </script>
 
 </body>
 </html>

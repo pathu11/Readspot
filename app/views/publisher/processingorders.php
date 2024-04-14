@@ -1,16 +1,14 @@
 
-<?php
-    $title = "Processing  Orders";    
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
    
-    <title>Pending Orders</title>
+    <title>Processing Orders</title>
    
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
-
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 </head>
 
 <body>
@@ -28,6 +26,9 @@
     <p> Processing Orders >></p>
     
         <table id="eventTable">
+        <?php if(empty($data['orderDetails'] )): ?>
+                <?php echo '<h3 style="text-align:center;">No Orders Found</h3>'; ?>
+                    <?php else : ?>
         <div class="search-container1">
             <input type="text" id="live-search" autocomplete="off" placeholder="Tracking Number" class="search-bar"><button id="search-button" class="search-button">Search by Tracking Number</button>
         </div>
@@ -76,6 +77,7 @@
             <li>10</li>
             <li id="nextButton">»</li>
         </ul>
+        <?php endif;?>
         <div id="myModal" class="modal">
             <div class="modal-content-orders" style="width: 70%; height: 600px; overflow-y: auto;">
                 <span class="close" onclick="closeModal()">&times;</span>

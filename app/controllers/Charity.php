@@ -19,6 +19,12 @@ class Charity extends Controller{
         $this->view('charity/event-management');
     }
     
+    public function donation(){
+        if(!isLoggedInCharity()){
+            redirect('charity/donation_request');
+        }
+        $this->view('charity/donation_request');
+    }
 
     public function customerSupport(){
         $this->view('charity/customerSupport');

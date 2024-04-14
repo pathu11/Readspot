@@ -37,35 +37,41 @@
        
         <div class="recommend">
             <div class="viewall">
-                <h2> Recommended For You </h2>
+                <?php if(isset($data['user_id'])): ?>
+
+                 <h2> Recommended For You </h2>
+                 <?php else: ?>
+                    <h2> Top Selling </h2> 
+                    <?php endif; ?>
                 <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
             </div>
-            <?php $data['recommendedBooks']; ?>
             <div class="sub-cont-N2">
-            <?php if (empty($data['recommendedBooks'])): ?>
-            <p>No recommended books found.</p>
-            <?php else: ?>
-                <?php foreach ($data['recommendedBooks'] as $category => $booksInCategory): ?>
-                    <?php foreach ($booksInCategory as $book): ?>
-                        <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $book->book_id; ?>">
-                            <div class="B0-N">
-                                <?php if (isset($book->img1)): ?>
-                                    <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $book->img1; ?>" alt="Book1" class="Book-N"> 
-                                <?php endif; ?>
-                                <h3><?php echo isset($book->book_name) ? $book->book_name : ''; ?></h3>
-                                <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
-                                <div class="fav-cart">
-                                    <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                                    <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                <?php if (!empty($data['recommendedBooks'])): ?>
+                    <?php $counter = 0; ?>
+                    <?php foreach ($data['recommendedBooks'] as $category => $booksInCategory): ?>
+                        <!-- <h2><?php echo $category; ?></h2> -->
+                        <?php foreach ($booksInCategory as $book): ?>
+                            <?php if ($counter >= 5) break 2; ?>
+                            <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $book->book_id; ?>">
+                                <div class="B0-N">
+                                    <?php if (isset($book->img1)): ?>
+                                        <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $book->img1; ?>" alt="Book1" class="Book-N"> 
+                                    <?php endif; ?>
+                                    <h3><?php echo isset($book->book_name) ? $book->book_name : ''; ?></h3>
+                                    <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
+                                    <div class="fav-cart">
+                                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                            <?php $counter++; ?>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>       
-
-           
+                <?php endif; ?>
             </div>
+
+
         </div>
         <div class="recommend">
             <div class="viewall">

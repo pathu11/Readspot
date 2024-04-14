@@ -1,18 +1,15 @@
 
 
-<?php
-    $title = "Charity Organization";
-    
-?>
-
+=
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+<title>Charity</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
-
+<link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 </head>
 
 <body>

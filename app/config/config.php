@@ -2,24 +2,19 @@
 
 
 // db param
-
 define('DB_HOST','readspot.cbusia0uaymm.ap-southeast-2.rds.amazonaws.com');
 define('DB_USER','readspot');
 define('DB_PASS','Admin#1234');
 define('DB_NAME','readspot');
-
 // define('DB_HOST','localhost');
 // define('DB_USER','root');
 // define('DB_PASS','');
 // define('DB_NAME','readspot');
-
 define('APPROOT', dirname(dirname(__FILE__)));
 
-define('URLROOT','http://localhost:8080/Readspot');
+define('URLROOT','http://localhost/Readspot');
+
 //  define('URLROOT',' https://9ff5-2402-4000-20c1-7887-70e5-3bb2-bacc-32b3.ngrok-free.app/Readspot');
- 
-
-
 define('SITENAME','Readspot');
 define('APPVERSION','1.0.0');
 // PHP mailer

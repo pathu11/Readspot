@@ -15,17 +15,13 @@
             <h1>Update your Password</h1>
             <input type="password" name="pass"  placeholder="New password " required><br>
             <span class="error"><?php echo $data['pass_err']; ?></span>
-
             <input type="password" name="confirm_pass"  placeholder="Confirm the new password " required><br>
             <span class="error"><?php echo $data['confirm_pass_err']; ?></span>
             <button class="btn" name="submit" type="submit">log in</button>
-           
             <div>
                 <span class="copyright">&copy;2023</span> 
             </div>  
         </form>
-
-
         <div class="register">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
             <!-- <i class="fas fa-user-plus fa-5x"></i> -->

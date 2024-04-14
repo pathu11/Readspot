@@ -1,10 +1,11 @@
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/sidebar.css" >
-
+<link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 
     <nav>
       <div class="logo">
@@ -76,6 +77,12 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT; ?>/publisher/payments" class="nav-link">
+                <i class="bx bxs-calendar-event icon"></i>
+                <span class="link">Payments</span>
+              </a>
+            </li>
+            <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/events" class="nav-link">
                 <i class="bx bxs-calendar-event icon"></i>
                 <span class="link">Events</span>
@@ -108,12 +115,12 @@
               </a>
             </li>
             <br><br>
-            <li class="list">
+            <!-- <li class="list">
               <a href="<?php echo URLROOT; ?>/publisher/logout" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>
                 <span class="link">Logout</span>
               </a>
-            </li>
+            </li> -->
           </div>
         </div>
       </div>
