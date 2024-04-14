@@ -1,5 +1,5 @@
 <?php
-    $title = "Buy Used Books";
+    $title = "Buy New Books";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
 
@@ -7,68 +7,64 @@
         <div class="back-btn-div01">
             <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
         </div>
-        <div class="sub-cont-U1">
-            <div class="Used-books">
-                <h1>USED BOOKS</h1>
+        <div class="sub-cont-N1">
+            <div class="New-books">
+                <h1>NEW BOOKS</h2>
             </div>
-            <div class="search-bar-U">
-                <!--button type="submit" class="filter-btn-U" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button-->
-                <div class="search-form-U">
-                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-U" method="post">
-                        <!--select id="searchBy"  name="category">
+            <div class="search-bar-N">
+                <!-- <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button> -->
+                <div class="search-form-N">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-N" method="post">
+                        <!-- <select id="searchBy"  name="category" required>
                             <option value="technology">Title</option>
                             <option value="travel">Author</option>
                             <option value="food">ISBN</option>
                             <option value="lifestyle">Publisher</option>
-                        </select-->
-                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-U" autocomplete="off" id="search-U">
-                        <!--button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button--> <!--path changed-->
+                        </select> -->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-N" autocomplete="off" id="search-N">
+                        <!-- <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> path changed -->
                     </form>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 </div>
-            
+
                 <div class="filter-category">
-                    <div class="list-group-U" id="show-list">
+                    <div class="list-group-N" id="show-list">
                         
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="recommend">
-            <div class="sub-cont-U2">
+            <div class="viewall">
+                <h2> New Arrival </h2>
+            </div>
+            <div class="sub-cont-N2">
                 <?php if (empty($data['bookDetails'])): ?>
                     <div class="B-div-noBook">
                         <p>No books added yet.</p>
                     </div>
                 <?php else: ?>
-                    <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                        <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-U">
-                        <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
-                            <h3><?php echo $bookDetails->book_name; ?></h3>
-                            <h3><?php echo $bookDetails->price; ?></h3>
-                            <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
-                            <div class="fav-cart-msg">
-                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteUsedBooks/<?php echo $bookDetails->book_id; ?>">
-                                    <button class="book-button-U">
+                    <?php foreach($data['bookDetails'] as $books): ?>
+                        <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
+                            <div class="B0-N">
+                                <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> <!--path changed-->
+                                <h3><?php echo $books->book_name; ?></h3>
+                                <h3><?php echo $books->price; ?></h3>
+                                <div class="fav-cart">
+                                    <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                                    <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"> -->
+                                    <button class="book-button">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                     </button>
-                                </a>
-                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $bookDetails->book_id; ?>">
-                                    <button class="book-button-U">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    </button>
-                                </a>
-                                <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
-                                    <button class="book-button-U">
-                                        <i class="fas fa-comment-alt" aria-hidden="true"></i>
-                                    </button>
-                                </a>
-                                <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                                <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                                <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/chat.png" alt="chat"></a> -->
+                                    <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                        <button class="book-button">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
-                        </div></a>
+                        </a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
@@ -96,11 +92,12 @@
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
 
+
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#search-U").keyup(function(){
+        $("#search-N").keyup(function(){
             var searchText = $(this).val(); // Word coming from the input field
-            var bookType = 'U';
+            var bookType = 'N';
             if(searchText!=''){
                 $.ajax({
                     url:'<?php echo URLROOT;?>/customer/filterbook',
@@ -115,16 +112,18 @@
             }
         });
         $(document).on('click','a',function(){
-            $("#search-U").val($(this).text());
+            $("#search-N").val($(this).text());
             $("#show-list").html('');
         });
     });
 </script>
 
 
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-    var items = document.querySelectorAll('.B0-U'); // Select all book items
+    var items = document.querySelectorAll('.B0-N'); // Select all book items
     var itemsPerPage = 10; // Number of items per page
     var currentPage = 1; // Current page
     var numPages = Math.ceil(items.length / itemsPerPage); // Total number of pages
@@ -200,3 +199,6 @@
     }
 });
 </script>
+
+
+

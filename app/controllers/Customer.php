@@ -776,7 +776,8 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $content_Details=$this->customerModel->findContent();
+            $customerid = $customerDetails[0]->customer_id;
+            $content_Details=$this->customerModel->findContentByNotCusId($customerid);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
@@ -1071,6 +1072,7 @@ public function BuyNewBooks()
         echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
 
     }
+    
     public function addToCartByEachBook($bookId) {
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
@@ -1091,6 +1093,125 @@ public function BuyNewBooks()
         }
     
        
+
+    }
+
+    public function addToFavoriteNewBooks($bookId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customerName = $customerDetails[0]->name;
+            $customer_id = $customerDetails[0]->customer_id;
+            $bookDetails=$this->customerModel->findBookById($bookId);
+            $topic = $bookDetails[0]->book_name;
+            $category = 'New Book';
+            $item_id = $bookId;
+            // $data=[
+            //     'item_id' => trim($bookId),
+            //     'topic' => trim($bookDetails[0]->book_name),
+            //     'category' => trim('New Book'),
+            //     'customer_id' => trim($customerid),// Replace this with the actual customer ID
+            //     'customerImage' => $customerDetails[0]->profile_img,
+            //     'customerName' => $customerName
+            // ];
+
+            if ($item_id && $customer_id && $topic && $category) {
+                if($this->customerModel->Addtofavorite($item_id, $customer_id, $topic, $category)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/Favorite');
+                }
+            }else{
+                echo '<script>alert("eroor");</script>';
+                redirect('customer/BuyNewBooks');
+            }
+
+            // if($this->customerModel->Addtofavorite($item_id, $customer_id, $topic, $category)){
+            //     // flash('add_success','You are added the book  successfully');
+            //     redirect('customer/Favorite');
+            // }else{
+            //     die('Something went wrong');
+            // }
+        }
+
+    }
+
+    public function addToFavoriteUsedBooks($bookId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customerName = $customerDetails[0]->name;
+            $customer_id = $customerDetails[0]->customer_id;
+            $bookDetails=$this->customerModel->findBookById($bookId);
+            $topic = $bookDetails[0]->book_name;
+            $category = 'Used Book';
+            $item_id = $bookId;
+
+            if ($item_id && $customer_id && $topic && $category) {
+                if($this->customerModel->Addtofavorite($item_id, $customer_id, $topic, $category)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/Favorite');
+                }
+            }else{
+                echo '<script>alert("eroor");</script>';
+                redirect('customer/BuyUsedBook');
+            }
+        }
+
+    }
+
+    public function addToFavoriteExchangeBooks($bookId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customerName = $customerDetails[0]->name;
+            $customer_id = $customerDetails[0]->customer_id;
+            $bookDetails=$this->customerModel->findBookById($bookId);
+            $topic = $bookDetails[0]->book_name;
+            $category = 'Exchange Book';
+            $item_id = $bookId;
+
+            if ($item_id && $customer_id && $topic && $category) {
+                if($this->customerModel->Addtofavorite($item_id, $customer_id, $topic, $category)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/Favorite');
+                }
+            }else{
+                echo '<script>alert("eroor");</script>';
+                redirect('customer/ExchangeBook');
+            }
+        }
+
+    }
+
+    public function addToFavoriteContent($ContentId) {
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customerName = $customerDetails[0]->name;
+            $customer_id = $customerDetails[0]->customer_id;
+            $contentDetails=$this->customerModel->findContentById($ContentId);
+            $topic = $contentDetails[0]->topic;
+            $category = 'Content';
+            $item_id = $ContentId;
+
+            if ($item_id && $customer_id && $topic && $category) {
+                if($this->customerModel->Addtofavorite($item_id, $customer_id, $topic, $category)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/Favorite');
+                }
+            }else{
+                echo '<script>alert("eroor");</script>';
+                redirect('customer/BookContents');
+            }
+        }
 
     }
     
@@ -1129,15 +1250,54 @@ public function BuyNewBooks()
         if (!isLoggedInCustomer()) {
             $this->view('customer/ContactUs');
         } else {
-            $user_id = $_SESSION['user_id'];
-           
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/ContactUs', $data);
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                $customerid = null;
+    
+                if (isset($_SESSION['user_id'])) {
+                    $user_id = $_SESSION['user_id'];
+                    
+                    $customerDetails = $this->customerModel->findCustomerById($user_id);
+                    // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                    if ($customerDetails) {
+                        $customerName = $customerDetails[0]->name;
+                        $customerid = $customerDetails[0]->customer_id;                 
+                    } else {
+                        echo "Not found";
+                    }
+                }
+                $data=[
+                    'first_name' => trim($_POST['Fname']),
+                    'last_name' => trim($_POST['Lname']),
+                    'email' => trim($_POST['Email']),
+                    'contact_number' => trim($_POST['PhoneNumber']),
+                    'reason' => trim($_POST['Reason']),
+                    'other' => trim($_POST['OtherReason']),
+                    'descript' => trim($_POST['description']),
+                    'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerName
+                ];
+    
+                
+                if($this->customerModel->complaint($data)){
+                    // flash('add_success','You are added the book  successfully');
+                    redirect('customer/ContactUs');
+                }else{
+                    die('Something went wrong');
+                }
+            } 
+            else {
+                $user_id = $_SESSION['user_id'];
+            
+                $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $data = [
+                    'customerDetails' => $customerDetails,
+                    'customerImage' => $customerDetails[0]->profile_img,
+                    'customerName' => $customerDetails[0]->name
+                ];
+                $this->view('customer/ContactUs', $data);
+            }
         }
     } 
     
@@ -2199,6 +2359,18 @@ public function BuyNewBooks()
         }
     }
 
+    public function deleteFavorite($fav_id)
+    {
+        if ($this->customerModel->deleteFavorite($fav_id)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/Favorite');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+
     public function RemoveEventFromCalender($eventId)
     {
         if (!isLoggedInCustomer()) {
@@ -2646,6 +2818,44 @@ public function markReview()
         $this->view('customer/ViewMyEvent', $data);
     }
 
+    public function ViewFavorite($fav_id){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } 
+        $customerid = null;
+        
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            if ($customerDetails) {
+                
+                $customerid = $customerDetails[0]->customer_id;
+                $favDetails = $this->customerModel->findFavoriteById($fav_id);
+                $category = $favDetails[0]->category;
+                $item_id = $favDetails[0]->item_id;
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
+        }
+        
+        if ($category == "New Book") {
+            redirect('customer/BookDetails/'.$item_id);
+            // $this->view('customer/BookDetails',$item_id);
+        } elseif ($category == "Used Book") {
+            redirect('customer/UsedBookDetails/'.$item_id);
+        } elseif ($category == "Exchange Book") {
+            redirect('customer/ExchangeBookDetails/'.$item_id);
+        } elseif ($category == "Content") {
+            redirect('customer/viewcontent/'.$item_id);
+        }
+        else {
+            $this->view('customer/Favorite');
+        }
+    }
+
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
@@ -2657,15 +2867,27 @@ public function markReview()
 
     public function TopCategory(){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/TopCategory');
+            $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
+
+            $data = [
+                'bookDetails' => $NewbookDetailsByTime,
+                'bookCategoryDetails'=>$bookCategoryDetails
+            ];
+
+            $this->view('customer/TopCategory', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+            $bookCategoryDetails = $this->adminModel->getBookCategories();
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails' => $NewbookDetailsByTime,
+                'bookCategoryDetails'=>$bookCategoryDetails
             ];
             $this->view('customer/TopCategory', $data);
         }
@@ -2705,6 +2927,55 @@ public function markReview()
                 'recommendedBooks'=>$recommendedBooks
             ];
             $this->view('customer/Recommended', $data);
+        }
+    }
+
+
+    public function Category($category){
+        if (!isLoggedInCustomer()) {
+            $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
+            $data = [
+                'bookDetails' => $NewbookDetailsByCategory,
+                'category' => $category
+            ];
+
+            $this->view('customer/Category', $data);
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails' => $NewbookDetailsByCategory,
+                'category' => $category
+            ];
+            $this->view('customer/Category', $data);
+        }
+    }
+
+
+    public function NewArrival(){
+        if (!isLoggedInCustomer()) {
+            $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+            $data = [
+                'bookDetails' => $NewbookDetailsByTime,
+            ];
+            $this->view('customer/NewArrival', $data);
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name,
+                'bookDetails' => $NewbookDetailsByTime
+            ];
+            $this->view('customer/NewArrival', $data);
         }
     }
 
@@ -2806,17 +3077,32 @@ public function markReview()
     public function Favorite(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } else {
+        } 
+        $customerid = null;
+
+        if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            $data = [
-                'customerDetails' => $customerDetails,
-                'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
-            ];
-            $this->view('customer/Favorite', $data);
+            
+            if ($customerDetails) {
+                $customerid = $customerDetails[0]->customer_id;
+                $favoriteDetails = $this->customerModel->findFavoriteByCustomerId($customerid);
+            } else {
+                echo "Not found";
+            }
+        } else {
+            echo "Not a customer";
         }
+           
+        $data = [
+            'customerid' => $customerid,
+            'customerDetails' => $customerDetails,
+            'favoriteDetails' => $favoriteDetails,
+            'customerImage' => $customerDetails[0]->profile_img,
+            'customerName' => $customerDetails[0]->name
+        ];
+        $this->view('customer/Favorite', $data);
     }
 
 
@@ -3001,11 +3287,18 @@ public function markReview()
             $bookType = $_POST['bookType'];
             $searchResults ='';
             
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+
             if($bookType=='N'){
                 $searchResults = $this->customerModel->searchNewBooks($inputText);
             }
             else if($bookType=='U'){
-                $searchResults = $this->customerModel->searchUsedBooks($inputText);
+                $searchResults = $this->customerModel->searchUsedBooks($inputText, $customer_id);
+            }
+            else if($bookType=='E'){
+                $searchResults = $this->customerModel->searchExchangeBooks($inputText, $customer_id);
             }
             
             $data = [
@@ -3014,6 +3307,29 @@ public function markReview()
                 'bookType'=>$bookType,
             ];
             $this->view('customer/filterbook', $data);
+        }
+    }
+
+    public function filtercontent(){
+        if(isset($_POST['query']) && isset($_POST['bookType'])){
+            $inputText = $_POST['query'];
+            $bookType = $_POST['bookType'];
+            $searchResults ='';
+            
+            $user_id = $_SESSION['user_id'];
+            $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $customer_id = $customerDetails[0]->customer_id;
+            
+            if($bookType=='C'){
+                $searchResults = $this->customerModel->searchContent($inputText, $customer_id);
+            }
+            
+            $data = [
+                'searchResults' => $searchResults,
+                'inputText' => $inputText,
+                'bookType'=>$bookType,
+            ];
+            $this->view('customer/filtercontent', $data);
         }
     }
     
