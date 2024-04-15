@@ -18,6 +18,13 @@ class Charity extends Controller{
         }
         $this->view('charity/event-management');
     }
+
+    public function addEvent(){
+        if(!isLoggedInCharity()){
+            redirect('charity/index');
+        }
+        $this->view('charity/addEvent');
+    }
     
     public function donation(){
         if(!isLoggedInCharity()){
