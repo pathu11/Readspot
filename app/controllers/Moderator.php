@@ -27,10 +27,17 @@ require APPROOT . '\vendor\autoload.php';
 
         $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
         $messageDetails = $this->moderatorModel->getMessageDetails($user_id);
+        $contentSubmissionCount = $this->moderatorModel->getContentSubmissionCount();
+        $eventSubmissionCount = $this->moderatorModel->getEventSubmissionCount();
+        $challengeSubmissionCount = $this->moderatorModel->getChallengeSubmissionCount();
+        
         $data = [
           'moderatorDetails' => $moderatorDetails,
           'moderatorName'=>$moderatorDetails[0]->name,
           'messageDetails'=>$messageDetails,
+          'contentSubmissionCount'=>$contentSubmissionCount->num_contents,
+          'eventSubmissionCount'=>$eventSubmissionCount->num_events,
+          'challengeSubmissionCount'=>$challengeSubmissionCount->num_challenges,
       ];
         $this->view('moderator/index',$data);
       }
@@ -346,21 +353,6 @@ require APPROOT . '\vendor\autoload.php';
       }
     }
 
-    public function chat(){
-      if (!isLoggedInModerator()) {
-        redirect('landing/login');
-      }else{
-        $user_id = $_SESSION['user_id'];
-
-        $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
-        $data = [
-          'moderatorDetails' => $moderatorDetails,
-          'moderatorName'=>$moderatorDetails[0]->name,
-
-      ];
-        $this->view('moderator/chat',$data);
-      }
-    }
     public function contents(){
       if (!isLoggedInModerator()) {
         redirect('landing/login');

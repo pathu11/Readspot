@@ -209,6 +209,36 @@
       }
     }
 
+    public function getContentSubmissionCount(){
+      $this->db->query('SELECT COUNT(*) AS num_contents
+      FROM content
+      WHERE MONTH(time) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+      AND YEAR(time) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH);
+      ');
+      $result = $this->db->single();
+      return $result;
+    }
+
+    public function getEventSubmissionCount(){
+      $this->db->query('SELECT COUNT(*) AS num_events
+      FROM events
+      WHERE MONTH(created_at) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+      AND YEAR(created_at) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH);
+      ');
+      $result = $this->db->single();
+      return $result;
+    }
+
+    public function getChallengeSubmissionCount(){
+      $this->db->query('SELECT COUNT(*) AS num_challenges
+      FROM history
+      WHERE MONTH(attempt_date) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+      AND YEAR(attempt_date) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
+      ');
+      $result = $this->db->single();
+      return $result;
+    }
+
   }
 
 
