@@ -1,17 +1,14 @@
-<?php
-    $title = "Update Store";
-    
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    
+<title>Update Store</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/sidebar.css" />
-
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 </head>
 
 <body>

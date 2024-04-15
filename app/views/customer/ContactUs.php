@@ -2,9 +2,9 @@
     $title = "Contact Us";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="contact-cont">
-        <form action="#" class="contact-us">
+        <form action="<?php echo  URLROOT; ?>/customer/ContactUs"  method="POST" enctype="multipart/form-data" class="contact-us" onsubmit="return checkLoginStatus()">
 
             <h1>Any Complaint?</h1>
             
@@ -26,7 +26,7 @@
                 </div>
                 <div class="last-name-div">
                     <label class="label-topic" required>Phone Number</label><br>
-                    <input type="email" class="form-topic" name="PhoneNumber" placeholder="Phone Number">
+                    <input type="text" class="form-topic" name="PhoneNumber" placeholder="Phone Number">
                 </div>
             </div>
     
@@ -34,11 +34,11 @@
                 <div class="first-name-div">
                     <label class="label-topic" for="input3" required>Reason for Complaint</label><br>
                     <select id="category" name="Reason" required onchange="toggleInput()">
-                        <option value="technology">Reason 01</option>
-                        <option value="travel">Reason 02</option>
-                        <option value="food">Reason 03</option>
-                        <option value="lifestyle">Reason 04</option>
-                        <option value="health">Reason 05</option>
+                        <option value="Reason 01">Reason 01</option>
+                        <option value="Reason 02">Reason 02</option>
+                        <option value="Reason 03">Reason 03</option>
+                        <option value="Reason 04">Reason 04</option>
+                        <option value="Reason 05">Reason 05</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -72,5 +72,36 @@
         } else {
             otherReasonInput.disabled = true;
         }
+    }
+</script>
+
+
+<script>
+    function checkLoginStatus() {
+        // Check if user is logged in
+        <?php if (!isLoggedInCustomer()): ?>
+            // If not logged in, display SweetAlert
+            Swal.fire({
+                title: 'You need to login',
+                text: 'Please log in to submit your complaint.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Login',
+                confirmButtonColor: "#70BFBA",
+                cancelButtonColor: "#d33",
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to login page
+                    window.location.href = '<?php echo URLROOT; ?>/users/login';
+                }
+            });
+
+            // Return false to prevent form submission
+            return false;
+        <?php endif; ?>
+
+        // If user is logged in, allow form submission
+        return true;
     }
 </script>

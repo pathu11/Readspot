@@ -69,16 +69,19 @@
         return false;
       }
     }
-    public function rejectContent($content_id){
-      $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
+    public function rejectContent($content_id,$reason){
+      $this->db->query('UPDATE content SET status=:status, reject_reason=:reject_reason WHERE content_id=:content_id
+      ');
       $this->db->bind(':status',"reject");
       $this->db->bind(':content_id',$content_id);
+      $this->db->bind(':reject_reason',$reason);
       if ($this->db->execute()) {
         return true;
       } else {
         return false;
       }
     }
+    
     public function getMessageDetails($user_id){
       $this->db->query('
           SELECT 

@@ -12,244 +12,79 @@
                 <h1>NEW BOOKS</h2>
             </div>
             <div class="search-bar-N">
-                <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
-                <form action="#.php" class="searching-N">
-                    <select id="searchBy"  name="category" required>
-                        <option value="technology">Title</option>
-                        <option value="travel">Author</option>
-                        <option value="food">ISBN</option>
-                        <option value="lifestyle">Publisher</option>
-                    </select>
-                    <input type="text" placeholder="Search.." name="search-N">
-                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-                </form>
-            </div>
-        </div>
-        <div class="recommend">
-            <div class="viewall">
-                <h2> Top Catagories </h2>
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
-            </div>
-            <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
+                <!-- <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button> -->
+                <div class="search-form-N">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-N" method="post">
+                        <!-- <select id="searchBy"  name="category" required>
+                            <option value="technology">Title</option>
+                            <option value="travel">Author</option>
+                            <option value="food">ISBN</option>
+                            <option value="lifestyle">Publisher</option>
+                        </select> -->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-N" autocomplete="off" id="search-N">
+                        <!-- <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> path changed -->
+                    </form>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                </div>
+                <div class="filter-category">
+                    <div class="list-group-N" id="show-list">
+                        
                     </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
-                    <h3>The Adventures</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
                 </div>
             </div>
         </div>
-        <div class="recommend">
-            <div class="viewall">
-                <h2> Top Catagories </h2>
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
-            </div>
-            <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                    </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
-                    <h3>The Adventures</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
+        <?php foreach($data['bookCategoryDetails'] as $bookCategory): ?>
+            <div class="recommend">
+                <div class="viewall">
+                    <h2><?php echo $bookCategory->category; ?></h2>
+                    <a href="<?php echo URLROOT; ?>/customer/Category/<?php echo $bookCategory->category; ?>">VIEW ALL>></a>
                 </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-            </div>
-        </div>
-        <div class="recommend">
-            <div class="viewall">
-                <h2> Top Catagories </h2>
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
-            </div>
-            <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                    </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
-                    <h3>The Adventures</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
+                <div class="sub-cont-N2">
+                    <?php
+                    // Initialize variables
+                    $booksFound = false; // Flag to check if any books were found for the current category
+                    $categoryBooks = []; // Array to store books for the current category
+                    foreach($data['bookDetails'] as $bookDetails) {
+                        // Check if book belongs to the current category
+                        if ($bookCategory->category == $bookDetails->category) {
+                            $categoryBooks[] = $bookDetails; // Add book to the category's array
+                            $booksFound = true; // Set flag to true if book is found
+                        }
+                    }
+                    ?>
+                    <i class="fas fa-chevron-circle-left arrow left-arrow" aria-hidden="true"></i>
+                    <?php if ($booksFound): // If books found for the current category ?>
+                        <?php
+                        // Display books
+                        foreach ($categoryBooks as $bookDetails): ?>
+                            <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $bookDetails->book_id; ?>">
+                                <div class="B0-N">
+                                    <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $bookDetails->img1; ?>" alt="Book1" class="Book-N">
+                                    <h3><?php echo $bookDetails->book_name; ?></h3>
+                                    <h3><?php echo $bookDetails->price; ?></h3>
+                                    <div class="fav-cart">
+                                        <button class="book-button">
+                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $bookDetails->book_id; ?>">
+                                            <button class="book-button">
+                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php else: // If no books found for the current category ?>
+                        <div class="B-div-noBook">
+                            <p>No books added yet.</p>
+                        </div>
+                    <?php endif; ?>
+                    <i class="fas fa-chevron-circle-right arrow right-arrow" aria-hidden="true"></i>
                 </div>
             </div>
-        </div>
-        <div class="recommend">
-            <div class="viewall">
-                <h2> Top Catagories </h2>
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
-            </div>
-            <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                    </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
-                    <h3>The Adventures</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-            </div>
-        </div>
-        <div class="recommend">
-            <div class="viewall">
-                <h2> Top Catagories </h2>
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
-            </div>
-            <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/BookDetails"><div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1" class="Book-N"> <!--path changed-->
-                    <h3>End Game</h3>
-                    <h3>500/=</h3>
-                    <div class="fav-cart">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart">
-                    </div>
-                </div></a>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book1.jpeg" alt="Book2" class="Book-N"> <!--path changed-->
-                    <h3>The Adventures</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book2.jpeg" alt="Book3" class="Book-N"> <!--path changed-->
-                    <h3>Middlemarch</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book3.jpeg" alt="Book4" class="Book-N"> <!--path changed-->
-                    <h3>Lolita</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-                <div class="B0-N">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book4.jpeg" alt="Book5" class="Book-N"> <!--path changed-->
-                    <h3>The Great Gatsby</h3>
-                    <h3>500/=</h3>
-                    <button class="dts-btn">Add to Cart</button>
-                    <button class="dts-btn">View Details</button>
-                </div>
-            </div>
-        </div>
+        <?php endforeach; ?>
+        
         <?php
             require APPROOT . '/views/customer/filterbook.php'; //path changed
         ?>
@@ -258,3 +93,105 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-N").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'N';
+            if(searchText!=''){
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
+                    method : 'post',
+                    data : {query:searchText, bookType:bookType},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            } else {
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("#search-N").val($(this).text());
+            $("#show-list").html('');
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get elements for this specific category
+        var categoryItems = document.querySelectorAll('.sub-cont-N2');
+
+        // Apply slideshow logic for each category
+        categoryItems.forEach(function(item) {
+            var currentIndex = 0;
+            var items = item.querySelectorAll('.B0-N');
+            var itemAmt = items.length;
+            var numVisible = 4; // Default number of books visible at once
+
+            function cycleItems() {
+                // Hide all books
+                for (var i = 0; i < itemAmt; i++) {
+                    items[i].style.display = 'none';
+                }
+                // Calculate the starting index for displaying the books
+                var start = currentIndex;
+                // Display the next numVisible books in the correct circular order
+                for (var i = 0; i < numVisible; i++) {
+                    var index = (start + i) % itemAmt;
+                    items[index].style.display = 'block';
+                }
+            }
+
+            function nextItem() {
+                currentIndex = (currentIndex + 1) % itemAmt;
+                cycleItems();
+            }
+
+            function prevItem() {
+                currentIndex = (currentIndex - 1 + itemAmt) % itemAmt;
+                cycleItems();
+            }
+
+            // Check if there are 4 or fewer books
+            if (itemAmt <= 4) {
+                // Display all books without slideshow functionality
+                cycleItems();
+            } else {
+                // Automatically change every 5 seconds
+                var autoSlide = setInterval(nextItem, 5000);
+
+                // Arrow click handlers
+                item.querySelector('.left-arrow').addEventListener('click', function() {
+                    prevItem();
+                });
+
+                item.querySelector('.right-arrow').addEventListener('click', function() {
+                    nextItem();
+                });
+            }
+
+            // Adjust number of visible books based on screen size
+            function updateNumVisible() {
+                if (window.innerWidth < 1180 && window.innerWidth >= 925) { // Adjust as needed
+                    numVisible = 3; // Set to 3 for medium screens
+                } else if (window.innerWidth < 925 && window.innerWidth >= 680) {
+                    numVisible = 2; // Set to 2 for small screens
+                } else if (window.innerWidth < 680) {
+                    numVisible = 1; // Set to 1 for extra small screens
+                } else {
+                    numVisible = 4; // Default to 4 for larger screens
+                }
+                cycleItems(); // Update display based on new number of visible books
+            }
+
+            // Call updateNumVisible initially and on window resize
+            updateNumVisible();
+            window.addEventListener('resize', updateNumVisible);
+        });
+    });
+</script>

@@ -1,7 +1,5 @@
 
-<?php
-    $title = "Processing  Orders";    
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +8,7 @@
     <title>Delivered Orders</title>
    
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 
 </head>
 
@@ -28,9 +27,13 @@
     <p> Delivered Orders >></p>
     
         <table id="eventTable">
+        <?php if(empty($data['orderDetails'] )): ?>
+                <?php echo '<h3 style="text-align:center;">No Orders Found</h3>'; ?>
+                    <?php else : ?>
         <div class="search-container1">
             <input type="text" id="live-search" autocomplete="off" placeholder="Tracking Number" class="search-bar"><button id="search-button" class="search-button">Search by Tracking Number</button>
         </div>
+        
         <thead>
             <tr>
                 <th >Tracking Number</th>
@@ -43,22 +46,26 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach($data['orderDetails'] as $orderDetails): ?>
-            <tr>
-                <td ><?php echo $orderDetails->tracking_no; ?></td>
-                <td ><?php echo $orderDetails->book_id; ?></td>
-                <td ><?php echo $orderDetails->quantity; ?></td>
-                <td ><?php echo $data['customerName']; ?></td>
-                <td ><?php echo $orderDetails->total_price; ?></td>   
-                <td class="view-details-column">
-                <button class="view-order-button" data-tracking="<?php echo $orderDetails->tracking_no; ?>">View </button>
+           
+                <?php foreach($data['orderDetails'] as $orderDetails): ?>
+                <tr>
+               
+                    <td ><?php echo $orderDetails->tracking_no; ?></td>
+                    <td ><?php echo $orderDetails->book_id; ?></td>
+                    <td ><?php echo $orderDetails->quantity; ?></td>
+                    <td ><?php echo $data['customerName']; ?></td>
+                    <td ><?php echo $orderDetails->total_price; ?></td>   
+                    <td class="view-details-column">
+                    <button class="view-order-button" data-tracking="<?php echo $orderDetails->tracking_no; ?>">View </button>
 
-                </td>            
-                
-            </tr>
-            <?php endforeach; ?> 
+                    </td>            
+                    
+                </tr>
+                <?php endforeach; ?> 
+               
             </tbody>
         </table>
+        
         <ul class="pagination" id="pagination">
             <li id="prevButton">«</li>
             <li class="current">1</li>
@@ -73,6 +80,7 @@
             <li>10</li>
             <li id="nextButton">»</li>
         </ul>
+        <?php endif ; ?>
         <div id="myModal" class="modal">
             <div class="modal-content-orders">
                 <span class="close" onclick="closeModal()">&times;</span>

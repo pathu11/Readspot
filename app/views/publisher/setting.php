@@ -1,8 +1,5 @@
 
-<?php
-    $title = "Settings";
-    
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +8,7 @@
    
     <title>Settings</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/set.css" />
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 </head>
 
 <body>
