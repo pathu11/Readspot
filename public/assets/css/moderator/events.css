@@ -110,6 +110,16 @@ img{
   cursor: pointer;
 }
 
+.see-more{
+  color: #009D94;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.see-more:hover{
+  text-decoration: none;
+}
+
 /* Style for the modal */
 .modal {
   display: none;
@@ -173,6 +183,14 @@ img{
   text-decoration: none;
   cursor: pointer;
   animation: rotate360 0.5s ease-in-out;
+}
+
+#fullDescription{
+  font-size: medium;
+}
+
+.modal h1{
+  color: yellow;
 }
 
 @keyframes rotate360 {

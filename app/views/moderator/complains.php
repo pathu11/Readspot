@@ -35,8 +35,8 @@
           <td><?php echo $complain->name; ?></td>
           <td><?php echo $complain->email; ?></td>
           <td><?php echo $complain->contact_number; ?></td>
-          <td><?php echo substr($complain->descript, 0, 20); ?>...
-            <button onclick="showFullDescription('<?php echo $complain->descript;?>')">See more..</button>
+          <td><?php echo substr($complain->descript, 0, 20); ?>
+            <span class="see-more" onclick="showFullDescription('<?php echo $complain->descript;?>')">See more..</span>
           </td>
           <td><?php echo $complain->other; ?></td>
           <td><img src="<?php echo URLROOT; ?>/assets/images/customer/complain/<?php echo $complain->err_img; ?>" onclick="fullView(this.src)"  style="width: 30%;"/></td>
@@ -80,7 +80,7 @@
   <div id="myModal2" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeFullView()">&times;</span>
-      <h2>Complain Description</h2>
+      <h1>Complain Description</h1><br>
       <p id="fullDescription"></p>
     </div>
   </div>
