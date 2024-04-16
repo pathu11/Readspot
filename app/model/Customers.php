@@ -153,6 +153,7 @@
       $this->db->bind(':book_name',$data['book_name']);
       $this->db->bind(':ISBN_no',$data['ISBN_no']);
       $this->db->bind(':author',$data['author']);
+      
       $this->db->bind(':category',$data['category']);
       $this->db->bind(':weight',$data['weight']);
       $this->db->bind(':descript',$data['descript']);

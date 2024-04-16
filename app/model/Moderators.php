@@ -58,7 +58,6 @@
       $this->db->bind(':eventid', $eventid);
       return $this->db->single();
     }
-    
     public function approveContent($content_id){
       $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
       $this->db->bind(':status',"approval");

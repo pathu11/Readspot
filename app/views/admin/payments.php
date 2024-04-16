@@ -1,69 +1,62 @@
-
-
-<?php
-    $title = "Approve Payment Reciepts";  
-?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/style.css" />
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
-<link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/style.css" />
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
 <body>
- 
-<?php require APPROOT . '/views/admin/nav.php';?>
-   <br><br><br>
-    
-    <div class="table-container" >
-
+    <?php require APPROOT . '/views/admin/nav.php'; ?>
+    <br><br><br>
+    <div class="table-container">
         <table>
             <tr>
                 <th>Order Id</th>
+                <th>Book Id</th>
                 <th>Tracking Number</th>
+                <th>Publisher Details</th>
                 <th>Total Price</th>
-                <th>Payment Recipt</th>
-                <th>Customer Name</th>
-                <th>Contact Number</th>
+                <th>Tax</th>
+                <th>Sending Price for Seller</th>
                 <th>Actions</th>
             </tr>
-           
-    <?php foreach($data['orderDetails'] as $order): ?>
-    <tr>
-        <td><?php echo $order->order_id; ?></td>
-        <td><?php echo $order->tracking_no; ?></td>
-        <td><?php echo $order->total_price; ?></td>
-        <td><a href="<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/<?php echo $order->recipt; ?>">payment Recipt</a></td>
-        <td><?php echo $order->customer_name; ?></td>
-        <td><?php echo $order->contact_no; ?></td>
-        <td><a href='<?php echo URLROOT; ?>/admin/approveOrder/<?php echo $order->order_id; ?>'><button>Approve</button></a>
-        <div class="popup"">
-                    <button onclick="myFunction()">Reject</button>
-                    <div class="popuptext" id="myPopup">
-                    <p>Are you sure you want to  reject and delete this Order?</p><br>
-                    <a  class="button" href='#' ><button>Yes</button></a>
-                    <a class="button" href='#'><button>No</button></a>
-                    </div>
-                    </div></td>
-    </tr>
-<?php endforeach; ?>               
+            <?php foreach($data['paymentsDetails'] as $payment): ?>
+                <tr>
+                    <td><?php echo $payment->order_id; ?></td>
+                    <td><?php echo $payment->book_id; ?></td>
+                    <td><?php echo $payment->tracking_no; ?></td>
+                    <td><?php echo $payment->user_name; ?></td>
+                    <td><?php echo $payment->book_price; ?></td>
+                    <td><?php echo $payment->tax; ?></td>
+                    <td><?php echo $payment->paid_price; ?></td>
+                    <td>
+                   
+                        <button onclick="sendPayment(<?php echo htmlentities(json_encode($payment)); ?>)">Send Payment</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </table>
-        
     </div>
-    
-   
 </body>
+<!-- Include jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-// When the user clicks on div, open the popup
-function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-}
+    function sendPayment(paymentDetails) {
+        console.log(paymentDetails);
+        $.ajax({
+            url: '<?php echo URLROOT; ?>/admin/sendPayment',
+            type: 'POST',
+            dataType: 'json',
+            data: { paymentDetails: paymentDetails },
+            success: function(response) {
+                console.log('Payment sent successfully');
+                console.log(response); // Log response for debugging
+            },
+            error: function(xhr, status, error) {
+                console.error('Error sending payment:', error);
+            }
+        });
+    }
 </script>
-
 </html>

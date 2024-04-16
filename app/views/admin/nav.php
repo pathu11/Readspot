@@ -79,6 +79,12 @@ function toggleMenu(){
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT?>/admin/pending_payments "" class="nav-link">
+                <i class="bx bxs-dollar-circle icon"></i>
+                <span class="link">Pending Payments</span>
+              </a>
+            </li>
+            <li class="list">
               <a href="<?php echo URLROOT?>/admin/payments "" class="nav-link">
                 <i class="bx bxs-dollar-circle icon"></i>
                 <span class="link">Payments</span>

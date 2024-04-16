@@ -644,13 +644,12 @@ public function reports(){
     }
 
 }
-public function payments(){
+public function pending_payments(){
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else{
 
-        $user_id = $_SESSION['user_id'];
-         
+        $user_id = $_SESSION['user_id']; 
         $adminDetails = $this->adminModel->findAdminById($user_id);
         $orderDetails = $this->adminModel->getPendingOrderDetails();
         $data = [
@@ -658,11 +657,59 @@ public function payments(){
             'adminName'=>$adminDetails[0]->name,
             'orderDetails'=>$orderDetails,
         ];
-        $this->view('admin/payments',$data);
+        $this->view('admin/pending_payments',$data);
 
     }
     
 }
+public function payments(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $paymentDetails = $this->adminModel->getPaymentsDetails();
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'paymentsDetails'=>$paymentDetails,
+        ];
+        // print_r($paymentDetails);
+        $this->view('admin/payments',$data);
+    }  
+}
+// public function sendPayment() {
+//     $paymentDetails = $_POST['paymentDetails'];
+//     $order_id=$paymentDetails->order_id;
+//     $book_id=$paymentDetails->book_id;
+
+//     if ($this->adminModel->insertPayment($paymentDetails)) {
+//         echo json_encode(['success' => true]);
+//     } else {
+//         echo json_encode(['success' => false]);
+//     }
+// }
+public function sendPayment() {
+    $paymentDetails = $_POST['paymentDetails'];
+
+    $order_id=$paymentDetails['order_id'];
+    $book_id=$paymentDetails['book_id'];
+    $paid_price=$paymentDetails['paid_price'];
+    $user_id_from_users_table=$paymentDetails['user_id_from_users_table'];
+    $quantity=$paymentDetails['quantity'];
+    
+        if($this->adminModel->insertPayment($order_id,$book_id,$paid_price,$user_id_from_users_table,$quantity)){
+            // echo '<script>alert("Successfully sent your payment")</script>';
+            echo json_encode(['success' => true]);
+        }else {
+        //     // echo '<script>alert("Failed to send your payment. Please try again later.")</script>';
+             echo json_encode(['success' => false]);
+         }
+   
+   
+}
+
 public function approveOrder($order_id) {
     $user_id = $_SESSION['user_id'];
     $adminDetails = $this->adminModel->findAdminById($user_id);
@@ -676,8 +723,6 @@ public function approveOrder($order_id) {
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
     $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
-
-
     $ownerEmails = array();
     foreach ($bookIds as $bookIdObj) {
         $bookId = $bookIdObj->book_id;

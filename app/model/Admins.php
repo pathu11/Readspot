@@ -41,6 +41,83 @@
 
       return $this->db->resultSet();
   }
+  public function getPaymentsDetails(){
+    $this->db->query("
+            SELECT 
+            o.order_id,
+            od.book_id,
+            o.tracking_no,
+            od.quantity,
+            b.price AS book_price,
+            CASE 
+                WHEN b.type = 'new' THEN ROUND(b.price * 0.05, 2)
+                WHEN b.type = 'used' THEN ROUND(b.price * 0.03, 2)
+            END AS tax,
+            CASE 
+                WHEN b.type = 'new' THEN b.publisher_id
+                WHEN b.type = 'used' THEN b.customer_id
+            END AS user_id,
+            u.user_id AS user_id_from_users_table,
+            ROUND((b.price - (CASE WHEN b.type = 'new' THEN ROUND(b.price * 0.05, 2) WHEN b.type = 'used' THEN ROUND(b.price * 0.03, 2) END)) * od.quantity, 2) AS paid_price,
+            CASE 
+                WHEN b.type = 'new' THEN pu.name
+                WHEN b.type = 'used' THEN cu.name
+            END AS user_name
+        FROM 
+            orders o 
+        JOIN 
+            order_details od ON o.order_id = od.order_id 
+        JOIN 
+            books b ON od.book_id = b.book_id 
+        LEFT JOIN 
+            publishers p ON b.publisher_id = p.publisher_id AND b.type = 'new'
+        LEFT JOIN 
+            customers c ON b.customer_id = c.customer_id AND b.type = 'used'
+        LEFT JOIN 
+            users u ON u.user_id = CASE 
+                                    WHEN b.type = 'new' THEN p.user_id
+                                    WHEN b.type = 'used' THEN c.user_id
+                                END
+        LEFT JOIN 
+            publishers pu ON b.publisher_id = pu.publisher_id AND b.type = 'new'
+        LEFT JOIN 
+            customers cu ON b.customer_id = cu.customer_id AND b.type = 'used'
+        WHERE 
+            od.status = 'delivered' AND od.sent_payment='0'
+
+    ");
+   
+    return $this->db->resultSet();
+}
+
+public function insertPayment($order_id,$book_id,$paid_price,$user_id_from_users_table,$quantity) {
+  
+  $this->db->query('UPDATE order_details SET sent_payment=1 WHERE order_id=:order_id AND book_id=:book_id');
+  $this->db->bind(':order_id', $order_id);
+  $this->db->bind(':book_id', $book_id);
+
+  if (!$this->db->execute()) {
+      return false; 
+  }
+  
+  $this->db->query('INSERT INTO payments (order_id, book_id, payment, user_id, quantity) 
+                    VALUES (:order_id, :book_id, :payment, :user_id, :quantity)');
+  
+  $this->db->bind(':order_id', $order_id);
+  $this->db->bind(':book_id', $book_id);
+  $this->db->bind(':payment', $paid_price);
+  $this->db->bind(':user_id', $user_id_from_users_table); 
+  $this->db->bind(':quantity', $quantity);
+
+  if ($this->db->execute()) {
+      return true;
+  } else {
+      return false; 
+  }
+}
+
+
+
     public function getBookCategories(){
       $this->db->query('SELECT * FROM book_category');
 
