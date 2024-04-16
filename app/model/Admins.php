@@ -116,7 +116,19 @@ public function insertPayment($order_id,$book_id,$paid_price,$user_id_from_users
   }
 }
 
-
+public function sendMessage($user_id_from_users_table,$user_id,$sender_name,$topic,$msg){
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $user_id);
+  $this->db->bind(':user_id', $user_id_from_users_table);
+  $this->db->bind(':topic', $topic);
+  $this->db->bind(':message', $msg);
+  $this->db->bind(':sender_name', $sender_name);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+}
 
     public function getBookCategories(){
       $this->db->query('SELECT * FROM book_category');

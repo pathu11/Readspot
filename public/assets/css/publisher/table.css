@@ -282,23 +282,6 @@ body {
     backdrop-filter: blur(5px); /* Add blur for glass effect */
 }
 
-/* .modal-content {
-    background-color: #2c2c2c;
-    color: white;
-    margin: 5% auto;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #2c2c2c;
-    width: 70%;
-    font-family: "Poppins";
-    font-size: 9px;
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
-    overflow: auto; 
-} */
-
-/* .modal-content table :hover {
-   
-} */
 
 .modal-content h2 {
     color: white;

@@ -31,17 +31,38 @@
                     <td><?php echo $payment->tax; ?></td>
                     <td><?php echo $payment->paid_price; ?></td>
                     <td>
-                   
-                        <button onclick="sendPayment(<?php echo htmlentities(json_encode($payment)); ?>)">Send Payment</button>
+                        <button onclick="showConfirmation(<?php echo htmlentities(json_encode($payment)); ?>)">Send Payment</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
+        <div class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+                <span class="close-icon" onclick="closePopup()">&times;</span>
+                <p>Are you sure you want to send payment to the publisher?</p>
+                <button onclick="sendPayment(paymentDetails)">Yes</button>
+                <button onclick="closePopup()">No</button>
+            </div>
+        </div>
+        <div class="success-popup" style="display: none;">
+            <div class="popup-content">
+                <span class="close-icon" onclick="closeSuccessPopup()">&times;</span>
+                <p>Payment is successfully sent to the relevant seller</p>
+                <button onclick="closeSuccessPopup()">OK</button>
+            </div>
+        </div>
     </div>
 </body>
 <!-- Include jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    var paymentDetails;
+
+    function showConfirmation(payment) {
+        paymentDetails = payment;
+        $('.popup-overlay').show();
+    }
+
     function sendPayment(paymentDetails) {
         console.log(paymentDetails);
         $.ajax({
@@ -52,11 +73,21 @@
             success: function(response) {
                 console.log('Payment sent successfully');
                 console.log(response); // Log response for debugging
+                $('.popup-overlay').hide();
+                $('.success-popup').show();
             },
             error: function(xhr, status, error) {
                 console.error('Error sending payment:', error);
             }
         });
+    }
+
+    function closePopup() {
+        $('.popup-overlay').hide();
+    }
+
+    function closeSuccessPopup() {
+        $('.success-popup').hide();
     }
 </script>
 </html>

@@ -679,18 +679,9 @@ public function payments(){
         $this->view('admin/payments',$data);
     }  
 }
-// public function sendPayment() {
-//     $paymentDetails = $_POST['paymentDetails'];
-//     $order_id=$paymentDetails->order_id;
-//     $book_id=$paymentDetails->book_id;
 
-//     if ($this->adminModel->insertPayment($paymentDetails)) {
-//         echo json_encode(['success' => true]);
-//     } else {
-//         echo json_encode(['success' => false]);
-//     }
-// }
 public function sendPayment() {
+    $user_id=$_SESSION['user_id'];
     $paymentDetails = $_POST['paymentDetails'];
 
     $order_id=$paymentDetails['order_id'];
@@ -698,10 +689,50 @@ public function sendPayment() {
     $paid_price=$paymentDetails['paid_price'];
     $user_id_from_users_table=$paymentDetails['user_id_from_users_table'];
     $quantity=$paymentDetails['quantity'];
+    $sender_name="System_Administration";
+    $topic="Payment Confirmation: Books Delivered to Buyers";
+    $msg="We are pleased to inform you that the payment for the books you supplied has been successfully processed. These books have been delivered to their respective buyers, marking the completion of another successful transaction:
+
+        Order ID: .$order_id
+        Book ID: .$book_id
+        Total Payment: .$paid_price
+        
+        We appreciate your valuable contribution to our platform and the quality literature you provide. Your continued partnership is integral to our success.
+        
+        Thank you for your dedication and support. ";
     
         if($this->adminModel->insertPayment($order_id,$book_id,$paid_price,$user_id_from_users_table,$quantity)){
-            // echo '<script>alert("Successfully sent your payment")</script>';
-            echo json_encode(['success' => true]);
+            if($this->adminModel->sendMessage($user_id_from_users_table,$user_id,$sender_name,$topic,$msg)){
+                $userEmail = $this->adminModel->getUserEmail($user_id_from_users_table);
+
+                // Send email using PHPMailer
+                $mail = new PHPMailer(true);
+        
+                try {
+                    $mail->isSMTP();
+                    $mail->Host       = MAIL_HOST;  
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = MAIL_USER;
+                    $mail->Password   = MAIL_PASS; 
+                    $mail->SMTPSecure = MAIL_SECURITY;
+                    $mail->Port       = MAIL_PORT;
+                    $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                    $mail->addAddress($userEmail);  
+                    $mail->isHTML(true);  // Set email format to HTML
+                    $mail->Subject = $topic;
+                    $mail->Body    = $msg;
+        
+                    $mail->send();
+                    echo json_encode(['success' => true]);
+                   
+                   
+                } catch (Exception $e) {
+                    die('Something went wrong: ' . $mail->ErrorInfo);
+                }
+                
+            }
+          
+          
         }else {
         //     // echo '<script>alert("Failed to send your payment. Please try again later.")</script>';
              echo json_encode(['success' => false]);
