@@ -487,6 +487,74 @@ require APPROOT . '\vendor\autoload.php';
       }
     }
   }
+
+  public function complains(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      $user_id = $_SESSION['user_id'];
+      $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+      $complainDetails = $this->moderatorModel->getComplains();
+      
+      $data = [
+        'moderatorDetails' => $moderatorDetails,
+        'moderatorName'=>$moderatorDetails[0]->name,
+        'complainDetails'=>$complainDetails,
+      ];
+      $this->view('moderator/complains',$data);
+    }
+  }
+
+  public function respondComplain(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $moderatorComment = $_POST["moderatorComment"];
+        $complaint_id = $_POST["complaint_id"];
+        $email = $_POST["email"];
+        $name = $_POST["name"];
+
+        if ($this->moderatorModel->respondComplain($complaint_id,$moderatorComment)) {   
+          // Send email using PHPMailer
+          $mail = new PHPMailer(true);
+  
+          try {
+              //Server settings
+              $mail->isSMTP();
+              $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+              $mail->SMTPAuth   = true;
+              $mail->Username   = MAIL_USER; // SMTP username
+              $mail->Password   = MAIL_PASS;   // SMTP password
+              $mail->SMTPSecure = MAIL_SECURITY;
+              $mail->Port       = MAIL_PORT;
+  
+              //Recipients
+              $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+              $mail->addAddress($email);  // Add a recipient
+  
+              // Content
+              $mail->isHTML(true);  // Set email format to HTML
+              $mail->Subject = 'Regarding Your Complain';
+              $mail->Body    = "Dear ".$name. ". Thank you for reaching out to us ".$moderatorComment." If there is anything else we can assist you with, or if you have any further questions, please don't hesitate to contact us.
+
+              Thank you for your understanding.";
+  
+              $mail->send();
+  
+              // Redirect or perform other actions as needed
+              redirect('moderator/complains');
+          } catch (Exception $e) {
+              die('Something went wrong: ' . $mail->ErrorInfo);
+          }
+        }
+        else{
+          echo 'Something Went Wrong';
+        }
+
+      }
+    }
+  }
   
   }
 
