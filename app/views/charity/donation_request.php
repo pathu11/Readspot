@@ -48,7 +48,7 @@
     <div class="reqContainer">
         <div class="reqCard">
             <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ramathpro.jpg" ?>>
+                <img src=<?= URLROOT . "/assets/images/charity/ram3.jpeg" ?>>
             </div>
             <div class="content">
                 <div class="customer-info">
@@ -107,7 +107,7 @@
 
         <div class="reqCard checked">
             <div class="imgBox">
-            <img src=<?= URLROOT . "/assets/images/charity/dq.jpg" ?>>
+                <img src=<?= URLROOT . "/assets/images/charity/dq.jpg" ?>>
             </div>
             <div class="content">
                 <div class="customer-info">
@@ -121,7 +121,7 @@
         </div>
         <div class="reqCard">
             <div class="imgBox">
-            <img src=<?= URLROOT . "/assets/images/charity/sai.jpeg" ?>>
+                <img src=<?= URLROOT . "/assets/images/charity/sai.jpeg" ?>>
             </div>
             <div class="content">
                 <div class="customer-info">
@@ -135,7 +135,7 @@
         </div>
         <div class="reqCard">
             <div class="imgBox">
-            <img src=<?= URLROOT . "/assets/images/charity/dq2.jpg" ?>>
+                <img src=<?= URLROOT . "/assets/images/charity/dq2.jpg" ?>>
             </div>
             <div class="content">
                 <div class="customer-info">
@@ -149,7 +149,7 @@
         </div>
         <div class="reqCard">
             <div class="imgBox">
-            <img src=<?= URLROOT . "/assets/images/charity/duruv.jpg" ?>>
+                <img src=<?= URLROOT . "/assets/images/charity/duruv.jpg" ?>>
             </div>
             <div class="content">
                 <div class="customer-info">
@@ -188,6 +188,35 @@
             <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
         </div>
     </footer>
-    <script src=<?= URLROOT . "assets/charity/donationRequestjs.js" ?>></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const notAvailableButtons = document.querySelectorAll('.not-available');
+            const modal = document.getElementById('confirmationModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const confirmBtn = document.getElementById('confirmBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+
+            notAvailableButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    modal.style.display = 'block';
+                });
+            });
+
+            closeModalBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            confirmBtn.addEventListener('click', function() {
+                window.location.href = 'oldDonationDetailsPage.html';
+            });
+        });
+    </script>
 </body>
+
 </html>
