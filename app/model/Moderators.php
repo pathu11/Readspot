@@ -176,6 +176,14 @@
 
     }
 
+    public function getComplainSearchDetails($input){
+      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input ");
+      $this->db->bind(":input",$input);
+      $results=$this->db->resultSet();
+      return $results;
+
+    }
+
     public function getTopContents(){
       $this->db->query("SELECT c.content_id, c.topic, c.text, c.customer_id, c.img, c.pointsAdd, COUNT(cr.rate) AS rating_count
       FROM content c

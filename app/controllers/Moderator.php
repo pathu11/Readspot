@@ -434,14 +434,16 @@ require APPROOT . '\vendor\autoload.php';
 
     public function livesearch(){
       if(isset($_POST['input'])){
-          $input = $_POST['input'];
-          $eventSearchDetails = $this->moderatorModel->geteventSearchDetails($input);
-          $challengeSearchDetails = $this->moderatorModel->getChallengeSearchDetails($input);
+        $input = $_POST['input'];
+        $eventSearchDetails = $this->moderatorModel->geteventSearchDetails($input);
+        $challengeSearchDetails = $this->moderatorModel->getChallengeSearchDetails($input);
+        $complainSearchDetails = $this->moderatorModel->getComplainSearchDetails($input);
       }
   
       $data = [
           'eventSearchDetails'=>$eventSearchDetails,
           'challengeSearchDetails'=>$challengeSearchDetails,
+          'complainSearchDetails'=>$complainSearchDetails,
       ];
       
       $this->view('moderator/livesearch',$data);

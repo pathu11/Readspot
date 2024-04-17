@@ -120,6 +120,21 @@ img{
   text-decoration: none;
 }
 
+.filter-bar{
+  margin: 10px;
+}
+
+.filter-bar select{
+  margin: 5px;
+  padding: 5px;
+  border: 3px solid #009D94;
+  border-radius: 5px;
+}
+
+.filter-bar option:hover{
+  background-color: #009D94;
+}
+
 /* Style for the modal */
 .modal {
   display: none;
