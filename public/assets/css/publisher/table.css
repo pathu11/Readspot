@@ -312,7 +312,9 @@ body {
     cursor: pointer;
     animation: rotate360 0.5s ease-in-out;
 }
-
+.highlight {
+    font-weight: bold;
+}
 @keyframes rotate360 {
     from {
         transform: rotate(0deg);

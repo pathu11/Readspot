@@ -20,8 +20,7 @@
     }
     table {
         width: 100%;
-        margin: 0; /* Remove any margin */
-        padding: 0; /* Remove any padding */
+       
         border-collapse: collapse; /* Collapse the table borders */
     }
     table, tbody, tr {

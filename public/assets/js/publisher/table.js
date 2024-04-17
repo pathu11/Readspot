@@ -13,27 +13,41 @@ function addEvent() {
     console.log('Adding a new event');
 }
 
+
 function searchEvents() {
-    var input, filter, table, tr, td, i, txtValue;
+    var input, filter, table, tr, th, td, i, j, txtValue, matchFound;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
     table = document.getElementById("eventTable");
     tr = table.getElementsByTagName("tr");
+    th = table.getElementsByTagName("th");
 
+    // Loop through all table rows
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0]; // Assuming Event ID is in the first column
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+        matchFound = false; // Reset matchFound flag for each row
+        // Loop through all table cells in current row
+        for (j = 0; j < tr[i].cells.length; j++) {
+            td = tr[i].cells[j];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                // Check if the current cell content contains the search query
+                var index = txtValue.toUpperCase().indexOf(filter);
+                if (index > -1) {
+                    matchFound = true; // Set matchFound flag if any match is found
+                    // Highlight matching text by wrapping it in a <span> element with a CSS class
+                    td.innerHTML = txtValue.substring(0, index) + '<span style=" font-weight: bold;">' + txtValue.substring(index, index + filter.length) + '</span>' + txtValue.substring(index + filter.length);
+                    break; // Exit the inner loop if a match is found in this row
+                }
             }
         }
+        // Display or hide the row based on matchFound flag
+        tr[i].style.display = matchFound ? "" : "none";
+    }
+    // Display or hide the table head based on whether any search results are displayed
+    for (i = 0; i < th.length; i++) {
+        th[i].style.display = (table.querySelectorAll("tbody tr[style='']").length > 0) ? "" : "none";
     }
 }
-
-
 
 
 
