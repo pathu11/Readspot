@@ -1276,11 +1276,33 @@ class Customer extends Controller {
                     'reason' => trim($_POST['Reason']),
                     'other' => trim($_POST['OtherReason']),
                     'descript' => trim($_POST['description']),
+                    'err_img' => '',
                     'customer_id' => trim($customerid),// Replace this with the actual customer ID
                     'customerImage' => $customerDetails[0]->profile_img,
                     'customerName' => $customerName
                 ];
     
+                if (isset($_FILES['imgComplaint']['name']) AND !empty($_FILES['imgComplaint']['name'])) {
+                    $img_name = $_FILES['imgComplaint']['name'];
+                    $tmp_name = $_FILES['imgComplaint']['tmp_name'];
+                    $error = $_FILES['imgComplaint']['error'];
+                    
+                    if ($error === 0) {
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                        $img_ex_to_lc = strtolower($img_ex);
+                
+                        $allowed_exs = array('jpg', 'jpeg', 'png');
+                        if (in_array($img_ex_to_lc, $allowed_exs)) {
+                            // Generate a unique identifier (e.g., timestamp)
+                            $unique_id = time(); 
+                            $new_img_name = $data['reason'] . '-' . $unique_id . '-imgComplaint.' . $img_ex_to_lc;
+                            $img_upload_path = "../public/assets/images/customer/Complaint/" . $new_img_name;
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                
+                            $data['err_img'] = $new_img_name;
+                        }
+                    }
+                }
                 
                 if($this->customerModel->complaint($data)){
                     // flash('add_success','You are added the book  successfully');

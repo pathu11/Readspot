@@ -989,8 +989,8 @@ public function getQuizDetails(){
   }
 
   public function complaint($data) {
-      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, customer_id)
-                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :customer_id)');
+      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, err_img, customer_id)
+                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :err_img, :customer_id)');
 
       $this->db->bind(':first_name',$data['first_name']);
       $this->db->bind(':last_name',$data['last_name']);
@@ -999,6 +999,7 @@ public function getQuizDetails(){
       $this->db->bind(':reason',$data['reason']);
       $this->db->bind(':other',$data['other']);
       $this->db->bind(':descript',$data['descript']);
+      $this->db->bind(':err_img',$data['err_img']);
       $this->db->bind(':customer_id',$data['customer_id']);
 
       // execute

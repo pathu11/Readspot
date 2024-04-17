@@ -43,6 +43,13 @@
     width: 45%;
     margin-left: 10px;
 }
+
+.complaint-img-div {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .topic-name2 {
     display: flex;
     flex-direction: row;
@@ -56,6 +63,64 @@
     padding: 10px;
 }
 
+.topic-name4 {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    min-height: 120px;
+    width: 100%;
+    /* background-color: aquamarine; */
+    padding: 10px;
+    gap:10px
+}
+
+.book-type-div {
+    /* background-color: aqua; */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+}
+
+.sub-category-div {
+    /* background-color: blue; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+
+.sub-category-div input[type="text"] {
+    width: 35%;
+}
+
+.sub-category-div label {
+    width: 45%;
+}
+
+.sub-category-div input[type="checkbox"] {
+    width: 10%;
+}
+
+.sub-category-div input[type="text"], .sub-category-div input[type="checkbox"] {
+    /* width: 100%; */
+    padding: 5px;
+    margin-top: 5px;
+    /* margin-left: 10px; */
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+
 .topic-name3 {
     min-height: 120px;
     width: 100%;
@@ -63,7 +128,7 @@
     padding: 20px;
 }
 
-.topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"], .topic-name2 select {
+.topic-name3 textarea, .topic-name1 input[type="text"], .topic-name2 input[type="text"], .topic-name2 input[type="email"], .topic-name2 select, .topic-name2 input[type="file"] {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -94,6 +159,13 @@
     background: #fff;
     color: black;
     border-color: black;
+}
+
+@media screen and (max-width:800px) {
+    .book-type-div {
+        /* background-color: aqua; */
+        width: 100%;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -153,5 +225,27 @@
     .last-name-div {
         width: 100%;
         margin: 0px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .sub-category-div {
+        flex-direction: column;
+        gap:0px;
+    }
+
+    .sub-category-div input[type="text"] {
+        width: 50%;
+        margin-top: 0px;
+    }
+    
+    .sub-category-div label {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .sub-category-div input[type="checkbox"] {
+        width: 100%;
+        margin-top: 10px;
     }
 }
