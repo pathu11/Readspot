@@ -58,6 +58,13 @@
       return $this->db->resultSet();
     }
 
+    public function findFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT * FROM favorite WHERE customer_id = :customer_id');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
     public function findEventByNotUserId($user_id) {
       $this->db->query('SELECT * FROM events WHERE user_id != :user_id AND status="Approved"');
       $this->db->bind(':user_id', $user_id);
@@ -68,6 +75,14 @@
     public function findEventById($id){
       $this->db->query('SELECT * from events WHERE id=:id');
       $this->db->bind(':id',$id);
+      return $this->db->resultSet();
+      // $row = $this->db->single();
+      // return $row;
+    }
+
+    public function findFavoriteById($fav_id){
+      $this->db->query('SELECT * from favorite WHERE fav_id=:fav_id');
+      $this->db->bind(':fav_id',$fav_id);
       return $this->db->resultSet();
       // $row = $this->db->single();
       // return $row;
@@ -454,6 +469,22 @@
       }
     }
 
+    public function deleteFavorite($fav_id) {
+      $this->db->query('DELETE FROM favorite WHERE fav_id = :fav_id');
+
+      $this->db->bind(':fav_id', $fav_id);
+
+      // Execute after binding
+      $this->db->execute();
+
+      // Check for row count affected
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
     public function RemoveEventFromCalender($data){
       $this->db->query('DELETE FROM saveevent WHERE user_id = :user_id AND event_id = :event_id');
   
@@ -599,14 +630,18 @@ public function editOrderCOD($data)
       return $row;
     }
 
-
+    public function findBooksByCategory($category) {
+      $this->db->query('SELECT * FROM books WHERE status="approval" AND type="new" AND category=:category');
+      $this->db->bind(':category',$category);
+      return $this->db->resultSet();
+    }    
 
 
     public function searchNewBooks($inputText){
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
       WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-      AND type = 'new' ");
+      AND type = 'new' AND status = 'approval' ");
       
       $results = $this->db->resultSet();
       return $results;
@@ -656,12 +691,35 @@ public function editOrderCOD($data)
 
     }
 
-    public function searchUsedBooks($inputText){
+    public function searchUsedBooks($inputText, $customer_id){
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
       WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-      AND type = 'used' ");
+      AND type = 'used' AND status = 'approval' AND customer_id != :customer_id");
       
+      $this->db->bind(':customer_id', $customer_id);
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function searchExchangeBooks($inputText, $customer_id){
+      $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+      FROM books 
+      WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+      AND type = 'exchanged' AND status = 'approval' AND customer_id != :customer_id ");
+      
+      $this->db->bind(':customer_id', $customer_id);
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function searchContent($inputText, $customer_id){
+      $this->db->query("SELECT content_id, topic, img, text
+      FROM content 
+      WHERE (topic LIKE '%$inputText%' OR text LIKE '%$inputText%')
+      AND status = 'approval' AND customer_id != :customer_id");
+      
+      $this->db->bind(':customer_id', $customer_id);
       $results = $this->db->resultSet();
       return $results;
     }
@@ -704,6 +762,14 @@ public function findContent(){
   $this->db->query('SELECT * FROM content WHERE status="approval" ');
  
   return $this->db->resultSet();
+}
+
+public function findContentByNotCusId($customer_id){
+  $this->db->query('SELECT * FROM content  WHERE customer_id != :customer_id AND status="approval"');
+  $this->db->bind(':customer_id', $customer_id);
+  return $this->db->resultSet();
+  // $row = $this->db->single();
+  // return $row;
 }
 public function ChangeProfImage($data) {
   $this->db->query('UPDATE customers 
@@ -1088,6 +1154,7 @@ public function getQuizDetails(){
     $this->db->query('SELECT * FROM events WHERE status="Approved"');
     return $this->db->resultSet();
   }
+
   public function FindRedeemPoints($customer_id){
     $this->db->query('SELECT redeem_points FROM customers WHERE customer_id=:customer_id');
     $this->db->bind(':customer_id',$customer_id);
@@ -1112,5 +1179,60 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
   
   return $this->db->resultSet(); // Assuming you only want the top-rated content
 }
+
+
+  public function complaint($data) {
+      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, customer_id)
+                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :customer_id)');
+
+      $this->db->bind(':first_name',$data['first_name']);
+      $this->db->bind(':last_name',$data['last_name']);
+      $this->db->bind(':email',$data['email']);
+      $this->db->bind(':contact_number',$data['contact_number']);
+      $this->db->bind(':reason',$data['reason']);
+      $this->db->bind(':other',$data['other']);
+      $this->db->bind(':descript',$data['descript']);
+      $this->db->bind(':customer_id',$data['customer_id']);
+
+      // execute
+      if($this->db->execute()){
+        return true;
+      }else{
+          return false;
+      }   
+  }
+
+  // public function Addtofavorie($item_id, $customer_id, $topic, $category) {
+  //   $this->db-query('INSERT INTO favorite (item_id, customer_id, topic, category)
+  //                               VALUE (:item_id, :customer_id, :topic, :category)');
+  
+  //   $this->db->bind(':item_id',$item_id);
+  //   $this->db->bind(':customer_id',$customer_id);
+  //   $this->db->bind(':topic',$topic);
+  //   $this->db->bind(':category',$category);
+
+  //   // execute
+  //   if($this->db->execute()){
+  //     return true;
+  //   }else{
+  //       return false;
+  //   }   
+  // }
+
+  public function Addtofavorite($item_id, $customer_id, $topic, $category) {
+    try {
+        $this->db->query('INSERT INTO favorite (item_id, customer_id, topic, category) VALUES (:item_id, :customer_id, :topic, :category)');
+        $this->db->bind(':item_id',$item_id);
+        $this->db->bind(':customer_id',$customer_id);
+        $this->db->bind(':topic',$topic);
+        $this->db->bind(':category',$category);
+
+        return $this->db->execute();
+    } catch (\Exception $e) {
+        // Handle the exception (e.g., log it, display an error message)
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+  }
 
 }

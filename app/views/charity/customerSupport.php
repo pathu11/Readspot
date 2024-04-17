@@ -24,15 +24,27 @@
         <nav>
             <a href="./">Home</a>
             <a href="event" >Event Management</a>
+            <a href="donation">Donation Requests</a>
             <a href="customerSupport" class="active" id="donorRequestLink">Customer Support</a>
-            <a href="aboutUs">About Us</a>
+            <a href="aboutUs">
+                <i class="fas fa-bell" id="bell"></i>
+                <span class="notification-text">Notification</span>
+            </a>
         </nav>
+        <div class="dropdown" style="float:right;">
+            <button class="dropdown-button">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+            </button>
+            <div class="dropdown-content">
+                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
 
     </header>
 
     <div class="body-container">
         <img id="bcnd" src=<?php echo URLROOT . "/assets/images/charity/Event_man.jpg" ?>>
-        <p id="eventnote">Here You can Post Charity events!</p>
     </div>
 
     <div class="row">
@@ -109,7 +121,7 @@
         </div>
     </div>
 
-    <div class="chart-container">
+    <!-- <div class="chart-container">
         <canvas id="myChart"></canvas>
     </div>
 
@@ -117,7 +129,7 @@
         <div class="notification-content">
             <span id="messageContent"></span>
         </div>
-    </div>
+    </div> -->
 
 
     <script>
