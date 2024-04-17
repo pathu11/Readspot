@@ -766,11 +766,11 @@ class Landing extends Controller{
             $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             if(isset($_POST['rememberMe'])){
                 setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-                // setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+                setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
              }else{
                
                 setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
-                // setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
+                setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
              }
             //init data
             $data=[   
@@ -905,7 +905,6 @@ class Landing extends Controller{
             $this->view('landing/enteremail', $data);
         }
     }
-    
     public function enterotp() {
 
         $userId = null; // Initialize $userId

@@ -25,9 +25,9 @@ body{
      justify-content:space-between;
  }
  .head button {
-     display: block;
+     /* display: block; */
      margin-top: 20px;
-     margin-left: 800px;
+     /* margin-left: 800px; */
      margin-right: 60px;
      padding: 10px;
      background-color: #009D94;
@@ -37,10 +37,12 @@ body{
      border-radius: 5px;
      cursor: pointer;
  }
+ 
  .head1 h4{
      color:#09514C;
      font-size:20px;
  }
+ 
  .head button:hover {
      background-color: #09514C;
  } 
@@ -48,6 +50,7 @@ body{
      margin-top:10px;
  }
  table {
+    z-index:-1;
      width: 100%;
      border-collapse: collapse;
      margin-top: 20px;
@@ -81,11 +84,11 @@ body{
  } */
  
  tr {
-     background-color: #add8e6; 
+     background-color: white; 
      border-radius: 5px;
  }
  tr:hover {
-     background-color: #c0ffef; 
+     background-color: #add8e6; 
      border-radius: 5px;
  }
  
@@ -94,18 +97,20 @@ body{
      width:80px;
      height:40px;
      padding: 7px;
-     background-color: blue;
+     background-color: #09514C;
      color: white;
      text-decoration: none;
      border: none;
      border-radius: 5px;
      cursor: pointer;
      transform:scale(1,1);
+     z-index:-100;
  
  }
  .view:hover{
-     background-color: blue;
+     background-color: #09514C;
      transform:scale(1.1,1.1);
+     z-index:-100;
  
  }
  

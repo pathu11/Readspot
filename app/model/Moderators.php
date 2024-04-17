@@ -14,7 +14,7 @@
     }
 
     public function getChallengeDetails(){
-      $this->db->query('SELECT * FROM book_challenges');
+      $this->db->query('SELECT * FROM quiz');
       return $this->db->resultSet();
     }
 
@@ -36,6 +36,29 @@
         return false;
       }
     }
+
+    public function rejectEvent($id){
+      $this->db->query("UPDATE events SET status = 'Rejected' WHERE id = :id");
+      $this->db->bind(':id', $id);
+      if ($this->db->execute()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function getPendingEventOwner($id){
+      $this->db->query('SELECT name,email FROM users WHERE user_id = :id');
+      $this->db->bind(':id', $id);
+      return $this->db->single();
+    }
+
+    public function getPendingEventById($eventid){
+      $this->db->query('SELECT title FROM events WHERE id = :eventid');
+      $this->db->bind(':eventid', $eventid);
+      return $this->db->single();
+    }
+    
     public function approveContent($content_id){
       $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
       $this->db->bind(':status',"approval");
@@ -46,16 +69,19 @@
         return false;
       }
     }
-    public function rejectContent($content_id){
-      $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
+    public function rejectContent($content_id,$reason){
+      $this->db->query('UPDATE content SET status=:status, reject_reason=:reject_reason WHERE content_id=:content_id
+      ');
       $this->db->bind(':status',"reject");
       $this->db->bind(':content_id',$content_id);
+      $this->db->bind(':reject_reason',$reason);
       if ($this->db->execute()) {
         return true;
       } else {
         return false;
       }
     }
+    
     public function getMessageDetails($user_id){
       $this->db->query('
           SELECT 
@@ -79,6 +105,17 @@
       $this->db->bind(':user_id', $user_id);
   
       return $this->db->resultSet();
+    }
+
+    public function deleteChallenge($challengeId){
+      $this->db->query('DELETE FROM quiz WHERE quiz_id = :challengeId');
+      $this->db->bind(':challengeId',$challengeId);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
     }
 
     public function addQuiz($data){
@@ -123,6 +160,20 @@
       }else{
         return false;
       }
+    }
+
+    public function geteventSearchDetails($input){
+      $this->db->query("SELECT * FROM events WHERE title LIKE '{$input}%' AND status='Pending'");
+      $results=$this->db->resultSet();
+      return $results;
+
+    }
+
+    public function getchallengeSearchDetails($input){
+      $this->db->query("SELECT * FROM quiz WHERE title LIKE '{$input}%' ");
+      $results=$this->db->resultSet();
+      return $results;
+
     }
 
   

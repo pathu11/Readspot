@@ -1,4 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require APPROOT . '\vendor\autoload.php';
 
   class Moderator extends Controller{
     private $moderatorModel;
@@ -38,14 +44,28 @@
         $user_id = $_SESSION['user_id'];
 
         $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
-        //$challengeDetails = $this->moderatorModel->getChallengeDetails();
+        $challengeDetails = $this->moderatorModel->getChallengeDetails();
         $data = [
           'moderatorDetails' => $moderatorDetails,
           'moderatorName'=>$moderatorDetails[0]->name,
-          //'challengeDetails'=>$challengeDetails,
+          'challengeDetails'=>$challengeDetails,
 
       ];
         $this->view('moderator/challenges',$data);
+      }
+    }
+
+    public function deleteChallenge($challengeId){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        if($this->moderatorModel->deleteChallenge($challengeId)){
+          flash('delete_success','You deleted the challenge successfully');
+          redirect('moderator/challenges');
+        }
+        else{
+            die('Something went wrong');
+        }
       }
     }
 
@@ -235,14 +255,94 @@
       }
     }
 
-    public function approveEvent($id){
-      if ($this->moderatorModel->approveEvent($id)) {   
-        flash('post_message', 'Event is Approved');
-        redirect('moderator/events');
-        
-        
-      } else {
-        die('Something went wrong');
+    public function approveEvent($userid,$eventid){
+      $pendingEventOwner = $this->moderatorModel->getPendingEventOwner($userid);
+      $pendingEvent = $this->moderatorModel->getPendingEventById($eventid);
+
+      if ($this->moderatorModel->approveEvent($eventid)) {   
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($pendingEventOwner->email);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Your Event Has Been Accepted';
+            $mail->Body    = "Dear ".$pendingEventOwner->name. ". Your event ".$pendingEvent->title." has been approved.";
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            redirect('moderator/events');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+      }
+      else{
+        echo 'Something Went Wrong';
+      }
+    }
+
+    public function rejectEvent(){
+      if (!isLoggedInModerator()) {
+        redirect('landing/login');
+      }else{
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          $rejectReason = $_POST["rejectReason"];
+          $user_id = $_POST["user_id"];
+          $event_id = $_POST["event_id"];
+
+          $pendingEventOwner = $this->moderatorModel->getPendingEventOwner($user_id);
+          $pendingEvent = $this->moderatorModel->getPendingEventById($event_id);
+
+          if ($this->moderatorModel->rejectEvent($event_id)) {   
+            // Send email using PHPMailer
+            $mail = new PHPMailer(true);
+    
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                $mail->SMTPAuth   = true;
+                $mail->Username   = MAIL_USER; // SMTP username
+                $mail->Password   = MAIL_PASS;   // SMTP password
+                $mail->SMTPSecure = MAIL_SECURITY;
+                $mail->Port       = MAIL_PORT;
+    
+                //Recipients
+                $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                $mail->addAddress($pendingEventOwner->email);  // Add a recipient
+    
+                // Content
+                $mail->isHTML(true);  // Set email format to HTML
+                $mail->Subject = 'Your Event Has Been Rejected';
+                $mail->Body    = "Dear ".$pendingEventOwner->name. ". Your event ".$pendingEvent->title." has been rejected. The reason for the rejection is '".$rejectReason."'.";
+    
+                $mail->send();
+    
+                // Redirect or perform other actions as needed
+                redirect('moderator/events');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
+          }
+          else{
+            echo 'Something Went Wrong';
+          }
+
+        }
       }
     }
 
@@ -298,31 +398,64 @@
       }
       }
     }
-    public function RejectContent($content_id) {
-      if (!isLoggedInModerator()) {
+
+  public function rejectContent() {
+    // Check if user is logged in as a moderator
+    if (!isLoggedInModerator()) {
         redirect('landing/login');
-      }else{
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          $data = json_decode(file_get_contents("php://input"));
-          $content_id = $data->content_id;
-          $reason=$data->reason;
+    }
+
+
+    // Ensure the request method is POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        // If the request method is not POST, return an error response
+        $response = ['success' => false, 'message' => 'Invalid request method'];
+        echo json_encode($response);
+        return;
+    }
+
+    // Get the content ID from the request body
+    $data = json_decode(file_get_contents("php://input"));
+    $content_id = $data->content_id;
+    $reason = $data->reason;
+
+    // Validate content ID
+    if (!($content_id || $reason)) {
+        // If content ID is missing, return an error response
+        $response = ['success' => false, 'message' => 'Invalid content ID'];
+        echo json_encode($response);
+        return;
+    }
+
+    // Perform the rejection operation in the model
+    if ($this->moderatorModel->rejectContent($content_id,$reason)) {
+        // If rejection is successful, return a success response
+        $response = ['success' => true];
+        echo json_encode($response);
+    } else {
+        // If rejection fails, return an error response
+        $response = ['success' => false, 'message' => 'Failed to reject content'];
+        echo json_encode($response);
+    }
+}
+
+
+    public function livesearch(){
+      if(isset($_POST['input'])){
+          $input = $_POST['input'];
+          $eventSearchDetails = $this->moderatorModel->geteventSearchDetails($input);
+          $challengeSearchDetails = $this->moderatorModel->getChallengeSearchDetails($input);
+      }
   
-          if($content_id && reason){
-            if($this->moderatorModel->rejectContent($content_id)){
-              
-              $response = ['success' => true]; 
-              echo json_encode($response);
-            }
-          }
-          
-      } else {
-          // If the request method is not POST, return an error response
-          $response = ['success' => false, 'message' => 'Invalid request method'];
-          echo json_encode($response);
-      }
-      }
+      $data = [
+          'eventSearchDetails'=>$eventSearchDetails,
+          'challengeSearchDetails'=>$challengeSearchDetails,
+      ];
+      
+      $this->view('moderator/livesearch',$data);
     }
   
+
   
   }
 

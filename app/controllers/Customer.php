@@ -30,54 +30,54 @@ class Customer extends Controller {
     }
    
     
-    public function comment() {
-        if (!isLoggedInCustomer()) {
-            redirect('landing/login');
-        }
+    // public function comment() {
+    //     if (!isLoggedInCustomer()) {
+    //         redirect('landing/login');
+    //     }
 
-        $user_id = $_SESSION['user_id'];
-        $customerDetails = $this->customerModel->findCustomerById($user_id);
+    //     $user_id = $_SESSION['user_id'];
+    //     $customerDetails = $this->customerModel->findCustomerById($user_id);
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'name' => $customerDetails[0]->name,
-                'comment' => trim($_POST['comment']),
-                'parentComment' => trim($_POST['parentComment']),
-                'comment_err' => '',
-            ];
+    //         $data = [
+    //             'name' => $customerDetails[0]->name,
+    //             'comment' => trim($_POST['comment']),
+    //             'parentComment' => trim($_POST['parentComment']),
+    //             'comment_err' => '',
+    //         ];
 
-            if (empty($data['comment'])) {
-                $data['comment_err'] = 'Please enter a comment';
-            }
+    //         if (empty($data['comment'])) {
+    //             $data['comment_err'] = 'Please enter a comment';
+    //         }
 
-            if (empty($data['comment_err'])) {
-                if ($this->customerModel->addComment($data)) {
-                    flash('Successfully Added');
-                    redirect('customer/comment');
-                } else {
-                    die('Something went wrong');
-                }
-            } else {
-                $this->view('customer/comment', $data);
-            }
-        } else {
-            $data = [
-                'comment' => '',
-                'parentComment' => '',
-                'comment_err' => '',
-            ];
+    //         if (empty($data['comment_err'])) {
+    //             if ($this->customerModel->addComment($data)) {
+    //                 flash('Successfully Added');
+    //                 redirect('customer/comment');
+    //             } else {
+    //                 die('Something went wrong');
+    //             }
+    //         } else {
+    //             $this->view('customer/comment', $data);
+    //         }
+    //     } else {
+    //         $data = [
+    //             'comment' => '',
+    //             'parentComment' => '',
+    //             'comment_err' => '',
+    //         ];
 
-            $this->view('customer/comment', $data);
-        }
-    }
+    //         $this->view('customer/comment', $data);
+    //     }
+    // }
 
-    public function getComments() {
-        header('Content-Type: application/json');
-        $comments = $this->customerModel->getComments();
-        echo json_encode($comments);
-    }
+    // public function getComments() {
+    //     header('Content-Type: application/json');
+    //     $comments = $this->customerModel->getComments();
+    //     echo json_encode($comments);
+    // }
 
     public function index(){
         if (!isLoggedInCustomer()) {
@@ -987,38 +987,36 @@ class Customer extends Controller {
         }
     } 
     
-    public function BuyNewBooks()
+public function BuyNewBooks()
 {
     if (!isLoggedInCustomer()) {
+        // redirect('landing/login');
+        $recommendedBooks = $this->customerModel->topSelling();
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
-        $data = [
+        $data = [  
             'bookDetails' => $NewbookDetailsByTime,
+            'recommendedBooks' => $recommendedBooks
         ];
         $this->view('customer/BuyNewBooks', $data);
+
     } else {
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id); 
+        $customer_id = $customerDetails[0]->customer_id;
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
-        // $recommendedBooks=$this->ordersModel->getUserOrderHistoryWithBooks($customerDetails[0]->customer_id);
-        
-        // print_r($recommendedBooks) ;
-       
-        // $recommendedCategories = $this->ordersModel->getRecommendedCategories($customerDetails[0]->customer_id);
-        // $recommendedBooks = $this->ordersModel->getRecommendedBooks($recommendedCategories);
+        $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
         $data = [
             'customerDetails' => $customerDetails,
+            'user_id'=>$user_id,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->name,
             'bookDetails' => $NewbookDetailsByTime,
-            // 'recommendedBooks'=>$recommendedBooks
-            // 'bookCategoryDetails' => $bookCategoryDetails
+            'recommendedBooks' => $recommendedBooks
         ];
 
         $this->view('customer/BuyNewBooks', $data);
     }
-}
-
-    
+}   
     public function BuyUsedBook(){
         if (!isLoggedInCustomer()) {
             $UsedbookDetails = $this->customerModel->findAllUsedBooks();
@@ -1334,7 +1332,7 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0]->customer_id;
             $contentDetails = $this->customerModel->findContentByCusId( $customer_id); 
-
+            print_r($content_Details);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
@@ -2643,9 +2641,20 @@ class Customer extends Controller {
             $contentDetails=$this->customerModel->findContentById($content_id);
             $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
+            $countStar_1 = $this->customerModel->countStar_1c($content_id);
+            $countStar_2 = $this->customerModel->countStar_2c($content_id);
+            $countStar_3 = $this->customerModel->countStar_3c($content_id);
+            $countStar_4 = $this->customerModel->countStar_4c($content_id);
+            $countStar_5 = $this->customerModel->countStar_5c($content_id);
+            
             $data = [
                 'contentDetails'=>$contentDetails,
                 'reviewDetails'=>$reviewDetails,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
                 // 'ratingCount'=>$ratingCount,
                 'averageRatingCount'=>$averageRatingCount
                 // 'ratingDistribution'=>$ratingDistribution
@@ -2657,8 +2666,11 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
-            // $ratingCount = $this->customerModel->getRating($book_id);
-        //    print_r($reviewDetails);
+            $countStar_1 = $this->customerModel->countStar_1c($content_id);
+            $countStar_2 = $this->customerModel->countStar_2c($content_id);
+            $countStar_3 = $this->customerModel->countStar_3c($content_id);
+            $countStar_4 = $this->customerModel->countStar_4c($content_id);
+            $countStar_5 = $this->customerModel->countStar_5c($content_id);
            
             $data = [
                 'customerDetails' => $customerDetails,
@@ -2666,6 +2678,11 @@ class Customer extends Controller {
                 'customerImage' => $customerDetails[0]->profile_img,
                 'contentDetails'=>$contentDetails,
                 'reviewDetails'=>$reviewDetails,
+                'countStar_1'=>$countStar_1,
+                'countStar_2'=>$countStar_2,
+                'countStar_3'=>$countStar_3,
+                'countStar_4'=>$countStar_4,
+                'countStar_5'=>$countStar_5,
                 // 'ratingCount'=>$ratingCount,
                 'averageRatingCount'=>$averageRatingCount
                 // 'ratingDistribution'=>$ratingDistribution
@@ -2673,6 +2690,33 @@ class Customer extends Controller {
             $this->view('customer/viewcontent', $data);
         }
     } 
+
+
+// Inside your controller file (e.g., CustomerController.php)
+
+public function markReview()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      
+        $data = json_decode(file_get_contents("php://input"));
+        $reviewId = $data->reviewId;
+        $action = $data->action;
+        if($action=='yes'){
+            if($this->$customerModel->markReview($reviewId)){
+                echo json_encode(['success' => true]);
+            } else {
+                // Return an error response for non-POST requests
+                http_response_code(405); // Method Not Allowed
+                echo json_encode(['error' => 'Method Not Allowed']);
+            }
+        }
+        
+    }     
+       
+    
+}
+
+
 
     public function viewevents($eventId){
         if (!isLoggedInCustomer()) {
@@ -2894,11 +2938,15 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
            
-            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id = $customerDetails[0]->customer_id;
+            
+            $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->name,
+                'recommendedBooks'=>$recommendedBooks
             ];
             $this->view('customer/Recommended', $data);
         }
