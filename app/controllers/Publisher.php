@@ -1421,8 +1421,41 @@ public function stores(){
     }
 }  
 public function payments(){
-    $this->view('publisher/payments');
+    if(!isLoggedInPublisher()){
+        redirect('landing/login');
+    }
+    else{
+
+        $user_id = $_SESSION['user_id'];
+        $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+        $paymentDetails = $this->publisherModel->getPaymentDetails($user_id);
+        $data = [
+            'publisherDetails' => $publisherDetails,
+            'publisherName' => $publisherDetails[0]->name,
+            'paymentDetails' => $paymentDetails
+        ];
+        $this->view('publisher/payments',$data);
+    }
 }
+public function PaymentDetails(){
+    if(!isLoggedInPublisher()){
+        redirect('landing/login');
+        return; 
+    }
+    if (!isset($_GET['paymentId'])) {
+        // Handle the case where paymentId is not set
+        echo json_encode(array('error' => 'Payment ID is not set'));
+        return; // Exit the function
+    }
+    $paymentId = $_GET['paymentId'];
+    $paymentDetails = $this->publisherModel->getPaymentDetailsByPayId($paymentId);
+    if (!$paymentDetails) {
+        echo json_encode(array('error' => 'Payment details not found'));
+        return; // Exit the function
+    }
+    echo json_encode($paymentDetails);
+}
+
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);

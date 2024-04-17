@@ -87,7 +87,7 @@
     <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
   </div>
   
-
+  
 </body>
 <script>
         function goBack() {

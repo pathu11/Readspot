@@ -46,7 +46,9 @@
 
 </div> 
     </div>
-   
+    <?php
+    require APPROOT . '/views/publisher/footer.php'; //path changed
+?>
     <script>
         function goBack() {
             // Use the browser's built-in history object to go back

@@ -75,7 +75,6 @@
     }
 </script>
 
-
 <script>
     function checkLoginStatus() {
         // Check if user is logged in

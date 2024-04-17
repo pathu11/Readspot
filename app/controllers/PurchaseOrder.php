@@ -25,6 +25,21 @@ class PurchaseOrder extends Controller{
         $this->chatModel=$this->model('Chat')  ;
         $this->db = new Database();
     }
+    public function index(){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->name
+            ];
+            $this->view('customer/index', $data);
+        }
+    }
     public function purchaseMultiple(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
@@ -70,11 +85,15 @@ class PurchaseOrder extends Controller{
             }
 
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id=$customerDetails[0]->customer_id;
+            $redeem_points=$this->customerModel->FindRedeemPoints($customer_id);
+            // print_r($redeem_points);
             $deliveryDetails=$this->deliveryModel->finddeliveryCharge(); 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {                                              
 
                 $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 $data=[
+                    'redeempoint'=>$redeem_points,
                     'cart_id'=>$cart_id,
                     'bookDetails'=>$bookDetails,
                     'book_id'=>$bookIds,
@@ -90,7 +109,7 @@ class PurchaseOrder extends Controller{
                     'total_weight'=>trim($_POST['totalWeight']),
                     'totalDelivery'=>trim($_POST['totalDelivery']),
                     'bookQuantities' => $_POST['book_quantities'],
-                    
+                    'totalRedeem'=>trim($_POST['totalRedeem']),
                     'postal_name_err' => '',
                     'street_name_err' => '',
                     'town_err' => '',
@@ -130,10 +149,13 @@ class PurchaseOrder extends Controller{
                 if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
                    
                     redirect('PurchaseOrder/checkout2/');
+                   
+                    
                   
                 }else{
                     
                     echo  '<script>alert("Error")</script>';
+                    redirect('PurchaseOrder/purchaseMultipleView/');
                     }       
               
             } else {
@@ -142,6 +164,7 @@ class PurchaseOrder extends Controller{
                
                  if($customerDetails)   {
                     $data = [
+                        'redeempoint'=>$redeem_points,
                         'book_id'=>$bookIds,
                         'deliveryDetails'=>$deliveryDetails,
                         'bookDetails'=>$bookDetails,
@@ -215,15 +238,20 @@ public function checkout2()
         }     
     }
 }
+
 private function handleCardPaymentForm($orderDetails1, $formType)
 {
+    // $redeemPoints=$orderDetails1['totalRedeem'];
+    // $customer_id=$orderDetails1['customer_id'];
     if ($this->customerModel->addOrder($orderDetails1)) {
         $order_id = $this->customerModel->getLastInsertedOrderId();
         foreach ($orderDetails1['book_id'] as $index => $bookId) {
             $cart_id=$orderDetails1['cart_id'][$index];
             $quantity = $orderDetails1['bookQuantities'][$index];
+
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                // $this->customerModel->updateRedeem($customer_id,$redeemPoints);
            }
         }
     } else {
@@ -270,7 +298,8 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 }
 
 private function handleCODForm($orderDetails1 ,$formType){
-
+    $redeemPoints=$orderDetails1['totalRedeem'];
+    $customer_id=$orderDetails1['customer_id'];
     if ($this->customerModel->addOrder($orderDetails1)) {
         $order_id = $this->customerModel->getLastInsertedOrderId();
         // Add order details to the order_details table
@@ -279,6 +308,7 @@ private function handleCODForm($orderDetails1 ,$formType){
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                $this->customerModel->updateRedeem($customer_id,$redeemPoints);
            }
            
 

@@ -143,7 +143,9 @@
             </div>
         </div>
     </div>
-
+    <?php
+      require APPROOT . '/views/publisher/footer.php'; //path changed
+?>
     <script>
         var newStoreForm = document.querySelector('.new-store-form');
         var selectStoreForm = document.querySelector('.select-store-form');
