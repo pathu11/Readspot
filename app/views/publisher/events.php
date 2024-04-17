@@ -98,5 +98,7 @@
         </div>
     </div>
     <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
-
+    <?php
+        require APPROOT . '/views/publisher/footer.php'; //path changed
+    ?>
 </body>

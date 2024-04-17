@@ -111,6 +111,9 @@
         </div>
         <?php endforeach; ?>
     </div>
+    <?php
+            require APPROOT . '/views/publisher/footer.php'; //path changed
+        ?>
 </body>
 <script>
         function goBack() {

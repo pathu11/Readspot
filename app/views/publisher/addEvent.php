@@ -52,7 +52,9 @@
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
   </div>
-  
+  <?php
+    require APPROOT . '/views/publisher/footer.php'; //path changed
+?>
 </body>
 <script>
         function goBack() {

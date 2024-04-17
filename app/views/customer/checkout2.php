@@ -134,11 +134,13 @@
                         <div class="subcost">
                             <p>Subtotal</p>
                             <p>Delivery Fee</p>
+                            <p>Redeem Points</p>
                             <p>Total</P>
                         </div>
                         <div  class="subcost2">
                             <p>Rs.  <?php echo $data['orderDetails']['subTotalPrice']; ?></p>
                             <p>Rs.  <?php echo $data['orderDetails']['totalDelivery']; ?></p>
+                            <p>Rs.  <?php echo $data['orderDetails']['totalRedeem']; ?> </p>
                             <p>Rs.  <?php echo $data['orderDetails']['total_cost']; ?></p>
 
                         </div> 

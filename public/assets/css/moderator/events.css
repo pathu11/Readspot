@@ -67,7 +67,7 @@ table {
 
 td {
   height: 50px;
-  max-width: 150px;
+  /* max-width: 150px; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -108,6 +108,31 @@ tr:hover {
 
 img{
   cursor: pointer;
+}
+
+.see-more{
+  color: #009D94;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.see-more:hover{
+  text-decoration: none;
+}
+
+.filter-bar{
+  margin: 10px;
+}
+
+.filter-bar select{
+  margin: 5px;
+  padding: 5px;
+  border: 3px solid #009D94;
+  border-radius: 5px;
+}
+
+.filter-bar option:hover{
+  background-color: #009D94;
 }
 
 /* Style for the modal */
@@ -173,6 +198,14 @@ img{
   text-decoration: none;
   cursor: pointer;
   animation: rotate360 0.5s ease-in-out;
+}
+
+#fullDescription{
+  font-size: medium;
+}
+
+.modal h1{
+  color: yellow;
 }
 
 @keyframes rotate360 {

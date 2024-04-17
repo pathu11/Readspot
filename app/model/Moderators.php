@@ -58,7 +58,6 @@
       $this->db->bind(':eventid', $eventid);
       return $this->db->single();
     }
-    
     public function approveContent($content_id){
       $this->db->query('UPDATE content SET status=:status WHERE content_id=:content_id');
       $this->db->bind(':status',"approval");
@@ -176,9 +175,99 @@
 
     }
 
-  
-  
-  
+    public function getComplainSearchDetails($input){
+      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input ");
+      $this->db->bind(":input",$input);
+      $results=$this->db->resultSet();
+      return $results;
+
+    }
+
+    public function getTopContents(){
+      $this->db->query("SELECT c.content_id, c.topic, c.text, c.customer_id, c.img, c.pointsAdd, COUNT(cr.rate) AS rating_count
+      FROM content c
+      JOIN content_review cr ON c.content_id = cr.content_id
+      GROUP BY c.content_id
+      ORDER BY rating_count DESC
+      LIMIT 3");
+
+      $results=$this->db->resultSet();
+      return $results;
+    }
+
+    public function addPoints($customer_id,$numberOfPoints){
+      $this->db->query("UPDATE customers SET redeem_points = redeem_points + :numberOfPoints WHERE customer_id = :customer_id");
+
+      $this->db->bind(":numberOfPoints",$numberOfPoints);
+      $this->db->bind(":customer_id",$customer_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function markPointsAdd($content_id){
+      $this->db->query("UPDATE content SET pointsAdd = 1 WHERE content_id = :content_id");
+      $this->db->bind(":content_id",$content_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function getContentSubmissionCount(){
+      $this->db->query('SELECT COUNT(*) AS num_contents
+      FROM content
+      WHERE MONTH(time) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+      AND YEAR(time) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH);
+      ');
+      $result = $this->db->single();
+      return $result;
+    }
+
+    public function getEventSubmissionCount(){
+      $this->db->query('SELECT COUNT(*) AS num_events
+      FROM events
+      WHERE MONTH(created_at) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+      AND YEAR(created_at) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH);
+      ');
+      $result = $this->db->single();
+      return $result;
+    }
+
+    public function getChallengeSubmissionCount(){
+      $this->db->query('SELECT COUNT(*) AS num_challenges
+      FROM history
+      WHERE MONTH(attempt_date) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+      AND YEAR(attempt_date) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
+      ');
+      $result = $this->db->single();
+      return $result;
+    }
+
+    public function getComplains(){
+      $this->db->query('SELECT CONCAT(first_name," ",last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE reason="Events" OR reason="Challenges" OR reason="Contents"');
+      $results=$this->db->resultSet();
+      return $results;
+    }
+
+    public function respondComplain($complaint_id,$moderatorComment){
+      $this->db->query('UPDATE complaint SET moderator_comment = :moderatorComment, resolved_or_not=1 WHERE complaint_id = :complaint_id');
+
+      $this->db->bind(":moderatorComment",$moderatorComment);
+      $this->db->bind(":complaint_id",$complaint_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
   }
 
 

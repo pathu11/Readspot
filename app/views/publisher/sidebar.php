@@ -34,13 +34,13 @@
             <hr>
             
             <a href="<?php echo URLROOT; ?>/publisher/customerSupport" class="sub-menu-link"> <!--path changed-->
-                <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
+                <i style="font-size:30px;" class="bx bxs-bell-ring icon"></i> <!--path changed-->
                 <p>Notifications</p>
                 <span>></span>
             </a>
             
             <a href="<?php echo URLROOT; ?>/publisher/logout" class="sub-menu-link"> <!--path changed-->
-            <i class="bx bxs-log-out icon"></i>  <!--path changed-->
+            <i style="font-size:30px;" class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>
             </a>

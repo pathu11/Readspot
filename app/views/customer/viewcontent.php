@@ -171,7 +171,7 @@
 
 // helpfull or not checking
 
-d// Event listener for helpful radio buttons
+// Event listener for helpful radio buttons
 document.querySelectorAll('.helpful-radio').forEach(radioButton => {
     radioButton.addEventListener('change', function() {
         const reviewId = this.dataset.reviewId; // Get the review ID

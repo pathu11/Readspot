@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
 </head>
 <body>
     <div class="container">
@@ -13,9 +14,10 @@
             <h1>Sign up AS A Customer</h1>
            
 <br><br>
+        <span style="width:100%;background-color:#03FFF0;color: black;padding-left: 15px;padding-right: 15px;padding:5px;margin-bottom:3px;" class="invalid-feedback"><?php echo $data['email_err']; ?></span><br>
             <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
 
-            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
+            
 
            <br>
             <button class="btn" name="submit" type="submit">sign up</button><br>

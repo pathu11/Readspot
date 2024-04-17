@@ -204,7 +204,16 @@ h4:before, h4:after {
     transform: scale(1.1);
 }
 /********************************************/
+.invalid-feedback{
+    background-color:#03FFF0;
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding:5px;
 
+
+
+}
 
 
 /********************************************/

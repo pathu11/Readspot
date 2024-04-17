@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/index.css" />
   <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
   <title>Homepage</title>
-</head><body>
+</head>
+<body>
   <?php require APPROOT . '/views/publisher/sidebar.php';
   ?>
   <div class="grid-container">
@@ -29,7 +30,7 @@
                
             </div>
             <div class="chat">
-              <canvas id="myChart2"></canvas>
+              <canvas id="myChart1"></canvas>
                 
             </div>
         </div>
@@ -42,7 +43,10 @@
             
         </div>
     </div>
-
+</body>
+<?php
+    require APPROOT . '/views/publisher/footer.php'; //path changed
+?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
     // Sample data for the pie chart
@@ -84,88 +88,46 @@
     );
     
   </script>
-<script>
-  // set up block
-  const Delivered=<?php echo json_encode($data['orderDelCount']); ?>;
-  const Shipping=<?php echo json_encode($data['orderShipCount']); ?>;
-  const Processed=<?php echo json_encode($data['orderProCount']); ?>;
-  const Returned=<?php echo json_encode($data['orderReturnedCount']); ?>;
- 
-  const data={
-    labels: ['Delivered Orders', 'Shipping Orders', 'Proccessed Orders', 'Returned Orders'],
-    datasets: [{
-      label: 'Order Type',
-      data: [Delivered, Shipping, Processed, Returned],
-      backgroundColor: [
-        '#333333', '#70BFBA', '#02514C', '000000', '404040','#70BFBA'
-      ],
-      borderWidth: 0,
-      borderRadius: 5,
-    }]
 
-  };
-  // config block
-  const config={
-    type: 'bar',
-    data,
-    options: {
-      indexAxis: 'x', 
-      scales: {
-        x: {
-          beginAtZero: true
-        },
-        y: {
-          barPercentage: 0.3, 
-          categoryPercentage: 0.5 
-        }
-      },
-      plugins: {
-        legend: {
-          display: false 
-        },
-        title: {
-          display: true,
-          text: 'Number of Orders', 
-          padding: {
-            top: 10,
-            bottom: 10
-          }
-        }
-      }
-    }
-  };
-  // render block
-  const myChart1 = new Chart(
-    document.getElementById('myChart1'),config
-  );
-
-
-</script>  
 <script >
-  const ctx2 = document.getElementById('myChart2');
+  // Chart data
+  const chartData = {
+            labels: ['Delivered Orders', 'Shipping Orders', 'Processed Orders', 'Returned Orders'],
+            datasets: [{
+                label: 'Order Type',
+                data: [
+                    <?php echo $data['orderDelCount']; ?>,
+                    <?php echo $data['orderShipCount']; ?>,
+                    <?php echo $data['orderProCount']; ?>,
+                    <?php echo $data['orderReturnedCount']; ?>
+                ],
+                backgroundColor: ['#333333', '#70BFBA', '#02514C', '#000000']
+            }]
+        };
 
-new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: ['publishers', 'Charity organizations', 'customers', 'Community moderators'],
-    datasets: [{
-      label: 'Popular books',
-      data: [12, 19, 3, 5],
-      backgroundColor: [
-        '#333333', '#70BFBA', '#02514C', '000000', '404040'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    indexAxis: 'x', 
-    scales: {
-      x: {
-        beginAtZero: true
-      }
-    }
-  }
-});
+        // Chart configuration
+        const chartConfig = {
+            type: 'bar',
+            data: chartData,
+            options: {
+                indexAxis: 'x',
+                scales: {
+                    x: { beginAtZero: true },
+                    y: { barPercentage: 0.3, categoryPercentage: 0.5 }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Number of Orders',
+                        padding: { top: 10, bottom: 10 }
+                    }
+                }
+            }
+        };
+
+        // Render chart
+        const myChart1 = new Chart(document.getElementById('myChart1'), chartConfig);
 
 </script>
 <script>
