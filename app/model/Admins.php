@@ -102,7 +102,6 @@ public function insertPayment($order_id,$book_id,$paid_price,$user_id_from_users
   
   $this->db->query('INSERT INTO payments (order_id, book_id, payment, user_id, quantity) 
                     VALUES (:order_id, :book_id, :payment, :user_id, :quantity)');
-  
   $this->db->bind(':order_id', $order_id);
   $this->db->bind(':book_id', $book_id);
   $this->db->bind(':payment', $paid_price);
