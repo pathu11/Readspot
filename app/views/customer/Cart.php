@@ -46,12 +46,16 @@
                             <td><?php echo $cart->quantity; ?></td>
                             <td><?php echo $cart->price*$cart->quantity; ?></td>
                             <td class="action-buttons">
-                                <a href="#" class="view-button" data-cartid="<?php echo $cart->cart_id; ?>">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>   
-                                <a class="delete-button" href="<?php echo URLROOT; ?>/customer/deleteCart/<?php echo $cart->cart_id; ?>">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <button class="view-button">
+                                    <a href="#" data-cartid="<?php echo $cart->cart_id; ?>">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </button>
+                                <button class="delete-button">
+                                    <a href="<?php echo URLROOT; ?>/customer/deleteCart/<?php echo $cart->cart_id; ?>">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -73,10 +77,13 @@
                 <tbody>
                     <?php foreach($data['cartDetails'] as $cart): ?>
                     <tr>
-                        <td rowspan="4" style="width:5%;"> 
+                        <td rowspan="5" style="width:5%;"> 
                             <input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>">
                         </td>
-                        <td rowspan="4"><?php echo $cart->book_name; ?></td>
+                        <td rowspan="5"><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
+                        <td><?php echo $cart->book_name; ?></td>
+                    </tr>
+                    <tr>
                         <td><?php echo $cart->price; ?> (per book)</td>
                     </tr>
                     <tr>
@@ -101,9 +108,9 @@
                 
             </table>
             <br>
-            <div class="chk-btn-div">
-                <button id="checkoutBtn" class="checkout-btn">Purchase Selected Items</button>
-                <button id="deleteBtn" class="delete-btn">Delete Selected Items</button>
+                <div class="chk-btn-div">
+                    <button id="checkoutBtn" class="checkout-btn">Purchase Selected Items</button>
+                    <button id="deleteBtn" class="delete-btn">Delete Selected Items</button>
                 </div>
                     </form>
                    
@@ -185,4 +192,35 @@ document.getElementById('deleteBtn').addEventListener('click', function(event) {
             form.submit();
         });
     });
+</script>
+
+
+<script>
+    function displayRows(rows, rowsPerPage, page) {
+        let start = (page - 1) * rowsPerPage;
+        let end = start + rowsPerPage;
+        let matchedRows = [];
+
+        for (let i = 0; i < rows.length; i++) {
+            const contentName = rows[i].cells[2].innerText.toLowerCase(); // Assuming content name is in the first cell
+
+            if (searchTerm === '' || contentName.includes(searchTerm)) {
+                matchedRows.push(rows[i]);
+            } else {
+                rows[i].style.display = 'none'; // hide irrelevant rows
+            }
+        }
+
+        let totalPages = Math.ceil(matchedRows.length / rowsPerPage);
+
+        for (let i = 0; i < matchedRows.length; i++) {
+            if (i >= start && i < end) {
+                matchedRows[i].style.display = ''; // display relevant rows
+            } else {
+                matchedRows[i].style.display = 'none'; // hide rows not in current page
+            }
+        }
+
+        updatePaginationUI(page, totalPages);
+    }
 </script>

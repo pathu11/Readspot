@@ -1,6 +1,7 @@
 .my-cart {
     padding: 20px;
-    background-color:  white;
+    /* background-color:  white; */
+    background-color:  #E3F2FD;
     right: 0px;
     min-height: 500px;
 }
@@ -21,6 +22,7 @@
     margin: auto;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     /* display: table; Add this line */
+    /* background-color: #009D94; */
 }
 
 .mycart table {
@@ -158,12 +160,18 @@
 }
 
 .chk-btn-div {
-    float: center;
+    /* float: center; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap:10px;
+    /* background-color: #ddd; */
 }
 
 .checkout-btn {
     width: 180px;
-    height: 45px;
+    height: 40px;
     background-color: rgb(1, 36, 33);
     border-color: white;
     outline: none;
@@ -180,7 +188,7 @@
     
     background-color: rgb(227, 53, 76);
     width: 180px;
-    height: 45px;
+    height: 40px;
     
     border-color: white;
     outline: none;
@@ -194,6 +202,17 @@
 
 }
 
+.action-buttons-cart {
+    width: 100%;
+    /* background-color: yellow; */
+    gap:10px;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    color: inherit;
+}
+
 @media screen and (max-width:950px) {
     .tb-cart1 {
         display: none;
@@ -203,6 +222,14 @@
         display: block;
     }
     
+}
+
+@media screen and (max-width:800px) {
+    .chk-btn-div {
+        flex-direction: column;
+        align-items: flex-end;
+        gap:5px;
+    }
 }
 
 @media screen and (max-width:600px) {

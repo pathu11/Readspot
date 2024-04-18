@@ -17,7 +17,7 @@
                 ?>
                 <?php 
                 if (isset($_SESSION["user_id"])){
-                    echo '<center><h2 class="profile-name2">'.$data['customerName'].'<br><span>'.$data["customerEmail"].'<span></h2></center>';
+                    echo '<center><h2 class="profile-name2">'.$data['FullName'].'<br><span>'.$data["customerEmail"].'<span></h2></center>';
                 } else {
                     echo '<center><h2 class="profile-name2">NO USER<br><span>NO EMAIL<span></h2></center>';
                 }

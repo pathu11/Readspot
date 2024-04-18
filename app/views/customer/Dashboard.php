@@ -11,7 +11,7 @@
             <div class="total-div">
                 <div class="sub-total-div1">
                     <h3>Welcome Back,</h3>
-                    <h1>Ramath Perera &emsp;<img src="<?php echo URLROOT; ?>/assets/images/customer/hello.png"></h1>
+                    <h1><?php echo $data['customer']; ?> &emsp;<img src="<?php echo URLROOT; ?>/assets/images/customer/hello.png"></h1>
                 </div>
                 <div class="total-income-point">
                     <div class="sub-total-div">
@@ -51,19 +51,19 @@
                 <div class="add-book-div">
                     <div class="no-of-books">
                         <h3>Add Used Books</h3>
-                        <h3>21</h3>
+                        <h3><?php echo $data['used']; ?></h3>
                     </div>
                     <div class="no-of-books">
                         <h3>Add Exchange Books</h3>
-                        <h3>11</h3>
+                        <h3><?php echo $data['exchange']; ?></h3>
                     </div>
                     <div class="no-of-books">
                         <h3>Add Contents</h3>
-                        <h3>17</h3>
+                        <h3><?php echo $data['content']; ?></h3>
                     </div>
                     <div class="no-of-books">
                         <h3>Add Events</h3>
-                        <h3>2</h3>
+                        <h3><?php echo $data['event']; ?></h3>
                     </div>
                 </div>
                 <div class="add-book-div">
