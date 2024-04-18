@@ -300,7 +300,81 @@ public function getDelivery(){
             return false;
         }
     }
+    public function restrictpublishers($user_id) {
+        $this->db->query('UPDATE publishers SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictcustomers($user_id) {
+        $this->db->query('UPDATE customers SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictdelivery($user_id) {
+        $this->db->query('UPDATE delivery SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictmoderator($user_id) {
+        $this->db->query('UPDATE moderator SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictadmin($user_id) {
+        $this->db->query('UPDATE admin SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictcharity($user_id) {
+        $this->db->query('UPDATE charity SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictusers($user_id) {
+        $this->db->query('UPDATE users SET status="restrict" WHERE user_id = :user_id');
+        // Bind values
+        $this->db->bind(':user_id', $user_id);
 
+        // Execute after binding
+        $this->db->execute();
+
+        // Check for row count affected
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
 
 public function updateAdmin($data) {

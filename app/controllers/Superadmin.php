@@ -780,7 +780,84 @@ public function deletecharity($user_id)
         die('Something went wrong');
     }
 }
-
+public function restrictpublishers($user_id)
+{
+    if ($this->superadminModel->restrictpublishers($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/publishers');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictcharity($user_id)
+{
+    if ($this->superadminModel->restrictcharity($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/charity');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictcustomers($user_id)
+{
+    if ($this->superadminModel->restrictcustomers($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/customers');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictadmins($user_id)
+{
+    if ($this->superadminModel->restrictadmin($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/admins');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictmoderators($user_id)
+{
+    if ($this->superadminModel->restrictmoderators($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/moderators');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictdelivery($user_id)
+{
+    if ($this->superadminModel->restrictdelivery($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/moderators');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
 // public function order(){
     
 // }

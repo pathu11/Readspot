@@ -7,7 +7,7 @@
   <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/style.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/index.css" />
   <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
   <title>Super Admin Dashboard</title>
   <script>
@@ -17,18 +17,20 @@
 <body>
   <?php require APPROOT . '/views/superadmin/nav.php';
   ?>
-  <div class="grid-container">
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/admins">Admins</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countAdmins']; ?></span></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/moderators">Moderators</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countModerators']; ?></span></div>
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/delivery">Delivery Systems</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countDelivery']; ?></span></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/customers">Customers</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countCustomers']; ?></span></div>
+
+<div class="img-container">
+      <div class="profile">
+        <h2>Welcome Back, <br><span style="color: red; font-size: 43px;"><?php echo $data['superadminName'];?></span> 
+        <i class="fas fa-hand-paper wave-icon"></i>
+        </h2>
+      </div>
+      <div class="image">
+        <img id="image1" src="<?php echo URLROOT;?>/assets/images/publisher/admin.jpg" width="700px" height="150px" >
+       
+      </div>
+     
   </div>
-  <div class="grid-container" style="margin:30px;">
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/publishers">Publishers</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countPublishers']; ?></span></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/charity">Charity Organizations</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countCharity']; ?></span></div>
-    <div class="grid-item"><i class="fa fa-duotone fa-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/orders">Orders</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countModerators']; ?></span></div>
-    <div class="grid-item"><i class="fa fa-solid fa-address-book"></i>&nbsp;&nbsp;<a href="<?php echo URLROOT; ?>/superadmin/complaigns">Complaigns</a><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $data['countModerators']; ?></span></div>
-  </div>
+  
   <div class="chart-container">
     <div class="chart">
       <canvas id="myChart1"></canvas>
