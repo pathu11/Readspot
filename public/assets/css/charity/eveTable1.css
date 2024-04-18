@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; 
+    min-height: 100vh;
     background-color: #70BFBA;
     flex-direction: column;
 } */
@@ -14,7 +14,7 @@
 /* .container {
     background-color: white;
     width: 90%;
-    padding: 20px;
+    padding: 20px; 
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in-out;
@@ -82,8 +82,8 @@ td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 50px;
-    width: 120px;
+    height: 30px;
+    width: 40px;
 }
 
 th {

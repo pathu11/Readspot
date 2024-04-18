@@ -10,6 +10,11 @@
   padding-left: 20px;
 }
 
+.stat-itmes a{
+  text-decoration: none;
+  color: black;
+}
+
 .grid{
   display: flex;
   justify-content: center;

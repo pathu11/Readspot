@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css" /> -->
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/moderator/contents.css" />
-  <title>Challenges</title>
+  <title>Contents</title>
 </head>
 <body>
   <?php require APPROOT . '/views/moderator/nav.php';?>
