@@ -17,6 +17,7 @@
     <div class="container">
 
         <table id="eventTable" class="responsive-table">
+        <input  type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
             <h2>Books Details</h2>
         <thead>
             <tr>
