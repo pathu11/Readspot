@@ -5,9 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/eventManagement.css" ?>>
+    <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/addEvent.css" ?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
+    <script>
+
+        "use strict";
+        function dragNdrop(event) {
+            var fileName = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("preview");
+            var previewImg = document.createElement("img");
+            previewImg.setAttribute("src", fileName);
+            preview.innerHTML = "";
+            preview.appendChild(previewImg);
+        }
+
+        function drag() {
+            document.getElementById('uploadFile').parentNode.className = 'draging dragBox';
+        }
+
+        function drop() {
+            document.getElementById('uploadFile').parentNode.className = 'dragBox';
+        }
+
+    </script>
 </head>
 
 <body>
@@ -62,77 +83,67 @@
             </p>
         </div>
     </div>
-    <div class="event-table">
-        <div class="container">
-            <table id="eventTable">
 
-                <input type="text" id="searchInput" placeholder="Search by ID or Name" oninput="searchEvents()">
-
-                <thead>
-                    <tr>
-                        <th>Event ID</th>
-                        <th>Event Name</th>
-                        <th>Goal</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(1)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Modal for event details -->
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <h2>Full Details</h2>
-                    <table id="eventDetailsTable">
-                        <!-- Event details will go here -->
-                    </table>
-                </div>
+    <div class="addEventContainer">
+        <h2>CREATE CHARITY EVENTS</h2>
+        
+        <div class="addeventInputRow">
+            <div class="addeventRowElement">
+                <p>Event Name :</p>
+                <input type="text">
             </div>
-            <ul class="pagination" id="pagination">
-                <li id="prevButton">«</li>
-                <li class="current">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
-                <li id="nextButton">»</li>
-            </ul>
-            <div class="button-container">
-            <a href="addEvent"><button id="addEventBtn">ADD</button></a>
+            <div class="addeventRowElement">
+                <p>Event Location :</p>
+                <input type="text">
             </div>
-
         </div>
+
+        <div class="addeventInputRow">
+            <div class="addeventRowElement">
+                <p>Start Date :</p>
+                <input type="date">
+            </div>
+            <div class="addeventRowElement">
+                <p>End Date :</p>
+                <input type="date">
+            </div>
+        </div>
+
+        <div class="addeventInputRow">
+            <div class="addeventRowElement">
+                <p>Start Time :</p>
+                <input type="time">
+            </div>
+            <div class="addeventRowElement">
+                <p>End Time :</p>
+                <input type="time">
+            </div>
+        </div>
+
+        <div class="addeventInputRow">
+            <div class="addeventRowElement uploadEventPoster">
+                <p>Import Event Poster:</p>
+                <div class="uploadOuter">
+                    <span class="dragBox" >
+                        <p>Darg and Drop image here</p>
+                        <input type="file" onChange="dragNdrop(event)"  ondragover="drag()" ondrop="drop()" id="uploadFile"  />
+                    </span>
+                </div>
+                <div id="preview"></div>
+            </div>
+        </div>
+
+        <div class="addeventInputRow">
+            <div class="addeventRowElement">
+                <p>Select book categories :</p>
+                <input type="text">
+            </div>
+            <div class="addeventRowElement">
+                <p>Event Location :</p>
+                <input type="text">
+            </div>
+        </div>
+
     </div>
 
     <footer>
