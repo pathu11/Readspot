@@ -73,7 +73,7 @@
             </li>
             <li class="list">
               <a href="<?php echo URLROOT; ?>/superadmin/removeList"" class="nav-link">
-                <i class="bx bxs-credit-card icon"></i>
+              <i class='bx bxs-user-x icon'></i>
                 <span class="link">Removed Users</span>
               </a>
             </li>

@@ -26,6 +26,7 @@
         <a href="<?php echo URLROOT; ?>/superadmin/delivery">Delivery System</a>
     </div>
         <table id="eventTable">
+            <h3>Admins >></h3>
         <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
         <thead>
             <tr>
@@ -46,7 +47,7 @@
         <td>
             <a href='<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $admin->user_id; ?>'><i class='fa fa-edit' style='color:#09514C; ' title="Edit Admin Details"></i></a>
 
-            <a href='#'onclick='confirmDelete(<?php echo $admin->user_id; ?>)' ><i class='fa fa-trash' style='color:#09514C;' title="Remove Admin from site"></i></a>
+            <a href='#'onclick='confirmDelete(<?php echo $admin->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
             <a href='#'onclick='confirmRestrict(<?php echo $admin->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
     </td>
            
