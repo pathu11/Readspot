@@ -697,16 +697,19 @@ class Superadmin extends Controller{
     public function deleteadmins($user_id)
 {
 
-    if ($this->superadminModel->deleteadmins($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'Admin Removed');
-            redirect('superadmin/admins');
-        }
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectadmin($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/admins'); 
+            
+        } 
         
-    } else {
-        die('Something went wrong');
-    }
+    } 
+        
+    } 
 }
 
 public function deletemoderators($user_id)
@@ -715,28 +718,36 @@ public function deletemoderators($user_id)
     if (!isLoggedInSuperAdmin()) {
         redirect('landing/login');
     }
-    if ($this->superadminModel->deletemoderators($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'Moderator Removed');
-            redirect('superadmin/moderators');
-        }
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectmoderator($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/moderators'); 
+            
+        } 
         
-    } else {
-        die('Something went wrong');
-    }
+    } 
+        
+    } 
 }
 public function deletedelivery($user_id)
 {
     if (!isLoggedIn()) {
         redirect('landing/login');
     }
-    if ($this->superadminModel->deletedelivery($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'delivery Removed');
-            redirect('superadmin/delivery');
-        }
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectdelivery($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/delivery'); 
+            
+        } 
+        
+    } 
         
     } else {
         die('Something went wrong');
@@ -744,12 +755,17 @@ public function deletedelivery($user_id)
 }
 public function deletecustomers($user_id)
 {
-    if ($this->superadminModel->deletecustomers($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'customer Removed');
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectUser($user_id)) {
+       if ($this->superadminModel->rejectcustomers($user_id)){
+        if ($this->superadminModel->insertRemove_list($user_id,$name,$email)){
+             
             redirect('superadmin/customers');
-        }
+       }
+            
+       }
         
     } else {
         die('Something went wrong');
@@ -757,11 +773,17 @@ public function deletecustomers($user_id)
 }
 public function deletepublishers($user_id)
 {
-    if ($this->superadminModel->deletepublishers($user_id)) {
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'publisher Removed');
-            redirect('superadmin/publishers');
-        }
+   $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectpublisher($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/publishers'); 
+            
+        } 
+        
+    } 
         
     } else {
         die('Something went wrong');
@@ -769,14 +791,16 @@ public function deletepublishers($user_id)
 }
 public function deletecharity($user_id)
 {
-    if ($this->superadminModel->deletecharity($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'charity organization Removed');
-            redirect('superadmin/charity');
-        }
-        
-    } else {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectcharity($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/charity');    
+        }    
+    }   
+    }  else {
         die('Something went wrong');
     }
 }

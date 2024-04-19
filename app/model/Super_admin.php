@@ -5,6 +5,11 @@
         $this->db = new Database;
     }
    
+ public function getuserDetails($user_id){
+    $this->db->query('SELECT * from users WHERE user_id=:user_id');
+    $this->db->bind(':user_id',$user_id);
+    return $this->db->resultSet();
+}
     public function findAdminById($user_id){
             $this->db->query('SELECT * from admin WHERE user_id=:user_id');
             $this->db->bind(':user_id',$user_id);
@@ -538,4 +543,91 @@ public function countCharity(){
         return 0; 
         }
 }
+public function rejectUser($user_id) {
+   
+        $this->db->query('UPDATE users SET status = "reject" WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        $this->db->execute();
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+}
+    public function rejectpublisher($user_id) {
+        // Update publishers table
+        $this->db->query('UPDATE publishers SET status ="reject"   WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectdelivery($user_id) {
+        // Update delivery table
+        $this->db->query('UPDATE delivery SET status = "reject"  WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectcustomers($user_id) {
+        // Update customers table
+        $this->db->query('UPDATE customers SET status = "reject" WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectadmin($user_id) {
+        // Update admin table
+        $this->db->query('UPDATE admin SET status ="reject" WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectmoderator($user_id) {
+        // Update moderator table
+        $this->db->query('UPDATE moderator SET status = "reject"  WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectcharity($user_id) {
+        // Update charity table
+        $this->db->query('UPDATE charity SET status ="reject"  WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function insertRemove_list($user_id,$email,$name) {
+        // Insert into removed_list table
+        $this->db->query('INSERT INTO removed_list(user_id, name, email) VALUES (:user_id,:name,:email)');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':name', $name);
+        $this->db->bind(':email', $email);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+
+
+
   }
