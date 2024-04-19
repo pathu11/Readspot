@@ -508,12 +508,16 @@ public function livesearch(){
         $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
         $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
         $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
+        $orderSearchDetailsByID = $this->adminModel->getOrderSearchDetailsByID($input);
+        $orderSearchDetailsByDate = $this->adminModel->getOrderSearchDetailsByDate($input);
     }
 
     $data = [
         'customerSearchDetails'=>$customerSearchDetails,
         'publisherSearchDetails'=>$publisherSearchDetails,
-        'charitySearchDetails'=>$charitySearchDetails
+        'charitySearchDetails'=>$charitySearchDetails,
+        'orderSearchDetailsByID'=>$orderSearchDetailsByID,
+        'orderSearchDetailsByDate'=>$orderSearchDetailsByDate,
     ];
     
     $this->view('admin/livesearch',$data);

@@ -425,6 +425,29 @@ public function getCharitySearchDetails($input){
   return $results;
 }
 
+public function getOrderSearchDetailsByID($input){
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id
+                    WHERE o.order_id LIKE '{$input}%' ");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getOrderSearchDetailsByDate($input){
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id
+                    WHERE o.order_date LIKE '{$input}%'");
+  
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
 public function getOrderDetails(){
   $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
                     FROM orders o
