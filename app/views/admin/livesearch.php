@@ -157,6 +157,45 @@
     }
   }
 
+  elseif ($_POST['searchType'] == 'complains') {
+    if (!empty($data['complainSearchDetails'])) {
+        echo '<div class="table-container">
+            <table>
+              <tr>
+                <th>Complainant name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Complain</th>
+                <th>Additional notes</th>
+                <th>Complain Images</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>';
+        foreach ($data['complainSearchDetails'] as $complain) {
+            echo '<tr>' .
+                '<td>' . $complain->name . '</td>' .
+                '<td>' . $complain->email . '</td>' .
+                '<td>' . $complain->contact_number . '</td>' .
+                '<td>' . substr($complain->descript, 0, 20) . '<span class="see-more" onclick="showFullDescription(\'' . $complain->descript . '\')">See more..</span></td>' .
+                '<td>' . $complain->other . '</td>' .
+                '<td><img src="' . URLROOT . '/assets/images/customer/complain/' . $complain->err_img . '" onclick="fullView(this.src)" style="width: 30%;"/></td>' .
+                '<td>';
+            if ($complain->resolved_or_not == 0) {
+                echo '<span style="color:red;">Pending</span>';
+            } else {
+                echo '<span style="color:green;">Resolved</span>';
+            }
+            echo '</td>' .
+                '<td><button onclick="respondPopup(' . $complain->complaint_id . ',\'' . $complain->email . '\',\'' . $complain->name . '\')">Respond</button></td>' .
+                '</tr>';
+        }
+        echo '</table>' .
+            '</div>';
+    } else {
+        echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+    }
+  }
+
 
 ?>
 

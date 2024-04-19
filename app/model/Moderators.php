@@ -256,7 +256,7 @@
     }
 
     public function respondComplain($complaint_id,$moderatorComment){
-      $this->db->query('UPDATE complaint SET moderator_comment = :moderatorComment, resolved_or_not=1 WHERE complaint_id = :complaint_id');
+      $this->db->query('UPDATE complaint SET moderatorAdmin_comment = :moderatorComment, resolved_or_not=1 WHERE complaint_id = :complaint_id');
 
       $this->db->bind(":moderatorComment",$moderatorComment);
       $this->db->bind(":complaint_id",$complaint_id);
