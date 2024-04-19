@@ -40,7 +40,17 @@
                         <tr>
 
                             <td><input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>"></td>
-                            <td><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
+                            <td>
+                                <?php
+                                    if ($cart->type == "new") {
+                                        echo '<img src="' . URLROOT . '/assets/images/publisher/addbooks/'. $cart->img1 . '" alt="Book" class="cart-image">';
+                                    } elseif ($cart->type == "used") {
+                                        echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/'. $cart->img1 . '" alt="Book" class="cart-image">';
+                                    } else {
+                                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                                    }
+                                ?>
+                            </td>
                             <td><?php echo $cart->book_name; ?></td>
                             <td><?php echo $cart->price; ?></td>
                             <td><?php echo $cart->quantity; ?></td>

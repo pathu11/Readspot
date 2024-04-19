@@ -2967,7 +2967,13 @@ public function markReview()
 
     public function Recommended(){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/Recommended');
+            $recommendedBooks = $this->customerModel->topSelling();
+            // $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+            $data = [  
+                // 'bookDetails' => $NewbookDetailsByTime,
+                'recommendedBooks' => $recommendedBooks
+            ];
+            $this->view('customer/Recommended', $data);
 
         } else {
             $user_id = $_SESSION['user_id'];

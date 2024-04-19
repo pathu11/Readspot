@@ -23,7 +23,7 @@
 
  
     public function findCartById($customer_id) {
-      $this->db->query('SELECT c.*, b.book_name, b.price, b.img1 FROM cart c
+      $this->db->query('SELECT c.*, b.book_name, b.price, b.img1, b.type FROM cart c
                         JOIN books b ON c.book_id = b.book_id
                         WHERE c.customer_id = :customer_id');
       $this->db->bind(':customer_id', $customer_id);
