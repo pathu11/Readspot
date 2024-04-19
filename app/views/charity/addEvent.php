@@ -101,22 +101,22 @@
         <div class="addeventInputRow">
             <div class="addeventRowElement">
                 <p>Start Date :</p>
-                <input type="text">
+                <input type="date">
             </div>
             <div class="addeventRowElement">
                 <p>End Date :</p>
-                <input type="text">
+                <input type="date">
             </div>
         </div>
 
         <div class="addeventInputRow">
             <div class="addeventRowElement">
                 <p>Start Time :</p>
-                <input type="text">
+                <input type="time">
             </div>
             <div class="addeventRowElement">
                 <p>End Time :</p>
-                <input type="text">
+                <input type="time">
             </div>
         </div>
 
@@ -135,7 +135,7 @@
 
         <div class="addeventInputRow">
             <div class="addeventRowElement">
-                <p>Event Name :</p>
+                <p>Select book categories :</p>
                 <input type="text">
             </div>
             <div class="addeventRowElement">
