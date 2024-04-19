@@ -508,12 +508,18 @@ public function livesearch(){
         $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
         $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
         $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
+        $orderSearchDetailsByID = $this->adminModel->getOrderSearchDetailsByID($input);
+        $orderSearchDetailsByDate = $this->adminModel->getOrderSearchDetailsByDate($input);
+        $complainSearchDetails = $this->adminModel->getComplainSearchDetails($input);
     }
 
     $data = [
         'customerSearchDetails'=>$customerSearchDetails,
         'publisherSearchDetails'=>$publisherSearchDetails,
-        'charitySearchDetails'=>$charitySearchDetails
+        'charitySearchDetails'=>$charitySearchDetails,
+        'orderSearchDetailsByID'=>$orderSearchDetailsByID,
+        'orderSearchDetailsByDate'=>$orderSearchDetailsByDate,
+        'complainSearchDetails'=>$complainSearchDetails,
     ];
     
     $this->view('admin/livesearch',$data);
@@ -898,13 +904,90 @@ public function approveBook($book_id){
     
 }
 
+
+
 public function rejectBook(){
+    if (!isLoggedInAdmin()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $rejectReason = $_POST["rejectReason"];
+        $customer_id = $_POST["customer_id"];
+        $book_id = $_POST["book_id"];
 
-        $rejectReason = $_POST['rejectReason'];
-        $customer_id = $_POST['customer_id'];
-        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
-        $customerEmail = $pendingBook[0]->email;
+        $pendingBook = $this->adminModel->getPendingBookByID($book_id);
 
+        if ($this->adminModel->rejectBook($book_id)) {   
+          // Send email using PHPMailer
+          $mail = new PHPMailer(true);
+  
+          try {
+              //Server settings
+              $mail->isSMTP();
+              $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+              $mail->SMTPAuth   = true;
+              $mail->Username   = MAIL_USER; // SMTP username
+              $mail->Password   = MAIL_PASS;   // SMTP password
+              $mail->SMTPSecure = MAIL_SECURITY;
+              $mail->Port       = MAIL_PORT;
+  
+              //Recipients
+              $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+              $mail->addAddress($pendingBook->email);  // Add a recipient
+  
+              // Content
+              $mail->isHTML(true);  // Set email format to HTML
+              $mail->Subject = 'Your Book '.$pendingBook->book_name.' Has Been Rejected';
+              $mail->Body    = "Dear ".$pendingBook->name. ",.<br><br>" .
+              "Unfortunaltely your book " .$pendingBook->book_name.", authored by " .$pendingBook->author. ", has been has been rejected for the following reason:<br><br>".
+              $rejectReason."Thank you for your submission.<br><br>".
+              "Sincerely,<br>".
+              "The Admin Team";
+  
+              $mail->send();
+  
+              // Redirect or perform other actions as needed
+              redirect('admin/pendingRequestsBooks');
+          } catch (Exception $e) {
+              die('Something went wrong: ' . $mail->ErrorInfo);
+          }
+        }
+        else{
+          echo 'Something Went Wrong';
+        }
+
+      }
+    }
+  }
+
+public function complains(){
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+      }else{
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $complainDetails = $this->adminModel->getComplains();
+        
+        $data = [
+          'adminDetails' => $adminDetails,
+          'adminName'=>$adminDetails[0]->name,
+          'complainDetails'=>$complainDetails,
+        ];
+        $this->view('admin/complains',$data);
+      }
+}
+
+public function respondComplain(){
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+    }else{
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          $adminComment = $_POST["adminComment"];
+          $complaint_id = $_POST["complaint_id"];
+          $email = $_POST["email"];
+          $name = $_POST["name"];
+  
+        if ($this->adminModel->respondComplain($complaint_id,$adminComment)) {   
         // Send email using PHPMailer
         $mail = new PHPMailer(true);
 
@@ -920,26 +1003,30 @@ public function rejectBook(){
 
             //Recipients
             $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress($customerEmail);  // Add a recipient
+            $mail->addAddress($email);  // Add a recipient
 
             // Content
             $mail->isHTML(true);  // Set email format to HTML
-            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
-            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
-                            "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
-                            $rejectReason."Thank you for your submission.<br><br>".
-                            "Sincerely,<br>".
-                            "The Admin Team";
-                
+            $mail->Subject = 'Regarding Your Complain';
+            $mail->Body    = "Dear ".$name. ". Thank you for reaching out to us ".$adminComment." If there is anything else we can assist you with, or if you have any further questions, please don't hesitate to contact us.
+
+            Thank you for your understanding.";
+
+            $mail->send();
+
             // Redirect or perform other actions as needed
-
-            redirect('admin/pendingRequestsBooks');
-            
-        } catch (Exception $e) {
-            die('Something went wrong: ' . $mail->ErrorInfo);
+            redirect('admin/complains');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
         }
+        else{
+        echo 'Something Went Wrong';
+        }
+  
+        }
+    }
 }
-
 
 
 }

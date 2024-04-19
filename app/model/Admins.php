@@ -425,6 +425,37 @@ public function getCharitySearchDetails($input){
   return $results;
 }
 
+public function getOrderSearchDetailsByID($input){
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id
+                    WHERE o.order_id LIKE '{$input}%' ");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getOrderSearchDetailsByDate($input){
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id
+                    WHERE o.order_date LIKE '{$input}%'");
+  
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getComplainSearchDetails($input){
+  $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input AND (reason='Other' OR reason='Comments')");
+  $this->db->bind(":input",$input);
+  $results=$this->db->resultSet();
+  return $results;
+
+}
+
 public function getOrderDetails(){
   $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
                     FROM orders o
@@ -560,8 +591,19 @@ public function getPendingBookByID($book_id){
                     WHERE b.book_id=:book_id ");
   
   $this->db->bind(':book_id', $book_id);
-  $results=$this->db->resultSet();
+  $results=$this->db->single();
   return $results;
+}
+
+public function rejectBook($book_id){
+  $this->db->query("UPDATE books SET status='rejected' WHERE book_id = :book_id");
+  $this->db->bind(":book_id",$book_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 public function getMessageDetails($user_id){
@@ -589,7 +631,24 @@ public function getMessageDetails($user_id){
   return $this->db->resultSet();
 }
 
+public function getComplains(){
+  $this->db->query('SELECT CONCAT(first_name," ",last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE reason ="Comments" OR reason ="Other"');
+  $results=$this->db->resultSet();
+  return $results;
+}
 
+public function respondComplain($complaint_id,$adminComment){
+  $this->db->query('UPDATE complaint SET moderatorAdmin_comment = :adminComment, resolved_or_not=1, update_time_on_comment = NOW() WHERE complaint_id = :complaint_id');
+
+  $this->db->bind(":adminComment",$adminComment);
+  $this->db->bind(":complaint_id",$complaint_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+}
 
   
 }
