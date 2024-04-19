@@ -882,14 +882,40 @@ public function restrictdelivery($user_id)
         die('Something went wrong');
     }
 }
-// public function order(){
-    
-// }
-
-
-
-
-
-    
-
+    public function removeList(){
+        if (!isLoggedInSuperAdmin()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+        
+            $removerDetails = $this->superadminModel->getRemover(); 
+            $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);   
+            $data = [
+                'removerDetails' => $removerDetails,
+                'superadminDetails' => $superadminDetails,
+                'superadminName'=>$superadminDetails[0]->name,
+                'superadminEmail'=>$superadminDetails[0]->email,
+            ];  
+            $this->view('superadmin/removeList',$data); 
+        }   
+    }
+    public function restoreusers($remove_id){
+        if (!isLoggedInSuperAdmin()) {
+            redirect('landing/login');
+        } else {
+            $userDetails=$this->superadminModel->getUserRoleByRemoveId($remove_id);
+            $user_role=$userDetails[0]->user_role;
+            $user_id=$userDetails[0]->user_id;
+            if($this->superadminModel->restoreusers($remove_id)){
+                // if($user_role=='customers'){
+                    if($this->superadminModel->updateUserStatus($user_id,$user_role)){
+                        redirect('superadmin/removeList');
+                // }
+                
+            }else{
+                die('something were wrong');
+            }
+        }
+    }
+}
 }
