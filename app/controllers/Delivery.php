@@ -30,11 +30,25 @@ class Delivery extends Controller{
                 $deliveryName = $deliveryDetails[0]->name;
                 // Rest of your code...
             }
-            
+            $orderProCount=$this->deliveryModel->countProOrders();
+            $orderDelCount=$this->deliveryModel->countDelOrders();
+            $orderShipCount=$this->deliveryModel->countShipOrders();
+            $orderReturnedCount=$this->deliveryModel->countReturnedOrders();
+            $currentMonth = date('m');
+            $currentYear = date('Y');
+            $orderData = $this->deliveryModel->getOrderStatusCountsByDay($currentMonth, $currentYear);
+
             $data = [
                 'deliveryDetails' => $deliveryDetails,
-                'deliveryName'=>$deliveryName
+                'deliveryName'=>$deliveryName,
+                'orderProCount'    =>$orderProCount,
+                'orderDelCount'    =>$orderDelCount,
+                'orderReturnedCount' =>$orderReturnedCount,
+                'orderShipCount'    =>$orderShipCount,
+                'orderData'=>$orderData,
+               
             ];
+           
             $this->view('delivery/index', $data);
         }
        

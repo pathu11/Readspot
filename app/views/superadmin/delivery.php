@@ -8,7 +8,7 @@
 <head>
 <title>Delivery </title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/table.css">
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
 <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 </head>
@@ -16,8 +16,7 @@
 <body>
  
     <?php require APPROOT . '/views/superadmin/nav.php';?>
-    <!-- <a href="#" class="go-back-link" onclick="goBack()">&lt;&lt; Back</a>
-    <?php require APPROOT . '/views/superadmin/subnav.php';?> -->
+   
     <div class="container" >
     <div class="nav">
         <a href="<?php echo URLROOT; ?>/superadmin/customers">Customers</a>
@@ -28,6 +27,8 @@
         <a href="<?php echo URLROOT; ?>/superadmin/delivery">Delivery System</a>
     </div>
         <table id="eventTable">
+        <h3>Delivery Systems >></h3>
+        <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
         <thead>
             <tr>
 
@@ -45,9 +46,10 @@
         <td ><?php echo $delivery->name; ?></td>
         <td ><?php echo $delivery->email; ?></td>
         <td>
-            <a href='<?php echo URLROOT; ?>/superadmin/updateDelivery/<?php echo $delivery->user_id; ?>'><i class='fa fa-edit' style='color:#09514C;'></i></a>
+            <a href='<?php echo URLROOT; ?>/superadmin/updateDelivery/<?php echo $delivery->user_id; ?>'><i class='fa fa-edit' style='color:#09514C;' title="Edit Delivery system's Details"></i></a>
 
-            <a href='#'onclick='confirmDelete(<?php echo $delivery->user_id; ?>)' ><i class='fa fa-trash' style='color:#09514C;'></i></a>
+            <a href='#'onclick='confirmDelete(<?php echo $delivery->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
+            <a href='#'onclick='confirmRestrict(<?php echo $delivery->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
     </td>
            
     </tr>
@@ -62,6 +64,15 @@
                 <p>Are you sure you want to delete this delivery system?</p>
                 <button onclick="proceedDelete(<?php echo $delivery->user_id; ?>)">Yes</button>
                 <button class="no" onclick="closeConfirmationModal('confirmationDelete')">No</button>
+            </div>
+        </div>
+        <div id="confirmationRestrict" class="confirmationModal1">
+            <div class="confirmation-content1">
+                <span class="close" onclick="closeConfirmationModal1('confirmationRestrict')">&times;</span>
+                <h2>Confirmation</h2>
+                <p>Are you sure you want to restrict  this delivery system for 7 days?</p>
+                <button onclick="proceedRestrict(<?php echo $delivery->user_id; ?>)">Yes</button>
+                <button class="no" onclick="closeConfirmationModal1('confirmationRestrict')">No</button>
             </div>
         </div>
 
@@ -90,6 +101,24 @@
    
 </body>
 <script>
+     function confirmRestrict(userId) {
+    openConfirmationModal1('confirmationRestrict'); // Call the function to open the modal
+}
+
+function openConfirmationModal1(modalId) {
+    var confirmationModal1 = document.getElementById(modalId);
+    confirmationModal1.style.display = "block"; // Set the display style to block to show the modal
+}
+
+function closeConfirmationModal1(modalId) {
+    var confirmationModal1 = document.getElementById(modalId);
+    confirmationModal1.style.display = "none"; // Set the display style to none to hide the modal
+}
+
+function proceedRestrict(userId) {
+    window.location.href = '<?php echo URLROOT; ?>/superadmin/restrictdelivery/' + userId;
+}
+
     // When the user clicks on div, open the popup
     function confirmDelete(userId) {
             openConfirmationModal('confirmationDelete');

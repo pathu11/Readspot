@@ -5,6 +5,11 @@
         $this->db = new Database;
     }
    
+ public function getuserDetails($user_id){
+    $this->db->query('SELECT * from users WHERE user_id=:user_id');
+    $this->db->bind(':user_id',$user_id);
+    return $this->db->resultSet();
+}
     public function findAdminById($user_id){
             $this->db->query('SELECT * from admin WHERE user_id=:user_id');
             $this->db->bind(':user_id',$user_id);
@@ -191,10 +196,70 @@ public function getDelivery(){
   
       }
 
-    //   delete users
+   
 
-    public function deleteusers($user_id) {
-        $this->db->query('DELETE FROM users WHERE user_id = :user_id');
+    public function restrictpublishers($user_id) {
+        $this->db->query('UPDATE publishers SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictcustomers($user_id) {
+        $this->db->query('UPDATE customers SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictdelivery($user_id) {
+        $this->db->query('UPDATE delivery SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictmoderator($user_id) {
+        $this->db->query('UPDATE moderator SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictadmin($user_id) {
+        $this->db->query('UPDATE admin SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictcharity($user_id) {
+        $this->db->query('UPDATE charity SET status="restrict" WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->execute();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function restrictusers($user_id) {
+        $this->db->query('UPDATE users SET status="restrict" WHERE user_id = :user_id');
         // Bind values
         $this->db->bind(':user_id', $user_id);
 
@@ -208,99 +273,6 @@ public function getDelivery(){
             return false;
         }
     }
-    public function deletepublishers($user_id) {
-        $this->db->query('DELETE FROM publishers WHERE user_id = :user_id');
-        // Bind values
-        $this->db->bind(':user_id', $user_id);
-
-        // Execute after binding
-        $this->db->execute();
-
-        // Check for row count affected
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public function deleteadmins($user_id) {
-        $this->db->query('DELETE FROM admin WHERE user_id = :user_id');
-        // Bind values
-        $this->db->bind(':user_id', $user_id);
-
-        // Execute after binding
-        $this->db->execute();
-
-        // Check for row count affected
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public function deletecustomers($user_id) {
-        $this->db->query('DELETE FROM customers WHERE user_id = :user_id');
-        // Bind values
-        $this->db->bind(':user_id', $user_id);
-
-        // Execute after binding
-        $this->db->execute();
-
-        // Check for row count affected
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public function deletecharity($user_id) {
-        $this->db->query('DELETE FROM charity WHERE user_id = :user_id');
-        // Bind values
-        $this->db->bind(':user_id', $user_id);
-
-        // Execute after binding
-        $this->db->execute();
-
-        // Check for row count affected
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-
-    public function deletemoderators($user_id) {
-        $this->db->query('DELETE FROM moderator WHERE user_id = :user_id');
-        // Bind values
-        $this->db->bind(':user_id', $user_id);
-
-        // Execute after binding
-        $this->db->execute();
-
-        // Check for row count affected
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public function deletedelivery($user_id) {
-        $this->db->query('DELETE FROM delivery WHERE user_id = :user_id');
-        // Bind values
-        $this->db->bind(':user_id', $user_id);
-
-        // Execute after binding
-        $this->db->execute();
-
-        // Check for row count affected
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     
 
 public function updateAdmin($data) {
@@ -464,4 +436,151 @@ public function countCharity(){
         return 0; 
         }
 }
+public function rejectUser($user_id) {
+   
+        $this->db->query('UPDATE users SET status = "reject" WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        $this->db->execute();
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+}
+    public function rejectpublisher($user_id) {
+        // Update publishers table
+        $this->db->query('UPDATE publishers SET status ="reject"   WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectdelivery($user_id) {
+        // Update delivery table
+        $this->db->query('UPDATE delivery SET status = "reject"  WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectcustomers($user_id) {
+        // Update customers table
+        $this->db->query('UPDATE customers SET status = "reject" WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectadmin($user_id) {
+        // Update admin table
+        $this->db->query('UPDATE admin SET status ="reject" WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectmoderator($user_id) {
+        // Update moderator table
+        $this->db->query('UPDATE moderator SET status = "reject"  WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function rejectcharity($user_id) {
+        // Update charity table
+        $this->db->query('UPDATE charity SET status ="reject"  WHERE user_id = :userId');
+        $this->db->bind(':userId', $user_id);
+        if ($this->db->execute()) {
+            return true; // Operation successful
+        } else {
+            return false; // Operation failed
+        }
+    }
+    public function insertRemove_list($user_id,$email,$name) {
+        // Insert into removed_list table
+        $this->db->query('INSERT INTO removed_list(user_id, name, email) VALUES (:user_id,:name,:email)');
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':name', $name);
+        $this->db->bind(':email', $email);
+        if ($this->db->execute()) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+    public function getRemover(){
+        $this->db->query('SELECT * FROM removed_list WHERE status="removed"');
+        $results=$this->db->resultSet();
+        return $results;
+    }
+    public function restoreusers($remove_id){
+      
+        $this->db->query("
+        UPDATE removed_list AS rl
+        INNER JOIN users AS u ON rl.user_id = u.user_id
+        SET 
+            rl.status = 'restored',
+            u.status = 'approval'
+        WHERE rl.remove_id = :removeId");
+   
+        $this->db->bind(':removeId', $remove_id);
+        $this->db->execute();
+        return true; 
+    }
+    public function updateUserStatus($userId, $userRole) {
+        switch ($userRole) {
+            case 'customer':
+                $this->db->query("UPDATE customers SET status = 'approval' WHERE user_id = :userId");
+                break;
+            case 'publisher':
+                $this->db->query("UPDATE publishers SET status = 'approval' WHERE user_id = :userId");
+                break;
+            case 'admin':
+                $this->db->query("UPDATE admin SET status = 'approval' WHERE user_id = :userId");
+                break;
+            case 'moderator':
+                $this->db->query("UPDATE moderator SET status = 'approval' WHERE user_id = :userId");
+                break;
+            case 'charity':
+                $this->db->query("UPDATE charity SET status = 'approval' WHERE user_id = :userId");
+                break;
+            case 'delivery':
+                $this->db->query("UPDATE delivery SET status = 'approval' WHERE user_id = :userId");
+                break;
+            default:
+                // Handle unsupported or unrecognized user roles
+                return false;
+        }
+        
+        // Bind parameters and execute query
+        $this->db->bind(':userId', $userId);
+        if ($this->db->execute()) {
+            return true; // Successful update
+        } else {
+            return false; // Update failed
+        }
+    }
+    
+    public function getUserRoleByRemoveId($removeId) {
+        $this->db->query("
+            SELECT u.user_role,u.user_id
+            FROM removed_list AS rl
+            INNER JOIN users AS u ON rl.user_id = u.user_id
+            WHERE rl.remove_id = :removeId ");
+        $this->db->bind(':removeId', $removeId);
+        $results=$this->db->resultSet();
+        return $results;
+    }
   }
