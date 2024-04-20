@@ -95,10 +95,46 @@
                             </td>
                             <td><a href="user" class="ur-view">View</a></td>
                         </tr>
-                        
-                        
-
-
+                        <tr>
+                            <td>200+</td>
+                            <td>Fantasy books</td>
+                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
+                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
+                                voluptatum
+                                vel? In laboriosam deserunt velit dignissimos!
+                            </td>
+                            <td><a href="user" class="ur-view">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>200+</td>
+                            <td>Fantasy books</td>
+                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
+                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
+                                voluptatum
+                                vel? In laboriosam deserunt velit dignissimos!
+                            </td>
+                            <td><a href="user" class="ur-view">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>200+</td>
+                            <td>Fantasy books</td>
+                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
+                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
+                                voluptatum
+                                vel? In laboriosam deserunt velit dignissimos!
+                            </td>
+                            <td><a href="user" class="ur-view">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>200+</td>
+                            <td>Fantasy books</td>
+                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
+                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
+                                voluptatum
+                                vel? In laboriosam deserunt velit dignissimos!
+                            </td>
+                            <td><a href="user" class="ur-view">View</a></td>
+                        </tr>
                     </tbody>
                 </table>
             </section>

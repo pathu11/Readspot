@@ -1,4 +1,4 @@
-.userRequest {
+.ur-userRequest {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
@@ -7,15 +7,17 @@
     font-family: "Poppins";
 }
 
-.requestTable {
-    width: 90%;
-    margin: 20px auto;
+.ur-requestTable {
+
+    width: 92.5%;
+    margin: 50px auto 125px auto;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.Rtable-header h2 {
+.ur-table-header h2 {
+    margin-top: 20px;
     text-align: center;
     margin-bottom: 15px;
     font-size: 16px;
@@ -27,14 +29,74 @@
     justify-content: center;
 }
 
-table {
+.ur-table-body table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border-radius: 3px;
+}
+
+.ur-table-body th,
+.ur-table-body td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ur-table-body th:nth-child(1),
+.ur-table-body td:nth-child(1) {
+    width: 10%;
+}
+
+.ur-table-body th:nth-child(2),
+.ur-table-body td:nth-child(2) {
+    width: 20%;
+}
+
+.ur-table-body th:nth-child(3),
+.ur-table-body td:nth-child(3) {
+    width: 35%;
+}
+
+.ur-table-body th:nth-child(4),
+.ur-table-body td:nth-child(4) {
+    width: 5%;
+}
+
+.ur-table-body tr {
+    height: 30px;
+}
+
+.ur-view {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #188c7b;
+    color: white;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1;
+    transition: background-color 0.3s ease;
+}
+
+.ur-view:hover {
+    background-color: #005348;
+}
+
+.ur-table {
     width: 100%;
     margin-top: 15px;
     border-collapse: collapse;
+    overflow: hidden;
 }
 
-th,
-td {
+.ur-th,
+.ur-td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -43,26 +105,26 @@ td {
     font-size: 14px;
 }
 
-th {
+.ur-th {
     background-color: #f2f2f2;
     font-size: 14px;
 }
 
-tbody tr {
+.ur-tbody tr {
     height: 10px;
 }
 
-tbody tr:hover {
+.ur-tbody tr:hover {
     background-color: #f5f5f5;
 }
 
-.additionalInfo {
+.ur-additionalInfo {
     max-height: 10px;
     overflow: hidden;
     background-color: transparent;
 }
 
-.status {
+.ur-status {
     max-width: 100px;
     padding: 4px;
     overflow: hidden;
@@ -72,16 +134,16 @@ tbody tr:hover {
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.status:hover {
+.ur-status:hover {
     color: darkgray;
 }
 
-.status:hover i {
+.ur-status:hover i {
     transform: scale(1.3);
     transition: 0.2s ease;
 }
 
-.popup {
+.ur-popup {
     display: none;
     position: fixed;
     top: 0;
@@ -92,7 +154,7 @@ tbody tr:hover {
     z-index: 1000;
 }
 
-.popup-content {
+.ur-popup-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -105,7 +167,7 @@ tbody tr:hover {
     text-align: center;
 }
 
-.close-btn {
+.ur-close-btn {
     position: absolute;
     top: -9px;
     right: -9px;
@@ -120,16 +182,16 @@ tbody tr:hover {
     color: #ffffff;
 }
 
-.close-btn:hover {
+.ur-close-btn:hover {
     background-color: #188c7b;
     color: white;
 }
 
-.popup-buttons {
+.ur-popup-buttons {
     margin-top: 20px;
 }
 
-.popup-button {
+.ur-popup-button {
     padding: 10px 20px;
     margin: 0 12px;
     border: none;
@@ -140,50 +202,34 @@ tbody tr:hover {
     font-weight: bold;
 }
 
-#viewNow,
-#ignoreNow {
+#ur-viewNow,
+#ur-ignoreNow {
     width: 100px;
 }
 
-.popup-button:hover {
+.ur-popup-button:hover {
     background-color: #096154;
 }
 
-.popup-buttons button span {
+.ur-popup-buttons button span {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.view-all-button {
-    padding: 5px 10px;
-    margin: 10px auto;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #188c7b;
-    color: #fff;
-    font-weight: bold;
-    display: block;
-    height: 25px;
-    width: 80px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-}
 
-.view-all-button:hover {
+.ur-view-all-button:hover {
     background-color: #209684;
 }
 
-.user-details-container {
+.ur-user-details-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.user-common-details {
+.ur-user-common-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -193,42 +239,29 @@ tbody tr:hover {
     background-color: #096154;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: wave 1.5s infinite;
 }
 
-@keyframes wave {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-5px);
-    }
-}
-
-.user-common-details p {
+.ur-user-common-details p {
     margin: 0;
     padding: 0;
 }
 
-.user-common-details p:not(:last-child) {
+.ur-user-common-details p:not(:last-child) {
     margin-right: 20px;
 }
 
-.phone-icon {
+.ur-phone-icon {
     color: rgb(255, 255, 255);
     margin-right: 5px;
 }
 
-.phone-link {
+.ur-phone-link {
     color: rgb(255, 255, 255);
     text-decoration: none;
     cursor: pointer;
 }
 
-.contact-modal {
+.ur-contact-modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -239,7 +272,7 @@ tbody tr:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.contact-modal-content {
+.ur-contact-modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -247,17 +280,14 @@ tbody tr:hover {
     border-radius: 10px;
     background-color: #fefefe;
     padding: 20px;
-    /* Increased padding */
     border: 1px solid #888;
     width: 30%;
     max-width: 250px;
-    /* Adjusted width */
     text-align: center;
     font-size: 14px;
-    /* Reduced font-size */
 }
 
-.close-icon {
+.ur-close-icon {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -265,21 +295,20 @@ tbody tr:hover {
     color: #888;
     font-size: 18px;
     z-index: 1;
-    /* Ensure it's above other content */
 }
 
-.close-icon:hover {
+.ur-close-icon:hover {
     color: #333;
 }
 
-.contact-options {
+.ur-contact-options {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-.contact-modal-content button,
-.contact-modal-content a {
+.ur-contact-modal-content button,
+.ur-contact-modal-content a {
     flex: 1;
     padding: 10px;
     margin: 0 5px;
@@ -291,29 +320,18 @@ tbody tr:hover {
     transition: background-color 0.3s ease;
 }
 
-.contact-modal-content button:hover,
-.contact-modal-content a:hover {
+.ur-contact-modal-content button:hover,
+.ur-contact-modal-content a:hover {
     background-color: #e0e0e0;
 }
 
-.message-icon {
+.ur-message-icon {
     color: rgb(255, 255, 255);
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.close-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-/* body {
-    overflow: hidden;
-} */
-
-.close-icon {
+.ur-close-icon {
     position: absolute;
     top: -8px;
     right: -10px;
@@ -326,17 +344,58 @@ tbody tr:hover {
     font-size: 18px;
 }
 
-.close-icon:hover {
+.ur-close-icon:hover {
     color: #096154;
     background-color: white;
 }
 
-.user-email-link {
+.ur-email-link {
     color: rgb(255, 255, 255);
     text-decoration: none;
     cursor: pointer;
 }
 
-.user-email-link:hover {
+.ur-email-link:hover {
     text-decoration: underline;
+}
+
+.ur-total-count {
+    position: absolute;
+    top: 164px;
+    right: 91%;
+}
+
+#ur-totalCount {
+    display: inline-block;
+    background-color: #005348;
+    padding: 3px;
+    opacity: 0.5;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    color: white;
+    line-height: 20px;
+    text-align: center;
+}
+
+.ur-go-back-btn {
+    position: relative;
+    top: 15px;
+    left: 50px;
+    margin-bottom: 20px;
+    background-color: #188c7b;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.ur-go-back-btn i {
+    margin-right: 8px;
+}
+
+.ur-go-back-btn:hover {
+    background-color: #005348;
 }
