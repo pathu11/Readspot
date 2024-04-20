@@ -127,8 +127,10 @@ require APPROOT . '\vendor\autoload.php';
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
+            'img'=>'',
             'book_category_err'=>'',
-            'description_err'=>''
+            'description_err'=>'',
+            'img_err'=>'',
         ];
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
@@ -138,7 +140,37 @@ require APPROOT . '\vendor\autoload.php';
             $data['description_err']='Please enter the category description';      
         }
 
-        if(empty($data['book_category_err']) && empty($data['description_err'])){
+        if(empty($data['book_category_err']) && empty($data['description_err']) && empty($data['img_err'])){
+            if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
+                $img_name = $_FILES['bookCategoryImg']['name'];
+                $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
+                $error = $_FILES['bookCategoryImg']['error'];
+                            
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+                        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['book_category'] . '-' . $unique_id . '-img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/admin/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                        
+                        $data['img'] = $new_img_name;
+                    } else {
+                        // Handle file type not allowed error
+                        $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                    }
+                } else {
+                    // Handle file upload error
+                    $data['img_err'] = 'Error uploading the file';
+                }
+            }
+            
+            
+            
             if($this->adminModel->addBookCategory($data)){
                 flash('add_success','You are added the book category successfully');
                 redirect('admin/categories');
@@ -155,6 +187,7 @@ require APPROOT . '\vendor\autoload.php';
         $data=[
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
+            'img'=>'',
             'book_category'=>'',
             'description'=>'',
             'book_category_err'=>'',
@@ -178,6 +211,8 @@ require APPROOT . '\vendor\autoload.php';
             'id' => $id,
             'book_category' => trim($_POST['book_category']),
             'description' => trim($_POST['description']),
+            'img'=>'',
+
             'book_category_err' => '',
             'description_err' => ''
         ];
@@ -191,6 +226,35 @@ require APPROOT . '\vendor\autoload.php';
         }
 
         if (empty($data['book_category_err']) && empty($data['description_err'])) {
+
+            if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
+                $img_name = $_FILES['bookCategoryImg']['name'];
+                $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
+                $error = $_FILES['bookCategoryImg']['error'];
+                            
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+                        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['book_category'] . '-' . $unique_id . '-img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/admin/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                        
+                        $data['img'] = $new_img_name;
+                    } else {
+                        // Handle file type not allowed error
+                        $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                    }
+                } else {
+                    // Handle file upload error
+                    $data['img_err'] = 'Error uploading the file';
+                }
+            }
+            
             if ($this->adminModel->updateBookCategory($data)) {
                 flash('update_success', 'You are updated the book category successfully');
                 redirect('admin/categories');
@@ -210,6 +274,7 @@ require APPROOT . '\vendor\autoload.php';
             'id' => $id,
             'book_category' => $bookCategory->category,
             'description' => $bookCategory->description,
+            'img'=>$bookCategory->category_img,
             'book_category_err' => '',
             'description_err' => ''
         ];

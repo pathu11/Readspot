@@ -142,10 +142,11 @@ public function sendMessage($user_id_from_users_table,$user_id,$sender_name,$top
     }
 
     public function addBookCategory($data){
-      $this->db->query('INSERT INTO book_category (category, description) VALUES (:book_category, :description)');
+      $this->db->query('INSERT INTO book_category (category, description,category_img) VALUES (:book_category, :description,:img)');
 
       $this->db->bind(':book_category',$data['book_category']);
       $this->db->bind(':description',$data['description']);
+      $this->db->bind(':img',$data['img']);
 
       if($this->db->execute()){
         return true;
@@ -186,10 +187,11 @@ public function sendMessage($user_id_from_users_table,$user_id,$sender_name,$top
     }
 
     public function updateBookCategory($data){
-      $this->db->query('UPDATE book_category SET category = :book_category, description = :description WHERE id = :id');
+      $this->db->query('UPDATE book_category SET category = :book_category, description = :description,category_img=:img WHERE id = :id');
 
       $this->db->bind(':book_category',$data['book_category']);
       $this->db->bind(':description',$data['description']);
+      $this->db->bind(':img',$data['img']);
       $this->db->bind(':id',$data['id']);
 
       if($this->db->execute()){
