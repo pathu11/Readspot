@@ -4,12 +4,14 @@ class Superadmin extends Controller{
     private $superadminModel;
    
     private $userModel;
+    private $publisherModel;
   
     private $db;
     public function __construct(){
         $this->superadminModel=$this->model('Super_admin');
         // $this->adminModel=$this->model('Admins');
         $this->userModel=$this->model('User');
+        $this->publisherModel=$this->model('Publishers');
         $this->db = new Database();
     }
     public function index(){
@@ -917,5 +919,30 @@ public function restrictdelivery($user_id)
             }
         }
     }
+}
+public function notifications(){
+    if(!isLoggedInSuperAdmin()){
+        redirect('landing/login');
+    }else{
+
+        $user_id = $_SESSION['user_id'];
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+       
+        $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
+        $sender_id=$ChatDetails[0]->outgoing_msg_id;
+       
+        $senderDetails=$this->publisherModel->finduserDetails($sender_id);
+      
+        $data=[
+            'chatDetails'=>$ChatDetails,
+            'user_id'=>$user_id,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminDetails'=>$superadminDetails,
+            'senderName'=>$senderDetails->name
+        ];
+
+        $this->view('superadmin/notifications',$data);
+
+}
 }
 }

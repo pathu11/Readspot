@@ -36,7 +36,7 @@
             </div>
             <hr>
             
-            <a href="<?php echo URLROOT; ?>/superadmin/notification" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/superadmin/notifications" class="sub-menu-link"> <!--path changed-->
                 <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
                 <p>Notifications</p>
                 <span>></span>
@@ -87,7 +87,7 @@
             
           <div class="bottom-cotent">
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/customerSupport" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/notifications" class="nav-link">
                 <i class="bx bxs-message-alt-dots icon"></i>
                 <span class="link">Notifications</span>
               </a>

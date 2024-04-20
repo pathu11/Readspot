@@ -48,6 +48,7 @@
         <td>
             <a href='#'onclick='confirmDelete(<?php echo $publishers->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
             <a href='#'onclick='confirmRestrict(<?php echo $publishers->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $publishers->user_id; ?>"><i class='fas fa-comment-dots' style='color:#09514C;' title="Chat with this user" ></i></a>
             
     </td>
            

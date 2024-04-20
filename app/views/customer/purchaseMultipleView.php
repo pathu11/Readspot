@@ -42,6 +42,8 @@
                 <input type="text" name="contact_no" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" required><br>
 
                 <span class="error"><?php echo $data['contact_no_err']; ?></span>
+
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/purchase2.jpg" height="250px">
             </div>
             <div class="flex-child-element green">
                 <h1>Your Order</h1>
@@ -78,7 +80,13 @@
                                 <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">
                             </td>
                             <td>
+                            <?php if ($book[0]->discounts > 0): ?>
+                              
+                                <span id="subtotal_price_with_discounts_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price_with_discounts; ?> </span>
+                                <span id="subtotal_price_<?php echo $index; ?>" style="text-decoration:line-through;"> Rs. <?php echo $book[0]->total_price; ?> </span>
+                            <?php else: ?>
                                 <span id="subtotal_price_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price; ?> </span>
+                            <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -174,57 +182,74 @@ function toggleRedeemPoints() {
             updateHiddenQuantity(index, quantity);
         }
     }
-    // Function to update total cost, delivery fee, and total weight
     function updateTotalCost(index, quantity) {
-        let totalCost = 0;
-        let totalWeight = 0;
-        let deliveryFee = 0;
-        let bookDetails = <?php echo json_encode($data['bookDetails']); ?>;
+    let totalCost = 0;
+    let totalWeight = 0;
+    let deliveryFee = 0;
+    let bookDetails = <?php echo json_encode($data['bookDetails']); ?>;
 
-        // Calculate total price and total weight
-        for (let i = 0; i < bookDetails.length; i++) {
-            let book = bookDetails[i][0];
-            let bookQuantity = parseInt(document.getElementById('quantity_' + i).innerText); // Get the current quantity
-            totalCost += book.perOnePrice * bookQuantity;
-            totalWeight += book.perOneWeight * bookQuantity;
+    // Calculate total price and total weight
+    for (let i = 0; i < bookDetails.length; i++) {
+        let book = bookDetails[i][0];
+        let bookQuantity = parseInt(document.getElementById('quantity_' + i).innerText); // Get the current quantity
 
-            let subtotalElement = document.getElementById('subtotal_price_' + i);
-            subtotalElement.innerText = "Rs. " + (book.perOnePrice * bookQuantity);
-        }
+      
+        let subtotalPrice = book.discounts > 0 ? (book.perOnePrice - (book.perOnePrice * book.discounts * 0.01)) * bookQuantity : book.perOnePrice * bookQuantity;
+        totalCost += subtotalPrice;
+        totalWeight += book.perOneWeight * bookQuantity;
 
-        // Update the displayed total cost
-        document.getElementById('totalCostDisplay').innerText = "Rs. " + totalCost;
-        document.getElementById('subtotalPriceInput').value = totalCost; // Update hidden input field for subtotal price
-
-        // Calculate delivery fee based on total weight
-        let firstKiloCharge = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
-        let additionalKiloCharge = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
-        if (totalWeight > 1000) {
-            let additionalWeight = Math.ceil((totalWeight - 1000) / 1000);
-            deliveryFee = firstKiloCharge + (additionalWeight * additionalKiloCharge);
+       
+        let subtotalElement;
+        if (book.discounts > 0) {
+            subtotalElement = document.getElementById('subtotal_price_with_discounts_' + i);
         } else {
-            deliveryFee = firstKiloCharge;
+            subtotalElement = document.getElementById('subtotal_price_' + i);
         }
+        subtotalElement.innerText = "Rs. " + subtotalPrice;
 
-        // Calculate total price including delivery fee
-        let totalPrice = totalCost + deliveryFee;
-
-        // Update the displayed delivery fee and total price
-        document.getElementById('totalDeliveryDisplay').innerText = "Rs. " + deliveryFee;
-        document.getElementById('totalPriceDisplay').innerText = "Rs. " + totalPrice;
-
-        // Update the hidden input fields with the updated values
-        document.getElementById('totalWeightInput').value = totalWeight;
-        document.getElementById('totalDeliveryInput').value = deliveryFee;
-        document.getElementById('totalCostInput').value = totalPrice;
+     
     }
+
+    // Update the displayed total cost
+    document.getElementById('totalCostDisplay').innerText = "Rs. " + totalCost;
+    document.getElementById('subtotalPriceInput').value = totalCost; // Update hidden input field for subtotal price
+
+    // Calculate delivery fee based on total weight
+    let firstKiloCharge = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
+    let additionalKiloCharge = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
+    if (totalWeight > 1000) {
+        let additionalWeight = Math.ceil((totalWeight - 1000) / 1000);
+        deliveryFee = firstKiloCharge + (additionalWeight * additionalKiloCharge);
+    } else {
+        deliveryFee = firstKiloCharge;
+    }
+
+    // Calculate total price including delivery fee
+    let totalPrice = totalCost + deliveryFee;
+
+    // Update the displayed delivery fee and total price
+    document.getElementById('totalDeliveryDisplay').innerText = "Rs. " + deliveryFee;
+    document.getElementById('totalPriceDisplay').innerText = "Rs. " + totalPrice;
+
+    // Update the hidden input fields with the updated values
+    document.getElementById('totalWeightInput').value = totalWeight;
+    document.getElementById('totalDeliveryInput').value = deliveryFee;
+    document.getElementById('totalCostInput').value = totalPrice;
+}
+
 // Function to apply redeem points and update total price
 function applyRedeemPoints() {
         // Get the redeem points entered by the user
         let redeemPoints = parseInt(document.getElementById('redeemPointsInput').value);
+        let availableRedeemPoints = parseInt(document.getElementById('redeemPointsInput').max); // Maximum redeem points available
         let totalCost = parseFloat(document.getElementById('totalCostDisplay').innerText.split(' ')[1]);
         let deliveryFee = parseFloat(document.getElementById('totalDeliveryDisplay').innerText.split(' ')[1]);
         let newTotalPrice = totalCost + deliveryFee - redeemPoints;
+        if (redeemPoints > availableRedeemPoints || redeemPoints < 0) {
+       
+            alert("Error: Entered redeem points exceed the maximum available redeem points.");
+            return; 
+    }
         document.getElementById('totalPriceDisplay').innerText = "Rs. " + newTotalPrice;
 
         document.getElementById('totalCostInput').value = newTotalPrice;

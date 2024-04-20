@@ -1114,10 +1114,11 @@ public function getQuizDetails(){
 }
 
   public function findDetailsByCartId($cartId){
-    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
+    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, (c.quantity * (b.price - (b.price * b.discounts * 0.01))) AS total_price_with_discounts, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
     FROM cart c 
     JOIN books b ON c.book_id = b.book_id 
-    WHERE c.cart_id = :cart_id');
+    WHERE c.cart_id = :cart_id
+    ');
     $this->db->bind(':cart_id', $cartId);
     return $this->db->resultSet();
   }
