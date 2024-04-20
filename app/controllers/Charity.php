@@ -36,6 +36,10 @@ class Charity extends Controller{
         $this->view('charity/userRequest');
     }
 
+    public function userrequestform(){
+        $this->view('charity/user-req-form');
+    }
+
     public function customerSupport(){
         $this->view('charity/customerSupport');
     }
