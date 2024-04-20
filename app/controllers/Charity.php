@@ -32,6 +32,9 @@ class Charity extends Controller{
         }
         $this->view('charity/donation_request');
     }
+    public function userrequest(){
+        $this->view('charity/userRequest');
+    }
 
     public function customerSupport(){
         $this->view('charity/customerSupport');
