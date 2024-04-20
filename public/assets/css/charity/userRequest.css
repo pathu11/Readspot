@@ -10,7 +10,7 @@
 .ur-requestTable {
 
     width: 92.5%;
-    margin: 30px auto 10px auto;
+    margin: 50px auto 125px auto;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -361,7 +361,7 @@
 
 .ur-total-count {
     position: absolute;
-    top: 144px;
+    top: 164px;
     right: 91%;
 }
 
