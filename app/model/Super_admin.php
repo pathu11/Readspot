@@ -583,4 +583,21 @@ public function rejectUser($user_id) {
         $results=$this->db->resultSet();
         return $results;
     }
+    public function getComplaintsDetails(){
+        $this->db->query(" SELECT * FROM complaint WHERE sent_to_superadmin = 1 ");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
+    public function updateComplaint($complaintId, $reason){
+        $this->db->query('UPDATE complaint SET superadmin_comment=:reason , resolvedBy_superadmin=1 WHERE complaint_id=:complaint_id');
+        $this->db->bind(':reason',$reason);
+        $this->db->bind(':complaint_id',$complaintId);
+        if ($this->db->execute()) {
+            return true; 
+        } else {
+            return false; 
+        }
+
+    }
   }

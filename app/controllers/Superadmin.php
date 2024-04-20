@@ -945,4 +945,40 @@ public function notifications(){
 
 }
 }
+
+public function complaints(){
+    if(!isLoggedInSuperAdmin()){
+        redirect('landing/login');
+    }else{
+
+        $user_id = $_SESSION['user_id'];
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+       
+        $complintsDetails=$this->superadminModel->getComplaintsDetails();
+       
+      
+        $data=[
+            
+            'user_id'=>$user_id,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminDetails'=>$superadminDetails,
+           'complintsDetails'=>$complintsDetails
+        ];
+
+        $this->view('superadmin/complaints',$data);
+
+} 
+}
+
+public function proceedResolved($complaintId, $reason) {
+   
+    $success = $this->superadminModel->updateComplaint($complaintId, $reason);
+    if ($success) {
+      
+        header('Location: ' . URLROOT . '/superadmin/complaints');
+    } else {
+        
+    }
+}
+
 }
