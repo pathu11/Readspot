@@ -834,6 +834,34 @@ public function updateReviewHelpful() {
         echo json_encode(['error' => 'Invalid request']);
     }
 }
+ 
+public function updateReviewHelpfulBooks() {
+    if (!isLoggedInCustomer()) {
+        redirect('landing/login');
+    } 
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reviewId']) && isset($_GET['isHelpful']) && isset($_SESSION['user_id'])) {
+        $reviewId = $_GET['reviewId'];
+        $isHelpful = $_GET['isHelpful'] === 'true' ? 1 : 0; 
+        $userId = $_SESSION['user_id'];
+
+        if (!isset($_SESSION['review_clicksBooks'][$reviewId][$userId])) {
+            $_SESSION['review_clicksBooks'][$reviewId][$userId] = true; 
+            if ($isHelpful == 1) {
+                if ($this->customerModel->updateReviewHelpfulBooks($reviewId)) {
+                    http_response_code(200); // OK
+                    echo json_encode(['success' => true]);
+                }
+            }
+        } else {
+            http_response_code(403); 
+            echo json_encode(['error' => 'Review already clicked']);
+        }
+    } else {
+        // Invalid request method or missing parameters
+        http_response_code(400); // Bad Request
+        echo json_encode(['error' => 'Invalid request']);
+    }
+}
 
     public function BookDetails($book_id){
         if (!isLoggedInCustomer()) {
@@ -870,6 +898,7 @@ public function updateReviewHelpful() {
             $countStar_4 = $this->customerModel->countStar_4($book_id);
             $countStar_5 = $this->customerModel->countStar_5($book_id);
             $data = [
+                'user_id'=>$user_id,
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,

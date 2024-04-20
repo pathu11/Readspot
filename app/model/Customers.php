@@ -1259,6 +1259,14 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
         return false;
     }   
 }
-
+public function updateReviewHelpfulBooks($reviewId){
+  $this->db->query('UPDATE reviews SET help = help + 1 WHERE review_id = :reviewId');
+  $this->db->bind(':reviewId', $reviewId); // Corrected variable name
+  if($this->db->execute()){
+      return true;
+  } else {
+      return false;
+  }   
+}
 
 }

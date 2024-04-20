@@ -74,10 +74,7 @@
                     </div>
                 </div>
                 <div class="give-rate">
-                    <!-- <div class="post">
-                        <div class="text">Thanks for rating us!</div>
-                        <div class="edit">EDIT</div>
-                    </div> -->
+                  
                     <?php foreach($data['contentDetails'] as $content): ?>
                     <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
@@ -151,8 +148,13 @@
                     <p><?php echo $reviews->review; ?></p>
                     <div class="helpful">
                         <h4>Was this review helpful?</h4>
-                        <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
-                        <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
+                        <?php if(isset($data['user_id'])): ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
+                        <?php else: ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
+                        <?php endif; ?>
 </div>
                           
                 <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
