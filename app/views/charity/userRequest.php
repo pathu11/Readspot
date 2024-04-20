@@ -93,7 +93,9 @@
                                 voluptatum
                                 vel? In laboriosam deserunt velit dignissimos!
                             </td>
-                            <td><a href="user" class="ur-view">View</a></td>
+                            <td>
+                            <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>200+</td>
