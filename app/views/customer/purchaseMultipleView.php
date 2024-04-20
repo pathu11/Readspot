@@ -75,20 +75,21 @@
                                         <?php echo $book[0]->nowQuantity; ?>
                                     </span>
                                     <a class="quantity-button-p" onclick="increment(<?php echo $index; ?>)"><i class="fas fa-plus"></i></a>
-                                    <input id="book_quantity_<?php echo $index; ?>" name="book_quantities[]" class="visible" value="<?php echo $book[0]->nowQuantity; ?>">
+                                    <!-- <input id="book_quantity_<?php echo $index; ?>" name="book_quantities[]" class="visible" value="<?php echo $book[0]->nowQuantity; ?>"> -->
                                 </div>
-                                <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">
+                               
                             </td>
                             <td>
                             <?php if ($book[0]->discounts > 0): ?>
                               
                                 <span id="subtotal_price_with_discounts_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price_with_discounts; ?> </span>
-                                <span id="subtotal_price_<?php echo $index; ?>" style="text-decoration:line-through;"> Rs. <?php echo $book[0]->total_price; ?> </span>
+                                <span id="subtotal_price_<?php echo $index; ?>" style="text-decoration:line-through;color:red;">    Rs. <?php echo $book[0]->total_price; ?> </span>
                             <?php else: ?>
                                 <span id="subtotal_price_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price; ?> </span>
                             <?php endif; ?>
                             </td>
                         </tr>
+                        <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">
                     <?php endforeach; ?>
                 </table>
                 <br><hr><br>

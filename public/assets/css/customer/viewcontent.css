@@ -151,6 +151,52 @@
     border-radius: 10px;
     background-color: white; 
 } */
+.helpful {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.helpful h4 {
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.helpful-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px; /* Adjust the gap between buttons as needed */
+   
+}
+
+.helpful-button,
+.not-helpful-button {
+    margin:8px;
+    padding: 8px 16px;
+    background-color:#70BFBA;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.not-helpful-button {
+    background-color: #dc3545; /* Red color for "No" button */
+}
+
+/* Hover styles */
+.helpful-button:hover,
+.not-helpful-button:hover {
+    opacity: 0.8;
+}
+
+.helpful-button:disabled,
+.not-helpful-button:disabled {
+    opacity: 0.5; 
+    cursor: not-allowed; 
+    background-color: #f0f0f0; 
+    color: #666;
+    border: 1px solid #ccc; 
+}
 
 @media screen and (max-width:600px) {
     .cont-details {

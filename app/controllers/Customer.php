@@ -806,7 +806,35 @@ class Customer extends Controller {
             $this->view('customer/BookContents', $data);
         }
     } 
-    
+ 
+public function updateReviewHelpful() {
+    if (!isLoggedInCustomer()) {
+        redirect('landing/login');
+    } 
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reviewId']) && isset($_GET['isHelpful']) && isset($_SESSION['user_id'])) {
+        $reviewId = $_GET['reviewId'];
+        $isHelpful = $_GET['isHelpful'] === 'true' ? 1 : 0; 
+        $userId = $_SESSION['user_id'];
+
+        if (!isset($_SESSION['review_clicks'][$reviewId][$userId])) {
+            $_SESSION['review_clicks'][$reviewId][$userId] = true; 
+            if ($isHelpful == 1) {
+                if ($this->customerModel->updateReviewHelpful($reviewId)) {
+                    http_response_code(200); // OK
+                    echo json_encode(['success' => true]);
+                }
+            }
+        } else {
+            http_response_code(403); 
+            echo json_encode(['error' => 'Review already clicked']);
+        }
+    } else {
+        // Invalid request method or missing parameters
+        http_response_code(400); // Bad Request
+        echo json_encode(['error' => 'Invalid request']);
+    }
+}
+
     public function BookDetails($book_id){
         if (!isLoggedInCustomer()) {
             $bookDetails=$this->customerModel->findBookById($book_id);
@@ -924,7 +952,9 @@ class Customer extends Controller {
             // Check if review or rate is provided
             if (!empty($data['review']) || !empty($data['rate'])) {
                 if ($this->customerModel->addContentReview($data)) {
-                    echo '<script>alert("added a review successfully");</script>';
+                    echo '<script>';
+                    echo 'alert("added a review successfully");';
+                    echo '</script>';
                     header("Location: " . URLROOT . "/customer/viewcontent/" . $data['content_id']);
                     exit();
                 }
@@ -2636,13 +2666,17 @@ public function BuyNewBooks()
     public function viewcontent($content_id){
         if (!isLoggedInCustomer()) {
             $contentDetails=$this->customerModel->findContentById($content_id);
-            $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
+            // $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
             $countStar_1 = $this->customerModel->countStar_1c($content_id);
             $countStar_2 = $this->customerModel->countStar_2c($content_id);
             $countStar_3 = $this->customerModel->countStar_3c($content_id);
             $countStar_4 = $this->customerModel->countStar_4c($content_id);
             $countStar_5 = $this->customerModel->countStar_5c($content_id);
+
+            $category = isset($_POST['category']) ? $_POST['category'] : 'recent';
+            $reviewDetails = $this->customerModel->findReviewsByContentId($content_id, $category);
+
             
             $data = [
                 'contentDetails'=>$contentDetails,
@@ -2661,15 +2695,19 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
             $contentDetails=$this->customerModel->findContentById($content_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id);
-            $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
+           
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
             $countStar_1 = $this->customerModel->countStar_1c($content_id);
             $countStar_2 = $this->customerModel->countStar_2c($content_id);
             $countStar_3 = $this->customerModel->countStar_3c($content_id);
             $countStar_4 = $this->customerModel->countStar_4c($content_id);
             $countStar_5 = $this->customerModel->countStar_5c($content_id);
+
+            $category = isset($_POST['category']) ? $_POST['category'] : 'recent';
+            $reviewDetails = $this->customerModel->findReviewsByContentId($content_id, $category);
            
             $data = [
+                'user_id'=> $user_id,
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->name,
                 'customerImage' => $customerDetails[0]->profile_img,
