@@ -94,7 +94,7 @@
                                 vel? In laboriosam deserunt velit dignissimos!
                             </td>
                             <td>
-                            <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
+                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
                             </td>
                         </tr>
                         <tr>
@@ -104,8 +104,9 @@
                                 eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
                                 voluptatum
                                 vel? In laboriosam deserunt velit dignissimos!
+                            <td>
+                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
                             </td>
-                            <td><a href="user" class="ur-view">View</a></td>
                         </tr>
                         <tr>
                             <td>200+</td>
@@ -114,8 +115,9 @@
                                 eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
                                 voluptatum
                                 vel? In laboriosam deserunt velit dignissimos!
+                            <td>
+                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
                             </td>
-                            <td><a href="user" class="ur-view">View</a></td>
                         </tr>
                         <tr>
                             <td>200+</td>
@@ -124,8 +126,9 @@
                                 eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
                                 voluptatum
                                 vel? In laboriosam deserunt velit dignissimos!
+                            <td>
+                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
                             </td>
-                            <td><a href="user" class="ur-view">View</a></td>
                         </tr>
                         <tr>
                             <td>200+</td>
@@ -134,8 +137,9 @@
                                 eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
                                 voluptatum
                                 vel? In laboriosam deserunt velit dignissimos!
+                            <td>
+                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
                             </td>
-                            <td><a href="user" class="ur-view">View</a></td>
                         </tr>
                     </tbody>
                 </table>
