@@ -58,7 +58,7 @@
                 <br>
                 <p>NEW donation Requests from Ramath!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
 
         <div class="reqCard">
@@ -73,7 +73,8 @@
                 <br>
                 <p>NEW donation Requests from Himaza!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+            <!-- <a href="donationRequestTable"></a> -->
+            <a href="<?php echo URLROOT; ?>/view/charity/userRequest">CHECK</a>
         </div>
 
         <div class="reqCard checked">
