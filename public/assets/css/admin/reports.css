@@ -1,212 +1,82 @@
-.title-bar{
-  margin-top: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-form input[type="text"]{
-  width: 100%;
-  height: 40px;
-  padding-left: 5px;
-  outline: none;
-  border: 2px solid #70BFBA;
-  border-radius: 3px;
-  margin-top: 10px;
-}
-
-.input-bar{
-  display: flex;
-  flex-direction: row;
-  margin: 20px;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-#date{
-  display: none;
-  flex-direction: row;
-}
-
-#book_inventory{
-  display: none;
-  flex-direction: row;
-}
-.checkBox{
-  padding: 10px;
-}
-
-.checkBox label{
-  padding-left: 5px;
-}
-
-input[type="checkbox"] {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  -webkit-appearance: none;
-  border: none; 
-  border-radius: 5px;
-  cursor: pointer;
-  vertical-align: text-top;
-  background-color: #70BFBA;
-}
-
-input[type="checkbox"]:checked::before {
-  content: '\2713';
-  font-size: 20px; 
-  color: white; 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 1;
-}
-
-
-form input[type="date"]{
-  border: 2px solid #70BFBA;
-  border-radius: 5px;
-  height: 35px;
-  width: 150px;
-  padding: 5px;
-}
-
-.date-picker{
-  display: block;
-  padding: 5px;
-}
-
-.table{
-  margin: 20px;
-}
-
-select{
-  height: 40px;
-  border-radius: 5px;
-  padding: 5px;
-  border: 2px solid #70BFBA;
-}
-
-label{
-  display: inline-block;
-}
-
-button{
-  background-color: #70BFBA;
-  height: 40px;
-  padding: 5px;
-  border-style: none;
-  border-radius: 10px;
-  color: white;
-  margin-left: 20px;
-}
-
-.table{
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  flex-direction: column;
-}
-
-h2{
-  padding-left: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-table{
-  border-collapse: collapse; 
-  border-spacing: 0 3px;
-  width: 100%;
-  border-style: none;
-  height: 100%;
-  border: 1px solid black;
-}
-
-tr{
-  text-align: left;
-  
-  border: 1px solid black;
-}
-
-tr:first-child {
-  border: none;
-}
-
-td{
-  text-align: center;
+.selection-bar{
+  /* border: 1px solid red; */
+  margin-top: 70px;
   padding: 15px;
-  border: 1px solid black;
-}
-
-th{
-  padding: 10px;
-  text-align: center;
-  border: 1px solid black;
-  background-color: rgba(0,0,0,25%);
-}
-
-p{
-  padding-left: 20px;
-}
-
-/*.report-img{
+  /* margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px; */
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 0px 0px 20px 20px;
+  background-color: #70BFBA;
 }
 
-.report-img img{
-  width: 500px;
-  height: 500px;
-}*/
+.selection{
+  margin: 10px;
+  padding: 15px;
+  /* border: 1px solid red; */
+  background-color: white;
+  border-radius: 10px;
+}
 
-
-.loader {
-  background-color: #f4f4f4;
-  overflow: hidden;
-  width: 100%;
-  height: 50%;
-  padding-top: 50px; 
-  left: 0;
+.topic{
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  align-content: flex-start; 
-  justify-content: center;  
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.topic span{
+  cursor: pointer;
+  color: crimson;
+}
+
+.fa-circle{
+  font-size: small;
+  padding-right: 5px;
+}
+
+.fa-file{
+  padding-left: 10px;
+}
+
+.report{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.report-item{
+  /* border: 1px solid red; */
+  flex: 1;
+  margin: 15px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  height: auto;
   
 }
 
-.loader__element {
-  border-radius: 100%;
-  border: 20px solid #70BFBA;
-  margin: calc(20px*2);
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  overflow: hidden;
 }
-
-.loader__element:nth-child(1) {
-  animation: preloader .6s ease-in-out alternate infinite;
-}
-.loader__element:nth-child(2) {
-  animation: preloader .6s ease-in-out alternate .2s infinite;
-}
-
-.loader__element:nth-child(3) {
-  animation: preloader .6s ease-in-out alternate .4s infinite;
-}
-
-@keyframes preloader {
-  100% { transform: scale(2); }
-}
-
-@media print {
-  body * {
-    display: none;
-  }
-  #pdf, #pdf * {
-    display: block !important;
-  }
-}
-
-
-
-
 
 

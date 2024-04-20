@@ -604,115 +604,16 @@ public function orders(){
 }
 
 public function reports(){
-    $user_id = $_SESSION['user_id'];
-         
+    $user_id = $_SESSION['user_id'];     
     $adminDetails = $this->adminModel->findAdminById($user_id);
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-        //report type is registration report
-        if($_POST['report-type']=='registration'){
-            $data = [
-                'adminDetails' => $adminDetails,
-                'adminName'=>$adminDetails[0]->name,
-                'registration'=>trim($_POST['report-type']),
-                'start-date'=>trim($_POST['start-date']),
-                'end-date'=>trim($_POST['end-date']),
-                
     
-                'registration_err'=>'',
-                'start-date_err'=>'',
-                'end-date_err'=>''
-            ];
-            
-            // Separate start-date components
-            list($startYear, $startMonth, $startDay) = explode('-', $data['start-date']);
-            
-            // Separate end-date components
-            list($endYear, $endMonth, $endDay) = explode('-', $data['end-date']);
-            
-            // Add the separated components to the data array
-            $data['startYear'] = $startYear;
-            $data['startMonth'] = $startMonth;
-            $data['startDay'] = $startDay;
-            
-            $data['endYear'] = $endYear;
-            $data['endMonth'] = $endMonth;
-            $data['endDay'] = $endDay;
-            
+    $data=[
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
+    ];
+
+    $this->view('admin/reports',$data);
     
-            if(empty($data['registration'])){
-                $data['event_category_err']='Please select the report type';      
-            }
-    
-            if(empty($data['start-date'])){
-                $data['start-date_err']='Please enter the start date';      
-            }
-    
-            if(empty($data['registration_err']) && empty($data['start-date_err']) && empty($data['end-date_err'])){
-                if($this->adminModel->generateRegistrationReport($data)){
-                    $registrationDetails = $this->adminModel->generateRegistrationReport($data);
-                    $data=[
-                        'adminDetails' => $adminDetails,
-                        'adminName'=>$adminDetails[0]->name,
-                        'registrationDetails'=>$registrationDetails,
-                        'title'=>trim($_POST['title'])
-                    ];
-                    $this->view('admin/reports',$data);
-                }else{
-                    die('Something went wrong');
-                }
-            }
-    
-            else{
-                $this->view('admin/reports',$data);
-            }
-
-        }
-        //report type is book inventory report
-        elseif($_POST['report-type']=='book-inventory'){
-            if(isset($_POST['total_books'])){
-                $totalBooks = $this->adminModel->countTotalBooks();
-            }
-            else $totalBooks = '';
-            
-            if(isset($_POST['book_category'])){
-                $bookCategories = $this->adminModel->getBookCategories();
-            }
-            else $bookCategories = '';
-            
-            if(isset($_POST['top_books'])){
-                $topBooks = $this->adminModel->getTopBooks();
-            }
-            else $topBooks = '';
-            
-            if(isset($_POST['book_available'])){
-                $availableBooks = $this->adminModel->getAvailableBooks();
-            }
-            else $availableBooks = '';
-
-            $data=[
-                'adminDetails' => $adminDetails,
-                'adminName'=>$adminDetails[0]->name,
-                'totalBooks' => $totalBooks,
-                'bookCategories'=>$bookCategories,
-                'topBooks'=>$topBooks,
-                'availableBooks'=>$availableBooks,
-                'title'=>trim($_POST['title'])
-            ];
-            $this->view('admin/reports',$data);
-
-        }
-        
-    }
-
-    else{
-        $data=[
-            'adminDetails' => $adminDetails,
-            'adminName'=>$adminDetails[0]->name,
-        ];
-
-        $this->view('admin/reports',$data);
-    }
 
 }
 public function pending_payments(){
