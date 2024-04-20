@@ -103,7 +103,7 @@
                 <br>
                 <p>No any NEW donations!</p>
             </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
 
         <div class="reqCard checked">
@@ -118,7 +118,7 @@
                 <br>
                 <p>No any NEW donations!</p>
             </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
         <div class="reqCard">
             <div class="imgBox">
