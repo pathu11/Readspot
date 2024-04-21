@@ -30,6 +30,7 @@
         <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
         <thead>
             <tr>
+                <th >Id</th>
                 <th >Name</th>
                 <th >Email</th>
                 <th >Actions</th>
@@ -38,6 +39,7 @@
 <tbody>
     <?php foreach($data['addmoderatorDetails'] as $moderator): ?>
     <tr>
+        <td ><?php echo $moderator->moderator_id; ?></td>
         <td ><?php echo $moderator->name; ?></td>
         <td ><?php echo $moderator->email; ?></td>
         <td>
@@ -45,6 +47,7 @@
 
             <a href='#'onclick='confirmDelete(<?php echo $moderator->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
             <a href='#'onclick='confirmRestrict(<?php echo $moderator->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $moderator->user_id; ?>"><i class='fas fa-comment-dots' style='color:#09514C;' title="Chat with this user" ></i></a>
     </td>
            
     </tr>

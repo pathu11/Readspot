@@ -648,49 +648,68 @@ button:hover {
 }
 
 
-/* Define a class for making tables responsive */
 .responsive-table {
-    /* overflow-x: auto; */
     max-width: 100%;
 }
 .view-order-button {
-    display: none; /* Hide the button by default */
+    display: none; 
 }
 .view-details-column {
     display: none;
 }
+.container1 {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
-/* Hide columns on small screens */
+.select-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-wrapper label {
+    margin-bottom: 5px;
+    margin-left:6px;
+    text-align: center;
+}
+
+.select-wrapper select {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left:6px;
+}
+
 @media only screen and (max-width: 768px) {
-    /* Hide all table columns */
     th, td {
         display: none;
     }
     th:nth-child(1),
-    td:nth-child(1), /* Book Name column */
+    td:nth-child(1),
     th:nth-child(7),
-    td:nth-child(7), /* Action buttons column */
+    td:nth-child(7),
     th:nth-child(8),
-    td:nth-child(8), /* Cover Image column */
+    td:nth-child(8), 
     th:nth-child(9),
-    td:nth-child(9) /* Inside Image column */
+    td:nth-child(9) 
     th:nth-child(10),
     td:nth-child(10) 
     {
         display: table-cell;
     }
 
-    /* Ensure the action buttons are displayed */
     .action-buttons a{
         display: table-cell !important;
     }
     
-    /* Ensure the view details column is displayed */
     .view-details-column {
         display: table-cell !important;
     }
-    
-    /* Style the buttons within the view details column */
+   
     .view-details-column button {
         display: block;
         margin: auto;
@@ -701,13 +720,11 @@ button:hover {
         border-radius: 5px;
         cursor: pointer;
     }
-    
-    /* Style hover effect for buttons within the view details column */
+   
     .view-details-column button:hover {
         background-color: #009D94;
     }
-    
-    /* Ensure the view order button is displayed */
+   
     .view-order-button {
         display: inline-block; /* Display the button for small screens */
     }

@@ -583,4 +583,43 @@ public function rejectUser($user_id) {
         $results=$this->db->resultSet();
         return $results;
     }
+    public function getComplaintsDetails(){
+        $this->db->query(" SELECT * FROM complaint WHERE sent_to_superadmin = 1 ");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
+    public function updateComplaint($complaintId, $reason){
+        $this->db->query('UPDATE complaint SET superadmin_comment=:reason , resolvedBy_superadmin=1 WHERE complaint_id=:complaint_id');
+        $this->db->bind(':reason',$reason);
+        $this->db->bind(':complaint_id',$complaintId);
+        if ($this->db->execute()) {
+            return true; 
+        } else {
+            return false; 
+        }
+
+    }
+    public function getResolvedCount(){
+        $this->db->query('SELECT 
+        SUM(CASE WHEN resolvedBy_superadmin = 1 THEN 1 ELSE 0 END) AS resolved_count,
+        SUM(CASE WHEN resolvedBy_superadmin = 0 THEN 1 ELSE 0 END) AS unresolved_count
+        FROM 
+            complaint;
+        ');
+        $results=$this->db->resultSet();
+        return $results;
+    }
+    public function getUserCountByDate(){
+        $this->db->query('SELECT DAY(created_at) AS day, COUNT(*) AS user_count
+        FROM users
+        WHERE MONTH(created_at) = MONTH(CURRENT_DATE())
+        AND YEAR(created_at) = YEAR(CURRENT_DATE())
+        GROUP BY DAY(created_at)
+        ');
+        $results=$this->db->resultSet();
+        return $results;
+    }
+    
+
   }

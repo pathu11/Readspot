@@ -4,12 +4,14 @@ class Superadmin extends Controller{
     private $superadminModel;
    
     private $userModel;
+    private $publisherModel;
   
     private $db;
     public function __construct(){
         $this->superadminModel=$this->model('Super_admin');
         // $this->adminModel=$this->model('Admins');
         $this->userModel=$this->model('User');
+        $this->publisherModel=$this->model('Publishers');
         $this->db = new Database();
     }
     public function index(){
@@ -24,7 +26,13 @@ class Superadmin extends Controller{
             $countDelivery = $this->superadminModel->countDelivery(); 
             $countCustomers = $this->superadminModel->countCustomers (); 
             $countPublishers = $this->superadminModel->countPublishers(); 
-            $countCharity = $this->superadminModel->countCharity();  
+            $countCharity = $this->superadminModel->countCharity(); 
+            $countComplaints=$this->superadminModel->getResolvedCount() ;
+            $resolved_count=$countComplaints[0]->resolved_count;
+            $unresolved_count=$countComplaints[0]->unresolved_count;
+            $UserCountByDate=$this->superadminModel->getUserCountByDate();
+
+
             $data = [
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
@@ -34,9 +42,13 @@ class Superadmin extends Controller{
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'resolved_count'=>$resolved_count,
+                'unresolved_count'=>$unresolved_count,
+                'UserCountByDate'=>$UserCountByDate
 
             ];
+            // print_r($data['UserCountByDate']);
             $this->view('superadmin/index',$data);
         }
         
@@ -63,8 +75,6 @@ class Superadmin extends Controller{
                 'confirm_pass_err'=>'',
             ];
 
-            // validate email
-            //validate lname
             if(empty($data['name'])){
                 $data['name_err']='Please enter the name';      
             }
@@ -918,4 +928,65 @@ public function restrictdelivery($user_id)
         }
     }
 }
+public function notifications(){
+    if(!isLoggedInSuperAdmin()){
+        redirect('landing/login');
+    }else{
+
+        $user_id = $_SESSION['user_id'];
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+       
+        $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
+        $sender_id=$ChatDetails[0]->outgoing_msg_id;
+       
+        $senderDetails=$this->publisherModel->finduserDetails($sender_id);
+      
+        $data=[
+            'chatDetails'=>$ChatDetails,
+            'user_id'=>$user_id,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminDetails'=>$superadminDetails,
+            'senderName'=>$senderDetails->name
+        ];
+
+        $this->view('superadmin/notifications',$data);
+
+}
+}
+
+public function complaints(){
+    if(!isLoggedInSuperAdmin()){
+        redirect('landing/login');
+    }else{
+
+        $user_id = $_SESSION['user_id'];
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+       
+        $complintsDetails=$this->superadminModel->getComplaintsDetails();
+       
+      
+        $data=[
+            
+            'user_id'=>$user_id,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminDetails'=>$superadminDetails,
+           'complintsDetails'=>$complintsDetails
+        ];
+
+        $this->view('superadmin/complaints',$data);
+
+} 
+}
+
+public function proceedResolved($complaintId, $reason) {
+   
+    $success = $this->superadminModel->updateComplaint($complaintId, $reason);
+    if ($success) {
+      
+        header('Location: ' . URLROOT . '/superadmin/complaints');
+    } else {
+        
+    }
+}
+
 }

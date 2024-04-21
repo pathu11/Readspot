@@ -20,8 +20,8 @@
 
 <div class="img-container">
       <div class="profile">
-        <h2>Welcome Back, <br><span style="color: red; font-size: 43px;"><?php echo $data['superadminName'];?></span> 
-        <i class="fas fa-hand-paper wave-icon"></i>
+        <h2>Welcome Back, <br><span style="color: red; font-size: 38px;"><?php echo explode(" ", $data['superadminName'])[0];?></span><i class="fas fa-hand-paper wave-icon"></i></h2>
+        
         </h2>
       </div>
       <div class="image">
@@ -33,10 +33,14 @@
   
   <div class="chart-container">
     <div class="chart">
+      <h2>Number of Users</h2>
       <canvas id="myChart1"></canvas>
     </div>
     <div class="chart">
-      <canvas id="myChart2"></canvas>
+      <h2>User Registration Trends</h2>
+      <canvas id="userRegistrationChart"></canvas>
+        <!-- <canvas id="mychart2"  ></canvas> -->
+      
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -95,8 +99,91 @@
     const myChart1 = new Chart(
       document.getElementById('myChart1'),config
     );
+
+    // pie chart of complaints
+    
   </script>
-  <script src="<?php echo URLROOT;?>/assets/js/superadmin/chart2.js"></script>
+  <script>
+    const resolvedCount = <?php echo json_encode($data['resolved_count']); ?>;
+    const unresolvedCount = <?php echo json_encode($data['unresolved_count']); ?>;
+     // Data for pie chart
+    
+    const complaintsData = {
+      datasets: [{
+        data: [resolvedCount, unresolvedCount],
+        backgroundColor: ['green', 'red']
+      }],
+      labels: ['Resolved', 'Unresolved']
+    };
+
+    // Configuration for pie chart
+    const complaintsConfig = {
+      type: 'doughnut', // Change to doughnut type for the desired style
+      data: complaintsData,
+      options: {} // You can add options here if needed
+    };
+
+    // Initialize pie chart
+    const complaintsPieChart = new Chart(
+      document.getElementById('mychart2'), complaintsConfig
+    );
+
+    // JavaScript
+    const ctxline = document.getElementById('userRegistrationChart').getContext('2d');
+    const userDataline = <?php echo json_encode($data['UserCountByDate']); ?>;
+
+    const labelsline = Array.from({ length: 31 }, (_, i) => i + 1);
+
+    // Generate data array with user counts for each day, insert 0 if no user registered on that day
+    const dataline = labelsline.map(day => {
+      const userData = userDataline.find(data => data.day === day.toString());
+      return userData ? userData.user_count : 0;
+    });
+
+    console.log(dataline);
+    console.log(labelsline);
+
+    const configline = {
+      type: 'line',
+      data: {
+        labels: labelsline,
+        datasets: [{
+          label: 'Registered Users',
+          data: dataline,
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Day'
+            },
+            // Set the x-axis to start from 1
+            beginAtZero: false,
+            // Adjust the maximum value of x-axis to 31
+            max: 31
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Number of Users who registered to the site'
+            },
+            // Prevent negative values from being displayed on y-axis
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    const userRegistrationChart = new Chart(ctxline, configline);
+
+
+    </script>
+ 
 </body>
 <script>
         function goBack() {

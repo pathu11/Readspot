@@ -67,6 +67,7 @@ public function addbooks(){
                 'ISBN_no' => trim($_POST['ISBN_no']),
                 'author' => trim($_POST['author']),
                 'price' => trim($_POST['price']),
+                'discounts'=>trim($_POST['discounts']),
                 'category' => trim($_POST['category']),
                 'weight' => trim($_POST['weight']),
                 'descript' => trim($_POST['descript']),
@@ -79,6 +80,7 @@ public function addbooks(){
                 'ISBN_no_err'=>'',
                 'author_err'=>'',
                 'price_err'=>'',
+                'discounts_err'=>'',
                 'category_err'=>'',
                 'weight_err'=>'',
                 'descript_err'=>'',
@@ -111,6 +113,11 @@ public function addbooks(){
             }else if($data['price']<1 ){
                 $data['price_err']='Please enter a valid price'; 
             }
+            if(empty($data['discounts'])){
+                $data['discounts_err']='Please enter the Discounts';      
+            }else if($data['discounts']<1 ){
+                $data['discounts_err']='Please enter a valid discount percent(Ex:30%)'; 
+            }
             if(empty($data['category'])){
                 $data['category_err']='Please select the category';      
             }
@@ -129,7 +136,7 @@ public function addbooks(){
                 $data['quantity_err'] = 'Please enter a valid positive integer';
             }
             //make sure errors are empty
-            if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
+            if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['discounts_err'])  && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
 
                 //image
                 if (isset($_FILES['img1']['name']) AND !empty($_FILES['img1']['name'])) {
@@ -210,6 +217,7 @@ public function addbooks(){
                 'ISBN_no' => '',
                 'author' => '',
                 'price' => '',
+                'discounts' => '',
                 'category' => '',
                 'weight' => '',
                 'descript' => '',
@@ -222,6 +230,7 @@ public function addbooks(){
                 'ISBN_no_err'=>'',
                 'author_err'=>'',
                 'price_err'=>'',
+                'discounts_err'=>'',
                 'category_err'=>'',
                 'weight_err'=>'',
                 'descript_err'=>'',
@@ -302,6 +311,7 @@ public function update($book_id){
                 'ISBN_no' => trim($_POST['ISBN_no']),
                 'author' => trim($_POST['author']),
                 'price' => trim($_POST['price']),
+                'discounts' => trim($_POST['discounts']),
                 'category' => trim($_POST['category']),
                 'weight' => trim($_POST['weight']),
                 'descript' => trim($_POST['descript']),
@@ -315,6 +325,7 @@ public function update($book_id){
                 'ISBN_no_err'=>'',
                 'author_err'=>'',
                 'price_err'=>'',
+                'discounts_err'=>'',
                 'category_err'=>'',
                 'weight_err'=>'',
                 'descript_err'=>'',
@@ -340,6 +351,11 @@ public function update($book_id){
             }else if($data['price']<0 ){
                 $data['price_err']='Please enter a valid price'; 
             }
+            if(empty($data['discounts'])){
+                $data['discounts_err']='Please enter the Discounts';      
+            }else if($data['discounts']<1 ){
+                $data['discounts_err']='Please enter a valid discount percent(Ex:30%)'; 
+            }
             if(empty($data['category'])){
                 $data['category_err']='Please select the category';      
             }
@@ -361,7 +377,7 @@ public function update($book_id){
             
 
             //make sure errors are empty
-            if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
+            if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['discounts_err']) && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
 
                 //image
                 if (isset($_FILES['img1']['name']) AND !empty($_FILES['img1']['name'])) {
@@ -442,6 +458,7 @@ public function update($book_id){
                 'ISBN_no' => $books->ISBN_no,
                 'author' => $books->author,
                 'price' => $books->price,
+                'discounts'=>$books->discounts,
                 'category' => $books->category,
                 'weight' => $books->weight,
                 'descript' => $books->descript,
@@ -454,6 +471,7 @@ public function update($book_id){
                 'ISBN_no_err' => '',
                 'author_err' => '',
                 'price_err' => '',
+                'discounts_err'=>'',
                 'category_err' => '',
                 'weight_err' => '',
                 'descript_err' => '',

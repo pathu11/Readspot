@@ -83,7 +83,6 @@ class PurchaseOrder extends Controller{
             foreach ($bookDetails as $book) {
                 $bookIds[] = $book[0]->book_id;
             }
-
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0]->customer_id;
             $redeem_points=$this->customerModel->FindRedeemPoints($customer_id);
@@ -148,10 +147,7 @@ class PurchaseOrder extends Controller{
 
                 if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
                    
-                    redirect('PurchaseOrder/checkout2/');
-                   
-                    
-                  
+                    redirect('PurchaseOrder/checkout2/');   
                 }else{
                     
                     echo  '<script>alert("Error")</script>';
@@ -189,7 +185,7 @@ class PurchaseOrder extends Controller{
                     echo "Not found data";
                  }  
                 
-                //  print_r($bookId);
+                //  print_r($data['bookDetails']);
                 $this->view('customer/purchaseMultipleView',$data);
         }
     }

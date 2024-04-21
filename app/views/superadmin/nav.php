@@ -36,13 +36,13 @@
             </div>
             <hr>
             
-            <a href="<?php echo URLROOT; ?>/superadmin/notification" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/superadmin/notifications" class="sub-menu-link"> <!--path changed-->
                 <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
                 <p>Notifications</p>
                 <span>></span>
             </a>
             
-            <a href="<?php echo URLROOT; ?>/publisher/logout" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
             <i class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>
@@ -72,22 +72,22 @@
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/superadmin/removeList"" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/removeList" class="nav-link">
               <i class='bx bxs-user-x icon'></i>
                 <span class="link">Removed Users</span>
               </a>
             </li>
             
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/complaints" class="nav-link">
                 <i class="bx bxs-credit-card icon"></i>
-                <span class="link">Orders</span>
+                <span class="link">Complaints</span>
               </a>
             </li>
             
           <div class="bottom-cotent">
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/publisher/customerSupport" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/superadmin/notifications" class="nav-link">
                 <i class="bx bxs-message-alt-dots icon"></i>
                 <span class="link">Notifications</span>
               </a>

@@ -1045,12 +1045,27 @@ public function addContentReview($data){
 
 }
 
-public function findReviewsByContentId($content_id){
-  $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM content_review r JOIN customers c ON r.customer_id = c.customer_id WHERE content_id = :content_id');
+public function findReviewsByContentId($content_id, $category) {
+  if ($category === 'recent') {
+      $sql = "SELECT r.*, c.first_name AS name, c.profile_img AS profile_img 
+              FROM content_review r 
+              JOIN customers c ON r.customer_id = c.customer_id 
+              WHERE content_id = :content_id 
+              ORDER BY r.time DESC";
+  } elseif ($category === 'relevant') {
+      $sql = "SELECT r.*, c.first_name AS name, c.profile_img AS profile_img 
+              FROM content_review r 
+              JOIN customers c ON r.customer_id = c.customer_id 
+              WHERE content_id = :content_id 
+              ORDER BY r.help DESC";
+  } else {
+      return []; 
+  }
+  $this->db->query($sql);
   $this->db->bind(':content_id', $content_id);
-  
   return $this->db->resultSet();
 }
+
 
 public function getOngoingChallenges($user_id){
   $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, 
@@ -1114,10 +1129,11 @@ public function getQuizDetails(){
 }
 
   public function findDetailsByCartId($cartId){
-    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
+    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, (c.quantity * (b.price - (b.price * b.discounts * 0.01))) AS total_price_with_discounts, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
     FROM cart c 
     JOIN books b ON c.book_id = b.book_id 
-    WHERE c.cart_id = :cart_id');
+    WHERE c.cart_id = :cart_id
+    ');
     $this->db->bind(':cart_id', $cartId);
     return $this->db->resultSet();
   }
@@ -1234,5 +1250,23 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
         return false;
     }
   }
+  public function updateReviewHelpful($reviewId){
+    $this->db->query('UPDATE content_review SET help = help + 1 WHERE review_id = :reviewId');
+    $this->db->bind(':reviewId', $reviewId); // Corrected variable name
+    if($this->db->execute()){
+        return true;
+    } else {
+        return false;
+    }   
+}
+public function updateReviewHelpfulBooks($reviewId){
+  $this->db->query('UPDATE reviews SET help = help + 1 WHERE review_id = :reviewId');
+  $this->db->bind(':reviewId', $reviewId); // Corrected variable name
+  if($this->db->execute()){
+      return true;
+  } else {
+      return false;
+  }   
+}
 
 }

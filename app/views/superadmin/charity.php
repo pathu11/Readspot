@@ -32,24 +32,24 @@
         <thead>
             <tr>
 
-               
+                <th> Id</th>
                 <th >Name</th>
                 <th >Email</th>
+                <th >Status</th>
                 <th >Actions</th>
-                
-
             </tr>
 </thead> 
 <tbody>
     <?php foreach($data['addcharityDetails'] as $charity): ?>
     <tr>
+        <td ><?php echo $charity->charity_id; ?></td>
         <td ><?php echo $charity->name; ?></td>
         <td ><?php echo $charity->email; ?></td>
+        <td ><?php echo $charity->status; ?></td>
         <td>
-           
-
             <a href='#'onclick='confirmDelete(<?php echo $charity->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
             <a href='#'onclick='confirmRestrict(<?php echo $charity->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $charity->user_id; ?>"><i class='fas fa-comment-dots' style='color:#09514C;' title="Chat with this user" ></i></a>
     </td>
            
     </tr>

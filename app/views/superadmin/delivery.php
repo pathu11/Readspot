@@ -32,9 +32,10 @@
         <thead>
             <tr>
 
-               
+                <th >Id</th>
                 <th >Name</th>
                 <th >Email</th>
+                <th >Status</th>
                 <th >Actions</th>
                 
 
@@ -43,13 +44,16 @@
 <tbody>
     <?php foreach($data['adddeliveryDetails'] as $delivery): ?>
     <tr>
+        <td ><?php echo $delivery->delivery_id; ?></td>
         <td ><?php echo $delivery->name; ?></td>
         <td ><?php echo $delivery->email; ?></td>
+        <td ><?php echo $delivery->status; ?></td>
         <td>
             <a href='<?php echo URLROOT; ?>/superadmin/updateDelivery/<?php echo $delivery->user_id; ?>'><i class='fa fa-edit' style='color:#09514C;' title="Edit Delivery system's Details"></i></a>
 
             <a href='#'onclick='confirmDelete(<?php echo $delivery->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
             <a href='#'onclick='confirmRestrict(<?php echo $delivery->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $delivery->user_id; ?>"><i class='fas fa-comment-dots' style='color:#09514C;' title="Chat with this user" ></i></a>
     </td>
            
     </tr>
