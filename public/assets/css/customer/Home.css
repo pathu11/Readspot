@@ -114,7 +114,7 @@ body{
 .service-div-M p {
     /* position: absolute; */
     padding-top: 20px;
-    text-align: justify;
+    text-align: center;
     font-size: 12px;
     display: none;
     font-weight: 300;

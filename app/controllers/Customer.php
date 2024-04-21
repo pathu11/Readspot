@@ -1461,6 +1461,13 @@ public function BuyNewBooks()
             $AddExchangeBooks = $this->customerModel->findNoOfExchangeBooksById($customer_id);
             $AddContents = $this->customerModel->findNoOfContentsById($customer_id);
             $AddEvents = $this->customerModel->findNoOfEventsById($user_id);
+            $paymentCount = $this->ordersModel->countPayment($user_id);
+            $currentPoints = $this->customerModel->FindRedeemPoints($customer_id);
+            $saveEvents = $this->customerModel->findNoOfSaveEvent($user_id);
+            $BuyNewBooks = $this->customerModel->findNoOfBuyNewBooksById($customer_id);
+            $BuyUsedBooks = $this->customerModel->findNoOfBuyUsedBooksById($customer_id);
+            $BoughtCategories = $this->customerModel->findBoughtCategories($customer_id);
+            $AddedCategories = $this->customerModel->findAddedCategories($customer_id);
 
             $data = [
                 'customerDetails' => $customerDetails,
@@ -1470,7 +1477,14 @@ public function BuyNewBooks()
                 'used' => $AddUsedBooks,
                 'exchange' => $AddExchangeBooks,
                 'content' => $AddContents,
-                'event' => $AddEvents
+                'event' => $AddEvents,
+                'paymentCount' => $paymentCount,
+                'currentPoint' => $currentPoints,
+                'saveEvents' => $saveEvents,
+                'BuyNewBooks' => $BuyNewBooks,
+                'BuyUsedBooks' => $BuyUsedBooks,
+                'BoughtCategories' => $BoughtCategories,
+                'AddedCategories' => $AddedCategories
             ];
             $this->view('customer/Dashboard', $data);
         }

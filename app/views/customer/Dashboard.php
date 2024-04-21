@@ -16,11 +16,11 @@
                 <div class="total-income-point">
                     <div class="sub-total-div">
                         <h3>Total Income &emsp;<i class="fa fa-money" aria-hidden="true"></i></h3>
-                        <h1>Rs 5472.00</h1>
+                        <h1>Rs <?php echo $data['paymentCount']; ?></h1>
                     </div>
                     <div class="sub-total-div">
                         <h3>Current Points &emsp;<i class="fa fa-star" aria-hidden="true"></i></h3>
-                        <h1>12785</h1>
+                        <h1><?php echo $data['currentPoint']->redeem_points; ?></h1>
                     </div>
                 </div>
             </div>
@@ -69,15 +69,15 @@
                 <div class="add-book-div">
                     <div class="no-of-books">
                         <h3>Bought New Books</h3>
-                        <h3>1</h3>
+                        <h3><?php echo $data['BuyNewBooks']; ?></h3>
                     </div>
                     <div class="no-of-books">
                         <h3>Bought Used Books</h3>
-                        <h3>29</h3>
+                        <h3><?php echo $data['BuyUsedBooks']; ?></h3>
                     </div>
                     <div class="no-of-books">
                         <h3>Saved Events</h3>
-                        <h3>16</h3>
+                        <h3><?php echo $data['saveEvents']; ?></h3>
                     </div>
                     <div class="no-of-books">
                         <h3>Donated Books</h3>
@@ -112,6 +112,31 @@
     </div>
 
 
+    <?php
+        // Convert PHP data to JavaScript-compatible format
+        $categories2 = [];
+        $bookCounts2 = [];
+        foreach ($data['BoughtCategories'] as $category) {
+            $categories2[] = $category->category;
+            $bookCounts2[] = $category->book_count;
+        }
+
+        // Convert arrays to JSON format for JavaScript
+        $categoriesJSON2 = json_encode($categories2);
+        $bookCountsJSON2 = json_encode($bookCounts2);
+
+        $categories1 = [];
+        $bookCounts1 = [];
+        foreach ($data['AddedCategories'] as $category) {
+            $categories1[] = $category->category;
+            $bookCounts1[] = $category->book_count;
+        }
+
+        // Convert arrays to JSON format for JavaScript
+        $categoriesJSON1 = json_encode($categories1);
+        $bookCountsJSON1 = json_encode($bookCounts1);
+    ?>
+
     <script>
         // Data for the Doughnut chart
         var data = {
@@ -144,31 +169,38 @@
     </script>
 
     <script>
+        function randomColor() {
+            const r = Math.floor(Math.random() * 256); // Random red component
+            const g = Math.floor(Math.random() * 256); // Random green component
+            const b = Math.floor(Math.random() * 256); // Random blue component
+            const a = 0.5; // Opacity (you can adjust this as needed)
+            return `rgba(${r}, ${g}, ${b}, ${a})`;
+        }
+
         // Sample data for book categories and number of books bought
+        var categories1 = <?php echo $categoriesJSON1; ?>;
+        var bookCounts1 = <?php echo $bookCountsJSON1; ?>;
+
+        const backgroundColor1 = categories1.map(() => randomColor());
         var data1 = {
-            labels: ['Fiction', 'Non-fiction', 'Fantasy', 'Mystery', 'Science Fiction'],
+            labels: categories1,
             datasets: [{
-                data: [20, 15, 10, 8, 12], // Sample data, replace it with actual data
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)', // Red color with opacity
-                    'rgba(54, 162, 235, 0.5)', // Blue color with opacity
-                    'rgba(255, 206, 86, 0.5)', // Yellow color with opacity
-                    'rgba(75, 192, 192, 0.5)', // Green color with opacity
-                    'rgba(153, 102, 255, 0.5)', // Purple color with opacity
-                ],
+                data: bookCounts1, // Sample data, replace it with actual data
+                backgroundColor: backgroundColor1,
                 borderWidth: 1
             }]
         };
 
+
+        var categories2 = <?php echo $categoriesJSON2; ?>;
+        var bookCounts2 = <?php echo $bookCountsJSON2; ?>;
+       
+        const backgroundColor2 = categories2.map(() => randomColor());
         var data2 = {
-            labels: ['Fiction', 'Non-fiction', 'Fantasy'],
+            labels: categories2,
             datasets: [{
-                data: [30, 20, 15], // Sample data, replace it with actual data
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)', // Red color with opacity
-                    'rgba(54, 162, 235, 0.5)', // Blue color with opacity
-                    'rgba(255, 206, 86, 0.5)', // Yellow color with opacity
-                ],
+                data: bookCounts2,
+                backgroundColor: backgroundColor2,
                 borderWidth: 1
             }]
         };
@@ -198,6 +230,15 @@
             data: data2,
             options: options
         });
+
+        // const colors = [
+        //     'rgba(255, 99, 132, 0.5)', // Red color with opacity
+        //     'rgba(54, 162, 235, 0.5)', // Blue color with opacity
+        //     'rgba(255, 206, 86, 0.5)', // Yellow color with opacity
+        //     'rgba(75, 192, 192, 0.5)', // Green color with opacity
+        //     'rgba(153, 102, 255, 0.5)', // Purple color with opacity
+        //     // Add more colors as needed
+        // ];
     </script>
 
 <script>

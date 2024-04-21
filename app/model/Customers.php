@@ -101,6 +101,13 @@
       $this->db->execute();
       return $this->db->rowCount() > 0;
   }
+
+  public function findNoOfSaveEvent($user_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM saveevent WHERE user_id=:user_id');
+      $this->db->bind(':user_id',$user_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
   
 
     public function findUsedBookByNotCusId($customer_id) {
@@ -1179,6 +1186,7 @@ public function getQuizDetails(){
     $this->db->bind(':customer_id',$customer_id);
     return $this->db->single();
   }
+
   public function updateRedeem($customer_id, $totalRedeem) {
     $this->db->query('UPDATE customers SET redeem_points = redeem_points - :redeem_points WHERE customer_id = :customer_id');
     $this->db->bind(':redeem_points', $totalRedeem); // Removed space after ':redeem_points'
@@ -1301,4 +1309,49 @@ public function updateReviewHelpfulBooks($reviewId){
       return $result->count;
   }
 
+  public function findNoOfBuyNewBooksById($customer_id) {
+    $this->db->query('SELECT COUNT(orders.order_id) AS num_delivered_orders_new_books
+                      FROM orders
+                      JOIN order_details ON orders.order_id = order_details.order_id
+                      JOIN books ON order_details.book_id = books.book_id
+                      WHERE orders.customer_id = :customer_id
+                      AND order_details.status = "delivered"
+                      AND books.type = "new"');
+    $this->db->bind(':customer_id',$customer_id);
+    $result = $this->db->single();
+    return $result->num_delivered_orders_new_books;
+  }
+
+  public function findNoOfBuyUsedBooksById($customer_id) {
+    $this->db->query('SELECT COUNT(orders.order_id) AS num_delivered_orders_used_books
+                      FROM orders
+                      JOIN order_details ON orders.order_id = order_details.order_id
+                      JOIN books ON order_details.book_id = books.book_id
+                      WHERE orders.customer_id = :customer_id
+                      AND order_details.status = "delivered"
+                      AND books.type = "used"');
+    $this->db->bind(':customer_id',$customer_id);
+    $result = $this->db->single();
+    return $result->num_delivered_orders_used_books;
+  }
+
+  public function findBoughtCategories($customer_id) {
+    $this->db->query('SELECT b.category, COUNT(*) AS book_count
+                      FROM orders o
+                      JOIN order_details od ON o.order_id = od.order_id
+                      JOIN books b ON od.book_id = b.book_id
+                      WHERE o.customer_id = :customer_id
+                      AND od.status = "delivered"
+                      GROUP BY b.category;');
+    $this->db->bind(':customer_id', $customer_id);
+    $results = $this->db->resultSet();
+    return $results;
+  }
+
+  public function findAddedCategories($customer_id) {
+    $query = "SELECT category, COUNT(*) AS book_count FROM books WHERE customer_id = :customer_id GROUP BY category";
+    $this->db->query($query);
+    $this->db->bind(':customer_id', $customer_id);
+    return $this->db->resultSet();
+  }
 }
