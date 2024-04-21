@@ -10,7 +10,10 @@
         <div class="cart-topic">
             <h2>My Cart</h2>
         </div>
-       
+        <?php if(empty($data['cartDetails'])): ?>
+            <?php echo '
+                <br><br><h3 style="text-align:center;">No Books in Your Cart. Continue Shopping </h3>'; ?>
+        <?php else : ?>
         <div class="mycart">
             <div class="cart-search" id="searchForm" onsubmit="handleSearch()">
                 <input type="text" placeholder="Search.." name="search" id="searchInput">
@@ -80,10 +83,6 @@
             <!-- </form> -->
 
             <table border="1" class="tb-cart2" id="eventTable">
-            <?php if(empty($data['cartDetails'])): ?>
-                    <?php echo '
-                    <h3 style="text-align:center;">No Books in Your Cart.Continue Shopping </h3>'; ?>
-                        <?php else : ?>
                 <tbody>
                     <?php foreach($data['cartDetails'] as $cart): ?>
                     <tr>
@@ -113,7 +112,6 @@
                         </td>
                     </tr>
                     <?php endforeach; ?>
-                    <?php endif ; ?>
                 </tbody>
                 
             </table>
@@ -139,6 +137,7 @@
             <li>10</li>
             <li id="nextButton">»</li>
         </ul>
+        <?php endif; ?>
         
     </div>
     

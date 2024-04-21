@@ -19,7 +19,7 @@
                         <h1>Rs 5472.00</h1>
                     </div>
                     <div class="sub-total-div">
-                        <h3>Total Points &emsp;<i class="fa fa-star" aria-hidden="true"></i></h3>
+                        <h3>Current Points &emsp;<i class="fa fa-star" aria-hidden="true"></i></h3>
                         <h1>12785</h1>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     </div> -->
                 </div>
                 <div class="add-book-div">
-                    <h3>My current points</h3>
+                    <h3>My Total points</h3>
                     <div class="point-chart">
                         <canvas id="myDoughnutChart"></canvas>
                         <div class="centered-text">
@@ -50,44 +50,44 @@
             <div class="add-buy-book">
                 <div class="add-book-div">
                     <div class="no-of-books">
-                        <h3>Add Used Books</h3>
+                        <h3>Added Used Books</h3>
                         <h3><?php echo $data['used']; ?></h3>
                     </div>
                     <div class="no-of-books">
-                        <h3>Add Exchange Books</h3>
+                        <h3>Added Exchange Books</h3>
                         <h3><?php echo $data['exchange']; ?></h3>
                     </div>
                     <div class="no-of-books">
-                        <h3>Add Contents</h3>
+                        <h3>Added Contents</h3>
                         <h3><?php echo $data['content']; ?></h3>
                     </div>
                     <div class="no-of-books">
-                        <h3>Add Events</h3>
+                        <h3>Added Events</h3>
                         <h3><?php echo $data['event']; ?></h3>
                     </div>
                 </div>
                 <div class="add-book-div">
                     <div class="no-of-books">
-                        <h3>Buy New Books</h3>
+                        <h3>Bought New Books</h3>
                         <h3>1</h3>
                     </div>
                     <div class="no-of-books">
-                        <h3>Buy Used Books</h3>
+                        <h3>Bought Used Books</h3>
                         <h3>29</h3>
                     </div>
                     <div class="no-of-books">
-                        <h3>Exchange Books</h3>
+                        <h3>Saved Events</h3>
                         <h3>16</h3>
                     </div>
                     <div class="no-of-books">
-                        <h3>Donate Books</h3>
+                        <h3>Donated Books</h3>
                         <h3>42</h3>
                     </div>
                 </div>
             </div>
             <div class="category-summary">
                 <div class="add-book-div">
-                    <h3>Summary based on book Category (Add)</h3>
+                    <h3>Summary based on book Category (Added)</h3>
                     <div class="buy-chart">
                         <canvas id="myPieChart1"></canvas>
                     </div>
@@ -96,7 +96,7 @@
                     </div> -->
                 </div>
                 <div class="add-book-div">
-                    <h3>Summary based on book Category (Buy)</h3>
+                    <h3>Summary based on book Category (Bought)</h3>
                     <div class="add-chart">
                         <canvas id="myPieChart2"></canvas>
                     </div>

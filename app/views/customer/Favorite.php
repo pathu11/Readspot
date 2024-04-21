@@ -10,6 +10,10 @@
             <div class="favorite-topic">
                 <h2>My Favorite</h2>
             </div>
+            <?php if(empty($data['favoriteDetails'])): ?>
+                <?php echo '
+                    <br><br><h3 style="text-align:center;">No Favorite Books or Contents.</h3>'; ?>
+            <?php else : ?>
             <div class="myfavorite">
                 <div class="favorite-search" id="searchForm" onsubmit="handleSearch()">
                     <input type="text" placeholder="Search.." name="search" id="searchInput">
@@ -60,6 +64,7 @@
                 <li>10</li>
                 <li id="nextButton">»</li>
             </ul>
+            <?php endif; ?>
         </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed

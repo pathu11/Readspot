@@ -380,7 +380,9 @@ class Customer extends Controller {
             }
             if($this->customerModel->AddEvent($data)){
                 // flash('add_success','You are added the book  successfully');
-                redirect('customer/Addevnt');
+                // redirect('customer/Event');
+                echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
+                // echo "<script>showModal();</script>";
             }else{
                 die('Something went wrong');
             }
@@ -389,10 +391,13 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $eventCategoryDetails = $this->adminModel->getEventCategories();
+
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'eventCategoryDetails'=>$eventCategoryDetails
             ];
             $this->view('customer/Addevnt', $data);
         }

@@ -189,7 +189,7 @@
         });
     </script>
 
-<script>
+    <script>
         function viewBook() {
             var modal = document.getElementById("myModal");
             var bookDetailsTable = document.getElementById("bookDetailsTable");
@@ -235,12 +235,10 @@
         function closeModal() {
             document.getElementById("myModal").style.display = "none";
         }
+    </script>
 
 
-</script>
-
-
-<script>
+    <script>
         function calculateWeight() {
             // Get values from the form
             var width = parseFloat(document.getElementById("width").value);
@@ -263,7 +261,7 @@
             // Display the result
             document.getElementById("result").innerHTML = "Estimated Weight: " +"<br>"+ totalWeight.toFixed(2) + " grams";
         }
-</script>
+    </script>
 
 <script>
         function goBack() {

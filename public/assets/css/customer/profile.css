@@ -91,7 +91,7 @@
     border-radius: 5px;
 }
 
-.post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"]{
+.post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"], .post-details select {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -407,7 +407,7 @@
         margin-left: 5px;
     }
     
-    .post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"]{
+    .post-details input[type="email"] , .post-details input[type="text"], .post-details input[type="number"], .post-details select{
         padding: 5px;
         margin-top: 5px;
         margin-left: 5px;

@@ -72,7 +72,7 @@
         var selectBox = document.getElementById("category");
         var otherReasonInput = document.getElementById("otherReasonInput");
 
-        if (selectBox.value === "other") {
+        if (selectBox.value === "Other") {
             otherReasonInput.disabled = false;
         } else {
             otherReasonInput.disabled = true;

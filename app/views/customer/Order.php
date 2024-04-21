@@ -10,6 +10,10 @@
         <div class="order-topic">
             <h2>My Orders</h2>
         </div>
+        <?php if(empty($data['orderDetails'])): ?>
+            <?php echo '
+                <br><br><h3 style="text-align:center;">No Orders.</h3>'; ?>
+        <?php else : ?>
         <div class="myorder">
             <div class="order-search" id="searchForm" onsubmit="handleSearch()">
                     <input type="text" placeholder="Search.." name="search" id="searchInput">
@@ -44,20 +48,20 @@
             </table>
         </div>
         <ul class="pagination" id="pagination">
-                <li id="prevButton">«</li>
-                <li class="current">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
-                <li id="nextButton">»</li>
-            </ul>
-
+            <li id="prevButton">«</li>
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li id="nextButton">»</li>
+        </ul>
+        <?php endif; ?>
         <div id="cancelOrderModal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" onclick="closeCancelOrderModal()">&times;</span>
