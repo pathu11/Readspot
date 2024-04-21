@@ -83,7 +83,8 @@ body {
 }
 
 .uf-reject-req {
-    background-color: rgb(131, 131, 131);
+    background-color: rgb(231, 231, 231);
+    color: gray;
 }
 
 .uf-confirm-req:hover {
@@ -92,6 +93,7 @@ body {
 
 .uf-reject-req:hover {
     background-color: red;
+    color: white;
 }
 
 .uf-go-back-btn {
