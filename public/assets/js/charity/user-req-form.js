@@ -9,13 +9,56 @@ function closeRejectModal() {
 
 function toggleCustomReason() {
     var customReason = document.getElementById('ufCustomReason');
-    var otherRadio = document.querySelector('input[name="reason"][value="other"]');
+    var CatReason = document.getElementById('book-cat-reason');
+    var LocReason = document.getElementById('location-reason');
+    var CountReason = document.getElementById('book-count-reason');
+    var DateReason = document.getElementById('date-reason');
 
-    if (otherRadio.checked) {
+    var selectedReason = document.querySelector('input[name="reason"]:checked');
+    var selected_reason = selectedReason.value;
+
+
+    if (selected_reason === 'other') {
         customReason.style.display = 'block';
-    } else {
-        customReason.style.display = 'none';
+        CatReason.style.display = 'none';
+        LocReason.style.display = 'none';
+        CountReason.style.display = 'none';
+        DateReason.style.display = 'none';
     }
+    else if (selected_reason === 'bookcat-not-available') {
+        customReason.style.display = 'none';
+        CatReason.style.display = 'block';
+        LocReason.style.display = 'none';
+        CountReason.style.display = 'none';
+        DateReason.style.display = 'none';
+    }
+    else if (selected_reason === 'location-not-available') {
+        customReason.style.display = 'none';
+        CatReason.style.display = 'none';
+        LocReason.style.display = 'block';
+        CountReason.style.display = 'none';
+        DateReason.style.display = 'none';
+    }
+    else if (selected_reason === 'count-not-enough') {
+        customReason.style.display = 'none';
+        CatReason.style.display = 'none';
+        LocReason.style.display = 'none';
+        CountReason.style.display = 'block';
+        DateReason.style.display = 'none';
+    }
+    else if (selected_reason === 'date-not-available' ) {
+        customReason.style.display = 'none';
+        CatReason.style.display = 'none';
+        LocReason.style.display = 'none';
+        CountReason.style.display = 'none';
+        DateReason.style.display = 'block';
+    }
+
+    // if (otherRadio.checked) {
+    //     customReason.style.display = 'block';
+    // } else {
+    //     customReason.style.display = 'none';
+    // }
 }
 
 function submitRejectReason() {
@@ -40,11 +83,19 @@ function submitRejectReason() {
         return;
     }
     else if (selected_reason === 'bookcat-not-available' && document.getElementById("book-cat-reason").value.trim() == "") {
-        alert('enter book category');
+        alert('suggest an alter category');
         return;
     }
-    else if (selected_reason === 'bookcat-not-available' && document.getElementById("book-cat-reason").value.trim() == "") {
-        alert('enter book category');
+    else if (selected_reason === 'location-not-available' && document.getElementById("location-reason").value.trim() == "") {
+        alert('suggest an alter location');
+        return;
+    }
+    else if (selected_reason === 'count-not-enough' && document.getElementById("book-count-reason").value.trim() == "") {
+        alert('request more books');
+        return;
+    }
+    else if (selected_reason === 'date-not-available' && document.getElementById("date-reason").value.trim() == "") {
+        alert('suggest an alter date');
         return;
     }
 

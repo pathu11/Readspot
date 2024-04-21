@@ -135,9 +135,9 @@ body {
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
-    width: 600px;
-    max-width: 700px;
-    height: 500px;
+    width: 628px;
+    max-width: 585px;
+    height: 352px;
     overflow-y: auto;
     border-radius: 8px;
 }
