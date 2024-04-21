@@ -90,12 +90,29 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align:center;">
-                            <button type="submit" name="uf-reject-req" class="uf-reject-req">Reject Request</button>
+                            <button type="button" onclick="openRejectModal()" class="uf-reject-req">Reject Request</button>
                             <button type="submit" name="uf-confirm-req" class="uf-confirm-req">Confirm & Make Event</button>
                         </td>
                     </tr>
                 </table>
             </form>
+        </div>
+
+
+        <div class="uf-modal" id="ufRejectModal">
+            <div class="uf-modal-content">
+                <span class="uf-close-btn" onclick="closeRejectModal()">&times;</span>
+                <h3>Reason for Rejecting Request</h3>
+                <form action="#" method="post" id="ufRejectForm">
+                    <input type="radio" name="reason" value="not-available"> Book Category not available : <input type="text" class="reasonD" placeholder="suggest an alter category..."><br><br>
+                    <input type="radio" name="reason" value="not-available"> Locations is not feasible : <input type="text" class="reasonD" placeholder="suggest an alter location..."> <br><br>
+                    <input type="radio" name="reason" value="not-available"> Book count is not enough : <input type="text" class="reasonD" placeholder="request more books..."><br><br>
+                    <input type="radio" name="reason" value="not-available"> Date is already fixed : <input type="text" class="reasonD" placeholder="suggest an alter Date..."><br><br>
+                    <input type="radio" name="reason" value="other" onclick="toggleCustomReason()"> Reason <br><br>
+                    <textarea name="customReason" id="ufCustomReason" placeholder="Enter a Custom Reason with suggestion" style="display:none;"></textarea>
+                    <button type="button" class="send-button" onclick="submitRejectReason()">send</button>
+                </form>
+            </div>
         </div>
     </body>
 
@@ -114,5 +131,6 @@
 </body>
 <script src=<?= URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
 <script src=<?= URLROOT . "/assets/js/charity/userRequestjs.js" ?>></script>
+<script src=<?= URLROOT . "/assets/js/charity/user-req-form.js" ?>></script>
 
 </html>
