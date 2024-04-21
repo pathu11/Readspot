@@ -23,20 +23,20 @@
         <div class="bookcata">
             <h4>Book category</h4>
             <ul>
-                <li><a href="#">Action and Adventure</a></li>
-                <li><a href="#">Classics</a></li>
-                <li><a href="#">Fantasy</a></li>
-                <li><a href="#">Horror</a></li>
-                <li><a href="#">Romance</a></li>
-                <li><a href="#">Science Fiction (Sci-Fi)</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/Category/Adventure">Action and Adventure</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/Category/Mystery">Mystery</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/Category/Fantacy">Fantasy</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/Category/Drama">Drama</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/Category/Romance">Romance</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/Category/Science-Fiction">Science Fiction (Sci-Fi)</a></li>
             </ul>
         </div>
         <div class="quicklink">
             <h4>Quick Link</h4>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/index">Home</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/ContactUs">Contact Us</a></li>
+                <li><a href="<?php echo URLROOT; ?>/customer/AboutUs">About Us</a></li>
                 <li><a href="#">FAQ</a></li>
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Terms of Service</a></li>

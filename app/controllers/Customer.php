@@ -1092,9 +1092,11 @@ public function BuyNewBooks()
         // redirect('landing/login');
         $recommendedBooks = $this->customerModel->topSelling();
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
         $data = [  
             'bookDetails' => $NewbookDetailsByTime,
-            'recommendedBooks' => $recommendedBooks
+            'recommendedBooks' => $recommendedBooks,
+            'bookCategoryDetails'=>$bookCategoryDetails
         ];
         $this->view('customer/BuyNewBooks', $data);
 
@@ -1104,13 +1106,15 @@ public function BuyNewBooks()
         $customer_id = $customerDetails[0]->customer_id;
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
         $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
         $data = [
             'customerDetails' => $customerDetails,
             'user_id'=>$user_id,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->first_name,
             'bookDetails' => $NewbookDetailsByTime,
-            'recommendedBooks' => $recommendedBooks
+            'recommendedBooks' => $recommendedBooks,
+            'bookCategoryDetails'=>$bookCategoryDetails
         ];
 
         $this->view('customer/BuyNewBooks', $data);

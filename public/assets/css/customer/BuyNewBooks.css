@@ -78,7 +78,7 @@
 }
 
 .viewall a:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: 500;
     cursor: pointer;
     transform: scale(1.1);
