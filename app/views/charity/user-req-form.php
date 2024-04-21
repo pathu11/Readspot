@@ -23,9 +23,8 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="event">Event Management</a>
             <a href="donation" class="active">Donation Requests</a>
-            <a href="customerSupport">Customer Support</a>
+            <a href="event">Event Management</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -50,7 +49,7 @@
             <div class="uf-table-header">
                 <h2>Full Details</h2>
             </div>
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="/Readspot/charity/confirmEvent" method="post" enctype="multipart/form-data">
                 <table>
                     <tr>
                         <td>First Name:</td>
@@ -91,7 +90,8 @@
                     <tr>
                         <td colspan="2" style="text-align:center;">
                             <button type="button" onclick="openRejectModal()" class="uf-reject-req">Reject Request</button>
-                            <button type="submit" name="uf-confirm-req" class="uf-confirm-req">Confirm & Make Event</button>
+                            <button type="submit" name="uf-confirm-req" class="uf-confirm-req">Confirm & Add event</button>
+                            <!-- <a href="<?php echo URLROOT; ?>/charity/confirm-event">CHECK</a> -->
                         </td>
                     </tr>
                 </table>
