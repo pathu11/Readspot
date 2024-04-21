@@ -104,19 +104,19 @@
                 <span class="uf-close-btn" onclick="closeRejectModal()">&times;</span>
                 <h3>Reason for Rejecting Request</h3>
                 <form action="#" method="post" id="ufRejectForm">
-                    <input type="radio" name="reason" value="bookcat-not-available" onclick="toggleCustomReason()" id="radio1"> <label for="radio1">Book Category not available </label><br>
+                    <input type="radio" name="reason" value="bookcat-not-available" onclick="toggleCustomReason()" id="radio1"> <label for="radio1"> Book Category not available </label><br>
                     <input id="book-cat-reason" type="text" class="reasonD" placeholder="suggest an alter category..." style="display:none;"><br>
                     
-                    <input type="radio" name="reason" value="location-not-available" onclick="toggleCustomReason()"> Locations is not feasible <br>
+                    <input type="radio" name="reason" value="location-not-available" onclick="toggleCustomReason()" id=radio2> <label for="radio2"> Locations is not feasible </label><br>
                     <input id="location-reason" type="text" class="reasonD" placeholder="suggest an alter location..." style="display:none;"> <br>
                     
-                    <input type="radio" name="reason" value="count-not-enough" onclick="toggleCustomReason()"> Book count is not enough<br>
+                    <input type="radio" name="reason" value="count-not-enough" onclick="toggleCustomReason()" id="radio3"><label for="radio3"> Book count is not enough</label><br>
                     <input id="book-count-reason" type="text" class="reasonD" placeholder="request more books..." style="display:none;"><br>
                     
-                    <input type="radio" name="reason" value="date-not-available" onclick="toggleCustomReason()"> Date is already fixed<br>
-                    <input id="date-reason" type="text" class="reasonD" placeholder="suggest an alter Date..." style="display:none;"><br>
+                    <input type="radio" name="reason" value="date-not-available" onclick="toggleCustomReason()" id="radio4"> <label for="radio4"> Date is already fixed</label><br>
+                    <input id="date-reason" type="date" class="reasonD" placeholder="suggest an alter Date..." style="display:none;"><br>
                     
-                    <input type="radio" name="reason" value="other" onclick="toggleCustomReason()"> Other<br>
+                    <input type="radio" name="reason" value="other" onclick="toggleCustomReason()" id="radio5"><label for="radio5"> Other</label><br>
                     <textarea name="customReason" id="ufCustomReason" placeholder="Enter a Custom Reason with suggestion" style="display:none;"></textarea>
                     
                     <button type="button" class="send-button" onclick="submitRejectReason()">send</button>
