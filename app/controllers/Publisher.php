@@ -49,27 +49,42 @@ class Publisher extends Controller{
         if (!isLoggedInPublisher()) {
             redirect('landing/login');
         } else {
+
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $publisher_id =$publisherDetails[0]->publisher_id;
+            $publisher_name =$publisherDetails[0]->name;
             $bookCount=$this->publisherModel->countBooks($publisher_id);
             $orderCount=$this->orderModel->countOrders($publisher_id);
+            $paymentCount=$this->orderModel->countPayment($user_id);
             $orderProCount=$this->orderModel->countProOrders($publisher_id);
             $orderDelCount=$this->orderModel->countDelOrders($publisher_id);
             $orderShipCount=$this->orderModel->countShipOrders($publisher_id);
             $orderReturnedCount=$this->orderModel->countReturnedOrders($publisher_id);
-            
+            $weeklyPayments = $this->orderModel->getTotalPaymentsForCurrentMonthByWeek($user_id);
+            $weeklyPaymentsJson = json_encode($weeklyPayments);
+
+            $bookCategoryCount=$this->orderModel->getBookCategoryCountsByPublisher($publisher_id);
+            $bookCategoryCountBuy=$this->orderModel->getBookCategoryCountsByPublisherBuy($publisher_id);
+            $pendingPayment=$this->orderModel->getPendingPayment($user_id);
             $data = [
                 'publisherDetails' => $publisherDetails, 
+                'publisherName' => $publisher_name, 
                 'bookCount'    =>$bookCount,
                 'orderCount'    =>$orderCount,
+                'paymentCount'    =>$paymentCount,
                 'orderProCount'    =>$orderProCount,
                 'orderDelCount'    =>$orderDelCount,
-                'orderReturnedCount'    =>$orderReturnedCount,
+                'orderReturnedCount' =>$orderReturnedCount,
                 'orderShipCount'    =>$orderShipCount,
                 'publisher_id'   =>$publisher_id ,
-                'publisherName'  =>$publisherDetails[0] ->name
+                'publisherName'  =>$publisherDetails[0] ->name,
+                'weeklyPaymentsJson'=>$weeklyPaymentsJson,
+                'bookCategoryCount'=>$bookCategoryCount,
+                'bookCategoryCountBuy'=>$bookCategoryCountBuy,
+                'pendingPayment'=>$pendingPayment
             ];
+        //    print_r($pendingPayment);
             $this->view('publisher/index', $data);
         } 
     }

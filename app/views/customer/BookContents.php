@@ -74,6 +74,7 @@
             <?php if (empty($data['contentDetails'])): ?>
                 <div class="B-div-noBook">
                     <p>No books added yet.</p>
+
             <?php else: ?>
                 <?php foreach($data['contentDetails'] as $content): ?>
                     <div class="content0-C">

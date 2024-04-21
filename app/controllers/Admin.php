@@ -127,8 +127,10 @@ require APPROOT . '\vendor\autoload.php';
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
+            'img'=>'',
             'book_category_err'=>'',
-            'description_err'=>''
+            'description_err'=>'',
+            'img_err'=>'',
         ];
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
@@ -138,7 +140,37 @@ require APPROOT . '\vendor\autoload.php';
             $data['description_err']='Please enter the category description';      
         }
 
-        if(empty($data['book_category_err']) && empty($data['description_err'])){
+        if(empty($data['book_category_err']) && empty($data['description_err']) && empty($data['img_err'])){
+            if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
+                $img_name = $_FILES['bookCategoryImg']['name'];
+                $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
+                $error = $_FILES['bookCategoryImg']['error'];
+                            
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+                        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['book_category'] . '-' . $unique_id . '-img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/admin/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                        
+                        $data['img'] = $new_img_name;
+                    } else {
+                        // Handle file type not allowed error
+                        $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                    }
+                } else {
+                    // Handle file upload error
+                    $data['img_err'] = 'Error uploading the file';
+                }
+            }
+            
+            
+            
             if($this->adminModel->addBookCategory($data)){
                 flash('add_success','You are added the book category successfully');
                 redirect('admin/categories');
@@ -155,6 +187,7 @@ require APPROOT . '\vendor\autoload.php';
         $data=[
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
+            'img'=>'',
             'book_category'=>'',
             'description'=>'',
             'book_category_err'=>'',
@@ -178,6 +211,8 @@ require APPROOT . '\vendor\autoload.php';
             'id' => $id,
             'book_category' => trim($_POST['book_category']),
             'description' => trim($_POST['description']),
+            'img'=>'',
+
             'book_category_err' => '',
             'description_err' => ''
         ];
@@ -191,6 +226,35 @@ require APPROOT . '\vendor\autoload.php';
         }
 
         if (empty($data['book_category_err']) && empty($data['description_err'])) {
+
+            if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
+                $img_name = $_FILES['bookCategoryImg']['name'];
+                $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
+                $error = $_FILES['bookCategoryImg']['error'];
+                            
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+                        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['book_category'] . '-' . $unique_id . '-img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/admin/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                        
+                        $data['img'] = $new_img_name;
+                    } else {
+                        // Handle file type not allowed error
+                        $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                    }
+                } else {
+                    // Handle file upload error
+                    $data['img_err'] = 'Error uploading the file';
+                }
+            }
+            
             if ($this->adminModel->updateBookCategory($data)) {
                 flash('update_success', 'You are updated the book category successfully');
                 redirect('admin/categories');
@@ -210,6 +274,7 @@ require APPROOT . '\vendor\autoload.php';
             'id' => $id,
             'book_category' => $bookCategory->category,
             'description' => $bookCategory->description,
+            'img'=>$bookCategory->category_img,
             'book_category_err' => '',
             'description_err' => ''
         ];
@@ -508,12 +573,18 @@ public function livesearch(){
         $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
         $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
         $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
+        $orderSearchDetailsByID = $this->adminModel->getOrderSearchDetailsByID($input);
+        $orderSearchDetailsByDate = $this->adminModel->getOrderSearchDetailsByDate($input);
+        $complainSearchDetails = $this->adminModel->getComplainSearchDetails($input);
     }
 
     $data = [
         'customerSearchDetails'=>$customerSearchDetails,
         'publisherSearchDetails'=>$publisherSearchDetails,
-        'charitySearchDetails'=>$charitySearchDetails
+        'charitySearchDetails'=>$charitySearchDetails,
+        'orderSearchDetailsByID'=>$orderSearchDetailsByID,
+        'orderSearchDetailsByDate'=>$orderSearchDetailsByDate,
+        'complainSearchDetails'=>$complainSearchDetails,
     ];
     
     $this->view('admin/livesearch',$data);
@@ -898,13 +969,90 @@ public function approveBook($book_id){
     
 }
 
+
+
 public function rejectBook(){
+    if (!isLoggedInAdmin()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $rejectReason = $_POST["rejectReason"];
+        $customer_id = $_POST["customer_id"];
+        $book_id = $_POST["book_id"];
 
-        $rejectReason = $_POST['rejectReason'];
-        $customer_id = $_POST['customer_id'];
-        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
-        $customerEmail = $pendingBook[0]->email;
+        $pendingBook = $this->adminModel->getPendingBookByID($book_id);
 
+        if ($this->adminModel->rejectBook($book_id)) {   
+          // Send email using PHPMailer
+          $mail = new PHPMailer(true);
+  
+          try {
+              //Server settings
+              $mail->isSMTP();
+              $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+              $mail->SMTPAuth   = true;
+              $mail->Username   = MAIL_USER; // SMTP username
+              $mail->Password   = MAIL_PASS;   // SMTP password
+              $mail->SMTPSecure = MAIL_SECURITY;
+              $mail->Port       = MAIL_PORT;
+  
+              //Recipients
+              $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+              $mail->addAddress($pendingBook->email);  // Add a recipient
+  
+              // Content
+              $mail->isHTML(true);  // Set email format to HTML
+              $mail->Subject = 'Your Book '.$pendingBook->book_name.' Has Been Rejected';
+              $mail->Body    = "Dear ".$pendingBook->name. ",.<br><br>" .
+              "Unfortunaltely your book " .$pendingBook->book_name.", authored by " .$pendingBook->author. ", has been has been rejected for the following reason:<br><br>".
+              $rejectReason."Thank you for your submission.<br><br>".
+              "Sincerely,<br>".
+              "The Admin Team";
+  
+              $mail->send();
+  
+              // Redirect or perform other actions as needed
+              redirect('admin/pendingRequestsBooks');
+          } catch (Exception $e) {
+              die('Something went wrong: ' . $mail->ErrorInfo);
+          }
+        }
+        else{
+          echo 'Something Went Wrong';
+        }
+
+      }
+    }
+  }
+
+public function complains(){
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+      }else{
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $complainDetails = $this->adminModel->getComplains();
+        
+        $data = [
+          'adminDetails' => $adminDetails,
+          'adminName'=>$adminDetails[0]->name,
+          'complainDetails'=>$complainDetails,
+        ];
+        $this->view('admin/complains',$data);
+      }
+}
+
+public function respondComplain(){
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+    }else{
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          $adminComment = $_POST["adminComment"];
+          $complaint_id = $_POST["complaint_id"];
+          $email = $_POST["email"];
+          $name = $_POST["name"];
+  
+        if ($this->adminModel->respondComplain($complaint_id,$adminComment)) {   
         // Send email using PHPMailer
         $mail = new PHPMailer(true);
 
@@ -920,26 +1068,30 @@ public function rejectBook(){
 
             //Recipients
             $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress($customerEmail);  // Add a recipient
+            $mail->addAddress($email);  // Add a recipient
 
             // Content
             $mail->isHTML(true);  // Set email format to HTML
-            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
-            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
-                            "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
-                            $rejectReason."Thank you for your submission.<br><br>".
-                            "Sincerely,<br>".
-                            "The Admin Team";
-                
+            $mail->Subject = 'Regarding Your Complain';
+            $mail->Body    = "Dear ".$name. ". Thank you for reaching out to us ".$adminComment." If there is anything else we can assist you with, or if you have any further questions, please don't hesitate to contact us.
+
+            Thank you for your understanding.";
+
+            $mail->send();
+
             // Redirect or perform other actions as needed
-
-            redirect('admin/pendingRequestsBooks');
-            
-        } catch (Exception $e) {
-            die('Something went wrong: ' . $mail->ErrorInfo);
+            redirect('admin/complains');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
         }
+        else{
+        echo 'Something Went Wrong';
+        }
+  
+        }
+    }
 }
-
 
 
 }

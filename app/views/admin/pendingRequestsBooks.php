@@ -59,20 +59,20 @@
 
                     <td>
                         <button onclick="showAcceptPopup('<?php echo $book->book_id; ?>')">Accept</button>
-                        <button onclick="showRejectPopup('<?php echo $book->customer_id; ?>')" style="background-color: rgb(200, 84, 84);">Reject</button>
+                        <button onclick="showRejectPopup('<?php echo $book->customer_id; ?>','<?php echo $book->book_id;?>')" style="background-color: rgb(200, 84, 84);">Reject</button>
                     </td>
 
 
                 </tr>
-                <div id="acceptPopup_<?php echo $book->book_id; ?>" class="modal">
+                <!-- <div id="acceptPopup_<?php echo $book->book_id; ?>" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="hidePopup('acceptPopup_<?php echo $book->book_id; ?>')">&times;</span>
                         <p>Send approval email to the seller.</p>
                         <a href="<?php echo URLROOT; ?>/admin/approveBook/<?php echo $book->book_id; ?>"><button>Confirm</button></a>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="rejectPopup_<?php echo $book->customer_id; ?>" class="modal">
+                <!-- <div id="rejectPopup_<?php echo $book->customer_id; ?>" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="hidePopup('rejectPopup_<?php echo $book->customer_id; ?>')">&times;</span>
                         <p>Reason for rejection:</p>
@@ -81,7 +81,7 @@
                             <button id="sendRejectEmail_<?php echo $book->customer_id; ?>" onclick="sendRejectEmail(<?php echo $book->customer_id;?>)">Send Rejection Email</button>
 
                     </div>
-                </div>
+                </div> -->
 
             <?php endforeach; ?>
         </table>
@@ -93,72 +93,60 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Poster Details</h2>
-            <table id="eventDetailsTable">
-                <!-- Event details will go here-->
-            </table>
+            <img id="large-event-poster" width="60%"/>
         </div>
     </div>
 
-    <script src="<?php echo URLROOT; ?>/assets/js/admin/table.js"></script>
+    <div id="myModal1" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Approve Event</h2>
+        <table id="eventApprovalTable">
+            <!-- Event details will go here -->
+        </table>
+      </div>
+    </div>
+
+    <div id="myModal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add Reject Reason</h2>
+            <form action="<?php echo URLROOT;?>/admin/rejectBook" method="post">
+                <textarea id="rejectReason" name="rejectReason" rows="4" cols="50" placeholder="Enter reject reason..."></textarea>
+                <input type="hidden" id="customer_id" name="customer_id">
+                <input type="hidden" id="book_id" name="book_id">
+                <button type="submit">Send Rejection Email</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function viewEvent(imgLink){
+            document.getElementById("large-event-poster").src = imgLink;
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function showRejectPopup(customer_id,book_id){
+            document.getElementById("customer_id").value = customer_id;
+            document.getElementById("book_id").value = book_id;
+            document.getElementById("myModal2").style.display = "block";
+        }
+
+        function showAcceptPopup(book_id){
+            var approval = '<p>Send approval email</p><br> <a href="<?php echo URLROOT;?>/admin/approveBook/'+`${book_id}`+'"</a><button>Send</button></a>';
+            var eventApproval = document.getElementById("eventApprovalTable");
+            eventApproval.innerHTML = approval;
+            document.getElementById("myModal1").style.display = "block";
+        }
+
+        function closeModal(){
+            document.getElementById("myModal").style.display = "none";
+            document.getElementById("myModal1").style.display = "none";
+            document.getElementById("myModal2").style.display = "none";
+        }
+
+    </script>
+
 
 </body>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-    // $(document).ready(function() {
-    //     $('#rejectForm').submit(function(event) {
-    //         // Prevent default form submission
-    //         event.preventDefault();
-
-    //         // Get the value of the textarea
-    //         var rejectReason = $('#rejectReason').val();
-    //         console.log(rejectReason);
-
-    //         // Make AJAX request
-    //         $.ajax({
-    //             type: 'POST',
-    //             url: 'http://localhost/readspot/admin/rejectBook/<?php echo $book->customer_id; ?>',
-    //             data: {
-    //                 rejectReason: rejectReason
-    //             }, // Send the rejection reason as data
-    //             success: function(response) {
-    //                 // Handle successful response
-    //                 console.log(response);
-    //                 // Optionally, hide the modal or perform any other action
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 // Handle error
-    //                 console.error('AJAX request failed: ' + status + ', ' + error);
-    //             }
-    //         });
-    //     });
-    // });
-
-
-    function sendRejectEmail(customer_id) {
-    // Get the value of the textarea relative to the button clicked
-    var rejectReason = $('#rejectPopup_' + customer_id).find('#rejectReason').val();
-    console.log(rejectReason);
-    console.log(customer_id);
-
-    // Make AJAX request
-    $.ajax({
-        url:'<?php echo URLROOT;?>/admin/rejectBook',
-        method:'post',
-        data: { rejectReason: rejectReason, customer_id:customer_id },
-        success: function(response) {
-            // Handle successful response
-            console.log('Email sent successfully');
-            // Optionally, perform any other action
-        },
-        error: function(xhr, status, error) {
-            // Handle error
-            console.error('AJAX request failed: ' + status + ', ' + error);
-        }
-    });
-}
-
-
-</script>
-
 </html>

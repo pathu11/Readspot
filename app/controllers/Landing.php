@@ -1083,6 +1083,10 @@ class Landing extends Controller{
     }    
     public function createUserSession($user) {
 
+        $loginTime = date('Y-m-d H:i:s');
+        $userId = $user->user_id;
+        $this->userModel->logUserLogin($userId, $loginTime);
+
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_role']=$user->user_role;
@@ -1136,6 +1140,10 @@ class Landing extends Controller{
     }
 
     public function logout(){
+
+        $logoutTime = date('Y-m-d H:i:s');
+        $userId = $_SESSION['user_id'];
+        $this->userModel->logUserLogout($userId, $logoutTime);
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);    
         unset($_SESSION['user_pass']);

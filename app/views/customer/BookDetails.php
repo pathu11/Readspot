@@ -104,10 +104,7 @@
                 </div>
                 
                 <div class="give-rate">
-                    <div class="post">
-                        <div class="text">Thanks for rating us!</div>
-                        <div class="edit">EDIT</div>
-                    </div>
+                    
                     <form action="<?php echo URLROOT; ?>/customer/addReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
@@ -140,12 +137,12 @@
 
             </div>
             
-            <div class="sort-by-star">
+            <!-- <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>
                     <option value="travel">Most recent</option>
                 </select>
-            </div>
+            </div> -->
             <div class="cus-rev">
                 <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
@@ -178,14 +175,21 @@
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
                     <p><?php echo $reviews->review; ?></p>
-                    <!-- <div class="helpful">
+                    
+                    <div class="helpful">
                         <h4>Was this review helpful?</h4>
-                        <div class="yes-no">
-                            <h3>Yes</h3>
-                            <h3>No</h3>
-                        </div>
+                        <?php if(isset($data['user_id'])): ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
+                        <?php else: ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
+                        <?php endif; ?>
+</div>
+                          
+                <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
                     </div>
-                    <h5>13 people found this helpful</h5> -->
+                 
                 </div>
                 <?php endforeach; ?>
                 
@@ -203,6 +207,27 @@
     <script>
  
     
+document.querySelectorAll('.helpful-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const reviewId = this.dataset.reviewId;
+        const isHelpful = this.dataset.action === 'helpful';
+
+        fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+            .then(response => {
+                if (response.ok) {
+                   
+                    this.disabled = true; // Disable the button after clicking
+                    this.classList.add('clicked'); // Optionally, add a class to indicate the button was clicked
+                } else {
+                    console.error('Failed to update review helpfulness');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating review helpfulness:', error);
+            });
+    });
+});
+
     const btn = document.querySelector("button");
     const post = document.querySelector(".post");
     const widget = document.querySelector(".my-rate");

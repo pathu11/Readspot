@@ -17,6 +17,7 @@
     <div class="container">
 
         <table id="eventTable" class="responsive-table">
+        <input  type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
             <h2>Books Details</h2>
         <thead>
             <tr>
@@ -25,6 +26,7 @@
                
                 <th >Author</th>
                 <th >Price</th>
+                <th >Discounts(%)</th>
                 <th >Category</th>
                
                 <th >No of Books</th>
@@ -44,6 +46,7 @@
                 <!-- <th style="width:7%"><?php echo $bookDetails->ISBN_no; ?></th> -->
                 <td ><?php echo $bookDetails->author; ?></td>
                 <td ><?php echo $bookDetails->price; ?></td>
+                <td ><?php echo $bookDetails->discounts; ?></td>
                 <td ><?php echo $bookDetails->category; ?></td>
                 
                 <td ><?php echo $bookDetails->quantity; ?></td>
@@ -119,10 +122,7 @@
         </div>
         <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
     </div>
-    <?php
-            require APPROOT . '/views/publisher/footer.php'; //path changed
-        ?>
-
+    
     </body>
 <script>
         function goBack() {

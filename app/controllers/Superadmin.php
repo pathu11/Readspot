@@ -4,12 +4,14 @@ class Superadmin extends Controller{
     private $superadminModel;
    
     private $userModel;
+    private $publisherModel;
   
     private $db;
     public function __construct(){
         $this->superadminModel=$this->model('Super_admin');
         // $this->adminModel=$this->model('Admins');
         $this->userModel=$this->model('User');
+        $this->publisherModel=$this->model('Publishers');
         $this->db = new Database();
     }
     public function index(){
@@ -24,7 +26,13 @@ class Superadmin extends Controller{
             $countDelivery = $this->superadminModel->countDelivery(); 
             $countCustomers = $this->superadminModel->countCustomers (); 
             $countPublishers = $this->superadminModel->countPublishers(); 
-            $countCharity = $this->superadminModel->countCharity();  
+            $countCharity = $this->superadminModel->countCharity(); 
+            $countComplaints=$this->superadminModel->getResolvedCount() ;
+            $resolved_count=$countComplaints[0]->resolved_count;
+            $unresolved_count=$countComplaints[0]->unresolved_count;
+            $UserCountByDate=$this->superadminModel->getUserCountByDate();
+
+
             $data = [
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
@@ -34,9 +42,13 @@ class Superadmin extends Controller{
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'resolved_count'=>$resolved_count,
+                'unresolved_count'=>$unresolved_count,
+                'UserCountByDate'=>$UserCountByDate
 
             ];
+            // print_r($data['UserCountByDate']);
             $this->view('superadmin/index',$data);
         }
         
@@ -63,8 +75,6 @@ class Superadmin extends Controller{
                 'confirm_pass_err'=>'',
             ];
 
-            // validate email
-            //validate lname
             if(empty($data['name'])){
                 $data['name_err']='Please enter the name';      
             }
@@ -697,16 +707,19 @@ class Superadmin extends Controller{
     public function deleteadmins($user_id)
 {
 
-    if ($this->superadminModel->deleteadmins($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'Admin Removed');
-            redirect('superadmin/admins');
-        }
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectadmin($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/admins'); 
+            
+        } 
         
-    } else {
-        die('Something went wrong');
-    }
+    } 
+        
+    } 
 }
 
 public function deletemoderators($user_id)
@@ -715,28 +728,36 @@ public function deletemoderators($user_id)
     if (!isLoggedInSuperAdmin()) {
         redirect('landing/login');
     }
-    if ($this->superadminModel->deletemoderators($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'Moderator Removed');
-            redirect('superadmin/moderators');
-        }
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectmoderator($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/moderators'); 
+            
+        } 
         
-    } else {
-        die('Something went wrong');
-    }
+    } 
+        
+    } 
 }
 public function deletedelivery($user_id)
 {
     if (!isLoggedIn()) {
         redirect('landing/login');
     }
-    if ($this->superadminModel->deletedelivery($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'delivery Removed');
-            redirect('superadmin/delivery');
-        }
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectdelivery($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/delivery'); 
+            
+        } 
+        
+    } 
         
     } else {
         die('Something went wrong');
@@ -744,12 +765,17 @@ public function deletedelivery($user_id)
 }
 public function deletecustomers($user_id)
 {
-    if ($this->superadminModel->deletecustomers($user_id)) {
-//            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'customer Removed');
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectUser($user_id)) {
+       if ($this->superadminModel->rejectcustomers($user_id)){
+        if ($this->superadminModel->insertRemove_list($user_id,$name,$email)){
+             
             redirect('superadmin/customers');
-        }
+       }
+            
+       }
         
     } else {
         die('Something went wrong');
@@ -757,11 +783,17 @@ public function deletecustomers($user_id)
 }
 public function deletepublishers($user_id)
 {
-    if ($this->superadminModel->deletepublishers($user_id)) {
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'publisher Removed');
-            redirect('superadmin/publishers');
-        }
+   $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectpublisher($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/publishers'); 
+            
+        } 
+        
+    } 
         
     } else {
         die('Something went wrong');
@@ -769,10 +801,38 @@ public function deletepublishers($user_id)
 }
 public function deletecharity($user_id)
 {
-    if ($this->superadminModel->deletecharity($user_id)) {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
+    if ($this->superadminModel->rejectcharity($user_id)) {       
+        if ($this->superadminModel->rejectUser($user_id)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+                redirect('superadmin/charity');    
+        }    
+    }   
+    }  else {
+        die('Something went wrong');
+    }
+}
+public function restrictpublishers($user_id)
+{
+    if ($this->superadminModel->restrictpublishers($user_id)) {
 //            var_dump($package_id);
-        if ($this->superadminModel->deleteusers($user_id)){
-            flash('post_message', 'charity organization Removed');
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/publishers');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictcharity($user_id)
+{
+    if ($this->superadminModel->restrictcharity($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
             redirect('superadmin/charity');
         }
         
@@ -780,15 +840,153 @@ public function deletecharity($user_id)
         die('Something went wrong');
     }
 }
+public function restrictcustomers($user_id)
+{
+    if ($this->superadminModel->restrictcustomers($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/customers');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictadmins($user_id)
+{
+    if ($this->superadminModel->restrictadmin($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/admins');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictmoderators($user_id)
+{
+    if ($this->superadminModel->restrictmoderators($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/moderators');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+public function restrictdelivery($user_id)
+{
+    if ($this->superadminModel->restrictdelivery($user_id)) {
+//            var_dump($package_id);
+        if ($this->superadminModel->restrictusers($user_id)){
+            
+            redirect('superadmin/moderators');
+        }
+        
+    } else {
+        die('Something went wrong');
+    }
+}
+    public function removeList(){
+        if (!isLoggedInSuperAdmin()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+        
+            $removerDetails = $this->superadminModel->getRemover(); 
+            $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);   
+            $data = [
+                'removerDetails' => $removerDetails,
+                'superadminDetails' => $superadminDetails,
+                'superadminName'=>$superadminDetails[0]->name,
+                'superadminEmail'=>$superadminDetails[0]->email,
+            ];  
+            $this->view('superadmin/removeList',$data); 
+        }   
+    }
+    public function restoreusers($remove_id){
+        if (!isLoggedInSuperAdmin()) {
+            redirect('landing/login');
+        } else {
+            $userDetails=$this->superadminModel->getUserRoleByRemoveId($remove_id);
+            $user_role=$userDetails[0]->user_role;
+            $user_id=$userDetails[0]->user_id;
+            if($this->superadminModel->restoreusers($remove_id)){
+                // if($user_role=='customers'){
+                    if($this->superadminModel->updateUserStatus($user_id,$user_role)){
+                        redirect('superadmin/removeList');
+                // }
+                
+            }else{
+                die('something were wrong');
+            }
+        }
+    }
+}
+public function notifications(){
+    if(!isLoggedInSuperAdmin()){
+        redirect('landing/login');
+    }else{
 
-// public function order(){
-    
-// }
+        $user_id = $_SESSION['user_id'];
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+       
+        $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
+        $sender_id=$ChatDetails[0]->outgoing_msg_id;
+       
+        $senderDetails=$this->publisherModel->finduserDetails($sender_id);
+      
+        $data=[
+            'chatDetails'=>$ChatDetails,
+            'user_id'=>$user_id,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminDetails'=>$superadminDetails,
+            'senderName'=>$senderDetails->name
+        ];
 
+        $this->view('superadmin/notifications',$data);
 
+}
+}
 
+public function complaints(){
+    if(!isLoggedInSuperAdmin()){
+        redirect('landing/login');
+    }else{
 
+        $user_id = $_SESSION['user_id'];
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id);  
+       
+        $complintsDetails=$this->superadminModel->getComplaintsDetails();
+       
+      
+        $data=[
+            
+            'user_id'=>$user_id,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminDetails'=>$superadminDetails,
+           'complintsDetails'=>$complintsDetails
+        ];
 
-    
+        $this->view('superadmin/complaints',$data);
+
+} 
+}
+
+public function proceedResolved($complaintId, $reason) {
+   
+    $success = $this->superadminModel->updateComplaint($complaintId, $reason);
+    if ($success) {
+      
+        header('Location: ' . URLROOT . '/superadmin/complaints');
+    } else {
+        
+    }
+}
 
 }
