@@ -19,22 +19,35 @@ function toggleCustomReason() {
 }
 
 function submitRejectReason() {
-    // Check if any radio button is selected
     var selectedReason = document.querySelector('input[name="reason"]:checked');
 
     if (!selectedReason) {
         alert('Please select a reason');
         return;
     }
+    // if(selectedReason.value=='bookcat-not-available'){
+    //     if(document.getElementById("book-cat-reason").value.trim() == ""){
+    //         alert("enter book category");
+    //         return;
+    //     }
+    // }
 
+    var selected_reason = selectedReason.value;
     var customReason = document.getElementById('ufCustomReason').value;
 
-    // If "Other" is selected, ensure a custom reason is provided
-    if (selectedReason.value === 'other' && customReason.trim() === '') {
+    if (selected_reason === 'other' && customReason.trim() === '') {
         alert('Please enter a custom reason');
         return;
     }
+    else if (selected_reason === 'bookcat-not-available' && document.getElementById("book-cat-reason").value.trim() == "") {
+        alert('enter book category');
+        return;
+    }
+    else if (selected_reason === 'bookcat-not-available' && document.getElementById("book-cat-reason").value.trim() == "") {
+        alert('enter book category');
+        return;
+    }
 
-    // Submit the form
+
     document.getElementById('ufRejectForm').submit();
 }
