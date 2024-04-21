@@ -1,9 +1,13 @@
 /* Sidebar styles */
 .sidebar {
     position: fixed;
-    background-color: #E0E0E0;
+    /* background-color: #D2EAE9; */
+    background-color: white;
     color: #707070;
     width: 250px;
+    /* border: 1px solid #707070; */
+    /* border-color: #707070; */
+
     /* height: 800px; */
     height: 100%;
     /* padding: 20px; */

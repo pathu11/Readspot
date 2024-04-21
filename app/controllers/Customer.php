@@ -426,7 +426,8 @@ class Customer extends Controller {
                 'category' => trim($_POST['category']),
                 'weight' => trim($_POST['weights']),
                 'descript' => trim($_POST['description1']),
-                'booksIWant' => trim($_POST['description2']),
+                // 'booksIWant' => trim($_POST['description2']),
+                'booksIWant' => isset($_POST['input']) ? implode(', ', array_map('trim', $_POST['input'])) : '', // Trim the values from the dynamically created input fields
                 'img1' => '',
                 'img2' => '',
                 'img3' => '',
@@ -542,7 +543,21 @@ class Customer extends Controller {
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $bookCategoryDetails = $this->adminModel->getBookCategories();
 
+            if ($customerDetails) {
+                $town = $customerDetails[0]->town; 
+                $district = $customerDetails[0]->district;
+                $postalCode = $customerDetails[0]->postal_code;
+                $customerid = $customerDetails[0]->customer_id;
+                $customerName = $customerDetails[0]->first_name;
+            } else {
+                echo "Not found";
+            }
+
             $data = [
+                'town' => trim($town),
+                'district' => trim($district),
+                'postal_code' => trim($postalCode),
+                'customer_id' => trim($customerid),
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
@@ -731,6 +746,7 @@ class Customer extends Controller {
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                
                 if ($customerDetails) {
                     $accName = $customerDetails[0]->account_name;
                     $accNumber = $customerDetails[0]->account_no; 
@@ -3397,4 +3413,23 @@ public function markReview()
     }
     
 
+    public function weightCalculator(){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $customer_id=$customerDetails[0] ->customer_id;
+           
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->first_name
+            ];
+            
+            $this->view('customer/weightCalculator', $data);
+        }
+    }
 }
