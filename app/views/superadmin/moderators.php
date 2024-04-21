@@ -30,6 +30,7 @@
         <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
         <thead>
             <tr>
+                <th >Id</th>
                 <th >Name</th>
                 <th >Email</th>
                 <th >Actions</th>
@@ -38,6 +39,7 @@
 <tbody>
     <?php foreach($data['addmoderatorDetails'] as $moderator): ?>
     <tr>
+        <td ><?php echo $moderator->moderator_id; ?></td>
         <td ><?php echo $moderator->name; ?></td>
         <td ><?php echo $moderator->email; ?></td>
         <td>

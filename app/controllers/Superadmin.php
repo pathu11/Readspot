@@ -26,7 +26,13 @@ class Superadmin extends Controller{
             $countDelivery = $this->superadminModel->countDelivery(); 
             $countCustomers = $this->superadminModel->countCustomers (); 
             $countPublishers = $this->superadminModel->countPublishers(); 
-            $countCharity = $this->superadminModel->countCharity();  
+            $countCharity = $this->superadminModel->countCharity(); 
+            $countComplaints=$this->superadminModel->getResolvedCount() ;
+            $resolved_count=$countComplaints[0]->resolved_count;
+            $unresolved_count=$countComplaints[0]->unresolved_count;
+            $UserCountByDate=$this->superadminModel->getUserCountByDate();
+
+
             $data = [
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
@@ -36,9 +42,13 @@ class Superadmin extends Controller{
                 'countCustomers'=>$countCustomers,
                 'countPublishers'=>$countPublishers,
                 'countCharity'=>$countCharity,
-                'countDelivery'=>$countDelivery
+                'countDelivery'=>$countDelivery,
+                'resolved_count'=>$resolved_count,
+                'unresolved_count'=>$unresolved_count,
+                'UserCountByDate'=>$UserCountByDate
 
             ];
+            // print_r($data['UserCountByDate']);
             $this->view('superadmin/index',$data);
         }
         
@@ -65,8 +75,6 @@ class Superadmin extends Controller{
                 'confirm_pass_err'=>'',
             ];
 
-            // validate email
-            //validate lname
             if(empty($data['name'])){
                 $data['name_err']='Please enter the name';      
             }

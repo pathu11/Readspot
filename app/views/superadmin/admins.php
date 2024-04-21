@@ -31,9 +31,10 @@
         <thead>
             <tr>
 
-               
+                <th >Id</th>
                 <th >Name</th>
                 <th >Email</th>
+                <th >Status</th>
                 <th >Actions</th>
                 
 
@@ -42,8 +43,10 @@
 <tbody>
     <?php foreach($data['addadminDetails'] as $admin): ?>
     <tr>
+        <td ><?php echo $admin->admin_id; ?></td>
         <td ><?php echo $admin->name; ?></td>
         <td ><?php echo $admin->email; ?></td>
+        <td ><?php echo $admin->status; ?></td>
         <td>
             <a href='<?php echo URLROOT; ?>/superadmin/updateAdmin/<?php echo $admin->user_id; ?>'><i class='fa fa-edit' style='color:#09514C; ' title="Edit Admin Details"></i></a>
 

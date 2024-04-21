@@ -60,17 +60,18 @@
             <tbody>
                 <?php foreach($data['complintsDetails'] as $complaints): ?>
                 <tr>
-                    <td><?php echo $complaints->complaint_id; ?></td>
-                    <td><?php echo $complaints->customer_id; ?></td>
-                    <td><?php echo $complaints->first_name; ?> <?php echo $complaints->last_name; ?></td>
-                    <td><?php echo $complaints->email; ?></td>
-                    <td><?php echo $complaints->contact_number; ?></td>
-                    <td><?php echo $complaints->reason; ?></td>
-                    <td><?php echo $complaints->descript; ?></td>
-                    <td ><?php echo $complaints->moderatorAdmin_comment; ?></td>
+                    <td title="<?php echo $complaints->complaint_id; ?>"><?php echo $complaints->complaint_id; ?></td>
+                    <td title="<?php echo $complaints->customer_id; ?>"><?php echo $complaints->customer_id; ?></td>
+                    <td title="<?php echo $complaints->first_name; ?> "><?php echo $complaints->first_name; ?> <?php echo $complaints->last_name; ?></td>
+                    <td title="<?php echo $complaints->email; ?>"><?php echo $complaints->email; ?></td>
+                    <td title="<?php echo $complaints->contact_number; ?>"><?php echo $complaints->contact_number; ?></td>
+                    <td title="<?php echo $complaints->reason; ?>"><?php echo $complaints->reason; ?></td>
+                    <td title="<?php echo $complaints->descript; ?>"><?php echo $complaints->descript; ?></td>
+
+                    <td title="<?php echo $complaints->moderatorAdmin_comment; ?>"><?php echo $complaints->moderatorAdmin_comment; ?></td>
                     <td style="display:none;"><?php echo $complaints->resolvedBy_superadmin; ?></td>
                     <td style="display:none;"><?php echo $complaints->resolved_or_not; ?></td>
-                    <td><?php echo $complaints->superadmin_comment; ?></td>
+                    <td title="<?php echo $complaints->superadmin_comment; ?>"><?php echo $complaints->superadmin_comment; ?></td>
 
 
                     <td>

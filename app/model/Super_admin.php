@@ -600,4 +600,26 @@ public function rejectUser($user_id) {
         }
 
     }
+    public function getResolvedCount(){
+        $this->db->query('SELECT 
+        SUM(CASE WHEN resolvedBy_superadmin = 1 THEN 1 ELSE 0 END) AS resolved_count,
+        SUM(CASE WHEN resolvedBy_superadmin = 0 THEN 1 ELSE 0 END) AS unresolved_count
+        FROM 
+            complaint;
+        ');
+        $results=$this->db->resultSet();
+        return $results;
+    }
+    public function getUserCountByDate(){
+        $this->db->query('SELECT DAY(created_at) AS day, COUNT(*) AS user_count
+        FROM users
+        WHERE MONTH(created_at) = MONTH(CURRENT_DATE())
+        AND YEAR(created_at) = YEAR(CURRENT_DATE())
+        GROUP BY DAY(created_at)
+        ');
+        $results=$this->db->resultSet();
+        return $results;
+    }
+    
+
   }

@@ -32,9 +32,10 @@
         <thead>
             <tr>
 
-               
+                <th >Id</th>
                 <th >Name</th>
                 <th >Email</th>
+                <th >Status</th>
                 <th >Actions</th>
                 
 
@@ -43,8 +44,10 @@
 <tbody>
     <?php foreach($data['adddeliveryDetails'] as $delivery): ?>
     <tr>
+        <td ><?php echo $delivery->delivery_id; ?></td>
         <td ><?php echo $delivery->name; ?></td>
         <td ><?php echo $delivery->email; ?></td>
+        <td ><?php echo $delivery->status; ?></td>
         <td>
             <a href='<?php echo URLROOT; ?>/superadmin/updateDelivery/<?php echo $delivery->user_id; ?>'><i class='fa fa-edit' style='color:#09514C;' title="Edit Delivery system's Details"></i></a>
 
