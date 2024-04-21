@@ -607,9 +607,134 @@ public function reports(){
     $user_id = $_SESSION['user_id'];     
     $adminDetails = $this->adminModel->findAdminById($user_id);
     
+    $monthlyRegisteredUserCount = $this->adminModel->getMonthlyRegisteredUserCount();
+    $monthlyOrderCount = $this->adminModel->getMonthlyOrderCount();
+    $monthlyNewBookCount = $this->adminModel->getNewBookCount();
+    $monthlyUsedBookCount = $this->adminModel->getUsedBookCount();
+    $monthlyExchangedBookCount = $this->adminModel->getExchangeBookCount();
+    
+    $countCustomers = $this->adminModel->countCustomers();
+    $countPublishers = $this->adminModel->countPublishers();
+    $countCharity = $this->adminModel->countCharity();
+    $countOrderStatus = $this->adminModel->getOrderStatusCount();
+    $countBookCategory = $this->adminModel->getBookCategoryCount();
+
+    // Create an associative array to store the user registration counts for each day
+    $registrationCounts = [];
+    $orderCounts = [];
+    $newBookCounts = [];
+    $usedBookCounts = [];
+    $exchangedBookCounts = [];
+
+    // Iterate over the fetched data and populate the associative array
+    foreach ($monthlyRegisteredUserCount as $row) {
+        $registrationCounts[$row->registration_day] = $row->num_users_registered;
+    }
+    foreach ($monthlyOrderCount as $row) {
+        $orderCounts[$row->order_day] = $row->num_orders;
+    }
+    foreach ($monthlyNewBookCount as $row) {
+        $newBookCounts[$row->newBook_day] = $row->num_newBook;
+    }
+    foreach ($monthlyUsedBookCount as $row) {
+        $usedBookCounts[$row->usedBook_day] = $row->num_usedBook;
+    }
+    foreach ($monthlyExchangedBookCount as $row) {
+        $exchangedBookCounts[$row->exchangeBook_day] = $row->num_exchangeBook;
+    }
+
+    // Fill in any missing days in the past month with a count of zero
+    $currentDate = new DateTime();
+    $endDate = new DateTime('first day of this month');
+    $endDate->modify('last day of last month');
+    $interval = new DateInterval('P1D');
+    $period = new DatePeriod($endDate, $interval, $currentDate);
+    foreach ($period as $date) {
+        $registrationDay = $date->format('Y-m-d');
+        $orderDay = $date->format('Y-m-d');
+        $newBookDay = $date->format('Y-m-d');
+        $usedBookDay = $date->format('Y-m-d');
+        $exchangeBookDay = $date->format('Y-m-d');
+        if (!isset($registrationCounts[$registrationDay])) {
+            $registrationCounts[$registrationDay] = 0;
+        }
+        if (!isset($orderCounts[$orderDay])) {
+            $orderCounts[$orderDay] = 0;
+        }
+        if (!isset($newBookCounts[$newBookDay])) {
+            $newBookCounts[$newBookDay] = 0;
+        }
+        if (!isset($usedBookCounts[$usedBookDay])) {
+            $usedBookCounts[$usedBookDay] = 0;
+        }
+        if (!isset($exchangedBookCounts[$exchangeBookDay])) {
+            $exchangedBookCounts[$exchangeBookDay] = 0;
+        }
+    }
+
+    // Sort the associative array by keys (dates) in ascending order
+    ksort($registrationCounts);
+    ksort($orderCounts);
+    ksort($newBookCounts);
+    ksort($usedBookCounts);
+    ksort($exchangedBookCounts);
+
+    // Extract the dates and registration counts for use in Chart.js
+    $Userlabels = [];
+    $Userdata = [];
+    foreach ($registrationCounts as $registrationDay => $numUsersRegistered) {
+        $Userlabels[] = $registrationDay;
+        $Userdata[] = $numUsersRegistered;
+    }
+
+    $Orderlabels = [];
+    $Orderdata = [];
+    foreach ($orderCounts as $orderDay => $numorders) {
+        $Orderlabels[] = $orderDay;
+        $Orderdata[] = $numorders;
+    }
+
+    $newBooklabels = [];
+    $newBookdata = [];
+    foreach ($newBookCounts as $newBookDay => $numNewBook) {
+        $newBooklabels[] = $newBookDay;
+        $newBookdata[] = $numNewBook;
+    }
+
+    $usedBooklabels = [];
+    $usedBookdata = [];
+    foreach ($usedBookCounts as $usedBookDay => $numUsedBook) {
+        $usedBooklabels[] = $usedBookDay;
+        $usedBookdata[] = $numUsedBook;
+    }
+
+    $exchangeBooklabels = [];
+    $exchangeBookdata = [];
+    foreach ($exchangedBookCounts as $exchangeBookDay => $numExchangeBook) {
+        $exchangeBooklabels[] = $exchangeBookDay;
+        $exchangeBookdata[] = $numExchangeBook;
+    }
+
     $data=[
         'adminDetails' => $adminDetails,
         'adminName'=>$adminDetails[0]->name,
+        
+        'Userlabels'=>$Userlabels,
+        'Userdata'=>$Userdata,
+        'Orderlabels'=>$Orderlabels,
+        'Orderdata'=>$Orderdata,
+        'newBooklabels'=>$newBooklabels,
+        'newBookdata'=>$newBookdata,
+        'usedBooklabels'=>$usedBooklabels,
+        'usedBookdata'=>$usedBookdata,
+        'exchangeBooklabels'=>$exchangeBooklabels,
+        'exchangeBookdata'=>$exchangeBookdata,
+        
+        'countCustomers'=>$countCustomers,
+        'countPublishers'=>$countPublishers,
+        'countCharity'=>$countCharity,
+        'countOrderStatus'=>$countOrderStatus,
+        'countBookCategory'=>$countBookCategory,
     ];
 
     $this->view('admin/reports',$data);

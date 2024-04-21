@@ -652,5 +652,77 @@ public function respondComplain($complaint_id,$adminComment){
   }
 }
 
+public function getMonthlyRegisteredUserCount(){
+  $this->db->query('SELECT DATE(created_at) AS registration_day, COUNT(*) AS num_users_registered
+                  FROM 
+                    users
+                  WHERE 
+                    created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)
+                  GROUP BY 
+                    DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getMonthlyOrderCount(){
+  $this->db->query('SELECT DATE(order_date) AS order_day, COUNT(*) AS num_orders
+                  FROM 
+                    orders
+                  WHERE 
+                    order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)
+                  GROUP BY 
+                    DATE(order_date)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getOrderStatusCount(){
+  $this->db->query('SELECT status, COUNT(status) AS count FROM order_details GROUP BY status');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getNewBookCount(){
+  $this->db->query('SELECT DATE(created_at) AS newBook_day, COUNT(*) AS num_newBook
+                    FROM 
+                      books
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND type = "new"
+                    GROUP BY 
+                      DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getUsedBookCount(){
+  $this->db->query('SELECT DATE(created_at) AS usedBook_day, COUNT(*) AS num_usedBook
+                    FROM 
+                      books
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND type = "used"
+                    GROUP BY 
+                      DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getExchangeBookCount(){
+  $this->db->query('SELECT DATE(created_at) AS exchangeBook_day, COUNT(*) AS num_exchangeBook
+                    FROM 
+                      books
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND type = "exchanged"
+                    GROUP BY 
+                      DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getBookCategoryCount(){
+  $this->db->query('SELECT category, COUNT(status) AS count FROM books GROUP BY category');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
   
 }
