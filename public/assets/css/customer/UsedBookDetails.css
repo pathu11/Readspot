@@ -87,6 +87,10 @@
     border: none;
 }
 
+.used-topic, .city-details-U {
+    width: 50%;
+}
+
 @media screen and (max-width:1000px) {
     .sub-img-used {
         height: 180px;
@@ -105,6 +109,10 @@
     }
 
     .description-used {
+        width: 100%;
+    }
+
+    .used-topic, .city-details-U {
         width: 100%;
     }
 }

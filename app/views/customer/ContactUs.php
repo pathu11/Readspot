@@ -29,7 +29,7 @@
                     <input type="text" class="form-topic" name="PhoneNumber" placeholder="Phone Number">
                 </div>
             </div>
-    
+
             <div class="topic-name2">
                 <div class="first-name-div">
                     <label class="label-topic" for="input3" required>Type of Complaint</label><br>
@@ -47,6 +47,12 @@
                 </div>
             </div>
 
+            <div class="topic-name2">
+                <div class="complaint-img-div">
+                    <label class="label-topic">Error Image (if any)</label><br>
+                    <input type="file" id="picture" accept="image/*"  name="imgComplaint">
+                </div>
+            </div>
     
             <div class="topic-name3">
                 <label class="label-topic">Please provide any details</label><br>
@@ -66,7 +72,7 @@
         var selectBox = document.getElementById("category");
         var otherReasonInput = document.getElementById("otherReasonInput");
 
-        if (selectBox.value === "other") {
+        if (selectBox.value === "Other") {
             otherReasonInput.disabled = false;
         } else {
             otherReasonInput.disabled = true;

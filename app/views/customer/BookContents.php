@@ -37,12 +37,10 @@
 
         <!-- top contents -->
         <div class="sub-cont-C2">
-         
+        <h1>Top Content of This Week</h1>
         <?php foreach($data['topRatedContent'] as $content): ?>
             <div class="content0-C">
-            <h1>Top Content of This Week</h1>
                 <div class="content1-C">
-                  
                     <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>"  alt="Book3" class="content-img-C"> <!--path changed-->
                     <div class="content2-C">
                         <h1><?php echo $content->topic; ?></h1><br>
@@ -60,7 +58,7 @@
                                 <a style="text-decoration:none;" href="<?php echo URLROOT; ?>/customer/viewcontent/<?php echo $content->content_id; ?> ">Read more</a>
 
                             <?php endif; ?>
-            </p>
+                        </p>
                     </div>
                 </div>
                 <div class="view-fav">
@@ -69,7 +67,6 @@
                 </div>
             </div>
             <?php endforeach; ?>
-            
         </div>
 
         <div class="sub-cont-C2">

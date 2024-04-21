@@ -23,7 +23,7 @@
 
  
     public function findCartById($customer_id) {
-      $this->db->query('SELECT c.*, b.book_name, b.price, b.img1 FROM cart c
+      $this->db->query('SELECT c.*, b.book_name, b.price, b.img1, b.type FROM cart c
                         JOIN books b ON c.book_id = b.book_id
                         WHERE c.customer_id = :customer_id');
       $this->db->bind(':customer_id', $customer_id);
@@ -649,8 +649,10 @@ public function editOrderCOD($data)
 
 
     public function Profile($data) {
+      $fullName = $data['first_name'] . ' ' . $data['last_name'];
       $this->db->query('UPDATE customers 
                   SET profile_img = :profile_img,
+                  name = "' . $fullName . '",
                   first_name = :first_name,
                   last_name = :last_name,
                   email = :email,
@@ -667,6 +669,7 @@ public function editOrderCOD($data)
                   WHERE customer_id = :customer_id');
       // Bind values
 
+      // $this->db->bind(':name', $fullName);
       $this->db->bind(':customer_id',$data['customer_id']);
       $this->db->bind(':profile_img',$data['profile_img']);
       $this->db->bind(':first_name',$data['first_name']);
@@ -1198,8 +1201,8 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
 
 
   public function complaint($data) {
-      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, customer_id)
-                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :customer_id)');
+      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, err_img, customer_id)
+                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :err_img, :customer_id)');
 
       $this->db->bind(':first_name',$data['first_name']);
       $this->db->bind(':last_name',$data['last_name']);
@@ -1208,6 +1211,7 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
       $this->db->bind(':reason',$data['reason']);
       $this->db->bind(':other',$data['other']);
       $this->db->bind(':descript',$data['descript']);
+      $this->db->bind(':err_img',$data['err_img']);
       $this->db->bind(':customer_id',$data['customer_id']);
 
       // execute
@@ -1268,5 +1272,33 @@ public function updateReviewHelpfulBooks($reviewId){
       return false;
   }   
 }
+
+  public function findNoOfUsedBooksById($customer_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM books WHERE customer_id=:customer_id AND status="approval" AND type="used"');
+      $this->db->bind(':customer_id',$customer_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
+  public function findNoOfExchangeBooksById($customer_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM books WHERE customer_id=:customer_id AND status="approval" AND type="exchanged"');
+      $this->db->bind(':customer_id',$customer_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
+  public function findNoOfContentsById($customer_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM content WHERE customer_id=:customer_id AND status="approval"');
+      $this->db->bind(':customer_id',$customer_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
+  public function findNoOfEventsById($user_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM events WHERE user_id=:user_id');
+      $this->db->bind(':user_id',$user_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
 
 }
