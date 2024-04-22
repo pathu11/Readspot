@@ -43,6 +43,23 @@
       
     </div>
   </div>
+  <div class="chart-container1">
+    <div class="chart1">
+      <h2>Number of Logins for Today</h2>
+     <canvas id="userLoginPieChart"></canvas>
+    </div>
+    <div class="chart1">
+      <h2>No Of Complaints</h2>
+        <canvas id="mychart2"  ></canvas>
+    </div>
+    <div class="chart1">
+      <h2>User Registration Trends</h2>
+        <canvas id="mychart2"  ></canvas>
+    </div>
+    </div>
+    
+
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     // set up block
@@ -131,7 +148,6 @@
     // JavaScript
     const ctxline = document.getElementById('userRegistrationChart').getContext('2d');
     const userDataline = <?php echo json_encode($data['UserCountByDate']); ?>;
-
     const labelsline = Array.from({ length: 31 }, (_, i) => i + 1);
 
     // Generate data array with user counts for each day, insert 0 if no user registered on that day
@@ -139,9 +155,6 @@
       const userData = userDataline.find(data => data.day === day.toString());
       return userData ? userData.user_count : 0;
     });
-
-    console.log(dataline);
-    console.log(labelsline);
 
     const configline = {
       type: 'line',
@@ -181,7 +194,40 @@
 
     const userRegistrationChart = new Chart(ctxline, configline);
 
-
+    var userLoginData = <?php echo json_encode($data['UserLoginCountToday']); ?>;
+    var userLoginLabels = userLoginData.map(function(item) {
+        return item.user_role;
+    });
+    var userLoginCounts = userLoginData.map(function(item) {
+        return item.login_count;
+    });
+    var ctxUserLogin = document.getElementById('userLoginPieChart').getContext('2d');
+    var userLoginPieChart = new Chart(ctxUserLogin, {
+        type: 'pie',
+        data: {
+            labels: userLoginLabels,
+            datasets: [{
+                label: 'User Logins Today',
+                data: userLoginCounts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)', // Red
+                    'rgba(54, 162, 235, 0.6)', // Blue
+                    'rgba(255, 206, 86, 0.6)', // Yellow
+                    'rgba(75, 192, 192, 0.6)', // Green
+                    'rgba(153, 102, 255, 0.6)', // Purple
+                    'rgba(255, 159, 64, 0.6)' // Orange
+                    // Add more colors if needed
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'User Logins Today'
+            }
+        }
+    });
     </script>
  
 </body>

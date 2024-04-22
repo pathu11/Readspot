@@ -620,6 +620,20 @@ public function rejectUser($user_id) {
         $results=$this->db->resultSet();
         return $results;
     }
+    public function UserLoginCountToday() {
+        $today = date('Y-m-d');
+        $query = "SELECT u.user_role, COUNT(DISTINCT l.user_id) AS login_count 
+                  FROM user_logins l 
+                  INNER JOIN users u ON l.user_id = u.user_id 
+                  WHERE DATE(l.login_time) = :today 
+                  GROUP BY u.user_role";
+        $this->db->query($query);
+        $this->db->bind(':today', $today);
     
-
-  }
+        $results = $this->db->resultSet();
+    
+        return $results;
+    }
+    
+    
+  }    

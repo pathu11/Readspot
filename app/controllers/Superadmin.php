@@ -31,8 +31,9 @@ class Superadmin extends Controller{
             $resolved_count=$countComplaints[0]->resolved_count;
             $unresolved_count=$countComplaints[0]->unresolved_count;
             $UserCountByDate=$this->superadminModel->getUserCountByDate();
-
-
+            $UserLoginCountToday=$this->superadminModel->UserLoginCountToday();
+          
+           
             $data = [
                 'superadminDetails' => $superadminDetails,
                 'superadminName'=>$superadminDetails[0]->name,
@@ -45,10 +46,11 @@ class Superadmin extends Controller{
                 'countDelivery'=>$countDelivery,
                 'resolved_count'=>$resolved_count,
                 'unresolved_count'=>$unresolved_count,
-                'UserCountByDate'=>$UserCountByDate
+                'UserCountByDate'=>$UserCountByDate,
+                'UserLoginCountToday'=>$UserLoginCountToday
 
             ];
-            // print_r($data['UserCountByDate']);
+            // print_r($UserLoginCountToday);
             $this->view('superadmin/index',$data);
         }
         
