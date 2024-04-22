@@ -1,104 +1,97 @@
-<?php
-    $title = "Notification";
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Notification</title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
+
+    <title>Notifications</title>
 </head>
 
 <body>
-    <?php require APPROOT . '/views/publisher/sidebar.php';?>
-    <div class="chat-container1">
-        <input type="text" placeholder=" Search..." class="search-bar">
-    </div>
-    <div class="chat">
-        <div class="head">
-            <div class="head1">
-                <h4>Notifications</h4>
-                <span>You've <?php echo $data['unreadCount']; ?> unread notifications </span>
+    <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
+    <div class="container">
+    
+        <table id="eventTable">
+            <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
+            <div class="head">
+                <div class="head1">
+                    <h4>Notifications</h4>
+                    <span>You've <?php echo $data['unreadCount']; ?> unread notifications </span>
+                </div>
+
             </div>
-            <div class="head1" >
-                <button id="deleteSelectedNotifications" class="deleteSelectedNotifications">Delete Selected Notifications</button>
-                <button id="markAllRead" class="markAllRead">Mark all as read</button>
+            <thead>
+                <tr>
+
+                    <th>Sender Name</th>
+                    <th>Title</th>
+                    <th>Notification</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($data['messageDetails'] as $message): ?>
+                    <tr style="background-color: <?php echo $message->status === 'read' ? 'white' : '#ebede9'; ?>;">
+                        <td><?php echo $message->sender_name; ?></td>
+                        <td title="<?php echo $message->topic; ?>"><?php echo $message->topic; ?></td>
+                        <td title="<?php echo $message->message; ?>">
+                            <?php
+                            $lines = explode("\n", $message->message);
+                            echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
+                            ?>
+                        </td>
+                        <td class="action-buttons">
+                            <a href="#" onclick="openPopup('<?php echo htmlspecialchars('<h3>'.$message->sender_name .'</h3>'. '<h4>'. $message->topic . '</h4>' .'<p>' .$message->message.'</p>'); ?>')">
+                                <i style="color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>;" class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <table id="messageContent">
+                    <!-- Message details will be displayed here -->
+                </table>
             </div>
         </div>
-         <div id="messagesContainer">
-         <table>
-         <?php foreach ($data['messageDetails'] as $message): ?>
-    <tr style="background-color: <?php echo $message->status === 'read' ? 'white' : '#ddd'; ?>; border-radius: 5px;">
-        <td style="width:5%"><input type="checkbox" class="messageCheckbox" data-message-id="<?php echo $message->message_id; ?>"></td>
-        <a href="#"><th style="width:20%" >
-            
-            <h4><?php echo $message->sender_name; ?></h5>
-           
-        </td>
-        
-        <td style="width:80%">
-            <h4><?php echo $message->topic; ?>  </h4>
-            <!-- <p><?php echo $message->message; ?></p> -->
-            <p>
-                <?php
-                    // Display only the first two lines of the message
-                    $lines = explode("\n", $message->message);
-                    echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
-                ?>
-            </p>
-            
-        </td>
-        <td style="width:10%">
-        <a href="<?php echo URLROOT; ?>/publisher/viewMessage/<?php echo $message->message_id; ?>" class="view" data-message-id="<?php echo $message->message_id; ?>"  data-user-id="<?php echo $message->user_id; ?>"  style="background-color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>;position: absolute; bottom: 0; left: 0; z-index: 1; ">View</a>   
-        
-        </td>
-        
-    </tr></a>
-<?php endforeach; ?>
-            
-        </table>
-            
-            
-         </div> 
-    
+
+        <ul class="pagination" id="pagination">
+            <li id="prevButton">«</li>
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li id="nextButton">»</li>
+        </ul>
+    </div>
+
+    <script src="<?php echo URLROOT; ?>/assets/js/publisher/table.js"></script>
     <script>
-        // var urlroot="<?php echo URLROOT; ?>";
-        // console.log(urlroot);
-
-        
-        $(document).ready(function () {
-            
-
-            $('.m').click(function (e) {
-                e.preventDefault();
-                var messageId = $(this).data('message-id');
-                window.location.href = urlroot + '/publisher/viewMessage/' + messageId;
-            });
-
-            function loadMessages() {
-                // Assuming you have a backend endpoint to fetch messages
-                $.ajax({
-                    type: 'GET',
-                    url: urlroot + '/publisher/customerSupport',
-                    success: function (data) {
-                        // Update the messagesContainer with the fetched messages
-                        $('#messagesContainer').html(data);
-                    }
-                });
-            }
-           
-
-
-            
-            loadMessages();
-        });
-
-        function goBack() {
-            // Use the browser's built-in history object to go back
-            window.history.back();
+        function openPopup(messageContent) {
+            document.getElementById('messageContent').innerHTML = messageContent;
+            document.getElementById('myModal').style.display = 'block';
         }
-        
-   </script>
-    </body>
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+    </script>
+
+</body>
+
 </html>

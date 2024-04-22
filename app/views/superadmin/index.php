@@ -39,8 +39,7 @@
     <div class="chart">
       <h2>User Registration Trends</h2>
       <canvas id="userRegistrationChart"></canvas>
-        <!-- <canvas id="mychart2"  ></canvas> -->
-      
+       
     </div>
   </div>
   <div class="chart-container1">

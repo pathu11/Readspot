@@ -24,7 +24,7 @@
     <div class="grid-item"><span class="span">Total Books</span>&ensp;&ensp;&ensp;<i class="fa fa-duotone fa-book"></i><br><span class="span1"> <?php echo $data['bookCount']; ?></span></div>
     <div class="grid-item"><span class="span">Total Orders</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-address-book"></i><br><span class="span1"> <?php echo $data['orderCount']; ?></span></div>
     <div class="grid-item"><span  class="span">Total Income</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-heart"></i><br><span class="span2">Rs.<?php echo $data['paymentCount']; ?></span></div>
-    <div class="grid-item"><span  class="span">Pending Income</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-list"></i><br><span class="span2"> Rs.<?php echo $data['pendingPayment']; ?></span></div>
+    <div class="grid-item"><span  class="span">Pending Income</span >&ensp;<i class="fa fa-solid fa-list"></i><br><span class="span2"> Rs.<?php echo $data['pendingPayment']; ?></span></div>
   </div>
 
   <div class="chat-container">

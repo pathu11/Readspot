@@ -25,21 +25,41 @@ body {
 .form-container {
     width: 70%;
     margin-top:100px;
+    margin-bottom: 10px;
 }
-
+/* #f0f0f0 */
 .form1 {
     width: 60%;
     margin-left: 390px;
     margin-right: 300px;
     text-align: center;
-    background-color: #f0f0f0; /* Set your desired background color */
+    background-color: white; /* Set your desired background color */
     padding: 20px; /* Add padding for better appearance */
     border-radius: 10px; /* Add border-radius for rounded corners */
 }
-
+/* Styling for h2 tags */
 .form1 h2 {
-    color: #009D94;
-    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #009D94; /* Text color */
+   
+    padding: 10px 20px; /* Padding */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.form1 h2:hover {
+  
+    animation: shake 0.5s ease; /* Call animation */
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }
 
 
@@ -53,6 +73,7 @@ body {
     border: none;
     border-radius: 5px;
     outline: none; /* Remove default input focus border */
+    border: 2px solid black;
 }
 .form1 input[type="text"]:focus,
 .form1 input[type="number"]:focus,.form1 input[type="file"]:focus,.form1 input[type="email"]:focus,.form1 input[type="password"]:focus,
@@ -66,7 +87,7 @@ body {
     padding: 12px 28px;
     border: none;
     border-radius: 4px;
-    background-color: white;
+    background-color: #f0f0f0;
     color:gray;
     
 }
