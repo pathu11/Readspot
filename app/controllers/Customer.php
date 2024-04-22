@@ -380,9 +380,13 @@ class Customer extends Controller {
             }
             if($this->customerModel->AddEvent($data)){
                 // flash('add_success','You are added the book  successfully');
+                // $_SESSION['$no_err'] = 'error';
+                // echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
                 // redirect('customer/Event');
-                echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
                 // echo "<script>showModal();</script>";
+                $_SESSION['showModal'] = true; // Set session variable to true
+                redirect('customer/addevnt');
+
             }else{
                 die('Something went wrong');
             }
@@ -1468,6 +1472,8 @@ public function BuyNewBooks()
             $BuyUsedBooks = $this->customerModel->findNoOfBuyUsedBooksById($customer_id);
             $BoughtCategories = $this->customerModel->findBoughtCategories($customer_id);
             $AddedCategories = $this->customerModel->findAddedCategories($customer_id);
+            $contentPoints = $this->customerModel->findContentPoints($customer_id);
+            $challengePoints = $this->customerModel->findChallengePoints($customer_id);
 
             $data = [
                 'customerDetails' => $customerDetails,
@@ -1484,7 +1490,10 @@ public function BuyNewBooks()
                 'BuyNewBooks' => $BuyNewBooks,
                 'BuyUsedBooks' => $BuyUsedBooks,
                 'BoughtCategories' => $BoughtCategories,
-                'AddedCategories' => $AddedCategories
+                'AddedCategories' => $AddedCategories,
+                'contentPoints' => intval($contentPoints),
+                'challengePoints' => intval($challengePoints),
+                'totalPoints' => intval($challengePoints) + intval($contentPoints)
             ];
             $this->view('customer/Dashboard', $data);
         }
@@ -1551,6 +1560,10 @@ public function BuyNewBooks()
 
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
+            // if (isset($_SESSION['$no_err'])) {
+            //     $_SESSION['$no_err'] = '';
+            //     $this->view('customer/Event', $data);
+            // }
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             

@@ -1349,9 +1349,23 @@ public function updateReviewHelpfulBooks($reviewId){
   }
 
   public function findAddedCategories($customer_id) {
-    $query = "SELECT category, COUNT(*) AS book_count FROM books WHERE customer_id = :customer_id GROUP BY category";
+    $query = "SELECT category, COUNT(*) AS book_count FROM books WHERE customer_id = :customer_id AND status='approval' GROUP BY category";
     $this->db->query($query);
     $this->db->bind(':customer_id', $customer_id);
     return $this->db->resultSet();
+  }
+
+  public function findContentPoints($customer_id) {
+    $this->db->query('SELECT content_point FROM customers WHERE customer_id = :customer_id');
+    $this->db->bind(':customer_id', $customer_id);
+    $result = $this->db->single();
+    return isset($result->content_point) ? (int)$result->content_point : 0;
+  }
+
+  public function findChallengePoints($customer_id) {
+    $this->db->query('SELECT challnege_point FROM customers WHERE customer_id = :customer_id');
+    $this->db->bind(':customer_id', $customer_id);
+    $result = $this->db->single();
+    return isset($result->challnege_point) ? (int)$result->challnege_point : 0;
   }
 }

@@ -36,15 +36,18 @@
                 </div>
                 <div class="add-book-div">
                     <h3>My Total points</h3>
-                    <div class="point-chart">
-                        <canvas id="myDoughnutChart"></canvas>
-                        <div class="centered-text">
-                            <h1>560</h1>
+                    <?php if (!empty($data['AddedCategories'])): ?>
+                        <div class="point-chart">
+                            <canvas id="myDoughnutChart"></canvas>
+                            <div class="centered-text">
+                                <h1><?php echo $data['totalPoints']; ?></h1>
+                            </div>
                         </div>
-                    </div>
-                    <!-- <div class="point-chart no-details">
-                        <h1>No Details</h1>
-                    </div> -->
+                    <?php else: ?>
+                        <div class="point-chart no-details">
+                            <h1>No Details</h1>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="add-buy-book">
@@ -88,21 +91,27 @@
             <div class="category-summary">
                 <div class="add-book-div">
                     <h3>Summary based on book Category (Added)</h3>
-                    <div class="buy-chart">
-                        <canvas id="myPieChart1"></canvas>
-                    </div>
-                    <!-- <div class="point-chart no-details">
-                        <h1>No Details</h1>
-                    </div> -->
+                    <?php if (!empty($data['AddedCategories'])): ?>
+                        <div class="buy-chart">
+                            <canvas id="myPieChart1"></canvas>
+                        </div>
+                    <?php else: ?>
+                        <div class="point-chart no-details">
+                            <h1>No Details</h1>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="add-book-div">
                     <h3>Summary based on book Category (Bought)</h3>
-                    <div class="add-chart">
-                        <canvas id="myPieChart2"></canvas>
-                    </div>
-                    <!-- <div class="point-chart no-details">
-                        <h1>No Details</h1>
-                    </div> -->
+                    <?php if (!empty($data['BoughtCategories'])): ?>
+                        <div class="add-chart">
+                            <canvas id="myPieChart2"></canvas>
+                        </div>
+                    <?php else: ?>
+                        <div class="point-chart no-details">
+                            <h1>No Details</h1>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -135,14 +144,23 @@
         // Convert arrays to JSON format for JavaScript
         $categoriesJSON1 = json_encode($categories1);
         $bookCountsJSON1 = json_encode($bookCounts1);
+
+        $ChallengePoint = $data['challengePoints'];
+        $ContentPoint = $data['contentPoints'];
+
+        $ChallengePointJSON = json_encode($ChallengePoint);
+        $ContentPointJSON = json_encode($ContentPoint);
     ?>
 
     <script>
         // Data for the Doughnut chart
+        var ChallengePoint = <?php echo $ChallengePointJSON; ?>;
+        var ContentPoint = <?php echo $ContentPointJSON; ?>;
+
         var data = {
             labels: ['Book Content', 'Quiz'],
             datasets: [{
-                data: [320, 240], // Sample data, you can replace it with your actual data
+                data: [ContentPoint, ChallengePoint], // Sample data, you can replace it with your actual data
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)', // Red color with opacity
                     'rgba(54, 162, 235, 0.5)', // Blue color with opacity

@@ -286,7 +286,7 @@
 }
 
 
-.cat-T {
+/* .cat-T {
     margin: 20px;
     display: flex;
     flex-direction: column;
@@ -296,11 +296,13 @@
     box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
     text-align: center;
     padding: 10px 0px 10px 0px;
-}
+} */
 
 .cat-T img {
+    margin: 20px;
     width: 100px;
     height: 150px;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
 }
 
 .cat-T:hover {
