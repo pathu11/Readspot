@@ -118,13 +118,13 @@
     }
 
     public function addQuiz($data){
-      $this->db->query('INSERT INTO quiz(title,number_of_questions,time_limit,description) VALUES (:title,:number_of_questions,:time_limit,:description)');
+      $this->db->query('INSERT INTO quiz(title,number_of_questions,time_limit,description,img) VALUES (:title,:number_of_questions,:time_limit,:description,:img)');
 
       $this->db->bind(':title',$data['title']);
       $this->db->bind(':number_of_questions',$data['number_of_questions']);
       $this->db->bind(':time_limit',$data['time_limit']);
       $this->db->bind(':description',$data['description']);
-
+      $this->db->bind(':img',$data['img']);
 
       if($this->db->execute()){
         return true;
@@ -196,7 +196,7 @@
     }
 
     public function addPoints($customer_id,$numberOfPoints){
-      $this->db->query("UPDATE customers SET redeem_points = redeem_points + :numberOfPoints WHERE customer_id = :customer_id");
+      $this->db->query("UPDATE customers SET redeem_points = redeem_points + :numberOfPoints AND content_point = content_point + :numberOfPoints WHERE customer_id = :customer_id");
 
       $this->db->bind(":numberOfPoints",$numberOfPoints);
       $this->db->bind(":customer_id",$customer_id);
