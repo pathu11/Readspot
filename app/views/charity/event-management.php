@@ -88,17 +88,25 @@
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
+                                
                                 <a href="<?php echo URLROOT; ?>/charity/viewEvent">
                                     <button class="view-button">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
-
-                                </button>
-                                <button class="delete-button">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
+                                
+                                <?php if($event->status == 0) { ?>
+                                    <form action="<?php URLROOT?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
+                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
+                                        <button type="submit" class="delete-button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                <?php } ?>
+                                <!-- <button type="submit" class="delete-button">
+                                        <i class="fas fa-trash"></i>
+                                </button> -->
+                        </td>
                         </tr>
                     <?php } ?>
                 </tbody>
