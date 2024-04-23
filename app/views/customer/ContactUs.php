@@ -6,7 +6,7 @@
     <div class="contact-cont">
         <form action="#" class="contact-us">
 
-            <h1>Any Complaint?</h1>
+            <h3>Any Complaint?</h3>
             
             <div class="topic-name1">
                 <div class="first-name-div">

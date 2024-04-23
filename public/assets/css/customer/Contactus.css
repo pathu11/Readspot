@@ -4,7 +4,7 @@
     flex-direction: column;
     min-height: 725px;
     margin: 90px 10px 10px 10px;
-    background-color: #CACACA;
+    background-color: #f4f4f4;
     padding: 40px;
     border-radius: 10px;
 }
@@ -77,23 +77,21 @@
     /* float: right; */
     width: 132px;
     height: 36px;
-    background-color: rgb(1, 36, 33);
+    background-color: #70bfba;
     border-color: white;
     outline: none;
     border-radius: 10px;
     cursor: pointer;
     color: white;
     transition: .5s;
-    /* margin-left: 8px; */
+    border:none;
     margin-right: 8px;
-    /* margin-bottom: 0; */
-    /* margin-top: 120px; */
 }
 
 .contact-us input[type="submit"]:hover {
-    background: #fff;
-    color: black;
-    border-color: black;
+    background-color: #438a85;
+    color: rgb(255, 255, 255);
+    border:none;
 }
 
 @media screen and (max-width:600px) {

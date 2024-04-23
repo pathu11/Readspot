@@ -19,7 +19,9 @@
     align-items: center;
     padding: 20px;
 }
-
+.our-mission h1{
+    font-size: 30px;
+}
 .mission-about p {
     text-align: center;
     padding: 10px 20px 0px 20px;
@@ -117,3 +119,4 @@
         padding: 0;
     }
 }
+

@@ -67,24 +67,4 @@ class Charity extends Controller
     }
 }
 
-
-
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $to_email = "recipient@example.com"; // Change this to your email address
-//     $subject = "Rejection Reason";
-//     $reason = $_POST['reason'];
-//     $customReason = $_POST['customReason'];
-
-//     $message = "Reason: $reason\n";
-//     if ($reason == "other") {
-//         $message .= "Custom Reason: $customReason\n";
-//     }
-
-//     // Send email
-//     if (mail($to_email, $subject, $message)) {
-//         echo "Email sent successfully!";
-//     } else {
-//         echo "Email sending failed!";
-//     }
-// }
 ?>
