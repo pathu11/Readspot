@@ -1071,7 +1071,7 @@ public function findReviewsByContentId($content_id, $category) {
 
 
 public function getOngoingChallenges($user_id){
-  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, 
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, q.img,
                     h.user_id AS attempted_by_user
                     FROM quiz q 
                     LEFT JOIN history h ON q.quiz_id = h.quiz_id AND h.user_id = :user_id

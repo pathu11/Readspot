@@ -21,12 +21,16 @@
           <span>Ongoing Challenges</span>
         </div></a>
         <a href="<?php echo URLROOT;?>/moderator/topContents"><div class="grid-item">
-          <i class="fa fa-solid fa-newspaper" style="color: #FFD43B;"></i>
+          <i class="fa fa-solid fa-newspaper" style="color: #D65DB1;"></i>
           <span>Top Contents</span>
         </div></a>
         <a href="<?php echo URLROOT;?>/moderator/events"><div class="grid-item">
           <i class="fa fa-solid fa-calendar-day" style="color: #74C0FC;"></i>
           <span>Pending Events</span>
+        </div></a>
+        <a href="<?php echo URLROOT;?>/moderator/topChallenges"><div class="grid-item">
+        <i class="fa fa-solid fa-trophy" style="color: #FF9671;"></i>
+          <span>Top Challenges</span>
         </div></a>
       </div>
 

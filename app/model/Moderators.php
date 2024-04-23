@@ -118,13 +118,13 @@
     }
 
     public function addQuiz($data){
-      $this->db->query('INSERT INTO quiz(title,number_of_questions,time_limit,description) VALUES (:title,:number_of_questions,:time_limit,:description)');
+      $this->db->query('INSERT INTO quiz(title,number_of_questions,time_limit,description,img) VALUES (:title,:number_of_questions,:time_limit,:description,:img)');
 
       $this->db->bind(':title',$data['title']);
       $this->db->bind(':number_of_questions',$data['number_of_questions']);
       $this->db->bind(':time_limit',$data['time_limit']);
       $this->db->bind(':description',$data['description']);
-
+      $this->db->bind(':img',$data['img']);
 
       if($this->db->execute()){
         return true;
@@ -196,7 +196,7 @@
     }
 
     public function addPoints($customer_id,$numberOfPoints){
-      $this->db->query("UPDATE customers SET redeem_points = redeem_points + :numberOfPoints WHERE customer_id = :customer_id");
+      $this->db->query("UPDATE customers SET redeem_points = redeem_points + :numberOfPoints AND content_point = content_point + :numberOfPoints WHERE customer_id = :customer_id");
 
       $this->db->bind(":numberOfPoints",$numberOfPoints);
       $this->db->bind(":customer_id",$customer_id);
@@ -260,6 +260,35 @@
 
       $this->db->bind(":moderatorComment",$moderatorComment);
       $this->db->bind(":complaint_id",$complaint_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function getChallengeScoreDetails(){
+      $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score
+      FROM history s
+      INNER JOIN users u ON s.user_id = u.user_id
+      GROUP BY u.user_id
+      ORDER BY total_score DESC');
+
+      return $this->db->resultSet();
+    }
+
+    public function pointsAddDate(){
+      $this->db->query('SELECT user_id FROM customers WHERE challenge_point_date >= DATE_SUB(NOW(), INTERVAL 1 WEEK)');
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function addPointsChallenge($user_id,$numberOfPoints){
+      $this->db->query('UPDATE customers SET challnege_point = challnege_point+ :numberOfPoints, redeem_points = redeem_points + :numberOfPoints, challenge_point_date = NOW() WHERE user_id = :user_id');
+
+      $this->db->bind(":numberOfPoints",$numberOfPoints);
+      $this->db->bind(":user_id",$user_id);
 
       if($this->db->execute()){
         return true;
