@@ -14,7 +14,8 @@
                 <table>
                     <tr>
                     <?php foreach($data['challengeDetails'] as $challenge):?>
-                        <td class="card">
+                        <td class="card" style="background-image: url('<?php echo URLROOT?>/assets/images/moderator/<?php echo $challenge->img; ?>');">
+                            <div class="text">
                             <h2><?php echo $challenge->title; ?></h2>
                             <p><?php echo $challenge->description;?></p>
                             <?php if($challenge->attempted_by_user == $_SESSION['user_id']): ?>
@@ -24,6 +25,7 @@
                                     <button onclick="showAcceptPopup('<?php echo $challenge->quiz_id; ?>')" class="btn">Attempt</button>
                                 </div>
                             <?php endif; ?>
+                            </div>
                         </td>
                     
                     </tr>
