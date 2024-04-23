@@ -2,8 +2,10 @@
 <?php
 class Charity extends Controller
 {
+    private $charityModel;
     public function  __construct()
     {
+        $this->charityModel = $this->model('CharityEvents');
     }
     public function index()
     {
@@ -13,12 +15,14 @@ class Charity extends Controller
 
         $this->view('charity/index');
     }
+    
     public function event()
     {
         if (!isLoggedInCharity()) {
             redirect('charity/index');
         }
-        $this->view('charity/event-management');
+        $results = $this->charityModel->getEvents();
+        $this->view('charity/event-management',$data = ['allEvents' => $results]);
     }
 
     public function addEvent()
@@ -64,6 +68,29 @@ class Charity extends Controller
     public function donationQuery()
     {
         $this->view('charity/donationQuery');
+    }
+
+    public function createEvent() 
+    {
+        $string = implode(", ", $_POST['bookCategory']);
+
+        $event_name = $_POST['eventName'];
+        $location = $_POST['eventLocation'];
+        $start_date = $_POST['startDate'];
+        $end_date = $_POST['endDate'];
+        $start_time = $_POST['startTime'];
+        $end_time = $_POST['endTime'];
+        $book_category = $string;
+        $poster = "test";
+        $contact_no = $_POST['charityMemberPhone'];
+        $description = $_POST['description'];
+
+        if ($this->charityModel->addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time, $book_category, $poster, $contact_no, $description)) {
+            redirect('charity/event');
+        } else {
+            die('Something went wrong');
+        }
+
     }
 }
 

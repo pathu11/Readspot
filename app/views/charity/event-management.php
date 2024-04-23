@@ -14,6 +14,7 @@
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
+            <?php print_r($allEvents = $data['allEvents']);?>
         </div>
         <nav>
             <a href="./">Home</a>
@@ -80,27 +81,26 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(1)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <?php foreach($allEvents as $event){ ?>
+                        <tr>
+                            <td>1</td>
+                            <td><?php echo $event->event_name ?></td>
+                            <td><?php echo $event->description ?></td>
+                            <td><?php echo $event->location ?></td>
+                            <td><?php echo $event->start_date ?></td>
+                            <td class="action-buttons">
+                                <button class="view-button" onclick="viewEvent(1)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="update-button" onclick="updateEvent(1)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-button" onclick="deleteEvent(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
 
