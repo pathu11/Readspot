@@ -13,7 +13,7 @@
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
-            <?php print_r($allEvents = $data['allEvents']); ?>
+            <?php print_r($allEvents = $data['allEvents']) ?>
         </div>
         <nav>
             <a href="./">Home</a>
@@ -89,11 +89,12 @@
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
                                 
-                                <a href="<?php echo URLROOT; ?>/charity/viewEvent">
+                            <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
+                                <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
                                     <button class="view-button">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                </a>
+                            </form>
                                 
                                 <?php if($event->status == 0) { ?>
                                     <form action="<?php URLROOT?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
