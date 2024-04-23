@@ -95,7 +95,7 @@
                     <td>
                         <div class="ae-drop-image-box">
                             <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
-                            <img id="previewImage" src="\public\assets\images\charity\events.jpg" alt="Preview">
+                            <img id="previewImage" src="<?php echo URLROOT ?>/public/assets/images/charity/event01.jpg" alt="Preview">
                             <input type="file" name="posterImage" id="posterImageInput" accept="image/*" required disabled>
                             <span class="ae-view-icon" id="viewpos" onclick="openModal()"><i class="fas fa-eye"></i></span>
                         </div>
@@ -104,7 +104,7 @@
                 <tr>
                     <td colspan="2" style="text-align:center;">
                         <button type="button" style="background-color: red;">Delete</button>
-                        <button type="button" onclick="enableEditing()">Edit</button>
+                        <button type="button" onclick="enableEditing()" id="ve-editbtn">Edit</button>
 
                     </td>
                 </tr>
@@ -137,8 +137,11 @@
 
 <script>
     function enableEditing() {
+        var btn = document.getElementById("ve-editbtn");
+        btn.innerHTML = "Save";
         var form = document.getElementById("eventForm");
         var inputs = form.querySelectorAll("input, textarea, select");
+        // btn.innerHTML("Save")
         inputs.forEach(function(input) {
             input.removeAttribute("disabled");
         });
