@@ -18,15 +18,15 @@
             <input type="password" name="pass" placeholder="password"  value="<?= isset($_COOKIE['pass']) ? $_COOKIE['pass'] : '' ?>" required ><i class="fa fa-eye-slash" id="togglePassword"></i> <br></div>
           
             <input type="checkbox" id="rememberMe" name="rememberMe" <?= (isset($_COOKIE['email']) && isset($_COOKIE['pass'])) ? "checked" : '' ?> value=1>
-            <span>Remember me</span>
-            <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password?</a>
+            <span id="rememberme"><label for="rememberme">Remember me</label></span>
+            <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password !</a>
             <button class="btn" name="submit" type="submit">log in</button>
             <div class="connect">
                 <h4><span>Or Connect With</span></h4>
             </div>
             <img src="<?php echo URLROOT; ?>/assets/images/customer/icons8-google-48.png">
             <div>
-                <span class="copyright">&copy;2023</span> 
+                <span class="copyright">Readspot&copy;2023</span> 
             </div>  
         </form>
 
@@ -38,8 +38,7 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>sign up</button></a>
-            
+            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>SignUp</button></a>
         </div>  
       </div>
 </body>

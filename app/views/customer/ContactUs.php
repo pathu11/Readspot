@@ -6,7 +6,7 @@
     <div class="contact-cont">
         <form action="<?php echo  URLROOT; ?>/customer/ContactUs"  method="POST" enctype="multipart/form-data" class="contact-us" onsubmit="return checkLoginStatus()">
 
-            <h1>Any Complaint?</h1>
+            <h3>Any Complaint?</h3>
             
             <div class="topic-name1">
                 <div class="first-name-div">

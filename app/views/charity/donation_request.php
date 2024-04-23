@@ -21,9 +21,8 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="event">Event Management</a>
             <a href="donation" class="active">Donation Requests</a>
-            <a href="customerSupport">Customer Support</a>
+            <a href="event">Event Management</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -58,7 +57,7 @@
                 <br>
                 <p>NEW donation Requests from Ramath!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
 
         <div class="reqCard">
@@ -73,7 +72,8 @@
                 <br>
                 <p>NEW donation Requests from Himaza!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+
+            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
 
         <div class="reqCard checked">
@@ -88,7 +88,7 @@
                 <br>
                 <p>No any NEW donations!</p>
             </div>
-            <a href="#" class="not-available">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
         <div class="reqCard checked">
             <div class="imgBox">
@@ -102,7 +102,7 @@
                 <br>
                 <p>No any NEW donations!</p>
             </div>
-            <a href="#" class="not-available">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
 
         <div class="reqCard checked">
@@ -117,7 +117,7 @@
                 <br>
                 <p>No any NEW donations!</p>
             </div>
-            <a href="#" class="not-available">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
         <div class="reqCard">
             <div class="imgBox">
@@ -129,9 +129,9 @@
                     <p style="color: aqua;">saitama@gmail.com</p>
                 </div>
                 <br>
-                <p>NEW donation Requests from Ramath!</p>
+                <p>NEW donation Requests from saitama!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
         <div class="reqCard">
             <div class="imgBox">
@@ -143,9 +143,9 @@
                     <p style="color: aqua;">niru45@gmail.com</p>
                 </div>
                 <br>
-                <p>NEW donation Requests from Ramath!</p>
+                <p>NEW donation Requests from niru!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
         <div class="reqCard">
             <div class="imgBox">
@@ -157,9 +157,9 @@
                     <p style="color: aqua;">jawan@gmail.com</p>
                 </div>
                 <br>
-                <p>NEW donation Requests from Ramath!</p>
+                <p>NEW donation Requests from jawan!</p>
             </div>
-            <a href="donationRequestTable">CHECK</a>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
     </div>
 
