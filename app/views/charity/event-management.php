@@ -13,11 +13,11 @@
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
-            <?php print_r($allEvents = $data['allEvents']);?>
+            <?php print_r($allEvents = $data['allEvents']); ?>
         </div>
         <nav>
             <a href="./">Home</a>
-            
+
             <a href="event" class="active">Event Management</a>
             <a href="donation">Donation Requests</a>
             <a href="aboutUs">
@@ -80,7 +80,7 @@
                 </thead>
 
                 <tbody>
-                    <?php foreach($allEvents as $event){ ?>
+                    <?php foreach ($allEvents as $event) { ?>
                         <tr>
                             <td>1</td>
                             <td><?php echo $event->event_name ?></td>
@@ -88,16 +88,17 @@
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
+                                <a href="<?php echo URLROOT; ?>/charity/viewEvent">
+                                    <button class="view-button">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </a>
+
                                 </button>
-                                <!-- <button class="update-button" onclick="updateEvent(1)">
-                                    <i class="fas fa-edit"></i> -->
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
+                                <button class="delete-button">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                        </td>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -110,7 +111,7 @@
                     <h2>Full Details</h2>
                     <table id="eventDetailsTable">
                         Event details will go here -->
-                    <!-- </table>
+            <!-- </table>
                     </div>
                 </div> -->
 
@@ -129,7 +130,7 @@
                 <li id="nextButton">»</li>
             </ul>
             <div class="button-container">
-            <a href="addEvent"><button id="addEventBtn">ADD</button></a>
+                <a href="addEvent"><button id="addEventBtn">ADD</button></a>
             </div>
 
         </div>

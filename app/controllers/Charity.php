@@ -69,6 +69,11 @@ class Charity extends Controller
     {
         $this->view('charity/donationQuery');
     }
+    public function viewEvent()
+    {
+        $this->view('charity/viewEvent');
+    }
+
 
     public function createEvent() 
     {
