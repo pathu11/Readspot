@@ -123,8 +123,9 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   animation: fadeIn 1s ease-in-out;
-  max-height: 500px;
-  overflow-x: auto;
+  /* max-height: 500px; */
+  /* overflow-x: auto; */
+  height: auto;
   margin: 30px;
 }
 
@@ -173,7 +174,7 @@ body {
     border-radius: 5px;
     font-size: 14px;
     margin-top: 0px;
-    margin-left: 74%;
+    /* margin-left: 74%; */
     width: 285px;
     border: 2px solid #70BFBA;
   

@@ -29,17 +29,16 @@
                     <input type="text" class="form-topic" name="PhoneNumber" placeholder="Phone Number">
                 </div>
             </div>
-    
+
             <div class="topic-name2">
                 <div class="first-name-div">
-                    <label class="label-topic" for="input3" required>Reason for Complaint</label><br>
+                    <label class="label-topic" for="input3" required>Type of Complaint</label><br>
                     <select id="category" name="Reason" required onchange="toggleInput()">
-                        <option value="Reason 01">Reason 01</option>
-                        <option value="Reason 02">Reason 02</option>
-                        <option value="Reason 03">Reason 03</option>
-                        <option value="Reason 04">Reason 04</option>
-                        <option value="Reason 05">Reason 05</option>
-                        <option value="other">Other</option>
+                        <option value="Events">Event related</option>
+                        <option value="Challenges">Challenge related</option>
+                        <option value="Contents">Content related</option>
+                        <option value="Comments">comment related</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="last-name-div">
@@ -48,6 +47,12 @@
                 </div>
             </div>
 
+            <div class="topic-name2">
+                <div class="complaint-img-div">
+                    <label class="label-topic">Error Image (if any)</label><br>
+                    <input type="file" id="picture" accept="image/*"  name="imgComplaint">
+                </div>
+            </div>
     
             <div class="topic-name3">
                 <label class="label-topic">Please provide any details</label><br>
@@ -67,7 +72,7 @@
         var selectBox = document.getElementById("category");
         var otherReasonInput = document.getElementById("otherReasonInput");
 
-        if (selectBox.value === "other") {
+        if (selectBox.value === "Other") {
             otherReasonInput.disabled = false;
         } else {
             otherReasonInput.disabled = true;

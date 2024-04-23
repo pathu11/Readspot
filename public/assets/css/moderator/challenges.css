@@ -114,6 +114,7 @@ tr:hover {
 
 .fa-trash{
   color: red;
+  cursor: pointer;
 }
 
 .deleteChallenge button{

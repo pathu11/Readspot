@@ -46,8 +46,20 @@
                         <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails->img1 . '" class="Book-E"><br>';?> <!--path changed-->
                             <div class="hov-aft">
                                 <h4>Which Books I Want</h4>
-                                <ul>
+                                <!-- <ul>
                                     <li><?php echo $bookDetails->booksIWant; ?></li>
+                                </ul> -->
+                                <?php 
+                                    // Split the booksIWant string into an array
+                                    $booksIWantList = explode(',', $bookDetails->booksIWant); 
+                                ?>
+                                <ul>
+                                    <?php 
+                                        // Iterate through the first four books I want and display them as list items
+                                        for ($i = 0; $i < min(4, count($booksIWantList)); $i++) {
+                                            echo "<li>$booksIWantList[$i]</li>";
+                                        } 
+                                    ?>
                                 </ul>
                             </div>
                             <h3><?php echo $bookDetails->book_name; ?></h3>

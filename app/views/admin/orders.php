@@ -12,8 +12,80 @@
 
 <body>
   <?php require APPROOT . '/views/admin/nav.php';?>
+
+  <div class="search-bar" style="margin-top: 100px;">
+    <label for="birthday">Search Order by order date:</label>
+    <input type="date" class="search" id="live-search1"autocomplete="off">
+    <input type="text" class="search" id="live-search2" autocomplete="off" placeholder="Search by Order ID..." >
+  </div>
+
+  <div id="searchresult"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#live-search2").keyup(function(){
+        var input = $(this).val();
+        var searchType = 'order';
+        var inputType = 'word';
+        //alert(input);
+        if(input != ""){
+            $.ajax({
+                url:"<?php echo URLROOT;?>/admin/livesearch",
+                method:"POST",
+                data:{input:input, searchType:searchType, inputType:inputType},
+
+                success:function(data){
+                    $(".table-container").hide();
+                    $("#searchresult").html(data);
+                    $("#searchresult").css("display","block");
+                }
+            });
+        }else{
+            $(".table-container").show();
+            $("#searchresult").css("display","none");
+        }
+      });
+    });
+
+    $(document).ready(function(){
+      $("#live-search1").change(function(){
+        var input = $(this).val();
+        var searchType = 'order';
+        var inputType = 'date';
+        
+        var formattedDate = new Date(input);
+        var year = formattedDate.getFullYear();
+        var month = formattedDate.getMonth() + 1;
+        var day = formattedDate.getDate();
+        if (month < 10) month = '0' + month;
+        if (day < 10) day = '0' + day;
+        var formattedInput = year + '-' + month + '-' + day;
+        
+        if(input != ""){
+            $.ajax({
+                url:"<?php echo URLROOT;?>/admin/livesearch",
+                method:"POST",
+                data:{input:formattedInput, searchType:searchType, inputType:inputType},
+
+                success:function(data){
+                    $(".table-container").hide();
+                    $("#searchresult").html(data);
+                    $("#searchresult").css("display","block");
+                }
+            });
+        }else{
+            $(".table-container").show();
+            $("#searchresult").css("display","none");
+        }
+      });
+    });
+  </script>
+
+
   
-  <div class="table-container" style="margin-top: 100px;" >
+  <div class="table-container">
 
     <table>
       <tr>
@@ -34,7 +106,22 @@
             <td><?php echo $order->customer_id; ?></td>
             <td><?php echo $order->quantity	; ?></td>
             <td><?php echo $order->order_date; ?></td>
-            <td><?php echo $order->status; ?></td>
+            <td>
+              <?php 
+                if($order->status == 'delivered'){
+                  echo '<span style="color: purple;">'.$order->status.'</span>';
+                }
+                elseif($order->status == 'cancel'){
+                  echo '<span style="color: red;">'.$order->status.'</span>';
+                }
+                elseif($order->status == 'processing'){
+                  echo '<span style="color: blue;">'.$order->status.'</span>';
+                }
+                elseif($order->status == 'pending'){
+                  echo '<span style="color: orange;">'.$order->status.'</span>';
+                }      
+              ?>
+            </td>
             <td><?php echo $order->total_price; ?></td>
             <td><?php echo $order->total_weight	; ?></td>
         </tr>

@@ -175,6 +175,14 @@
 
     }
 
+    public function getComplainSearchDetails($input){
+      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input ");
+      $this->db->bind(":input",$input);
+      $results=$this->db->resultSet();
+      return $results;
+
+    }
+
     public function getTopContents(){
       $this->db->query("SELECT c.content_id, c.topic, c.text, c.customer_id, c.img, c.pointsAdd, COUNT(cr.rate) AS rating_count
       FROM content c
@@ -239,6 +247,25 @@
       ');
       $result = $this->db->single();
       return $result;
+    }
+
+    public function getComplains(){
+      $this->db->query('SELECT CONCAT(first_name," ",last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE reason="Events" OR reason="Challenges" OR reason="Contents"');
+      $results=$this->db->resultSet();
+      return $results;
+    }
+
+    public function respondComplain($complaint_id,$moderatorComment){
+      $this->db->query('UPDATE complaint SET moderatorAdmin_comment = :moderatorComment, resolved_or_not=1 WHERE complaint_id = :complaint_id');
+
+      $this->db->bind(":moderatorComment",$moderatorComment);
+      $this->db->bind(":complaint_id",$complaint_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
     }
 
   }

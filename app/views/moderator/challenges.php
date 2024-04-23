@@ -64,12 +64,8 @@
         <tr>
           <td><?php echo $challenge->title;?></td>
           <td><?php echo $challenge->time_limit.' minutes';?></td>
-          <td>
-            <div id="description-wrapper">
-              <p><?php echo $challenge->description;?></p>
-              <!-- <button class="see-more-btn" onclick="view()">See more..</button> -->
-            </div>
-            <button class="see-more-btn" onclick="view('<?php echo $challenge->description;?>')">See more..</button>
+          <td><?php echo substr($challenge->description, 0, 10); ?>...
+            <button onclick="showFullDescription('<?php echo $challenge->description;?>')">See more..</button>
           </td>
           <td><?php echo $challenge->date;?></td>
           <td><?php echo $challenge->end_date;?></td>
@@ -89,15 +85,15 @@
     </div>
   </div>
 
+  <div id="myModal2" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeFullView()">&times;</span>
+      <h2>Challenge Description</h2>
+      <p id="fullDescription"></p>
+    </div>
+  </div>
+
   <script>
-    function view(description) {
-      var eventDetails = '<p>'+`${description}`+'</p>';
-      var table = document.getElementById("eventDetailsTable");
-      table.innerHTML = eventDetails;
-      document.getElementById("myModal").style.display = "block";
-    }
-
-
     function closeModal() {
         document.getElementById("myModal").style.display = "none";
     }
@@ -108,6 +104,12 @@
       table.innerHTML = deleteChallenge;
       document.getElementById("myModal").style.display = "block";
     }
+
+    function showFullDescription(description){
+      document.getElementById("fullDescription").innerText = description;
+      document.getElementById("myModal2").style.display = "block";
+    }
+
   </script>
 
 </body>
