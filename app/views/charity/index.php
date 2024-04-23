@@ -41,7 +41,7 @@
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/rr.jpg" ?>>
+        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/CharityDas.png" ?>>
         <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
     </div>
 

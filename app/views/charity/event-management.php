@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/eventManagement.css" ?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
@@ -38,7 +37,7 @@
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/Readspot_Bcrnd-Events.png" ?>>
+        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/eventMang.png" ?>>
         <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
     </div>
 
@@ -105,15 +104,16 @@
             </table>
 
             <!-- Modal for event details -->
-            <div id="myModal" class="modal">
+            <!-- <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h2>Full Details</h2>
                     <table id="eventDetailsTable">
-                        <!-- Event details will go here -->
-                    </table>
-                </div>
-            </div>
+                        Event details will go here -->
+                    <!-- </table>
+                    </div>
+                </div> -->
+
             <ul class="pagination" id="pagination">
                 <li id="prevButton">«</li>
                 <li class="current">1</li>
@@ -144,7 +144,7 @@
             </p>
         </div>
         <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            <p id="copyright" style=" color: black;">&copy; 2023 ReadSpot. All rights reserved.</p>
         </div>
     </footer>
     <script src=<?= URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
