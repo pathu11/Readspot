@@ -22,7 +22,7 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            
+
             <a href="event">Event Management</a>
             <a href="donation" class="active">Donation Requests</a>
             <a href="aboutUs">
@@ -45,25 +45,30 @@
     <div class="body-container">
         <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/donationREQ.png" ?>>
     </div>
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+        <button onclick="filterByUserId()" class="filter-button" style="color:white; background-color: #70bfba;">Users</button>
+        <button onclick="filterByEventId()" class="filter-button">Event types</button>
+    </div>
 
     <div class="reqContainer">
-        <?php foreach($allUsers as $user) { ?>
-        <div class="reqCard">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ram3.jpeg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4><?php echo $user->first_name ?></h4>
-                    <p style="color: aqua;"><?php echo $user->email ?></p>
+        <?php foreach ($allUsers as $user) { ?>
+            <div class="reqCard">
+                <div class="imgBox">
+                    <img src=<?= URLROOT . "/assets/images/charity/ram3.jpeg" ?>>
                 </div>
-                <br>
-                <p>NEW donation Requests from Ramath!</p>
+                <div class="content">
+                    <div class="customer-info">
+                        <h4><?php echo $user->first_name ?></h4>
+                        <p style="color: aqua;"><?php echo $user->email ?></p>
+                    </div>
+                    <br>
+                    <p>NEW donation Requests from Ramath!</p>
+                </div>
+                <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
             </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
-        </div>
         <?php } ?>
-
+        
         <div class="reqCard checked">
             <div class="imgBox">
                 <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
@@ -107,33 +112,26 @@
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const notAvailableButtons = document.querySelectorAll('.not-available');
-            const modal = document.getElementById('confirmationModal');
-            const closeModalBtn = document.getElementById('closeModal');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const cancelBtn = document.getElementById('cancelBtn');
+        // function filterByUserId() {
+        //     var selectedUserId = prompt("Enter User ID:");
 
-            notAvailableButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
+        //     var reqCards = document.querySelectorAll('.reqCard');
 
-                    modal.style.display = 'block';
-                });
-            });
+        //     reqCards.forEach(function(card) {
+        //         var cardUserId = card.getAttribute('data-userid');
 
-            closeModalBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
+        //         if (selectedUserId === '' || cardUserId === selectedUserId) {
+        //             card.style.display = 'block';
+        //         } else {
+        //             card.style.display = 'none';
+        //         }
+        //     });
+        // }
 
-            cancelBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-
-            confirmBtn.addEventListener('click', function() {
-                window.location.href = 'oldDonationDetailsPage.html';
-            });
-        });
+        // function filterByEventId() {
+        //     // You can implement filtering by Event ID similarly
+        //     alert("Filtering by Event ID is not implemented yet.");
+        // }
     </script>
 </body>
 
