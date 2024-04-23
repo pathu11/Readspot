@@ -6,10 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/user-req-form.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/popup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/userRequest.css">
     <title>ReadSpot Online Book store</title>
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,8 +63,9 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="donation" class="active">Donation Requests</a>
+
             <a href="event">Event Management</a>
+            <a href="donation" class="active">Donation Requests</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -90,35 +131,44 @@
                     <tr>
                         <td colspan="2" style="text-align:center;">
                             <button type="button" onclick="openRejectModal()" class="uf-reject-req">Reject Request</button>
-                            <button type="submit" name="uf-confirm-req" class="uf-confirm-req">Confirm & Add event</button>
-                            <!-- <a href="<?php echo URLROOT; ?>/charity/confirm-event">CHECK</a> -->
+                            
+                            <button type="submit" name="uf-confirm-req" class="uf-confirm-req" onclick="showModal()">Confirm Request</button>
+
+                            <div id="confirmModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close-btn" onclick="hideModal()">&times;</span>
+                                    <p>Are you sure?</p>
+                                    <button onclick="confirmAction()">Yes</button>
+                                    <button onclick="hideModal()">No</button>
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
 
-
         <div class="uf-modal" id="ufRejectModal">
             <div class="uf-modal-content">
                 <span class="uf-close-btn" onclick="closeRejectModal()">&times;</span>
                 <h3>Reason for Rejecting Request</h3>
                 <form action="#" method="post" id="ufRejectForm">
-                    <input type="radio" name="reason" value="bookcat-not-available" onclick="toggleCustomReason()" id="radio1"> <label for="radio1"> Book Category not available </label><br>
-                    <input id="book-cat-reason" type="text" class="reasonD" placeholder="suggest an alter category..." style="display:none;"><br>
-                    
-                    <input type="radio" name="reason" value="location-not-available" onclick="toggleCustomReason()" id=radio2> <label for="radio2"> Locations is not feasible </label><br>
-                    <input id="location-reason" type="text" class="reasonD" placeholder="suggest an alter location..." style="display:none;"> <br>
-                    
-                    <input type="radio" name="reason" value="count-not-enough" onclick="toggleCustomReason()" id="radio3"><label for="radio3"> Book count is not enough</label><br>
-                    <input id="book-count-reason" type="text" class="reasonD" placeholder="request more books..." style="display:none;"><br>
-                    
-                    <input type="radio" name="reason" value="date-not-available" onclick="toggleCustomReason()" id="radio4"> <label for="radio4"> Date is already fixed</label><br>
-                    <input id="date-reason" type="date" class="reasonD" placeholder="suggest an alter Date..." style="display:none;"><br>
-                    
+                    <input type="radio" name="reason" value="bookcat-not-available" onclick="toggleCustomReason()" id="radio1"> <label for="radio1"> Perticular event Date was expired !</label><br>
+                    <input id="book-cat-reason" type="text" class="reasonD" value="Please Donate for upcoming events" style="display:none;"><br>
+
+                    <input type="radio" name="reason" value="location-not-available" onclick="toggleCustomReason()" id=radio2> <label for="radio2"> Duplicate Titles </label><br>
+                    <input id="location-reason" type="text" class="reasonD" value="we have already enough books these category" style="display:none;"> <br>
+
+                    <input type="radio" name="reason" value="count-not-enough" onclick="toggleCustomReason()" id="radio3"><label for="radio3"> Copyright Issues</label><br>
+                    <input id="book-count-reason" type="text" class="reasonD" value="Books that infringe on copyrights or other legal concerns" style="display:none;"><br>
+
+                    <input type="radio" name="reason" value="date-not-available" onclick="toggleCustomReason()" id="radio4"> <label for="radio4">Inappropriate Content</label><br>
+                    <input id="date-reason" type="text" class="reasonD" value="Books containing offensive or inappropriate content" style="display:none;"><br>
+
                     <input type="radio" name="reason" value="other" onclick="toggleCustomReason()" id="radio5"><label for="radio5"> Other</label><br>
                     <textarea name="customReason" id="ufCustomReason" placeholder="Enter a Custom Reason with suggestion" style="display:none;"></textarea>
-                    
+
                     <button type="button" class="send-button" onclick="submitRejectReason()">send</button>
                 </form>
             </div>
@@ -134,12 +184,34 @@
             </p>
         </div>
         <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            <p id="copyright" style=" color: black">&copy; 2023 ReadSpot. All rights reserved.</p>
         </div>
     </footer>
 </body>
 <script src=<?= URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
 <script src=<?= URLROOT . "/assets/js/charity/userRequestjs.js" ?>></script>
 <script src=<?= URLROOT . "/assets/js/charity/user-req-form.js" ?>></script>
+<script>
+    // Open the modal
+    function openModal() {
+        var modal = document.getElementById('confirmModal');
+        modal.style.display = 'block';
+    }
+
+    // Close the modal
+    function closeModal() {
+        var modal = document.getElementById('confirmModal');
+        modal.style.display = 'none';
+    }
+
+    // Confirm action
+    function confirmAction() {
+        // Perform your action here (e.g., form submission)
+        document.getElementById('eventForm').submit(); // Replace 'eventForm' with your form's ID
+
+        // Close the modal
+        closeModal();
+    }
+</script>
 
 </html>

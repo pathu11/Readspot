@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,8 +22,8 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="donation" class="active">Donation Requests</a>
             <a href="event">Event Management</a>
+            <a href="donation" class="active">Donation Requests</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -127,7 +127,7 @@
                 </p>
             </div>
             <div>
-                <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+                <p id="copyright" style=" color: black;">&copy; 2023 ReadSpot. All rights reserved.</p>
             </div>
         </footer>
     </body>
@@ -136,4 +136,4 @@
     <script src=<?= URLROOT . "/assets/js/charity/user-req-form.js" ?>></script>
     <script src=<?= URLROOT . "/assets/js/charity/confirm-event.js" ?>></script>
 
-</html>
+</html> -->

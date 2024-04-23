@@ -20,8 +20,9 @@
         </div>
         <nav>
             <a href="#" class="active">Home</a>
-            <a href="donation">Donation Requests</a>
             <a href="event">Event Management</a>
+            <a href="donation">Donation Requests</a>
+
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -29,7 +30,7 @@
         </nav>
         <div class="dropdown" style="float:right;">
             <button class="dropdown-button">
-                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
                 <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
@@ -40,7 +41,7 @@
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/rr.jpg" ?>>
+        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/CharityDas.png" ?>>
         <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
     </div>
 
@@ -205,7 +206,7 @@
             </p>
         </div>
         <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            <p id="copyright" style=" color: black;">&copy; 2023 ReadSpot. All rights reserved.</p>
         </div>
     </footer>
 
