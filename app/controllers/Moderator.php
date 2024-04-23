@@ -524,6 +524,24 @@ require APPROOT . '\vendor\autoload.php';
     }
   }
 
+  public function addPointsChallenge(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER['REQUEST_METHOD']=='POST'){
+        $user_id = $_POST["user_id"];
+        $numberOfPoints = $_POST["numberOfPoints"];
+
+        if($this->moderatorModel->addPointsChallenge($user_id,$numberOfPoints)){
+            redirect('moderator/topChallenges');
+        }
+        else{
+          echo 'Something went wrong';
+        }
+      }
+    }
+  }
+
   public function complains(){
     if (!isLoggedInModerator()) {
       redirect('landing/login');
@@ -598,10 +616,14 @@ require APPROOT . '\vendor\autoload.php';
     }else{
       $user_id = $_SESSION['user_id'];
       $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+      $challengeScoreDetails = $this->moderatorModel->getChallengeScoreDetails();
+      $pointsAddDate = $this->moderatorModel->pointsAddDate();
       
       $data = [
         'moderatorDetails' => $moderatorDetails,
         'moderatorName'=>$moderatorDetails[0]->name,
+        'challengeScoreDetails'=>$challengeScoreDetails,
+        'pointsAddDate'=>$pointsAddDate,
       ];
       $this->view('moderator/topChallenges',$data);
     }

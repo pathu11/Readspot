@@ -268,6 +268,35 @@
       }
     }
 
+    public function getChallengeScoreDetails(){
+      $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score
+      FROM history s
+      INNER JOIN users u ON s.user_id = u.user_id
+      GROUP BY u.user_id
+      ORDER BY total_score DESC');
+
+      return $this->db->resultSet();
+    }
+
+    public function pointsAddDate(){
+      $this->db->query('SELECT user_id FROM customers WHERE challenge_point_date >= DATE_SUB(NOW(), INTERVAL 1 WEEK)');
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function addPointsChallenge($user_id,$numberOfPoints){
+      $this->db->query('UPDATE customers SET challnege_point = challnege_point+ :numberOfPoints, redeem_points = redeem_points + :numberOfPoints, challenge_point_date = NOW() WHERE user_id = :user_id');
+
+      $this->db->bind(":numberOfPoints",$numberOfPoints);
+      $this->db->bind(":user_id",$user_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
   }
 
 
