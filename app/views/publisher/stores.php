@@ -17,7 +17,7 @@
 
   <div class="container">
     <table id="eventTable">
-      <input type="text" id="searchInput" placeholder="Search by ID or Name" oninput="searchEvents()">
+      <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
       <thead>
         <tr>
           <th>Store ID</th>

@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<?php require APPROOT . '/views/delivery/sidebar.php';?>
     <div>
     <div>
         <div class="form-container">

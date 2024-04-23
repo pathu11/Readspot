@@ -17,6 +17,7 @@
     <div class="container">
 
         <table id="eventTable" class="responsive-table">
+        <input  type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
             <h2>Books Details</h2>
         <thead>
             <tr>
@@ -25,6 +26,7 @@
                
                 <th >Author</th>
                 <th >Price</th>
+                <th >Discounts(%)</th>
                 <th >Category</th>
                
                 <th >No of Books</th>
@@ -44,6 +46,7 @@
                 <!-- <th style="width:7%"><?php echo $bookDetails->ISBN_no; ?></th> -->
                 <td ><?php echo $bookDetails->author; ?></td>
                 <td ><?php echo $bookDetails->price; ?></td>
+                <td ><?php echo $bookDetails->discounts; ?></td>
                 <td ><?php echo $bookDetails->category; ?></td>
                 
                 <td ><?php echo $bookDetails->quantity; ?></td>
@@ -79,7 +82,7 @@
             <div class="modal-content">
             <span class="close" onclick="closeConfirmationModal()">&times;</span>
             <h2>Confirmation</h2>
-            <p>Are you sure you want to delete this store?</p>
+            <p>Are you sure you want to delete this book?</p>
             <button onclick="proceedDelete(<?php echo $bookDetails->book_id; ?>)">Yes</button>
             <button onclick="closeConfirmationModal()">No</button>
             </div>
@@ -119,10 +122,7 @@
         </div>
         <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
     </div>
-    <?php
-            require APPROOT . '/views/publisher/footer.php'; //path changed
-        ?>
-
+    
     </body>
 <script>
         function goBack() {

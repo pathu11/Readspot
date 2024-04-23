@@ -42,7 +42,7 @@
 }
 .subcost2{
     padding:20px;
-    margin-left: 60px;
+    margin-left: 40px;
 }
 
 /* .cardPayment-form,
@@ -192,6 +192,9 @@ td:not(:last-child) {
         width:100%;
       margin-right: 0; /* Remove right margin */
       margin-top: 20px; /* Adjust top margin */
+    }
+    img{
+        width:100%;
     }
     .flex-child-element.green {
         overflow: auto; /* Enable vertical scrolling if necessary */

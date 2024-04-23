@@ -22,30 +22,46 @@
                         <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $data['img3'] . '" alt="Book3" class="sub-img-excg">';?>
                     </div>
                 </div>
-                <div class="want-exchange-book">
+                <!-- <div class="want-exchange-book">
                     <h3>Which Books I Want</h3><br>
                     <p><?php echo $data['booksIWant']; ?></p>
-                </div>
+                </div> -->
+                <?php
+                    // Split the booksIWant string by commas
+                    $booksIWantList = explode(',', $data['booksIWant']);
+
+                    // Output each book in the list as a list item
+                    echo '<div class="want-exchange-book">';
+                    echo '<h3>Which Books I Want</h3><br>';
+                    echo '<ul>'; // Start unordered list
+                    foreach ($booksIWantList as $book) {
+                        echo '<li>' . trim($book) . '</li>'; // Trim whitespace and display each book
+                    }
+                    echo '</ul>'; // End unordered list
+                    echo '</div>';
+                ?>
             </div>
             <div class="description-exchange">
             <h3>Description about the book</h3><br>
                 <p><?php echo $data['descript']; ?></p>
             </div>
         </div>
-        <div class="exchange-topic">
-        <h3>Book Name : <span><?php echo $data['book_name']; ?></span></h3><br>
-            <h3>Author of Book : <span><?php echo $data['author']; ?></span></h3><br>
-            <h3>Book Category : <span><?php echo $data['category']; ?></span></h3><br>
-            <h3>Condition : <span><?php echo $data['condition']; ?></span></h3><br>
-            <h3>Published Year : <span><?php echo $data['published_year']; ?></span></h3><br>
-            <h3>Weight (grams) : <span><?php echo $data['weight']; ?></span></h3><br>
-            <h3>ISBN Number : <span><?php echo $data['ISBN_no']; ?></span></h3><br>
-        </div>
-        
-        <div class="city-details-E">
-            <h3>Town : <span><?php echo $data['town']; ?></span></h3><br>
-            <h3>District : <span><?php echo $data['district']; ?></span></h3><br>
-            <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
+        <div class="new-book-details">
+            <div class="exchange-topic">
+                <h3>Book Name : <span><?php echo $data['book_name']; ?></span></h3><br>
+                <h3>Author of Book : <span><?php echo $data['author']; ?></span></h3><br>
+                <h3>Book Category : <span><?php echo $data['category']; ?></span></h3><br>
+                <h3>Published Year : <span><?php echo $data['published_year']; ?></span></h3><br>
+                <h3>ISBN Number : <span><?php echo $data['ISBN_no']; ?></span></h3><br>
+            </div>
+            
+            <div class="city-details-E">
+                <h3>Weight (grams) : <span><?php echo $data['weight']; ?></span></h3><br>
+                <h3>Condition : <span><?php echo $data['condition']; ?></span></h3><br>
+                <h3>Town : <span><?php echo $data['town']; ?></span></h3><br>
+                <h3>District : <span><?php echo $data['district']; ?></span></h3><br>
+                <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
+            </div>
         </div>
         <div class="sub4-E">
             <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $data['customer_user_id']; ?>"><button class="chat-btn-Excg">Chat</button></a>

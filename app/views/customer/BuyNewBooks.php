@@ -53,15 +53,26 @@
                         <?php foreach ($booksInCategory as $book): ?>
                             <?php if ($counter >= 5) break 2; ?>
                             <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $book->book_id; ?>">
-                                <div class="B0-N">
+                                <div class="B0-R">
                                     <?php if (isset($book->img1)): ?>
                                         <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $book->img1; ?>" alt="Book1" class="Book-N"> 
                                     <?php endif; ?>
                                     <h3><?php echo isset($book->book_name) ? $book->book_name : ''; ?></h3>
                                     <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
                                     <div class="fav-cart">
-                                        <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                                        <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
+
+                                        <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $book->book_id; ?>">
+                                            <button class="book-button">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>">
+                                            <button class="book-button">
+                                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </a>
