@@ -31,7 +31,7 @@
                 <form action="<?php echo URLROOT; ?>/customer/ChangeProfImage" enctype="multipart/form-data" method="POST">
                     <?php
                         if ($data['customerImage']) {
-                            echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$data['customerImage'].'" alt="Profile Image" class="profile-image-cng" id="profileImage"';
+                            echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$data['customerImage'].'" alt="Profile Image" class="profile-image-cng" id="profileImage">';
                         } else {
                             echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" alt="Profile Image" class="profile-image-cng" id="profileImage">';
                         }

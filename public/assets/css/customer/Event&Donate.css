@@ -38,6 +38,7 @@
 .req-books-details-E {
     width: 30%;
     height: 350px;
+    border-radius: 30px;
 }
 
 .donate-des-div, .event-des-div {
@@ -50,6 +51,7 @@
 .event-des-div {
     width: 30%;
     height: 350px;
+    border-radius: 30px;
 }
 
 .donate-btn-div, .event-des-div{

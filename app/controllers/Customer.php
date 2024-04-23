@@ -384,7 +384,7 @@ class Customer extends Controller {
                 // echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
                 // redirect('customer/Event');
                 // echo "<script>showModal();</script>";
-                $_SESSION['showModal'] = true; // Set session variable to true
+                $_SESSION['showModal1'] = true; // Set session variable to true
                 redirect('customer/addevnt');
 
             }else{
@@ -3434,17 +3434,52 @@ public function markReview()
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $orderDetails=$this->ordersModel->findOrdersByCustomerId( $customerDetails[0]->customer_id);
+            // $orderDetails01 = $this->ordersModel->findOrdersByCustomerId($$orderDetails->order_id);
+
+            $orderDetailsArray = [];
+            foreach ($orderDetails as $order) {
+                $orderDetailsArray[$order->order_id] = $this->ordersModel->findOrdersByOrderId($order->order_id);
+            }
 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'orderDetails'=>$orderDetails
+                'orderDetails' => $orderDetails,
+                'orderDetailsArray' => $orderDetailsArray
             ];
            
             $this->view('customer/Order', $data);
         }
     }
+
+    // public function getOrderDetails($order_id){
+    //     if (!isLoggedInCustomer()) {
+    //         redirect('landing/login');
+    //     } else {
+    //         $user_id = $_SESSION['user_id'];
+           
+    //         $customerDetails = $this->customerModel->findCustomerById($user_id);
+    //         $orderDetails = $this->ordersModel->findOrdersByOrderId($order_id);
+    
+    //         if (!empty($orderDetails)) { // Check if order details are not empty
+    //             $data = [
+    //                 'customerDetails' => $customerDetails,
+    //                 'customerImage' => $customerDetails[0]->profile_img,
+    //                 'customerName' => $customerDetails[0]->first_name,
+    //                 'orderDetails1'=>$orderDetails1
+    //             ];
+    //             $_SESSION['showModal1'] = true; // Set session variable to true
+    //             $this->Order($data);
+    //         } else {
+    //             // Handle the case when no order details are found
+    //             // For example, display an error message or redirect to another page
+    //         }
+    //     }
+    // }
+    
+    
+
     public function cancelOrder() {
         
         $data = json_decode(file_get_contents('php://input'), true);
