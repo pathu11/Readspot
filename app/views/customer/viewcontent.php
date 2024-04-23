@@ -74,10 +74,7 @@
                     </div>
                 </div>
                 <div class="give-rate">
-                    <!-- <div class="post">
-                        <div class="text">Thanks for rating us!</div>
-                        <div class="edit">EDIT</div>
-                    </div> -->
+                  
                     <?php foreach($data['contentDetails'] as $content): ?>
                     <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
@@ -113,12 +110,16 @@
 
             </div>
            
-            <div class="sort-by-star">
-                <select id="searchBy"  name="category">
-                    <option value="technology">Most relevant</option>
-                    <option value="travel">Most recent</option>
-                </select>
-            </div>
+           
+            <!-- <div class="sort-by-star">
+                <form id="filterForm" action="<?php echo URLROOT; ?>/customer/viewcontent" method="post">
+                    <select id="searchBy" name="category">
+                        <option value="recent">Most recent</option>
+                        <option value="relevant">Most relevant</option>
+                    </select>
+                    <button id="filterButton" >Apply Filter</button>
+                </form>
+            </div> -->
             <div class="cus-rev">
             <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
@@ -141,23 +142,24 @@
                             }
                         ?>
                      </div>
-                        <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png"> -->
+                  
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
                     <p><?php echo $reviews->review; ?></p>
                     <div class="helpful">
                         <h4>Was this review helpful?</h4>
-                        <div class="yes-no">
-                        <div class="helpful">
-                            <input type="radio" name="helpful" value="yes" data-review-id="<?php echo $reviews->review_id; ?>" class="helpful-radio">
-                            <label>Yes</label>
-                            <input type="radio" name="helpful" value="no" data-review-id="<?php echo $reviews->review_id; ?>" class="helpful-radio">
-                            <label>No</label>
-                        </div>
-
-                        </div>
+                        <?php if(isset($data['user_id'])): ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
+                        <?php else: ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
+                        <?php endif; ?>
+</div>
+                          
+                <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
                     </div>
-                    <h5><?php echo $reviews->help; ?>  people found this helpful</h5>
+                 
                 </div>
                 <?php endforeach; ?>
                 
@@ -167,43 +169,27 @@
     
     <script>
 
+document.querySelectorAll('.helpful-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const reviewId = this.dataset.reviewId;
+        const isHelpful = this.dataset.action === 'helpful';
 
-
-// helpfull or not checking
-
-d// Event listener for helpful radio buttons
-document.querySelectorAll('.helpful-radio').forEach(radioButton => {
-    radioButton.addEventListener('change', function() {
-        const reviewId = this.dataset.reviewId; // Get the review ID
-        const action = this.value; // Get the selected action
-        markReview(reviewId, action);
+        fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpful?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+            .then(response => {
+                if (response.ok) {
+                   
+                    this.disabled = true; // Disable the button after clicking
+                    this.classList.add('clicked'); // Optionally, add a class to indicate the button was clicked
+                } else {
+                    console.error('Failed to update review helpfulness');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating review helpfulness:', error);
+            });
     });
 });
 
-// Function to mark a review as helpful or not helpful
-function markReview(reviewId, action) {
-    // Send AJAX request to the server
-    fetch('<?php echo URLROOT; ?>/customer/markReview', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ reviewId: reviewId, action: action }),
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log(`Review marked as ${action} successfully`);
-            // Optionally, update the UI to reflect the change
-        } else {
-            console.error(`Failed to mark review as ${action}`);
-        }
-    })
-    .catch(error => {
-        console.error(`Error marking review as ${action}:`, error);
-    });
-}
-
-        // Sample data representing count and percentage for each rating
 // Sample data representing count and percentage for each rating
     const star_1=<?php echo $data['countStar_1']->total_1; ?>;
     const star_2=<?php echo $data['countStar_2']->total_2; ?>;

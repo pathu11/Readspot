@@ -127,8 +127,10 @@ require APPROOT . '\vendor\autoload.php';
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
+            'img'=>'',
             'book_category_err'=>'',
-            'description_err'=>''
+            'description_err'=>'',
+            'img_err'=>'',
         ];
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
@@ -138,7 +140,37 @@ require APPROOT . '\vendor\autoload.php';
             $data['description_err']='Please enter the category description';      
         }
 
-        if(empty($data['book_category_err']) && empty($data['description_err'])){
+        if(empty($data['book_category_err']) && empty($data['description_err']) && empty($data['img_err'])){
+            if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
+                $img_name = $_FILES['bookCategoryImg']['name'];
+                $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
+                $error = $_FILES['bookCategoryImg']['error'];
+                            
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+                        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['book_category'] . '-' . $unique_id . '-img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/admin/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                        
+                        $data['img'] = $new_img_name;
+                    } else {
+                        // Handle file type not allowed error
+                        $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                    }
+                } else {
+                    // Handle file upload error
+                    $data['img_err'] = 'Error uploading the file';
+                }
+            }
+            
+            
+            
             if($this->adminModel->addBookCategory($data)){
                 flash('add_success','You are added the book category successfully');
                 redirect('admin/categories');
@@ -155,6 +187,7 @@ require APPROOT . '\vendor\autoload.php';
         $data=[
             'adminDetails' => $adminDetails,
             'adminName'=>$adminDetails[0]->name,
+            'img'=>'',
             'book_category'=>'',
             'description'=>'',
             'book_category_err'=>'',
@@ -178,6 +211,8 @@ require APPROOT . '\vendor\autoload.php';
             'id' => $id,
             'book_category' => trim($_POST['book_category']),
             'description' => trim($_POST['description']),
+            'img'=>'',
+
             'book_category_err' => '',
             'description_err' => ''
         ];
@@ -191,6 +226,35 @@ require APPROOT . '\vendor\autoload.php';
         }
 
         if (empty($data['book_category_err']) && empty($data['description_err'])) {
+
+            if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
+                $img_name = $_FILES['bookCategoryImg']['name'];
+                $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
+                $error = $_FILES['bookCategoryImg']['error'];
+                            
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+                        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['book_category'] . '-' . $unique_id . '-img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/admin/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                        
+                        $data['img'] = $new_img_name;
+                    } else {
+                        // Handle file type not allowed error
+                        $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                    }
+                } else {
+                    // Handle file upload error
+                    $data['img_err'] = 'Error uploading the file';
+                }
+            }
+            
             if ($this->adminModel->updateBookCategory($data)) {
                 flash('update_success', 'You are updated the book category successfully');
                 redirect('admin/categories');
@@ -210,6 +274,7 @@ require APPROOT . '\vendor\autoload.php';
             'id' => $id,
             'book_category' => $bookCategory->category,
             'description' => $bookCategory->description,
+            'img'=>$bookCategory->category_img,
             'book_category_err' => '',
             'description_err' => ''
         ];
@@ -508,12 +573,18 @@ public function livesearch(){
         $customerSearchDetails = $this->adminModel->getCustomerSearchDetails($input);
         $publisherSearchDetails = $this->adminModel->getPublisherSearchDetails($input);
         $charitySearchDetails = $this->adminModel->getCharitySearchDetails($input);
+        $orderSearchDetailsByID = $this->adminModel->getOrderSearchDetailsByID($input);
+        $orderSearchDetailsByDate = $this->adminModel->getOrderSearchDetailsByDate($input);
+        $complainSearchDetails = $this->adminModel->getComplainSearchDetails($input);
     }
 
     $data = [
         'customerSearchDetails'=>$customerSearchDetails,
         'publisherSearchDetails'=>$publisherSearchDetails,
-        'charitySearchDetails'=>$charitySearchDetails
+        'charitySearchDetails'=>$charitySearchDetails,
+        'orderSearchDetailsByID'=>$orderSearchDetailsByID,
+        'orderSearchDetailsByDate'=>$orderSearchDetailsByDate,
+        'complainSearchDetails'=>$complainSearchDetails,
     ];
     
     $this->view('admin/livesearch',$data);
@@ -533,124 +604,149 @@ public function orders(){
 }
 
 public function reports(){
-    $user_id = $_SESSION['user_id'];
-         
+    $user_id = $_SESSION['user_id'];     
     $adminDetails = $this->adminModel->findAdminById($user_id);
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-        //report type is registration report
-        if($_POST['report-type']=='registration'){
-            $data = [
-                'adminDetails' => $adminDetails,
-                'adminName'=>$adminDetails[0]->name,
-                'registration'=>trim($_POST['report-type']),
-                'start-date'=>trim($_POST['start-date']),
-                'end-date'=>trim($_POST['end-date']),
-                
     
-                'registration_err'=>'',
-                'start-date_err'=>'',
-                'end-date_err'=>''
-            ];
-            
-            // Separate start-date components
-            list($startYear, $startMonth, $startDay) = explode('-', $data['start-date']);
-            
-            // Separate end-date components
-            list($endYear, $endMonth, $endDay) = explode('-', $data['end-date']);
-            
-            // Add the separated components to the data array
-            $data['startYear'] = $startYear;
-            $data['startMonth'] = $startMonth;
-            $data['startDay'] = $startDay;
-            
-            $data['endYear'] = $endYear;
-            $data['endMonth'] = $endMonth;
-            $data['endDay'] = $endDay;
-            
+    $monthlyRegisteredUserCount = $this->adminModel->getMonthlyRegisteredUserCount();
+    $monthlyOrderCount = $this->adminModel->getMonthlyOrderCount();
+    $monthlyNewBookCount = $this->adminModel->getNewBookCount();
+    $monthlyUsedBookCount = $this->adminModel->getUsedBookCount();
+    $monthlyExchangedBookCount = $this->adminModel->getExchangeBookCount();
     
-            if(empty($data['registration'])){
-                $data['event_category_err']='Please select the report type';      
-            }
-    
-            if(empty($data['start-date'])){
-                $data['start-date_err']='Please enter the start date';      
-            }
-    
-            if(empty($data['registration_err']) && empty($data['start-date_err']) && empty($data['end-date_err'])){
-                if($this->adminModel->generateRegistrationReport($data)){
-                    $registrationDetails = $this->adminModel->generateRegistrationReport($data);
-                    $data=[
-                        'adminDetails' => $adminDetails,
-                        'adminName'=>$adminDetails[0]->name,
-                        'registrationDetails'=>$registrationDetails,
-                        'title'=>trim($_POST['title'])
-                    ];
-                    $this->view('admin/reports',$data);
-                }else{
-                    die('Something went wrong');
-                }
-            }
-    
-            else{
-                $this->view('admin/reports',$data);
-            }
+    $countCustomers = $this->adminModel->countCustomers();
+    $countPublishers = $this->adminModel->countPublishers();
+    $countCharity = $this->adminModel->countCharity();
+    $countOrderStatus = $this->adminModel->getOrderStatusCount();
+    $countBookCategory = $this->adminModel->getBookCategoryCount();
 
+    // Create an associative array to store the user registration counts for each day
+    $registrationCounts = [];
+    $orderCounts = [];
+    $newBookCounts = [];
+    $usedBookCounts = [];
+    $exchangedBookCounts = [];
+
+    // Iterate over the fetched data and populate the associative array
+    foreach ($monthlyRegisteredUserCount as $row) {
+        $registrationCounts[$row->registration_day] = $row->num_users_registered;
+    }
+    foreach ($monthlyOrderCount as $row) {
+        $orderCounts[$row->order_day] = $row->num_orders;
+    }
+    foreach ($monthlyNewBookCount as $row) {
+        $newBookCounts[$row->newBook_day] = $row->num_newBook;
+    }
+    foreach ($monthlyUsedBookCount as $row) {
+        $usedBookCounts[$row->usedBook_day] = $row->num_usedBook;
+    }
+    foreach ($monthlyExchangedBookCount as $row) {
+        $exchangedBookCounts[$row->exchangeBook_day] = $row->num_exchangeBook;
+    }
+
+    // Fill in any missing days in the past month with a count of zero
+    $currentDate = new DateTime();
+    $endDate = new DateTime('first day of this month');
+    $endDate->modify('last day of last month');
+    $interval = new DateInterval('P1D');
+    $period = new DatePeriod($endDate, $interval, $currentDate);
+    foreach ($period as $date) {
+        $registrationDay = $date->format('Y-m-d');
+        $orderDay = $date->format('Y-m-d');
+        $newBookDay = $date->format('Y-m-d');
+        $usedBookDay = $date->format('Y-m-d');
+        $exchangeBookDay = $date->format('Y-m-d');
+        if (!isset($registrationCounts[$registrationDay])) {
+            $registrationCounts[$registrationDay] = 0;
         }
-        //report type is book inventory report
-        elseif($_POST['report-type']=='book-inventory'){
-            if(isset($_POST['total_books'])){
-                $totalBooks = $this->adminModel->countTotalBooks();
-            }
-            else $totalBooks = '';
-            
-            if(isset($_POST['book_category'])){
-                $bookCategories = $this->adminModel->getBookCategories();
-            }
-            else $bookCategories = '';
-            
-            if(isset($_POST['top_books'])){
-                $topBooks = $this->adminModel->getTopBooks();
-            }
-            else $topBooks = '';
-            
-            if(isset($_POST['book_available'])){
-                $availableBooks = $this->adminModel->getAvailableBooks();
-            }
-            else $availableBooks = '';
-
-            $data=[
-                'adminDetails' => $adminDetails,
-                'adminName'=>$adminDetails[0]->name,
-                'totalBooks' => $totalBooks,
-                'bookCategories'=>$bookCategories,
-                'topBooks'=>$topBooks,
-                'availableBooks'=>$availableBooks,
-                'title'=>trim($_POST['title'])
-            ];
-            $this->view('admin/reports',$data);
-
+        if (!isset($orderCounts[$orderDay])) {
+            $orderCounts[$orderDay] = 0;
         }
+        if (!isset($newBookCounts[$newBookDay])) {
+            $newBookCounts[$newBookDay] = 0;
+        }
+        if (!isset($usedBookCounts[$usedBookDay])) {
+            $usedBookCounts[$usedBookDay] = 0;
+        }
+        if (!isset($exchangedBookCounts[$exchangeBookDay])) {
+            $exchangedBookCounts[$exchangeBookDay] = 0;
+        }
+    }
+
+    // Sort the associative array by keys (dates) in ascending order
+    ksort($registrationCounts);
+    ksort($orderCounts);
+    ksort($newBookCounts);
+    ksort($usedBookCounts);
+    ksort($exchangedBookCounts);
+
+    // Extract the dates and registration counts for use in Chart.js
+    $Userlabels = [];
+    $Userdata = [];
+    foreach ($registrationCounts as $registrationDay => $numUsersRegistered) {
+        $Userlabels[] = $registrationDay;
+        $Userdata[] = $numUsersRegistered;
+    }
+
+    $Orderlabels = [];
+    $Orderdata = [];
+    foreach ($orderCounts as $orderDay => $numorders) {
+        $Orderlabels[] = $orderDay;
+        $Orderdata[] = $numorders;
+    }
+
+    $newBooklabels = [];
+    $newBookdata = [];
+    foreach ($newBookCounts as $newBookDay => $numNewBook) {
+        $newBooklabels[] = $newBookDay;
+        $newBookdata[] = $numNewBook;
+    }
+
+    $usedBooklabels = [];
+    $usedBookdata = [];
+    foreach ($usedBookCounts as $usedBookDay => $numUsedBook) {
+        $usedBooklabels[] = $usedBookDay;
+        $usedBookdata[] = $numUsedBook;
+    }
+
+    $exchangeBooklabels = [];
+    $exchangeBookdata = [];
+    foreach ($exchangedBookCounts as $exchangeBookDay => $numExchangeBook) {
+        $exchangeBooklabels[] = $exchangeBookDay;
+        $exchangeBookdata[] = $numExchangeBook;
+    }
+
+    $data=[
+        'adminDetails' => $adminDetails,
+        'adminName'=>$adminDetails[0]->name,
         
-    }
+        'Userlabels'=>$Userlabels,
+        'Userdata'=>$Userdata,
+        'Orderlabels'=>$Orderlabels,
+        'Orderdata'=>$Orderdata,
+        'newBooklabels'=>$newBooklabels,
+        'newBookdata'=>$newBookdata,
+        'usedBooklabels'=>$usedBooklabels,
+        'usedBookdata'=>$usedBookdata,
+        'exchangeBooklabels'=>$exchangeBooklabels,
+        'exchangeBookdata'=>$exchangeBookdata,
+        
+        'countCustomers'=>$countCustomers,
+        'countPublishers'=>$countPublishers,
+        'countCharity'=>$countCharity,
+        'countOrderStatus'=>$countOrderStatus,
+        'countBookCategory'=>$countBookCategory,
+    ];
 
-    else{
-        $data=[
-            'adminDetails' => $adminDetails,
-            'adminName'=>$adminDetails[0]->name,
-        ];
-
-        $this->view('admin/reports',$data);
-    }
+    $this->view('admin/reports',$data);
+    
 
 }
-public function payments(){
+public function pending_payments(){
     if (!isLoggedIn()) {
         redirect('landing/login');
     } else{
 
-        $user_id = $_SESSION['user_id'];
-         
+        $user_id = $_SESSION['user_id']; 
         $adminDetails = $this->adminModel->findAdminById($user_id);
         $orderDetails = $this->adminModel->getPendingOrderDetails();
         $data = [
@@ -658,11 +754,90 @@ public function payments(){
             'adminName'=>$adminDetails[0]->name,
             'orderDetails'=>$orderDetails,
         ];
-        $this->view('admin/payments',$data);
+        $this->view('admin/pending_payments',$data);
 
     }
     
 }
+public function payments(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $paymentDetails = $this->adminModel->getPaymentsDetails();
+        $data = [
+            'adminDetails' => $adminDetails,
+            'adminName'=>$adminDetails[0]->name,
+            'paymentsDetails'=>$paymentDetails,
+        ];
+        // print_r($paymentDetails);
+        $this->view('admin/payments',$data);
+    }  
+}
+
+public function sendPayment() {
+    $user_id=$_SESSION['user_id'];
+    $paymentDetails = $_POST['paymentDetails'];
+
+    $order_id=$paymentDetails['order_id'];
+    $book_id=$paymentDetails['book_id'];
+    $paid_price=$paymentDetails['paid_price'];
+    $user_id_from_users_table=$paymentDetails['user_id_from_users_table'];
+    $quantity=$paymentDetails['quantity'];
+    $sender_name="System_Administration";
+    $topic="Payment Confirmation: Books Delivered to Buyers";
+    $msg="We are pleased to inform you that the payment for the books you supplied has been successfully processed. These books have been delivered to their respective buyers, marking the completion of another successful transaction:
+
+        Order ID: .$order_id
+        Book ID: .$book_id
+        Total Payment: .$paid_price
+        
+        We appreciate your valuable contribution to our platform and the quality literature you provide. Your continued partnership is integral to our success.
+        
+        Thank you for your dedication and support. ";
+    
+        if($this->adminModel->insertPayment($order_id,$book_id,$paid_price,$user_id_from_users_table,$quantity)){
+            if($this->adminModel->sendMessage($user_id_from_users_table,$user_id,$sender_name,$topic,$msg)){
+                $userEmail = $this->adminModel->getUserEmail($user_id_from_users_table);
+
+                // Send email using PHPMailer
+                $mail = new PHPMailer(true);
+        
+                try {
+                    $mail->isSMTP();
+                    $mail->Host       = MAIL_HOST;  
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = MAIL_USER;
+                    $mail->Password   = MAIL_PASS; 
+                    $mail->SMTPSecure = MAIL_SECURITY;
+                    $mail->Port       = MAIL_PORT;
+                    $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                    $mail->addAddress($userEmail);  
+                    $mail->isHTML(true);  // Set email format to HTML
+                    $mail->Subject = $topic;
+                    $mail->Body    = $msg;
+        
+                    $mail->send();
+                    echo json_encode(['success' => true]);
+                   
+                   
+                } catch (Exception $e) {
+                    die('Something went wrong: ' . $mail->ErrorInfo);
+                }
+                
+            }
+          
+          
+        }else {
+        //     // echo '<script>alert("Failed to send your payment. Please try again later.")</script>';
+             echo json_encode(['success' => false]);
+         }
+   
+   
+}
+
 public function approveOrder($order_id) {
     $user_id = $_SESSION['user_id'];
     $adminDetails = $this->adminModel->findAdminById($user_id);
@@ -671,13 +846,12 @@ public function approveOrder($order_id) {
     $customer_id = $orderDetails[0]->customer_id;
     $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
     $customerEmail = $customerDetails[0]->email;
+    $customer_name= $customerDetails[0]->name;
     $topic = "Approved the Order by administration";
-    $message ="Congratulations! Your order has been approved. Your order will be received at home as soon as possible.";
+    $message ="Hi .$customer_name.,\nGreat news! Your payment receipt has been successfully verified, marking your order as approved. Now, sit back and relax as we prepare to deliver your order straight to your door!\nReaspot team";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
     $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
-
-
     $ownerEmails = array();
     foreach ($bookIds as $bookIdObj) {
         $bookId = $bookIdObj->book_id;
@@ -716,7 +890,7 @@ public function approveOrder($order_id) {
         $this->sendEmails($customerEmail, $ownerEmails, $data);
 
         // Redirect or perform other actions as needed
-        redirect('admin/payments');
+        redirect('admin/pending_payments');
     } else {
         die('Something went wrong');
     }
@@ -822,13 +996,90 @@ public function approveBook($book_id){
     
 }
 
+
+
 public function rejectBook(){
+    if (!isLoggedInAdmin()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $rejectReason = $_POST["rejectReason"];
+        $customer_id = $_POST["customer_id"];
+        $book_id = $_POST["book_id"];
 
-        $rejectReason = $_POST['rejectReason'];
-        $customer_id = $_POST['customer_id'];
-        $pendingBook = $this->adminModel->getPendingBookByID($customer_id);
-        $customerEmail = $pendingBook[0]->email;
+        $pendingBook = $this->adminModel->getPendingBookByID($book_id);
 
+        if ($this->adminModel->rejectBook($book_id)) {   
+          // Send email using PHPMailer
+          $mail = new PHPMailer(true);
+  
+          try {
+              //Server settings
+              $mail->isSMTP();
+              $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+              $mail->SMTPAuth   = true;
+              $mail->Username   = MAIL_USER; // SMTP username
+              $mail->Password   = MAIL_PASS;   // SMTP password
+              $mail->SMTPSecure = MAIL_SECURITY;
+              $mail->Port       = MAIL_PORT;
+  
+              //Recipients
+              $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+              $mail->addAddress($pendingBook->email);  // Add a recipient
+  
+              // Content
+              $mail->isHTML(true);  // Set email format to HTML
+              $mail->Subject = 'Your Book '.$pendingBook->book_name.' Has Been Rejected';
+              $mail->Body    = "Dear ".$pendingBook->name. ",.<br><br>" .
+              "Unfortunaltely your book " .$pendingBook->book_name.", authored by " .$pendingBook->author. ", has been has been rejected for the following reason:<br><br>".
+              $rejectReason."Thank you for your submission.<br><br>".
+              "Sincerely,<br>".
+              "The Admin Team";
+  
+              $mail->send();
+  
+              // Redirect or perform other actions as needed
+              redirect('admin/pendingRequestsBooks');
+          } catch (Exception $e) {
+              die('Something went wrong: ' . $mail->ErrorInfo);
+          }
+        }
+        else{
+          echo 'Something Went Wrong';
+        }
+
+      }
+    }
+  }
+
+public function complains(){
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+      }else{
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+        $complainDetails = $this->adminModel->getComplains();
+        
+        $data = [
+          'adminDetails' => $adminDetails,
+          'adminName'=>$adminDetails[0]->name,
+          'complainDetails'=>$complainDetails,
+        ];
+        $this->view('admin/complains',$data);
+      }
+}
+
+public function respondComplain(){
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+    }else{
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+          $adminComment = $_POST["adminComment"];
+          $complaint_id = $_POST["complaint_id"];
+          $email = $_POST["email"];
+          $name = $_POST["name"];
+  
+        if ($this->adminModel->respondComplain($complaint_id,$adminComment)) {   
         // Send email using PHPMailer
         $mail = new PHPMailer(true);
 
@@ -844,26 +1095,30 @@ public function rejectBook(){
 
             //Recipients
             $mail->setFrom('readspot27@gmail.com', 'READSPOT');
-            $mail->addAddress($customerEmail);  // Add a recipient
+            $mail->addAddress($email);  // Add a recipient
 
             // Content
             $mail->isHTML(true);  // Set email format to HTML
-            $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Rejected';
-            $mail->Body    = "Dear ".$pendingBook[0]->name. ",.<br><br>" .
-                            "Unfortunaltely your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been has been rejected for the following reason:<br><br>".
-                            $rejectReason."Thank you for your submission.<br><br>".
-                            "Sincerely,<br>".
-                            "The Admin Team";
-                
+            $mail->Subject = 'Regarding Your Complain';
+            $mail->Body    = "Dear ".$name. ". Thank you for reaching out to us ".$adminComment." If there is anything else we can assist you with, or if you have any further questions, please don't hesitate to contact us.
+
+            Thank you for your understanding.";
+
+            $mail->send();
+
             // Redirect or perform other actions as needed
-
-            redirect('admin/pendingRequestsBooks');
-            
-        } catch (Exception $e) {
-            die('Something went wrong: ' . $mail->ErrorInfo);
+            redirect('admin/complains');
+            } catch (Exception $e) {
+                die('Something went wrong: ' . $mail->ErrorInfo);
+            }
         }
+        else{
+        echo 'Something Went Wrong';
+        }
+  
+        }
+    }
 }
-
 
 
 }

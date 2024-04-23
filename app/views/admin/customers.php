@@ -20,7 +20,7 @@
  
 <?php require APPROOT . '/views/admin/nav.php';?>
 
-    <div class="nav-container2">
+    <div class="nav-container2" style="margin-top: 100px;">
         <a href="<?php echo URLROOT; ?>/admin/customers" class="active">Customers</a>
         <a href="<?php echo URLROOT; ?>/admin/publishers">Publishers</a> 
         <a href="<?php echo URLROOT; ?>/admin/charity">Charity Organizations</a> 

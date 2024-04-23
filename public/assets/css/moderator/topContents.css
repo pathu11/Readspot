@@ -1,0 +1,250 @@
+.sub-nav{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-right: 50px;
+  flex-wrap: wrap;
+}
+
+.sub-nav button{
+  padding: 10px;
+  font-size: medium;
+  background-color: #009D94;
+  border-radius: 5px;
+  border-style: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.sub-nav button:hover {
+  transform: scale(1.1);
+}
+
+.sub-nav h2{
+  font-size: 24px;
+  font-weight: bold; 
+  color: #009D94;
+  margin-bottom: 20px;
+}
+
+.top-contents{
+  display: flex;
+  flex-direction: column;
+}
+
+.top-contents img{
+  width: 10%;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  margin: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content-description{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 15px;
+  padding: 10px;
+}
+
+.content-number {
+  background-color: #009D94;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+
+.content-description h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.content-description span {
+  font-size: 14px;
+  color: #666;
+}
+
+.content-description p{
+  padding: 10px;
+  color: crimson;
+}
+
+.content-description button {
+  background-color: #006E68; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.content-description button:hover {
+  background-color: #004643;
+}
+
+.content:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+}
+
+/* modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Fix the size and hide overflow */
+  backdrop-filter: blur(5px); /* Add blur for glass effect */
+}
+
+.modal-content {
+  background-color: #2c2c2c;
+  color: white;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #2c2c2c;
+  width: 50%;
+  font-family: "Poppins";
+  font-size: 9px;
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: auto; /* Add overflow for content scrolling */
+}
+
+.modal-content h2 {
+  color: white;
+  font-size: 14px;
+}
+
+.modal-content button{
+  margin: 10px;
+  padding: 5px;
+  background-color: #006E68;
+  color: white;
+  border-style: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.modal-content button:hover{
+  transform: scale(1.1);
+}
+
+.close {
+  color: #009D94;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.close:hover,
+.close:focus {
+  color: #ffffff;
+  background-color: #009D94;
+  text-decoration: none;
+  cursor: pointer;
+  animation: rotate360 0.5s ease-in-out;
+}
+
+.modal-content h1{
+  margin: 15px 15px 15px 0px;
+  color: gold;
+}
+
+/* Style for radio buttons */
+input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+/* Style for radio button container */
+.radio-container {
+  position: relative;
+  padding-left: 30px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+/* Style for radio button label */
+.radio-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #eee; /* Default background color */
+}
+
+/* Style for checked radio button label */
+.radio-label:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the dot when radio button is checked */
+.radio-container input:checked ~ .radio-label:after {
+  display: block;
+}
+
+/* Style for checked dot */
+.radio-container .radio-label:after {
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #009D94; /* Color for the dot */
+}
+
+.radio-container span{
+  font-size: medium;
+}
+
+@keyframes rotate360 {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+

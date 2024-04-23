@@ -15,26 +15,111 @@
 
   <div class="dashboard">
     <div class="stat-itmes">
-      <div class="grid">
+      <a href="<?php echo URLROOT;?>/moderator/challenges"><div class="grid">
         <div class="grid-item">
           <i class="fa fa-solid fa-chess" style="color: #B197FC;"></i>
           <span>Ongoing Challenges</span>
-        </div>
-        <div class="grid-item">
-          <i class="fa fa-solid fa-newspaper" style="color: #FFD43B;"></i>
+        </div></a>
+        <a href="<?php echo URLROOT;?>/moderator/topContents"><div class="grid-item">
+          <i class="fa fa-solid fa-newspaper" style="color: #D65DB1;"></i>
           <span>Top Contents</span>
-        </div>
-        <div class="grid-item">
+        </div></a>
+        <a href="<?php echo URLROOT;?>/moderator/events"><div class="grid-item">
           <i class="fa fa-solid fa-calendar-day" style="color: #74C0FC;"></i>
           <span>Pending Events</span>
+        </div></a>
+        <a href="<?php echo URLROOT;?>/moderator/topChallenges"><div class="grid-item">
+        <i class="fa fa-solid fa-trophy" style="color: #FF9671;"></i>
+          <span>Top Challenges</span>
+        </div></a>
+      </div>
+
+        <div class="chart">
+          <canvas id="myChart1"></canvas>
         </div>
-      </div>
-      <div class="chart">
-        <canvas id="myChart"></canvas>
-      </div>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </div>
       
-    </div>
+    <script>
+    // set up block
+    const content=<?php echo $data['contentSubmissionCount']; ?>;
+    const event=<?php echo $data['eventSubmissionCount']; ?>;
+    const challenge=<?php echo $data['challengeSubmissionCount']; ?>;
+    
+    const data={
+      labels: ['Contents', 'Challenges', 'Events'],
+      datasets: [{
+        label: 'Number of users',
+        data: [content, challenge, event],
+        backgroundColor: [
+          '#333333', '#70BFBA', '#02514C'
+        ],
+        borderWidth: 0,
+        borderRadius: 5,
+      }]
+
+    };
+
+    // config block
+    const config={
+      type: 'bar',
+      data,
+      options: {
+        indexAxis: 'x', // Set indexAxis to 'y' for a horizontal bar chart
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              color: 'black',
+              font: { size: 15, weight: 'bold' },
+            },
+            grid:{
+              display: false,
+            },
+            border: {
+              display: true,
+              color: 'black',
+              width: 2,
+            },
+          },
+          y: {
+            beginAtZero: true,
+            border: {
+              display: true,
+              color: 'black',
+              width: 2,
+            },
+            ticks: {
+              color: 'black',
+              font: {size: 15, weight: 'bold'},
+              stepSize: 1,
+            },
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Set display to false to hide the legend
+          },
+          title: {
+            display: true,
+            text: 'User Participations', // Title text
+            padding: {
+              top: 10,
+              bottom: 10
+            }
+          }
+        },
+        barThickness: 50
+      }
+    };
+    // render block
+    const myChart1 = new Chart(
+      document.getElementById('myChart1'),config
+    );
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
     <div class="message-panel">
       <h3>Messages for you</h3>
       <div class="messages">
@@ -52,7 +137,7 @@
     </div>
   </div>
 
-  <script src="<?php echo URLROOT;?>/assets/js/moderator/chart.js"></script>
+  <!-- <script src="<?php echo URLROOT;?>/assets/js/moderator/chart.js"></script> -->
 
 </body>
 </html>

@@ -46,7 +46,7 @@
                             <td><?php echo $cart->quantity; ?></td>
                             <td><?php echo $cart->price*$cart->quantity; ?></td>
                             <td class="action-buttons">
-                                <a href="#" class="view-button" data-cartid="<?php echo $cart->cart_id; ?>">
+                                <a href="#" class="view-button-js" data-cartid="<?php echo $cart->cart_id; ?>">
                                     <i class="fas fa-shopping-cart"></i>
                                 </a>   
                                 <a class="delete-button" href="<?php echo URLROOT; ?>/customer/deleteCart/<?php echo $cart->cart_id; ?>">
@@ -87,7 +87,7 @@
                     </tr>
                     <tr>
                         <td class="action-buttons">
-                            <a href="#" class="view-button" data-cartid="<?php echo $cart->cart_id; ?>">
+                            <a href="#" class="view-button-js" data-cartid="<?php echo $cart->cart_id; ?>">
                                 <i class="fas fa-shopping-cart"></i>
                             </a>   
                             <a class="delete-button" href="<?php echo URLROOT; ?>/customer/deleteCart/<?php echo $cart->cart_id; ?>">
@@ -159,7 +159,7 @@ document.getElementById('deleteBtn').addEventListener('click', function(event) {
 
 
 
-    document.querySelectorAll('.view-button').forEach(button => {
+    document.querySelectorAll('.view-button-js').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // Prevent default anchor tag behavior
             

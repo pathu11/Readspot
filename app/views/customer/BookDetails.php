@@ -13,31 +13,31 @@
             <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
         </div>
 
-    <?php foreach($data['bookDetails'] as $books): ?>
+        <?php foreach($data['bookDetails'] as $books): ?>
 
         <div class="book-img-des">
             <div class="book-img">
                 <div class="sub1">
-                <?php 
-                    if ($books->type == "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
-                    } elseif ($books->type == "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' . $books->img1 . '" alt="Bell Image" width="180px">';
-                    } else {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
-                    }
-            ?> <!--path changed-->
+                    <?php 
+                        if ($books->type == "new") {
+                            echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img1 . '" alt="Bell Image" width="180px">';
+                        } elseif ($books->type == "used") {
+                            echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' . $books->img1 . '" alt="Bell Image" width="180px">';
+                        } else {
+                            echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                        }
+                    ?> <!--path changed-->
                 </div>
                 <div class="sub2">
-                <?php 
-                    if ($books->type == "new") {
-                        echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img2 . '" alt="Bell Image" width="180px">';
-                    } elseif ($books->type == "used") {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' . $books->img2 . '" alt="Bell Image" width="180px">';
-                    } else {
-                        echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
-                    }
-            ?>
+                    <?php 
+                        if ($books->type == "new") {
+                            echo '<img src="' . URLROOT . '/assets/images/publisher/addBooks/' . $books->img2 . '" alt="Bell Image" width="180px">';
+                        } elseif ($books->type == "used") {
+                            echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' . $books->img2 . '" alt="Bell Image" width="180px">';
+                        } else {
+                            echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
+                        }
+                    ?>
                 </div>
             </div>
             <div class="sub3">
@@ -62,7 +62,7 @@
                         echo '<h3>Condition : <span>'. $books->condition .'</span></h3><br>
                         <h3>Published Date : <span>'. $books->published_date .'</span></h3><br><h3>'. $books->price_type .'<span>Fixed</span></h3><br>';
                     } 
-            ?>
+                ?>
             </div>
             <div class="sub5">
                 <h3>Town : <span><?php echo $books->town; ?></span></h3><br>
@@ -71,42 +71,40 @@
             </div>
         </div>
         
-            <div class="cart-item">
-                <button class="quantity-button" onclick="decrement()">-</button>
-                <span id="quantity">1</span>
-                <button class="quantity-button" onclick="increment(<?php echo $books->quantity; ?>)">+</button>
-                <button class="add-to-cart" onclick="addToCart(<?php echo $books->book_id; ?>)">Add to Cart</button>
-    </div>
+        <div class="cart-item">
+            <button class="quantity-button" onclick="decrement()">-</button>
+            <span id="quantity">1</span>
+            <button class="quantity-button" onclick="increment(<?php echo $books->quantity; ?>)">+</button>
+            <button class="add-to-cart" onclick="addToCart(<?php echo $books->book_id; ?>)">Add to Cart</button>
+        </div>
+        
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
             <div class="send-review">
                 <div class="stars">
-                <?php 
-                    if (isset($data['averageRatingCount']->average_rating)) {
-                        $rating = ceil($data['averageRatingCount']->average_rating);
-                        for ($i = 0; $i < $rating; $i++) {
-                            echo '<span class="fas fa-star checked"></span>';
+                    <?php 
+                        if (isset($data['averageRatingCount']->average_rating)) {
+                            $rating = ceil($data['averageRatingCount']->average_rating);
+                            for ($i = 0; $i < $rating; $i++) {
+                                echo '<span class="fas fa-star checked"></span>';
+                            }
+                            for ($i = $rating; $i < 5; $i++) {
+                                echo '<span class="fas fa-star"></span>';
+                            }
+                            echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on ' .$data['averageRatingCount']->total_reviews . ' reviews.</p>';
+                        } else {
+                            echo '<p>No reviews</p>';
                         }
-                        for ($i = $rating; $i < 5; $i++) {
-                            echo '<span class="fas fa-star"></span>';
-                        }
-                        echo '<p>' . $data['averageRatingCount']->average_rating . ' average based on ' .$data['averageRatingCount']->total_reviews . ' reviews.</p>';
-                    } else {
-                        echo '<p>No reviews</p>';
-                    }
-    ?>
+                    ?>
                     <hr style="border:3px solid #f1f1f1">
                     
                     <div class="row-rating" id="rating_graph">
                         <canvas id="ratingChart" width="400" height="200"></canvas>
-
                     </div>
                 </div>
+                
                 <div class="give-rate">
-                    <div class="post">
-                        <div class="text">Thanks for rating us!</div>
-                        <div class="edit">EDIT</div>
-                    </div>
+                    
                     <form action="<?php echo URLROOT; ?>/customer/addReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
@@ -134,23 +132,29 @@
                        
                     </div>
                     <button type="submit" class="submit-review">Submit</button>
+                    </form>
                 </div>
-                </form>
 
             </div>
             
-            <div class="sort-by-star">
+            <!-- <div class="sort-by-star">
                 <select id="searchBy"  name="category">
                     <option value="technology">Most relevant</option>
                     <option value="travel">Most recent</option>
                 </select>
-            </div>
+            </div> -->
             <div class="cus-rev">
-            <?php foreach($data['reviewDetails'] as $reviews): ?>
+                <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
                     
                     <div class="cus-name-img">
-                        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
+                        <?php
+                            if ($reviews->profile_img) {
+                                echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">';
+                            } else {
+                                echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">';
+                            }
+                        ?>
                         <h3><?php echo $reviews->name; ?></h3>
                     </div>
                     <div class="rev-date">
@@ -171,14 +175,21 @@
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
                     <p><?php echo $reviews->review; ?></p>
-                    <!-- <div class="helpful">
+                    
+                    <div class="helpful">
                         <h4>Was this review helpful?</h4>
-                        <div class="yes-no">
-                            <h3>Yes</h3>
-                            <h3>No</h3>
-                        </div>
+                        <?php if(isset($data['user_id'])): ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
+                        <?php else: ?>
+                            <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
+                            <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
+                        <?php endif; ?>
+</div>
+                          
+                <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
                     </div>
-                    <h5>13 people found this helpful</h5> -->
+                 
                 </div>
                 <?php endforeach; ?>
                 
@@ -186,17 +197,37 @@
         </div>
 
         <div class="sub8">
-          
-            <!-- <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $books->pub_user_id; ?>"><button class="chat-btn">Chat</button></a> -->
-       
-
             <a href="#" onclick="addToCart2(<?php echo $books->book_id; ?>)"><button class="chat-btn">Purchase</button></a>
-            <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     </div>
+
+
+
     <script>
  
     
+document.querySelectorAll('.helpful-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const reviewId = this.dataset.reviewId;
+        const isHelpful = this.dataset.action === 'helpful';
+
+        fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+            .then(response => {
+                if (response.ok) {
+                   
+                    this.disabled = true; // Disable the button after clicking
+                    this.classList.add('clicked'); // Optionally, add a class to indicate the button was clicked
+                } else {
+                    console.error('Failed to update review helpfulness');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating review helpfulness:', error);
+            });
+    });
+});
+
     const btn = document.querySelector("button");
     const post = document.querySelector(".post");
     const widget = document.querySelector(".my-rate");

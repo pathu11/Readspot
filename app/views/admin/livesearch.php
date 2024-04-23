@@ -1,5 +1,6 @@
 <?php
     if($_POST['searchType']=='customer'){
+      if(!empty($data['customerSearchDetails'])){
         echo '<div class="table-container" >
         <table>
             <tr>
@@ -18,9 +19,13 @@
        echo '</table>'.
         
     '</div>';
+    }else{
+      echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
     }
+  }
 
     elseif($_POST['searchType']=='publisher'){
+      if(!empty($data['publisherSearchDetails'])){
         echo '<div class="table-container" >
         <table>
             <tr>
@@ -64,8 +69,13 @@
         
     '</div>';
     }
+    else{
+      echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+    }
+  }
 
     elseif($_POST['searchType']=='charity'){
+      if(!empty($data['charitySearchDetails'])){
         echo '<div class="table-container" >
         <table>
             <tr>
@@ -92,6 +102,99 @@
         
     '</div>';
     }
+    echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+  }
+    elseif($_POST['searchType']=='order'){
+      $inputType = null;
+      if($_POST['inputType']=='word') $inputType='orderSearchDetailsByID';
+      else $inputType = 'orderSearchDetailsByDate';
+      
+      if(!empty($data[$inputType])){
+        echo '<div class="table-container">
+
+    <table>
+      <tr>
+          <th>Order ID</th>
+          <th>Book ID</th>
+          <th>Customer ID</th>
+          <th>Quantitiy</th>
+          <th>Order Date</th>
+          <th>Status</th>
+          <th>Total Price</th>
+          <th>Total Weight</th>
+      </tr>';
+           
+      foreach($data[$inputType] as $order):
+        echo '<tr>
+            <td>'.$order->order_id.'</td>
+            <td>'.$order->book_id.'</td>
+            <td>'.$order->customer_id.'</td>
+            <td>'.$order->quantity.'</td>
+            <td>'.$order->order_date.'</td>
+            <td>'; 
+                if($order->status == 'delivered'){
+                  echo '<span style="color: purple;">'.$order->status.'</span>';
+                }
+                elseif($order->status == 'cancel'){
+                  echo '<span style="color: red;">'.$order->status.'</span>';
+                }
+                elseif($order->status == 'processing'){
+                  echo '<span style="color: blue;">'.$order->status.'</span>';
+                }
+                elseif($order->status == 'pending'){
+                  echo '<span style="color: orange;">'.$order->status.'</span>';
+                }      
+            echo '</td>
+            <td>'.$order->total_price.'</td>
+            <td>'.$order->total_weight.'</td>
+        </tr>';
+      endforeach;             
+    echo '</table>
+  </div>';
+    }
+    else{
+      echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+    }
+  }
+
+  elseif ($_POST['searchType'] == 'complains') {
+    if (!empty($data['complainSearchDetails'])) {
+        echo '<div class="table-container">
+            <table>
+              <tr>
+                <th>Complainant name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Complain</th>
+                <th>Additional notes</th>
+                <th>Complain Images</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>';
+        foreach ($data['complainSearchDetails'] as $complain) {
+            echo '<tr>' .
+                '<td>' . $complain->name . '</td>' .
+                '<td>' . $complain->email . '</td>' .
+                '<td>' . $complain->contact_number . '</td>' .
+                '<td>' . substr($complain->descript, 0, 20) . '<span class="see-more" onclick="showFullDescription(\'' . $complain->descript . '\')">See more..</span></td>' .
+                '<td>' . $complain->other . '</td>' .
+                '<td><img src="' . URLROOT . '/assets/images/customer/complain/' . $complain->err_img . '" onclick="fullView(this.src)" style="width: 30%;"/></td>' .
+                '<td>';
+            if ($complain->resolved_or_not == 0) {
+                echo '<span style="color:red;">Pending</span>';
+            } else {
+                echo '<span style="color:green;">Resolved</span>';
+            }
+            echo '</td>' .
+                '<td><button onclick="respondPopup(' . $complain->complaint_id . ',\'' . $complain->email . '\',\'' . $complain->name . '\')">Respond</button></td>' .
+                '</tr>';
+        }
+        echo '</table>' .
+            '</div>';
+    } else {
+        echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+    }
+  }
 
 
 ?>

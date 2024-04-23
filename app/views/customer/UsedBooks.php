@@ -13,12 +13,12 @@
             </div>
             <div class="used-books">
                 <h2>Used Books</h2>
-                <form action="#.php" class="mybook-search">
+                <!-- <form action="#.php" class="mybook-search">
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button>
                 </form>
                 <br>
-                <br>
+                <br> -->
                 <div class="books">
                     <?php if (empty($data['bookDetails'])): ?>
                         <div class="B-div-noBook">

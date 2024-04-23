@@ -43,6 +43,10 @@
     width: 100%;
 }
 
+.sub4, .sub5 {
+    width: 50%;
+}
+
 .sub3 p {
     text-align: justify;
 }
@@ -50,7 +54,7 @@
 .new-book-details {
     margin-top: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     padding: 10px;
     gap: 1rem;
@@ -171,7 +175,7 @@
     flex-direction: column;
     margin-top: 10px;
     padding: 10px;
-    width:90%;
+    width:100%;
     border-radius: 10px;
 }
 
@@ -195,7 +199,7 @@
     border-radius: 10px 0px 0px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 50%;
-    height: 100%;
+    height: 325px;
 }
 
 .give-rate {
@@ -203,7 +207,7 @@
     border-radius: 0px 10px 10px 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 50%;
-    height: 100%;
+    height: 325px;
 }
 
 .heading {
@@ -242,6 +246,11 @@
     content: "";
     display: table;
     clear: both;
+    /* background-color: #04AA6D; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 220px;
 }
   
 /* The bar container */
@@ -261,12 +270,14 @@
 
 .my-review {
     /* background-color: #00bcd4; */
+    padding: 5px;
     width: 100%;
 }
 
 .my-review textarea{
     width: 100%;
     height: 178px;
+    padding: 5px;
 }
 
 .submit-review {
@@ -457,7 +468,7 @@
     display: none;
   }
 .my-rate label{
-    font-size: 40px;
+    font-size: 30px;
     color: #444;
     padding: 10px;
     float: right;
@@ -553,6 +564,7 @@ input:checked ~ form{
         border-radius: 0px 0px 10px 10px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         width: 100%;
+        /* height: 325px; */
     }
 }
 
@@ -579,6 +591,13 @@ input:checked ~ form{
     /* .send-review {
         flex-direction: row;
     } */
+    .new-book-details {
+        flex-direction: column;
+    }
+
+    .sub4, .sub5 {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width:400px) {
@@ -600,5 +619,27 @@ input:checked ~ form{
     }
       .right {
         display: none;
+    }
+
+    .row-rating {
+        height: 180px;
+    }
+
+    .give-rate {
+       height: 350px;
+    }
+
+    .my-rate label{
+        font-size: 20px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .give-rate {
+        height: 380px;
     }
 }

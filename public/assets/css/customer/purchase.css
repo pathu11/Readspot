@@ -42,7 +42,7 @@
 }
 .subcost2{
     padding:20px;
-    margin-left: 80px;
+    margin-left: 40px;
 }
 
 /* .cardPayment-form,
@@ -142,10 +142,47 @@ td:not(:last-child) {
 .quantity-button-p i {
     font-size: 10px;
 }
+.quantity-button-c {
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+    border: none;
+    cursor: pointer;
+    /* font-weight: bold; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-button-c i {
+    font-size: 4px;
+}
 .span {
     margin: 0 5px;
 }
+.redeem{
+    border-radius: 3px;
+    border:black;
+    padding:10px;
+    text-align: center;
 
+}
+.redeem input{
+    background-color: #eee;
+    border-radius: 5px;
+    border-collapse: calc();
+
+}
+.apply{
+    width:60px;
+    height: 20px;
+    background-color: #009D94;
+    border-radius: 5px;
+    text-decoration: none;
+    color:white;
+    padding:5px;
+    margin-left:6px;
+}
 @media screen and (max-width: 768px) {
     .flex-parent-element {
       flex-direction: column; /* Stack elements vertically */
@@ -155,6 +192,9 @@ td:not(:last-child) {
         width:100%;
       margin-right: 0; /* Remove right margin */
       margin-top: 20px; /* Adjust top margin */
+    }
+    img{
+        width:100%;
     }
     .flex-child-element.green {
         overflow: auto; /* Enable vertical scrolling if necessary */

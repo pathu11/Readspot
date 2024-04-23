@@ -41,6 +41,94 @@
 
       return $this->db->resultSet();
   }
+  public function getPaymentsDetails(){
+    $this->db->query("
+            SELECT 
+            o.order_id,
+            od.book_id,
+            o.tracking_no,
+            od.quantity,
+            b.price AS book_price,
+            CASE 
+                WHEN b.type = 'new' THEN ROUND(b.price * 0.05, 2)
+                WHEN b.type = 'used' THEN ROUND(b.price * 0.03, 2)
+            END AS tax,
+            CASE 
+                WHEN b.type = 'new' THEN b.publisher_id
+                WHEN b.type = 'used' THEN b.customer_id
+            END AS user_id,
+            u.user_id AS user_id_from_users_table,
+            ROUND((b.price - (CASE WHEN b.type = 'new' THEN ROUND(b.price * 0.05, 2) WHEN b.type = 'used' THEN ROUND(b.price * 0.03, 2) END)) * od.quantity, 2) AS paid_price,
+            CASE 
+                WHEN b.type = 'new' THEN pu.name
+                WHEN b.type = 'used' THEN cu.name
+            END AS user_name
+        FROM 
+            orders o 
+        JOIN 
+            order_details od ON o.order_id = od.order_id 
+        JOIN 
+            books b ON od.book_id = b.book_id 
+        LEFT JOIN 
+            publishers p ON b.publisher_id = p.publisher_id AND b.type = 'new'
+        LEFT JOIN 
+            customers c ON b.customer_id = c.customer_id AND b.type = 'used'
+        LEFT JOIN 
+            users u ON u.user_id = CASE 
+                                    WHEN b.type = 'new' THEN p.user_id
+                                    WHEN b.type = 'used' THEN c.user_id
+                                END
+        LEFT JOIN 
+            publishers pu ON b.publisher_id = pu.publisher_id AND b.type = 'new'
+        LEFT JOIN 
+            customers cu ON b.customer_id = cu.customer_id AND b.type = 'used'
+        WHERE 
+            od.status = 'delivered' AND od.sent_payment='0'
+
+    ");
+   
+    return $this->db->resultSet();
+}
+
+public function insertPayment($order_id,$book_id,$paid_price,$user_id_from_users_table,$quantity) {
+  
+  $this->db->query('UPDATE order_details SET sent_payment=1 WHERE order_id=:order_id AND book_id=:book_id');
+  $this->db->bind(':order_id', $order_id);
+  $this->db->bind(':book_id', $book_id);
+
+  if (!$this->db->execute()) {
+      return false; 
+  }
+  
+  $this->db->query('INSERT INTO payments (order_id, book_id, payment, user_id, quantity) 
+                    VALUES (:order_id, :book_id, :payment, :user_id, :quantity)');
+  $this->db->bind(':order_id', $order_id);
+  $this->db->bind(':book_id', $book_id);
+  $this->db->bind(':payment', $paid_price);
+  $this->db->bind(':user_id', $user_id_from_users_table); 
+  $this->db->bind(':quantity', $quantity);
+
+  if ($this->db->execute()) {
+      return true;
+  } else {
+      return false; 
+  }
+}
+
+public function sendMessage($user_id_from_users_table,$user_id,$sender_name,$topic,$msg){
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id, :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $user_id);
+  $this->db->bind(':user_id', $user_id_from_users_table);
+  $this->db->bind(':topic', $topic);
+  $this->db->bind(':message', $msg);
+  $this->db->bind(':sender_name', $sender_name);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+}
+
     public function getBookCategories(){
       $this->db->query('SELECT * FROM book_category');
 
@@ -54,10 +142,11 @@
     }
 
     public function addBookCategory($data){
-      $this->db->query('INSERT INTO book_category (category, description) VALUES (:book_category, :description)');
+      $this->db->query('INSERT INTO book_category (category, description,category_img) VALUES (:book_category, :description,:img)');
 
       $this->db->bind(':book_category',$data['book_category']);
       $this->db->bind(':description',$data['description']);
+      $this->db->bind(':img',$data['img']);
 
       if($this->db->execute()){
         return true;
@@ -98,10 +187,11 @@
     }
 
     public function updateBookCategory($data){
-      $this->db->query('UPDATE book_category SET category = :book_category, description = :description WHERE id = :id');
+      $this->db->query('UPDATE book_category SET category = :book_category, description = :description,category_img=:img WHERE id = :id');
 
       $this->db->bind(':book_category',$data['book_category']);
       $this->db->bind(':description',$data['description']);
+      $this->db->bind(':img',$data['img']);
       $this->db->bind(':id',$data['id']);
 
       if($this->db->execute()){
@@ -337,6 +427,37 @@ public function getCharitySearchDetails($input){
   return $results;
 }
 
+public function getOrderSearchDetailsByID($input){
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id
+                    WHERE o.order_id LIKE '{$input}%' ");
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getOrderSearchDetailsByDate($input){
+  $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
+                    FROM orders o
+                    INNER JOIN order_details od ON o.order_id = od.order_id
+                    WHERE o.order_date LIKE '{$input}%'");
+  
+
+  $results=$this->db->resultSet();
+
+  return $results;
+}
+
+public function getComplainSearchDetails($input){
+  $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input AND (reason='Other' OR reason='Comments')");
+  $this->db->bind(":input",$input);
+  $results=$this->db->resultSet();
+  return $results;
+
+}
+
 public function getOrderDetails(){
   $this->db->query("SELECT o.*, od.book_id, od.quantity ,od.status
                     FROM orders o
@@ -472,8 +593,19 @@ public function getPendingBookByID($book_id){
                     WHERE b.book_id=:book_id ");
   
   $this->db->bind(':book_id', $book_id);
-  $results=$this->db->resultSet();
+  $results=$this->db->single();
   return $results;
+}
+
+public function rejectBook($book_id){
+  $this->db->query("UPDATE books SET status='rejected' WHERE book_id = :book_id");
+  $this->db->bind(":book_id",$book_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 public function getMessageDetails($user_id){
@@ -501,7 +633,96 @@ public function getMessageDetails($user_id){
   return $this->db->resultSet();
 }
 
+public function getComplains(){
+  $this->db->query('SELECT CONCAT(first_name," ",last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE reason ="Comments" OR reason ="Other"');
+  $results=$this->db->resultSet();
+  return $results;
+}
 
+public function respondComplain($complaint_id,$adminComment){
+  $this->db->query('UPDATE complaint SET moderatorAdmin_comment = :adminComment, resolved_or_not=1, update_time_on_comment = NOW() WHERE complaint_id = :complaint_id');
+
+  $this->db->bind(":adminComment",$adminComment);
+  $this->db->bind(":complaint_id",$complaint_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+public function getMonthlyRegisteredUserCount(){
+  $this->db->query('SELECT DATE(created_at) AS registration_day, COUNT(*) AS num_users_registered
+                  FROM 
+                    users
+                  WHERE 
+                    created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)
+                  GROUP BY 
+                    DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getMonthlyOrderCount(){
+  $this->db->query('SELECT DATE(order_date) AS order_day, COUNT(*) AS num_orders
+                  FROM 
+                    orders
+                  WHERE 
+                    order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)
+                  GROUP BY 
+                    DATE(order_date)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getOrderStatusCount(){
+  $this->db->query('SELECT status, COUNT(status) AS count FROM order_details GROUP BY status');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getNewBookCount(){
+  $this->db->query('SELECT DATE(created_at) AS newBook_day, COUNT(*) AS num_newBook
+                    FROM 
+                      books
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND type = "new"
+                    GROUP BY 
+                      DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getUsedBookCount(){
+  $this->db->query('SELECT DATE(created_at) AS usedBook_day, COUNT(*) AS num_usedBook
+                    FROM 
+                      books
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND type = "used"
+                    GROUP BY 
+                      DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getExchangeBookCount(){
+  $this->db->query('SELECT DATE(created_at) AS exchangeBook_day, COUNT(*) AS num_exchangeBook
+                    FROM 
+                      books
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND type = "exchanged"
+                    GROUP BY 
+                      DATE(created_at)');
+  $results=$this->db->resultSet();
+  return $results;
+}
+
+public function getBookCategoryCount(){
+  $this->db->query('SELECT category, COUNT(status) AS count FROM books GROUP BY category');
+  $results=$this->db->resultSet();
+  return $results;
+}
 
   
 }

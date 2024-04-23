@@ -17,7 +17,7 @@
 
   <div class="container">
     <table id="eventTable">
-      <input type="text" id="searchInput" placeholder="Search by ID or Name" oninput="searchEvents()">
+      <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
       <thead>
         <tr>
           <th>Store ID</th>
@@ -40,19 +40,13 @@
           
           <td><?php echo $store->postal_name; ?></td>
           <td><?php echo $store->street_name; ?></td>
-         
           <td><?php echo $store->town; ?></td>
           <td><?php echo $store->district; ?></td>
           <td><?php echo $store->postal_code; ?></td>
           <td class="action-buttons">
               <a  href='<?php echo URLROOT; ?>/publisher/updateStore/<?php echo $store->store_id; ?>' ><i class='fa fa-edit' ></i></a>
-              <a  href='#' onclick='confirmDelete(<?php echo $store->store_id; ?>)'><i class='fa fa-trash'></i></a>
-             
-
-              
-            </td>
-  
-          
+              <a  href='#' onclick='confirmDelete(<?php echo $store->store_id; ?>)'><i class='fa fa-trash'></i></a>  
+            </td> 
         </tr>
       <?php endforeach; ?>
       </tbody>
@@ -87,7 +81,7 @@
     <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
   </div>
   
-
+  
 </body>
 <script>
         function goBack() {

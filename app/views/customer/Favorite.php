@@ -10,6 +10,10 @@
             <div class="favorite-topic">
                 <h2>My Favorite</h2>
             </div>
+            <?php if(empty($data['favoriteDetails'])): ?>
+                <?php echo '
+                    <br><br><h3 style="text-align:center;">No Favorite Books or Contents.</h3>'; ?>
+            <?php else : ?>
             <div class="myfavorite">
                 <div class="favorite-search" id="searchForm" onsubmit="handleSearch()">
                     <input type="text" placeholder="Search.." name="search" id="searchInput">
@@ -19,72 +23,30 @@
                 <table border="1" id="eventTable">
                     <thead>
                         <tr>
-                            <th>Book Name</th>
-                            <th>Type</th>
+                            <th onclick="sortTable(0)">Book Name</th>
+                            <th onclick="sortTable(1)">Type</th>
                             <th>VIew/Remove</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($data['favoriteDetails'] as $favorite): ?>
                         <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
+                            <td><?php echo $favorite->topic; ?></td>
+                            <td><?php echo $favorite->category; ?></td>
                             <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <a href="<?php echo URLROOT; ?>/customer/ViewFavorite/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
+                                    <button class="view-button">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </a>
+                                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
+                                    <button class="delete-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet1</td>
-                            <td>Used</td>
-                            <td class="action-buttons">
-                                <button class="view-button" onclick="viewEvent(1)">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="delete-button" onclick="deleteEvent(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -102,6 +64,7 @@
                 <li>10</li>
                 <li id="nextButton">»</li>
             </ul>
+            <?php endif; ?>
         </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed

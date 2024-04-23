@@ -23,7 +23,7 @@
 
  
     public function findCartById($customer_id) {
-      $this->db->query('SELECT c.*, b.book_name, b.price, b.img1 FROM cart c
+      $this->db->query('SELECT c.*, b.book_name, b.price, b.img1, b.type FROM cart c
                         JOIN books b ON c.book_id = b.book_id
                         WHERE c.customer_id = :customer_id');
       $this->db->bind(':customer_id', $customer_id);
@@ -58,6 +58,13 @@
       return $this->db->resultSet();
     }
 
+    public function findFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT * FROM favorite WHERE customer_id = :customer_id');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
     public function findEventByNotUserId($user_id) {
       $this->db->query('SELECT * FROM events WHERE user_id != :user_id AND status="Approved"');
       $this->db->bind(':user_id', $user_id);
@@ -68,6 +75,14 @@
     public function findEventById($id){
       $this->db->query('SELECT * from events WHERE id=:id');
       $this->db->bind(':id',$id);
+      return $this->db->resultSet();
+      // $row = $this->db->single();
+      // return $row;
+    }
+
+    public function findFavoriteById($fav_id){
+      $this->db->query('SELECT * from favorite WHERE fav_id=:fav_id');
+      $this->db->bind(':fav_id',$fav_id);
       return $this->db->resultSet();
       // $row = $this->db->single();
       // return $row;
@@ -153,6 +168,7 @@
       $this->db->bind(':book_name',$data['book_name']);
       $this->db->bind(':ISBN_no',$data['ISBN_no']);
       $this->db->bind(':author',$data['author']);
+      
       $this->db->bind(':category',$data['category']);
       $this->db->bind(':weight',$data['weight']);
       $this->db->bind(':descript',$data['descript']);
@@ -453,6 +469,22 @@
       }
     }
 
+    public function deleteFavorite($fav_id) {
+      $this->db->query('DELETE FROM favorite WHERE fav_id = :fav_id');
+
+      $this->db->bind(':fav_id', $fav_id);
+
+      // Execute after binding
+      $this->db->execute();
+
+      // Check for row count affected
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
     public function RemoveEventFromCalender($data){
       $this->db->query('DELETE FROM saveevent WHERE user_id = :user_id AND event_id = :event_id');
   
@@ -598,14 +630,18 @@ public function editOrderCOD($data)
       return $row;
     }
 
-
+    public function findBooksByCategory($category) {
+      $this->db->query('SELECT * FROM books WHERE status="approval" AND type="new" AND category=:category');
+      $this->db->bind(':category',$category);
+      return $this->db->resultSet();
+    }    
 
 
     public function searchNewBooks($inputText){
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
       WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-      AND type = 'new' ");
+      AND type = 'new' AND status = 'approval' ");
       
       $results = $this->db->resultSet();
       return $results;
@@ -613,8 +649,10 @@ public function editOrderCOD($data)
 
 
     public function Profile($data) {
+      $fullName = $data['first_name'] . ' ' . $data['last_name'];
       $this->db->query('UPDATE customers 
                   SET profile_img = :profile_img,
+                  name = "' . $fullName . '",
                   first_name = :first_name,
                   last_name = :last_name,
                   email = :email,
@@ -631,6 +669,7 @@ public function editOrderCOD($data)
                   WHERE customer_id = :customer_id');
       // Bind values
 
+      // $this->db->bind(':name', $fullName);
       $this->db->bind(':customer_id',$data['customer_id']);
       $this->db->bind(':profile_img',$data['profile_img']);
       $this->db->bind(':first_name',$data['first_name']);
@@ -655,12 +694,35 @@ public function editOrderCOD($data)
 
     }
 
-    public function searchUsedBooks($inputText){
+    public function searchUsedBooks($inputText, $customer_id){
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
       WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
-      AND type = 'used' ");
+      AND type = 'used' AND status = 'approval' AND customer_id != :customer_id");
       
+      $this->db->bind(':customer_id', $customer_id);
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function searchExchangeBooks($inputText, $customer_id){
+      $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+      FROM books 
+      WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+      AND type = 'exchanged' AND status = 'approval' AND customer_id != :customer_id ");
+      
+      $this->db->bind(':customer_id', $customer_id);
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function searchContent($inputText, $customer_id){
+      $this->db->query("SELECT content_id, topic, img, text
+      FROM content 
+      WHERE (topic LIKE '%$inputText%' OR text LIKE '%$inputText%')
+      AND status = 'approval' AND customer_id != :customer_id");
+      
+      $this->db->bind(':customer_id', $customer_id);
       $results = $this->db->resultSet();
       return $results;
     }
@@ -703,6 +765,14 @@ public function findContent(){
   $this->db->query('SELECT * FROM content WHERE status="approval" ');
  
   return $this->db->resultSet();
+}
+
+public function findContentByNotCusId($customer_id){
+  $this->db->query('SELECT * FROM content  WHERE customer_id != :customer_id AND status="approval"');
+  $this->db->bind(':customer_id', $customer_id);
+  return $this->db->resultSet();
+  // $row = $this->db->single();
+  // return $row;
 }
 public function ChangeProfImage($data) {
   $this->db->query('UPDATE customers 
@@ -978,15 +1048,30 @@ public function addContentReview($data){
 
 }
 
-public function findReviewsByContentId($content_id){
-  $this->db->query('SELECT r.*, c.first_name AS name, c.profile_img AS profile_img FROM content_review r JOIN customers c ON r.customer_id = c.customer_id WHERE content_id = :content_id');
+public function findReviewsByContentId($content_id, $category) {
+  if ($category === 'recent') {
+      $sql = "SELECT r.*, c.first_name AS name, c.profile_img AS profile_img 
+              FROM content_review r 
+              JOIN customers c ON r.customer_id = c.customer_id 
+              WHERE content_id = :content_id 
+              ORDER BY r.time DESC";
+  } elseif ($category === 'relevant') {
+      $sql = "SELECT r.*, c.first_name AS name, c.profile_img AS profile_img 
+              FROM content_review r 
+              JOIN customers c ON r.customer_id = c.customer_id 
+              WHERE content_id = :content_id 
+              ORDER BY r.help DESC";
+  } else {
+      return []; 
+  }
+  $this->db->query($sql);
   $this->db->bind(':content_id', $content_id);
-  
   return $this->db->resultSet();
 }
 
+
 public function getOngoingChallenges($user_id){
-  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, 
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, q.img,
                     h.user_id AS attempted_by_user
                     FROM quiz q 
                     LEFT JOIN history h ON q.quiz_id = h.quiz_id AND h.user_id = :user_id
@@ -1047,10 +1132,11 @@ public function getQuizDetails(){
 }
 
   public function findDetailsByCartId($cartId){
-    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
+    $this->db->query('SELECT c.*, b.*, (c.quantity * b.price) AS total_price, (c.quantity * (b.price - (b.price * b.discounts * 0.01))) AS total_price_with_discounts, b.quantity AS maxQuantity, c.quantity AS nowQuantity, b.type AS type, b.book_id AS book_id, b.price AS perOnePrice, b.weight AS perOneWeight
     FROM cart c 
     JOIN books b ON c.book_id = b.book_id 
-    WHERE c.cart_id = :cart_id');
+    WHERE c.cart_id = :cart_id
+    ');
     $this->db->bind(':cart_id', $cartId);
     return $this->db->resultSet();
   }
@@ -1087,4 +1173,146 @@ public function getQuizDetails(){
     $this->db->query('SELECT * FROM events WHERE status="Approved"');
     return $this->db->resultSet();
   }
+
+  public function FindRedeemPoints($customer_id){
+    $this->db->query('SELECT redeem_points FROM customers WHERE customer_id=:customer_id');
+    $this->db->bind(':customer_id',$customer_id);
+    return $this->db->single();
+  }
+  public function updateRedeem($customer_id, $totalRedeem) {
+    $this->db->query('UPDATE customers SET redeem_points = redeem_points - :redeem_points WHERE customer_id = :customer_id');
+    $this->db->bind(':redeem_points', $totalRedeem); // Removed space after ':redeem_points'
+    $this->db->bind(':customer_id', $customer_id);
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
+ 
+
+  $this->db->query("SELECT content.*, SUM(content_review.rate) AS total_rating FROM content INNER JOIN content_review ON content.content_id= content_review.content_id WHERE WEEK(content_review.time) = WEEK(:startOfWeek) AND YEAR(content_review.time) = YEAR(:startOfWeek) AND content.status = 'approval' GROUP BY content.content_id ORDER BY total_rating DESC;");
+  $this->db->bind(':startOfWeek', $startOfWeek);
+  $this->db->bind(':endOfWeek', $endOfWeek);
+  
+  return $this->db->resultSet(); // Assuming you only want the top-rated content
+}
+
+
+  public function complaint($data) {
+      $this->db->query('INSERT INTO complaint (first_name, last_name, email, contact_number, reason, other, descript, err_img, customer_id)
+                                  VALUES(:first_name, :last_name, :email, :contact_number, :reason, :other, :descript, :err_img, :customer_id)');
+
+      $this->db->bind(':first_name',$data['first_name']);
+      $this->db->bind(':last_name',$data['last_name']);
+      $this->db->bind(':email',$data['email']);
+      $this->db->bind(':contact_number',$data['contact_number']);
+      $this->db->bind(':reason',$data['reason']);
+      $this->db->bind(':other',$data['other']);
+      $this->db->bind(':descript',$data['descript']);
+      $this->db->bind(':err_img',$data['err_img']);
+      $this->db->bind(':customer_id',$data['customer_id']);
+
+      // execute
+      if($this->db->execute()){
+        return true;
+      }else{
+          return false;
+      }   
+  }
+
+  // public function Addtofavorie($item_id, $customer_id, $topic, $category) {
+  //   $this->db-query('INSERT INTO favorite (item_id, customer_id, topic, category)
+  //                               VALUE (:item_id, :customer_id, :topic, :category)');
+  
+  //   $this->db->bind(':item_id',$item_id);
+  //   $this->db->bind(':customer_id',$customer_id);
+  //   $this->db->bind(':topic',$topic);
+  //   $this->db->bind(':category',$category);
+
+  //   // execute
+  //   if($this->db->execute()){
+  //     return true;
+  //   }else{
+  //       return false;
+  //   }   
+  // }
+
+  public function Addtofavorite($item_id, $customer_id, $topic, $category) {
+    try {
+        $this->db->query('INSERT INTO favorite (item_id, customer_id, topic, category) VALUES (:item_id, :customer_id, :topic, :category)');
+        $this->db->bind(':item_id',$item_id);
+        $this->db->bind(':customer_id',$customer_id);
+        $this->db->bind(':topic',$topic);
+        $this->db->bind(':category',$category);
+
+        return $this->db->execute();
+    } catch (\Exception $e) {
+        // Handle the exception (e.g., log it, display an error message)
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+  }
+  public function updateReviewHelpful($reviewId){
+    $this->db->query('UPDATE content_review SET help = help + 1 WHERE review_id = :reviewId');
+    $this->db->bind(':reviewId', $reviewId); // Corrected variable name
+    if($this->db->execute()){
+        return true;
+    } else {
+        return false;
+    }   
+}
+public function updateReviewHelpfulBooks($reviewId){
+  $this->db->query('UPDATE reviews SET help = help + 1 WHERE review_id = :reviewId');
+  $this->db->bind(':reviewId', $reviewId); // Corrected variable name
+  if($this->db->execute()){
+      return true;
+  } else {
+      return false;
+  }   
+}
+public function addNotification($data){
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id,  :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $data['sender_id']);
+  $this->db->bind(':user_id', $data['reciever_id']);
+  $this->db->bind(':topic', $data['topic']);
+  $this->db->bind(':message', $data['message']);
+  $this->db->bind(':sender_name', $data['sender_name']);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+
+}
+
+  public function findNoOfUsedBooksById($customer_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM books WHERE customer_id=:customer_id AND status="approval" AND type="used"');
+      $this->db->bind(':customer_id',$customer_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
+  public function findNoOfExchangeBooksById($customer_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM books WHERE customer_id=:customer_id AND status="approval" AND type="exchanged"');
+      $this->db->bind(':customer_id',$customer_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
+  public function findNoOfContentsById($customer_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM content WHERE customer_id=:customer_id AND status="approval"');
+      $this->db->bind(':customer_id',$customer_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
+  public function findNoOfEventsById($user_id) {
+      $this->db->query('SELECT COUNT(*) AS count FROM events WHERE user_id=:user_id');
+      $this->db->bind(':user_id',$user_id);
+      $result = $this->db->single();
+      return $result->count;
+  }
+
 }

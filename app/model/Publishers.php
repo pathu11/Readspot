@@ -200,11 +200,12 @@ class Publishers{
         }
     }
     public function addBooks($data){
-        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, quantity, img1, img2, publisher_id,type) VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:type)');
+        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price,discounts, category, weight, descript, quantity, img1, img2, publisher_id,type) VALUES(:book_name, :ISBN_no, :author, :price, :discounts, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:type)');
         $this->db->bind(':book_name',$data['book_name']);
         $this->db->bind(':ISBN_no',$data['ISBN_no']);
         $this->db->bind(':author',$data['author']);
         $this->db->bind(':price',$data['price']);
+        $this->db->bind(':discounts',$data['discounts']);
         $this->db->bind(':category',$data['category']);
         $this->db->bind(':weight',$data['weight']);
         $this->db->bind(':descript',$data['descript']);
@@ -245,6 +246,7 @@ class Publishers{
                   ISBN_no = :ISBN_no, 
                   author = :author,  
                   price = :price, 
+                  discounts= :discounts,
                   category = :category,
                   weight = :weight,
                   descript = :descript,
@@ -259,6 +261,7 @@ class Publishers{
         $this->db->bind(':ISBN_no', $data['ISBN_no']);
         $this->db->bind(':author', $data['author']);
         $this->db->bind(':price', $data['price']);
+        $this->db->bind(':discounts', $data['discounts']);
         $this->db->bind(':category', $data['category']);
         $this->db->bind(':weight', $data['weight']);
         $this->db->bind(':descript', $data['descript']);
@@ -490,7 +493,21 @@ class Publishers{
         return $this->db->resultSet();
     }
     
-    
-    
+    public function getPaymentDetails($user_id){
+        $this->db->query('SELECT * FROM payments WHERE user_id=:user_id');
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->resultSet();
+    }
+    public function getPaymentDetailsByPayId($paymentId){
+        $this->db->query('SELECT p.*, u.name, u.email, u.user_role, b.book_name, b.price 
+                              FROM payments p
+                              INNER JOIN users u ON p.user_id = u.user_id
+                             INNER JOIN books b ON p.book_id = b.book_id
+                             WHERE p.payment_id = :payment_id');
+        $this->db->bind(':payment_id', $paymentId);
+        // return $this->db->resultSet();
+        return $this->db->single();
+    }
+  
 
 }

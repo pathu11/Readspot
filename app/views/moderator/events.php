@@ -67,7 +67,9 @@
           <td><?php echo $pendingEvent->id; ?></td>
           <td><?php echo $pendingEvent->user_type; ?></td>
           <td><?php echo $pendingEvent->title; ?></td>
-          <td><?php echo $pendingEvent->description; ?></td>
+          <td><?php echo substr($pendingEvent->description, 0, 20); ?>
+            <span class="see-more" onclick="showFullDescription('<?php echo $pendingEvent->description;?>')">See more..</span>
+          </td>
           <td><?php echo $pendingEvent->location; ?></td>
           <td><?php echo $pendingEvent->start_date; ?></td>
           <td><?php echo $pendingEvent->end_date; ?></td>
@@ -116,6 +118,14 @@
       </div>
     </div>
 
+    <div id="myModal3" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeFullView()">&times;</span>
+        <h1>Event Description</h1><br>
+        <p id="fullDescription"></p>
+      </div>
+    </div>
+
   <script type="text/javascript">
     function fullView(imgLink){
       document.getElementById("large-event-poster").src = imgLink;
@@ -126,6 +136,7 @@
       document.getElementById("myModal").style.display = "none";
       document.getElementById("myModal1").style.display = "none";
       document.getElementById("myModal2").style.display = "none";
+      document.getElementById("myModal3").style.display = "none";
     }
 
     function approvePopup(user_id,event_id){
@@ -139,6 +150,11 @@
       document.getElementById("user_id").value = user_id;
       document.getElementById("event_id").value = event_id;
       document.getElementById("myModal2").style.display = "block";
+    }
+
+    function showFullDescription(description){
+      document.getElementById("fullDescription").innerText = description;
+      document.getElementById("myModal3").style.display = "block";
     }
 
   </script>

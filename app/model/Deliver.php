@@ -154,5 +154,86 @@ public function getMessageById($message_id){
     $this->db->bind(':message_id',$message_id);
     return $this->db->resultSet();
 }
+public function countDelOrders(){    
+    $this->db->query('SELECT COUNT(DISTINCT order_id) as orderCount FROM order_details WHERE status = "delivered"');
+    
+    $result = $this->db->single();
+    
+    if ($result) {
+        return $result->orderCount;
+    } else {
+        return 0; 
+    }
+}
+public function countProOrders(){    
+    $this->db->query('SELECT COUNT(DISTINCT order_id) as orderCount FROM order_details WHERE status = "processing"');
+    
+    $result = $this->db->single();
+    
+    if ($result) {
+        return $result->orderCount;
+    } else {
+        return 0; 
+    }
+}
+
+public function countShipOrders(){    
+    $this->db->query('SELECT COUNT(DISTINCT order_id) as orderCount FROM order_details WHERE status = "shipping"');
+    
+    $result = $this->db->single();
+    
+    if ($result) {
+        return $result->orderCount;
+    } else {
+        return 0; 
+    }
+}
+public function countReturnedOrders(){    
+    $this->db->query('SELECT COUNT(DISTINCT order_id) as orderCount FROM order_details WHERE status = "returned"');
+    
+    $result = $this->db->single();
+    
+    if ($result) {
+        return $result->orderCount;
+    } else {
+        return 0; 
+    }
+}
+
+public function getOrderStatusCountsByDay($month, $year) {
+    // Generate a list of all dates in the specified month
+    $totalDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $dates = [];
+    for ($i = 1; $i <= $totalDays; $i++) {
+        $dates[] = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+    }
+
+    // Query to count orders by day
+    $query = "SELECT DAY(o.order_date) as day, 
+                     COUNT(od.order_id) AS order_count
+              FROM (SELECT :date AS order_date) AS dates
+              LEFT JOIN orders o ON DATE(o.order_date) = dates.order_date
+              LEFT JOIN order_details od ON o.order_id = od.order_id
+              WHERE MONTH(dates.order_date) = :month
+              GROUP BY DAY(dates.order_date)";
+    
+    $orderCounts = [];
+    foreach ($dates as $date) {
+        $this->db->query($query);
+        $this->db->bind(':date', $date);
+        $this->db->bind(':month', $month);
+        $result = $this->db->single();
+        $orderCounts[] = [
+            'day' => $result->day,
+            'order_count' => $result->order_count ?? 0, // Use 0 if no orders for the day
+        ];
+    }
+
+    return $orderCounts;
+}
+
+
+
+
 
   }
