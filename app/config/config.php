@@ -1,5 +1,5 @@
 <?php
-db param
+
 define('DB_HOST','readspot.cbusia0uaymm.ap-southeast-2.rds.amazonaws.com');
 define('DB_USER','readspot');
 define('DB_PASS','Admin#1234');

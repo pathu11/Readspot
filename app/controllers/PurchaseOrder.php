@@ -372,7 +372,6 @@ private function handleCODForm($orderDetails1 ,$formType){
             // $this->adminModel->addMessageToPublisher($data)){
             if($this->customerModel->editOrderCOD($data) 
                ){
-    
                
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
                 $this->sendNotifications($data, $owner_user_id);

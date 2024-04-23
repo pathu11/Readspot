@@ -295,7 +295,8 @@ public function editAccountForBooks($book_id) {
             if ( $this->publisherModel->editAccountInBooks($data)  && $this->publisherModel->AddBookApproval($data)) {
                 // Now add book approval
 
-                flash('update_success', 'You have updated the account and added book approval successfully');
+                $_SESSION['success']=true;
+                
                 redirect('NewBooks/productGallery');
                
             } else {
