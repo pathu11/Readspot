@@ -83,19 +83,19 @@ function submitRejectReason() {
         return;
     }
     else if (selected_reason === 'bookcat-not-available' && document.getElementById("book-cat-reason").value.trim() == "") {
-        alert('suggest an alter category');
+        alert('Please enter a reason');
         return;
     }
     else if (selected_reason === 'location-not-available' && document.getElementById("location-reason").value.trim() == "") {
-        alert('suggest an alter location');
+        alert('Please enter a reason');
         return;
     }
     else if (selected_reason === 'count-not-enough' && document.getElementById("book-count-reason").value.trim() == "") {
-        alert('request more books');
+        alert('Please enter a reason');
         return;
     }
     else if (selected_reason === 'date-not-available' && document.getElementById("date-reason").value.trim() == "") {
-        alert('suggest an alter date');
+        alert('Please enter a reason');
         return;
     }
 

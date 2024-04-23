@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -136,4 +136,4 @@
     <script src=<?= URLROOT . "/assets/js/charity/user-req-form.js" ?>></script>
     <script src=<?= URLROOT . "/assets/js/charity/confirm-event.js" ?>></script>
 
-</html>
+</html> -->
