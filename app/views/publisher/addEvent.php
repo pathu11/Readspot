@@ -52,10 +52,34 @@
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
   </div>
-  <?php
-    require APPROOT . '/views/publisher/footer.php'; //path changed
-?>
-</body>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Event Added Successfully</h2>
+        <!-- You can add more details or actions here -->
+    </div>
+</div>
+<?php if (isset($_SESSION['successEvent']) && $_SESSION['successEvent']): ?>
+        showModal();
+        <?php unset($_SESSION['successEvent']); ?>
+    <?php endif; ?>
+<script>
+    function showModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        window.location.href = "<?php echo URLROOT; ?>/publisher/events"; // Redirect to the event page
+    }
+
+    // Check if the showModal flag is set, then call showModal()
+   
+</script>
+
+
 <script>
         function goBack() {
             // Use the browser's built-in history object to go back
@@ -63,4 +87,5 @@
         }
         
     </script>
+    </body>
 </html>
