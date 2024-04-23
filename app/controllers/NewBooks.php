@@ -113,10 +113,10 @@ public function addbooks(){
             }else if($data['price']<1 ){
                 $data['price_err']='Please enter a valid price'; 
             }
-            if(empty($data['discounts'])){
-                $data['discounts_err']='Please enter the Discounts';      
-            }else if($data['discounts']<1 ){
-                $data['discounts_err']='Please enter a valid discount percent(Ex:30%)'; 
+            if(empty($data['discounts']) && $data['discounts'] !== '0'){ // Allow 0 as a valid input
+                $data['discounts_err']='Please enter the Discounts';
+            }else if($data['discounts'] < 0 ){
+                $data['discounts_err']='Please enter a valid discount percent (Ex: 30%)';
             }
             if(empty($data['category'])){
                 $data['category_err']='Please select the category';      

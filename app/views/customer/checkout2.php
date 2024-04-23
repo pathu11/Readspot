@@ -86,7 +86,7 @@
                 <th>Subtotal</th>
             </tr>
             
-           
+            
           <?php foreach($data['bookDetails'] as $key => $books): ?>
             
             <tr>

@@ -1272,6 +1272,20 @@ public function updateReviewHelpfulBooks($reviewId){
       return false;
   }   
 }
+public function addNotification($data){
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id,  :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $data['sender_id']);
+  $this->db->bind(':user_id', $data['reciever_id']);
+  $this->db->bind(':topic', $data['topic']);
+  $this->db->bind(':message', $data['message']);
+  $this->db->bind(':sender_name', $data['sender_name']);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+
+}
 
   public function findNoOfUsedBooksById($customer_id) {
       $this->db->query('SELECT COUNT(*) AS count FROM books WHERE customer_id=:customer_id AND status="approval" AND type="used"');

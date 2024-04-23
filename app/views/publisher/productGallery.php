@@ -82,7 +82,7 @@
             <div class="modal-content">
             <span class="close" onclick="closeConfirmationModal()">&times;</span>
             <h2>Confirmation</h2>
-            <p>Are you sure you want to delete this store?</p>
+            <p>Are you sure you want to delete this book?</p>
             <button onclick="proceedDelete(<?php echo $bookDetails->book_id; ?>)">Yes</button>
             <button onclick="closeConfirmationModal()">No</button>
             </div>
