@@ -59,6 +59,7 @@
         <!-- You can add more details or actions here -->
     </div>
 </div>
+<?php echo $_SESSION['successEvent']; ?>
 <?php if (isset($_SESSION['successEvent']) && $_SESSION['successEvent']): ?>
         showModal();
         <?php unset($_SESSION['successEvent']); ?>
