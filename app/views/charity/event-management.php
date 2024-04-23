@@ -13,7 +13,7 @@
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
-            <?php $allEvents = $data['allEvents'];?>
+            <?php $allEvents = $data['allEvents']; //print_r($allEvents);die();?>
         </div>
         <nav>
             <a href="./">Home</a>
@@ -88,16 +88,19 @@
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
+                                
                                 <button class="view-button" onclick="viewEvent(1)">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                </button>
-                                <form action="<?php URLROOT?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
-                                    <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
-                                    <button type="submit" class="delete-button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form> 
+                                
+                                <?php if($event->status == 0) { ?>
+                                    <form action="<?php URLROOT?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
+                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
+                                        <button type="submit" class="delete-button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                <?php } ?>
                                 <!-- <button type="submit" class="delete-button">
                                         <i class="fas fa-trash"></i>
                                 </button> -->

@@ -38,7 +38,8 @@ class Charity extends Controller
         if (!isLoggedInCharity()) {
             redirect('charity/donation_request');
         }
-        $this->view('charity/donation_request');
+        $results = $this->charityModel->getCharityUsers();
+        $this->view('charity/donation_request',$data = ['allUsers' => $results]);
     }
     public function userrequest()
     {
@@ -102,6 +103,7 @@ class Charity extends Controller
             }
         }
     }
+    
 }
 
 ?>
