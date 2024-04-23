@@ -12,7 +12,7 @@ class Publisher extends Controller{
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
         $this->adminModel=$this->model('Admins');
-        $this->db = new Database();
+        $this->db = new Database();      
         
     }
     

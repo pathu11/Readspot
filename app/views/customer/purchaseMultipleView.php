@@ -89,6 +89,7 @@
                             <?php endif; ?>
                             </td>
                         </tr>
+                        <input id="book_quantity_<?php echo $index; ?>" name="book_quantities[]" class="visible" value="<?php echo $book[0]->nowQuantity; ?>">
                         <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">
                     <?php endforeach; ?>
                 </table>
@@ -115,13 +116,11 @@
                 </div>
                 <div id="redeemPointsDetails" class="redeem" style="display: none;">
                     <span>You have  <?php echo $data['redeempoint']->redeem_points; ?> redeem points.Use them for buy this order</span><br><br>
-                    <input type="number" name="totalRedeem"  id="redeemPointsInput" value="<?php echo $data['redeempoint']->redeem_points; ?>" min="0" max="<?php echo $data['redeempoint']->redeem_points; ?>">
+                    <input type="number" name="totalRedeem"  id="redeemPointsInput" value="0" min="0" max="<?php echo $data['redeempoint']->redeem_points; ?>">
                     <a href="#" class="apply" onclick="applyRedeemPoints()">Apply</a>
                 </div>
                 <div class="cost">
                     <div class="subcost">
-
-                       
                         <p>Total</P>
                     </div>
                     <div class="subcost2">

@@ -1,5 +1,11 @@
 
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require APPROOT . '\vendor\autoload.php';
 class Superadmin extends Controller{
     private $superadminModel;
    
@@ -13,6 +19,7 @@ class Superadmin extends Controller{
         $this->userModel=$this->model('User');
         $this->publisherModel=$this->model('Publishers');
         $this->db = new Database();
+
     }
     public function index(){
         if (!isLoggedInSuperAdmin()) {
@@ -197,7 +204,7 @@ class Superadmin extends Controller{
     
                 // update admin
                 if($this->superadminModel->updateAdmin($data) ){
-                    var_dump($data); 
+                   
                         flash('Successfully Updated');
                         redirect('superadmin/admins');
                 }else{
@@ -705,6 +712,34 @@ class Superadmin extends Controller{
             $this->view('superadmin/charity', $data);
         }
     }
+    private function sentEmails($userEmail,$subject,$body){
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER; // SMTP username
+            $mail->Password   = MAIL_PASS;   // SMTP password
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+
+            //Recipients
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($userEmail);  // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body    = $body;
+
+            $mail->send();
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+    }
 
     public function deleteadmins($user_id)
 {
@@ -714,7 +749,8 @@ class Superadmin extends Controller{
     $email=$userDetails[0]->email;
     if ($this->superadminModel->rejectadmin($user_id)) {       
         if ($this->superadminModel->rejectUser($user_id)) {       
-            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {  
+
                 redirect('superadmin/admins'); 
             
         } 
@@ -735,7 +771,11 @@ public function deletemoderators($user_id)
     $email=$userDetails[0]->email;
     if ($this->superadminModel->rejectmoderator($user_id)) {       
         if ($this->superadminModel->rejectUser($user_id)) {       
-            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {  
+                $subject = "Your account has been removed from the site";
+                $body = "Dear $name,<br><br>Your account has been removed from our system.<br><br>If you have any inquiries or need further assistance, please contact our support team at readspot27@gmail.com.<br><br>Thank you for being a part of our community.<br><br>Best regards,<br>ReadSpot Team";
+
+                $this->sentEmails($email, $subject, $body);     
                 redirect('superadmin/moderators'); 
             
         } 
@@ -754,7 +794,10 @@ public function deletedelivery($user_id)
     $email=$userDetails[0]->email;
     if ($this->superadminModel->rejectdelivery($user_id)) {       
         if ($this->superadminModel->rejectUser($user_id)) {       
-            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {    
+                $subject = "Your account has been removed from the site";
+                $body = "Dear $name,<br><br>Your account has been removed from our system.<br><br>If you have any inquiries or need further assistance, please contact our support team at readspot27@gmail.com.<br><br>Thank you for being a part of our community.<br><br>Best regards,<br>ReadSpot Team"; 
+                $this->sentEmails($email, $subject, $body);   
                 redirect('superadmin/delivery'); 
             
         } 
@@ -773,7 +816,9 @@ public function deletecustomers($user_id)
     if ($this->superadminModel->rejectUser($user_id)) {
        if ($this->superadminModel->rejectcustomers($user_id)){
         if ($this->superadminModel->insertRemove_list($user_id,$name,$email)){
-             
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been removed from our system.<br><br>If you have any inquiries or need further assistance, please contact our support team at readspot27@gmail.com.<br><br>Thank you for being a part of our community.<br><br>Best regards,<br>ReadSpot Team"; 
+            $this->sentEmails($email, $subject, $body); 
             redirect('superadmin/customers');
        }
             
@@ -790,7 +835,10 @@ public function deletepublishers($user_id)
     $email=$userDetails[0]->email;
     if ($this->superadminModel->rejectpublisher($user_id)) {       
         if ($this->superadminModel->rejectUser($user_id)) {       
-            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {  
+                $subject = "Your account has been removed from the site";
+                $body = "Dear $name,<br><br>Your account has been removed from our system.<br><br>If you have any inquiries or need further assistance, please contact our support team at readspot27@gmail.com.<br><br>Thank you for being a part of our community.<br><br>Best regards,<br>ReadSpot Team";  
+                $this->sentEmails($email, $subject, $body);     
                 redirect('superadmin/publishers'); 
             
         } 
@@ -808,7 +856,10 @@ public function deletecharity($user_id)
     $email=$userDetails[0]->email;
     if ($this->superadminModel->rejectcharity($user_id)) {       
         if ($this->superadminModel->rejectUser($user_id)) {       
-            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {       
+            if ($this->superadminModel->insertRemove_list($user_id,$email,$name)) {  
+                $subject = "Your account has been removed from the site";
+                $body = "Dear $name,<br><br>Your account has been removed from our system.<br><br>If you have any inquiries or need further assistance, please contact our support team at readspot27@gmail.com.<br><br>Thank you for being a part of our community.<br><br>Best regards,<br>ReadSpot Team"; 
+                $this->sentEmails($email, $subject, $body);      
                 redirect('superadmin/charity');    
         }    
     }   
@@ -818,10 +869,16 @@ public function deletecharity($user_id)
 }
 public function restrictpublishers($user_id)
 {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
     if ($this->superadminModel->restrictpublishers($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->restrictusers($user_id)){
-            
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been restricted for violating our community guidelines. As a result, you will not be able to access certain features for the next 7 days.<br><br>If you believe this action was taken in error or have any questions, please contact our support team at readspot27@gmail.com.<br><br>Thank you for your understanding.<br><br>Best regards,<br>ReadSpot Team";
+            $this->sentEmails($email, $subject, $body); 
+
             redirect('superadmin/publishers');
         }
         
@@ -831,10 +888,15 @@ public function restrictpublishers($user_id)
 }
 public function restrictcharity($user_id)
 {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
     if ($this->superadminModel->restrictcharity($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->restrictusers($user_id)){
-            
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been restricted for violating our community guidelines. As a result, you will not be able to access certain features for the next 7 days.<br><br>If you believe this action was taken in error or have any questions, please contact our support team at readspot27@gmail.com.<br><br>Thank you for your understanding.<br><br>Best regards,<br>ReadSpot Team";
+            $this->sentEmails($email, $subject, $body); 
             redirect('superadmin/charity');
         }
         
@@ -844,10 +906,15 @@ public function restrictcharity($user_id)
 }
 public function restrictcustomers($user_id)
 {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
     if ($this->superadminModel->restrictcustomers($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->restrictusers($user_id)){
-            
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been restricted for violating our community guidelines. As a result, you will not be able to access certain features for the next 7 days.<br><br>If you believe this action was taken in error or have any questions, please contact our support team at readspot27@gmail.com.<br><br>Thank you for your understanding.<br><br>Best regards,<br>ReadSpot Team";
+            $this->sentEmails($email, $subject, $body); 
             redirect('superadmin/customers');
         }
         
@@ -857,10 +924,15 @@ public function restrictcustomers($user_id)
 }
 public function restrictadmins($user_id)
 {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
     if ($this->superadminModel->restrictadmin($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->restrictusers($user_id)){
-            
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been restricted for violating our community guidelines. As a result, you will not be able to access certain features for the next 7 days.<br><br>If you believe this action was taken in error or have any questions, please contact our support team at readspot27@gmail.com.<br><br>Thank you for your understanding.<br><br>Best regards,<br>ReadSpot Team";
+            $this->sentEmails($email, $subject, $body); 
             redirect('superadmin/admins');
         }
         
@@ -870,10 +942,15 @@ public function restrictadmins($user_id)
 }
 public function restrictmoderators($user_id)
 {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
     if ($this->superadminModel->restrictmoderators($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->restrictusers($user_id)){
-            
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been restricted for violating our community guidelines. As a result, you will not be able to access certain features for the next 7 days.<br><br>If you believe this action was taken in error or have any questions, please contact our support team at readspot27@gmail.com.<br><br>Thank you for your understanding.<br><br>Best regards,<br>ReadSpot Team";
+            $this->sentEmails($email, $subject, $body); 
             redirect('superadmin/moderators');
         }
         
@@ -883,10 +960,15 @@ public function restrictmoderators($user_id)
 }
 public function restrictdelivery($user_id)
 {
+    $userDetails=$this->superadminModel->getuserDetails($user_id);
+    $name=$userDetails[0]->name;
+    $email=$userDetails[0]->email;
     if ($this->superadminModel->restrictdelivery($user_id)) {
 //            var_dump($package_id);
         if ($this->superadminModel->restrictusers($user_id)){
-            
+            $subject = "Your account has been removed from the site";
+            $body = "Dear $name,<br><br>Your account has been restricted for violating our community guidelines. As a result, you will not be able to access certain features for the next 7 days.<br><br>If you believe this action was taken in error or have any questions, please contact our support team at readspot27@gmail.com.<br><br>Thank you for your understanding.<br><br>Best regards,<br>ReadSpot Team";
+            $this->sentEmails($email, $subject, $body); 
             redirect('superadmin/moderators');
         }
         
@@ -918,9 +1000,15 @@ public function restrictdelivery($user_id)
             $userDetails=$this->superadminModel->getUserRoleByRemoveId($remove_id);
             $user_role=$userDetails[0]->user_role;
             $user_id=$userDetails[0]->user_id;
+            $email=$userDetails[0]->email;
+            $name=$userDetails[0]->name;
             if($this->superadminModel->restoreusers($remove_id)){
                 // if($user_role=='customers'){
                     if($this->superadminModel->updateUserStatus($user_id,$user_role)){
+                        $subject = "Your account has been removed from the site";
+                        $body = "Dear $name,<br><br>We're pleased to inform you that your account has been successfully restored after resolving the necessary inquiries.<br><br>If you have any further questions or need assistance, please don't hesitate to contact us at support@readspot.com.<br><br>Thank you for your patience and understanding.<br><br>Best regards,<br>ReadSpot Team";
+
+                        $this->sentEmails($email, $subject, $body); 
                         redirect('superadmin/removeList');
                 // }
                 

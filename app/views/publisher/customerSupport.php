@@ -10,6 +10,16 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
 
     <title>Notifications</title>
+    <style>
+        p{
+            margin-bottom:0px;
+            text-align:left;
+        }
+        #eventTable td:nth-child(2) {
+            width: 70%; 
+        }
+        
+        </style>
 </head>
 
 <body>
@@ -25,7 +35,7 @@
                 </div>
 
             </div>
-            <thead>
+            <!-- <thead>
                 <tr>
 
                     <th>Sender Name</th>
@@ -33,18 +43,20 @@
                     <th>Notification</th>
                     <th>Action</th>
                 </tr>
-            </thead>
+            </thead> -->
             <tbody>
                 <?php foreach ($data['messageDetails'] as $message): ?>
                     <tr style="background-color: <?php echo $message->status === 'read' ? 'white' : '#ebede9'; ?>;">
-                        <td><?php echo $message->sender_name; ?></td>
-                        <td title="<?php echo $message->topic; ?>"><?php echo $message->topic; ?></td>
-                        <td title="<?php echo $message->message; ?>">
-                            <?php
+                        <td><p><?php echo $message->sender_name; ?><p></td>
+                        <td>
+                                <p><b><?php echo $message->topic; ?></b></p>
+                                <p><?php
                             $lines = explode("\n", $message->message);
                             echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
-                            ?>
-                        </td>
+                            ?></p><p style=" font-style: italic;"><?php echo $message->timestamp; ?></p>
+
+                    </td>
+                      
                         <td class="action-buttons">
                             <a href="#" onclick="openPopup('<?php echo htmlspecialchars('<h3>'.$message->sender_name .'</h3>'. '<h4>'. $message->topic . '</h4>' .'<p>' .$message->message.'</p>'); ?>')">
                                 <i style="color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>;" class="fas fa-eye"></i>

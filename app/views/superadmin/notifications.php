@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Messages</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
@@ -12,18 +11,14 @@
 <body>
 <?php require APPROOT . '/views/superadmin/nav.php';
   ?>
-    <div class="chat-container1">
-        <input type="text" placeholder=" Search..." class="search-bar">
-    </div>
+    
     <div class="chat">
         <div class="head">
             <div class="head1">
                 <h4>Your Messages</h4>
                 
             </div>
-            <div class="head1">
-                <button id="markAllRead" class="markAllRead" >Mark all as read</button>
-            </div>
+           
         </div>      
          <div id="messagesContainer">
          <table>
@@ -49,9 +44,7 @@
             </tr></a>
 <?php endforeach; ?>
             
-        </table>
-            
-            
+        </table>      
          </div> 
          
 </body>
