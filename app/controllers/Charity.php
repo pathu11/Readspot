@@ -72,7 +72,8 @@ class Charity extends Controller
     }
     public function viewEvent()
     {
-        $this->view('charity/viewEvent');
+        $event = $this->charityModel->getEventById($_POST['eventId']);
+        $this->view('charity/viewEvent', $data = ['event' => $event]);
     }
 
 

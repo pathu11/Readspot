@@ -14,7 +14,7 @@
 
 <body>
     <div id="dashboard">
-
+    <?php $event = $data['event'] ?>
     </div>
     <header>
         <div>
@@ -50,27 +50,27 @@
             <table>
                 <tr>
                     <td>Event Name:</td>
-                    <td><input type="text" name="eventName" value="Sample Event" required disabled></td>
+                    <td><input type="text" name="eventName" value="<?php echo $event->event_name ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>Event Location:</td>
-                    <td><input type="text" name="eventLocation" value="Colombo Hindu College" required disabled></td>
+                    <td><input type="text" name="eventLocation" value="<?php echo $event->location ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>Start Date:</td>
-                    <td><input type="date" name="startDate" value="2024-04-24" required disabled></td>
+                    <td><input type="date" name="startDate" value="<?php echo $event->start_date ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>End Date:</td>
-                    <td><input type="date" name="endDate" value="2024-04-25" required disabled></td>
+                    <td><input type="date" name="endDate" value="<?php echo $event->end_date ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>Start Time:</td>
-                    <td><input type="time" name="startTime" value="09:00" required disabled></td>
+                    <td><input type="time" name="startTime" value="<?php echo $event->start_time ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>End Time:</td>
-                    <td><input type="time" name="endTime" value="18:00" required disabled></td>
+                    <td><input type="time" name="endTime" value="<?php echo $event->end_time ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>Book Category:</td>
@@ -85,11 +85,11 @@
                 </tr>
                 <tr>
                     <td>Charity Member Phone:</td>
-                    <td><input type="tel" name="charityMemberPhone" value="076-8545700" placeholder="Enter phone number" required disabled></td>
+                    <td><input type="tel" name="charityMemberPhone" value="<?php echo $event->contact_no ?>" placeholder="Enter phone number" required disabled></td>
                 </tr>
                 <tr>
                     <td>Description:</td>
-                    <td><textarea name="description" required disabled>Join us for an exciting and informative event at Colombo Hindu College! This event aims to [briefly describe the purpose and goals of the event].</textarea></td>
+                    <td><textarea name="description" required disabled><?php echo $event->description ?></textarea></td>
                 </tr>
                 <tr>
                     <td>
@@ -103,7 +103,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align:center;">
-                        <button type="button" style="background-color: red;">Delete</button>
+                        <button type="button" style="background-color: red;" id="ve-dltbtn">Delete</button>
                         <button type="button" onclick="enableEditing()" id="ve-editbtn">Edit</button>
 
                     </td>
@@ -138,13 +138,18 @@
 <script>
     function enableEditing() {
         var btn = document.getElementById("ve-editbtn");
-        btn.innerHTML = "Save";
+        var dltBtn =document.getElementById("ve-dltbtn");
         var form = document.getElementById("eventForm");
         var inputs = form.querySelectorAll("input, textarea, select");
-        // btn.innerHTML("Save")
-        inputs.forEach(function(input) {
-            input.removeAttribute("disabled");
-        });
+
+        if (btn.innerHTML === "Edit") {
+            btn.innerHTML = "Save";
+            dltBtn.style.display = "none";
+            inputs.forEach(function(input) {
+                input.removeAttribute("disabled");
+            });
+        }
+
     }
 
 
