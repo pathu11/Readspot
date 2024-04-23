@@ -333,7 +333,20 @@ class User{
         }
     }
     
-
+    public function logUserLogin($userId, $loginTime) {
+        $this->db->query('INSERT INTO user_logins (user_id, login_time) VALUES (:user_id, :login_time)');
+        $this->db->bind(':user_id', $userId);
+        $this->db->bind(':login_time', $loginTime);
+        $this->db->execute();
+    }
+    
+    public function logUserLogout($userId, $logoutTime) {
+        $this->db->query('UPDATE user_logins SET logout_time = :logout_time WHERE user_id = :user_id AND logout_time IS NULL');
+        $this->db->bind(':user_id', $userId);
+        $this->db->bind(':logout_time', $logoutTime);
+        $this->db->execute();
+    }
+    
    
 
     

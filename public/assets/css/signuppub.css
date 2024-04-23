@@ -251,6 +251,7 @@ input[type="text"]{
 .invalid-feedback {
     color: red;
     font-size: 14px;
-    display: block; /* Changed to block for span elements to appear on a new line */
+    display: block; 
+    text-align: center;/* Changed to block for span elements to appear on a new line */
 }
 

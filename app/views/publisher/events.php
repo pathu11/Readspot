@@ -21,7 +21,7 @@
         <h2>EVENTS INFO ></h2>
 
         <table id="eventTable">
-            <input  type="text" id="searchInput" placeholder="Search by ID or Name" oninput="searchEvents()">
+            <input  type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
             <thead>
                 <tr>
                    <th>Event ID</th>
@@ -98,5 +98,5 @@
         </div>
     </div>
     <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
-
+   
 </body>

@@ -23,10 +23,10 @@
 <body>
   <?php require APPROOT . '/views/admin/nav.php';?>
   <div class="table-container">
-    <div class="container-column">
+    <div class="container-column" style="margin-bottom: 50px;">
       <div class="above-table">
-        <h3>Categories</h3>
-        <a href="<?php echo URLROOT;?>/admin/addBookCategories" class="btn">Add Book Category</a>
+        <h3>Book Categories</h3>
+        <a href="<?php echo URLROOT;?>/admin/addBookCategories" class="btn"><button>Book Category</button></a>
       </div>
       <table class="table">
       <thead>
@@ -42,7 +42,7 @@
         <tr>
           <td class="tdata"><?php echo $bookCategoryDetails->id; ?></td>
           <td><?php echo $bookCategoryDetails->category; ?></td>
-          <td><?php echo $bookCategoryDetails->description; ?></td>
+          <td class="description"><?php echo $bookCategoryDetails->description; ?></td>
           <td><a href="<?php echo URLROOT;?>/admin/updateBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-pen"></i></a><a href="<?php echo URLROOT;?>/admin/deleteBookCategory/<?php echo $bookCategoryDetails->id;?>"><i class="fa fa-solid fa-trash"></i></a></td>
         </tr>
         <?php endforeach; ?>      <!-- Add more rows for additional categories -->
@@ -52,8 +52,8 @@
   
     <div class="container-column">
       <div class="above-table">
-        <h3>Events</h3>
-        <a href="<?php echo URLROOT;?>/admin/addEventCategory" class="btn">Add Event Category</a>
+        <h3>Event Categories</h3>
+        <a href="<?php echo URLROOT;?>/admin/addEventCategory" class="btn"><button>Event Category</button></a>
       </div>
       <table class="table">
       <thead>

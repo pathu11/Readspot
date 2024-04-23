@@ -1,10 +1,15 @@
 /* Sidebar styles */
 .sidebar {
     position: fixed;
-    background-color: #E0E0E0;
+    /* background-color: #D2EAE9; */
+    background-color: white;
     color: #707070;
     width: 250px;
-    height: 700px;
+    /* border: 1px solid #707070; */
+    /* border-color: #707070; */
+
+    /* height: 800px; */
+    height: 100%;
     /* padding: 20px; */
     margin-right: 0;
     overflow-y: auto; /* Add this to make the sidebar content scrollable */
@@ -43,6 +48,12 @@
     /* border-radius: 15px; */
 }
 
+.menu-list li.active a {
+    /* background-color: #70BFBA; */
+    color: white;
+    /* border-radius: 15px; */
+}
+
 .menu-list li.active {
     background-color: #70BFBA;
     /* color: white; */
@@ -77,17 +88,20 @@
         position: fixed;
         background-color: whitesmoke;
         width: 60px;
-        height: 700px;
+        height: 800px;
     
         margin-right: 0;
         overflow-y: auto; /* Add this to make the sidebar content scrollable */
     }
     .sidebar-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 5px;
         width: 40px;
         height: 40px;
         background-color: #E0E0E0;
-        border: 2px solid blue;
+        /* border: 2px solid blue; */
     }
     .mob-section {
         padding-top: 5px;
@@ -100,20 +114,33 @@
         width: 40px;
         height: 40px;
         cursor: pointer;
-        background-color: wheat;
-        border: 2px solid blue;
+        background-color: #70BFBA;
+        /* border: 2px solid blue; */
         transform: scale(1.1);
+    }
+
+    .sidebar-img:hover i {
+        color: white;
     }
     .sidebar-img.active {
         border: 2px solid white; /* You can customize the border color or any other style */
         background-color: #70BFBA;
+        color: white;
+    }
+
+    .sidebar-img i {
+        color: #707070;;
+    }
+
+    .sidebar-img.active i {
+        color: white;
     }
 }
 
 @media screen and (max-width:400px) {
     .mob-sidebar{
         width: 50px;
-        height: 700px;
+        height: 800px;
     
         margin-right: 0;
         overflow-y: auto; /* Add this to make the sidebar content scrollable */
@@ -123,7 +150,7 @@
         width: 30px;
         height: 30px;
         background-color: #E0E0E0;
-        border: 2px solid blue;
+        /* border: 2px solid blue; */
     }
     .mob-section {
         padding-top: 4px;
@@ -137,7 +164,7 @@
         height: 30px;
         cursor: pointer;
         background-color: wheat;
-        border: 2px solid blue;
+        /* border: 2px solid blue; */
         transform: scale(1.1);
     }
     .sidebar-img.active {

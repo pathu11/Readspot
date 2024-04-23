@@ -15,7 +15,7 @@
 <body>
 <?php   require APPROOT . '/views/publisher/sidebar.php';?>
 
-
+<div class="all">
 <div class="container">
     <div class="nav">
         <a href="<?php echo URLROOT; ?>/publisher/processingorders">Processing Orders</a>
@@ -91,7 +91,10 @@
         
         <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
 </div>
-    
+ </div>
+<?php
+    require APPROOT . '/views/publisher/footer.php'; //path changed
+?>
    
 </body>
 <script>

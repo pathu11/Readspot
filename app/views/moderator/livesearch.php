@@ -67,4 +67,72 @@ elseif ($_POST['searchType'] == 'challenges') {
       echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
     }
 }
+
+elseif ($_POST['searchType'] == 'complains') {
+  if (!empty($data['complainSearchDetails'])) {
+      echo '<div class="table-container">
+          <table>
+            <tr>
+              <th>Complainant name</th>
+              <th>Email</th>
+              <th>Contact Number</th>
+              <th>Complain</th>
+              <th>Additional notes</th>
+              <th>Complain Images</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>';
+      foreach ($data['complainSearchDetails'] as $complain) {
+          echo '<tr>' .
+              '<td>' . $complain->name . '</td>' .
+              '<td>' . $complain->email . '</td>' .
+              '<td>' . $complain->contact_number . '</td>' .
+              '<td>' . substr($complain->descript, 0, 20) . '<span class="see-more" onclick="showFullDescription(\'' . $complain->descript . '\')">See more..</span></td>' .
+              '<td>' . $complain->other . '</td>' .
+              '<td><img src="' . URLROOT . '/assets/images/customer/complain/' . $complain->err_img . '" onclick="fullView(this.src)" style="width: 30%;"/></td>' .
+              '<td>';
+          if ($complain->resolved_or_not == 0) {
+              echo '<p>Pending</p>';
+          } else {
+              echo '<p>Resolved</p>';
+          }
+          echo '</td>' .
+              '<td><button onclick="respondPopup(' . $complain->complaint_id . ',\'' . $complain->email . '\',\'' . $complain->name . '\')">Respond</button></td>' .
+              '</tr>';
+      }
+      echo '</table>' .
+          '</div>' .
+          '<div id="myModal" class="modal">
+              <div class="modal-content">
+                  <span class="close" onclick="closeFullView()">&times;</span>
+                  <h2>Complain Image</h2>
+                  <img id="large-event-poster" width="60%"/>
+              </div>
+          </div>
+          <div id="myModal1" class="modal">
+              <div class="modal-content">
+                  <span class="close" onclick="closeFullView()">&times;</span>
+                  <h2>Enter Your comments</h2>
+                  <form action="' . URLROOT . '/moderator/respondComplain" method="post">
+                      <textarea id="moderatorComment" name="moderatorComment" rows="4" cols="50" placeholder="Enter reject reason..."></textarea>
+                      <input type="hidden" id="complaint_id" name="complaint_id">
+                      <input type="hidden" id="email" name="email">
+                      <input type="hidden" id="name" name="name">
+                      <button type="submit">Mark as Resolved</button>
+                  </form>
+              </div>
+          </div>
+          <div id="myModal2" class="modal">
+              <div class="modal-content">
+                  <span class="close" onclick="closeFullView()">&times;</span>
+                  <h1>Complain Description</h1><br>
+                  <p id="fullDescription"></p>
+              </div>
+          </div>';
+  } else {
+      echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+  }
+}
+
 ?>
+<script src="<?php echo URLROOT;?>/assets/js/moderator/livesearch.js"></script>

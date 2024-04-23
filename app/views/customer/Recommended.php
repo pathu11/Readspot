@@ -12,22 +12,34 @@
                 <h1>NEW BOOKS</h2>
             </div>
             <div class="search-bar-N">
-                <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button>
-                <form action="#.php" class="searching-N">
-                    <select id="searchBy"  name="category" required>
-                        <option value="technology">Title</option>
-                        <option value="travel">Author</option>
-                        <option value="food">ISBN</option>
-                        <option value="lifestyle">Publisher</option>
-                    </select>
-                    <input type="text" placeholder="Search.." name="search-N">
-                    <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> <!--path changed-->
-                </form>
+                <!-- <button type="submit" class="filter-btn" onclick="toggleDropdownfilter('filter-dropdown')">Filter</button> -->
+                <div class="search-form-N">
+                    <form action="<?php echo URLROOT;?>/customer/filterbook" class="searching-N" method="post">
+                        <!-- <select id="searchBy"  name="category" required>
+                            <option value="technology">Title</option>
+                            <option value="travel">Author</option>
+                            <option value="food">ISBN</option>
+                            <option value="lifestyle">Publisher</option>
+                        </select> -->
+                        <input type="text" placeholder="Search by Name, Publisher, Author or ISBN.." name="search-N" autocomplete="off" id="search-N">
+                        <!-- <button type="submit"><img src="<?php echo URLROOT; ?>/assets/images/customer/search.png"></button> path changed -->
+                    </form>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                </div>
+                <div class="filter-category">
+                    <div class="list-group-N" id="show-list">
+                        
+                    </div>
+                </div>
             </div>
         </div>
         <div class="recommend">
             <div class="viewall">
-                
+                <?php if(isset($data['user_id'])): ?>
+                    <h2> Recommended For You </h2>
+                <?php else: ?>
+                    <h2> Top Selling </h2> 
+                <?php endif; ?>
             </div>
             <div class="sub-cont-N2">
             <?php if (!empty($data['recommendedBooks'])): ?>
@@ -42,8 +54,18 @@
                         <h3><?php echo isset($book->book_name) ? $book->book_name : ''; ?></h3>
                         <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
                         <div class="fav-cart">
-                            <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                            <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a>
+                            <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                            <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
+                            <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $book->book_id; ?>">
+                                <button class="book-button">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                            <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>">
+                                <button class="book-button">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -51,8 +73,21 @@
         <?php else: ?>
             <p>No recommended books found.</p>
         <?php endif; ?>
-
-</div>     
+        </div>     
+            <ul class="pagination" id="pagination">
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
         </div>
         <?php
             require APPROOT . '/views/customer/filterbook.php'; //path changed
@@ -62,3 +97,111 @@
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed
 ?>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-N").keyup(function(){
+            var searchText = $(this).val(); // Word coming from the input field
+            var bookType = 'N';
+            if(searchText!=''){
+                $.ajax({
+                    url:'<?php echo URLROOT;?>/customer/filterbook',
+                    method : 'post',
+                    data : {query:searchText, bookType:bookType},
+                    success:function(response){
+                        $("#show-list").html(response);
+                    }
+                });
+            } else {
+                $('#show-list').html('');
+            }
+        });
+        $(document).on('click','a',function(){
+            $("#search-N").val($(this).text());
+            $("#show-list").html('');
+        });
+    });
+</script>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var items = document.querySelectorAll('.B0-N'); // Select all book items
+    var itemsPerPage = 10; // Number of items per page
+    var currentPage = 1; // Current page
+    var numPages = Math.ceil(items.length / itemsPerPage); // Total number of pages
+    var pagination = document.getElementById('pagination');
+
+    // Function to display items for the current page
+    function displayItems() {
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = Math.min(startIndex + itemsPerPage, items.length);
+
+        // Hide all items
+        items.forEach(function(item) {
+            item.style.display = 'none';
+        });
+
+        // Display items for the current page
+        for (var i = startIndex; i < endIndex; i++) {
+            items[i].style.display = 'block';
+        }
+    }
+
+    // Function to update pagination buttons
+    function updatePaginationButtons() {
+        // Clear previous pagination buttons
+        pagination.innerHTML = '';
+
+        // Previous button
+        pagination.innerHTML += '<li id="prevButton">«</li>';
+
+        // Display only necessary pagination numbers
+        for (var i = 1; i <= numPages; i++) {
+            pagination.innerHTML += '<li class="' + (currentPage === i ? 'current' : '') + '">' + i + '</li>';
+        }
+
+        // Next button
+        pagination.innerHTML += '<li id="nextButton">»</li>';
+
+        // Add event listeners to newly created pagination buttons
+        var pageButtons = pagination.querySelectorAll('li:not(#prevButton):not(#nextButton)');
+        pageButtons.forEach(function(button, index) {
+            button.addEventListener('click', function() {
+                currentPage = index + 1;
+                displayItems();
+                updatePaginationButtons();
+            });
+        });
+
+        // Add event listeners for previous and next buttons
+        document.getElementById('prevButton').addEventListener('click', goToPrevPage);
+        document.getElementById('nextButton').addEventListener('click', goToNextPage);
+    }
+
+    // Initial display
+    displayItems();
+    updatePaginationButtons();
+
+    // Function to go to the previous page
+    function goToPrevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayItems();
+            updatePaginationButtons();
+        }
+    }
+
+    // Function to go to the next page
+    function goToNextPage() {
+        if (currentPage < numPages) {
+            currentPage++;
+            displayItems();
+            updatePaginationButtons();
+        }
+    }
+});
+</script>

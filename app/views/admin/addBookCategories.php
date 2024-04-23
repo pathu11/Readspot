@@ -12,18 +12,26 @@
 <body>
 <?php require APPROOT . '/views/admin/nav.php';?>
 
-  <div class="form">
-  <form method="post" class="categoryAddForm" action="<?php echo URLROOT;?>/admin/addBookCategories">
-    <div class="grid-container">
-      <label for="category">Book Category</label>
-      <input type="text" name="book_category" id="category" class="<?php echo (!empty($data['book_category_err'])) ? 'is-invalid' : ''; ?> value="<?php echo $data['book_category'];?>" required>
-      <span class="error"><?php echo $data['book_category_err']; ?></span>
-      
-      <label for="description">Description</label>
-      <input type="text" name="description" id="description" class="<?php echo (!empty($data['description_err'])) ? 'is-invalid' : ''; ?> value="<?php echo $data['description'];?>" required>
-      <span class="error"><?php echo $data['description_err']; ?></span>
+  <div class="form-container">
+  <form method="post" class="categoryAddForm" enctype="multipart/form-data" action="<?php echo URLROOT;?>/admin/addBookCategories">
+    <div class="form-grid">
+      <div class="img-div">
+        <img src="<?php echo URLROOT;?>/assets/images/admin/category.jpg" style="width: 100%;"/>
+      </div>
+      <div class="form-div">
+        <label for="category">Book Category</label>
+        <input type="text" name="book_category" id="category" class="<?php echo (!empty($data['book_category_err'])) ? 'is-invalid' : ''; ?> value="<?php echo $data['book_category'];?>" required>
+        <span class="error"><?php echo $data['book_category_err']; ?></span>
+        
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" class="<?php echo (!empty($data['description_err'])) ? 'is-invalid' : ''; ?> value="<?php echo $data['description'];?>" required>
+        <span class="error"><?php echo $data['description_err']; ?></span>
 
-      <button type="submit" class="button">Add</button>
+        <label for="image">Category Image</label>
+        <input type="file" id="picture" accept="image/*"  name="bookCategoryImg" required>
+
+        <button type="submit" class="button">Add</button>
+      </div>
     </div>
   </form>
 </div>

@@ -6,7 +6,7 @@
 <head>
 
     
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/addbooks.css" />
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/addbooks.css" />
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/sidebar.css" />
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <title>Edit Account Details</title>
@@ -46,8 +46,35 @@
 
 </div> 
     </div>
-   
+    <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Record Added!</h2>
+                <p>Your record has been recorded. Wait for admin approval</p>
+                <button onclick="closeModal()">OK</button>
+            </div>   </div>
+<script>
+            function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/NewBooks/productGallery"; // Redirect to the event page
+            }
+            <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['success']) && $_SESSION['success']) {
+                unset($_SESSION['success']);
+            }
+            ?>
+            // function submitForm() {
+            //     document.getElementById("eventForm").submit();
+            // }
+        </script>
     <script>
+
         function goBack() {
             // Use the browser's built-in history object to go back
             window.history.back();

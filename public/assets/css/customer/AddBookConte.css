@@ -1,6 +1,6 @@
 .add-content {
     padding: 20px;
-    background-color: #CACACA;
+    background-color: #F4F4F4;
 }
 
 .cont-add, .book-add {
@@ -12,6 +12,8 @@
     justify-content: space-around;
     align-items: center;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .topic-cont, .topic-book {
@@ -67,7 +69,7 @@
     padding: auto;
 } */
 
-.topic-cont input[type="text"], .disc-cont textarea, .topic-book input[type="text"], .disc-book textarea, .topic-book input[type="Date"], .upload-doc input[type="file"], .upload-pages input[type="file"], .topic-book select, .topic-book button, .topic-book input[type="number"], .topic-book input[type="email"], .topic-cont select, .topic-cont input[type="Date"], .topic-cont input[type="time"], .upload-doc-content input[type="file"] {
+.topic-cont input[type="text"], .disc-cont textarea, .topic-book input[type="text"], .disc-book textarea, .topic-book input[type="Date"], .upload-doc input[type="file"], .upload-pages input[type="file"], .topic-book select, .topic-book button, .topic-book input[type="number"], .topic-book input[type="email"], .topic-cont select, .topic-cont input[type="Date"], .topic-cont input[type="time"], .upload-doc-content input[type="file"] { 
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -75,6 +77,56 @@
     border: none;
     background-color: #eeeeef;
     border-radius: 5px;
+}
+
+.disc-book input[type="text"]{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #eeeeef;
+    border-radius: 5px;
+}
+
+.add-remove-btn {
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 10px;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap:5px
+}
+
+.RemoveInputButton {
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    width: 20%;
+    padding: 8px;
+    /* margin-top: 10px;
+    margin-left: 10px; */
+}
+
+.AddOneButton {
+    /* float: right; */
+    background-color: rgb(1, 36, 33);
+    border-color: white;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: .5s;
+    width: 20%;
+    padding: 8px;
+    /* margin-right:15px; */
 }
 
 .upload-doc input[type="file"], .upload-pages input[type="file"], .upload-doc-content input[type="file"]{
@@ -174,6 +226,14 @@
         padding-top: 0px;
         /* background-color: brown; */
     }
+    
+    .RemoveInputButton {
+        width: 30%;
+    }
+    
+    .AddOneButton {
+        width: 30%;
+    }
 }
 
 @media screen and (max-width:400px) {
@@ -188,6 +248,14 @@
         margin-left: 5px;
     
     }
+
+    .disc-book input[type="text"] {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+    
     .upload-doc-content input[type="file"]{
         background-color: white;
         font-size: 12px;
@@ -243,6 +311,14 @@
         gap:0.5rem;
         /* background-color:darksalmon; */
     }
+
+    .RemoveInputButton {
+        width: 50%;
+    }
+    
+    .AddOneButton {
+        width: 50%;
+    }
 }
 
 @media screen and (max-width:300px) {
@@ -260,5 +336,13 @@
         background-color: white;
         font-size: 10px;
         max-width: 130px;
+    }
+
+    .RemoveInputButton {
+        width: 70%;
+    }
+    
+    .AddOneButton {
+        width: 70%;
     }
 }
