@@ -20,9 +20,8 @@
         </div>
         <nav>
             <a href="#" class="active">Home</a>
-            <a href="event">Event Management</a>
             <a href="donation">Donation Requests</a>
-            <a href="customerSupport" id="donorRequestLink">Customer Support</a>
+            <a href="event">Event Management</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -42,7 +41,7 @@
 
     <div class="body-container">
         <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/rr.jpg" ?>>
-        <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a>
+        <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
     </div>
 
     <div class="box1">
@@ -66,7 +65,6 @@
             </p>
         </div>
     </div>
-
 
 
 
