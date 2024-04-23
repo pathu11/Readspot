@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <?php $allUsers = $data['allUsers']; ?>
 
     <div id="dashboard">
 
@@ -21,8 +22,9 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="donation" class="active">Donation Requests</a>
+            
             <a href="event">Event Management</a>
+            <a href="donation" class="active">Donation Requests</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -30,7 +32,7 @@
         </nav>
         <div class="dropdown" style="float:right;">
             <button class="dropdown-button">
-                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
                 <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
@@ -41,40 +43,26 @@
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/Readspot_Bcrnd-Donation.png" ?>>
+        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/donationREQ.png" ?>>
     </div>
 
     <div class="reqContainer">
+        <?php foreach($allUsers as $user) { ?>
         <div class="reqCard">
             <div class="imgBox">
                 <img src=<?= URLROOT . "/assets/images/charity/ram3.jpeg" ?>>
             </div>
             <div class="content">
                 <div class="customer-info">
-                    <h4>RamathPerera</h4>
-                    <p style="color: aqua;">ramathzeo2@gmail.com</p>
+                    <h4><?php echo $user->first_name ?></h4>
+                    <p style="color: aqua;"><?php echo $user->email ?></p>
                 </div>
                 <br>
                 <p>NEW donation Requests from Ramath!</p>
             </div>
             <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
         </div>
-
-        <div class="reqCard">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/himaza.jpg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Himaza</h4>
-                    <p style="color: aqua;">himaza32@gmail.com</p>
-                </div>
-                <br>
-                <p>NEW donation Requests from Himaza!</p>
-            </div>
-
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
-        </div>
+        <?php } ?>
 
         <div class="reqCard checked">
             <div class="imgBox">
@@ -90,77 +78,7 @@
             </div>
             <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>RayhanAhmed</h4>
-                    <p style="color: aqua;">Rayhan@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
 
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/dq.jpg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>abiluksh</h4>
-                    <p style="color: aqua;">abi333@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-        <div class="reqCard">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/sai.jpeg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>saitama</h4>
-                    <p style="color: aqua;">saitama@gmail.com</p>
-                </div>
-                <br>
-                <p>NEW donation Requests from saitama!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
-        </div>
-        <div class="reqCard">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/dq2.jpg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>nirujan</h4>
-                    <p style="color: aqua;">niru45@gmail.com</p>
-                </div>
-                <br>
-                <p>NEW donation Requests from niru!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
-        </div>
-        <div class="reqCard">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/duruv.jpg" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>jawarhan</h4>
-                    <p style="color: aqua;">jawan@gmail.com</p>
-                </div>
-                <br>
-                <p>NEW donation Requests from jawan!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
-        </div>
     </div>
 
 
@@ -185,7 +103,7 @@
             </p>
         </div>
         <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            <p id="copyright" style=" color: black;">&copy; 2023 ReadSpot. All rights reserved.</p>
         </div>
     </footer>
     <script>

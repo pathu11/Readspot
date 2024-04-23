@@ -21,7 +21,7 @@
     text-align: center;
     margin-bottom: 15px;
     font-size: 16px;
-    background-color: #188c7b;
+    background-color: #009d94;
     color: #f8f8f8;
     border-radius: 2px;
     width: 100%;
@@ -74,7 +74,7 @@
 .ur-view {
     display: inline-block;
     padding: 8px 15px;
-    background-color: #188c7b;
+    background-color: #70bfba;
     color: white;
     border: 1px solid #ffffff;
     border-radius: 4px;
@@ -85,7 +85,7 @@
 }
 
 .ur-view:hover {
-    background-color: #005348;
+    background-color: #509b96;
 }
 
 .ur-table {
@@ -183,7 +183,7 @@
 }
 
 .ur-close-btn:hover {
-    background-color: #188c7b;
+    background-color: #70bfba;
     color: white;
 }
 
@@ -236,7 +236,7 @@
     font-size: 15px;
     padding: 10px;
     border-radius: 1px;
-    background-color: #096154;
+    background-color:#00817b;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -385,7 +385,7 @@
     top: 15px;
     left: 50px;
     margin-bottom: 20px;
-    background-color: #188c7b;
+    background-color: #70bfba;
     color: white;
     padding: 5px 8px;
     border-radius: 4px;

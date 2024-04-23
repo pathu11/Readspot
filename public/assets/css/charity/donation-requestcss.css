@@ -33,7 +33,7 @@
     align-items: flex-start;
     width: 250px;
     height: 250px;
-    background: #188c7b;
+    background: #009d94;
     border-radius: 20px;
     transition: 0.3s;
 }
@@ -117,7 +117,7 @@
     justify-content: center;
     text-align: center;
     padding: 10px 10px;
-    background: #188c7b;
+    background: #009d94;
     color: rgb(255, 255, 255);
     border-radius: 15px;
     font-weight: 200px;
@@ -127,7 +127,7 @@
 }
 
 .reqContainer a:hover {
-    background-color: #06493f;
+    background-color: #017973;
     color: #ffffff;
 }
 

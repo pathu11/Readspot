@@ -17,7 +17,7 @@
       } catch (\Exception $e) {
           // Handle the exception (e.g., log it, display an error message)
           echo 'Error: ' . $e->getMessage();
-          return false;
+          return false; 
       }
     }
 

@@ -4,42 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/addEvent.css" ?>>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/charity-home.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/user-req-form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/charity/confirm-event.css">
     <title>ReadSpot Online Book store</title>
-    <script>
-
-        "use strict";
-        function dragNdrop(event) {
-            var fileName = URL.createObjectURL(event.target.files[0]);
-            var preview = document.getElementById("preview");
-            var previewImg = document.createElement("img");
-            previewImg.setAttribute("src", fileName);
-            preview.innerHTML = "";
-            preview.appendChild(previewImg);
-        }
-
-        function drag() {
-            document.getElementById('uploadFile').parentNode.className = 'draging dragBox';
-        }
-
-        function drop() {
-            document.getElementById('uploadFile').parentNode.className = 'dragBox';
-        }
-
-    </script>
 </head>
 
 <body>
+    <div id="dashboard">
+
+    </div>
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="donation">Donation Requests</a>
             <a href="event" class="active">Event Management</a>
+            <a href="donation">Donation Requests</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -56,108 +40,100 @@
         </div>
     </header>
 
-    <div class="body-container">
-        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/Readspot_Bcrnd-Events.png" ?>>
-        <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
-    </div>
-
-    <div class="box1">
-        <!-- <a href="<?php echo URLROOT; ?>/charity/test">test</a> -->
-        <div class="box2">
-            <h4> Keep in MIND!</h4>
-            <p> I am not just organizing things; also helping create a community where people love to share and read books<br>
-            <p style="color:#006e69;"><b>being a part of "ReadSpot" journey!</b></p>
-        </div>
-        <div class="box3" style="background-color: #303030;">
-            <h4> a Charity Member !</h4>
-            <img id="joinUs" src=<?= URLROOT . "/assets/images/charity/join-with-us-logo.png" ?>>
-            <p> Don't forget the impact of my actions on others; every effort counts
-            </p>
-        </div>
-        <div class="box4">
-            <h4> Hire events Donate Books !</h4>
-            <img src=<?= URLROOT . "/assets/images/charity/donate.png" ?>>
-            <p> Joined as a supportive individual of Charity Organization
-                <br>
-            </p>
-        </div>
-    </div>
-
-    <div class="addEventContainer">
-        <h2>CREATE CHARITY EVENTS</h2>
-        
-        <div class="addeventInputRow">
-            <div class="addeventRowElement">
-                <p>Event Name :</p>
-                <input type="text">
+    <body>
+        <a href="javascript:history.go(-1)" class="ae-go-back-btn"><i class="fas fa-arrow-left"></i> Go Back</a>
+        <div class="ae-requestTable">
+            <div class="ae-table-header">
+                <h2>Confirm & Add event</h2>
             </div>
-            <div class="addeventRowElement">
-                <p>Event Location :</p>
-                <input type="text">
-            </div>
-        </div>
-
-        <div class="addeventInputRow">
-            <div class="addeventRowElement">
-                <p>Start Date :</p>
-                <input type="date">
-            </div>
-            <div class="addeventRowElement">
-                <p>End Date :</p>
-                <input type="date">
-            </div>
-        </div>
-
-        <div class="addeventInputRow">
-            <div class="addeventRowElement">
-                <p>Start Time :</p>
-                <input type="time">
-            </div>
-            <div class="addeventRowElement">
-                <p>End Time :</p>
-                <input type="time">
-            </div>
-        </div>
-
-        <div class="addeventInputRow">
-            <div class="addeventRowElement uploadEventPoster">
-                <p>Import Event Poster:</p>
-                <div class="uploadOuter">
-                    <span class="dragBox" >
-                        <p>Darg and Drop image here</p>
-                        <input type="file" onChange="dragNdrop(event)"  ondragover="drag()" ondrop="drop()" id="uploadFile"  />
-                    </span>
-                </div>
-                <div id="preview"></div>
-            </div>
+            <form action="<?php URLROOT?>/Readspot/charity/createEvent" method="post" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td>Event Name:</td>
+                        <td><input type="text" name="eventName" required></td>
+                    </tr>
+                    <tr>
+                        <td>Event Location:</td>
+                        <td><input type="text" name="eventLocation" required></td>
+                    </tr>
+                    <tr>
+                        <td>Start Date:</td>
+                        <td><input type="date" name="startDate" required></td>
+                    </tr>
+                    <tr>
+                        <td>End Date:</td>
+                        <td><input type="date" name="endDate" required></td>
+                    </tr>
+                    <tr>
+                        <td>Start Time:</td>
+                        <td><input type="time" name="startTime" required></td>
+                    </tr>
+                    <tr>
+                        <td>End Time:</td>
+                        <td><input type="time" name="endTime" required></td>
+                    </tr>
+                    <tr>
+                        <td>Book Category:</td>
+                        <td>
+                            <label><input type="checkbox" name="bookCategory[]" value="fiction"> Fiction</label><br>
+                            <label><input type="checkbox" name="bookCategory[]" value="non-fiction"> Non-Fiction</label><br>
+                            <label><input type="checkbox" name="bookCategory[]" value="biography"> Biography</label><br>
+                            <label><input type="checkbox" name="bookCategory[]" value="science"> Science</label><br>
+                            <label><input type="checkbox" name="bookCategory[]" value="other" onchange="toggleOther()">
+                                Other</label>
+                            <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter Category" style="display: none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Poster Image:</td>
+                        <td>
+                            <div class="ae-drop-image-box">
+                                <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
+                                <img id="previewImage" src="#" alt="Preview" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                <input type="file" name="posterImage" id="posterImageInput">
+                                
+                                <span class="ae-view-icon" id="viewpos" onclick="openModal()"><i class="fas fa-eye"></i></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Charity Member Phone:</td>
+                        <td><input type="tel" name="charityMemberPhone" value="076-8545700" placeholder="Enter phone number" required></td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td><textarea name="description" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center;">
+                            <button type="submit">Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
 
-        <div class="addeventInputRow">
-            <div class="addeventRowElement">
-                <p>Select book categories :</p>
-                <input type="text">
-            </div>
-            <div class="addeventRowElement">
-                <p>Event Location :</p>
-                <input type="text">
-            </div>
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
         </div>
 
-    </div>
-
-    <footer>
-        <div>
-            <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,
-                audio clips, digital downloads, data compilations,<br>
-                and software, is the property of READSPOT or its content suppliers and protected by Sri Lanka and
-                international copyright laws...
-            </p>
-        </div>
-        <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
-        </div>
-    </footer>
+        <footer>
+            <div>
+                <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,
+                    audio clips, digital downloads, data compilations,<br>
+                    and software, is the property of READSPOT or its content suppliers and protected by Sri Lanka and
+                    international copyright laws...
+                </p>
+            </div>
+            <div>
+                <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
     <script src=<?= URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
-</body>
+    <script src=<?= URLROOT . "/assets/js/charity/userRequestjs.js" ?>></script>
+    <script src=<?= URLROOT . "/assets/js/charity/user-req-form.js" ?>></script>
+    <script src=<?= URLROOT . "/assets/js/charity/confirm-event.js" ?>></script>
 
 </html>
