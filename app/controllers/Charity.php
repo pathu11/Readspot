@@ -15,7 +15,7 @@ class Charity extends Controller
 
         $this->view('charity/index');
     }
-    
+
     public function event()
     {
         if (!isLoggedInCharity()) {
@@ -90,7 +90,17 @@ class Charity extends Controller
         } else {
             die('Something went wrong');
         }
+    }
 
+    public function deleteEvent()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->charityModel->deleteEvent($_POST['eventId'])) {
+                redirect('charity/event');
+            } else {
+                die('Something went wrong');
+            }
+        }
     }
 }
 
