@@ -40,19 +40,13 @@
           
           <td><?php echo $store->postal_name; ?></td>
           <td><?php echo $store->street_name; ?></td>
-         
           <td><?php echo $store->town; ?></td>
           <td><?php echo $store->district; ?></td>
           <td><?php echo $store->postal_code; ?></td>
           <td class="action-buttons">
               <a  href='<?php echo URLROOT; ?>/publisher/updateStore/<?php echo $store->store_id; ?>' ><i class='fa fa-edit' ></i></a>
-              <a  href='#' onclick='confirmDelete(<?php echo $store->store_id; ?>)'><i class='fa fa-trash'></i></a>
-             
-
-              
-            </td>
-  
-          
+              <a  href='#' onclick='confirmDelete(<?php echo $store->store_id; ?>)'><i class='fa fa-trash'></i></a>  
+            </td> 
         </tr>
       <?php endforeach; ?>
       </tbody>
