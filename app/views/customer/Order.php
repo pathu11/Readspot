@@ -27,7 +27,6 @@
                         <th>Reference No.</th>
                         <th>Delivery Status</th>
                         <th>View Details</th>
-                    
                     </tr>
                 </thead>
                 <tbody>
@@ -37,8 +36,8 @@
                     <td><?php echo $orders->status; ?></td>
                     <td class="action-buttons">
                        
-                            <button type="submit" class="view-button"  onclick="toggleOrder('order-details')"><i class="fas fa-eye"></i></button>
-                            <button type="button" class="delete-button"onclick="cancelOrder(<?php echo $orders->order_id; ?>, '<?php echo $orders->status; ?>')"> <i class="fas fa-trash"></i></button>
+                            <button type="submit" class="view-button" onclick='viewOrders(<?php echo htmlspecialchars(json_encode($orders)); ?>)'><i class="fas fa-eye"></i></button>
+                            <button type="button" class="delete-button" onclick="cancelOrder(<?php echo $orders->order_id; ?>, '<?php echo $orders->status; ?>')"> <i class="fas fa-trash"></i></button>
                        
                     </td>
                    
@@ -93,6 +92,16 @@
             <div class="modal-content">
                 <span class="close" onclick="closeCannotCancelOrderModal()">&times;</span>
                 <p id="cannotCancelOrderMessage"></p>
+            </div>
+        </div>
+
+        <div id="myModal" class="modal0">
+            <div class="modal-content0">
+                <!-- <h2>1234567891011</h2> -->
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="form1" id="bookDetailsTable">
+                    <!-- Event details will go here -->
+                </div>
             </div>
         </div>
     </div>
@@ -197,5 +206,89 @@
         if (event.target == cannotCancelOrderModal) {
             cannotCancelOrderModal.style.display = "none";
         }
+    }
+</script>
+
+<script>
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    function viewOrder(order) {
+        var modal = document.getElementById("myModal");
+        var bookDetailsTable = document.getElementById("bookDetailsTable");
+        var orderDetailsArray = <?php echo json_encode($data['orderDetailsArray']); ?>;
+        var orderDetails = orderDetailsArray[order.order_id];
+        var detailsHTML = '';
+
+        // Loop through the order details and generate HTML for each book
+        orderDetails.forEach(function(book) {
+            var imageSource = '';
+            if (book.type == "new") {
+                imageSource = '<?php echo URLROOT; ?>/assets/images/publisher/addbooks/' + book.img1;
+            } else if (book.type == "used") {
+                imageSource = '<?php echo URLROOT; ?>/assets/images/customer/AddUsedBook/' + book.img1;
+            } else { 
+                imageSource = '<?php echo URLROOT; ?>/assets/images/customer/book.jpg'
+            }
+
+            detailsHTML += `
+                <tr>
+                    <td><img src="${imageSource}" alt="Book" class="ordertablediv-img"></td>
+                    <td>${book.book_name}</td>
+                    <td>${book.price} x ${book.quantity}</td>
+                </tr>
+            `;
+        });
+
+
+
+        // Update the modal content with the generated HTML
+        bookDetailsTable.innerHTML = `
+            <h2>${order.tracking_no}</h2>
+            <div class="ordertablediv">
+                <table border="1">
+                    <tbody>
+                        ${detailsHTML}
+                    </tbody>
+                </table>
+                
+                <div class="delivery-fee">
+                    <h4>Delivery-fee</h4>
+                    <h4>${order.total_delivery}</h4>
+                </div>
+                <div class="delivery-fee">
+                    <h4>Total</h4>
+                    <h4>${order.total_price}</h4>
+                </div>
+                <div class="delivery-status">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-processing" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-pickup" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-delivered" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="status-labels">
+                        <div class="label">
+                        <i class="fas fa-cogs"></i>
+                        <span>Processing</span>
+                        </div>
+                        <div class="label">
+                        <i class="fas fa-truck"></i>
+                        <span>Pick-up</span>
+                        </div>
+                        <div class="label">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Delivered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        modal.style.display = "block";
+    }
+
+    function viewOrders(orders) {
+        // Display only the book details table
+        viewOrder(orders);
     }
 </script>

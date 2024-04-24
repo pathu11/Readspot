@@ -13,7 +13,7 @@
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
-            <?php print_r($allEvents = $data['allEvents']) ?>
+           
         </div>
         <nav>
             <a href="./">Home</a>
@@ -31,7 +31,7 @@
             </button>
             <div class="dropdown-content">
                 <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="<?php echo URLROOT;?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
     </header>

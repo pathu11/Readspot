@@ -46,9 +46,9 @@
 
 </div> 
     </div>
-    <?php
+    <!-- <?php
     require APPROOT . '/views/publisher/footer.php'; //path changed
-?> 
+?>  -->
 
 </body>
 <script>

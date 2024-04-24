@@ -115,7 +115,9 @@ body{
 
 .service-div-M p {
     padding-top: 20px;
+
     text-align: justify;
+
     display: none;
     font-weight: 300;
 }

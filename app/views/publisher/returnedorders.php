@@ -84,10 +84,10 @@
         
         <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
 </div>
-<?php
+<!-- <?php
             require APPROOT . '/views/publisher/footer.php'; //path changed
         ?> 
-   
+    -->
 </body>
 <script>
         function goBack() {

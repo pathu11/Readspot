@@ -380,9 +380,13 @@ class Customer extends Controller {
             }
             if($this->customerModel->AddEvent($data)){
                 // flash('add_success','You are added the book  successfully');
+                // $_SESSION['$no_err'] = 'error';
+                // echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
                 // redirect('customer/Event');
-                echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
                 // echo "<script>showModal();</script>";
+                $_SESSION['showModal1'] = true; // Set session variable to true
+                redirect('customer/addevnt');
+
             }else{
                 die('Something went wrong');
             }
@@ -1092,9 +1096,11 @@ public function BuyNewBooks()
         // redirect('landing/login');
         $recommendedBooks = $this->customerModel->topSelling();
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
         $data = [  
             'bookDetails' => $NewbookDetailsByTime,
-            'recommendedBooks' => $recommendedBooks
+            'recommendedBooks' => $recommendedBooks,
+            'bookCategoryDetails'=>$bookCategoryDetails
         ];
         $this->view('customer/BuyNewBooks', $data);
 
@@ -1104,13 +1110,15 @@ public function BuyNewBooks()
         $customer_id = $customerDetails[0]->customer_id;
         $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
         $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
+        $bookCategoryDetails = $this->adminModel->getBookCategories();
         $data = [
             'customerDetails' => $customerDetails,
             'user_id'=>$user_id,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->first_name,
             'bookDetails' => $NewbookDetailsByTime,
-            'recommendedBooks' => $recommendedBooks
+            'recommendedBooks' => $recommendedBooks,
+            'bookCategoryDetails'=>$bookCategoryDetails
         ];
 
         $this->view('customer/BuyNewBooks', $data);
@@ -1457,6 +1465,15 @@ public function BuyNewBooks()
             $AddExchangeBooks = $this->customerModel->findNoOfExchangeBooksById($customer_id);
             $AddContents = $this->customerModel->findNoOfContentsById($customer_id);
             $AddEvents = $this->customerModel->findNoOfEventsById($user_id);
+            $paymentCount = $this->ordersModel->countPayment($user_id);
+            $currentPoints = $this->customerModel->FindRedeemPoints($customer_id);
+            $saveEvents = $this->customerModel->findNoOfSaveEvent($user_id);
+            $BuyNewBooks = $this->customerModel->findNoOfBuyNewBooksById($customer_id);
+            $BuyUsedBooks = $this->customerModel->findNoOfBuyUsedBooksById($customer_id);
+            $BoughtCategories = $this->customerModel->findBoughtCategories($customer_id);
+            $AddedCategories = $this->customerModel->findAddedCategories($customer_id);
+            $contentPoints = $this->customerModel->findContentPoints($customer_id);
+            $challengePoints = $this->customerModel->findChallengePoints($customer_id);
 
             $data = [
                 'customerDetails' => $customerDetails,
@@ -1466,7 +1483,17 @@ public function BuyNewBooks()
                 'used' => $AddUsedBooks,
                 'exchange' => $AddExchangeBooks,
                 'content' => $AddContents,
-                'event' => $AddEvents
+                'event' => $AddEvents,
+                'paymentCount' => $paymentCount,
+                'currentPoint' => $currentPoints,
+                'saveEvents' => $saveEvents,
+                'BuyNewBooks' => $BuyNewBooks,
+                'BuyUsedBooks' => $BuyUsedBooks,
+                'BoughtCategories' => $BoughtCategories,
+                'AddedCategories' => $AddedCategories,
+                'contentPoints' => intval($contentPoints),
+                'challengePoints' => intval($challengePoints),
+                'totalPoints' => intval($challengePoints) + intval($contentPoints)
             ];
             $this->view('customer/Dashboard', $data);
         }
@@ -1533,6 +1560,10 @@ public function BuyNewBooks()
 
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
+            // if (isset($_SESSION['$no_err'])) {
+            //     $_SESSION['$no_err'] = '';
+            //     $this->view('customer/Event', $data);
+            // }
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             
@@ -3403,17 +3434,52 @@ public function markReview()
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $orderDetails=$this->ordersModel->findOrdersByCustomerId( $customerDetails[0]->customer_id);
+            // $orderDetails01 = $this->ordersModel->findOrdersByCustomerId($$orderDetails->order_id);
+
+            $orderDetailsArray = [];
+            foreach ($orderDetails as $order) {
+                $orderDetailsArray[$order->order_id] = $this->ordersModel->findOrdersByOrderId($order->order_id);
+            }
 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'orderDetails'=>$orderDetails
+                'orderDetails' => $orderDetails,
+                'orderDetailsArray' => $orderDetailsArray
             ];
            
             $this->view('customer/Order', $data);
         }
     }
+
+    // public function getOrderDetails($order_id){
+    //     if (!isLoggedInCustomer()) {
+    //         redirect('landing/login');
+    //     } else {
+    //         $user_id = $_SESSION['user_id'];
+           
+    //         $customerDetails = $this->customerModel->findCustomerById($user_id);
+    //         $orderDetails = $this->ordersModel->findOrdersByOrderId($order_id);
+    
+    //         if (!empty($orderDetails)) { // Check if order details are not empty
+    //             $data = [
+    //                 'customerDetails' => $customerDetails,
+    //                 'customerImage' => $customerDetails[0]->profile_img,
+    //                 'customerName' => $customerDetails[0]->first_name,
+    //                 'orderDetails1'=>$orderDetails1
+    //             ];
+    //             $_SESSION['showModal1'] = true; // Set session variable to true
+    //             $this->Order($data);
+    //         } else {
+    //             // Handle the case when no order details are found
+    //             // For example, display an error message or redirect to another page
+    //         }
+    //     }
+    // }
+    
+    
+
     public function cancelOrder() {
         
         $data = json_decode(file_get_contents('php://input'), true);
