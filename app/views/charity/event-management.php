@@ -80,7 +80,7 @@
                 </thead>
 
                 <tbody>
-                    <?php foreach ($allEvents as $event) { ?>
+                    <?php foreach ($data['allEvents'] as $event): ?>
                         <tr>
                             <td>1</td>
                             <td><?php echo $event->event_name ?></td>
@@ -109,7 +109,7 @@
                                 </button> -->
                         </td>
                         </tr>
-                    <?php } ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 
