@@ -148,8 +148,8 @@ footer p {
     padding-left: 7px;
     padding-right: 7px;
     border-radius: 15px;
-    width: 1349px;
-    height: 500px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     filter: brightness(0.85) grayscale(0);
 }
