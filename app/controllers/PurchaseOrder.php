@@ -83,7 +83,6 @@ class PurchaseOrder extends Controller{
             foreach ($bookDetails as $book) {
                 $bookIds[] = $book[0]->book_id;
             }
-
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0]->customer_id;
             $redeem_points=$this->customerModel->FindRedeemPoints($customer_id);
@@ -117,11 +116,11 @@ class PurchaseOrder extends Controller{
                     'postal_code_err' => '',
                     'contact_no_err'=>''
                 ];
-            //    print_r($data['bookQuantities']);
+             
                 
                 $_SESSION['PurchaseOrderData']=$data;
                 // print_r($data);
-                
+               
                 if(empty($data['postal_name'])){
                     $data['postal_name_err']='Please enter the  name';      
                 }
@@ -148,10 +147,7 @@ class PurchaseOrder extends Controller{
 
                 if( empty($data['postal_name_err']) && empty($data['street_name_err']) && empty($data['town_err']) &&empty($data['district_err']) && empty($data['postal_code_err'])  && empty($data['contact_no_err'])   ){  
                    
-                    redirect('PurchaseOrder/checkout2/');
-                   
-                    
-                  
+                    redirect('PurchaseOrder/checkout2/');   
                 }else{
                     
                     echo  '<script>alert("Error")</script>';
@@ -188,8 +184,8 @@ class PurchaseOrder extends Controller{
                  }  else{
                     echo "Not found data";
                  }  
-                
-                //  print_r($bookId);
+                //  print_r($_SESSION['PurchaseOrderData']);  
+                //  print_r($data['bookDetails']);
                 $this->view('customer/purchaseMultipleView',$data);
         }
     }
@@ -233,7 +229,7 @@ public function checkout2()
                 
             ];
            
-    
+    // print_r($orderDetails);
             $this->view('customer/checkout2', $data);
         }     
     }
@@ -336,25 +332,24 @@ private function handleCODForm($orderDetails1 ,$formType){
         if ($bookDetails[0]->type == 'new') {
             $user_idPub = $bookDetails[0]->publisher_id;
             $ownerDetails = $this->adminModel->getPublisherDetailsById($user_idPub);
+           
         } else if ($bookDetails[0]->type == 'used' || $bookDetails[0]->type == 'exchanged') {
             $user_idPub = $bookDetails[0]->customer_id;
             $ownerDetails = $this->adminModel->getCustomerDetailsById($user_idPub);
         }
         // Store owner email in the array
         $ownerEmails[] = $ownerDetails[0]->email;
+        $owner_user_id[]=$ownerDetails[0]->user_id;
     }
     
     $orderedCustomerDetails=$this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
    
     $customerEmail=$orderedCustomerDetails[0]->email;
+    $customer_user_id=$orderedCustomerDetails[0]->user_id;
     // print_r($customerEmail);
-
-    
     $topic = "New Order Details";
     $message ="Congratulations! Your order has been processing now. Order will be received at home as soon as possible.";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
-
-   
 
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $data = [
@@ -377,9 +372,10 @@ private function handleCODForm($orderDetails1 ,$formType){
             // $this->adminModel->addMessageToPublisher($data)){
             if($this->customerModel->editOrderCOD($data) 
                ){
-    
                
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
+                $this->sendNotifications($data, $owner_user_id);
+                // $this->customerModel->sendnotification($ $data);
                 echo '<script>alert("You are placed an order successfully")</script>';
                 flash('update_success','You are placed an order successfully');
                 redirect('customer/Order');
@@ -475,7 +471,32 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
         $this->view('customer/checkout2', $data);
     }
 }
+private function sendNotifications($data, $owner_user_id)
+{
+    // Send notification to the customer
+    $customerNotificationData = [
+        'receiver_id' => $data['user_id'],
+        'sender_name' => $data['sender_name'],
+        'sender_id' => $data['sender_id'],
+        'topic' => $data['topic'],
+        'message' => $data['message'],
+        'order_id' => $data['order_id'],
+    ];
+    $this->customerModel->addNotification($customerNotificationData);
 
+    // Send notification to the book seller(s)
+    foreach ($owner_user_id as $seller_user_id) {
+        $sellerNotificationData = [
+            'receiver_id' => $seller_user_id,
+            'sender_name' => $data['sender_name'],
+            'sender_id' => $data['sender_id'],
+            'topic' => $data['topic'],
+            'order_id' => $data['order_id'],
+            'message' => $data['messageToPublisher']
+        ];
+        $this->customerModel->addNotification($sellerNotificationData);
+    }
+}
 private function generateUniqueTrackingNumber($orderId) {
     do {
         $timestamp = time(); // Current timestamp
@@ -548,6 +569,8 @@ public function successCardPaymentOrder(){
                 }
 
                 $ownerEmails[] = $ownerDetails[0]->email;
+                $owner_user_id[] = $ownerDetails[0]->email;
+
             }
             
             $orderedCustomerDetails = $this->adminModel->getCustomerDetailsById($orderDetails[0]->customer_id);
@@ -569,10 +592,11 @@ public function successCardPaymentOrder(){
                 'sender_name' => 'system administration',
                 'sender_id' => 130,   
             ];
-            print_r($data);
+            
 
             if ($this->customerModel->editOrderCardPayment($data)) {
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
+                $this->sendNotifications($data, $owner_user_id);
                 echo '<script>alert("You have placed an order successfully")</script>';
                 flash('update_success', 'You have placed an order successfully');
                 redirect('customer/Order');

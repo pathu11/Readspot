@@ -32,7 +32,7 @@ body{
 }
 
 .content-div-M h2 {
-    font-size: 100px;
+    font-size: 80px;
     text-align: center;
     height: fit-content;
     color: #525252;
@@ -41,8 +41,8 @@ body{
 }
 
 .content-div-M h3 {
-    margin-top: 20px;
-    font-size: 50px;
+    margin-top: 10px;
+    font-size: 30px;
     text-align: center;
     color: #525252;
     /* background-color: aquamarine; */
@@ -50,24 +50,25 @@ body{
 
 .content-div-M p {
     /* background-color: azure; */
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
     color: #525252;
 }
 
 .our_ser-div-M h3 {
-    margin: 0px 50px 0px 50px;
-    font-size: 30px;
-    padding: 10px;
+    margin: 55px 0px 0px 2px;
+    font-size: 15px;
+    padding: 30px;
     display: flex;
+    font-weight: 500;
     flex-direction: row;
     color: white;
 }
 
 .our_ser-div-M h3 span {
     background-color: #066761;
-    padding: 15px 15px;
-    border-radius: 25px;
+    padding: 11px 15px;
+    border-radius: 10px;
 }
 
 .our_ser-div-M h3:before, .our_ser-div-M h3:after {
@@ -79,15 +80,15 @@ body{
 
 /* Style for the Services Section */
 .services-div-M {
-    /* background-color: #066761; */
+    background-color: #009D94;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    padding: 50px;
-    margin: 50px 150px 50px 150px;
+    padding: 10px;
+    margin: 60px 80px 80px 80px;
     border-radius: 15px;
     box-shadow: 0 0 8px rgba(30, 98, 94, 0.7);
 }
@@ -97,25 +98,26 @@ body{
     background-color: rgba(255, 255, 255, 0.5);
     text-align: center;
     border-radius: 20px;
-    color: black;
+    color: rgb(32, 32, 32);
     font-weight: 600;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 10px;
-    width: 220px;
-    height: 270px;
+    width: 270px;
+    height: 210px;
 }
 
 .service-div-M img {
     width: 200px;
-    height: 220px;
+    height: 164px;
+    border-radius: 5px;
     opacity: 0.7;
 }
 
 .service-div-M p {
-    /* position: absolute; */
     padding-top: 20px;
+
     text-align: justify;
-    font-size: 12px;
+
     display: none;
     font-weight: 300;
 }
@@ -124,8 +126,9 @@ body{
     transform: scale(1.1);
     transition: transform .5s;
     background-color: white;
-    color: black;
+    color: rgb(39, 39, 39);
     cursor: pointer;
+    font-size: 14px;
 }
 
 .service-div-M:hover .Sev1{

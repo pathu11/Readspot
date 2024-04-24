@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href=<?php echo URLROOT . "/assets/css/charity/eventManagement.css" ?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>ReadSpot Online Book store</title>
@@ -14,12 +13,13 @@
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
+            <?php print_r($allEvents = $data['allEvents']) ?>
         </div>
         <nav>
             <a href="./">Home</a>
+
             <a href="event" class="active">Event Management</a>
             <a href="donation">Donation Requests</a>
-            <a href="customerSupport" id="donorRequestLink">Customer Support</a>
             <a href="aboutUs">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
@@ -27,7 +27,7 @@
         </nav>
         <div class="dropdown" style="float:right;">
             <button class="dropdown-button">
-                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
                 <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
@@ -37,7 +37,7 @@
     </header>
 
     <div class="body-container">
-        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/Readspot_Bcrnd-Events.png" ?>>
+        <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/eventMang.png" ?>>
         <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
     </div>
 
@@ -80,271 +80,50 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(1)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(1)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(1)">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                    <?php foreach ($allEvents as $event) { ?>
+                        <tr>
+                            <td>1</td>
+                            <td><?php echo $event->event_name ?></td>
+                            <td><?php echo $event->description ?></td>
+                            <td><?php echo $event->location ?></td>
+                            <td><?php echo $event->start_date ?></td>
+                            <td class="action-buttons">
+                                
+                            <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
+                                <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
+                                    <button class="view-button">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                            </form>
+                                
+                                <?php if($event->status == 0) { ?>
+                                    <form action="<?php URLROOT?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
+                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
+                                        <button type="submit" class="delete-button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                <?php } ?>
+                                <!-- <button type="submit" class="delete-button">
+                                        <i class="fas fa-trash"></i>
+                                </button> -->
                         </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(2)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(2)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(2)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(3)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(3)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(3)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(4)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(4)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(4)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(5)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(5)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(5)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(6)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(6)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(6)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(7)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(7)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(7)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(8)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(8)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(8)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(9)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(9)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(9)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(10)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(10)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(10)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(11)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(11)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(11)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>Books for Bright Futures</td>
-                        <td> Provide 1,000 books to underprivileged children to promote literacy and education.</td>
-                        <td>Charity Book Depot,
-                            45 Harmony Street,
-                            Colombo 01000.
-                            Sri Lanka.</td>
-                        <td>20.01.2024</td>
-                        <td class="action-buttons">
-                            <button class="view-button" onclick="viewEvent(12)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="update-button" onclick="updateEvent(12)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-button" onclick="deleteEvent(12)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
 
             <!-- Modal for event details -->
-            <div id="myModal" class="modal">
+            <!-- <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h2>Full Details</h2>
                     <table id="eventDetailsTable">
-                        <!-- Event details will go here -->
-                    </table>
-                </div>
-            </div>
+                        Event details will go here -->
+            <!-- </table>
+                    </div>
+                </div> -->
+
             <ul class="pagination" id="pagination">
                 <li id="prevButton">«</li>
                 <li class="current">1</li>
@@ -360,7 +139,7 @@
                 <li id="nextButton">»</li>
             </ul>
             <div class="button-container">
-                <button id="addEventBtn" onclick="redirectToAddEvent()">ADD</button>
+                <a href="addEvent"><button id="addEventBtn">ADD</button></a>
             </div>
 
         </div>
@@ -375,7 +154,7 @@
             </p>
         </div>
         <div>
-            <p id="copyright" style=" color: #00ffee;">&copy; 2023 ReadSpot. All rights reserved.</p>
+            <p id="copyright" style=" color: black;">&copy; 2023 ReadSpot. All rights reserved.</p>
         </div>
     </footer>
     <script src=<?= URLROOT . "/assets/js/charity/eventscript.js" ?>></script>

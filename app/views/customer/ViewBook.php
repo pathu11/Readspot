@@ -26,22 +26,23 @@
                 <p><?php echo $data['descript']; ?></p>
             </div>
         </div>
-        <div class="used-topic">
-            <h3>Book Name : <span><?php echo $data['book_name']; ?></span></h3><br>
-            <h3>Author of Book : <span><?php echo $data['author']; ?></span></h3><br>
-            <h3>Book Category : <span><?php echo $data['category']; ?></span></h3><br>
-            <h3>Condition : <span><?php echo $data['condition']; ?></span></h3><br>
-            <h3>Published Year : <span><?php echo $data['published_year']; ?></span></h3><br>
-            <h3>Price : <span><?php echo $data['price']; ?></span></h3><br>
-            <h3>Price Type : <span><?php echo $data['price_type']; ?></span></h3><br>
-            <h3>Weight (grams) : <span><?php echo $data['weight']; ?></span></h3><br>
-            <h3>ISBN Number : <span><?php echo $data['ISBN_no']; ?></span></h3>
-        </div>
-
-        <div class="city-details-U">
-            <h3>Town : <span><?php echo $data['town']; ?></span></h3><br>
-            <h3>District : <span><?php echo $data['district']; ?></span></h3><br>
-            <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
+        <div class="new-book-details">
+            <div class="used-topic">
+                <h3>Book Name : <span><?php echo $data['book_name']; ?></span></h3><br>
+                <h3>Author of Book : <span><?php echo $data['author']; ?></span></h3><br>
+                <h3>Book Category : <span><?php echo $data['category']; ?></span></h3><br>
+                <h3>Published Year : <span><?php echo $data['published_year']; ?></span></h3><br>
+                <h3>ISBN Number : <span><?php echo $data['ISBN_no']; ?></span></h3>
+            </div>
+            <div class="city-details-U">
+                <h3>Price : <span><?php echo $data['price']; ?></span></h3><br>
+                <h3>Price Type : <span><?php echo $data['price_type']; ?></span></h3><br>
+                <h3>Weight (grams) : <span><?php echo $data['weight']; ?></span></h3><br>
+                <h3>Condition : <span><?php echo $data['condition']; ?></span></h3><br>
+                <h3>Town : <span><?php echo $data['town']; ?></span></h3><br>
+                <h3>District : <span><?php echo $data['district']; ?></span></h3><br>
+                <h3>Postal Code : <span><?php echo $data['postal_code']; ?></span></h3><br>
+            </div>
         </div>
         <div class="sub4-U">
             <a href="<?php echo URLROOT; ?>/customer/deleteusedbook/<?php echo $data['book_id']; ?>"><button class="chat-dlt-btn">Delete</button></a>

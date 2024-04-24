@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+
+/* .reqContainerBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgb(255, 255, 255);
+} */
+
+.reqContainer {
+    top: 8px;
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 100px 50px;
+    padding: 10px 50px;
+    margin-bottom: 100px;
+}
+
+.reqContainer .reqCard {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 250px;
+    height: 250px;
+    background: #009d94;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.reqContainer .reqCard:hover {
+    height: 250px;
+}
+
+.reqContainer .reqCard .imgBox {
+    position: absolute;
+    top: 25px;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    transition: 0.4s;
+}
+
+.reqContainer .reqCard:hover .imgBox {
+    top: -30px;
+    background-image: none;
+}
+
+.reqContainer .reqCard .imgBox img {
+    position: absolute;
+    top: 0%;
+    border: 3px solid white;
+    border-radius: 50%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reqContainer .reqCard .content {
+    position: absolute;
+    top: 190px;
+    color: rgb(255, 255, 255);
+    width: 300px;
+    height: 20px;
+    padding: 0 20px;
+    text-align: center;
+    transform: 0.5s;
+    border-radius: 10px;
+    transition: top 0.3s ease;
+    /* Added transition for smooth movement */
+}
+
+.reqContainer .reqCard:hover .content {
+    top: 130px;
+}
+
+.reqContainer .reqCard .content .customer-info {
+    margin-top: -11px;
+}
+
+.reqContainer .reqCard .content .customer-info p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.reqContainer .reqCard .content h4 {
+    font-size: 15px;
+    font-weight: 100px;
+}
+
+.reqContainer .reqCard .content p {
+    font-size: 14px;
+    color: white;
+}
+
+.mailid {
+    color: aqua;
+}
+
+.reqContainer a {
+    position: relative;
+    font-size: 16px;
+    top: 270px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 10px;
+    background: #009d94;
+    color: rgb(255, 255, 255);
+    border-radius: 15px;
+    font-weight: 200px;
+    text-decoration: none;
+    width: 100px;
+    height: 40px;
+}
+
+.reqContainer a:hover {
+    background-color: #017973;
+    color: #ffffff;
+}
+
+.reqContainer .reqCard.checked {
+    background-color: rgba(100, 100, 100, 0.8);
+}
+
+.reqContainer .reqCard.checked a.not-available {
+    background-color: #9e9e9e;
+    /* cursor: not-allowed; */
+    opacity: 0.7;
+}
+
+.reqContainer .reqCard.checked a.not-available:hover {
+    background-color: #7a7a7a;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43, 43, 43, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    height: 25px;
+    width: 25px;
+    background-color: #a1a1a1;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+}
+.close-btn:hover{
+    background-color:  #188c7b;
+    color: white;
+}
+
+.modal-actions {
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    margin: 0 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#confirmBtn, #cancelBtn {
+    background-color: #188c7b;
+    width: 70px;
+    height: 37px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 10px;
+    color: #fff;
+    font-weight: bold;
+    position: relative;
+}
+
+#confirmBtn span, #cancelBtn span {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+
+#confirmBtn:hover, #cancelBtn:hover {
+    background-color: #096154;
+}
+

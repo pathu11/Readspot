@@ -19,7 +19,13 @@
                 ?>
         <?php endforeach; ?>
         <img class="img" style="width: 40px;height: 40px;border-radius: 50%;" src="<?php echo $profileImage; ?>" onclick="toggleMenu()">
-
+        <a href="<?php echo URLROOT; ?>/publisher/customerSupport" class="notification">
+          <i class="bx bxs-bell icon"  ></i>
+          <?php if (isset($data['unreadCount'])): ?>
+             <span class="badge"><?php echo $data['unreadCount']; ?></span>
+          <?php endif; ?>
+        </a>
+       
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">
@@ -39,7 +45,7 @@
                 <span>></span>
             </a>
             
-            <a href="<?php echo URLROOT; ?>/publisher/logout" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
             <i style="font-size:30px;" class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>

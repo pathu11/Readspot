@@ -7,6 +7,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .our-mission {
@@ -19,7 +20,9 @@
     align-items: center;
     padding: 20px;
 }
-
+.our-mission h1{
+    font-size: 30px;
+}
 .mission-about p {
     text-align: center;
     padding: 10px 20px 0px 20px;
@@ -117,3 +120,4 @@
         padding: 0;
     }
 }
+

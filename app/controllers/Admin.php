@@ -846,8 +846,9 @@ public function approveOrder($order_id) {
     $customer_id = $orderDetails[0]->customer_id;
     $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
     $customerEmail = $customerDetails[0]->email;
+    $customer_name= $customerDetails[0]->name;
     $topic = "Approved the Order by administration";
-    $message ="Congratulations! Your order has been approved. Your order will be received at home as soon as possible.";
+    $message ="Hi .$customer_name.,\nGreat news! Your payment receipt has been successfully verified, marking your order as approved. Now, sit back and relax as we prepare to deliver your order straight to your door!\nReaspot team";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
     $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
@@ -889,7 +890,7 @@ public function approveOrder($order_id) {
         $this->sendEmails($customerEmail, $ownerEmails, $data);
 
         // Redirect or perform other actions as needed
-        redirect('admin/payments');
+        redirect('admin/pending_payments');
     } else {
         die('Something went wrong');
     }

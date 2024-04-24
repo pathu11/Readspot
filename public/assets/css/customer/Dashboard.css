@@ -1,0 +1,302 @@
+.point-div {
+    /* background-color: yellow; */
+    min-height: 100px;
+    padding: 20px;
+    /* margin-bottom: 20px; */
+    border-radius: 15px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap:20px;
+}
+
+.total-div {
+    /* background-color: wheat; */
+    min-height: 100px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sub-total-div {
+    background-color: white;
+    height: 220px;
+    width: 45%;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+    /* gap:20px */
+}
+
+.sub-total-div1 {
+    background-color: white;
+    height: 220px;
+    width: 48%;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    text-align: center;
+    justify-content:center;
+    gap:15px;
+}
+
+.sub-total-div h3 {
+    color:  #009D94;
+}
+
+.sub-total-div1 h3 {
+    color:  #009D94;
+}
+
+.sub-total-div1 h1 {
+    color:  red;
+    font-size: 35px;
+    /* padding-left: 0px; */
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+    justify-content: center;
+}
+
+.sub-total-div1 img {
+    width: 50px;
+    height: 50px;
+}
+
+.add-buy-book {
+    /* background-color: blue; */
+    min-height: 100px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap:20px;
+}
+
+.add-book-div {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    gap:5px;
+    width: 50%;
+    /* min-height: 400px; */
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-book-div h3 {
+    margin-top: 0;
+}
+
+.no-of-books {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: brown; */
+    padding: 10px 30px 10px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    gap:20px;
+}
+
+.category-summary {
+    /* background-color: yellow; */
+    min-height: 100px;
+    padding: 20px;
+    /* margin-bottom: 20px; */
+    border-radius: 15px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap:20px;
+}
+
+/* .point-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #009D94;
+} */
+
+#myLineChart {
+    width: 400px;
+    height: 300px;
+}
+
+.point-chart {
+    position: relative;
+}
+
+.centered-text {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 18px; /* Adjust font size as needed */
+}
+
+.total-income-point {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 48%;
+    /* background-color: #009D94; */
+}
+
+.no-details {
+    height: 300px;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+@media screen and (max-width:900px) {
+    .point-div {
+        flex-direction: column;
+        padding: 0px;
+        margin-bottom: 20px;
+    }
+    .add-book-div {
+        width: 100%;
+    }
+
+    .total-div {
+        flex-direction: column;
+        padding: 0px;
+        margin-bottom: 20px;
+        gap:20px
+    }
+
+    .add-buy-book {
+        flex-direction: column;
+        padding: 0px;
+        margin-bottom: 20px;
+    }
+
+    .category-summary {
+        flex-direction: column;
+        padding: 0px;
+    }
+
+    .sub-total-div1 {
+        width: 100%;
+    }
+
+    .total-income-point {
+        width: 100%;
+    }
+
+    .no-details {
+        height: 200px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .total-income-point {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .sub-total-div {
+        background-color: white;
+        height: 180px;
+        width: 100%;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .sub-total-div1 h1 {
+        color:  red;
+        font-size: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        /* text-align: center; */
+        justify-content: center;
+        /* background-color: #009D94; */
+    }
+
+    .no-of-books h3{
+        font-size: 14px;
+    }
+
+    #myLineChart {
+        width: 300px;
+        height: 200px;
+    }
+
+    #myDoughnutChart {
+        width: 300px;
+        height: 200px;
+    }
+
+    #myPieChart1 {
+        width: 300px;
+        min-height: 200px;
+    }
+
+    #myPieChart2 {
+        width: 300px;
+        min-height: 200px;
+    }
+
+    .add-book-div {
+        padding: 10px;
+    }
+
+    .add-book-div h3 {
+        font-size: 14px;
+    }
+
+    .centered-text {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .no-details h1 {
+        font-size: 14px;
+    }
+    
+    .no-details {
+        height: 100px;
+    }
+}

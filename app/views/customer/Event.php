@@ -2,6 +2,8 @@
     $title = "My Events";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php
         require APPROOT . '/views/customer/sidebar.php'; //path changed
     ?>
@@ -10,46 +12,50 @@
             <div class="event-topic">
                 <h2>My Events</h2>
             </div>
+            <?php if(empty($data['eventDetails'])): ?>
+                <?php echo '
+                    <br><br><h3 style="text-align:center;">No events added yet.</h3>'; ?>
+            <?php else : ?>
             <div class="myevent">
-            <div class="event-search" id="searchForm" onsubmit="handleSearch()">
-                <input type="text" placeholder="Search.." name="search" id="searchInput">
-            </div>
-            <br>
-            <br>
-            <table border="1" id="eventTable">
-                <thead>
-                    <tr>
-                        <th onclick="sortTable(0)">Contents</th>
-                        <th onclick="sortTable(1)">Category</th>
-                        <th>VIew/Delete </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($data['eventDetails'] as $event): ?>
-                    <tr>
-                        <td><?php echo $event->title; ?></td>
-                        <td><?php echo $event->category_name; ?></td>
-                        <td class="action-buttons">
-                            <a href="<?php echo URLROOT; ?>/customer/UpdateEvent/<?php echo $event->id; ?>" style="text-decoration: none;">
-                                <button class="update-button">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </a>
-                            <a href="<?php echo URLROOT; ?>/customer/ViewMyEvent/<?php echo $event->id; ?>" style="text-decoration: none;">
-                                <button class="view-button">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </a>
-                            <a href="<?php echo URLROOT; ?>/customer/deleteEvent/<?php echo $event->id; ?>">
-                                <button class="delete-button">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                <div class="event-search" id="searchForm" onsubmit="handleSearch()">
+                    <input type="text" placeholder="Search.." name="search" id="searchInput">
+                </div>
+                <br>
+                <br>
+                <table border="1" id="eventTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Contents</th>
+                            <th onclick="sortTable(1)">Category</th>
+                            <th>VIew/Delete </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($data['eventDetails'] as $event): ?>
+                        <tr>
+                            <td><?php echo $event->title; ?></td>
+                            <td><?php echo $event->category_name; ?></td>
+                            <td class="action-buttons">
+                                <a href="<?php echo URLROOT; ?>/customer/UpdateEvent/<?php echo $event->id; ?>" style="text-decoration: none;">
+                                    <button class="update-button">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </a>
+                                <a href="<?php echo URLROOT; ?>/customer/ViewMyEvent/<?php echo $event->id; ?>" style="text-decoration: none;">
+                                    <button class="view-button">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </a>
+                                <a href="<?php echo URLROOT; ?>/customer/deleteEvent/<?php echo $event->id; ?>">
+                                    <button class="delete-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
             <ul class="pagination" id="pagination">
                 <li id="prevButton">«</li>
@@ -65,6 +71,7 @@
                 <li>10</li>
                 <li id="nextButton">»</li>
             </ul>
+            <?php endif; ?>
             <div class="e-vw">
                 <a href="<?php echo URLROOT; ?>/customer/Addevnt"><button class="e-vw-btn">Add a Event</button></a> <!--path changed-->
             </div>

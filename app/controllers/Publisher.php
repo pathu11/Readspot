@@ -12,64 +12,52 @@ class Publisher extends Controller{
         $this->userModel=$this->model('User');
         $this->orderModel=$this->model('Orders');
         $this->adminModel=$this->model('Admins');
-        $this->db = new Database();
+        $this->db = new Database();      
         
     }
-    public function test(){
-        if (!isLoggedInPublisher()) {
-            redirect('landing/login');
-        } else {
-            $user_id = $_SESSION['user_id'];
-            $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-            $publisher_id =$publisherDetails[0]->publisher_id;
-            $bookCount=$this->publisherModel->countBooks($publisher_id);
-            $orderCount=$this->orderModel->countOrders($publisher_id);
-            $orderProCount=$this->orderModel->countProOrders($publisher_id);
-            $orderDelCount=$this->orderModel->countDelOrders($publisher_id);
-            $orderShipCount=$this->orderModel->countShipOrders($publisher_id);
-            $orderReturnedCount=$this->orderModel->countReturnedOrders($publisher_id);
-            
-            $data = [
-                'publisherDetails' => $publisherDetails, 
-                'bookCount'    =>$bookCount,
-                'orderCount'    =>$orderCount,
-                'orderProCount'    =>$orderProCount,
-                'orderDelCount'    =>$orderDelCount,
-                'orderReturnedCount'    =>$orderReturnedCount,
-                'orderShipCount'    =>$orderShipCount,
-                'publisher_id'   =>$publisher_id ,
-                'publisherName'  =>$publisherDetails[0] ->name
-            ];
-            $this->view('publisher/test', $data);
-        } 
-    }
-   
     
     public function index(){
         if (!isLoggedInPublisher()) {
             redirect('landing/login');
         } else {
+
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $publisher_id =$publisherDetails[0]->publisher_id;
+            $publisher_name =$publisherDetails[0]->name;
             $bookCount=$this->publisherModel->countBooks($publisher_id);
             $orderCount=$this->orderModel->countOrders($publisher_id);
+            $paymentCount=$this->orderModel->countPayment($user_id);
             $orderProCount=$this->orderModel->countProOrders($publisher_id);
             $orderDelCount=$this->orderModel->countDelOrders($publisher_id);
             $orderShipCount=$this->orderModel->countShipOrders($publisher_id);
             $orderReturnedCount=$this->orderModel->countReturnedOrders($publisher_id);
-            
+            $weeklyPayments = $this->orderModel->getTotalPaymentsForCurrentMonthByWeek($user_id);
+            $weeklyPaymentsJson = json_encode($weeklyPayments);
+
+            $bookCategoryCount=$this->orderModel->getBookCategoryCountsByPublisher($publisher_id);
+            $bookCategoryCountBuy=$this->orderModel->getBookCategoryCountsByPublisherBuy($publisher_id);
+            $pendingPayment=$this->orderModel->getPendingPayment($user_id);
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'publisherDetails' => $publisherDetails, 
+                'publisherName' => $publisher_name, 
                 'bookCount'    =>$bookCount,
                 'orderCount'    =>$orderCount,
+                'paymentCount'    =>$paymentCount,
                 'orderProCount'    =>$orderProCount,
                 'orderDelCount'    =>$orderDelCount,
-                'orderReturnedCount'    =>$orderReturnedCount,
+                'orderReturnedCount' =>$orderReturnedCount,
                 'orderShipCount'    =>$orderShipCount,
                 'publisher_id'   =>$publisher_id ,
-                'publisherName'  =>$publisherDetails[0] ->name
+                'publisherName'  =>$publisherDetails[0] ->name,
+                'weeklyPaymentsJson'=>$weeklyPaymentsJson,
+                'bookCategoryCount'=>$bookCategoryCount,
+                'bookCategoryCountBuy'=>$bookCategoryCountBuy,
+                'pendingPayment'=>$pendingPayment,
+                'unreadCount'=>$unreadCount
             ];
+        //    print_r($pendingPayment);
             $this->view('publisher/index', $data);
         } 
     }
@@ -82,6 +70,7 @@ class Publisher extends Controller{
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $storeDetails = $this->publisherModel->getPublisherStoreDetails($publisherDetails[0]->publisher_id);
             $bookDetails = $this->publisherModel->findBookById($book_id);
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Check the value of the form_type field
@@ -119,7 +108,8 @@ class Publisher extends Controller{
                  'town_err'=>'',
                  'district_err'=>'',
                  'postal_code_err'=>'',
-                 'publisherName'  =>$publishers ->name
+                 'publisherName'  =>$publishers ->name,
+                 'unreadCount'=>$unreadCount
             ];
     
             $this->view('publisher/editpostalForBooks', $data);
@@ -127,7 +117,9 @@ class Publisher extends Controller{
     }
 }
     private function handleselectStoreForm($book_id){
+       
         $user_id = $_SESSION['user_id'];
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         $publisher_id=$publisherDetails[0]->publisher_id;
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -142,6 +134,7 @@ class Publisher extends Controller{
             'town' =>$storeDetails[0]->town ,
             'district' => $storeDetails[0]->district,
             'postal_code' => $storeDetails[0]->postal_code,
+            'unreadCount'=>$unreadCount
             
         ];
         if( $this->publisherModel->editpostalInBooks($data)){
@@ -153,7 +146,9 @@ class Publisher extends Controller{
     }
 
     private function handleaddStoreToBooksForm($book_id) {
+       
         $user_id = $_SESSION['user_id'];
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         $publisher_id=$publisherDetails[0]->publisher_id;
         // $storeDetails = $this->publisherModel->getPublisherStoreDetails($publisherDetails[0]->publisher_id);
@@ -172,6 +167,7 @@ class Publisher extends Controller{
             'town_err' => '',
             'district_err' => '',
             'postal_code_err' => '',
+            'unreadCount'=>$unreadCount
         ];
         
             if(empty($data['postal_name'])){
@@ -272,7 +268,7 @@ public function editAccountForBooks($book_id) {
     }else{
 
     $user_id = $_SESSION['user_id'];
-   
+    $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
     $publisherDetails = $this->publisherModel->findPublisherById($user_id);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -299,7 +295,8 @@ public function editAccountForBooks($book_id) {
             if ( $this->publisherModel->editAccountInBooks($data)  && $this->publisherModel->AddBookApproval($data)) {
                 // Now add book approval
 
-                flash('update_success', 'You have updated the account and added book approval successfully');
+                $_SESSION['success']=true;
+                
                 redirect('NewBooks/productGallery');
                
             } else {
@@ -323,6 +320,7 @@ public function editAccountForBooks($book_id) {
             'account_no_err' => '',
             'bank_name_err' => '',
             'branch_name_err' => '',
+            'unreadCount'=>$unreadCount
         ];
         $this->view('publisher/editAccountForBooks', $data);
     }
@@ -339,7 +337,7 @@ public function editAccountForBooks($book_id) {
                 $user_id = $_SESSION['user_id'];
                 
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-            
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 if ($publisherDetails) {
                 
                     $publisherid = $publisherDetails[0]->publisher_id;
@@ -360,7 +358,8 @@ public function editAccountForBooks($book_id) {
                 'publisherid' => $publisherid,
                 'publisherDetails' => $publisherDetails,
                 'messageDetails' => $messageDetails,
-                'publisherName'  =>$publisherDetails[0] ->name
+                'publisherName'  =>$publisherDetails[0] ->name,
+                'unreadCount'=>$unreadCount
             ];
         
 
@@ -376,7 +375,7 @@ public function editAccountForBooks($book_id) {
         
             if (isset($_SESSION['user_id'])) {
                 $user_id = $_SESSION['user_id'];
-                
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             
                 if ($publisherDetails) {
@@ -404,7 +403,8 @@ public function editAccountForBooks($book_id) {
                 'publisherDetails' => $publisherDetails,
                 'messageDetails' => $messageDetails,
                 'messageDetails2' => $messageDetails2,
-                'publisherName'  =>$publisherDetails[0] ->name
+                'publisherName'  =>$publisherDetails[0] ->name,
+                'unreadCount'=>$unreadCount
             ];
         
 
@@ -426,7 +426,7 @@ public function editAccountForBooks($book_id) {
 
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
-
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
 
             if ($publisherDetails) {
@@ -459,7 +459,8 @@ public function editAccountForBooks($book_id) {
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
             'customerName' => $customerName,
-            'publisherName' => $publisherName
+            'publisherName' => $publisherName,
+            'unreadCount'=>$unreadCount
         ];
 
         $this->view('publisher/deliveredorders', $data);
@@ -479,7 +480,7 @@ public function processingorders()
 
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
-
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
 
             if ($publisherDetails) {
@@ -512,7 +513,8 @@ public function processingorders()
             'publisherDetails' => $publisherDetails,
             'orderDetails' => $orderDetails,
             'customerName' => $customerName,
-            'publisherName' => $publisherName
+            'publisherName' => $publisherName,
+            'unreadCount'=>$unreadCount
         ];
 
         $this->view('publisher/processingorders', $data);
@@ -533,7 +535,7 @@ public function processingorders()
         
             if (isset($_SESSION['user_id'])) {
                 $user_id = $_SESSION['user_id'];
-                
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         
                 if ($publisherDetails) {
@@ -568,7 +570,8 @@ public function processingorders()
                 'orderDetails' => $orderDetails,
                 'customerName' => $customerName,
                 
-                'publisherName'  =>$publisherName
+                'publisherName'  =>$publisherName,
+                'unreadCount'=>$unreadCount
             ];
             $this->view('publisher/shippedorders',$data);
     }
@@ -586,7 +589,7 @@ public function processingorders()
             $publisherName = null;
             if (isset($_SESSION['user_id'])) {
                 $user_id = $_SESSION['user_id'];
-                
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         
                 if ($publisherDetails) {
@@ -621,7 +624,8 @@ public function processingorders()
                 'orderDetails' => $orderDetails,
                 'customerName' => $customerName,
                 
-                'publisherName'  =>$publisherName
+                'publisherName'  =>$publisherName,
+                'unreadCount'=>$unreadCount
             ];
             $this->view('publisher/returnedorders',$data);
     }
@@ -638,9 +642,11 @@ public function processingorders()
             $user_id = $_SESSION['user_id'];
             // Fetch publisher details and render the view
             $publisherDetails = $this->publisherModel->findPublisherById($user_id); // Ensure the method exists in the UserModel
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'publisherDetails' => $publisherDetails,
-                'publisherName'  =>$publisherDetails[0] ->name
+                'publisherName'  =>$publisherDetails[0] ->name,
+                'unreadCount'=>$unreadCount
             ];
             $this->view('publisher/setting', $data); // Ensure you are using the correct view file
         }
@@ -653,7 +659,7 @@ public function processingorders()
     
         $user_id = $_SESSION['user_id'];
 
-        
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Form submitted, process the data
     
@@ -719,7 +725,7 @@ public function processingorders()
                
                 
                 $data = [
-                    
+                    'unreadCount'=>$unreadCount,
                     'publisher_id' => $publisher_id,
                     'postal_name' => $publishers->postal_name,
                     'street_name' => $publishers->street_name,
@@ -749,13 +755,13 @@ public function processingorders()
     
         $user_id = $_SESSION['user_id'];
 
-        
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Form submitted, process the data
     
             // Sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
+            
             $data = [
                 'publisher_id' => $publisher_id,
                 'account_name' => trim($_POST['account_name']),
@@ -821,6 +827,7 @@ public function processingorders()
                     'account_no_err' => '',
                     'bank_name_err' => '',
                     'branch_name_err' => '',  
+                    'unreadCount'=>$unreadCount
                 ];
                 $this->view('publisher/editAccount',$data);
             }  
@@ -832,7 +839,7 @@ public function processingorders()
         }
     
         $user_id = $_SESSION['user_id'];
-
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Form submitted, process the data
@@ -938,6 +945,7 @@ public function processingorders()
                     'profile_img_err' => '',
                     'name_err' => '',
                     'contact_no_err' => '',
+                    'unreadCount'=>$unreadCount
                    
                 ];
 
@@ -952,7 +960,7 @@ public function processingorders()
         }
         $user_id = $_SESSION['user_id'];
         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -1023,11 +1031,12 @@ public function processingorders()
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $eventDetails = $this->publisherModel->getPublisherEventDetails($user_id);
-
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'publisherDetails' => $publisherDetails,
                 'publisherName' => $publisherDetails[0]->name,
-                'eventDetails' => $eventDetails
+                'eventDetails' => $eventDetails,
+                'unreadCount'=>$unreadCount
             ];
             $this->view('publisher/events',$data);
         }
@@ -1037,12 +1046,13 @@ public function processingorders()
         if(!isLoggedInPublisher()){
             redirect('landing/login');
         }
-        
+       
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
             if(isset($_SESSION['user_id'])){
                 $user_id = $_SESSION['user_id'];
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
                 $eventCategoryDetails = $this->adminModel->getEventCategories();
             }
@@ -1122,6 +1132,7 @@ public function processingorders()
         else{
             if(isset($_SESSION['user_id'])){
                 $user_id = $_SESSION['user_id'];
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $eventCategoryDetails = $this->adminModel->getEventCategories();
                 $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             }
@@ -1129,6 +1140,7 @@ public function processingorders()
                 'publisherDetails' => $publisherDetails,
                 'publisher_id' => $publisherDetails[0]->publisher_id,
                 'publisherName' => $publisherDetails[0]->name,
+                'unreadCount'=>$unreadCount,
                 'eventCategoryDetails'=>$eventCategoryDetails,
                 'user_type'=> 'Publisher',
                 'title'=>'',
@@ -1159,7 +1171,7 @@ public function processingorders()
     
         $user_id = $_SESSION['user_id'];
         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-        
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Form submitted, process the data
     
@@ -1240,7 +1252,8 @@ public function processingorders()
                     'town_err'=>'',
                     'district_err'=>'',
                     'postal_code_err'=>'',
-                    'publisherName'  =>$publishers ->name
+                    'publisherName'  =>$publishers ->name,
+                    'unreadCount'=>$unreadCount
                    
                 ];
 
@@ -1259,11 +1272,12 @@ public function stores(){
         $user_id = $_SESSION['user_id'];
         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         $storeDetails = $this->publisherModel->getPublisherStoreDetails($publisherDetails[0]->publisher_id);
-
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         $data = [
             'publisherDetails' => $publisherDetails,
             'publisherName' => $publisherDetails[0]->name,
-            'storeDetails' => $storeDetails
+            'storeDetails' => $storeDetails,
+            'unreadCount'=>$unreadCount
         ];
         $this->view('publisher/stores',$data);
     }
@@ -1277,6 +1291,7 @@ public function stores(){
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             // $storeDetails=$this->publisherModel->findStoreById($store_id);
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1355,7 +1370,8 @@ public function stores(){
                         'town_err'=>'',
                         'district_err'=>'',
                         'postal_code_err'=>'',
-                        'publisherName'  =>$publisherDetails[0] ->name
+                        'publisherName'  =>$publisherDetails[0] ->name,
+                        'unreadCount'=>$unreadCount
                     
                     ];
                     $this->view('publisher/updateStore',$data);
@@ -1402,7 +1418,7 @@ public function stores(){
 
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
-           
+            $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
             $sender_id=$ChatDetails[0]->outgoing_msg_id;
            
@@ -1413,7 +1429,8 @@ public function stores(){
                 'user_id'=>$user_id,
                 'publisherName'=>$publisherDetails[0]->name,
                 'publisherDetails'=>$publisherDetails,
-                'senderName'=>$senderDetails->name
+                'senderName'=>$senderDetails->name,
+                'unreadCount'=>$unreadCount
             ];
 
             $this->view('publisher/messages',$data);
@@ -1427,6 +1444,7 @@ public function payments(){
     else{
 
         $user_id = $_SESSION['user_id'];
+        $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
         $publisherDetails = $this->publisherModel->findPublisherById($user_id);
         $paymentDetails = $this->publisherModel->getPaymentDetails($user_id);
         $data = [

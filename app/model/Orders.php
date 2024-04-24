@@ -319,6 +319,48 @@
             return 0; 
         }
     }
+
+    public function getTotalPaymentsForCurrentMonthByWeek($user_id) {
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $weeklyPayments = [];
+    
+        for ($week = 1; $week <= 5; $week++) { 
+            $startDate = date('Y-m-d', strtotime("first day of this month", strtotime("$currentYear-$currentMonth-01")) + ($week - 1) * 7 * 24 * 3600);
+            $endDate = date('Y-m-d', strtotime("first day of this month", strtotime("$currentYear-$currentMonth-01")) + ($week * 7 * 24 * 3600) - 1);
+    
+            $query = 'SELECT SUM(payment) AS total_payment FROM payments WHERE paid_date BETWEEN :start_date AND :end_date AND user_id = :user_id';
+            $this->db->query($query);
+            $this->db->bind(':start_date', $startDate);
+            $this->db->bind(':end_date', $endDate);
+            $this->db->bind(':user_id', $user_id);
+        
+            // Execute the query
+            $this->db->execute();
+        
+            // Fetch the result
+            $row = $this->db->single();
+        
+            // Add the total payment for the week to the array
+            $weeklyPayments[] = $row->total_payment; // Accessing object property
+        
+        }
+    
+        return $weeklyPayments;
+    }
+    
+    
+    public function countPayment($user_id){    
+        $this->db->query('SELECT user_id, SUM(payment) AS total_payment FROM payments WHERE user_id = :user_id GROUP BY user_id=:user_id');
+        $this->db->bind(':user_id', $user_id);
+        $result = $this->db->single();
+        
+        if ($result) {
+            return $result->total_payment;
+        } else {
+            return 0; 
+        }
+    }
     public function countReturnedOrders($publisher_id){    
         $this->db->query('SELECT COUNT(*) as orderCount  FROM order_details 
         INNER JOIN books ON order_details.book_id = books.book_id
@@ -406,15 +448,65 @@
         return $this->db->rowCount() > 0;
     }
 
+    // public function findOrdersByCustomerId($customer_id) {
+    //     $this->db->query('SELECT o.tracking_no, od.status ,o.order_id
+    //                       FROM orders o
+    //                       LEFT JOIN order_details od ON o.order_id = od.order_id
+    //                       WHERE o.customer_id = :customer_id ORDER BY o.order_date DESC');
+    //     $this->db->bind(':customer_id', $customer_id);
+    
+    //     return $this->db->resultSet();
+    // }
+
     public function findOrdersByCustomerId($customer_id) {
-        $this->db->query('SELECT o.tracking_no, od.status ,o.order_id
-                          FROM orders o
-                          LEFT JOIN order_details od ON o.order_id = od.order_id
-                          WHERE o.customer_id = :customer_id ORDER BY o.order_date DESC');
+        $this->db->query('SELECT DISTINCT
+                                o.order_id,
+                                o.tracking_no,
+                                o.total_price,
+                                o.total_delivery,
+                                od.status
+                            FROM 
+                                orders o
+                            LEFT JOIN 
+                                order_details od ON o.order_id = od.order_id
+                            WHERE 
+                                o.customer_id = :customer_id;
+        
+                        ');
         $this->db->bind(':customer_id', $customer_id);
     
         return $this->db->resultSet();
     }
+
+    
+    public function findOrdersByOrderId($order_id) {
+        $this->db->query('SELECT
+                            o.order_id,
+                            o.tracking_no,
+                            o.total_price,
+                            o.total_delivery,
+                            od.book_id,
+                            od.quantity,
+                            od.status,
+                            b.book_name,
+                            b.price,
+                            b.img1,
+                            b.type
+                        FROM
+                            orders o
+                        INNER JOIN
+                            order_details od ON o.order_id = od.order_id
+                        INNER JOIN
+                            books b ON od.book_id = b.book_id
+                        WHERE
+                            o.order_id = :order_id');
+        $this->db->bind(':order_id', $order_id);
+    
+        return $this->db->resultSet();
+    }
+    
+    
+
     public function cancelOrder($orderId, $reason) {
         $this->db->query('UPDATE order_details SET status = :status, reasonOfCancel = :reason WHERE order_id = :order_id');
         $this->db->bind(':order_id', $orderId);
@@ -513,6 +605,42 @@ public function getOrderDetailsFromOrderDetailsById($order_id){
     $this->db->bind(':order_id', $order_id);
     return $this->db->resultSet();
 
+}
+
+
+public function getBookCategoryCountsByPublisher($publisher_id) {
+    $query = "SELECT category, COUNT(*) AS count FROM books WHERE publisher_id = :publisher_id GROUP BY category";
+    $this->db->query($query);
+    $this->db->bind(':publisher_id', $publisher_id);
+    return $this->db->resultSet();
+}
+public function getBookCategoryCountsByPublisherBuy($publisher_id) {
+    $query = "SELECT b.category,COUNT(*) AS count FROM  order_details od JOIN books b ON od.book_id = b.book_id WHERE  b.publisher_id = :publisher_id GROUP BY   b.category";
+    $this->db->query($query);
+    $this->db->bind(':publisher_id', $publisher_id);
+    return $this->db->resultSet();
+}
+
+public function getPendingPayment($user_id){
+    $query = "SELECT ROUND(SUM(CASE WHEN b.type = 'new' THEN b.price * 0.95 ELSE b.price * 0.97 END),2 )AS total_income
+              FROM order_details od 
+              JOIN books b ON od.book_id = b.book_id 
+              WHERE od.sent_payment = 0 
+              AND od.status = 'delivered'
+              AND CASE 
+                      WHEN b.type = 'new' THEN (SELECT p.user_id FROM publishers p JOIN books b ON p.publisher_id = b.publisher_id WHERE b.book_id = od.book_id LIMIT 1)
+                      WHEN b.type = 'used' THEN (SELECT c.user_id FROM customers c JOIN books b ON c.customer_id = b.customer_id WHERE b.book_id = od.book_id LIMIT 1)
+                  END = :user_id";
+    
+    $this->db->query($query);
+    $this->db->bind(':user_id', $user_id);
+    $result = $this->db->single();
+   
+    if ($result) {
+        return $result->total_income;
+    } else {
+        return 0; 
+    }
 }
 
 

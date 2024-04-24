@@ -1,66 +1,80 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Messages</title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/delivery/notification.css" />
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/nav.css" />
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
+
+    <title>Messages</title>
 </head>
 
 <body>
-    <?php require APPROOT . '/views/publisher/sidebar.php';?>
-    <div class="chat-container1">
-        <input type="text" placeholder=" Search..." class="search-bar">
-    </div>
-    <div class="chat">
-        <div class="head">
-            <div class="head1">
-                <h4>Your Messages</h4>
-                
+    <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
+    <div class="container">
+    
+        <table id="eventTable">
+            <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
+            <div class="head">
+                <div class="head1">
+                    <h4>Chat Details</h4>
+                   
+                </div>
+
             </div>
-            <div class="head1">
-                <button id="markAllRead" class="markAllRead" >Mark all as read</button>
-            </div>
-        </div>      
-         <div id="messagesContainer">
-         <table>
-         <?php foreach ($data['chatDetails'] as $message): ?>
-            <tr >
-            
-            <a href="#"><th style="width:20%" >    
-                    <h4><?php echo $data['senderName']; ?></h5>
-                </th>
-                <td style="width:80%">
-                    <p><?php
+            <thead>
+                <tr>
+
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($data['chatDetails'] as $message): ?>
+                    <tr >
+                        <td ><?php echo $data['senderName']; ?></td>
+                       
+                        <td  title="<?php echo $message->msg; ?>">
+                            <?php
                     // Display only the first two lines of the message
                     $lines = explode("\n", $message->msg);
                     echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
-                ?></p>    
-                </td>
-                <td style="width:10%">
-                
-                <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $message->chat_id; ?>" class="view">View</a>   
-                
-                </td>
-                
-            </tr></a>
-<?php endforeach; ?>
-            
+                ?>
+                        </td>
+                        <td  class="action-buttons">
+                            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $message->chat_id; ?>">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
-            
-            
-         </div> 
-         <?php
-            require APPROOT . '/views/publisher/footer.php'; //path changed
-        ?>
-</body>
-<script>
-        function goBack() {
-            // Use the browser's built-in history object to go back
-            window.history.back();
-        }
+
         
-    </script>
+
+        <ul class="pagination" id="pagination">
+            <li id="prevButton">«</li>
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li id="nextButton">»</li>
+        </ul>
+    </div>
+
+    <script src="<?php echo URLROOT; ?>/assets/js/publisher/table.js"></script>
+    <script>
+    
+
+</body>
+
 </html>
