@@ -53,7 +53,17 @@
                 <h3>Author of Book : <span><?php echo $books->author; ?></span></h3><br>
                 <h3>Book Category : <span><?php echo $books->category; ?></span></h3><br>
                 
-                <h3>Price : <span><?php echo $books->price; ?></span></h3><br>
+                <h3>Price : <span>
+                    <?php if ($books->discounts != 0.00): ?>
+                        <span style="text-decoration: line-through;"><?php echo $books->price; ?></span> <!-- Display old price with underline -->
+                        <?php 
+                            $discountedPrice = $books->price - ($books->price * ($books->discounts / 100)); // Calculate discounted price
+                            echo $discountedPrice; // Display discounted price
+                        ?>
+                    <?php else: ?>
+                        <?php echo $books->price; ?>
+                    <?php endif; ?>
+                </span></h3><br>
                 <!-- <h3>Price Type : <span>Fixed</span></h3><br> -->
                 <h3>Weight (grams) : <span><?php echo $books->weight; ?></span></h3><br>
                 <h3>ISBN Number : <span><?php echo $books->ISBN_no; ?> </span></h3><br>
@@ -68,6 +78,14 @@
                 <h3>Town : <span><?php echo $books->town; ?></span></h3><br>
                 <h3>District : <span><?php echo $books->district; ?></span></h3><br>
                 <h3>Postal Code : <span><?php echo $books->postal_code; ?></span></h3><br>
+                <div class="stock-div">
+                    <!-- <h1>In Stock</h1> -->
+                    <?php if ($books->quantity == 0): ?>
+                        <h1 class="outStock">Out of Stock</h1>
+                    <?php else: ?>
+                        <h1>In Stock</h1>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
         
@@ -158,19 +176,19 @@
                         <h3><?php echo $reviews->name; ?></h3>
                     </div>
                     <div class="rev-date">
-                    <div class="rating-stars">
-                        <?php 
-                            $rating = $reviews->rate;
-                            // Loop to generate the appropriate number of star icons based on the rating
-                            for ($i = 0; $i < $rating; $i++) {
-                                echo '<span class="fas fa-star checked"></span>';
-                            }
-                            // Fill the remaining stars with empty stars
-                            for ($i = $rating; $i < 5; $i++) {
-                                echo '<span class="fas fa-star"></span>';
-                            }
-                        ?>
-                     </div>
+                        <div class="rating-stars">
+                            <?php 
+                                $rating = $reviews->rate;
+                                // Loop to generate the appropriate number of star icons based on the rating
+                                for ($i = 0; $i < $rating; $i++) {
+                                    echo '<span class="fas fa-star checked"></span>';
+                                }
+                                // Fill the remaining stars with empty stars
+                                for ($i = $rating; $i < 5; $i++) {
+                                    echo '<span class="fas fa-star"></span>';
+                                }
+                            ?>
+                        </div>
                         <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png"> -->
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
@@ -185,14 +203,12 @@
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
                         <?php endif; ?>
-</div>
-                          
-                <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
                     </div>
+                          
+                    <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
                  
                 </div>
                 <?php endforeach; ?>
-                
             </div>
         </div>
 

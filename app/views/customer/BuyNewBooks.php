@@ -54,20 +54,47 @@
                             <?php if ($counter >= 5) break 2; ?>
                             <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $book->book_id; ?>">
                                 <div class="B0-R">
+                                    <?php if ($book->quantity == 0): ?>
+                                        <div class="out-of-stock-tag">Out of Stock</div>
+                                    <?php else: ?>
+                                        <div class="in-of-stock-tag">In Stock</div>
+                                    <?php endif; ?>
+                                    <?php if ($book->discounts != 0.00): ?>
+                                        <div class="discount-badge"><?php echo $book->discounts; ?>%</div> 
+                                    <?php endif; ?>
                                     <?php if (isset($book->img1)): ?>
                                         <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $book->img1; ?>" alt="Book1" class="Book-N"> 
                                     <?php endif; ?>
                                     <h3><?php echo isset($book->book_name) ? $book->book_name : ''; ?></h3>
                                     <h3><?php echo isset($book->price) ? $book->price : ''; ?></h3>
+
                                     <div class="fav-cart">
                                         <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
                                         <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
+                                        <?php 
+                                            $num = 0; // Initialize the variable before the loop
+                                            foreach ($data['favoriteDetails'] as $favorite): 
+                                                if ($book->book_id == $favorite->item_id): 
+                                                    $num = 1;
+                                                    $fav_id = $favorite->fav_id;
+                                                    break; // Assuming you want to stop the loop once a match is found
+                                                endif;
+                                            endforeach;
+                                        ?>
 
-                                        <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $book->book_id; ?>">
-                                            <button class="book-button">
-                                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </button>
-                                        </a>
+                                        <?php if ($num == 1): ?>
+                                            <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                                                <button class="book-button-after-fav">
+                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                </button>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $book->book_id; ?>">
+                                                <button class="book-button">
+                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                </button>
+                                            </a>
+                                        <?php endif; ?>
                                         <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>">
                                             <button class="book-button">
                                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -124,12 +151,21 @@
                     $firstTenBooks = array_slice($data['bookDetails'], 0, 10);
                     foreach($firstTenBooks as $books): ?>
                         <div class="B0-N">
+                            <?php if ($books->quantity == 0): ?>
+                                <div class="out-of-stock-tag">Out of Stock</div>
+                            <?php else: ?>
+                                <div class="in-of-stock-tag">In Stock</div>
+                            <?php endif; ?>
+                            <?php if ($books->discounts != 0.00): ?>
+                                <div class="discount-badge"><?php echo $books->discounts; ?>%</div> 
+                            <?php endif; ?>
                             <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
                                 <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> 
                                 <h3><?php echo $books->book_name; ?></h3>
                                 <h3><?php echo $books->price; ?></h3>
                             </a>
-                            <div class="fav-cart">
+                            
+                            <!-- <div class="fav-cart">
                                 <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $books->book_id; ?>">
                                     <button class="book-button">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
@@ -140,7 +176,44 @@
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     </button>
                                 </a>
+                            </div> -->
+
+                            <div class="fav-cart">
+                                <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
+                                <?php 
+                                    $num = 0; // Initialize the variable before the loop
+                                    foreach ($data['favoriteDetails'] as $favorite): 
+                                        if ($books->book_id == $favorite->item_id): 
+                                            $num = 1;
+                                            $fav_id = $favorite->fav_id;
+                                            break; // Assuming you want to stop the loop once a match is found
+                                        endif;
+                                    endforeach;
+                                ?>
+
+                                <?php if ($num == 1): ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                                        <button class="book-button-after-fav">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $books->book_id; ?>">
+                                        <button class="book-button">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php endif; ?>
+                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                    <button class="book-button">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
                             </div>
+                            <!-- <div class="Book-discount">
+                                <p>30%</P>
+                            </div>  -->
                         </div>
                     <?php endforeach; ?>
                     <i class="fas fa-chevron-circle-right arrow right-arrow" aria-hidden="true"></i>
