@@ -448,15 +448,65 @@
         return $this->db->rowCount() > 0;
     }
 
+    // public function findOrdersByCustomerId($customer_id) {
+    //     $this->db->query('SELECT o.tracking_no, od.status ,o.order_id
+    //                       FROM orders o
+    //                       LEFT JOIN order_details od ON o.order_id = od.order_id
+    //                       WHERE o.customer_id = :customer_id ORDER BY o.order_date DESC');
+    //     $this->db->bind(':customer_id', $customer_id);
+    
+    //     return $this->db->resultSet();
+    // }
+
     public function findOrdersByCustomerId($customer_id) {
-        $this->db->query('SELECT o.tracking_no, od.status ,o.order_id
-                          FROM orders o
-                          LEFT JOIN order_details od ON o.order_id = od.order_id
-                          WHERE o.customer_id = :customer_id ORDER BY o.order_date DESC');
+        $this->db->query('SELECT DISTINCT
+                                o.order_id,
+                                o.tracking_no,
+                                o.total_price,
+                                o.total_delivery,
+                                od.status
+                            FROM 
+                                orders o
+                            LEFT JOIN 
+                                order_details od ON o.order_id = od.order_id
+                            WHERE 
+                                o.customer_id = :customer_id;
+        
+                        ');
         $this->db->bind(':customer_id', $customer_id);
     
         return $this->db->resultSet();
     }
+
+    
+    public function findOrdersByOrderId($order_id) {
+        $this->db->query('SELECT
+                            o.order_id,
+                            o.tracking_no,
+                            o.total_price,
+                            o.total_delivery,
+                            od.book_id,
+                            od.quantity,
+                            od.status,
+                            b.book_name,
+                            b.price,
+                            b.img1,
+                            b.type
+                        FROM
+                            orders o
+                        INNER JOIN
+                            order_details od ON o.order_id = od.order_id
+                        INNER JOIN
+                            books b ON od.book_id = b.book_id
+                        WHERE
+                            o.order_id = :order_id');
+        $this->db->bind(':order_id', $order_id);
+    
+        return $this->db->resultSet();
+    }
+    
+    
+
     public function cancelOrder($orderId, $reason) {
         $this->db->query('UPDATE order_details SET status = :status, reasonOfCancel = :reason WHERE order_id = :order_id');
         $this->db->bind(':order_id', $orderId);

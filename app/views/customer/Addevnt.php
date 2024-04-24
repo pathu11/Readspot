@@ -4,7 +4,7 @@
 ?>
     <?php
         require APPROOT . '/views/customer/sidebar.php'; //path changed
-    ?>
+    ?>          
     <div class="container">
         <div class="add-content">
             <div class="back-btn-div">
@@ -103,19 +103,34 @@
                 <button onclick="closeModal()">OK</button>
             </div>
         </div>
+
+        <script>
+            function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/customer/Event"; // Redirect to the event page
+            }
+
+            <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['showModal']) && $_SESSION['showModal']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['showModal']);
+            }
+            ?>
+
+            // Submit form function
+            function submitForm() {
+                document.getElementById("eventForm").submit();
+            }
+        </script>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
         ?>
     </div>
-
-    <script>
-        function showModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-        }
-
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-    </script>
