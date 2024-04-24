@@ -87,7 +87,7 @@
 
   <div id="myModal2" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeFullView()">&times;</span>
+      <span class="close" onclick="closeModal()">&times;</span>
       <h2>Challenge Description</h2>
       <p id="fullDescription"></p>
     </div>
@@ -96,6 +96,7 @@
   <script>
     function closeModal() {
         document.getElementById("myModal").style.display = "none";
+        document.getElementById("myModal2").style.display = "none";
     }
 
     function deleteChallenge(challengeId){
