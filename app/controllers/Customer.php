@@ -815,6 +815,8 @@ class Customer extends Controller {
              $endOfWeek = date('Y-m-d', strtotime('sunday this week'));
              
              $topRatedContent = $this->customerModel->getTopRatedContentOfWeek($startOfWeek, $endOfWeek);
+             $customer_id = $customerDetails[0]->customer_id;
+             $favoriteDetails = $this->customerModel->findContentFavoriteByCustomerId($customer_id);
             //  print_r($topRatedContent);
 
 //             $customerid = $customerDetails[0]->customer_id;
@@ -825,7 +827,8 @@ class Customer extends Controller {
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'contentDetails'=>$content_Details,
-                'topRatedContent'=>$topRatedContent
+                'topRatedContent'=>$topRatedContent,
+                'favoriteDetails' => $favoriteDetails
             ];
             // print_r($data['topRatedContent']);
             $this->view('customer/BookContents', $data);
@@ -1146,6 +1149,7 @@ public function BuyNewBooks()
                     $customerid = $customerDetails[0]->customer_id;
                     $UsedbookDetailsByTime = $this->customerModel->findUsedBooksByTime($customerid);
                     // $bookDetails = $this->customerModel->findUsedBookByNotCusId($customerid);
+                    $favoriteDetails = $this->customerModel->findUsedBooksFavoriteByCustomerId($customerid);
                 } else {
                     echo "Not found";
                 }
@@ -1157,8 +1161,8 @@ public function BuyNewBooks()
                     'customerImage' => $customerDetails[0]->profile_img,
                     'customerDetails' => $customerDetails,
                     'bookDetails' => $UsedbookDetailsByTime,
-                    'customerName' => $customerDetails[0]->first_name
-                    
+                    'customerName' => $customerDetails[0]->first_name,
+                    'favoriteDetails' => $favoriteDetails
                 ];
                 $this->view('customer/BuyUsedBook', $data);
         }

@@ -49,11 +49,29 @@
                             <h3><?php echo $bookDetails->price; ?></h3>
                             <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
                             <div class="fav-cart-msg">
-                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteUsedBooks/<?php echo $bookDetails->book_id; ?>">
-                                    <button class="book-button-U">
-                                        <i class="fa fa-heart" aria-hidden="true"></i>
-                                    </button>
-                                </a>
+                                <?php 
+                                    $num = 0; // Initialize the variable before the loop
+                                    foreach ($data['favoriteDetails'] as $favorite): 
+                                        if ($bookDetails->book_id == $favorite->item_id): 
+                                            $num = 1;
+                                            $fav_id = $favorite->fav_id;
+                                            break; // Assuming you want to stop the loop once a match is found
+                                        endif;
+                                    endforeach;
+                                ?>
+                                <?php if ($num == 1): ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                                        <button class="book-button-U-after-fav">
+                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToFavoriteUsedBooks/<?php echo $bookDetails->book_id; ?>">
+                                        <button class="book-button-U">
+                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php endif; ?>
                                 <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $bookDetails->book_id; ?>">
                                     <button class="book-button-U">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
