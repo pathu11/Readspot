@@ -1,5 +1,5 @@
 <?php
-// db param
+
 define('DB_HOST','readspot.cbusia0uaymm.ap-southeast-2.rds.amazonaws.com');
 define('DB_USER','readspot');
 define('DB_PASS','Admin#1234');
@@ -8,6 +8,7 @@ define('DB_NAME','readspot');
 // define('DB_USER','root');
 // define('DB_PASS','');
 // define('DB_NAME','readspot');
+
 define('APPROOT', dirname(dirname(__FILE__)));
 
 define('URLROOT','http://localhost:8080/Readspot');

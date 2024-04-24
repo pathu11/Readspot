@@ -7,7 +7,7 @@
     padding: 10px 5px;
     display: flex;
     justify-content: space-between;
-    background-color: #D2EAE9;
+    background-color: #70bfba;
     align-items: center;
     z-index: 100;
 }
@@ -48,8 +48,8 @@
 
 .navigation a, .navigation button {
     position: relative;
-    font-size: 1.1em;
-    color: #525252;
+    font-size: 15px;
+    color: #272727;
     text-decoration: none;
     font-weight: 500;
     margin-left: 16px;
@@ -63,7 +63,7 @@
     bottom: -6px;
     width: 100%;
     height: 3px;
-    background: #525252;
+    background: #ffffff;
     border-radius: 5px;
     transform-origin: right;
     transform: scaleX(0);
@@ -81,8 +81,8 @@
 }
 
 .navigation a.active {
-    background-color: #70BFBA;
-    border-radius: 10px;
+    /* background-color: #70BFBA;
+    border-radius: 10px; */
     color: #fff;
     padding: 8px;
 }
@@ -143,10 +143,9 @@
 }
 
 .sub-menu{
-    background: #fff;
+    background: #ffffff;
     padding: 20px;
     margin: 10px;
-    /* backdrop-filter: blur(5px); */
     border-radius: 20px;
 }
 
@@ -187,12 +186,13 @@
 
 .sub-menu-link p {
     width: 100%;
+    font-size: 14px
 }
 
 .sub-menu-link img {
-    width: 30px;
-    height: 30px;
-    background: black;
+    width: 25px;
+    height: 25px;
+    background: #303030;
     border-radius: 50%;
     padding: 5px;
     margin-right: 15px;

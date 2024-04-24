@@ -365,11 +365,15 @@ class Delivery extends Controller{
         $data=[
 
             'sender_name'=>$deliveryDetails[0]->name,
-            'messageToPublisher' => "Picked up   your order from  your location  successfully",
+            'messageToPublisher' => "We're pleased to notify you that the order (order_id:. $order_id.)  has been successfully picked up from your location.  Our delivery team has ensured a smooth pickup process and everything is on track for the next stage.
+
+            Thank you for promptly preparing the order and making it ready for pickup. Your cooperation is invaluable in ensuring timely deliveries to our customers.
+            
+            Warm regards,Readspot Team",
             'user_idPub' => $ownerDetails[0]->user_id,
             'sender_id'=>$user_id,
             'topic'=>"Delivery Status",
-            'message'=>"picked up  your order from the pick up location  successfully",
+            'message'=>"We're excited to inform you that your order has been successfully picked up from the designated location. Our team is now on the move to ensure swift delivery to your doorstep. Rest assured, your package is en route and will soon be in your hands. Thank you for choosing us! ",
             'user_id'=>$customerDetails[0]->user_id,
             'reciever_email'=>$customerDetails[0]->email,
             
@@ -411,11 +415,25 @@ class Delivery extends Controller{
            
 
             'sender_name'=>$deliveryDetails[0]->name,
-            'messageToPublisher' => "Delivered  your order from the your location to your customer's  location successfully",
+            'messageToPublisher' => "We are pleased to inform you that your order has been successfully delivered from your location to your customer's location.  This marks the completion of the delivery process, ensuring that your customer receives their order promptly and in excellent condition.
+
+            Thank you for your cooperation throughout the delivery process. Should you have any further inquiries or require assistance, please feel free to reach out to us.
+            
+            Best regards,Readspot Team",
+
             'user_idPub' => $ownerDetails[0]->user_id,
             'sender_id'=>$user_id,
             'topic'=>"Delivery Status",
-            'message'=>"Delivered  your order from the pick up location to your location successfully",
+            'message'=>"
+
+            We're thrilled to share the exciting news that your order has been successfully delivered from the pickup location to your specified address!  Our delivery team has ensured that your package reached you safely and on time.
+            
+            We hope that your order meets your expectations and brings joy to your day. Thank you for choosing us for your shopping needs and entrusting us with your delivery.
+            
+            Should you have any questions or need further assistance, please feel free to reach out to us. We're here to help!
+            
+            Best regards,
+            Readspot Team",
             'user_id'=>$customerDetails[0]->user_id,
             'reciever_email'=>$customerDetails[0]->email,
             
@@ -509,8 +527,6 @@ class Delivery extends Controller{
             die('Something went wrong: ' . $mail->ErrorInfo);
         }
     }
-    
-   
     
     public function message(){
         if (!isLoggedInDeliver()) {

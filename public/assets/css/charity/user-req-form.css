@@ -1,0 +1,181 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.uf-requestTable {
+    width: 90%;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.uf-table-header h2 {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    background-color: #70bfba;
+    color: #f8f8f8;
+    border-radius: 2px;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+}
+
+.uf-requestTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.uf-requestTable input[readonly],
+.uf-requestTable textarea[readonly] {
+    background-color: #f2f2f2;
+}
+
+.uf-requestTable th,
+.uf-requestTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.uf-requestTable th {
+    background-color: #f2f2f2;
+    font-size: 14px;
+}
+
+.uf-requestTable input[type="text"],
+.uf-requestTable input[type="date"],
+.uf-requestTable input[type="time"],
+.uf-requestTable input[type="email"],
+.uf-requestTable input[type="tel"],
+.uf-requestTable input[type="number"],
+.uf-requestTable textarea,
+.uf-requestTable button,
+.uf-requestTable input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+}
+
+.uf-requestTable textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+.uf-confirm-req,
+.uf-reject-req {
+    background-color:#009d94;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.uf-reject-req {
+    background-color: rgb(131, 131, 131);
+}
+
+.uf-confirm-req:hover {
+    background-color: #00706b;
+}
+
+.uf-reject-req:hover {
+    background-color: red;
+}
+
+.uf-go-back-btn {
+    position: relative;
+    top: 15px;
+    left: 46px;
+    margin-bottom: 20px;
+    background-color: #70bfba;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.uf-go-back-btn i {
+    margin-right: 8px;
+}
+
+.uf-go-back-btn:hover {
+    background-color: #005348;
+}
+
+
+.uf-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.uf-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    width: 628px;
+    max-width: 585px;
+    height: 352px;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+.uf-modal-content textarea {
+    width: 550px;
+    height: 30px;
+    border: 1px solid rgb(70, 70, 70);
+    border-radius: 5px;
+}
+
+.uf-close-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+.send-button {
+    padding: 10px;
+    background-color: #005348;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    width: 100px;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+}
+
+.reasonD {
+    width: 550px;
+    height: 30px;
+    border: 1px solid rgb(70, 70, 70);
+    border-radius: 5px;
+}
+h3{
+    margin-bottom: 10px;
+}
