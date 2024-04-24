@@ -78,7 +78,7 @@
                     <td>Book Count:</td>
                     <td><input type="text" name="bookCount" value="<?php echo $event->book_count ?>" required disabled></td>
                 </tr>
-                
+
                 <tr>
                     <td>Book Category:</td>
                     <td>
@@ -99,6 +99,7 @@
                     <td><textarea name="description" required disabled><?php echo $event->description ?></textarea></td>
                 </tr>
                 <tr>
+                    <td>Description:</td>
                     <td>
                         <div class="ae-drop-image-box">
                             <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
