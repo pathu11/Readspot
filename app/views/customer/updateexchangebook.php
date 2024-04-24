@@ -51,7 +51,7 @@
                             <option value="Used" <?php echo ($data['condition'] == 'Used') ? 'selected' : ''; ?>>Used</option>
                             <option value="Not Used" <?php echo ($data['condition'] == 'Not Used') ? 'selected' : ''; ?>>Not Used</option>
                             <option value="Good" <?php echo ($data['condition'] == 'Good') ? 'selected' : ''; ?>>Good</option>
-                            <option value="Bad" <?php echo ($data['condition'] == 'Bad') ? 'selected' : ''; ?>>Bad</option>
+                            <option value="Acceptable" <?php echo ($data['condition'] == 'Acceptable') ? 'selected' : ''; ?>>Acceptable</option>
                             <!-- <option value="health">Classics</option> -->
                             <!-- Add more categories as needed -->
                         </select>
@@ -60,7 +60,7 @@
 
                     <div class="topic-book author">
                         <label class="label-topic">Published Year</label><br>
-                        <input type="Number"  id="publishedYear" name="publishedYear" class="form-topic" value="<?php echo $data['published_year']; ?>" min=1800 max="<?php echo date('Y'); ?>" required>
+                        <input type="Number"  id="publishedYear" name="publishedYear" class="form-topic" value="<?php echo $data['published_year']; ?>" min=1500 max="<?php echo date('Y'); ?>" required>
                         <span id="publishedYearError" style="color: red; display: none;">Please select a year.</span>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         <input type="number"   name="weights" value="<?php echo $data['weight']; ?>" class="form-topic" min=0 required>
                     </div>
                     <div class="topic-book author weight2">
-                        <a href="#"><button  class="weight-cal">Weight Calculator</button></a>
+                        <a href="#"><button  class="weight-cal" onclick='viewBookOnly()'>Weight Calculator</button></a>
                     </div>
                 </div>
         
@@ -86,9 +86,21 @@
                     <textarea id="description" name="description1" rows="12" class="form-topic" required><?php echo $data['descript']; ?></textarea>
                 </div>
 
-                <div class="disc-book">
+                <!-- <div class="disc-book">
                     <label class="label-topic">Which Books do you want</label><br>
                     <textarea id="description" name="description2" rows="12" class="form-topic" required><?php echo $data['booksIWant']; ?></textarea>
+                </div> -->
+
+                <div class="disc-book book-want">
+                    <label class="label-topic">Which Books do you want</label><br>
+                    <!-- <textarea id="description" name="description2" rows="12" class="form-topic" required></textarea> -->
+                    <div class="bookList">
+                        <input type="text" name="input[]" required>
+                    </div>
+                    <div class="add-remove-btn">
+                        <!-- <button type="button" class="RemoveInputButton" onclick="removeInput(this)">Remove</button><br> -->
+                        <button type="button" class="AddOneButton" onclick="addInput()">Add One</button>
+                    </div>
                 </div>
         
                 <div class="upload-pages">
@@ -158,8 +170,17 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
+        <div id="myModal" class="modal0">
+            <div class="modal-content0">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Weight Calculator</h2>
+                <div class="form1" id="bookDetailsTable">
+                    <!-- Event details will go here -->
+                </div>
+            </div>
+        </div>
         <?php
-            include_once 'footer.php';
+            require APPROOT . '/views/customer/footer.php';
         ?>
     </div>
 
@@ -177,3 +198,105 @@
             }
         });
     </script>
+
+<script>
+        function viewBook() {
+            var modal = document.getElementById("myModal");
+            var bookDetailsTable = document.getElementById("bookDetailsTable");
+
+            var detailsHTML = `
+                <form id="bookWeightCalculator">
+                    <input type="number" id="width" name="width" placeholder="Page Width (cm):"required><br>
+                    <input type="number" id="height" name="height" placeholder="Page Height (cm):"required><br>
+                    <input type="number" id="pages" name="pages" placeholder="Number of Pages:"required><br>
+                    <div class="tooltip">
+                        <input type="number" id="paperWeight" name="paperWeight" placeholder="Paper Weight (GSM):" required>
+                        <span class="tip-icon" onclick="toggleTooltip('paperWeight')">!</span>
+                        <div class="tooltiptext" id="paperWeightTip">
+                            90 -120 GSM paper: The average weight of regular office paper or copy paper<br>30 - 250 GSM paper: The weight most commonly used for promotional posters
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="tooltip">
+                        <input type="number" id="coverWeight" name="coverWeight" placeholder="Cover Weight (GSM, if applicable):">
+                        <span class="tip-icon" onclick="toggleTooltip('coverWeight')">!</span>
+                        <div class="tooltiptext" id="coverWeightTip">
+                            Standard values: 200-300 GSM for covers
+                        </div>
+                    </div>
+                    <br>
+                    <button class="submit" type="button" onclick="calculateWeight()">Calculate Weight</button>
+                </form>
+                <div id="result">
+                    
+                </div>
+            `;
+
+            bookDetailsTable.innerHTML = detailsHTML;
+            modal.style.display = "block";
+        }
+
+        function viewBookOnly() {
+            // Display only the book details table
+            viewBook();
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+
+
+    <script>
+        function calculateWeight() {
+            // Get values from the form
+            var width = parseFloat(document.getElementById("width").value);
+            var height = parseFloat(document.getElementById("height").value);
+            var pages = parseInt(document.getElementById("pages").value);
+            var paperWeight = parseFloat(document.getElementById("paperWeight").value);
+            var coverWeight = parseFloat(document.getElementById("coverWeight").value) || 0;
+
+            if (width <= 0 || height <= 0 || pages <= 0 || paperWeight <= 0) {
+                document.getElementById("result").innerHTML = "All input values must be positive.";
+                return; // Exit the function if any value is not positive
+            }
+
+            // Calculate area of one page
+            var areaPerPage = width * height;
+
+            // Calculate total weight
+            var totalWeight = areaPerPage * pages * paperWeight / 10000 + coverWeight;
+
+            // Display the result
+            document.getElementById("result").innerHTML = "Estimated Weight: " +"<br>"+ totalWeight.toFixed(2) + " grams";
+        }
+    </script>
+
+<script>
+        function goBack() {
+            // Use the browser's built-in history object to go back
+            window.history.back();
+        }
+        function toggleTooltip(inputId) {
+            var tooltip = document.getElementById(inputId + 'Tip');
+            tooltip.classList.toggle('active');
+        }
+</script>
+
+<script>
+    function addInput() {
+        var bookList = document.querySelector('.bookList');
+        var newInput = document.createElement('div');
+        newInput.innerHTML = `
+            <input type="text" name="input[]" required>
+            <button type="button" class="RemoveInputButton" onclick="removeInput(this)">Remove</button><br>
+        `;
+        bookList.appendChild(newInput);
+    }
+
+    function removeInput(button) {
+        var inputDiv = button.parentElement;
+        inputDiv.remove();
+    }
+</script>

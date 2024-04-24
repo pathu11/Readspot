@@ -2156,7 +2156,7 @@ public function BuyNewBooks()
                 'category' => trim($_POST['category']),
                 'weight' => trim($_POST['weights']),
                 'descript' => trim($_POST['description1']),
-                'booksIWant' => trim($_POST['description2']),
+                'booksIWant' => isset($_POST['input']) ? implode(', ', array_map('trim', $_POST['input'])) : '',
                 'img1' => '',
                 'img2' => '',
                 'img3' => '',
@@ -2483,6 +2483,7 @@ public function BuyNewBooks()
             // if($Event[0]->customer_id != $customer_id){
             //     redirect('customer/Event');
             // }
+            $eventCategoryDetails = $this->adminModel->getEventCategories();
             $data = [
                 'customerid' => $customer_id,
                 'customerDetails' => $customerDetails,
@@ -2503,7 +2504,8 @@ public function BuyNewBooks()
                 'img2' => $Event[0]->img2,
                 'img3' => $Event[0]->img3,
                 'img4' => $Event[0]->img4,
-                'img5' => $Event[0]->img5
+                'img5' => $Event[0]->img5,
+                'eventCategoryDetails'=>$eventCategoryDetails
             ];
             $this->view('customer/UpdateEvent', $data);
         }

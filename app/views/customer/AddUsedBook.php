@@ -298,13 +298,3 @@
         }
 </script>
 
-<script>
-        function goBack() {
-            // Use the browser's built-in history object to go back
-            window.history.back();
-        }
-        function toggleTooltip(inputId) {
-            var tooltip = document.getElementById(inputId + 'Tip');
-            tooltip.classList.toggle('active');
-        }
-</script>
