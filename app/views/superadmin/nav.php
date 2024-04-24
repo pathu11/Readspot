@@ -72,9 +72,9 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bxs-credit-card icon"></i>
-                <span class="link">Orders</span>
+              <a href="<?php echo URLROOT; ?>/superadmin/reports" class="nav-link">
+                <i class="bx bxs-report icon"></i>
+                <span class="link">Reports</span>
               </a>
             </li>
             
