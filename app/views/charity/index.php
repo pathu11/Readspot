@@ -23,7 +23,7 @@
             <a href="event">Event Management</a>
             <a href="donation">Donation Requests</a>
 
-            <a href="aboutUs">
+            <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
             </a>

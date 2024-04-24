@@ -46,6 +46,11 @@ class Charity extends Controller
         $this->view('charity/userRequest');
     }
 
+    public function deletedsuccessfully()
+    {
+        $this->view('charity/eleted-successfully');
+    }
+
     public function userrequestform()
     {
         $this->view('charity/user-req-form');
@@ -64,6 +69,10 @@ class Charity extends Controller
     public function aboutUs()
     {
         $this->view('charity/aboutus');
+    }
+
+    public function notification(){
+        $this->view('charity/notification') ;
     }
 
     public function donationQuery()

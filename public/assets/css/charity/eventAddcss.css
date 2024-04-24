@@ -128,7 +128,7 @@ body {
 }
 
 .ae-drop-image-box input[type="file"] {
-    width:auto;
+    width:50%;
     height: 100%;
     position: absolute;
     top: 0;
