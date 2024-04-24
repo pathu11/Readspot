@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+
+/*Start Global Style*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* body */
+body {
+    background: #73cbc7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Fix the size and hide overflow */
+    backdrop-filter: blur(5px); /* Add blur for glass effect */
+  }
+  
+  
+  .modal-content h2 {
+    color: white;
+    font-size: 14px;
+  }
+  
+/* container */
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    height: 100%
+}
+
+.login,
+.register {
+    width: 50%
+}
+
+
+/********************************************/
+/*Login Page*/
+/*Login Style*/
+.login {
+    float: right;
+    background-image: linear-gradient(135deg, #02514C 5%, #009D94 95%);
+    width: 50%;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    padding: 100px;
+}
+
+.login h1 {
+    margin-bottom: 40px;
+    font-size: 38px;
+    color:white;
+}
+
+
+.login  button{
+    /* position: absolute; */
+    width:80%;
+    border-radius: 15px;
+    padding: 13px 30px;
+    background-color: whitesmoke;
+    border: none;
+    color: black;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+
+.login  button:hover {
+    background-color: gainsboro;
+    border: #2e2e2e;
+}
+
+
+.login img {
+    height: 48px;
+    width: 48px;
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+}
+
+.login img:hover {
+    height: 54px;
+    width: 54px;
+    background-color: rgb(238, 228, 228);
+    border-radius: 10px;
+}
+
+
+/*Register Style*/
+.register {
+    float: left;
+    background-image: linear-gradient(135deg, white 5%, white 95%);
+    height: 100%;
+    width: 50%;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.register img {
+    height: 100%;
+    width: 100%;
+    margin-top: -80;
+}
+

@@ -41,8 +41,13 @@
             <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>SignUp</button></a>
         </div>  
       </div>
+    
+
+   
+
 </body>
 </html>
+
 <script>
    document.getElementById('togglePassword').addEventListener('click', function() {
   var passwordInput = document.querySelector('input[name="pass"]');
