@@ -1177,6 +1177,7 @@ public function reports(){
         $this->view('superadmin/reports', $data);
     }
 }
+}
 
 
     
