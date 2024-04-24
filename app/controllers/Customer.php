@@ -384,7 +384,7 @@ class Customer extends Controller {
                 // echo "<script>alert('Your record has been recorded. Wait for admin approval'); window.location.href = '".URLROOT."/customer/Event';</script>";
                 // redirect('customer/Event');
                 // echo "<script>showModal();</script>";
-                $_SESSION['showModal1'] = true; // Set session variable to true
+                $_SESSION['showModal'] = true; // Set session variable to true
                 redirect('customer/addevnt');
 
             }else{
