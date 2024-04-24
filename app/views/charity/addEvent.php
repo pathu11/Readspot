@@ -73,6 +73,10 @@
                         <td><input type="time" name="endTime" required></td>
                     </tr>
                     <tr>
+                        <td>Book Count:</td>
+                        <td><input type="text" name="bookCount" required></td>
+                    </tr>
+                    <tr>
                         <td>Book Category:</td>
                         <td>
                             <label><input type="checkbox" name="bookCategory[]" value="fiction"> Fiction</label><br>

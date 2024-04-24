@@ -14,7 +14,7 @@
 
 <body>
     <div id="dashboard">
-    <?php $event = $data['event'] ?>
+        <?php $event = $data['event'] ?>
     </div>
     <header>
         <div>
@@ -72,6 +72,13 @@
                     <td>End Time:</td>
                     <td><input type="time" name="endTime" value="<?php echo $event->end_time ?>" required disabled></td>
                 </tr>
+
+                <!-- need to be add in DB -->
+                <tr>
+                    <td>Book Count:</td>
+                    <td><input type="text" name="bookCount" value="<?php echo $event->book_count ?>" required disabled></td>
+                </tr>
+                
                 <tr>
                     <td>Book Category:</td>
                     <td>
@@ -138,7 +145,7 @@
 <script>
     function enableEditing() {
         var btn = document.getElementById("ve-editbtn");
-        var dltBtn =document.getElementById("ve-dltbtn");
+        var dltBtn = document.getElementById("ve-dltbtn");
         var form = document.getElementById("eventForm");
         var inputs = form.querySelectorAll("input, textarea, select");
 

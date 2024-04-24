@@ -45,6 +45,7 @@ body {
 .ae-requestTable input[type="date"],
 .ae-requestTable input[type="time"],
 .ae-requestTable input[type="tel"],
+.ae-requestTable input[type="number"],
 .ae-requestTable textarea,
 .ae-requestTable button,
 .ae-requestTable input[type="file"] {
