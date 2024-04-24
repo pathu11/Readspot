@@ -24,17 +24,34 @@
     align-items: center;
     /* background-color: aquamarine; */
 }
+
+.event-img-div {
+    width: 30%;
+}
+
 .req-books-details-D, .req-books-details-E {
     /* background-color: aquamarine; */
     padding: 5px 15px 5px 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
 }
+
+.req-books-details-E {
+    width: 30%;
+    height: 350px;
+    border-radius: 30px;
+}
+
 .donate-des-div, .event-des-div {
     text-align: justify;
     /* background-color: aquamarine; */
     padding: 15px 15px 5px 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.event-des-div {
+    width: 30%;
+    height: 350px;
+    border-radius: 30px;
 }
 
 .donate-btn-div, .event-des-div{
@@ -49,7 +66,7 @@
 }
 
 .donate-img, .event-img {
-    height: 400px;
+    height: 350px;
     width: 300px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -95,8 +112,15 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+@media screen and (max-width:1000px) {
+    .event-main {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 @media screen and (max-width:600px) {
-    .donate-main, .event-main {
+    .donate-main {
         display: flex;
         flex-direction: column;
     }
