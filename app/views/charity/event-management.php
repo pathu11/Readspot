@@ -9,11 +9,62 @@
     <title>ReadSpot Online Book store</title>
 </head>
 
+<style>
+    /* Modal styles */
+    .em-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .em-modal-content {
+        background-color: #fefefe;
+        padding: 20px;
+        border-radius: 8px;
+        width: 355px;
+        margin-left: 37%;
+        margin-top: 15%;
+        text-align: center;
+    }
+
+    .em-modal-content i {
+        font-size: 30px;
+        color: red;
+        margin-bottom: 20px;
+    }
+
+    .em-modal-content p {
+        margin-bottom: 20px;
+    }
+
+    .em-modal-content button {
+        padding: 5px 62px;
+        font-size: 14px;
+        background-color: #70BFBA;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .em-modal-content button:hover {
+        background-color: #009d94;
+    }
+</style>
+
 <body>
     <header>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
-           
+
         </div>
         <nav>
             <a href="./">Home</a>
@@ -22,7 +73,6 @@
             <a href="donation">Donation Requests</a>
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
@@ -31,7 +81,7 @@
             </button>
             <div class="dropdown-content">
                 <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="<?php echo URLROOT;?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="<?php echo URLROOT; ?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
     </header>
@@ -80,7 +130,7 @@
                 </thead>
 
                 <tbody>
-                    <?php foreach ($data['allEvents'] as $event): ?>
+                    <?php foreach ($data['allEvents'] as $event) : ?>
                         <tr>
                             <td>1</td>
                             <td><?php echo $event->event_name ?></td>
@@ -88,32 +138,42 @@
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
-                                
-                            <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
-                                <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
+
+                                <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
+                                    <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
                                     <button class="view-button">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                            </form>
-                                
-                                <?php if($event->status == 0) { ?>
-                                    <form action="<?php URLROOT?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
-                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
-                                        <button type="submit" class="delete-button">
+                                </form>
+
+                                <?php if ($event->status == 0) { ?>
+                                    <form action="<?php echo URLROOT; ?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
+                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id; ?>">
+                                        <button type="button" class="em-delete-button">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 <?php } ?>
+
+                                <div id="em-deleteModal" class="em-modal">
+                                    <div class="em-modal-content">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <p>Are you sure you want to delete this event?</p>
+                                        <button id="em-yesButton">Yes</button>
+                                        <button id="em-noButton">No</button>
+                                    </div>
+                                </div>
+
                                 <!-- <button type="submit" class="delete-button">
                                         <i class="fas fa-trash"></i>
                                 </button> -->
-                        </td>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
-            
+
             <!-- Modal for event details -->
             <!-- <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -160,5 +220,38 @@
     </footer>
     <script src=<?= URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
 </body>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll(".em-delete-button");
+        const deleteModal = document.getElementById("em-deleteModal");
+        const yesButton = document.getElementById("em-yesButton");
+        const noButton = document.getElementById("em-noButton");
+
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                deleteModal.style.display = "block";
+            });
+        });
+
+        yesButton.addEventListener("click", function() {
+            deleteItem();
+        });
+
+        noButton.addEventListener("click", function() {
+            closeModal();
+        });
+
+        function deleteItem() {
+            alert("Item deleted!");
+            closeModal();
+        }
+
+        function closeModal() {
+            deleteModal.style.display = "none";
+        }
+    });
+</script>
 
 </html>

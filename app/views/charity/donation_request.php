@@ -27,7 +27,6 @@
             <a href="donation" class="active">Donation Requests</a>
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
@@ -69,6 +68,48 @@
             </div>
         <?php } ?>
         
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: aqua;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: aqua;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: aqua;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
         <div class="reqCard checked">
             <div class="imgBox">
                 <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>

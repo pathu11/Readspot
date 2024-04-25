@@ -26,7 +26,6 @@
             <a href="donation">Donation Requests</a>
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
@@ -75,21 +74,11 @@
 
                 <!-- need to be add in DB -->
                 <tr>
-                    <td>Book Count:</td>
-                    <td><input type="text" name="bookCount" value="<?php echo $event->book_count ?>" required disabled></td>
-                </tr>
-
-                <tr>
-                    <td>Book Category:</td>
-                    <td>
-                        <label><input type="checkbox" name="bookCategory[]" value="fiction" disabled> Fiction</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="non-fiction" disabled> Non-Fiction</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="biography" disabled checked> Biography</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="science" disabled checked> Science</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="other" onchange="toggleOther()" disabled> Other</label>
-                        <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter Category" style="display: none;" disabled>
-                    </td>
-                </tr>
+                        <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon"></i></td>
+                        <td>
+                            <input type="date" id="deadlineDate" name="deadlineDate" required min="1000-01-01" max="9999-12-31">
+                        </td>
+                    </tr>
                 <tr>
                     <td>Charity Member Phone:</td>
                     <td><input type="tel" name="charityMemberPhone" value="<?php echo $event->contact_no ?>" placeholder="Enter phone number" required disabled></td>
@@ -99,7 +88,7 @@
                     <td><textarea name="description" required disabled><?php echo $event->description ?></textarea></td>
                 </tr>
                 <tr>
-                    <td>Description:</td>
+                    <td>Poster image:</td>
                     <td>
                         <div class="ae-drop-image-box">
                             <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>

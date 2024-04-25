@@ -368,7 +368,7 @@ tr:hover {
 }
 
 .update-button,
-.delete-button,
+.em-delete-button,
 .view-button {
     position: relative;
     border-radius: 50px;
@@ -387,7 +387,7 @@ tr:hover {
     background-color: #009d94;
 }
 
-.delete-button:hover{
+.em-delete-button:hover{
     background-color: rgb(206, 0, 0);
 }
 
@@ -435,11 +435,11 @@ tr:hover {
     background-color: #448b87;
 } */
 
-.delete-button {
+.em-delete-button {
     background-color:red;
 }
 
-.delete-button:hover {
+.em-delete-button:hover {
     opacity: 0.8;
 }
 
@@ -447,7 +447,7 @@ tr:hover {
     background-color: #70bfba;
 }
 
-.delete-button:hover {
+.em-delete-button:hover {
     opacity: 0.8;
 }
 
