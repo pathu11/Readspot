@@ -199,7 +199,7 @@ public function getDelivery(){
    
 
     public function restrictpublishers($user_id) {
-        $this->db->query('UPDATE publishers SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE publishers SET status="restrict" , restriction_date = NOW() WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
         $this->db->execute();
         if ($this->db->rowCount() > 0) {
@@ -209,7 +209,7 @@ public function getDelivery(){
         }
     }
     public function restrictcustomers($user_id) {
-        $this->db->query('UPDATE customers SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE customers SET status="restrict" , restriction_date = NOW() WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
         $this->db->execute();
         if ($this->db->rowCount() > 0) {
@@ -219,7 +219,7 @@ public function getDelivery(){
         }
     }
     public function restrictdelivery($user_id) {
-        $this->db->query('UPDATE delivery SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE delivery SET status="restrict" , restriction_date = NOW() WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
         $this->db->execute();
         if ($this->db->rowCount() > 0) {
@@ -229,7 +229,7 @@ public function getDelivery(){
         }
     }
     public function restrictmoderator($user_id) {
-        $this->db->query('UPDATE moderator SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE moderator SET status="restrict" , restriction_date = NOW() WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
         $this->db->execute();
         if ($this->db->rowCount() > 0) {
@@ -239,7 +239,7 @@ public function getDelivery(){
         }
     }
     public function restrictadmin($user_id) {
-        $this->db->query('UPDATE admin SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE admin SET status="restrict"  , restriction_date = NOW() WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
         $this->db->execute();
         if ($this->db->rowCount() > 0) {
@@ -249,7 +249,7 @@ public function getDelivery(){
         }
     }
     public function restrictcharity($user_id) {
-        $this->db->query('UPDATE charity SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE charity SET status="restrict" , restriction_date = NOW() WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
         $this->db->execute();
         if ($this->db->rowCount() > 0) {
@@ -259,7 +259,7 @@ public function getDelivery(){
         }
     }
     public function restrictusers($user_id) {
-        $this->db->query('UPDATE users SET status="restrict" WHERE user_id = :user_id');
+        $this->db->query('UPDATE users SET status="restrict"  , restriction_date = NOW() WHERE user_id = :user_id');
         // Bind values
         $this->db->bind(':user_id', $user_id);
 
@@ -575,7 +575,7 @@ public function rejectUser($user_id) {
     
     public function getUserRoleByRemoveId($removeId) {
         $this->db->query("
-            SELECT u.user_role,u.user_id
+            SELECT u.user_role,u.user_id,u.email,u.name
             FROM removed_list AS rl
             INNER JOIN users AS u ON rl.user_id = u.user_id
             WHERE rl.remove_id = :removeId ");
@@ -620,6 +620,20 @@ public function rejectUser($user_id) {
         $results=$this->db->resultSet();
         return $results;
     }
+    public function UserLoginCountToday() {
+        $today = date('Y-m-d');
+        $query = "SELECT u.user_role, COUNT(DISTINCT l.user_id) AS login_count 
+                  FROM user_logins l 
+                  INNER JOIN users u ON l.user_id = u.user_id 
+                  WHERE DATE(l.login_time) = :today 
+                  GROUP BY u.user_role";
+        $this->db->query($query);
+        $this->db->bind(':today', $today);
     
-
-  }
+        $results = $this->db->resultSet();
+    
+        return $results;
+    }
+    
+    
+  }    

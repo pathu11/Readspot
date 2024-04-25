@@ -21,22 +21,22 @@
         <div class="service-div-M" onclick="service1()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/new1.jpg" alt="Service 1" class="Sev1"> 
             <h3>Buy New Books</h3>
-            <p style="font-size:15px;">Purchase brand-new, high-quality books from a wide selection of genres and authors, ensuring you stay up-to-date with the latest literary releases.</p>
+            <p style="font-size:13px;">Purchase brand-new, high-quality books from a wide selection of genres and authors, ensuring you stay up-to-date with the latest literary releases.</p>
         </div>
         <div class="service-div-M" onclick="service2()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/used1.jpg" alt="Service 2" class="Sev1"> <!--path changed-->
             <h3>Buy Used Books</h3>
-            <p style="font-size:15px;">Explore a diverse collection of pre-owned books at budget-friendly prices, offering an affordable way to enjoy your favorite reads or discover new ones.</p>
+            <p style="font-size:13px;">Explore a diverse collection of pre-owned books at budget-friendly prices, offering an affordable way to enjoy your favorite reads or discover new ones.</p>
         </div>
         <div class="service-div-M" onclick="service3()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/exchange1.png" alt="Service 3" class="Sev1"> <!--path changed-->
             <h3>Exchange Books</h3>
-            <p style="font-size:15px;">Connect with fellow book enthusiasts to exchange books, fostering a community where individuals can share their favorite titles and explore new literary adventures.</p>
+            <p style="font-size:13px;">Connect with fellow book enthusiasts to exchange books, fostering a community where individuals can share their favorite titles and explore new literary adventures.</p>
         </div>
         <div class="service-div-M" onclick="service4()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/donate1.jpg" alt="Service 4" class="Sev1"> <!--path changed-->
             <h3>Donate Books</h3>
-            <p style="font-size:15px;">Contribute to a noble cause by donating your gently used books. Our platform facilitates book donations to charity organizations, spreading the joy of reading to those in need.</p>
+            <p style="font-size:13px;">Contribute to a noble cause by donating your gently used books. Our platform facilitates book donations to charity organizations, spreading the joy of reading to those in need.</p>
         </div>
         <div class="service-div-M" onclick="service5()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/content1.jpg" alt="Service 5" class="Sev1"> <!--path changed-->
@@ -46,7 +46,7 @@
         <div class="service-div-M" onclick="service6()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/event1.jpg" alt="Service 6" class="Sev1"> <!--path changed-->
             <h3>Events</h3>
-            <p style="font-size:15px;">Stay informed about literary events, book launches, and author meet-ups happening in your area. Engage with fellow book lovers and participate in enriching literary experiences.</p>
+            <p style="font-size:13px;">Stay informed about literary events, book launches, and author meet-ups happening in your area. Engage with fellow book lovers and participate in enriching literary experiences.</p>
         </div>
         <div class="service-div-M" onclick="service7()">
             <img src="<?php echo URLROOT; ?>/assets/images/customer/challenge1.jpg" alt="Service 7" class="Sev1"> <!--path changed-->

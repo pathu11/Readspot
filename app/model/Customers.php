@@ -17,7 +17,7 @@
       } catch (\Exception $e) {
           // Handle the exception (e.g., log it, display an error message)
           echo 'Error: ' . $e->getMessage();
-          return false;
+          return false; 
       }
     }
 
@@ -1099,7 +1099,7 @@ public function findReviewsByContentId($content_id, $category) {
 
 
 public function getOngoingChallenges($user_id){
-  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, 
+  $this->db->query('SELECT q.quiz_id, q.title, q.date, q.end_date, q.description, q.time_limit, q.img,
                     h.user_id AS attempted_by_user
                     FROM quiz q 
                     LEFT JOIN history h ON q.quiz_id = h.quiz_id AND h.user_id = :user_id
@@ -1300,6 +1300,20 @@ public function updateReviewHelpfulBooks($reviewId){
   } else {
       return false;
   }   
+}
+public function addNotification($data){
+  $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id,  :user_id, :topic, :message, :sender_name)');
+  $this->db->bind(':sender_id', $data['sender_id']);
+  $this->db->bind(':user_id', $data['reciever_id']);
+  $this->db->bind(':topic', $data['topic']);
+  $this->db->bind(':message', $data['message']);
+  $this->db->bind(':sender_name', $data['sender_name']);
+  if($this->db->execute()){
+      return true;
+    }else{
+      return false;
+    }
+
 }
 
   public function findNoOfUsedBooksById($customer_id) {

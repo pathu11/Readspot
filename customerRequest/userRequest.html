@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Customer Requests</title>
+    <style>
+        .ur-userRequest {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: "Poppins";
+        }
+
+        .ur-requestTable {
+
+            width: 90%;
+            margin: 30px auto 10px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ur-table-header h2 {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            background-color: #188c7b;
+            color: #f8f8f8;
+            border-radius: 2px;
+            width: 100%;
+            height: 25px;
+            justify-content: center;
+        }
+
+        .ur-table-body table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            border-radius: 3px;
+        }
+
+        .ur-table-body th,
+        .ur-table-body td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .ur-table-body th:nth-child(1),
+        .ur-table-body td:nth-child(1) {
+            width: 10%;
+        }
+
+        .ur-table-body th:nth-child(2),
+        .ur-table-body td:nth-child(2) {
+            width: 20%;
+        }
+
+        .ur-table-body th:nth-child(3),
+        .ur-table-body td:nth-child(3) {
+            width: 40%;
+        }
+
+        .ur-table-body th:nth-child(4),
+        .ur-table-body td:nth-child(4) {
+            width: 4%;
+        }
+
+        .ur-table-body tr {
+            height: 30px;
+        }
+
+        .ur-view {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #188c7b;
+            color: white;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            line-height: 1;
+            transition: background-color 0.3s ease;
+        }
+
+        .ur-view:hover {
+            background-color: #005348;
+        }
+
+        .ur-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        .ur-th,
+        .ur-td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            height: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        .ur-th {
+            background-color: #f2f2f2;
+            font-size: 14px;
+        }
+
+        .ur-tbody tr {
+            height: 10px;
+        }
+
+        .ur-tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .ur-additionalInfo {
+            max-height: 10px;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        .ur-status {
+            max-width: 100px;
+            padding: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .ur-status:hover {
+            color: darkgray;
+        }
+
+        .ur-status:hover i {
+            transform: scale(1.3);
+            transition: 0.2s ease;
+        }
+
+        .ur-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(43, 43, 43, 0.7);
+            z-index: 1000;
+        }
+
+        .ur-popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            font-size: 14px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .ur-close-btn {
+            position: absolute;
+            top: -9px;
+            right: -9px;
+            height: 25px;
+            width: 25px;
+            background-color: #a1a1a1;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            line-height: 25px;
+            color: #ffffff;
+        }
+
+        .ur-close-btn:hover {
+            background-color: #188c7b;
+            color: white;
+        }
+
+        .ur-popup-buttons {
+            margin-top: 20px;
+        }
+
+        .ur-popup-button {
+            padding: 10px 20px;
+            margin: 0 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #188c7b;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #ur-viewNow,
+        #ur-ignoreNow {
+            width: 100px;
+        }
+
+        .ur-popup-button:hover {
+            background-color: #096154;
+        }
+
+        .ur-popup-buttons button span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .ur-view-all-button {
+            padding: 5px 10px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #188c7b;
+            color: #fff;
+            font-weight: bold;
+            display: block;
+            height: 25px;
+            width: 80px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .ur-view-all-button:hover {
+            background-color: #209684;
+        }
+
+        .ur-user-details-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ur-user-common-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            padding: 10px;
+            border-radius: 1px;
+            background-color: #096154;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: wave 1.5s infinite;
+        }
+
+        .ur-user-common-details p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ur-user-common-details p:not(:last-child) {
+            margin-right: 20px;
+        }
+
+        .ur-phone-icon {
+            color: rgb(255, 255, 255);
+            margin-right: 5px;
+        }
+
+        .ur-phone-link {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .ur-contact-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .ur-contact-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            max-width: 250px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .ur-close-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: #888;
+            font-size: 18px;
+            z-index: 1;
+        }
+
+        .ur-close-icon:hover {
+            color: #333;
+        }
+
+        .ur-contact-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .ur-contact-modal-content button,
+        .ur-contact-modal-content a {
+            flex: 1;
+            padding: 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .ur-contact-modal-content button:hover,
+        .ur-contact-modal-content a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .ur-message-icon {
+            color: rgb(255, 255, 255);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .ur-close-icon {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            cursor: pointer;
+            color: #ffffff;
+            background-color: #096154;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .ur-close-icon:hover {
+            color: #096154;
+            background-color: white;
+        }
+
+        .ur-email-link {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .ur-email-link:hover {
+            text-decoration: underline;
+        }
+
+        .ur-total-count {
+            position: absolute;
+            top: 47px;
+            right: 91%;
+        }
+
+        #ur-totalCount {
+            display: inline-block;
+            background-color: #005348;
+            padding: 3px;
+            opacity: 0.5;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: white;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .ur-go-back-btn {
+            position: relative;
+            top: 15px;
+            left: 50px;
+            margin-bottom: 20px;
+            background-color: #188c7b;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .ur-go-back-btn i {
+            margin-right: 8px;
+        }
+
+        .ur-go-back-btn:hover {
+            background-color: #005348;
+        }
+    </style>
+</head>
+
+
+<body class="ur-userRequest">
+    <a href="javascript:history.go(-1)" class="ur-go-back-btn"><i class="fas fa-arrow-left"></i> Go Back</a>
+    <div class="ur-total-count">
+        <p>All <span id="ur-totalCount">0</span></p>
+    </div>
+    <main class="ur-requestTable">
+        <section class="ur-table-header">
+            <h2>Ramath's Requests</h2>
+            <div class="ur-user-common-details">
+                <p>F-name: Ramath</p>
+                <p>L-name: Perera</p>
+                <p>
+                    <a href="mailto:ramath@gmail.com" class="ur-email-link">Email ID: ramath@gmail.com</a>
+                </p>
+                <p>
+                    <i class="fas fa-phone-alt ur-phone-icon"></i>
+                    <span class="ur-phone-link" onclick="showContactOptions()">0764585760</span>
+                </p>
+                <div class="ur-contact-modal" id="ur-contactModal">
+                    <div class="ur-contact-modal-content">
+                        <i class="fas fa-times ur-close-icon" onclick="closeModal()"></i>
+                        <button onclick="callNumber('0764585760')">
+                            <i class="fas fa-phone-alt ur-phone-icon"></i> Call
+                        </button>
+                        <a href="https://wa.me/0764585760" target="_blank">
+                            <i class="fab fa-whatsapp ur-phone-icon"></i> Message
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="ur-table-body">
+            <table class="ur-table">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Book Type</th>
+                        <th>Additional Note</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="ur-tbody">
+                    <tr>
+                        <td>200+</td>
+                        <td>Fantasy books</td>
+                        <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
+                            eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
+                            voluptatum
+                            vel? In laboriosam deserunt velit dignissimos!
+                        </td>
+                        <td><a href="user" class="ur-view">View</a></td>
+                    </tr>
+                    
+
+                </tbody>
+            </table>
+        </section>
+        <div class="ur-popup" id="ur-popup">
+            <div class="ur-popup-content">
+                <span class="ur-close-btn" id="ur-closePopup">&times;</span>
+                <p id="ur-popupMessage"></p>
+                <div class="ur-popup-buttons">
+                    <button class="ur-popup-button" id="ur-ignoreNow">Ignore</button>
+                    <button class="ur-popup-button" id="ur-viewNow">View</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const notViewedIcons = document.querySelectorAll('.ur-status#ur-notviewed');
+            const viewedIcons = document.querySelectorAll('.ur-status#ur-viewed');
+            const popup = document.getElementById('ur-popup');
+            const popupMessage = document.getElementById('ur-popupMessage');
+            const closePopup = document.getElementById('ur-closePopup');
+            const ignoreNow = document.getElementById('ur-ignoreNow');
+            const viewAll = document.getElementById('ur-viewAll');
+            const hiddenRows = document.querySelectorAll('tbody.ur-tbody tr.ur-hidden-row');
+
+            notViewedIcons.forEach(icon => {
+                icon.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    popupMessage.textContent = "You did not view this request!";
+                    popup.style.display = 'block';
+                });
+            });
+
+            viewedIcons.forEach(icon => {
+                icon.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    popupMessage.textContent = "You already viewed it & Do you want to view again!";
+                    popup.style.display = 'block';
+                });
+            });
+
+            closePopup.addEventListener('click', function () {
+                popup.style.display = 'none';
+            });
+
+            popup.addEventListener('click', function (event) {
+                if (event.target === this || event.target === ignoreNow) {
+                    popup.style.display = 'none';
+                }
+            });
+
+            document.getElementById('ur-viewNow').addEventListener('click', function () {
+                alert('Viewing request...');
+                popup.style.display = 'none';
+            });
+
+            ignoreNow.addEventListener('click', function () {
+                alert('Ignoring request...');
+                popup.style.display = 'none';
+            });
+
+            viewAll.addEventListener('click', function () {
+                hiddenRows.forEach(row => {
+                    row.style.display = 'table-row';
+                });
+                viewAll.style.display = 'none';
+            });
+        });
+
+        function showContactOptions() {
+            const modal = document.getElementById('ur-contactModal');
+            modal.style.display = 'block';
+        }
+
+        function callNumber(phoneNumber) {
+            window.location.href = `tel:+${phoneNumber}`;
+        }
+
+        function closeModal() {
+            document.getElementById('ur-contactModal').style.display = 'none';
+        }
+
+        updateTotalCount();
+
+        function updateTotalCount() {
+            const totalCount = document.getElementById('ur-totalCount');
+            const rowCount = document.querySelectorAll('.ur-tbody tr').length;
+            totalCount.textContent = rowCount;
+        }
+    </script>
+
+</body>
+
+</html>

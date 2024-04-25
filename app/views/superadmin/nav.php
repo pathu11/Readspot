@@ -21,7 +21,7 @@
                 ?>
         <?php endforeach; ?>
         <img style="width: 40px;height: 40px;border-radius: 50%;" src="<?php echo $profileImage; ?>" onclick="toggleMenu()">
-
+        
 
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
@@ -33,6 +33,7 @@
                 <?php endforeach; ?>
                 <img  src="<?php echo $profileImage; ?>" >
                 <h3><?php echo $data['superadminName']; ?></h3><!--NAME COMMENT-->
+                
             </div>
             <hr>
             

@@ -91,7 +91,7 @@
         <div id="cannotCancelOrderModal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" onclick="closeCannotCancelOrderModal()">&times;</span>
-                <p>Sorry, you cannot cancel the order. It is already in shipping.</p>
+                <p id="cannotCancelOrderMessage"></p>
             </div>
         </div>
 
@@ -134,6 +134,8 @@
         } else {
             if (cannotCancelOrderModal) {
                 cannotCancelOrderModal.style.display = "block";
+                var statusMessage = "Sorry, you cannot cancel the order. It is already in " + orderStatus + " status.";
+                document.getElementById("cannotCancelOrderMessage").innerText = statusMessage;
             }
         }
 

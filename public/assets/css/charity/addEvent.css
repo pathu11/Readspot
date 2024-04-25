@@ -810,6 +810,7 @@ nav a:hover .notification-text {
 .addeventRowElement p{
     font-size: 20px;
     margin-bottom: 5px;
+    font-weight: 600;
 }
 
 .addeventRowElement input{

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+
 /*Start Global Style*/
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -8,33 +9,36 @@
 
 
 /* body */
-body{
-    background:#73cbc7;
+body {
+    background: #73cbc7;
     display: flex;
     justify-content: center;
     align-items: center;
-    height:100vh;
+    height: 100vh;
     font-family: 'Poppins', sans-serif
 }
 
 
 
 /* container */
-.container{
+.container {
     width: 80%;
     margin: auto;
     padding: 20px;
-    height:100%
+    height: 100%
 }
 
-.login ,.register{width: 50%}
+.login,
+.register {
+    width: 50%
+}
 
 
 /********************************************/
 /*Login Page*/
 /*Login Style*/
-.login{
-    float:right;
+.login {
+    float: right;
     background-color: #fafafa;
     width: 50%;
     height: 100%;
@@ -43,12 +47,13 @@ body{
     padding: 100px;
 }
 
-.login h1{
+.login h1 {
     margin-bottom: 40px;
-    font-size: 2.5em;
+    font-size: 24px;
 }
 
-input[type="email"] , input[type="password"]{
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 30px;
@@ -57,42 +62,52 @@ input[type="email"] , input[type="password"]{
     border-radius: 5px;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     float: left;
+    margin-top: 6px;
     margin-right: 5px;
 }
 
-.login span{
+.login span {
     float: left
 }
 
-.login a{
+.login a {
     float: right;
     text-decoration: none;
-    color: #000;
-    /* transition: 0.3s all ease-in-out; */
+    color: #1a1a1a;
 }
 
-.login a:hover{
+.login a:hover {
     color: #02514C;
     font-weight: bold;
-    transform: scale(1.1);
-    transition: transform .5s;
 }
 
 .password-wrapper {
     position: relative;
-  }
-  
-  .password-wrapper i {
+}
+
+.password-wrapper i {
     position: absolute;
     top: 32%;
     right: 10px;
-    transform: translateY(-50%); /* Vertically center the icon */
+    transform: translateY(-50%);
     cursor: pointer;
-  }
-  
-.btn{
+}
+
+.register a button{
+    position: absolute;
+    left: -8%;
+    margin-top: 35%;
+    border-radius: 15px;
+    padding: 10px 20px;
+    background-color: #2e2e2e;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.btn {
     width: 100%;
     margin: 30px 0;
     padding: 10px;
@@ -105,11 +120,8 @@ input[type="checkbox"]{
     border-radius: 5px;
 }
 
-.btn:hover{
-    width:97%;
-    font-size: 22px;
+.btn:hover {
     background-color: #02514C;
-    font-weight: 500;
 }
 
 .connect h4 {
@@ -123,14 +135,15 @@ input[type="checkbox"]{
     padding: 15px 15px;
 }
 
-h4:before, h4:after {
+h4:before,
+h4:after {
     content: "";
     flex: 1 1;
     border-bottom: 1px solid black;
     margin: auto;
 }
 
-.login .copyright{
+.login .copyright {
     display: inline-block;
     float: none;
     margin-top: 20px;
@@ -152,94 +165,101 @@ h4:before, h4:after {
 
 
 /*Register Style*/
-.register{
+.register {
     float: left;
     background-image: linear-gradient(135deg, #02514C 5%, #009D94 95%);
     height: 100%;
-    width: 50%; 
-	color:#fff;
-    border-radius:  0 10px 10px  0;
+    width: 50%;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
     text-align: center;
     padding: 100px 0;
 }
 
 .register img {
-    height: 130px;
-    width: 168px;
-    margin-top: 0;
+    height: 120px;
+    width: auto;
+    margin-top: -80;
 }
 
-.register h2{
-    margin-bottom: 30px;
+.register h2 {
+    margin-bottom: 18px;
     font-size: 80px;
 }
 
-.register h3{
-    margin-top: 30px;
-    font-size: 40px;
+.register h3 {
+    margin-top: 20px;
+    font-size: 35px;
 }
 
-.register p{
-    font-size: 18px;
-    margin: 10px 30px 70px 30px;
+.register p {
+    font-size: 15px;
+    margin: 10px 10px 90px 30px;
 }
 
-.register button{
-    background-color: transparent;
-    border: 3px solid #03FFF0;
-    border-radius: 20px;
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.button-container button {
+    position: absolute;
+    left: 35%;
+    margin-top: 35%;
+    border-radius: 15px;
     padding: 10px 20px;
-    color: #03FFF0;
-    font-size: 20px;
+    background-color: #2e2e2e;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
     text-transform: uppercase;
-    transition:0.5s all  ease-in-out;
-    outline: none;
+    /* transition: 0.5s all ease-in-out; */
 }
 
-.register button:hover{
-    color: black;
-    background-color: #fff;
-    cursor: pointer;
-    border: none;
-    transform: scale(1.1);
+.button-container button:hover{
+    background-color: #1b1b1b;
 }
+
+
 /********************************************/
 
 
 
 /********************************************/
 /*RegisterCategory Page*/
-.types{
+.types {
     display: flex;
     flex-direction: column;
 }
 
-.ctg{
+.ctg {
     width: 80%;
-    margin: 20px 0;
-    padding: 20px;
+    margin: 15px 0;
+    padding: 12px;
     border: none;
     background-color: #009D94;
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
-    transition: 0.3s all ease-in-out;
-    border-radius: 30px;
+    transition: 0.2s all linear;
+    border-radius: 15px;
 }
 
-.ctg:hover{
-    width:97%;
-    font-size: 22px;
-    background-color: #02514C;
-    font-weight: 500;
+.ctg:hover {
+    width: 80%;
+    background-color: #007e77;
+    font-size: 16px
 }
-/********************************************/
+
+/*******************************************
 
 
 
 /********************************************/
 /*SignUp Page*/
-input[type="text"]{
+input[type="text"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 30px;
@@ -247,5 +267,5 @@ input[type="text"]{
     background-color: #eeeeef;
     border-radius: 5px;
 }
-/********************************************/
 
+/********************************************/

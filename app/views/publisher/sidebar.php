@@ -19,7 +19,13 @@
                 ?>
         <?php endforeach; ?>
         <img class="img" style="width: 40px;height: 40px;border-radius: 50%;" src="<?php echo $profileImage; ?>" onclick="toggleMenu()">
-
+        <a href="<?php echo URLROOT; ?>/publisher/customerSupport" class="notification">
+          <i class="bx bxs-bell icon"  ></i>
+          <?php if (isset($data['unreadCount'])): ?>
+             <span class="badge"><?php echo $data['unreadCount']; ?></span>
+          <?php endif; ?>
+        </a>
+       
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">

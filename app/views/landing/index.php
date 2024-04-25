@@ -1,119 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<?php
-    $title = "Landing Page";
-    
-    require APPROOT . '/views/landing/header.php';
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>ReadSpot landing page</title>
+</head>
 
-?>
 
+<body>
 
-    <div class="hero" style="background-image: url('<?php echo URLROOT; ?>/assets/images/customer/hero1.png');">
-        <div class="content">
-        <?php 
-        flash('register_success');
-        
-         ?>
-            <h3>WELCOME TO</h3>
-            <h2>ReadSpot</h2>
-            <p>Here we introducing a web-based Platform for Buying<br>
-                Selling , exchanging, and Donating both new & used books.</p>
-            
-        </div>
-        <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="sing-up_btn" href="">Sign-up</button></a>
-        <a href="<?php echo URLROOT; ?>/landing/login"><button class="login_btn">Login</button></a>
+    <div id="dashboard">
+
     </div>
-    
-    <div class="our_ser-div-M">
-        <h3><span>Our Services</span></h3>
-    </div>
-    <div class="services-div-M"> 
-        <div class="service-div-M" onclick="service1()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/new1.jpg" alt="Service 1" class="Sev1"> 
-            <h3>Buy New Books</h3>
-            <p style="font-size:15px;">Purchase brand-new, high-quality books from a wide selection of genres and authors, ensuring you stay up-to-date with the latest literary releases.</p>
+    <header>
+        <div>
+            <img id="logo" src="<?php echo URLROOT; ?>/assets/images/landing/homepage/ReadSpot02.png" alt="ReadSpot Logo">
         </div>
-        <div class="service-div-M" onclick="service2()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/used1.jpg" alt="Service 2" class="Sev1"> <!--path changed-->
-            <h3>Buy Used Books</h3>
-            <p style="font-size:15px;">Explore a diverse collection of pre-owned books at budget-friendly prices, offering an affordable way to enjoy your favorite reads or discover new ones.</p>
-        </div>
-        <div class="service-div-M" onclick="service3()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/exchange1.png" alt="Service 3" class="Sev1"> <!--path changed-->
-            <h3>Exchange Books</h3>
-            <p style="font-size:15px;">Connect with fellow book enthusiasts to exchange books, fostering a community where individuals can share their favorite titles and explore new literary adventures.</p>
-        </div>
-        <div class="service-div-M" onclick="service4()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/donate1.jpg" alt="Service 4" class="Sev1"> <!--path changed-->
-            <h3>Donate Books</h3>
-            <p style="font-size:15px;">Contribute to a noble cause by donating your gently used books. Our platform facilitates book donations to charity organizations, spreading the joy of reading to those in need.</p>
-        </div>
-        <div class="service-div-M" onclick="service5()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/content1.jpg" alt="Service 5" class="Sev1"> <!--path changed-->
-            <h3>Contents</h3>
-            <p style="font-size:13px;">Showcase your writing skills by contributing book reviews, literary analyses, or creative pieces to the platform. Encourage users to share their perspectives and insights, creating a dynamic space for thoughtful discussions around literature.</p>
-        </div>
-        <div class="service-div-M" onclick="service6()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/event1.jpg" alt="Service 6" class="Sev1"> <!--path changed-->
-            <h3>Events</h3>
-            <p style="font-size:15px;">Stay informed about literary events, book launches, and author meet-ups happening in your area. Engage with fellow book lovers and participate in enriching literary experiences.</p>
-        </div>
-        <div class="service-div-M" onclick="service7()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/challenge1.jpg" alt="Service 7" class="Sev1"> <!--path changed-->
-            <h3>Book Challenges</h3>
-            <p style="font-size:13px;">Participate in book challenges and reading campaigns that cater to various genres, themes, or specific authors. Challenge yourself and fellow readers to explore diverse literary landscapes, fostering a sense of achievement and community.</p>
-        </div>
-        <!-- <div class="service-div-M" onclick="service8()">
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/calender1.jpg" alt="Service 8" class="Sev1">
-            <h3>Event Calender</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
-    </div>
-    <?php
-        require APPROOT . '/views/customer/footer.php';
-    ?>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#categories">customer</a>
+            <a href="#events">charity events</a>
+            <a href="#publishing">Publishing</a>
+            <a href="#delivery">Delivery</a>
+            <a href="<?php echo URLROOT; ?>/landing/login"><button class="landing_login_btn">Login</button></a>
+            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button class="landing_signup_btn">SignUp</button></a>
 
+        </nav>
+    </header>
+
+    <div class="body-container">
+        <img id="bcnd" src="<?php echo URLROOT; ?>/assets/images/landing/homepage/Readspot _landingpageBC.png">
+    </div>
+
+    <section class="welcombox">
+        <h1>Welcome to ReadSpot - Your Online Bookstore</h1>
+        <p>Here we introducing a web-based Platform "ReadSpot Bookstore" : <br>Dedicated to Providing a Wide Range of
+            Books for Every Reader, Hosting Engaging Literary Events, and Guiding Writers Through the Publishing Journey
+        </p>
+    </section>
+
+    <!-- Book Categories -->
+    <section id="categories" class="categories">
+        <h2>We Have a Wide Range of Book Categories</h2>
+        <div class="category">
+            <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/1_RLEoqJa5Lnb1xkpdOdQfNQ.png" alt="books" class="book-cover">
+            <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/3dbook.png" alt="books" class="book-cover book-cover-3d">
+            <div class="dropdown-container">
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <i class="material-icons" style="vertical-align: middle;">book</i> Customer Services
+                </button>
+
+
+                <div class="dropdown-content" id="dropdownContent">
+                    <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
+                    <a href="<?php echo URLROOT; ?>/customer/BuyUsedBooks">Buy Used Books</a>
+                    <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
+                    <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
+                    <a href="<?php echo URLROOT; ?>/customer/BookContents">Content</a>
+                    <a href="<?php echo URLROOT; ?>/customer/BookEvents">Events</a>
+                    <a href="<?php echo URLROOT; ?>/customer/BookChallenge">Book Challenges</a>
+                </div>
+            </div>
+            <div class="message-container">
+                <div class="message">Login and Buy Books!</div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="scroll-advertisement">
+        <p></p>
+    </div>
+
+    <!-- Book Publishing Services -->
+
+    <section id="publishing" class="publishing">
+        <h2>Book Publishing Services</h2>
+        <div class="event">
+            <div class="event-details">
+                <p>Explore tailored publishing packages with services like editing, design, printing, and distribution
+                    to bring your
+                    book to life. Our packages offer end-to-end solutions for every stage of your publishing journey.
+                </p>
+
+                <a href="<?php echo URLROOT; ?>/landing/signupCustomer" class="char-button">Login as Publisher</a>
+            </div>
+            <video id="videoPlayer" width="60%" height="auto" controls
+                style="border-radius: 15px; border: 3px solid rgb(88, 88, 88);">
+
+                <source src="<?php echo URLROOT; ?>/assets/images/landing/homepage/book-publishing.mp4" type="video/mp4">
+            </video>
+        </div>
+    </section>
+    <br><br>
+    <hr style="border: 1px solid rgb(148, 148, 148);">
+
+    <!-- Delivery Information -->
+    <section id="delivery" class="delivery">
+        <h2>Delivery Information</h2>
+
+
+
+        <div class="info-box">
+            <i class="material-icons icon">local_shipping</i>
+            <h3>Fast Delivery</h3>
+            <p>We offer fast and reliable delivery options.</p>
+        </div>
+
+        <div class="info-box">
+            <i class="material-icons icon">payment</i>
+            <h3>Secure Payments</h3>
+            <p>Safe and secure payment options for your convenience.</p>
+        </div>
+
+        <div class="info-box">
+            <i class="material-icons icon">verified_user</i>
+            <h3>Quality Assured</h3>
+            <p>Guaranteed quality checks for every book delivered.</p>
+        </div>
+
+        <!-- Animated Graph for Delivery Status -->
+        <div class="delivery-status">
+            <h3>Delivery Status</h3>
+            <div class="graph-container">
+                <div class="status-bar">
+                    <div class="bar delivered">
+                        <i class="material-icons">done</i> Delivered
+                        <div class="progress-circle delivered-circle">
+                            <span class="count">75%</span>
+                        </div>
+                    </div>
+                    <div class="bar pending">
+                        <i class="material-icons">schedule</i> Pending
+                        <div class="progress-circle pending-circle">
+                            <span class="count">15%</span>
+                        </div>
+                    </div>
+                    <div class="bar not-yet">
+                        <i class="material-icons">warning</i> Not Yet
+                        <div class="progress-circle not-yet-circle">
+                            <span class="count">10%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Reviews -->
+        <div class="customer-reviews">
+
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/thalapathi-vijay-photos-thalapathy-wallpaper-hd.jpg"
+                        alt="Customer 1">
+                    <div>
+                        <h4>Thalapathy</h4>
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p>"Fast delivery and great service! Highly recommend."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/thalapathi-vijay-photos-thalapathy-wallpaper-hd.jpg"
+                        alt="Customer 2">
+                    <div>
+                        <h4>Thalapathy</h4>
+                        <span>★★★☆☆</span>
+                    </div>
+                </div>
+                <p>"Delivery was a bit slow but the product quality is good."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/thalapathi-vijay-photos-thalapathy-wallpaper-hd.jpg"
+                        alt="Customer 3">
+                    <div>
+                        <h4>Thalapathy</h4>
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p>"Love the secure payment options and quality of books."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- <a href="#" class="del-button">Login as Delivery person</a> -->
+    <br><br>
+    <hr style="border: 1px solid rgb(117, 117, 117);">
+
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <h2>Upcoming Events</h2>
+        <div class="event">
+            <div class="event-details">
+                <p>
+                    Becoming a charity member opens up a unique opportunity to directly engage with our community and
+                    provide valuable services. As a charity member, you'll receive customer requests that align with our
+                    mission and goals.
+                </p>
+                <a href="<?php echo URLROOT; ?>/landing/signupCharity" class="char-button">Login as Charity member</a>
+            </div>
+            <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/event01.jpg" alt="Event 1">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,
+                audio clips, digital downloads, data compilations, and software, is the property of READSPOT or its
+                content suppliers and protected by Sri Lanka and international copyright laws...</p>
+        </div>
+        <div>
+            <p id="copyright" style=" color: #141414;">&copy; 2023 ReadSpot. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
 <script>
-    function service1() {
-    // Define the URL you want to redirect to
-    var url = "<?php echo URLROOT; ?>/customer/BuyNewBooks"; //path changed
+    var video = document.getElementById("videoPlayer");
 
-    // Use the window.location.href property to navigate to the specified URL
-    window.location.href = url;
-}
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
 
-function service2() {
-    var url = "<?php echo URLROOT; ?>/customer/BuyUsedBook"; //path changed
-    window.location.href = url;
-}
+    function playVideo() {
+        console.log("Checking video visibility");
 
-function service3() {
-    var url = "<?php echo URLROOT; ?>/customer/ExchangeBook"; //path changed
-    window.location.href = url;
-}
+        if (isElementInViewport(video)) {
+            console.log("Video is in viewport, playing...");
+            video.play();
+            video.loop = true;
+        } else {
+            console.log("Video is not in viewport, pausing...");
+            video.pause();
+        }
+    }
 
-function service4() {
-    var url = "<?php echo URLROOT; ?>/customer/DonateBooks"; //path changed
-    window.location.href = url;
-}
+    window.addEventListener("scroll", playVideo);
+    window.addEventListener("load", playVideo);
 
-function service5() {
-    var url = "<?php echo URLROOT; ?>/customer/BookContents"; //path changed
-    window.location.href = url;
-}
+    function toggleDropdown() {
+        console.log("Toggling dropdown");
 
-function service6() {
-    var url = "<?php echo URLROOT; ?>/customer/BookEvents"; //path changed
-    window.location.href = url;
-}
+        var dropdownContent = document.getElementById("dropdownContent");
+        if (dropdownContent.style.display === "block" || dropdownContent.style.display === "") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    }
 
-function service7() {
-    var url = "<?php echo URLROOT; ?>/customer/BookChallenge";
-    window.location.href = url;
-}
+    // Close the dropdown when clicking outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropdown-btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === "block") {
+                    openDropdown.style.display = "none";
+                }
+            }
+        }
+    }
+    
+    // Advertisement messages
+    var advertisements = [
+        "🚀 Special Offer: Get 10% off on all books this month! 📚",
+        "💡 Exclusive Access: Gain access to exclusive events for our charity members.",
+        "📖 New Arrivals: Check out our latest book collection!",
+        "🎉 Join our loyalty program and earn rewards with every purchase!",
+        "🎁 Special Discounts: for your charitable initiatives.",
+        "💡 Book recommendations just for you! Explore now."
+    ];
 
-// function service8() {
-//     var url = "#";
-//     window.location.href = url;
-// }
+    var index = 0;
+
+    function showAdvertisement() {
+        var scrollAdvertisement = document.querySelector('.scroll-advertisement p');
+        scrollAdvertisement.textContent = advertisements[index];
+
+        var adContainer = document.querySelector('.scroll-advertisement');
+        adContainer.style.display = 'block';
+        index = (index + 1) % advertisements.length;
+        setTimeout(function () {
+            adContainer.style.animation = 'slideUp 1s forwards';
+            setTimeout(function () {
+                adContainer.style.display = 'none';
+                adContainer.style.animation = '';
+            }, 1000);
+
+            setTimeout(showAdvertisement, 1000);
+        }, 5000);
+    }
+
+    window.addEventListener('DOMContentLoaded', function () {
+        setTimeout(showAdvertisement, 2000);
+    });
 
 </script>
+
+</html>

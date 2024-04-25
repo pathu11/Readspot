@@ -92,11 +92,13 @@ require APPROOT . '\vendor\autoload.php';
               'number_of_questions'=>trim($_POST['number_of_questions']),
               'time_limit'=>trim($_POST['time_limit']),
               'description'=>trim($_POST['description']),
+              'img'=>'',
               
               'title_err'=>'',
               'number_of_questions_err'=>'',
               'time_limit_err'=>'',
               'description_err'=>'',
+              'img_err'=>''
           ];
           if(empty($data['title'])){
               $data['title_err']='Please enter the qyuiz title';      
@@ -115,7 +117,37 @@ require APPROOT . '\vendor\autoload.php';
           }
 
           if(empty($data['title_err']) && empty($data['number_of_questions_err']) && empty($data['time_limit_err']) && empty($data['description_err'])){
-              if($this->moderatorModel->addQuiz($data)){
+
+            if (isset($_FILES['img']['name']) AND !empty($_FILES['img']['name'])) {
+              $img_name = $_FILES['img']['name'];
+              $tmp_name = $_FILES['img']['tmp_name'];
+              $error = $_FILES['img']['error'];
+                          
+              if ($error === 0) {
+                  $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                  $img_ex_to_lc = strtolower($img_ex);
+                      
+                  $allowed_exs = array('jpg', 'jpeg', 'png');
+                  if (in_array($img_ex_to_lc, $allowed_exs)) {
+                      // Generate a unique identifier (e.g., timestamp)
+                      $unique_id = time(); 
+                      $new_img_name = 'challenge' . $unique_id . '-img.' . $img_ex_to_lc;
+                      $img_upload_path = "../public/assets/images/moderator/" . $new_img_name;
+                      move_uploaded_file($tmp_name, $img_upload_path);
+                      
+                      $data['img'] = $new_img_name;
+                  } else {
+                      // Handle file type not allowed error
+                      $data['img_err'] = 'Only JPG, JPEG, and PNG files are allowed';
+                  }
+              } else {
+                  // Handle file upload error
+                  $data['img_err'] = 'Error uploading the file';
+              }
+            }
+              
+            
+            if($this->moderatorModel->addQuiz($data)){
                   flash('add_success','You are added the quiz successfully');
                   redirect('moderator/createChallengeQuestions');
               }else{
@@ -135,11 +167,13 @@ require APPROOT . '\vendor\autoload.php';
               'number_of_questions'=>'',
               'time_limit'=>'',
               'description'=>'',
+              'img'=>'',
               
               'title_err'=>'',
               'number_of_questions_err'=>'',
               'time_limit_err'=>'',
               'description_err'=>'',
+              'img_err'=>''
           ];
   
           $this->view('moderator/createChallenge',$data);
@@ -211,7 +245,7 @@ require APPROOT . '\vendor\autoload.php';
                       flash('add_success', 'You have added the questions successfully');
                   }
               }
-              redirect('moderator/createChallengeQuestions');
+              redirect('moderator/challenges');
           } else {
               for ($i = 1; $i <= 5; $i++) {
                   $question = '';
@@ -237,7 +271,7 @@ require APPROOT . '\vendor\autoload.php';
                       'correctAnswer_err' => '',
                   ];
   
-                  $this->view('moderator/createChallengeQuestions', $data);
+                  $this->view('moderator/challenges', $data);
               } 
           }
       }
@@ -490,6 +524,24 @@ require APPROOT . '\vendor\autoload.php';
     }
   }
 
+  public function addPointsChallenge(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      if($_SERVER['REQUEST_METHOD']=='POST'){
+        $user_id = $_POST["user_id"];
+        $numberOfPoints = $_POST["numberOfPoints"];
+
+        if($this->moderatorModel->addPointsChallenge($user_id,$numberOfPoints)){
+            redirect('moderator/topChallenges');
+        }
+        else{
+          echo 'Something went wrong';
+        }
+      }
+    }
+  }
+
   public function complains(){
     if (!isLoggedInModerator()) {
       redirect('landing/login');
@@ -555,6 +607,25 @@ require APPROOT . '\vendor\autoload.php';
         }
 
       }
+    }
+  }
+
+  public function topChallenges(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      $user_id = $_SESSION['user_id'];
+      $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+      $challengeScoreDetails = $this->moderatorModel->getChallengeScoreDetails();
+      $pointsAddDate = $this->moderatorModel->pointsAddDate();
+      
+      $data = [
+        'moderatorDetails' => $moderatorDetails,
+        'moderatorName'=>$moderatorDetails[0]->name,
+        'challengeScoreDetails'=>$challengeScoreDetails,
+        'pointsAddDate'=>$pointsAddDate,
+      ];
+      $this->view('moderator/topChallenges',$data);
     }
   }
   
