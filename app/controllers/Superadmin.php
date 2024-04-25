@@ -1079,4 +1079,106 @@ public function proceedResolved($complaintId, $reason) {
     }
 }
 
+
+
+public function reports(){
+    if (!isLoggedInSuperAdmin()) {
+        redirect('landing/login');
+    } else {
+        $user_id = $_SESSION['user_id'];
+    
+        $superadminDetails = $this->superadminModel->findSuperAdminById($user_id); 
+        $monthlyRegisteredUserCount = $this->superadminModel->getMonthlyRegisteredUserCount();
+        $monthlyLoginCount = $this->superadminModel->getMonthlyloginCount();
+        $monthlyLogoutCount = $this->superadminModel->getMonthlylogoutCount();
+        $countCustomers = $this->superadminModel->countCustomers();
+        $countPublishers = $this->superadminModel->countPublishers();
+        $countCharity = $this->superadminModel->countCharity();
+        $totalLoggedInTime = $this->superadminModel->getTotalLoggedInTime();
+        
+        $registrationCounts = [];
+        $loginCounts = [];
+        $logoutCounts = [];
+
+        foreach ($monthlyRegisteredUserCount as $row) {
+            $registrationCounts[$row->registration_day] = $row->num_users_registered;
+        }
+        foreach($monthlyLoginCount as $row){
+            $loginCounts[$row->login_date] = $row->num_logins;
+        }
+        foreach($monthlyLogoutCount as $row){
+            $logoutCounts[$row->logout_date] = $row->num_logouts;
+        }
+
+
+        // Fill in any missing days in the past month with a count of zero
+        $currentDate = new DateTime();
+        $endDate = new DateTime('first day of this month');
+        $endDate->modify('last day of last month');
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod($endDate, $interval, $currentDate);
+
+        foreach ($period as $date) {
+            $registrationDay = $date->format('Y-m-d');
+            $loginDay = $date->format('Y-m-d');
+            $logoutDay = $date->format('Y-m-d');
+            if (!isset($registrationCounts[$registrationDay])) {
+                $registrationCounts[$registrationDay] = 0;
+            }
+            if (!isset($loginCounts[$loginDay])) {
+                $loginCounts[$loginDay] = 0;
+            }
+            if (!isset($logoutCounts[$logoutDay])) {
+                $logoutCounts[$logoutDay] = 0;
+            }
+        }
+
+        ksort($registrationCounts);
+        ksort($loginCounts);
+        ksort($logoutCounts);
+
+        $Userlabels = [];
+        $Userdata = [];
+        foreach ($registrationCounts as $registrationDay => $numUsersRegistered) {
+            $Userlabels[] = $registrationDay;
+            $Userdata[] = $numUsersRegistered;
+        }
+
+        $loginlabels = [];
+        $logindata = [];
+        foreach ($loginCounts as $loginDay => $numlogins) {
+            $loginlabels[] = $loginDay;
+            $logindata[] = $numlogins;
+        }
+
+        $logoutlabels = [];
+        $logoutdata = [];
+        foreach ($logoutCounts as $logoutDay => $numlogouts) {
+            $logoutlabels[] = $logoutDay;
+            $logoutdata[] = $numlogouts;
+        }
+        
+        $data = [
+            'superadminDetails' => $superadminDetails,
+            'superadminName'=>$superadminDetails[0]->name,
+            'superadminEmail'=>$superadminDetails[0]->email,
+            'Userlabels'=>$Userlabels,
+            'Userdata'=>$Userdata,
+            'loginlabels'=>$loginlabels,
+            'logindata'=>$logindata,
+            'logoutlabels'=>$logoutlabels,
+            'logoutdata'=>$logoutdata,
+
+            'countCustomers'=>$countCustomers,
+            'countPublishers'=>$countPublishers,
+            'countCharity'=>$countCharity,
+            'totalLoggedInTime'=>$totalLoggedInTime,
+        ];
+        $this->view('superadmin/reports', $data);
+    }
 }
+}
+
+
+    
+

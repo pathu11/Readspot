@@ -23,7 +23,7 @@
             <a href="event">Event Management</a>
             <a href="donation">Donation Requests</a>
 
-            <a href="aboutUs">
+            <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
             </a>
@@ -48,9 +48,9 @@
     <div class="box1">
         <!-- <a href="<?php echo URLROOT; ?>/charity/test">test</a> -->
         <div class="box2">
-            <h4> Keep in MIND!</h4>
-            <p> I am not just organizing things; also helping create a community where people love to share and read books<br>
-            <p style="color:#006e69;"><b>being a part of "ReadSpot" journey!</b></p>
+            <h4 id="dynamicHeading">Keep in MIND!</h4>
+            <p id="dynamicText">I am not just organizing things; also helping create a community where people love to share and read books</p>
+            <p id="secondaryText" style="color:#006e69;"><b>being a part of "ReadSpot" journey!</b></p>
         </div>
         <div class="box3" style="background-color: #303030;">
             <h4> a Charity Member !</h4>
@@ -124,7 +124,6 @@
                 <dt><b>Transparency:</b></dt>
                 <dd> We believe in transparency in all our interactions.</dd>
             </dl>
-
         </div>
     </section>
 

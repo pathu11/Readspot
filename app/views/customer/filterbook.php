@@ -40,11 +40,11 @@ if(isset($data['searchResults']) && !empty($data['searchResults'])){
                     </div><hr>';
                 }
 
-            //     echo '<a href="' . URLROOT . '/customer/BookDetails/' . $searchResult->book_id . '">' . $highlighted_book_name . '</a><br>
-            //     <p><label>Author:</label> ' . $highlighted_author . '</p>
-            //     <p><label>ISBN:</label> ' . $highlighted_ISBN_no . '</p>
-            //     <p>Rs.' . $searchResult->price . '</p>
-            //   </div><hr>';
+                echo '<a href="' . URLROOT . '/customer/BookDetails/' . $searchResult->book_id . '">' . $highlighted_book_name . '</a><br>
+                <p><label>Author:</label> ' . $highlighted_author . '</p>
+                <p><label>ISBN:</label> ' . $highlighted_ISBN_no . '</p>
+                <p>Rs.' . $searchResult->price . '</p>
+              </div><hr>';
     endforeach;
 }
 else{

@@ -436,6 +436,39 @@ public function countCharity(){
         return 0; 
         }
 }
+
+public function getMonthlyRegisteredUserCount(){
+    $this->db->query('SELECT DATE(created_at) AS registration_day, COUNT(*) AS num_users_registered
+                    FROM 
+                      users
+                    WHERE 
+                      created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)
+                    GROUP BY 
+                      DATE(created_at)');
+    $results=$this->db->resultSet();
+    return $results;
+}
+
+public function getMonthlyloginCount(){
+    $this->db->query('SELECT DATE(login_time) AS login_date, COUNT(*) AS num_logins
+                      FROM user_logins WHERE login_time>=DATE_SUB(CURRENT_DATE,INTERVAL 1 MONTH) GROUP BY DATE(login_time)');
+    $results=$this->db->resultSet();
+    return $results;
+  }
+  
+public function getMonthlylogoutCount(){
+    $this->db->query('SELECT DATE(logout_time) AS logout_date, COUNT(*) AS num_logouts
+                        FROM user_logins WHERE logout_time>=DATE_SUB(CURRENT_DATE,INTERVAL 1 MONTH) GROUP BY DATE(logout_time)');
+    $results=$this->db->resultSet();
+    return $results;
+}
+
+public function getTotalLoggedInTime() {
+    $this->db->query('SELECT DATE(login_time) AS login_date, SUM(TIME_TO_SEC(TIMEDIFF(logout_time, login_time))) / 60 AS total_logged_in_minutes FROM user_logins GROUP BY DATE(login_time)');
+    $results=$this->db->resultSet();
+    return $results;
+}
+
 public function rejectUser($user_id) {
    
         $this->db->query('UPDATE users SET status = "reject" WHERE user_id = :userId');

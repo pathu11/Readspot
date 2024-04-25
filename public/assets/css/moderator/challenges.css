@@ -52,6 +52,16 @@
   margin-left: 100px;
 }
 
+.table-container button{
+  border-style: none;
+  background-color: white;
+  color: #009D94;
+}
+
+.table-container button:hover{
+  color: #2c2c2c;
+}
+
 td {
   height: 50px;
   max-width: 150px;
@@ -115,6 +125,12 @@ tr:hover {
 .fa-trash{
   color: red;
   cursor: pointer;
+  font-size: large;
+  transition: transform 0.3s;
+}
+
+.fa-trash:hover{
+  transform: rotate(20deg);
 }
 
 .deleteChallenge button{
@@ -149,7 +165,7 @@ tr:hover {
   border: 1px solid #2c2c2c;
   width: 60%;
   font-family: "Poppins";
-  font-size: 9px;
+  font-size: 16px;
   box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
   overflow: auto; /* Add overflow for content scrolling */
 }
@@ -160,7 +176,8 @@ tr:hover {
 
 .modal-content h2 {
   color: white;
-  font-size: 14px;
+  font-size: 18px;
+  color: #009D94;
 }
 
 .close {

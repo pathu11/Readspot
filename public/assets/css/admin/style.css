@@ -451,3 +451,37 @@ button:hover{
 
   /* Add additional styles or adjustments as needed for smaller screens */
 }
+
+/* pagination */
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.pagination li {
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: #919191;
+  color: white;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination li:hover {
+  background-color: #00645f;
+}
+
+.pagination .current {
+  background-color: #00645f;
+}
+
+.pagination .disabled {
+  background-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +14,11 @@
             background-color: #f4f4f4;
         }
 
+
         #prof-container {
             width: 950px;
             font-size: 14px;
             background-color: linear-gradient(to right, rgba(135, 206, 235, 1), rgba(152, 251, 152, 1));
-
             border: 2px solid rgb(153, 153, 153);
             color: rgb(32, 32, 32);
             height: 550px;
@@ -26,7 +28,6 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: relative;
-            /* Position relative for absolute positioning */
         }
 
         #prof-left {
@@ -71,51 +72,44 @@
             height: 28px;
         }
 
-        .prof-btn-update {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #007263;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-
-        .prof-btn-cancel {
-            position: absolute;
-            bottom: 10px;
-            right: 120px;
-            padding: 10px 20px;
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .prof-btn-update:hover {
-            background-color: #004237;
-        }
-
-        .prof-btn-cancel:hover {
-            background-color: #b32924;
-        }
-
+        .prof-btn-update,
+        .prof-btn-cancel,
+        .logout-btn,
         .choose-image-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #dddddd;
-            color: rgb(88, 88, 88);
-            border-radius: 12px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             text-align: center;
             margin-top: 10px;
+        }
+
+        .prof-btn-update,
+        .choose-image-btn {
+            background-color: #007263;
+            color: white;
+        }
+
+        .prof-btn-cancel,
+        .logout-btn {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .prof-btn-update:hover,
+        .choose-image-btn:hover {
+            background-color: #004237;
+        }
+
+        .prof-btn-cancel:hover,
+        .logout-btn:hover {
+            background-color: #b32924;
+        }
+
+        .choose-image-btn {
+            background-color: #dddddd;
+            color: rgb(88, 88, 88);
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -125,24 +119,6 @@
 
         .choose-image-btn i {
             margin-right: 8px;
-        }
-
-        .logout-btn {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: block;
-            width: 100%;
-            height: 33px;
-        }
-
-        .logout-btn:hover {
-            background-color: #c9302c;
         }
 
         .password-section {
@@ -169,45 +145,15 @@
 
         .toggle-password {
             margin-left: 10px;
-            margin-top: -10px;
             cursor: pointer;
         }
 
-        #eye-icon-Old,
-        #eye-icon-New,
-        #eye-icon-Sure {
+        .toggle-password i {
             color: #ccc;
         }
 
-        #eye-icon-Old.active,
-        #eye-icon-New.active,
-        #eye-icon-Sure.active {
-            color: #005348;
-        }
-
-        .change-password-box {
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 3px 0px;
-            margin-bottom: 20px;
-            margin-top: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 200px;
-            height: 30px;
-            text-align: center;
-        }
-
-        .change-password-box i {
-            margin-left: 10px;
-        }
-
-        .change-password-box:hover {
-            background-color: #e0e0e0;
+        .toggle-password i.active {
+            color: #007BFF;
         }
 
         .password-section {
@@ -224,31 +170,67 @@
             max-height: 500px;
         }
 
-        .password-container {
-            margin-bottom: 15px;
-        }
-
-        .password-input-container {
-            display: flex;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
             align-items: center;
         }
 
-        .toggle-password {
-            margin-left: 10px;
+        .modal-content {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content label,
+        .modal-content input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            background-color: #007263;
+            color: white;
+            transition: background-color 0.3s ease;
         }
 
-        .toggle-password i {
-            color: #aaa;
-        }
-
-        .toggle-password i.active {
-            color: #007BFF;
+        .modal-content button:hover {
+            background-color: #004237;
         }
     </style>
 </head>
 
 <body>
+
+    <!-- Modal for Change Password -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <h2>Change Password</h2>
+            <label for="modal-Oldpassword">Old Password:</label>
+            <input type="password" id="modal-Oldpassword">
+            <label for="modal-Newpassword">New Password:</label>
+            <input type="password" id="modal-Newpassword">
+            <label for="modal-Surepassword">Sure Password:</label>
+            <input type="password" id="modal-Surepassword">
+            <button onclick="updatePassword()">Update</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
 
     <div id="prof-container">
         <div id="prof-left">
@@ -261,61 +243,28 @@
 
         <div id="prof-right">
             <label for="prof-fname">First Name:</label>
-            <input type="text" class="prof-input" id="prof-fname">
+            <input type="text" class="prof-input" id="prof-fname" value="John">
 
             <label for="prof-lname">Last Name:</label>
-            <input type="text" class="prof-input" id="prof-lname">
+            <input type="text" class="prof-input" id="prof-lname" value="Doe">
 
             <label for="prof-email">Email:</label>
-            <input type="email" class="prof-input" id="prof-email">
+            <input type="email" class="prof-input" id="prof-email" value="johndoe@example.com">
 
             <label for="prof-mobile">Mobile Number:</label>
-            <input type="tel" class="prof-input" id="prof-mobile">
-            <div class="change-password-box" onclick="toggleChangePassword()">
+            <input type="tel" class="prof-input" id="prof-mobile" value="1234567890">
+
+            <div class="change-password-box">
                 <h4>Change Password</h4>
                 <i class="fas fa-key"></i>
             </div>
 
             <div class="password-section" id="passwordSection">
-
-                <!-- Old Password -->
-                <div class="password-container">
-                    <label for="prof-Oldpassword">Old Password:</label>
-                    <div class="password-input-container">
-                        <input type="password" class="prof-input password-input" id="prof-Oldpassword">
-                        <span class="toggle-password" onclick="togglePasswordVisibility('Old')">
-                            <i class="fas fa-eye" id="eye-icon-Old"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <!-- New Password -->
-                <div class="password-container">
-                    <label for="prof-Newpassword">New Password:</label>
-                    <div class="password-input-container">
-                        <input type="password" class="prof-input password-input" id="prof-Newpassword">
-                        <span class="toggle-password" onclick="togglePasswordVisibility('New')">
-                            <i class="fas fa-eye" id="eye-icon-New"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Sure Password -->
-                <div class="password-container">
-                    <label for="prof-Surepassword">Sure Password:</label>
-                    <div class="password-input-container">
-                        <input type="password" class="prof-input password-input" id="prof-Surepassword">
-                        <span class="toggle-password" onclick="togglePasswordVisibility('Sure')">
-                            <i class="fas fa-eye" id="eye-icon-Sure"></i>
-                        </span>
-                    </div>
-                </div>
-
+                <!-- Password fields go here -->
             </div>
 
             <button class="prof-btn-cancel">cancel</button>
             <button class="prof-btn-update">update</button>
-
         </div>
     </div>
 
@@ -340,110 +289,26 @@
             alert("Logged out successfully!");
         }
 
-        function togglePasswordVisibility(field) {
-            const passwordInput = document.getElementById(`prof-${field.toLowerCase()}password`);
-            const eyeIcon = document.getElementById(`eye-icon-${field}`);
-
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.add('active');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('active');
-            }
-        }
-
         function toggleChangePassword() {
-            const passwordSection = document.getElementById('passwordSection');
-
-            if (passwordSection.classList.contains('active')) {
-                passwordSection.classList.remove('active');
-            } else {
-                passwordSection.classList.add('active');
-            }
-        }
-        function togglePasswordVisibility(field) {
-            const passwordInput = document.getElementById(`prof-${field.toLowerCase()}password`);
-            const eyeIcon = document.getElementById(`eye-icon-${field}`);
-
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.add('active');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('active');
-            }
+            const modal = document.getElementById('changePasswordModal');
+            modal.style.display = 'flex';
         }
 
-        function togglePasswordVisibilityOld() {
-            const passwordInput = document.getElementById('prof-Oldpassword');
-            const eyeIcon = document.getElementById('eye-icon-Old');
-
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.add('active');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('active');
-            }
+        function closeModal() {
+            const modal = document.getElementById('changePasswordModal');
+            modal.style.display = 'none';
         }
 
-        function togglePasswordVisibilityNew() {
-            const passwordInput = document.getElementById('prof-Newpassword');
-            const eyeIcon = document.getElementById('eye-icon-New');
+        function updatePassword() {
+            const oldPassword = document.getElementById('modal-Oldpassword').value;
+            const newPassword = document.getElementById('modal-Newpassword').value;
+            const surePassword = document.getElementById('modal-Surepassword').value;
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.add('active');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('active');
-            }
+            // Handle password update here, for now just close the modal
+            closeModal();
         }
 
-        function togglePasswordVisibilitySure() {
-            const passwordInput = document.getElementById('prof-Surepassword');
-            const eyeIcon = document.getElementById('eye-icon-Sure');
-
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.add('active');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('active');
-            }
-        }
-
-        // Event listeners for Old Password, New Password, and Sure Password toggles
-        document.getElementById('eye-icon-Old').addEventListener('click', togglePasswordVisibilityOld);
-        document.getElementById('eye-icon-New').addEventListener('click', togglePasswordVisibilityNew);
-        document.getElementById('eye-icon-Sure').addEventListener('click', togglePasswordVisibilitySure);
-
-        function showButtons() {
-            const saveBtn = document.querySelector('.prof-btn');
-            const ignoreBtn = document.querySelector('.prof-btn-cancel');
-
-            saveBtn.textContent = 'Save';
-            ignoreBtn.textContent = 'Ignore';
-        }
-
-        function resetButtons() {
-            const saveBtn = document.querySelector('.prof-btn');
-            const ignoreBtn = document.querySelector('.prof-btn-cancel');
-
-            saveBtn.textContent = 'Update';
-            ignoreBtn.textContent = 'Cancel';
-        }
-        function logout() {
-            const isConfirmed = window.confirm("Are you sure you want to logout?");
-
-            if (isConfirmed) {
-                alert("Logged out successfully!");
-
-            }
-        }
-
-
+        document.querySelector('.change-password-box').addEventListener('click', toggleChangePassword);
     </script>
 
 </body>

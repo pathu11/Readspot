@@ -1,0 +1,65 @@
+.dltpop-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.dltpop-modal-content {
+    margin: auto;
+    display: block;
+    width: 20%;
+    max-width: 500px;
+    max-height: 22vh;
+    object-fit: contain;
+    margin-top: 18%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.dltpop-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 20px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.dltpop-close:hover,
+.dltpop-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dltpop-tick-icon {
+    color: red;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.dltpop-ok-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    width: 50%;
+    background-color: #009d94;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dltpop-ok-button:hover {
+    background-color: #00857e;
+}

@@ -539,9 +539,7 @@ tr:hover {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /* Fix the size and hide overflow */
     backdrop-filter: blur(5px);
-    /* Add blur for glass effect */
 }
 
 .modal-content {
@@ -556,7 +554,6 @@ tr:hover {
     font-size: 9px;
     box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
     overflow: auto;
-    /* Add overflow for content scrolling */
 }
 
 .modal-content table :hover {

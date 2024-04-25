@@ -269,9 +269,9 @@
     }
 
     public function getChallengeScoreDetails(){
-      $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score
+      $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score, u.challnege_point
       FROM history s
-      INNER JOIN users u ON s.user_id = u.user_id
+      INNER JOIN customers u ON s.user_id = u.user_id
       GROUP BY u.user_id
       ORDER BY total_score DESC');
 

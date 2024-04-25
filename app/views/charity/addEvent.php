@@ -46,7 +46,7 @@
             <div class="ae-table-header">
                 <h2>Confirm & Add event</h2>
             </div>
-            <form action="<?php URLROOT?>/Readspot/charity/createEvent" method="post" enctype="multipart/form-data">
+            <form action="<?php URLROOT ?>/Readspot/charity/createEvent" method="post" enctype="multipart/form-data">
                 <table>
                     <tr>
                         <td>Event Name:</td>
@@ -58,11 +58,22 @@
                     </tr>
                     <tr>
                         <td>Start Date:</td>
-                        <td><input type="date" name="startDate" required></td>
+                        <td>
+                            <div class="date-input-container">
+                                <input type="date" id="startDate" name="startDate" required>
+                                <span class="placeholder-startD">Event will start on this date...</span>
+                            </div>
+                        </td>
                     </tr>
+
                     <tr>
-                        <td>End Date:</td>
-                        <td><input type="date" name="endDate" required></td>
+                        <td>Start Date:</td>
+                        <td>
+                            <div class="date-input-container">
+                                <input type="date" id="endDate" name="endDate" required>
+                                <span class="placeholder-endDate">Event will end on this date...</span>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>Start Time:</td>
@@ -71,6 +82,12 @@
                     <tr>
                         <td>End Time:</td>
                         <td><input type="time" name="endTime" required></td>
+                    </tr>
+                    <tr>
+                        <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon"></i></td>
+                        <td>
+                            <input type="date" id="deadlineDate" name="deadlineDate" required>
+                        </td>
                     </tr>
                     <tr>
                         <td>Book Category:</td>
@@ -91,7 +108,7 @@
                                 <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
                                 <img id="previewImage" src="#" alt="Preview" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                 <input type="file" name="posterImage" id="posterImageInput">
-                                
+
                                 <span class="ae-view-icon" id="viewpos" onclick="openModal()"><i class="fas fa-eye"></i></span>
                             </div>
                         </td>
