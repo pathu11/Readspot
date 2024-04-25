@@ -86,25 +86,26 @@
         </div>
         <div class="recommend">
             <div class="viewall">
-                <h2> Top Catagories </h2>
+                <h2> Book Catagories </h2>
                 <a href="<?php echo URLROOT; ?>/customer/TopCategory">VIEW ALL>></a>
             </div>
-            <div class="sub-cont-N2">
-                <a href="<?php echo URLROOT; ?>/customer/Recommended">
-                
-                <div class="cat-T">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/fantasy.jpg" alt="Book1"> <!--path changed-->
-                </div></a>
-                <div class="cat-T">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/horror.jpg" alt="Book1"> <!--path changed-->
+            <?php if (empty($data['bookCategoryDetails'])): ?>
+                <div class="B-div-noBook">
+                    <p>No book categories added yet.</p>
                 </div>
-                <div class="cat-T">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1"> <!--path changed-->
+            <?php else: ?>
+                <div class="sub-cont-N2">
+                    <i class="fas fa-chevron-circle-left arrow left-arrow-cat" aria-hidden="true"></i>
+                    <?php foreach($data['bookCategoryDetails'] as $bookCategory): ?>
+                        <a href="<?php echo URLROOT; ?>/customer/Category/<?php echo $bookCategory->category; ?>">
+                            <div class="cat-T">
+                                <img src="<?php echo URLROOT; ?>/assets/images/admin/<?php echo $bookCategory->category_img; ?>" alt="Book1"> <!--path changed-->
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                    <i class="fas fa-chevron-circle-right arrow right-arrow-cat" aria-hidden="true"></i>
                 </div>
-                <div class="cat-T">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/book.jpg" alt="Book1"> <!--path changed-->
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
         <div class="recommend">
             <div class="viewall">
@@ -294,6 +295,74 @@
 </script>
 
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentIndex = 0;
+        var items = document.querySelectorAll('.cat-T');
+        var itemAmt = items.length;
+        var numVisible = 6; // Default number of categories visible at once
+
+        function cycleItems() {
+            // Hide all categories
+            for (var i = 0; i < itemAmt; i++) {
+                items[i].style.display = 'none';
+            }
+            // Calculate the starting index for displaying the categories
+            var start = currentIndex;
+            // Display the next numVisible categories in the correct circular order
+            for (var i = 0; i < numVisible; i++) {
+                var index = (start + i) % itemAmt;
+                items[index].style.display = 'block';
+            }
+        }
+
+        function nextItem() {
+            currentIndex = (currentIndex + 1) % itemAmt;
+            cycleItems();
+        }
+
+        function prevItem() {
+            currentIndex = (currentIndex - 1 + itemAmt) % itemAmt;
+            cycleItems();
+        }
+
+        // Check if there are 4 or fewer categories
+        if (itemAmt <= 6) {
+            // Display all categories without slideshow functionality
+            cycleItems();
+        } else {
+            // Automatically change every 5 seconds
+            var autoSlide = setInterval(nextItem, 5000);
+
+            // Arrow click handlers
+            document.querySelector('.left-arrow-cat').addEventListener('click', function() {
+                prevItem();
+            });
+
+            document.querySelector('.right-arrow-cat').addEventListener('click', function() {
+                nextItem();
+            });
+        }
+
+        // Adjust number of visible categories based on screen size
+        function updateNumVisible() {
+            if (window.innerWidth < 1180 && window.innerWidth >= 925) { // Adjust as needed
+                numVisible = 4; // Set to 3 for medium screens
+            } else if (window.innerWidth < 925 && window.innerWidth >= 680) {
+                numVisible = 3; // Set to 2 for small screens
+            } else if (window.innerWidth < 680) {
+                numVisible = 2; // Set to 1 for extra small screens
+            } else {
+                numVisible = 6; // Default to 4 for larger screens
+            }
+            cycleItems(); // Update display based on new number of visible categories
+        }
+
+        // Call updateNumVisible initially and on window resize
+        updateNumVisible();
+        window.addEventListener('resize', updateNumVisible);
+    });
+</script>
 
 
 

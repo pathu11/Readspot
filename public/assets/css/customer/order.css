@@ -82,7 +82,7 @@
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1;
+    z-index: 110;
     left: 0;
     top: 0;
     width: 100%; 
@@ -143,6 +143,118 @@
     background-color: #008077;
 }
 
+.ordertablediv {
+    width: 100%;
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ordertablediv table {
+    font-size: 14px;
+    width: 90%;
+    border-collapse: collapse;
+    /* border: 2px solid #333; */
+    margin-top: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ordertablediv-img {
+    width: 50px;
+    height: 100px;
+}
+
+.ordertablediv td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.ordertablediv tr {
+    background-color: white;
+    /* height: 30px; */
+}
+
+.ordertablediv tr:hover {
+    background-color: #f2f2f2;;
+}
+
+/* Change the width of specific columns */
+.ordertablediv td:nth-child(1) {
+    width: 30%; /* Adjust the width as needed */
+}
+
+.ordertablediv td:nth-child(2) {
+    width: 40%; /* Adjust the width as needed */
+}
+
+.ordertablediv td:nth-child(3) {
+    width: 30%; /* Adjust the width as needed */
+}
+
+.delivery-fee {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    background-color: white;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+}
+
+.delivery-status {
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  .progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .progress-bar {
+    flex-grow: 1;
+    height: 10px;
+    border-radius: 5px;
+  }
+  
+  .progress-bar-processing {
+    background-color: #ffc107; /* Yellow */
+  }
+  
+  .progress-bar-pickup {
+    background-color: #007bff; /* Blue */
+  }
+  
+  .progress-bar-delivered {
+    background-color: #28a745; /* Green */
+  }
+  
+  .status-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .label {
+    text-align: center;
+  }
+  
+  .label i {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #777;
+  }
+  
+  
 
 @media screen and (max-width:600px) {
     .order-topic h2 {
@@ -162,7 +274,36 @@
     }
 }
 
+@media screen and (max-width:500px) {
+    .ordertablediv td:nth-child(2) {
+        display: none;
+    }
+
+    .label i {
+        font-size: 20px;
+        margin-bottom: 5px;
+        color: #777;
+    }
+
+    .delivery-fee h4 {
+        font-size: 14px;
+    }
+}
+
 @media screen and (max-width:400px) {
+    .label i {
+        font-size: 16px;
+        margin-bottom: 5px;
+        color: #777;
+    }
+
+    .delivery-fee h4 {
+        font-size: 12px;
+    }
+
+    .label span {
+        font-size: 12px;
+    }
     .order-topic h2 {
         font-size: 14px;
     }
