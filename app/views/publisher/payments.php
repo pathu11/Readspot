@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/event.css" />
     <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/print.css" media="print"> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <style>
    
     @media print {
@@ -131,20 +133,10 @@
 }
 
 
-        function printInvoicePopup() {
-            var printContents = document.getElementById('invoiceDetails').innerHTML;
-            var originalContents = document.body.innerHTML;
-
-            // Temporarily replace the body content with the invoice details
-            document.body.innerHTML = printContents;
-
-            // Print the invoice
-            window.print();
-
-            // Restore the original body content
-            document.body.innerHTML = originalContents;
-}
-           
+function printInvoicePopup() {
+            var element = document.getElementById('invoiceDetails');
+            html2pdf().from(element).save();
+        }
 
 
     </script>
