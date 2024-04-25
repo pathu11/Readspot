@@ -17,12 +17,6 @@
           </div>
           <hr>
           
-          <a href="<?php echo URLROOT; ?>/customer/Notification" class="sub-menu-link"> <!--path changed-->
-              <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
-              <p>Notifications</p>
-              <span>></span>
-          </a>
-          
           <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
           <i class="bx bxs-log-out icon"></i>  <!--path changed-->
               <p>Logout</p>
