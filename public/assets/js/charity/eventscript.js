@@ -216,3 +216,6 @@ function redirectToAddEvent() {
     window.location.href = 'addevent.html';
 }
 
+
+
+
