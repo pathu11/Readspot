@@ -37,7 +37,6 @@
         </div>
     </header>
 
-    
     <div class="notification-container">
         <button class="req-not active" onclick="showRequests()">Requests</button>
         <button class="query-not" onclick="showQueries()">Queries</button>
@@ -54,7 +53,29 @@
                     May 8, 2024
                 </div>
                 <div class="not-menu-icons">
-                    <i class="fas fa-eye not-view-icon"></i>
+                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
+                        <i class="fas fa-eye not-view-icon"></i>
+                    </a>
+
+                    <i class="fas fa-trash not-delete-icon"></i>
+                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
+                </div>
+            </div>
+
+            <div class="not-notification-item">
+                <div class="not-profile-image">
+                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
+                </div>
+                <div class="not-notification-content">
+                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
+                </div>
+                <div class="not-notification-date">
+                    May 8, 2024
+                </div>
+                <div class="not-menu-icons">
+                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
+                        <i class="fas fa-eye not-view-icon"></i>
+                    </a>
                     <i class="fas fa-trash not-delete-icon"></i>
                     <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
                 </div>
@@ -70,7 +91,9 @@
                     May 8, 2024
                 </div>
                 <div class="not-menu-icons">
-                    <i class="fas fa-eye not-view-icon"></i>
+                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
+                        <i class="fas fa-eye not-view-icon"></i>
+                    </a>
                     <i class="fas fa-trash not-delete-icon"></i>
                     <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
                 </div>
@@ -86,7 +109,9 @@
                     May 8, 2024
                 </div>
                 <div class="not-menu-icons">
-                    <i class="fas fa-eye not-view-icon"></i>
+                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
+                        <i class="fas fa-eye not-view-icon"></i>
+                    </a>
                     <i class="fas fa-trash not-delete-icon"></i>
                     <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
                 </div>
@@ -102,23 +127,9 @@
                     May 8, 2024
                 </div>
                 <div class="not-menu-icons">
-                    <i class="fas fa-eye not-view-icon"></i>
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
-                </div>
-            </div>
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <i class="fas fa-eye not-view-icon"></i>
+                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
+                        <i class="fas fa-eye not-view-icon"></i>
+                    </a>
                     <i class="fas fa-trash not-delete-icon"></i>
                     <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
                 </div>
