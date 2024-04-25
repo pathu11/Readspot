@@ -47,8 +47,8 @@
     .em-modal-content button {
         padding: 5px 62px;
         font-size: 14px;
-        background-color: #70BFBA;
-        color: white;
+        background-color: white;
+        color: #4e4e4e;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -56,7 +56,19 @@
     }
 
     .em-modal-content button:hover {
-        background-color: #009d94;
+        background-color: red;
+        color: white;
+    }
+
+    .em-modal-content #em-noButton:hover {
+        background-color: gray;
+        color: white;
+    }
+
+    .em-red-box {
+        background-color: #ffcccc;
+        border: 1px solid #ff0000;
+        color: #ff0000;
     }
 </style>
 
@@ -156,13 +168,14 @@
                                 <?php } ?>
 
                                 <div id="em-deleteModal" class="em-modal">
-                                    <div class="em-modal-content">
+                                    <div class="em-modal-content em-red-box">
                                         <i class="fas fa-exclamation-triangle"></i>
-                                        <p>Are you sure you want to delete this event?</p>
-                                        <button id="em-yesButton">Yes</button>
+                                        <p>Are you sure you want to delete this item?</p>
+                                        <button id="em-okButton">yes</button>
                                         <button id="em-noButton">No</button>
                                     </div>
                                 </div>
+
 
                                 <!-- <button type="submit" class="delete-button">
                                         <i class="fas fa-trash"></i>
@@ -226,26 +239,48 @@
     document.addEventListener("DOMContentLoaded", function() {
         const deleteButtons = document.querySelectorAll(".em-delete-button");
         const deleteModal = document.getElementById("em-deleteModal");
-        const yesButton = document.getElementById("em-yesButton");
+        const yesButton = document.getElementById("em-okButton");
         const noButton = document.getElementById("em-noButton");
 
         deleteButtons.forEach(button => {
-            button.addEventListener("click", function() {
+            button.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent default form submission
                 deleteModal.style.display = "block";
             });
         });
 
         yesButton.addEventListener("click", function() {
-            deleteItem();
+            deleteEvent();
         });
 
         noButton.addEventListener("click", function() {
             closeModal();
         });
 
-        function deleteItem() {
-            alert("Item deleted!");
-            closeModal();
+        function deleteEvent() {
+            const eventId = "<?php echo $event->charity_event_id; ?>"; // Get the event ID
+            const formData = new FormData();
+            formData.append('eventId', eventId);
+
+            fetch("<?php echo URLROOT; ?>/Readspot/charity/deleteEvent", {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Event deleted!");
+                        closeModal(); // Close the modal
+                        // Optionally, you can reload the page to reflect the changes
+                        // location.reload();
+                    } else {
+                        alert("Failed to delete event.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An error occurred while deleting the event.");
+                });
         }
 
         function closeModal() {
