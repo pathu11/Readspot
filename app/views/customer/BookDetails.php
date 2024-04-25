@@ -228,7 +228,7 @@ document.querySelectorAll('.helpful-button').forEach(button => {
         const reviewId = this.dataset.reviewId;
         const isHelpful = this.dataset.action === 'helpful';
 
-        fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+        fetch(<?php echo URLROOT; ?>/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful})
             .then(response => {
                 if (response.ok) {
                    
@@ -265,7 +265,7 @@ document.querySelectorAll('.helpful-button').forEach(button => {
         label.addEventListener('click', () => {
             const rating = index + 1;
             const header = document.querySelector('.give-rate .post .text');
-            header.textContent = `You rated it ${rating} stars.`;
+            header.textContent = You rated it ${rating} stars.;
         });
     });
 
@@ -303,8 +303,7 @@ document.querySelectorAll('.helpful-button').forEach(button => {
                             if (response.status === 'success') {
                                 window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
-                            } 
-                            else {
+                            } else {
                                 console.error('Error adding to cart:', response.message);
                                
                             }
