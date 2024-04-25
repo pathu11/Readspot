@@ -1,13 +1,18 @@
 .dashboard{
   margin-top: 100px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .stat-itmes{
   display: flex;
   flex-direction: column;
   padding-left: 20px;
+}
+
+.chartMessage{
+  display: flex;
+  flex-direction: row;
 }
 
 .stat-itmes a{
@@ -49,6 +54,7 @@
   background-color: rgb(112, 191, 186, 25%);
   padding: 15px;
   border-radius: 10px;
+  width: 500px;
 }
 
 .messages a {
@@ -91,8 +97,8 @@
 }
 
 .chart canvas{
-  height: 400px !important; 
-  width: 100% !important;
+  height: 400px; 
+  width: 800px;
   display: flex !important;
 }
 

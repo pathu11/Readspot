@@ -724,5 +724,5 @@ public function getBookCategoryCount(){
   return $results;
 }
 
-  
+
 }

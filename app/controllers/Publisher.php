@@ -1119,10 +1119,12 @@ public function processingorders()
                 }
 
                 if($this->publisherModel->addEvent($data)){
+
                     // flash('add_success','You are added the event successfully');
                     $_SESSION['showModal'] = true;
                     redirect('publisher/addEvent');
                 }else{
+
                     die('Something went wrong');
                 }
             }else{

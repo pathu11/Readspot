@@ -19,12 +19,14 @@
       <table>
         <tr>
           <th>Name</th>
-          <th>Score</th>
+          <th>Challenge Points</th>
+          <th>Challenge Score</th>
           <th>Give Points</th>
         </tr>
         <?php foreach($data['challengeScoreDetails'] as $challengeScore):?>
         <tr>  
           <td><?php echo $challengeScore->name;?></td>
+          <td><?php echo $challengeScore->challnege_point?></td>
           <td><?php echo $challengeScore->total_score;?></td>
           <?php 
             $isPointAdd = false;
