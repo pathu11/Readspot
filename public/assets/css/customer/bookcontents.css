@@ -205,7 +205,7 @@
     /* width: 50px;
     height: 50px; */
     font-size: 15px;
-    color: white;
+    /* color: white; */
 }
 
 .view-fav i:hover {
@@ -228,6 +228,22 @@
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
     background-color:  #919191;
+}
+
+.book-button-C-after-fav {
+    position: relative;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    border-radius: 50px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border: none;
+    color: pink;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+    background-color:  red;
 }
 
 .book-button-C:hover {

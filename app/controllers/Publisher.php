@@ -1119,13 +1119,12 @@ public function processingorders()
                 }
 
                 if($this->publisherModel->addEvent($data)){
-                    // Flash message for success
-                    flash('add_success','You have added the event successfully');
-                    $_SESSION['successEvent']=true;
-                    
-                    // Redirect to trigger the modal display
-                    redirect('publisher/events');
-                } else {
+
+                    // flash('add_success','You are added the event successfully');
+                    $_SESSION['showModal'] = true;
+                    redirect('publisher/addEvent');
+                }else{
+
                     die('Something went wrong');
                 }
             }else{

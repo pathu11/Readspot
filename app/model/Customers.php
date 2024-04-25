@@ -65,6 +65,27 @@
       return $this->db->resultSet();
     }
 
+    public function findNewBooksFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT item_id,fav_id FROM favorite WHERE customer_id = :customer_id AND category="New Book"');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
+    public function findUsedBooksFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT item_id,fav_id FROM favorite WHERE customer_id = :customer_id AND category="Used Book"');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
+    public function findContentFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT item_id,fav_id FROM favorite WHERE customer_id = :customer_id AND category="Content"');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
     public function findEventByNotUserId($user_id) {
       $this->db->query('SELECT * FROM events WHERE user_id != :user_id AND status="Approved"');
       $this->db->bind(':user_id', $user_id);

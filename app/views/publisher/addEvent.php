@@ -48,6 +48,15 @@
     
       </form>
     </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+            <h2>Record Added!</h2>
+            <p>Your record has been recorded. Wait for admin approval</p>
+            <button onclick="closeModal()">OK</button>
+        </div>
+    </div>
     <!--div class="bg">
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
@@ -86,7 +95,35 @@
             // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+        function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/publisher/events"; // Redirect to the event page
+            }
+
+            <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['showModal']) && $_SESSION['showModal']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['showModal']);
+            }
+            ?>
+
+            // Submit form function
+            // function submitForm() {
+            //     document.getElementById("eventForm").submit();
+            // }
     </script>
-    </body>
+
+<!-- 
+        <script>
+           
+        </script> -->
+
 </html>
