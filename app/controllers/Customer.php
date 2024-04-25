@@ -3478,6 +3478,30 @@ public function markReview()
             $this->view('customer/Order', $data);
         }
     }
+    public function confirmOrderStatus() {
+        $data = json_decode(file_get_contents("php://input"), true); // Get raw POST data
+        $orderId = $data['orderId'];
+        $orderDetails=$this->ordersModel->getOrderById($orderId);
+        $reason = $data['reason'];
+        $status=$orderDetails[0]->status;
+        $customerId=$orderDetails[0]->customer_id;
+        if($status!='cancel'){
+            if ($this->ordersModel->confirmOrderStatus($orderId, $reason,$status) ) {
+
+                if($reason){
+                    $this->ordersModel->addDeliveryReview($orderId, $customerId,$reason);
+                    echo json_encode(['success' => true]);
+                }
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false]);
+            }
+        }else{
+            echo json_encode(['success' => false]);
+        }
+        
+    }
+    
 
     // public function getOrderDetails($order_id){
     //     if (!isLoggedInCustomer()) {

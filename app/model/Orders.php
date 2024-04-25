@@ -448,7 +448,32 @@
         return $this->db->rowCount() > 0;
     }
 
+    public function confirmOrderStatus($orderId, $reason,$status){
+        if($status!='cancel'){
+            $this->db->query('UPDATE order_details SET status="delivered" WHERE order_id=:order_id AND status IN ("processing", "delivered", "shipping")');
+            $this->db->bind(':order_id', $orderId);
+            if($this->db->execute()){
+                return true;
     
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+        
+    }
+    public function addDeliveryReview($orderId, $customerId, $review) {
+        $this->db->query('INSERT INTO delivery_reviews (order_id, customer_id, review) VALUES (:order_id, :customer_id, :review)');
+        $this->db->bind(':order_id', $orderId);
+        $this->db->bind(':customer_id', $customerId);
+        $this->db->bind(':review', $review);
+        if($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function findOrdersByCustomerId($customer_id) {
         $this->db->query('SELECT o.tracking_no, od.status, o.order_id
         FROM orders o
@@ -550,7 +575,7 @@ public function getUserOrderHistoryWithBooks($customer_id)
 
 
 public function getOrderById($order_id) {
-    $this->db->query('SELECT o.*, 
+    $this->db->query('SELECT o.*, od.* ,
         b.book_name AS book_name, 
         cu.first_name AS first_name, 
         cu.last_name AS last_name, 

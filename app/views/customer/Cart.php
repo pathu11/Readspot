@@ -59,7 +59,7 @@
                         <tr>
                             <td><input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>"></td>
                             <td><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
-                            <td style=" width:10%;"><?php echo $cart->book_name; ?></td>
+                            <td style=" width:6%;"><?php echo $cart->book_name; ?></td>
                             <td style=" width:20%;">
                                 
                                 <?php if ($cart->discounts > 0) {
@@ -72,8 +72,17 @@
                             </td>
 
                             <td><?php echo $cart->quantity; ?></td>
-                            <td><?php echo $cart->price*$cart->quantity; ?></td>
-                            <td class="action-buttons">
+                            <td>
+                                <?php if ($cart->discounts > 0) {
+                                        $discountedPrice = $cart->price - ($cart->price * $cart->discounts * 0.01);
+                                        echo '<p>'. $discountedPrice*$cart->quantity .' <span style="text-decoration:line-through;color:red;">' . $cart->price*$cart->quantity . '</span> </p>';
+                                    } else{
+                                        echo $cart->price*$cart->quantity;
+                                    }
+                                    ?>
+                                
+                        </td>
+                            <td  class="action-buttons">
                                 <a href="#" class="view-button-js" data-cartid="<?php echo $cart->cart_id; ?>">
                                     <i class="fas fa-shopping-cart"></i>
                                 </a>   
@@ -183,10 +192,6 @@ document.getElementById('deleteBtn').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent default anchor tag behavior
     handleDelete();
 });
-
-
-
-
     document.querySelectorAll('.view-button-js').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // Prevent default anchor tag behavior

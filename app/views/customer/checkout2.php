@@ -191,11 +191,11 @@
                         <div class="bank-details-container">
                             <div class="bank-details-row">
                                 <span class="label">Bank Name:</span>
-                                <span class="detail">Hatton National Bank - Hulftsdorp Branch</span>
+                                <span class="detail">Hatton National Bank - Gampaha Branch</span>
                             </div>
                             <div class="bank-details-row">
                                 <span class="label">Acc. Name:</span>
-                                <span class="detail">M.D. Gunasena & Co. (Pvt.) Ltd.</span>
+                                <span class="detail">Readspot & Co. (Pvt.) Ltd.</span>
                             </div>
                             <div class="bank-details-row">
                                 <span class="label">Acc. No:</span>
