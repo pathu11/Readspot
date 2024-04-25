@@ -73,7 +73,7 @@
             </li>
             
             <li class="list">
-              <a href="<?php echo URLROOT; ?>/delivery/processedorders" class="nav-link">
+              <a href="<?php echo URLROOT; ?>/delivery/allorders" class="nav-link">
                 <i class="bx bxs-credit-card icon"></i>
                 <span class="link">Orders</span>
               </a>

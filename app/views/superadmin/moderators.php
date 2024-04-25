@@ -10,6 +10,24 @@
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
 <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
 <title> Moderators</title>
+<style>
+.action a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50%; 
+    text-align: center;
+    line-height: 30px;
+    color: #fff; 
+    margin-right: 5px;
+    transition: background-color 0.3s ease; 
+}
+
+.action a:hover {
+    background-color:#009D94;
+}
+</style>
 </head>
 
 <body>
@@ -42,12 +60,12 @@
         <td ><?php echo $moderator->moderator_id; ?></td>
         <td ><?php echo $moderator->name; ?></td>
         <td ><?php echo $moderator->email; ?></td>
-        <td>
-            <a href='<?php echo URLROOT; ?>/superadmin/updateModerator/<?php echo $moderator->user_id; ?>'><i class='fa fa-edit' style='color:#09514C;' title="Edit moderator's Details"></i></a>
+        <td class="action">
+            <a href='<?php echo URLROOT; ?>/superadmin/updateModerator/<?php echo $moderator->user_id; ?>'><i class='fa fa-edit'  title="Edit moderator's Details"></i></a>
 
-            <a href='#'onclick='confirmDelete(<?php echo $moderator->user_id; ?>)' ><i class='fa fa-user-times' style='color:#09514C;' title="Remove this user from the website"></i></a>
-            <a href='#'onclick='confirmRestrict(<?php echo $moderator->user_id; ?>)' ><i class='fa fa-ban' style='color:#09514C;' title="Restrict this account for 7 days" ></i></a>
-            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $moderator->user_id; ?>"><i class='fas fa-comment-dots' style='color:#09514C;' title="Chat with this user" ></i></a>
+            <a href='#'onclick='confirmDelete(<?php echo $moderator->user_id; ?>)' ><i class='fa fa-user-times'  title="Remove this user from the website"></i></a>
+            <a href='#'onclick='confirmRestrict(<?php echo $moderator->user_id; ?>)' ><i class='fa fa-ban'  title="Restrict this account for 7 days" ></i></a>
+            <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $moderator->user_id; ?>"><i class='fas fa-comment-dots'  title="Chat with this user" ></i></a>
     </td>
            
     </tr>

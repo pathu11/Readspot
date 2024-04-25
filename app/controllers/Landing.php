@@ -758,71 +758,80 @@ class Landing extends Controller{
         }   
     }
   
-    
+    public function IsLoggedOut(){
+        $this->view('landing/IsLoggedOut');
+    }
     public function login(){
-      
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-            // process form
-            $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-            if(isset($_POST['rememberMe'])){
-                setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-                setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-             }else{
-               
-                setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
-                setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
-             }
-            //init data
-            $data=[   
-                'email'=>trim($_POST['email']),
-                'pass'=>trim($_POST['pass']),
-                // 'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 
-                'email_err'=>'',
-                'pass_err'=>'',
-
-            ];
-             //validate email
-             if(empty($data['email'])){
-                $data['email_err']='Please enter email';      
-            }
-             //validate password
-            if(empty($data['pass'])){
-                $data['pass_err']='Please enter password';      
-            }
-
-            //check for user/email
-            if($this->userModel->findUserByEmail($data['email'])){
-                //user found
-            }else{
-                $data['email_err']='No user found';
-            }
-            
-            //make sure errors are empty
-            if (empty($data['email_err']) && empty($data['password_err'])) {
-                // Validate and set logged in user
-                $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
-
-                if ($loggedInUser) {
+        if(isset($_SESSION['user_id']) || isset($_SESSION['user_email']) || isset($_SESSION['user_pass'])){
+           
+            redirect('landing/IsLoggedOut');
+           
+            exit; // Prevent further execution
+        }else{
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                // process form
+                $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                if(isset($_POST['rememberMe'])){
+                    setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+                    setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+                 }else{
                    
-                    $this->createUserSession($loggedInUser);
+                    setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
+                    setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
+                 }
+                //init data
+                $data=[   
+                    'email'=>trim($_POST['email']),
+                    'pass'=>trim($_POST['pass']),
+                    // 'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 
+                    'email_err'=>'',
+                    'pass_err'=>'',
+    
+                ];
+                 //validate email
+                 if(empty($data['email'])){
+                    $data['email_err']='Please enter email';      
+                }
+                 //validate password
+                if(empty($data['pass'])){
+                    $data['pass_err']='Please enter password';      
+                }
+    
+                //check for user/email
+                if($this->userModel->findUserByEmail($data['email'])){
+                    //user found
+                }else{
+                    $data['email_err']='No user found';
+                }
+                
+                //make sure errors are empty
+                if (empty($data['email_err']) && empty($data['password_err'])) {
+                    // Validate and set logged in user
+                    $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
+    
+                    if ($loggedInUser) {
+                       
+                        $this->createUserSession($loggedInUser);
+                    } else {
+                        $data['pass_err'] = 'Password incorrect';
+                        $this->view('landing/login', $data);
+                    }
                 } else {
-                    $data['pass_err'] = 'Password incorrect';
                     $this->view('landing/login', $data);
                 }
-            } else {
-                $this->view('landing/login', $data);
-            }
-        }else{
-            $data=[
-                'email'=>'',
-                'pass'=>'',
-                // 'remember_me'=>'',
-                'email_err'=>'',
-                'pass_err'=>'',
-            ];
-
-            $this->view('landing/login',$data);
-        }       
+            }else{
+                $data=[
+                    'email'=>'',
+                    'pass'=>'',
+                    // 'remember_me'=>'',
+                    'email_err'=>'',
+                    'pass_err'=>'',
+                ];
+    
+                $this->view('landing/login',$data);
+            }       
+        }
+       
     }
  
  

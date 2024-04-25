@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/table.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+    <style>
+    .action a {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        border-radius: 50%; 
+        text-align: center;
+        line-height: 30px;
+        color: #fff; 
+        margin-right: 5px;
+        transition: background-color 0.3s ease; 
+    }
+
+    .action a:hover {
+        background-color:#009D94;
+    }
+</style>
 </head>
 
 <body>
@@ -32,7 +50,7 @@
                     <td><?php echo $remove->name; ?></td>
                     <td><?php echo $remove->email; ?></td>
                     <td><?php echo $remove->removed_date; ?></td>
-                    <td>
+                    <td action="class">
                         <a href="#" onclick="confirmRestore(<?php echo $remove->remove_id; ?>)"><i class='fa fa-trash-restore' style='color:#09514C; ' title="Restore this user"></i></a>
                     </td>
                 </tr>

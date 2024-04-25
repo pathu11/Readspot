@@ -203,9 +203,11 @@
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
                         <?php endif; ?>
+
                     </div>
                           
                     <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
+
                  
                 </div>
                 <?php endforeach; ?>
@@ -303,7 +305,8 @@ document.querySelectorAll('.helpful-button').forEach(button => {
                             if (response.status === 'success') {
                                 window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
-                            } else {
+                            } 
+                            else {
                                 console.error('Error adding to cart:', response.message);
                                
                             }
