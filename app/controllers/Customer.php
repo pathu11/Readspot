@@ -910,7 +910,8 @@ public function updateReviewHelpfulBooks() {
                 'countStar_3'=>$countStar_3,
                 'countStar_4'=>$countStar_4,
                 'countStar_5'=>$countStar_5,
-                'averageRatingCount'=>$averageRatingCount
+                'averageRatingCount'=>$averageRatingCount,
+                'user_id' => 0000
             ];
             // print_r($data['countStar_1']);
             $this->view('customer/BookDetails', $data);
@@ -925,6 +926,9 @@ public function updateReviewHelpfulBooks() {
             $countStar_3 = $this->customerModel->countStar_3($book_id);
             $countStar_4 = $this->customerModel->countStar_4($book_id);
             $countStar_5 = $this->customerModel->countStar_5($book_id);
+            $customer_id = $customerDetails[0]->customer_id;
+            $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
+
             $data = [
                 'user_id'=>$user_id,
                 'customerDetails' => $customerDetails,
@@ -937,7 +941,8 @@ public function updateReviewHelpfulBooks() {
                 'countStar_3'=>$countStar_3,
                 'countStar_4'=>$countStar_4,
                 'countStar_5'=>$countStar_5,
-                'averageRatingCount'=>$averageRatingCount
+                'averageRatingCount'=>$averageRatingCount,
+                'favoriteDetails' => $favoriteDetails,
             ];
             // print_r($data['countStar_1']);
             $this->view('customer/BookDetails', $data);
@@ -1103,7 +1108,8 @@ public function BuyNewBooks()
         $data = [  
             'bookDetails' => $NewbookDetailsByTime,
             'recommendedBooks' => $recommendedBooks,
-            'bookCategoryDetails'=>$bookCategoryDetails
+            'bookCategoryDetails'=>$bookCategoryDetails,
+            'user_id' => 0000
         ];
         $this->view('customer/BuyNewBooks', $data);
 
@@ -1135,6 +1141,7 @@ public function BuyNewBooks()
             $UsedbookDetails = $this->customerModel->findAllUsedBooks();
             $data = [
                 'bookDetails' => $UsedbookDetails,
+                'user_id' => 0000
             ];
             $this->view('customer/BuyUsedBook', $data);
         } else {
@@ -1158,6 +1165,7 @@ public function BuyNewBooks()
             }
                 $data = [
                     'customerid' => $customerid,
+                    'user_id'=>$user_id,
                     'customerImage' => $customerDetails[0]->profile_img,
                     'customerDetails' => $customerDetails,
                     'bookDetails' => $UsedbookDetailsByTime,
@@ -1599,6 +1607,7 @@ public function BuyNewBooks()
             $bookDetails = $this->customerModel->findAllExchangedBook();
             $data = [
                 'bookDetails' => $bookDetails,
+                'user_id' => 0000
             ];
                 $this->view('customer/ExchangeBook', $data);
         } else {
@@ -1611,6 +1620,7 @@ public function BuyNewBooks()
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
                 $bookDetails = $this->customerModel->findExchangedBookByNotCusId($customerid);
+                $favoriteDetails = $this->customerModel->findExchangeBooksFavoriteByCustomerId($customerid);
             } else {
                 echo "Not found";
             }
@@ -1619,10 +1629,12 @@ public function BuyNewBooks()
         }
         $data = [
             'customerid' => $customerid,
+            'user_id'=>$user_id,
             'customerDetails' => $customerDetails,
             'customerImage' => $customerDetails[0]->profile_img,
             'bookDetails' => $bookDetails,
-            'customerName' => $customerDetails[0]->first_name
+            'customerName' => $customerDetails[0]->first_name,
+            'favoriteDetails' => $favoriteDetails
         ];
             $this->view('customer/ExchangeBook', $data);
         } 
@@ -1650,7 +1662,8 @@ public function BuyNewBooks()
                 'published_year' => $ExchangeBookId->published_year,
                 'town' => $ExchangeBookId->town,
                 'district' => $ExchangeBookId->district,
-                'postal_code' => $ExchangeBookId->postal_code
+                'postal_code' => $ExchangeBookId->postal_code,
+                'user_id' => 0000
             ];
             $this->view('customer/ExchangeBookDetails', $data);
         } else {
@@ -1667,6 +1680,7 @@ public function BuyNewBooks()
                 
                 $bookDetails = $this->customerModel->findExchangedBookByCusId($customerid);
                 $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
+                $favoriteDetails = $this->customerModel->findExchangeBooksFavoriteByCustomerId($customerid);
 
             } else {
                 echo "Not found";
@@ -1683,6 +1697,7 @@ public function BuyNewBooks()
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->first_name,
             'customerImage' => $customerDetails[0]->profile_img,
+            'user_id'=>$user_id,
 
             'book_id' => $bookId,
             'book_name' => $ExchangeBookId->book_name,
@@ -1699,7 +1714,8 @@ public function BuyNewBooks()
             'published_year' => $ExchangeBookId->published_year,
             'town' => $ExchangeBookId->town,
             'district' => $ExchangeBookId->district,
-            'postal_code' => $ExchangeBookId->postal_code
+            'postal_code' => $ExchangeBookId->postal_code,
+            'favoriteDetails' => $favoriteDetails
         ];
         $this->view('customer/ExchangeBookDetails', $data);
         }
@@ -3068,7 +3084,8 @@ public function markReview()
 
             $data = [
                 'bookDetails' => $NewbookDetailsByTime,
-                'bookCategoryDetails'=>$bookCategoryDetails
+                'bookCategoryDetails'=>$bookCategoryDetails,
+                'user_id' => 0000
             ];
 
             $this->view('customer/TopCategory', $data);
@@ -3082,6 +3099,7 @@ public function markReview()
             $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
             $data = [
                 'customerDetails' => $customerDetails,
+                'user_id'=>$user_id,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'bookDetails' => $NewbookDetailsByTime,
@@ -3114,7 +3132,8 @@ public function markReview()
             // $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
             $data = [  
                 // 'bookDetails' => $NewbookDetailsByTime,
-                'recommendedBooks' => $recommendedBooks
+                'recommendedBooks' => $recommendedBooks,
+                'user_id' => 0000
             ];
             $this->view('customer/Recommended', $data);
 
@@ -3143,7 +3162,8 @@ public function markReview()
             $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
             $data = [
                 'bookDetails' => $NewbookDetailsByCategory,
-                'category' => $category
+                'category' => $category,
+                'user_id' => 0000
             ];
 
             $this->view('customer/Category', $data);
@@ -3157,6 +3177,7 @@ public function markReview()
 
             $data = [
                 'customerDetails' => $customerDetails,
+                'user_id'=>$user_id,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'bookDetails' => $NewbookDetailsByCategory,
@@ -3173,6 +3194,7 @@ public function markReview()
             $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
             $data = [
                 'bookDetails' => $NewbookDetailsByTime,
+                'user_id' => 0000
             ];
             $this->view('customer/NewArrival', $data);
         } else {
@@ -3184,6 +3206,7 @@ public function markReview()
             $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
             $data = [
                 'customerDetails' => $customerDetails,
+                'user_id'=>$user_id,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'bookDetails' => $NewbookDetailsByTime,
@@ -3198,7 +3221,7 @@ public function markReview()
             $UsedBookId = $this->customerModel->findUsedBookById($bookId);
             $data = [
                 'UsedBookId' => $UsedBookId,
-                
+                'user_id' => 0000,
                 'book_id' => $bookId,
                 'book_name' => $UsedBookId->book_name,
                 'ISBN_no' => $UsedBookId->ISBN_no,
@@ -3236,6 +3259,7 @@ public function markReview()
                 
                 $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
                 $UsedBookId = $this->customerModel->findUsedBookById($bookId);
+                $favoriteDetails = $this->customerModel->findUsedBooksFavoriteByCustomerId($customerid);
 
                 
                 // if($bookDetails && $UsedBookId ){
@@ -3261,7 +3285,7 @@ public function markReview()
             'UsedBookId' => $UsedBookId,
             'customerName' => $customerDetails[0]->first_name,
             'customerImage' => $customerDetails[0]->profile_img,
-
+            'user_id'=>$user_id,
             'book_id' => $bookId,
             'book_name' => $UsedBookId->book_name,
             'ISBN_no' => $UsedBookId->ISBN_no,
@@ -3282,7 +3306,8 @@ public function markReview()
             'branch_name' => $UsedBookId->branch_name,
             'town' => $UsedBookId->town,
             'district' => $UsedBookId->district,
-            'postal_code' => $UsedBookId->postal_code
+            'postal_code' => $UsedBookId->postal_code,
+            'favoriteDetails' => $favoriteDetails
         ];
         $this->view('customer/UsedBookDetails', $data);
         }

@@ -79,6 +79,13 @@
       return $this->db->resultSet();
     }
 
+    public function findExchangeBooksFavoriteByCustomerId($customer_id) {
+      $this->db->query('SELECT item_id,fav_id FROM favorite WHERE customer_id = :customer_id AND category="Exchange Book"');
+      $this->db->bind(':customer_id', $customer_id);
+  
+      return $this->db->resultSet();
+    }
+
     public function findContentFavoriteByCustomerId($customer_id) {
       $this->db->query('SELECT item_id,fav_id FROM favorite WHERE customer_id = :customer_id AND category="Content"');
       $this->db->bind(':customer_id', $customer_id);

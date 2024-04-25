@@ -64,11 +64,38 @@
                             </div>
                             <h3><?php echo $bookDetails->book_name; ?></h3>
                             <div class="fav-msg">
-                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteExchangeBooks/<?php echo $bookDetails->book_id; ?>">
+                                <?php 
+                                    $num = 0; // Initialize the variable before the loop
+                                    if ($data['user_id']==0000){
+                                        $num = 0;
+                                    }else{
+                                        foreach ($data['favoriteDetails'] as $favorite): 
+                                            if ($bookDetails->book_id == $favorite->item_id): 
+                                                $num = 1;
+                                                $fav_id = $favorite->fav_id;
+                                                break; // Assuming you want to stop the loop once a match is found
+                                            endif;
+                                        endforeach;
+                                    }
+                                ?>
+                                <?php if ($num == 1): ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                                        <button class="book-button-after-fav chat-btn-used-fav">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToFavoriteExchangeBooks/<?php echo $bookDetails->book_id; ?>">
+                                        <button class="book-button chat-btn-used-fav">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php endif; ?>
+                                <!-- <a href="<?php echo URLROOT; ?>/customer/addToFavoriteExchangeBooks/<?php echo $bookDetails->book_id; ?>">
                                     <button class="book-button-E">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                     </button>
-                                </a>
+                                </a> -->
                                 <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $bookDetails->customer_user_id; ?>">
                                     <button class="book-button-E">
                                         <i class="fas fa-comment-alt" aria-hidden="true"></i>
