@@ -1182,16 +1182,14 @@ public function BuyNewBooks()
                 return;
             }
         }
-    
         echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
-
     }
     
     public function addToCartByEachBook($bookId) {
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
-        print_r($bookId);
+        
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $customer_id=$customerDetails[0]->customer_id;
@@ -1326,16 +1324,12 @@ public function BuyNewBooks()
                 redirect('customer/BookContents');
             }
         }
-
     }
-    
     public function Cart(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } else {
             $user_id = $_SESSION['user_id'];
-
-           
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0] ->customer_id;
             $cartDetails=$this->customerModel->findCartById($customer_id);

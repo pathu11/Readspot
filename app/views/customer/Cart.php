@@ -5,6 +5,26 @@
 <?php
     require APPROOT . '/views/customer/sidebar.php'; //path changed
 ?>
+<head>
+<style>
+        .action-buttons a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color:#009D94 ;
+            border-radius: 50%; 
+            text-align: center;
+            line-height: 30px;
+            color: #fff; 
+            margin-right: 5px;
+            transition: background-color 0.3s ease; 
+        }
+
+        .action-buttons a:hover {
+            background-color:#ccc;
+        }
+</style>
+</head>
 <div class="container">
     <div class="my-cart">
         <div class="cart-topic">
@@ -35,14 +55,22 @@
                     </thead>
               
                     <tbody>
-                        <?php foreach($data['cartDetails'] as $cart): ?>
-                            
+                        <?php foreach($data['cartDetails'] as $cart): ?>  
                         <tr>
-
                             <td><input type="checkbox" name="selectedItems[]" value="<?php echo $cart->cart_id; ?>"></td>
                             <td><img src="<?php echo URLROOT; ?>/assets/images/publisher/addbooks/<?php echo $cart->img1; ?>" alt="Book" class="cart-image"></td>
-                            <td><?php echo $cart->book_name; ?></td>
-                            <td><?php echo $cart->price; ?></td>
+                            <td style=" width:10%;"><?php echo $cart->book_name; ?></td>
+                            <td style=" width:20%;">
+                                
+                                <?php if ($cart->discounts > 0) {
+                                    $discountedPrice = $cart->price - ($cart->price * $cart->discounts * 0.01);
+                                    echo '<p>'. $discountedPrice .' <span style="text-decoration:line-through;color:red;">' . $cart->price . '</span> </p>';
+                                } else{
+                                    echo $cart->price;
+                                }
+                                ?>
+                            </td>
+
                             <td><?php echo $cart->quantity; ?></td>
                             <td><?php echo $cart->price*$cart->quantity; ?></td>
                             <td class="action-buttons">

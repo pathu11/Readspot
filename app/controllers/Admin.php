@@ -834,8 +834,6 @@ public function sendPayment() {
         //     // echo '<script>alert("Failed to send your payment. Please try again later.")</script>';
              echo json_encode(['success' => false]);
          }
-   
-   
 }
 
 public function approveOrder($order_id) {
