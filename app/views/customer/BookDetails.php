@@ -4,7 +4,6 @@
 ?>
 <head> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/customer/BookDetails.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -189,7 +188,7 @@
 </div>
                           
                 <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
-                    </div>
+                    <!-- </div> -->
                  
                 </div>
                 <?php endforeach; ?>
@@ -203,13 +202,6 @@
         <?php endforeach; ?>
     </div>
 
-<!-- Popup HTML -->
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-        <p>This book is already in your cart!</p>
-    </div>
-</div>
 
 
     <script>
@@ -241,15 +233,15 @@ document.querySelectorAll('.helpful-button').forEach(button => {
     const widget = document.querySelector(".my-rate");
     const editBtn = document.querySelector(".edit");
 
-    // btn.onclick = () => {
-    //     widget.style.display = "none";
-    //     post.style.display = "block";
-    // }
+    btn.onclick = () => {
+        widget.style.display = "none";
+        post.style.display = "block";
+    }
 
-    // editBtn.onclick = () => {
-    //     widget.style.display = "block";
-    //     post.style.display = "none";
-    // }
+    editBtn.onclick = () => {
+        widget.style.display = "block";
+        post.style.display = "none";
+    }
 
     const starLabels = document.querySelectorAll('.my-rate label');
 
@@ -297,7 +289,7 @@ document.querySelectorAll('.helpful-button').forEach(button => {
                                 // ... (rest of the code)
                             } 
                             else if(response.status === 'already_added'){
-                                    showModal();
+
                             }
                             else {
                                 console.error('Error adding to cart:', response.message);
@@ -317,7 +309,6 @@ document.querySelectorAll('.helpful-button').forEach(button => {
     xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
     xhttp.send();
 }
-
 function addToCart2(bookId) {
             var quantity = document.getElementById('quantity').innerText;
 
@@ -333,8 +324,6 @@ function addToCart2(bookId) {
                             if (response.status === 'success') {
                                 window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
-                            } else if(response.status === 'already_added') {
-                                showModal(); // Display popup if the book is already added
                             } else {
                                 console.error('Error adding to cart:', response.message);
                                
@@ -353,24 +342,6 @@ function addToCart2(bookId) {
     xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
     xhttp.send();
 }
-// check book id already in the cart or not
-        function showModal() {
-            var modal = document.getElementById("popup");
-            modal.style.display = "block";
-        }
-
-        function closePopup() {
-            var modal = document.getElementById("popup");
-            modal.style.display = "none";
-        }
-
-        // Close the popup when the user clicks outside of it
-        window.onclick = function(event) {
-            var modal = document.getElementById("popup");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
 
     const star_1=<?php echo $data['countStar_1']->total_1; ?>;
     const star_2=<?php echo $data['countStar_2']->total_2; ?>;
