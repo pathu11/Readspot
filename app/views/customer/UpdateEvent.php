@@ -28,11 +28,9 @@
                     <div class="topic-book author">
                         <label class="label-topic">Event Category</label><br>
                         <select id="category"  name="category" required>
-                            <option value="Author Talks" <?php echo ($data['Category'] == 'Author Talks') ? 'selected' : ''; ?>>Author Talks</option>
-                            <option value="Book Launch" <?php echo ($data['Category'] == 'Book Launch') ? 'selected' : ''; ?>>Book Launch</option>
-                            <option value="Book Fair" <?php echo ($data['Category'] == 'Book Fair') ? 'selected' : ''; ?>>Book Fair</option>
-                            <option value="Book Club Meeting" <?php echo ($data['Category'] == 'Book Club Meeting') ? 'selected' : ''; ?>>Book Club Meeting</option>
-                            <option value="Book Swap Event" <?php echo ($data['Category'] == 'Book Swap Event') ? 'selected' : ''; ?>>Book Swap Event</option>
+                            <?php foreach($data['eventCategoryDetails'] as $eventCategoryDetails): ?>
+                                <option value="<?php echo $eventCategoryDetails->event; ?>" <?php echo ($data['Category'] == $eventCategoryDetails->event) ? 'selected' : ''; ?>><?php echo $eventCategoryDetails->event; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>

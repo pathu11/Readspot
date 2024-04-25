@@ -241,7 +241,11 @@
             `;
         });
 
-
+        // Determine the background color for each progress bar based on the delivery status
+        // var progressBarProcessingClass = order.status === "processing" ? "progress-bar-processing" : "";
+        var progressBarProcessingClass = (order.status === "pending" || order.status === "processing" || order.status === "shipping" || order.status === "delivered") ? "progress-bar-processing" : "";
+        var progressBarPickupClass = (order.status === "shipping" || order.status === "delivered") ? "progress-bar-pickup" : "";
+        var progressBarDeliveredClass = (order.status === "delivered") ? "progress-bar-delivered" : "";
 
         // Update the modal content with the generated HTML
         bookDetailsTable.innerHTML = `
@@ -263,9 +267,9 @@
                 </div>
                 <div class="delivery-status">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-processing" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar progress-bar-pickup" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar progress-bar-delivered" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar ${progressBarProcessingClass}" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar ${progressBarPickupClass}" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar ${progressBarDeliveredClass}" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="status-labels">
                         <div class="label">
@@ -282,6 +286,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="delivery-received">
+                    <p>Did you receive order ?</p> 
+                    <center><button>Yes</button></center>
             </div>
         `;
         modal.style.display = "block";

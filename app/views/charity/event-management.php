@@ -20,7 +20,7 @@
 
             <a href="event" class="active">Event Management</a>
             <a href="donation">Donation Requests</a>
-            <a href="aboutUs">
+            <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
             </a>
@@ -80,7 +80,7 @@
                 </thead>
 
                 <tbody>
-                    <?php foreach ($allEvents as $event) { ?>
+                    <?php foreach ($data['allEvents'] as $event): ?>
                         <tr>
                             <td>1</td>
                             <td><?php echo $event->event_name ?></td>
@@ -109,10 +109,11 @@
                                 </button> -->
                         </td>
                         </tr>
-                    <?php } ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 
+            
             <!-- Modal for event details -->
             <!-- <div id="myModal" class="modal">
                 <div class="modal-content">

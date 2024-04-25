@@ -519,6 +519,20 @@ form {
 input:checked ~ form{
     display: block;
   }
+
+.stock-div {
+    /* background-color: #04AA6D; */
+    text-align:center;
+    color: #666;
+    border-radius:50%;
+}
+
+/* .outStock {
+    background-color: #f44336;
+    border-radius:50%;
+    width: 50%;
+} */
+
 @media screen and (max-width:1000px) {
     .book-img-des img {
         height: 220px;
