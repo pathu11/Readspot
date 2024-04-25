@@ -288,9 +288,6 @@ document.querySelectorAll('.helpful-button').forEach(button => {
                                 window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
                             } 
-                            else if(response.status === 'already_added'){
-
-                            }
                             else {
                                 console.error('Error adding to cart:', response.message);
                                

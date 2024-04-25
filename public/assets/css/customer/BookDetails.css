@@ -50,29 +50,7 @@
 .sub3 p {
     text-align: justify;
 }
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-}
 
-.popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    color: #000;
-}
 .new-book-details {
     margin-top: 10px;
     display: flex;
