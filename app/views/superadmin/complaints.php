@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/superadmin/table.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+    <style>
+        .action a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color:#009D94 ;
+            border-radius: 50%; 
+            text-align: center;
+            line-height: 30px;
+            color: #fff; 
+            margin-right: 5px;
+            transition: background-color 0.3s ease; 
+        }
+
+        .action a:hover {
+            background-color:#ccc;
+        }
+</style>
 </head>
 
 <body>
@@ -74,11 +92,12 @@
                     <td title="<?php echo $complaints->superadmin_comment; ?>"><?php echo $complaints->superadmin_comment; ?></td>
 
 
-                    <td>
-                        <a href='#' onclick='resolved(<?php echo $complaints->complaint_id; ?>)'><i class="fa fa-check"
-                                title="Resolved this issue"></i> </a>
-
-
+                    <td class="action" >
+                        <?php if(isset($complaints->superadmin_comment)): ?>
+                            <a href='#' style="background-color:#ccc;" ><i class="fa fa-check" title="already resolved that issue"></i> </a>
+                        <?php else: ?>
+                            <a href='#' onclick='resolved(<?php echo $complaints->complaint_id; ?>)'><i class="fa fa-check" title="Resolved this issue"></i> </a>
+                        <?php endif ; ?>
                     </td>
 
                 </tr>

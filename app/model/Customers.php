@@ -1272,6 +1272,17 @@ public function updateReviewHelpfulBooks($reviewId){
       return false;
   }   
 }
+public function checkCart($bookId) {
+  $this->db->query('SELECT COUNT(*) AS total FROM cart WHERE book_id = :book_id');
+  $this->db->bind(':book_id', $bookId);
+  $this->db->execute();
+  $result = $this->db->single();
+  if ($result['total'] == 0) {
+      return true;
+  } else {
+      return false;
+  }
+}
 public function addNotification($data){
   $this->db->query('INSERT INTO messages (sender_id, user_id, topic,message,sender_name) VALUES (:sender_id,  :user_id, :topic, :message, :sender_name)');
   $this->db->bind(':sender_id', $data['sender_id']);

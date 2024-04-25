@@ -1162,10 +1162,16 @@ public function BuyNewBooks()
         $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
         
         if ($bookId) {
-            if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
-                echo json_encode(['status' => 'success']);
+            if($this->customerModel->checkCart($bookId)){
+                if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
+                    echo json_encode(['status' => 'success']);
+                    return;
+                }
+            }else{
+                echo json_encode(['status'=>'already_added']);
                 return;
             }
+            
         }
     
         echo json_encode(['status' => 'error', 'message' => 'SQL Error: ' . $e->getMessage()]);
