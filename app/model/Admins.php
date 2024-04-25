@@ -504,9 +504,19 @@ public function approveOrder($order_id) {
   $this->db->bind(':order_id', $order_id);
   if ($this->db->execute()) {
     return true;
-} else {
-    return false;
+  } else {
+      return false;
+  }
 }
+
+public function rejectOrder($order_id) {
+  $this->db->query("UPDATE order_details SET status = 'cancel' WHERE order_id = :order_id");
+  $this->db->bind(':order_id', $order_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+      return false;
+  }
 }
 
 public function addMessage($data) {

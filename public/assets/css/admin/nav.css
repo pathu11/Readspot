@@ -263,8 +263,15 @@ nav.open ~ .overlay {
 } */
 
 .modal-content h2 {
+  color: yellow;
+  font-size: 20px;
+
+}
+
+.modal-content p{
   color: white;
   font-size: 14px;
+  margin-top: 10px;
 }
 
 .close {
