@@ -628,6 +628,34 @@ require APPROOT . '\vendor\autoload.php';
       $this->view('moderator/topChallenges',$data);
     }
   }
+
+  public function bookReviews(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      $user_id = $_SESSION['user_id'];
+      $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+      $reviewDetails = $this->moderatorModel->getReviews();
+      
+      $data = [
+        'moderatorDetails' => $moderatorDetails,
+        'moderatorName'=>$moderatorDetails[0]->name,
+        'reviewDetails'=>$reviewDetails,
+      ];
+      $this->view('moderator/bookReviews',$data);
+    }
+  }
+
+  public function deleteBookReview($review_id){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      if($this->moderatorModel->deleteBookReview($review_id)){
+        redirect('moderator/bookReviews');
+      }
+      else echo 'Something went wrong';
+    }
+  }
   
   }
 

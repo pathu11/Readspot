@@ -297,6 +297,26 @@
       }
     }
 
+    public function getReviews() {
+      $this->db->query('SELECT r.book_id, b.book_name, r.review, r.review_id, c.first_name AS name, c.profile_img AS profile_img 
+      FROM reviews r 
+      JOIN customers c ON r.customer_id = c.customer_id
+      JOIN books b ON r.book_id = b.book_id');
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function deleteBookReview($review_id){
+      $this->db->query('DELETE FROM reviews WHERE review_id = :review_id');
+      $this->db->bind(":review_id",$review_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
   }
 
 
