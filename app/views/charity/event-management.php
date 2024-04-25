@@ -41,8 +41,8 @@
         <!-- <a href="#" class="postevent" onclick="showMessage()"> POST EVENTS</a> -->
     </div>
 
-    <div class="box1">
-        <!-- <a href="<?php echo URLROOT; ?>/charity/test">test</a> -->
+    <!-- <div class="box1">
+        <a href="<?php echo URLROOT; ?>/charity/test">test</a>
         <div class="box2">
             <h4> Keep in MIND!</h4>
             <p> I am not just organizing things; also helping create a community where people love to share and read books<br>
@@ -61,7 +61,7 @@
                 <br>
             </p>
         </div>
-    </div>
+    </div> -->
     <div class="event-table">
         <div class="container">
             <table id="eventTable">

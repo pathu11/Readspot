@@ -25,7 +25,7 @@
 
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
+                <!-- <span class="notification-text">Notification</span> -->
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
