@@ -14,7 +14,7 @@
 
 <body>
     <div id="dashboard">
-    <?php $event = $data['event'] ?>
+        <?php $event = $data['event'] ?>
     </div>
     <header>
         <div>
@@ -24,7 +24,7 @@
             <a href="./">Home</a>
             <a href="event" class="active">Event Management</a>
             <a href="donation">Donation Requests</a>
-            <a href="aboutUs">
+            <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
                 <span class="notification-text">Notification</span>
             </a>
@@ -72,6 +72,13 @@
                     <td>End Time:</td>
                     <td><input type="time" name="endTime" value="<?php echo $event->end_time ?>" required disabled></td>
                 </tr>
+
+                <!-- need to be add in DB -->
+                <tr>
+                    <td>Book Count:</td>
+                    <td><input type="text" name="bookCount" value="<?php echo $event->book_count ?>" required disabled></td>
+                </tr>
+
                 <tr>
                     <td>Book Category:</td>
                     <td>
@@ -92,6 +99,7 @@
                     <td><textarea name="description" required disabled><?php echo $event->description ?></textarea></td>
                 </tr>
                 <tr>
+                    <td>Description:</td>
                     <td>
                         <div class="ae-drop-image-box">
                             <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
@@ -138,7 +146,7 @@
 <script>
     function enableEditing() {
         var btn = document.getElementById("ve-editbtn");
-        var dltBtn =document.getElementById("ve-dltbtn");
+        var dltBtn = document.getElementById("ve-dltbtn");
         var form = document.getElementById("eventForm");
         var inputs = form.querySelectorAll("input, textarea, select");
 
