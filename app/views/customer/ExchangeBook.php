@@ -26,8 +26,8 @@
                     </form>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 </div>
-                <div class="filter-category">
-                    <div class="list-group-E" id="show-list">
+                <div class="filter-category" style="margin-top: 400px;">
+                    <div class="list-group" id="show-list">
                         
                     </div>
                 </div>

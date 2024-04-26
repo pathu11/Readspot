@@ -733,6 +733,26 @@ public function editOrderCOD($data)
       return $results;
     }
 
+    public function searchUsedBooksWithoutLoggedIn($inputText){
+      $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+      FROM books 
+      WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+      AND type = 'used' AND status = 'approval' ");
+      
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function searchExchangeBooksWithoutLoggedIn($inputText){
+      $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
+      FROM books 
+      WHERE (book_name LIKE '%$inputText%' OR ISBN_no LIKE '%$inputText%' OR author LIKE '%$inputText%') 
+      AND type = 'exchanged' AND status = 'approval' ");
+      
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
     public function searchExchangeBooks($inputText, $customer_id){
       $this->db->query("SELECT book_id, book_name, ISBN_no, author, img1,price
       FROM books 
