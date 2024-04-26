@@ -447,6 +447,8 @@
     
         return $this->db->rowCount() > 0;
     }
+
+    
     public function findOrdersByCustomerId($customer_id) {
         $this->db->query('SELECT o.tracking_no, od.status, o.order_id
         FROM orders o
@@ -457,6 +459,7 @@
         WHERE o.customer_id = :customer_id
         ORDER BY o.order_date DESC;
         ');
+
         $this->db->bind(':customer_id', $customer_id);
     
         return $this->db->resultSet();
