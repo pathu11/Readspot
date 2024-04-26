@@ -34,14 +34,31 @@
       <input type="text" name="end_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['end_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_date']; ?>" placeholder="End date" required><br>
       <span class="error"><?php echo $data['end_date_err']; ?></span>
 
+      <input type="text" name="start_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['start_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_time']; ?>" placeholder="Start Time" required><br>
+      <span class="error"><?php echo $data['start_time_err']; ?></span>
+
+      <input type="text" name="end_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['end_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_time']; ?>" placeholder="End time" required><br>
+      <span class="error"><?php echo $data['end_time_err']; ?></span>
+
+
       <select class="select <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['category']; ?>" name="category" required>
         <option value="" selected disabled>Select Event Category</option>                     
           <?php foreach($data['eventCategoryDetails'] as $event): ?>
             <option><?php echo $event->event; ?></option>
           <?php endforeach; ?>
       </select>
+      
       <label>Enter Your event poster with all details to display in our site</label>
-      <input type="file" id="pdfUpload1" name="poster" required>
+      <div style="display:flex;">
+        <input type="file" id="pdfUpload1" name="poster" required>
+        <input type="file" id="pdfUpload2" name="poster1" required>
+        <input type="file" id="pdfUpload3" name="poster2" required>
+        <input type="file" id="pdfUpload4" name="poster3" required>
+        <input type="file" id="pdfUpload5" name="poster4" required>
+        <input type="file" id="pdfUpload6" name="poster5" required>
+
+      </div>
+
       <br>
       <button class="submit" type="button" onclick="goBack()">Back</button>
       <button type="submit" class="submit">Request</button>
@@ -54,40 +71,14 @@
             <!-- <span class="close" onclick="closeModal()">&times;</span> -->
             <h2>Record Added!</h2>
             <p>Your record has been recorded. Wait for admin approval</p>
-            <button onclick="closeModal()">OK</button>
+            <button onclick="closeModal()" class="confirm">OK</button>
         </div>
     </div>
     <!--div class="bg">
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
   </div>
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Event Added Successfully</h2>
-        <!-- You can add more details or actions here -->
-    </div>
-</div>
-<?php echo $_SESSION['successEvent']; ?>
-<?php if (isset($_SESSION['successEvent']) && $_SESSION['successEvent']): ?>
-        showModal();
-        <?php unset($_SESSION['successEvent']); ?>
-    <?php endif; ?>
-<script>
-    function showModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
-    }
-
-    function closeModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-        window.location.href = "<?php echo URLROOT; ?>/publisher/events"; // Redirect to the event page
-    }
-
-    // Check if the showModal flag is set, then call showModal()
-   
-</script>
+  
 
 
 <script>

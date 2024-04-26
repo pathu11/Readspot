@@ -21,10 +21,7 @@
             <span id="rememberme"><label for="rememberme">Remember me</label></span>
             <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password !</a>
             <button class="btn" name="submit" type="submit">log in</button>
-            <div class="connect">
-                <h4><span>Or Connect With</span></h4>
-            </div>
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/icons8-google-48.png">
+           
             <div>
                 <span class="copyright">Readspot&copy;2023</span> 
             </div>  

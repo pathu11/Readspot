@@ -19,7 +19,7 @@
               <input type="email" name="email"  placeholder="Email address " required><br>
               
            <br>
-            <button class="btn" name="submit" type="submit">Submit</button><br>
+            <button class="btn" onclick="handleEmailEnterButtonClick()" name="submit" type="submit">Submit</button><br>
             <div>
                 <span class="copyright">&copy;2023</span> 
             </div>  
@@ -50,14 +50,17 @@
       </script>
 </body>
 <script>
-   
- 
-        // Toggle the eye icon itself
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+        // Function to clear sessionStorage
+        function clearSessionStorage() {
+            sessionStorage.removeItem('remainingTime');
+        }
+        function handleEmailEnterButtonClick() {
+            clearSessionStorage();
+        }
     </script>
+    
 </html>
                      

@@ -29,7 +29,7 @@
                             <span class="error"><?php echo $data['price_err']; ?></span>
                             </div>
                         <div class="table1">
-                            <input type="number" step="0.01" min="0" id="discountInput" placeholder="Discounts as a Percentage" name="discounts"  class="<?php echo (!empty($data['discounts_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['discounts']; ?>" required><br>
+                            <input type="number" step="1" min="0" max="100" id="discountInput" placeholder="Discounts as a Percentage" name="discounts"  class="<?php echo (!empty($data['discounts_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['discounts']; ?>" required><br>
                             <span class="error"><?php echo $data['discounts_err']; ?></span>
 
                         </div>    
@@ -81,12 +81,14 @@
     <!-- <?php
             require APPROOT . '/views/publisher/footer.php'; //path changed
         ?> -->
+       
 </body>
 <script>
         function goBack() {
             // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+       
+    
     </script>
 </html>
