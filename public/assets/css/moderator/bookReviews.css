@@ -1,6 +1,50 @@
+.subNav{
+  display: flex;
+  margin-top: 120px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.search-bar{
+  margin: 10px;
+  padding: 5px;
+}
+
+.search{
+  padding: 5px;
+  border: 2px solid #009D94;
+  border-radius: 5px;
+  width: 400px;
+}
+
+.reviewNav{
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewType{
+  margin: 5px;
+}
+
+.reviewType a{
+  text-decoration: none;
+  color: #009D94;
+  font-size: large;
+}
+
+.reviewTypeActive{
+  margin: 5px;
+}
+
+.reviewTypeActive a{
+  text-decoration: none;
+  color: crimson;
+  font-size: large;
+}
+
 .table-container {
   width: 90%;
-  margin-top: 120px;
   overflow-x: auto;
   margin-left: auto;
   margin-right: auto;

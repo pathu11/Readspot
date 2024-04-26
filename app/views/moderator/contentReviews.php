@@ -7,21 +7,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/moderator/bookReviews.css" />
-  <title>Book Reviews</title>
+  <title>Content Reviews</title>
 </head>
 <body>
   <?php require APPROOT . '/views/moderator/nav.php';?>
   <div class="subNav">
     <div class="reviewNav">
-      <div class="reviewTypeActive">
+      <div class="reviewType">
         <a href="<?php echo URLROOT;?>/moderator/bookReviews">Book Reviews</a><span>></span>
       </div>
-      <div class="reviewType">
+      <div class="reviewTypeActive">
         <a href="<?php echo URLROOT;?>/moderator/contentReviews">Content Reviews</a>
       </div>
     </div>
     <div class="search-bar">
-      <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search by book name, review or customer name..." >
+      <input type="text" class="search" id="live-search" autocomplete="off" placeholder="Search by content name, review or customer name..." >
     </div>
   </div>
   <div id="searchresult"></div>
@@ -31,7 +31,7 @@
     $(document).ready(function(){
       $("#live-search").keyup(function(){
         var input = $(this).val();
-        var searchType = 'bookReviews';
+        var searchType = 'contentReviews';
         //alert(input);
         if(input != ""){
             $.ajax({
@@ -58,15 +58,15 @@
       <tr>
         <th>Profile Image</th>
         <th>Customer Name</th>
-        <th>Book Name</th>
-        <th>Book Review</th>
+        <th>Content Name</th>
+        <th>Content Review</th>
         <th>Delete Review</th>
       </tr>
-      <?php foreach($data['reviewDetails'] as $review):?>
+      <?php foreach($data['contentReviewDetails'] as $review):?>
       <tr>
         <td><img src="<?php echo URLROOT;?>/assets/images/customer/ProfileImages/<?php echo $review->profile_img;?>" ></td>
         <td><?php echo $review->name;?></td>
-        <td><?php echo $review->book_name;?></td>
+        <td><?php echo $review->topic;?></td>
         <td><?php echo $review->review;?></td>
         <td><button onclick="deletePopup('<?php echo $review->review_id;?>')">Delete</button></td>
       </tr>
@@ -92,14 +92,14 @@
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Delete Book Review</h2>
+      <h2>Delete Content Review</h2>
       <div id="deleteReview"></div>
     </div>
   </div>
 
   <script>
     function deletePopup(review_id){
-      var deleteReviewContent = '<p>Are you sure you want to delete this customer book review?</p><a href="<?php echo URLROOT;?>/moderator/deleteBookReview/'+`${review_id}`+'"><button>Delete</button></a>';
+      var deleteReviewContent = '<p>Are you sure you want to delete this customer content review?</p><a href="<?php echo URLROOT;?>/moderator/deleteContentReview/'+`${review_id}`+'"><button>Delete</button></a>';
       var deletePopup = document.getElementById('deleteReview');
       deletePopup.innerHTML = deleteReviewContent;
       document.getElementById("myModal").style.display = "block";

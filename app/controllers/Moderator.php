@@ -472,12 +472,16 @@ require APPROOT . '\vendor\autoload.php';
         $eventSearchDetails = $this->moderatorModel->geteventSearchDetails($input);
         $challengeSearchDetails = $this->moderatorModel->getChallengeSearchDetails($input);
         $complainSearchDetails = $this->moderatorModel->getComplainSearchDetails($input);
+        $bookReviewSearchDetails = $this->moderatorModel->getbookReviewSearchDetails($input);
+        $contentReviewSearchDetails = $this->moderatorModel->getcontentReviewSearchDetails($input);
       }
   
       $data = [
           'eventSearchDetails'=>$eventSearchDetails,
           'challengeSearchDetails'=>$challengeSearchDetails,
           'complainSearchDetails'=>$complainSearchDetails,
+          'bookReviewSearchDetails'=>$bookReviewSearchDetails,
+          'contentReviewSearchDetails'=>$contentReviewSearchDetails
       ];
       
       $this->view('moderator/livesearch',$data);
@@ -646,12 +650,41 @@ require APPROOT . '\vendor\autoload.php';
     }
   }
 
+  public function contentReviews(){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      $user_id = $_SESSION['user_id'];
+      $moderatorDetails = $this->moderatorModel->findmoderatorById($user_id);
+      $contentReviewDetails = $this->moderatorModel->getContentReviews();
+      
+      $data = [
+        'moderatorDetails' => $moderatorDetails,
+        'moderatorName'=>$moderatorDetails[0]->name,
+        'contentReviewDetails'=>$contentReviewDetails,
+      ];
+      $this->view('moderator/contentReviews',$data);
+    }
+  }
+
+
   public function deleteBookReview($review_id){
     if (!isLoggedInModerator()) {
       redirect('landing/login');
     }else{
       if($this->moderatorModel->deleteBookReview($review_id)){
         redirect('moderator/bookReviews');
+      }
+      else echo 'Something went wrong';
+    }
+  }
+
+  public function deleteContentReview($review_id){
+    if (!isLoggedInModerator()) {
+      redirect('landing/login');
+    }else{
+      if($this->moderatorModel->deleteContentReview($review_id)){
+        redirect('moderator/contentReviews');
       }
       else echo 'Something went wrong';
     }
