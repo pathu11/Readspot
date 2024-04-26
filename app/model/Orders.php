@@ -490,7 +490,6 @@
     
         return $this->db->resultSet();
     }
-
     
     public function findOrdersByOrderId($order_id) {
         $this->db->query('SELECT

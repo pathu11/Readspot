@@ -295,9 +295,9 @@ public function editAccountForBooks($book_id) {
             if ( $this->publisherModel->editAccountInBooks($data)  && $this->publisherModel->AddBookApproval($data)) {
                 // Now add book approval
 
-                $_SESSION['success']=true;
+                $_SESSION['showModal'] = true;
                 
-                redirect('NewBooks/productGallery');
+                redirect('publisher/editAccountForBooks/'.$book_id);
                
             } else {
                 die('Something went wrong with updating account details');
@@ -1226,7 +1226,8 @@ public function processingorders()
              
                     if($this->publisherModel->addStore($data) ){
                         flash('update_success','You are added the store  successfully');
-                        redirect('publisher/stores/'.$publisher_id);
+                        $_SESSION['showModal'] = true;
+                        redirect('publisher/addStore');
                     }else{
                         die('Something went wrong');
                     }
@@ -1423,7 +1424,7 @@ public function stores(){
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
-            $sender_id=$ChatDetails[0]->outgoing_msg_id;
+            $sender_id=$ChatDetails[0]->incoming_msg_id;
            
             $senderDetails=$this->publisherModel->finduserDetails($sender_id);
             // print_r($senderDetails);

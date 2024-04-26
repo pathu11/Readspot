@@ -1,9 +1,32 @@
 body {
     margin-top: 90px;
-    margin-left: 280px;
+    margin-left: 120px;
 }
+.container{
+    margin: 20px;
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    padding: 20px;
+}
+.chat-pub{
+    display:flex;
+    justify-content: space-between;
+    border-radius: 6px;
+    margin: 5px;
+    padding:10px;
+    background-color: aliceblue;
 
+}
+/* .chat-pub a{
+    margin-top: 5px;
+    padding:10px;
+    background-color: #009D94;
+    color: #ddd;
+    border-radius: 5px;
+} */
 .search-bar {
+    margin: 20px;
     width: 70%;
     box-sizing: border-box;
     border: none;

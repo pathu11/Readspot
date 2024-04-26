@@ -166,7 +166,23 @@
                     <?php endif; ?>
                     <div>
                         <h4><?php echo $reviews->name; ?></h4>
-                        <span>★★★★★</span>
+                        <span>
+                            <?php 
+                            if($reviews->rating==1){
+                                echo '★';
+                            }else if($reviews->rating==2){
+                                echo '★★';
+                            }else if($reviews->rating==3){
+                                echo '★★★';
+                            }else if($reviews->rating==4){
+                                echo '★★★★';
+                            }else if($reviews->rating==5){
+                                echo '★★★★★';
+                            }else{
+                                echo '';
+                            }
+                            ?>
+                           </span>
                     </div>
                 </div>
                 <p><?php echo $reviews->review; ?></p>

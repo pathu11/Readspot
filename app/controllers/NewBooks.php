@@ -73,7 +73,6 @@ public function addbooks(){
                 'descript' => trim($_POST['descript']),
                 'quantity' => trim($_POST['quantity']),
                 'publisher_id' => trim($publisherid),
-               
                 'img1'=>'',
                 'img2'=>'',
                 'book_name_err'=>'',

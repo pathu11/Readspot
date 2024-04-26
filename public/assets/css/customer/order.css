@@ -369,7 +369,7 @@ input:checked ~ form{
 }
 
   
-input[type='radio'] {
+.radio{
     display: none;
 }
 

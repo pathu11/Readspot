@@ -54,40 +54,14 @@
             <!-- <span class="close" onclick="closeModal()">&times;</span> -->
             <h2>Record Added!</h2>
             <p>Your record has been recorded. Wait for admin approval</p>
-            <button onclick="closeModal()">OK</button>
+            <button onclick="closeModal()" class="confirm">OK</button>
         </div>
     </div>
     <!--div class="bg">
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
   </div>
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Event Added Successfully</h2>
-        <!-- You can add more details or actions here -->
-    </div>
-</div>
-<?php echo $_SESSION['successEvent']; ?>
-<?php if (isset($_SESSION['successEvent']) && $_SESSION['successEvent']): ?>
-        showModal();
-        <?php unset($_SESSION['successEvent']); ?>
-    <?php endif; ?>
-<script>
-    function showModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
-    }
-
-    function closeModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-        window.location.href = "<?php echo URLROOT; ?>/publisher/events"; // Redirect to the event page
-    }
-
-    // Check if the showModal flag is set, then call showModal()
-   
-</script>
+  
 
 
 <script>

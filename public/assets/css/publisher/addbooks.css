@@ -236,15 +236,22 @@ input[type="number"] {
     height: 100%;
     overflow: hidden; /* Fix the size and hide overflow */
     backdrop-filter: blur(5px); /* Add blur for glass effect */
+  }
+  
+  
+  .modal-content {
+    background-color: #fefefe;
+    /* margin-top: 2px;; */
+    margin: 6% auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
-
-
-.modal-content h2 {
-    color: white;
-    font-size: 14px;
-}
-
-.close {
+  
+  .close {
     color: #009D94;
     float: right;
     font-size: 24px;
@@ -258,13 +265,24 @@ input[type="number"] {
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-}
-
-.close:hover,
-.close:focus {
+  }
+  
+  .close:hover,
+  .close:focus {
     color: #ffffff;
     background-color: #009D94;
     text-decoration: none;
     cursor: pointer;
     animation: rotate360 0.5s ease-in-out;
-}
+  }
+  .confirm{
+    padding: 10px 20px;
+    background-color: #009D94;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease-in-out;
+  }
