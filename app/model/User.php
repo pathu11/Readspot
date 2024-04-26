@@ -348,6 +348,11 @@ class User{
     }
     
    
+    public function getLatestDeliveryReviews() {
+        $this->db->query('SELECT dr.*,c.*  FROM delivery_reviews dr INNER JOIN  customers c WHERE dr.customer_id=c.customer_id ORDER BY date DESC LIMIT 3');
+        return $this->db->resultSet();
+    }
+
 
     
 

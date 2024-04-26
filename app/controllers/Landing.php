@@ -38,10 +38,22 @@ class Landing extends Controller{
     }
     
     public function index(){ 
-        $title="Hi";
-        $data=[
-            'title'=>$title
+        $latestDeliveryReviews = $this->userModel->getLatestDeliveryReviews();
+        $orderProCount=$this->deliveryModel->countProOrders();
+        $orderDelCount=$this->deliveryModel->countDelOrders();
+        $orderShipCount=$this->deliveryModel->countShipOrders();
+        $allOrderCount=$this->deliveryModel->countAllOrders();
+        $percentageShip = ROUND(($orderShipCount / $allOrderCount) * 100);
+        $percentageDel = ROUND(($orderDelCount / $allOrderCount) * 100);
+        $percentagePro = ROUND(($orderProCount / $allOrderCount) * 100);
+        $data = [
+            'percentageShip' => $percentageShip,
+            'percentageDel' => $percentageDel, 
+            'percentagePro' => $percentagePro,
+            'latestDeliveryReviews' => $latestDeliveryReviews,
+            'allOrderCount' => $allOrderCount
         ];
+        
         $this->view('landing/index',$data);       
     }
     public function error(){
@@ -772,8 +784,8 @@ class Landing extends Controller{
                 // process form
                 $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
                 if(isset($_POST['rememberMe'])){
-                    setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-                    setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
+                    setcookie('email', $_POST['email'], ( time() + (30 * 24 * 60 * 60)));
+                    setcookie('pass', $_POST['pass'], ( time() + (30 * 24 * 60 * 60)));
                  }else{
                    
                     setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));

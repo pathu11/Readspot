@@ -463,11 +463,12 @@
         }
         
     }
-    public function addDeliveryReview($orderId, $customerId, $review) {
-        $this->db->query('INSERT INTO delivery_reviews (order_id, customer_id, review) VALUES (:order_id, :customer_id, :review)');
+    public function addDeliveryReview($orderId, $customerId, $review,$rating) {
+        $this->db->query('INSERT INTO delivery_reviews (order_id, customer_id, review,rating) VALUES (:order_id, :customer_id, :review, :rating)');
         $this->db->bind(':order_id', $orderId);
         $this->db->bind(':customer_id', $customerId);
         $this->db->bind(':review', $review);
+        $this->db->bind(':rating', $rating);
         if($this->db->execute()) {
             return true;
         } else {

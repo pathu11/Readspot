@@ -120,9 +120,7 @@
                         <canvas id="ratingChart" width="400" height="200"></canvas>
                     </div>
                 </div>
-                
                 <div class="give-rate">
-                    
                     <form action="<?php echo URLROOT; ?>/customer/addReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>

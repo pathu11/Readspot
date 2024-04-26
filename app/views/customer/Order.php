@@ -73,10 +73,29 @@
         <div id="verifyOrderModal" class="modal" style="display: none;">
             <div class="modal-content">
                     <span class="close" onclick="closeVerifyOrderModal()">&times;</span>
-                    <p>Please provide your valuable feedback about order delivery and product quality :</p><br>
-                    <input id="verifyFeedBack">
+                   
+                    <div class="my-rate1">
+                        <input type="radio" name="rate" id="rate-5" value="5">
+                     
+                       <label for="rate-5" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-4" value="4">
+                        <label for="rate-4" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-3" value="3">
+                        <label for="rate-3" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-2" value="2">
+                        <label for="rate-2" class="fas fa-star"></label>
+
+                        <input type="radio" name="rate" id="rate-1" value="1">
+                        <label for="rate-1" class="fas fa-star"></label>
+                </div>
+                <div>
+                <p>Please provide your valuable feedback about order delivery and product quality :</p><br>
+                    <input id="verifyFeedBack"  class="verifyFeedBack">
                     <input type="hidden" id="orders_id">
                      <br><br>
+                </div>
                     <button  class="button" onclick="confirmVerifyOrder()">Confirm</button>
                     <button  class="button" onclick="closeVerifyOrderModal()" style=" background-color:red;">Cancel</button>
                 </div>
@@ -201,42 +220,53 @@
     function confirmVerifyOrder() {
         var orderId = document.getElementById("orders_id").value;
         var reason = document.getElementById("verifyFeedBack").value;
+        var rating = null;
+
+        // Get the selected rating value
+        var ratingInputs = document.getElementsByName('rate');
+        for (var i = 0; i < ratingInputs.length; i++) {
+            if (ratingInputs[i].checked) {
+                rating = ratingInputs[i].value;
+                break;
+            }
+        }
 
         console.log("Order ID:", orderId);
         console.log("Reason:", reason);
+        console.log("Rating:", rating);
 
         if (orderId) {
-            var orderStatus = document.getElementById("order_status").value;
-            if (orderStatus.toLowerCase() !== 'cancel') {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "<?php echo URLROOT; ?>/customer/confirmOrderStatus", true);
-                xhr.setRequestHeader("Content-Type", "application/json");
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "<?php echo URLROOT; ?>/customer/confirmOrderStatus", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
 
-                var data = JSON.stringify({ orderId: orderId, reason: reason });
+            var data = JSON.stringify({ orderId: orderId, reason: reason, rating: rating });
 
-                xhr.onload = function () {
-                    console.log("Response received:", xhr.responseText);
-                    if (xhr.status == 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        console.log("Parsed Response:", response);
-                        if (response.success) {
-                            alert("Successfully confirmed order status.");
-                            closeVerifyOrderModal();
-                            // Optionally, reload the page or perform any other action
-                        } else {
-                            alert("Failed to confirm order status.");
-                        }
+            xhr.onload = function () {
+                console.log("Response received:", xhr.responseText);
+                if (xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log("Parsed Response:", response);
+                    if (response.success) {
+                        alert("Successfully confirmed order status.");
+                        closeVerifyOrderModal();
+                    } else {
+                        alert("Failed to confirm order status.");
                     }
-                };
-                xhr.send(data);
-            } else {
-                alert("You cannot confirm the order because it is already cancelled.");
-            }
+                } else {
+                    alert("Failed to confirm order status. Please try again later.");
+                }
+            };
+
+            xhr.onerror = function () {
+                alert("Error occurred while confirming order status. Please try again later.");
+            };
+
+            xhr.send(data);
         } else {
-            alert("Kindly request to provide feedback about our service.");
+            alert("Error occurred. Please try again later.");
         }
 }
-
 
     function confirmCancelOrder() {
         var orderId = document.getElementById("order_id").value;

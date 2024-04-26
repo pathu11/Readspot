@@ -3483,14 +3483,15 @@ public function markReview()
         $orderId = $data['orderId'];
         $orderDetails=$this->ordersModel->getOrderById($orderId);
         $reason = $data['reason'];
+        $rating= $data['rating'];
         $status=$orderDetails[0]->status;
         $customerId=$orderDetails[0]->customer_id;
         if($status!='cancel'){
             if ($this->ordersModel->confirmOrderStatus($orderId, $reason,$status) ) {
 
                 if($reason){
-                    $this->ordersModel->addDeliveryReview($orderId, $customerId,$reason);
-                    echo json_encode(['success' => true]);
+                    $this->ordersModel->addDeliveryReview($orderId, $customerId,$reason,$rating);
+                 
                 }
                 echo json_encode(['success' => true]);
             } else {
