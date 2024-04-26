@@ -1179,6 +1179,22 @@ public function respondComplain(){
     }
 }
 
+public function sendToSuperAdmin($complaint_id) {
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+    }else{
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+
+        if($this->adminModel->sendToSuperAdmin($complaint_id)){
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/complains');
+        }else{
+            echo 'Something went wrong';
+        }
+    }
+}
+
 
 }
 

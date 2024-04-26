@@ -734,5 +734,17 @@ public function getBookCategoryCount(){
   return $results;
 }
 
+public function sendToSuperAdmin($complaint_id) {
+  $this->db->query('UPDATE complaint SET sent_to_superadmin = 1 WHERE complaint_id = :complaint_id');
+  $this->db->bind(":complaint_id",$complaint_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+
+}
+
 
 }

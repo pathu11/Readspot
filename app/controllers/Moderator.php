@@ -689,6 +689,22 @@ require APPROOT . '\vendor\autoload.php';
       else echo 'Something went wrong';
     }
   }
+
+  public function sendToSuperAdmin($complaint_id) {
+    if (!isLoggedInModerator()) {
+        redirect('landing/login');
+    }else{
+      $user_id = $_SESSION['user_id'];
+      $adminDetails = $this->moderatorModel->findmoderatorById($user_id);
+
+      if($this->moderatorModel->sendToSuperAdmin($complaint_id)){
+          $_SESSION['showModal'] = true; // Set session variable to true
+          redirect('moderator/complains');
+      }else{
+          echo 'Something went wrong';
+      }
+    }
+}
   
   }
 
