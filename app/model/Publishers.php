@@ -321,9 +321,50 @@ class Publishers{
 
         return $this->db->resultSet();
     }
+    public function getEventById($event_id){
+        $this->db->query('SELECT * FROM events WHERE id=:id');
+        $this->db->bind(':id',$event_id);
 
+        return $this->db->resultSet();
+    }
+    public function updateEvent($data){
+        $this->db->query('UPDATE events SET title= :title,description= :description,location= :location,start_date= :start_date,end_date= :end_date,start_time= :start_time ,end_time= :end_time, category_name= :category_name,poster= :poster,img1=:img1,img2= :img2,img3= :img3,img4= :img4,img5= :img5 WHERE id=:id');
+
+        $this->db->bind(':id',$data['event_id']);
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':description',$data['description']);
+        $this->db->bind(':location',$data['location']);
+        $this->db->bind(':start_date',$data['start_date']);
+        $this->db->bind(':end_date',$data['end_date']);
+        $this->db->bind(':start_time',$data['start_time']);
+        $this->db->bind(':end_time',$data['end_time']);
+        $this->db->bind(':category_name',$data['category']);
+        $this->db->bind(':poster',$data['poster']);
+        $this->db->bind(':img1',$data['poster1']);
+        $this->db->bind(':img2',$data['poster2']);
+        $this->db->bind(':img3',$data['poster3']);
+        $this->db->bind(':img4',$data['poster4']);
+        $this->db->bind(':img5',$data['poster5']);
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            echo $this->db->error();
+            return false;
+        }
+    }
+    public function deleteEvent($event_id){
+        $this->db->query('DELETE  FROM  events WHERE id=:id');
+        $this->db->bind(':id',$event_id);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            echo $this->db->error();
+            return false;
+        }
+    }
     public function addEvent($data){
-        $this->db->query('INSERT INTO events (user_id,user_type,title, description, location,start_date , end_date, category_name,poster) VALUES(:user_id,:user_type,:title, :description, :location, :start_date , :end_date, :category, :poster)');
+        $this->db->query('INSERT INTO events (user_id,user_type,title, description, location,start_date , end_date, start_time , end_time,category_name,poster,img1,img2,img3,img4,img5) VALUES(:user_id,:user_type,:title, :description, :location, :start_date , :end_date, :start_time,:end_time,:category, :poster, :poster1, :poster2, :poster3, :poster4, :poster5)');
         $this->db->bind(':user_type',$data['user_type']);
         $this->db->bind(':user_id',$data['user_id']);
         $this->db->bind(':title',$data['title']);
@@ -331,8 +372,15 @@ class Publishers{
         $this->db->bind(':location',$data['location']);
         $this->db->bind(':start_date',$data['start_date']);
         $this->db->bind(':end_date',$data['end_date']);
+        $this->db->bind(':start_time',$data['start_time']);
+        $this->db->bind(':end_time',$data['end_time']);
         $this->db->bind(':category',$data['category']);
         $this->db->bind(':poster',$data['poster']);
+        $this->db->bind(':poster1',$data['poster1']);
+        $this->db->bind(':poster2',$data['poster2']);
+        $this->db->bind(':poster3',$data['poster3']);
+        $this->db->bind(':poster4',$data['poster4']);
+        $this->db->bind(':poster5',$data['poster5']);
         // execute
         if($this->db->execute()){
             return true;

@@ -34,14 +34,31 @@
       <input type="text" name="end_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['end_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_date']; ?>" placeholder="End date" required><br>
       <span class="error"><?php echo $data['end_date_err']; ?></span>
 
+      <input type="text" name="start_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['start_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_time']; ?>" placeholder="Start Time" required><br>
+      <span class="error"><?php echo $data['start_time_err']; ?></span>
+
+      <input type="text" name="end_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['end_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_time']; ?>" placeholder="End time" required><br>
+      <span class="error"><?php echo $data['end_time_err']; ?></span>
+
+
       <select class="select <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['category']; ?>" name="category" required>
         <option value="" selected disabled>Select Event Category</option>                     
           <?php foreach($data['eventCategoryDetails'] as $event): ?>
             <option><?php echo $event->event; ?></option>
           <?php endforeach; ?>
       </select>
+      
       <label>Enter Your event poster with all details to display in our site</label>
-      <input type="file" id="pdfUpload1" name="poster" required>
+      <div style="display:flex;">
+        <input type="file" id="pdfUpload1" name="poster" required>
+        <input type="file" id="pdfUpload2" name="poster1" required>
+        <input type="file" id="pdfUpload3" name="poster2" required>
+        <input type="file" id="pdfUpload4" name="poster3" required>
+        <input type="file" id="pdfUpload5" name="poster4" required>
+        <input type="file" id="pdfUpload6" name="poster5" required>
+
+      </div>
+
       <br>
       <button class="submit" type="button" onclick="goBack()">Back</button>
       <button type="submit" class="submit">Request</button>

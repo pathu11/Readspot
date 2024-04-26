@@ -1066,13 +1066,22 @@ public function processingorders()
                 'location'=>trim($_POST['location']),
                 'start_date'=>trim($_POST['start_date']),
                 'end_date'=>trim($_POST['end_date']),
+                'start_time'=>trim($_POST['start_time']),
+                'end_time'=>trim($_POST['end_time']),
                 'category'=>trim($_POST['category']),
                 'poster'=>'',
+                'poster1'=>'',
+                'poster2'=>'',
+                'poster3'=>'',
+                'poster4'=>'',
+                'poster5'=>'',
                 'title_err'=>'',
                 'description_err'=>'',
                 'location_err'=>'',
                 'start_date_err'=>'',
                 'end_date_err'=>'',
+                'start_time_err'=>'',
+                'end_time_err'=>'',
                 'category_err'=>''
             ];
 
@@ -1090,6 +1099,12 @@ public function processingorders()
             }
             if(empty($data['end_date'])){
                 $data['end_date_err'] = 'Please enter event end date';
+            }
+            if(empty($data['start_time'])){
+                $data['start_time_err'] = 'Please enter event start time';
+            }
+            if(empty($data['end_time'])){
+                $data['end_time_err'] = 'Please enter event end time';
             }
             if(empty($data['category'])){
                 $data['category_err'] = 'Please select event category';
@@ -1114,6 +1129,111 @@ public function processingorders()
                         move_uploaded_file($tmp_name, $img_upload_path);
 
                         $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster1']['name']) AND !empty($_FILES['poster1']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster1']['name'];
+                    $tmp_name = $_FILES['poster1']['tmp_name'];
+                    $error = $_FILES['poster1']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img2.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster2']['name']) AND !empty($_FILES['poster2']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster2']['name'];
+                    $tmp_name = $_FILES['poster2']['tmp_name'];
+                    $error = $_FILES['poster2']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img3.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster3']['name']) AND !empty($_FILES['poster3']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster3']['name'];
+                    $tmp_name = $_FILES['poster3']['tmp_name'];
+                    $error = $_FILES['poster3']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img4.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster4']['name']) AND !empty($_FILES['poster4']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster4']['name'];
+                    $tmp_name = $_FILES['poster4']['tmp_name'];
+                    $error = $_FILES['poster4']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img5.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster4']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster5']['name']) AND !empty($_FILES['poster5']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster5']['name'];
+                    $tmp_name = $_FILES['poster5']['tmp_name'];
+                    $error = $_FILES['poster5']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img6.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster5']=$new_img_name;
                     }
                     }
                 }
@@ -1151,6 +1271,8 @@ public function processingorders()
                 'location'=>'',
                 'start_date'=>'',
                 'end_date'=>'',
+                'start_time'=>'',
+                'end_time'=>'',
                 'category'=>'',
 
                 'title_err'=>'',
@@ -1158,6 +1280,8 @@ public function processingorders()
                 'location_err'=>'',
                 'start_date_err'=>'',
                 'end_date_err'=>'',
+                'start_time_err'=>'',
+                'end_time_err'=>'',
                 'category_err'=>''
 
             ];
@@ -1166,7 +1290,257 @@ public function processingorders()
         
     }
 
+    public function updateEvent($event_id){
+        if(!isLoggedInPublisher()){
+            redirect('landing/login');
+        }
+       
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
+            if(isset($_SESSION['user_id'])){
+                $user_id = $_SESSION['user_id'];
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+                $eventCategoryDetails = $this->adminModel->getEventCategories();
+            }
+            $data=[
+                'event_id'=>$event_id,
+                'publisherName' => $publisherDetails[0]->name,
+                'user_type'=> 'Publisher',
+                'user_id'=>trim($user_id),
+                'title'=>trim($_POST['title']),
+                'description'=>trim($_POST['description']),
+                'location'=>trim($_POST['location']),
+                'start_date'=>trim($_POST['start_date']),
+                'end_date'=>trim($_POST['end_date']),
+                'start_time'=>trim($_POST['start_time']),
+                'end_time'=>trim($_POST['end_time']),
+                'category'=>trim($_POST['category']),
+                'poster'=>'',
+                'poster1'=>'',
+                'poster2'=>'',
+                'poster3'=>'',
+                'poster4'=>'',
+                'poster5'=>'',
+                'title_err'=>'',
+                'description_err'=>'',
+                'location_err'=>'',
+                'start_date_err'=>'',
+                'end_date_err'=>'',
+                'start_time_err'=>'',
+                'end_time_err'=>'',
+                'category_err'=>''
+            ];
+
+            if(empty($data['title'])){
+                $data['title_err'] = 'Please enter event title';
+            }
+            if(empty($data['description'])){
+                $data['description_err'] = 'Please enter event description';
+            }
+            if(empty($data['location'])){
+                $data['location_err'] = 'Please enter event location';
+            }
+            if(empty($data['start_date'])){
+                $data['start_date_err'] = 'Please enter event date';
+            }
+            if(empty($data['end_date'])){
+                $data['end_date_err'] = 'Please enter event end date';
+            }
+            if(empty($data['start_time'])){
+                $data['start_time_err'] = 'Please enter event start time';
+            }
+            if(empty($data['end_time'])){
+                $data['end_time_err'] = 'Please enter event end time';
+            }
+            if(empty($data['category'])){
+                $data['category_err'] = 'Please select event category';
+            }
+
+            if(empty($data['title_err']) && empty($data['description_err']) && empty($data['location_err']) && empty($data['start_date_err']) && empty($data['end_date_err']) && empty($data['category_err'])){
+                if (isset($_FILES['poster']['name']) AND !empty($_FILES['poster']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster']['name'];
+                    $tmp_name = $_FILES['poster']['tmp_name'];
+                    $error = $_FILES['poster']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img1.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster1']['name']) AND !empty($_FILES['poster1']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster1']['name'];
+                    $tmp_name = $_FILES['poster1']['tmp_name'];
+                    $error = $_FILES['poster1']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img2.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster2']['name']) AND !empty($_FILES['poster2']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster2']['name'];
+                    $tmp_name = $_FILES['poster2']['tmp_name'];
+                    $error = $_FILES['poster2']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img3.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster3']['name']) AND !empty($_FILES['poster3']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster3']['name'];
+                    $tmp_name = $_FILES['poster3']['tmp_name'];
+                    $error = $_FILES['poster3']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img4.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster4']['name']) AND !empty($_FILES['poster4']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster4']['name'];
+                    $tmp_name = $_FILES['poster4']['tmp_name'];
+                    $error = $_FILES['poster4']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img5.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster4']=$new_img_name;
+                    }
+                    }
+                }
+                if (isset($_FILES['poster5']['name']) AND !empty($_FILES['poster5']['name'])) {
+            
+            
+                    $img_name = $_FILES['poster5']['name'];
+                    $tmp_name = $_FILES['poster5']['tmp_name'];
+                    $error = $_FILES['poster5']['error'];
+                    
+                    if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                        $new_img_name = $data['title'].$data['user_id'] .'-img6.'. $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addevents/".$new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+
+                        $data['poster5']=$new_img_name;
+                    }
+                    }
+                }
+                if($this->publisherModel->updateEvent($data)){  
+                    redirect('publisher/events');
+                }else{
+                    die('Something went wrong');
+                }
+            }else{
+                $this->view('publisher/updateEvent',$data);
+            }
+        } 
+        else{
+            if(isset($_SESSION['user_id'])){
+                $user_id = $_SESSION['user_id'];
+                $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
+                $eventCategoryDetails = $this->adminModel->getEventCategories();
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+                $eventDetails=$this->publisherModel->getEventById($event_id);
+            }
+            $data=[
+                'event_id'=>$event_id,
+                'publisherDetails' => $publisherDetails,
+                'publisher_id' => $publisherDetails[0]->publisher_id,
+                'publisherName' => $publisherDetails[0]->name,
+                'unreadCount'=>$unreadCount,
+                'eventCategoryDetails'=>$eventCategoryDetails,
+                'user_type'=> 'Publisher',
+                'title'=>$eventDetails[0]->title,
+                'description'=>$eventDetails[0]->description,
+                'location'=>$eventDetails[0]->location,
+                'start_date'=>$eventDetails[0]->start_date,
+                'end_date'=>$eventDetails[0]->end_date,
+                'start_time'=>$eventDetails[0]->start_time,
+                'end_time'=>$eventDetails[0]->end_time,
+                'category'=>$eventDetails[0]->category,
+
+                'title_err'=>'',
+                'description_err'=>'',
+                'location_err'=>'',
+                'start_date_err'=>'',
+                'end_date_err'=>'',
+                'start_time_err'=>'',
+                'end_time_err'=>'',
+                'category_err'=>''
+
+            ];
+            $this->view('publisher/updateEvent',$data);
+        }
+        
+    }
+    public function deleteEvent($event_id){
+        $success = $this->publisherModel->deleteEvent($event_id);
+        $response = array('success' => $success);
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+    
+    
     public function addStore(){
         if(!isLoggedInPublisher()){
             redirect('landing/login');
