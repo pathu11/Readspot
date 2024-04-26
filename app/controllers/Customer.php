@@ -3534,14 +3534,66 @@ public function markReview()
     public function cancelOrder() {
         
         $data = json_decode(file_get_contents('php://input'), true);
-    
+        $user_id = $_SESSION['user_id'];
+        $userDetails=$this->userModel->getUserDetails($user_id);
+        $userEmail=$userDetails[0]->email;
+
+        $userName=$userDetails[0]->name;
+        $topic="Order Cancellation Confirmation and Refund Information";
+        $message="
+
+        Dear .$userName.,
+        
+        We hope this email finds you well.
+        
+        We wanted to inform you that your recent order with us has been successfully canceled. We understand that circumstances can change, and we appreciate your prompt action in canceling the order.
+        
+        As per our cancellation policy, we have initiated the refund process for your canceled order. You can expect to receive your refund within the next 5 days. Please note that it may take some time for the refund to reflect in your account, depending on your bank or payment provider.
+        
+        If for any reason you do not receive your refund within the specified timeframe, please don't hesitate to contact our support team at [support email] or reach out to us directly at [Readspot27@gmail.com]. We are here to assist you and ensure that any issues are promptly resolved.
+        
+        Once again, thank you for choosing us, and we apologize for any inconvenience caused. We appreciate your understanding and cooperation.
+        
+        Best regards,
+        
+        Readspot Team
+        readspot@gmail.com
+        (+94112222345)";
+       
         $orderId = $data['orderId'];
         $reason = $data['reason'];
+
         if($orderId && $reason){
             if($this->ordersModel->cancelOrder($orderId,$reason)){
-                $response = [
-                    'success' => true 
-                ];
+                $mail = new PHPMailer(true);
+
+                try {
+                    //Server settings
+                    $mail->isSMTP();
+                    $mail->Host       = MAIL_HOST;  
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = MAIL_USER; // SMTP username
+                    $mail->Password   = MAIL_PASS;   // SMTP password
+                    $mail->SMTPSecure = MAIL_SECURITY;
+                    $mail->Port       = MAIL_PORT;
+        
+                    //Recipients
+                    $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                    $mail->addAddress($userEmail);  // Add a recipient
+        
+                    // Content
+                    $mail->isHTML(true);  // Set email format to HTML
+                    $mail->Subject = $topic;
+                    $mail->Body    = $message;
+        
+                    $mail->send();
+                    $response = [
+                        'success' => true 
+                    ];
+                } catch (Exception $e) {
+                    die('Something went wrong: ' . $mail->ErrorInfo);
+                }
+                
             }
         }
        

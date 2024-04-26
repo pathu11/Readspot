@@ -15,7 +15,7 @@
                 <h1>Are you sure?</h1>
                 <br>
                 <br>
-                <button onclick="logout()">Yes,Log Me Out</button><br>
+                <button onclick="logout()"><a style="text-decoration:none;color:black;" href="<?php echo URLROOT; ?>/landing/logout">Yes,Log Me Out</a></button><br>
                 <button onclick="cancel()">No,Just Kidding</button>
            </div> 
            
