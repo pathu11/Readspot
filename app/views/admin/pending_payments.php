@@ -41,29 +41,53 @@
         <td><a href="<?php echo URLROOT; ?>/assets/images/customer/orderRecipt/<?php echo $order->recipt; ?>">payment Recipt</a></td>
         <td><?php echo $order->customer_name; ?></td>
         <td><?php echo $order->contact_no; ?></td>
-        <td><a href='<?php echo URLROOT; ?>/admin/approveOrder/<?php echo $order->order_id; ?>'><button>Approve</button></a>
-        <div class="popup"">
-                    <button onclick="myFunction()">Reject</button>
-                    <div class="popuptext" id="myPopup">
-                    <p>Are you sure you want to  reject and delete this Order?</p><br>
-                    <a  class="button" href='#' ><button>Yes</button></a>
-                    <a class="button" href='#'><button>No</button></a>
-                    </div>
-                    </div></td>
+        <td><button onclick="approvePopup('<?php echo $order->order_id;?>')">Approve</button>
+              <button onclick="rejectPopup('<?php echo $order->order_id;?>')">Reject</button></td>
     </tr>
 <?php endforeach; ?>               
         </table>
         
     </div>
     
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Are you sure you want to approve this payment?</h2>
+        <div id="orderApprovalTable"></div>
+      </div>
+    </div>
+    
+    <div id="myModal2" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Reject Reason</h2>
+        <form action="<?php echo URLROOT;?>/admin/rejectOrder" method="post">
+          <textarea id="rejectReason" name="rejectReason" rows="4" cols="50" placeholder="Enter reject reason..."></textarea>
+          <input type="hidden" id="order_id" name="order_id">
+          <button type="submit">Send Rejection Email</button>
+        </form>
+      </div>
+    </div> 
    
 </body>
+
 <script>
-// When the user clicks on div, open the popup
-function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-}
-</script>
+    function approvePopup(order_id){
+      var approval = '<p>Send approval email</p><br> <a href="<?php echo URLROOT;?>/admin/approveOrder/'+`${order_id}`+'"</a><button>Send</button></a>';
+      var orderApproval = document.getElementById("orderApprovalTable");
+      orderApproval.innerHTML = approval;
+      document.getElementById("myModal").style.display = "block";
+    }
+
+    function rejectPopup(order_id) {
+      document.getElementById("order_id").value = order_id;
+      document.getElementById("myModal2").style.display = "block";
+    }
+
+    function closeModal(){
+      document.getElementById("myModal").style.display = "none";
+      document.getElementById("myModal2").style.display = "none";
+    }
+  </script>
 
 </html>
