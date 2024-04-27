@@ -533,6 +533,10 @@ input:checked ~ form{
     width: 50%;
 } */
 
+.before-cart {
+    margin-right: 10px;
+}
+
 @media screen and (max-width:1000px) {
     .book-img-des img {
         height: 220px;

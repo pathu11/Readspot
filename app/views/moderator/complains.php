@@ -67,6 +67,7 @@
         <th>Complain Images</th>
         <th>Status</th>
         <th>Action</th>
+        <th>Send to super admin</th>
       </tr>
       <?php foreach($data['complainDetails'] as $complain): ?>
         <tr>
@@ -87,7 +88,8 @@
             }
             ?>
           </td>
-          <td><button onclick="respondPopup('<?php echo $complain->complaint_id;?>','<?php echo $complain->email;?>','<?php echo $complain->name;?>')">Respond</button>
+          <td><button onclick="respondPopup('<?php echo $complain->complaint_id;?>','<?php echo $complain->email;?>','<?php echo $complain->name;?>')">Respond</button></td>
+          <td><a href="<?php echo URLROOT;?>/moderator/sendToSuperAdmin/<?php echo $complain->complaint_id;?>"><button>Send to super admin</button></a></td>
         </tr>
       <?php endforeach; ?>
     </table>
@@ -123,6 +125,14 @@
     </div>
   </div>
 
+  <div id="myModal3" class="modal">
+    <div class="modal-content">
+      <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+      <h2>Complain was sent to super admin</h2>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
   <script type="text/javascript">
     function fullView(imgLink){
       document.getElementById("large-event-poster").src = imgLink;
@@ -146,6 +156,26 @@
       document.getElementById("fullDescription").innerText = description;
       document.getElementById("myModal2").style.display = "block";
     }
+
+    // alert
+    function showModal() {
+      var modal = document.getElementById("myModal3");
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("myModal3");
+      modal.style.display = "none";
+      window.location.href = "<?php echo URLROOT; ?>/moderator/complains"; // Redirect to the event page
+    }
+
+    <?php
+      // Check if the showModal flag is set, then call showModal()
+      if (isset($_SESSION['showModal']) && $_SESSION['showModal']) {
+          echo "window.onload = showModal;";
+          // Unset the session variable after use
+          unset($_SESSION['showModal']);
+      }?>
 
   </script>
 
