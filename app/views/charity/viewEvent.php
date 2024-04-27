@@ -33,7 +33,7 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
@@ -74,11 +74,11 @@
 
                 <!-- need to be add in DB -->
                 <tr>
-                        <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon"></i></td>
-                        <td>
-                            <input type="date" id="deadlineDate" name="deadlineDate" required min="1000-01-01" max="9999-12-31">
-                        </td>
-                    </tr>
+                    <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon"></i></td>
+                    <td>
+                        <input type="date" id="deadlineDate" name="deadlineDate" required min="1000-01-01" max="9999-12-31">
+                    </td>
+                </tr>
                 <tr>
                     <td>Charity Member Phone:</td>
                     <td><input type="tel" name="charityMemberPhone" value="<?php echo $event->contact_no ?>" placeholder="Enter phone number" required disabled></td>

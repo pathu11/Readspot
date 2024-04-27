@@ -34,7 +34,7 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
@@ -45,10 +45,10 @@
         <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/donationREQ.png" ?>>
     </div>
     <!-- Filter Buttons -->
-    <div class="filter-buttons">
+    <!-- <div class="filter-buttons">
         <button onclick="filterByUserId()" class="filter-button" style="color:white; background-color: #70bfba;">Users</button>
         <button onclick="filterByEventId()" class="filter-button">Event types</button>
-    </div>
+    </div> -->
 
     <div class="reqContainer">
         <?php foreach ($allUsers as $user) { ?>
@@ -67,7 +67,7 @@
                 <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
             </div>
         <?php } ?>
-        
+
         <div class="reqCard checked">
             <div class="imgBox">
                 <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
@@ -128,7 +128,7 @@
     </div>
 
 
-    
+
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>

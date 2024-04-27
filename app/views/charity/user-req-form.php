@@ -75,7 +75,7 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
@@ -130,7 +130,7 @@
                     <tr>
                         <td colspan="2" style="text-align:center;">
                             <button type="button" onclick="openRejectModal()" class="uf-reject-req">Reject Request</button>
-                            
+
                             <button type="submit" name="uf-confirm-req" class="uf-confirm-req" onclick="showModal()">Confirm Request</button>
 
                             <div id="confirmModal" class="modal">

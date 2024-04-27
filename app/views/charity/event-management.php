@@ -92,7 +92,7 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
                 <a href="<?php echo URLROOT; ?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
@@ -150,7 +150,6 @@
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
-
                                 <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
                                     <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
                                     <button class="view-button">
@@ -244,7 +243,7 @@
 
         deleteButtons.forEach(button => {
             button.addEventListener("click", function(event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault();
                 deleteModal.style.display = "block";
             });
         });
@@ -270,8 +269,7 @@
                 .then(data => {
                     if (data.success) {
                         alert("Event deleted!");
-                        closeModal(); // Close the modal
-                        // Optionally, you can reload the page to reflect the changes
+                        closeModal();
                         // location.reload();
                     } else {
                         alert("Failed to delete event.");

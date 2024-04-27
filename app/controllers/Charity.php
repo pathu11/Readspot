@@ -45,7 +45,11 @@ class Charity extends Controller
     {
         $this->view('charity/userRequest');
     }
-
+    
+    public function confirmdelete()
+    {
+        $this->view('charity/confirm-delete-modal');
+    }
     public function deletedsuccessfully()
     {
         $this->view('charity/eleted-successfully');
@@ -66,10 +70,15 @@ class Charity extends Controller
         $this->view('charity/customerSupport');
     }
 
-    public function aboutUs()
-    {
-        $this->view('charity/aboutus');
+    // public function aboutUs()
+    // {
+    //     $this->view('charity/aboutus');
+    // }
+
+    public function editprofile(){
+        $this->view('charity/edit-profile') ;
     }
+
 
     public function notification(){
         $this->view('charity/notification') ;
