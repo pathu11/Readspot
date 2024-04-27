@@ -484,7 +484,8 @@ require APPROOT . '\vendor\autoload.php';
             $mail->send();
 
             // Redirect or perform other actions as needed
-            redirect('admin/pendingRequestsPub');
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/index');
         } catch (Exception $e) {
             die('Something went wrong: ' . $mail->ErrorInfo);
         }
@@ -522,7 +523,8 @@ public function approveCharity($user_id){
             $mail->send();
 
             // Redirect or perform other actions as needed
-            redirect('admin/pendingRequestsCharity');
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/index');
         } catch (Exception $e) {
             die('Something went wrong: ' . $mail->ErrorInfo);
         }
@@ -1193,6 +1195,47 @@ public function sendToSuperAdmin($complaint_id) {
             echo 'Something went wrong';
         }
     }
+}
+
+public function rejectUser(){
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $user_id = $_POST['user_id'];
+        $user_role = $_POST['user_role'];
+        $rejectReason = $_POST['rejectReason'];
+        
+        $userEmail = $this->adminModel->getUserEmail($user_id);
+
+        if($this->adminModel->rejectUser($user_id)){
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER;
+            $mail->Password   = MAIL_PASS; 
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($userEmail);  
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Rejected the registration by administration';
+            $mail->Body    = 'Your registration has been rejected. Reject reason is '.$rejectReason;
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/index');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+        }else{
+            echo "something went wrong";
+        }
+    }
+
 }
 
 

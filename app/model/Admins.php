@@ -746,5 +746,16 @@ public function sendToSuperAdmin($complaint_id) {
 
 }
 
+public function rejectUser($user_id){
+  $this->db->query("UPDATE users SET status = 'reject' WHERE user_id = :user_id");
+  $this->db->bind(":user_id",$user_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+}
+
 
 }
