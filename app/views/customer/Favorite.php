@@ -39,8 +39,8 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
-                                    <button class="delete-button">
+                                <a href="#" style="text-decoration: none;">
+                                    <button class="delete-button" onclick="showModal()">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </a>
@@ -66,7 +66,39 @@
             </ul>
             <?php endif; ?>
         </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+                <!-- <h2>Record Added!</h2> -->
+                <p>Are you sure?</p>
+                <button onclick="yesModal()">Yes</button>
+                <button onclick="noModal()" style="background-color:red">No</button>
+            </div>
+        </div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
         ?>
     </div>
+
+    <script>
+        function showModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function yesModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            window.location.href = "<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $favorite->fav_id; ?>"; // Redirect to the event page
+        }
+
+        function noModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+        // Submit form function
+        // function submitForm() {
+        //     document.getElementById("eventForm").submit();
+        // }
+    </script>

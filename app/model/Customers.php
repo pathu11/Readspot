@@ -44,7 +44,7 @@
 
   
     public function findUsedBookByCusId($customer_id){
-      $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="used" AND status="approval"');
+      $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="used"');
       $this->db->bind(':customer_id',$customer_id);
      
 
@@ -147,7 +147,7 @@
   
 
     public function findExchangedBookByCusId($customer_id){
-      $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="exchanged" AND status="approval"');
+      $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="exchanged"');
       $this->db->bind(':customer_id',$customer_id);
      
 
@@ -1258,6 +1258,27 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
       }   
   }
 
+  public function AddDonateBooks($data) {
+    $this->db->query('INSERT INTO donate_books (first_name, last_name, email, contact_number, description, book_types, quantity, customer_id, charity_event_id)
+                                VALUES(:first_name, :last_name, :email, :contact_number, :description, :book_types, :quantity, :customer_id, :charity_event_id)');
+
+    $this->db->bind(':first_name',$data['first_name']);
+    $this->db->bind(':last_name',$data['last_name']);
+    $this->db->bind(':email',$data['email']);
+    $this->db->bind(':contact_number',$data['contact_number']);
+    $this->db->bind(':description',$data['description']);
+    $this->db->bind(':book_types',$data['book_types']);
+    $this->db->bind(':quantity',$data['quantity']);
+    $this->db->bind(':customer_id',$data['customer_id']);
+    $this->db->bind(':charity_event_id',$data['charity_event_id']);
+
+    // execute
+    if($this->db->execute()){
+      return true;
+    }else{
+        return false;
+    }   
+  }
   // public function Addtofavorie($item_id, $customer_id, $topic, $category) {
   //   $this->db-query('INSERT INTO favorite (item_id, customer_id, topic, category)
   //                               VALUE (:item_id, :customer_id, :topic, :category)');
@@ -1409,5 +1430,13 @@ public function addNotification($data){
     $this->db->bind(':customer_id', $customer_id);
     $result = $this->db->single();
     return isset($result->challnege_point) ? (int)$result->challnege_point : 0;
+  }
+
+  public function findDonateBooks($customer_id) {
+    $this->db->query('SELECT SUM(quantity) AS donate_book_count  FROM donate_books WHERE customer_id = :customer_id');
+    $this->db->bind(':customer_id', $customer_id);
+    // return $this->db->resultSet();
+    $result = $this->db->single();
+    return isset($result->donate_book_count) ? (int)$result->donate_book_count : 0;
   }
 }

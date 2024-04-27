@@ -187,6 +187,7 @@
                 if (response.success) {
                     alert("Order has been successfully cancelled.");
                     closeCancelOrderReasonModal();
+                    window.location.href = "<?php echo URLROOT; ?>/customer/Order";
                 } else {
                     alert("Failed to cancel order.");
                 }

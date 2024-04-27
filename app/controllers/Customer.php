@@ -1489,6 +1489,7 @@ public function BuyNewBooks()
             $AddedCategories = $this->customerModel->findAddedCategories($customer_id);
             $contentPoints = $this->customerModel->findContentPoints($customer_id);
             $challengePoints = $this->customerModel->findChallengePoints($customer_id);
+            $donateDetails = $this->customerModel->findDonateBooks($customer_id);
 
             $data = [
                 'customerDetails' => $customerDetails,
@@ -1508,7 +1509,8 @@ public function BuyNewBooks()
                 'AddedCategories' => $AddedCategories,
                 'contentPoints' => intval($contentPoints),
                 'challengePoints' => intval($challengePoints),
-                'totalPoints' => intval($challengePoints) + intval($contentPoints)
+                'totalPoints' => intval($challengePoints) + intval($contentPoints),
+                'donateDetails' => intval($donateDetails)
             ];
             $this->view('customer/Dashboard', $data);
         }
@@ -1549,7 +1551,69 @@ public function BuyNewBooks()
     public function Donateform(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
-        } else {
+        } 
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $customerid = null;
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+                
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                // $bookCategoryDetails = $this->adminModel->getBookCategories();  
+                $bookCategoryDetails = $this->adminModel->getBookCategories();
+                if ($customerDetails) {
+                    $customerName = $customerDetails[0]->first_name;
+                    $customerid = $customerDetails[0]->customer_id;                 
+                } else {
+                    echo "Not found";
+                }
+            }
+
+                    // Initialize arrays to store book types and quantities
+            $bookTypes = [];
+            $quantities = [];
+
+            // Loop through each POST variable to find checked checkboxes and their quantities
+            foreach ($_POST as $key => $value) {
+                if (strpos($key, 'book') !== false && $value === 'on') {
+                    $bookType = str_replace('Quantity', '', $key);
+                    $bookTypes[] = $bookType;
+                    // Extract quantity from corresponding input field
+                    $quantityKey = $bookType . 'Quantity';
+                    $quantity = isset($_POST[$quantityKey]) ? intval($_POST[$quantityKey]) : 0;
+                    $quantities[] = $quantity;
+                }
+            }
+
+            // Combine book types with commas
+            $bookTypeString = implode(', ', $bookTypes);
+            // Sum up quantities
+            $totalQuantity = array_sum($quantities);
+            $data=[
+                'first_name' => trim($_POST['Fname']),
+                'last_name' => trim($_POST['Lname']),
+                'email' => trim($_POST['Email']),
+                'contact_number' => trim($_POST['PhoneNumber']),
+                'description' => trim($_POST['description']),
+                'book_types' => $bookTypeString,
+                'quantity' => $totalQuantity, 
+                'charity_event_id' => 10,
+                'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerName
+            ];
+
+            if($this->customerModel->AddDonateBooks($data)){
+                // flash('add_success','You are added the book  successfully');
+                // redirect('customer/UsedBooks');
+                $_SESSION['showModal'] = true; // Set session variable to true
+                redirect('customer/Donateform');
+            }else{
+                die('Something went wrong');
+            }
+        }
+        else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
