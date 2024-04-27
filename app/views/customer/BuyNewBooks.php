@@ -72,14 +72,19 @@
                                         <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
                                         <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
                                         <?php 
-                                            $num = 0; // Initialize the variable before the loop
-                                            foreach ($data['favoriteDetails'] as $favorite): 
-                                                if ($book->book_id == $favorite->item_id): 
-                                                    $num = 1;
-                                                    $fav_id = $favorite->fav_id;
-                                                    break; // Assuming you want to stop the loop once a match is found
-                                                endif;
-                                            endforeach;
+                                            $num = 0;
+                                            if ($data['user_id']==0000){
+                                                $num = 0;
+                                             // Initialize the variable before the loop
+                                            }else{ // Initialize the variable before the loop
+                                                foreach ($data['favoriteDetails'] as $favorite): 
+                                                    if ($book->book_id == $favorite->item_id): 
+                                                        $num = 1;
+                                                        $fav_id = $favorite->fav_id;
+                                                        break; // Assuming you want to stop the loop once a match is found
+                                                    endif;
+                                                endforeach;
+                                            }
                                         ?>
 
                                         <?php if ($num == 1): ?>
@@ -182,14 +187,19 @@
                                 <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
                                 <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
                                 <?php 
-                                    $num = 0; // Initialize the variable before the loop
-                                    foreach ($data['favoriteDetails'] as $favorite): 
-                                        if ($books->book_id == $favorite->item_id): 
-                                            $num = 1;
-                                            $fav_id = $favorite->fav_id;
-                                            break; // Assuming you want to stop the loop once a match is found
-                                        endif;
-                                    endforeach;
+                                    $num = 0;
+                                    if ($data['user_id']==0000){
+                                        $num = 0;
+                                     // Initialize the variable before the loop
+                                    }else{
+                                        foreach ($data['favoriteDetails'] as $favorite): 
+                                            if ($books->book_id == $favorite->item_id): 
+                                                $num = 1;
+                                                $fav_id = $favorite->fav_id;
+                                                break; // Assuming you want to stop the loop once a match is found
+                                            endif;
+                                        endforeach;
+                                    }
                                 ?>
 
                                 <?php if ($num == 1): ?>

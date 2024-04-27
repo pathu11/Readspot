@@ -36,7 +36,10 @@
     </div> -->
     
     <div class="contact-cont">
-        <form action="<?php echo  URLROOT; ?>/customer/ContactUs"  method="POST" enctype="multipart/form-data" class="contact-us" onsubmit="return checkLoginStatus()">
+        <div class="back-btn-div01">
+            <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+        </div>
+        <form action="<?php echo  URLROOT; ?>/customer/Donateform"  method="POST" enctype="multipart/form-data" class="contact-us">
 
             <h1>Donate Books</h1>
             
@@ -118,6 +121,41 @@
             <input type="submit" value="Send">
         </form>
     </div>
+    <div id="myModal" class="modal">
+            <div class="modal-content">
+                <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+                <h2>Record Added!</h2>
+                <p>Your record has been recorded. Wait for admin approval</p>
+                <button onclick="closeModal()">OK</button>
+            </div>
+        </div>
+
+        <script>
+            function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/customer/Donatedetails"; // Redirect to the event page
+            }
+
+            <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['showModal']) && $_SESSION['showModal']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['showModal']);
+            }
+            ?>
+
+            // Submit form function
+            // function submitForm() {
+            //     document.getElementById("eventForm").submit();
+            // }
+        </script>
 
 <?php
     require APPROOT . '/views/customer/footer.php'; //path changed

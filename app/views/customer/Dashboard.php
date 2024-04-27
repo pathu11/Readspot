@@ -84,7 +84,7 @@
                     </div>
                     <div class="no-of-books">
                         <h3>Donated Books</h3>
-                        <h3>42</h3>
+                        <h3><?php echo $data['donateDetails']; ?></h3>
                     </div>
                 </div>
             </div>

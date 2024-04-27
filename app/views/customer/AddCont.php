@@ -16,8 +16,8 @@
             <form action="<?php echo  URLROOT; ?>/customer/AddCont"  method="POST" enctype="multipart/form-data" class="cont-add">
                 <h1>Add a Content</h1>
                 <div class="topic-cont">
-                    <label class="label-topic" required>Topic</label><br>
-                    <input type="text" name="topic" class="form-topic">
+                    <label class="label-topic">Topic</label><br>
+                    <input type="text" name="topic" class="form-topic" required>
                     
                 </div>
                 <div class="disc-cont">

@@ -90,6 +90,33 @@
         </div>
         
         <div class="cart-item">
+            <?php 
+                $num = 0; // Initialize the variable before the loop
+                if ($data['user_id']==0000){
+                    $num = 0;
+                }else{
+                    foreach ($data['favoriteDetails'] as $favorite): 
+                        if ($books->book_id == $favorite->item_id): 
+                            $num = 1;
+                            $fav_id = $favorite->fav_id;
+                            break; // Assuming you want to stop the loop once a match is found
+                        endif;
+                    endforeach;
+                }
+            ?>
+            <?php if ($num == 1): ?>
+                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                    <button class="book-button-after-fav before-cart">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $books->book_id; ?>">
+                    <button class="book-button before-cart">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </a>
+            <?php endif; ?>
             <button class="quantity-button" onclick="decrement()">-</button>
             <span id="quantity">1</span>
             <button class="quantity-button" onclick="increment(<?php echo $books->quantity; ?>)">+</button>

@@ -85,13 +85,17 @@
                                         <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $bookDetails->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
                                         <?php 
                                             $num = 0; // Initialize the variable before the loop
-                                            foreach ($data['favoriteDetails'] as $favorite): 
-                                                if ($bookDetails->book_id == $favorite->item_id): 
-                                                    $num = 1;
-                                                    $fav_id = $favorite->fav_id;
-                                                    break; // Assuming you want to stop the loop once a match is found
-                                                endif;
-                                            endforeach;
+                                            if ($data['user_id']==0000){
+                                                $num = 0;
+                                            }else{
+                                                foreach ($data['favoriteDetails'] as $favorite): 
+                                                    if ($bookDetails->book_id == $favorite->item_id): 
+                                                        $num = 1;
+                                                        $fav_id = $favorite->fav_id;
+                                                        break; // Assuming you want to stop the loop once a match is found
+                                                    endif;
+                                                endforeach;
+                                            }
                                         ?>
 
                                         <?php if ($num == 1): ?>

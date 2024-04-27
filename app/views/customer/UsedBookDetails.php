@@ -49,6 +49,33 @@
         <div class="sub4-U">
             <a href="<?php echo URLROOT; ?>/Chats/chat/<?php echo $data['customer_user_id']; ?>"><button class="chat-btn-used">Chat</button></a>
             <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $data['book_id']; ?>"><button class="chat-btn-used">Add to Cart</button></a>
+            <?php 
+                $num = 0; // Initialize the variable before the loop
+                if ($data['user_id']==0000){
+                    $num = 0;
+                }else{
+                    foreach ($data['favoriteDetails'] as $favorite): 
+                        if ($data['book_id'] == $favorite->item_id): 
+                            $num = 1;
+                            $fav_id = $favorite->fav_id;
+                            break; // Assuming you want to stop the loop once a match is found
+                        endif;
+                    endforeach;
+                }
+            ?>
+            <?php if ($num == 1): ?>
+                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                    <button class="book-button-after-fav chat-btn-used-fav">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteUsedBooks/<?php echo $data['book_id']; ?>">
+                    <button class="book-button chat-btn-used-fav">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 
