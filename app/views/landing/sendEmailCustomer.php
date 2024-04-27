@@ -14,13 +14,10 @@
             <h1>Sign up AS A Customer</h1>
            
 <br><br>
-        <span style="width:100%;background-color:#03FFF0;color: black;padding-left: 15px;padding-right: 15px;padding:5px;margin-bottom:3px;" class="invalid-feedback"><?php echo $data['email_err']; ?></span><br>
-            <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
-
-            
-
+            <span  class="invalid-feedback"><?php echo $data['email_err']; ?></span><br>
+            <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  required>
            <br>
-            <button class="btn" name="submit" type="submit">sign up</button><br>
+            <button class="btn" name="submit" onclick="handleEmailEnterButtonClick()"  type="submit">sign up</button><br>
             <div>
                 <span class="copyright">&copy;2023</span> 
             </div>  
@@ -69,12 +66,16 @@
         this.classList.toggle('fa-eye');   // Toggle the eye icon itself
     });
  
-        // Toggle the eye icon itself
+        
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+        function clearSessionStorage() {
+            sessionStorage.removeItem('remainingTime');
+        }
+        function handleEmailEnterButtonClick() {
+            clearSessionStorage();
+        }
     </script>
 </html>
                      

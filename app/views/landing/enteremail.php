@@ -14,7 +14,7 @@
             <h2>Enter your registered email address</h2>
            
             <br><br><br>
-                <span class="error"><?php echo $data['email_err']; ?></span>
+                <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
               
               <input type="email" name="email"  placeholder="Email address " required><br>
               

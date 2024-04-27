@@ -327,7 +327,7 @@ class Landing extends Controller{
                     $timestamp = $_SERVER["REQUEST_TIME"];
                     $_SESSION['time'] = $timestamp;
                     $_SESSION['otp'] = $otp;
-                    $_SESSION['user_email'] = $userEmail;
+                    $_SESSION['user_emailForSignUp'] = $userEmail;
         
                     try {
                         //Server settings
@@ -402,6 +402,7 @@ class Landing extends Controller{
                             'otp_err' => "OTP expired. Please try again.",
                             'remaining_time' => 0
                         ];
+                        $_SESSION['otp_err']=true;
                         $this->view('landing/verifyemail', $data);
                         exit; // Ensure no further processing after redirection
                     } else {
@@ -423,7 +424,7 @@ class Landing extends Controller{
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
-                                // if($this->userModel->verifyemailCustomer($userId) && $this->userModel->verifyemailUsers($userId) ){
+                              
                                     echo '<script>';
                                     echo 'setTimeout(function() { alert("OTP is correct!"); redirectToLogin(); }, 100);'; // Delayed alert
                                     echo 'function redirectToLogin() {';
@@ -455,6 +456,7 @@ class Landing extends Controller{
 
     public function signupCustomer(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
+            
             $email=$_SESSION['penEmailOfCustomer'];
             // process form
             // sanitize post data
@@ -510,7 +512,9 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCustomer($data)){
-                   redirect('landing/login');
+                    $_SESSION['showModal']=true;
+                    redirect('landing/signupCustomer');
+                  
                 } else{
                         die('Something went wrong');
                     }  
@@ -613,11 +617,9 @@ class Landing extends Controller{
                 
                 // regsiter user
                 if ($this->userModel->signupPubPending($data)) {
-                    echo '<script>';
-                    echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
-                    echo 'window.location.href = "' . URLROOT . '/landing/index";';  // Construct the complete URL
-                    echo '</script>';
-                
+                    $_SESSION['showModal']=true;
+                    redirect('landing/signupPub');
+                    
                 }else{
                     die('Something went wrong');
                 }
@@ -728,11 +730,12 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCharityPending($data)){
-                    
-                        echo '<script>';
-                        echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
-                        echo 'window.location.href = "' . URLROOT . '/landing/index";';  
-                        echo '</script>';
+                      $_SESSION['showModal']=true;
+                      redirect('landing/signupCharity');
+                        // echo '<script>';
+                        // echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
+                        // echo 'window.location.href = "' . URLROOT . '/landing/index";';  
+                        // echo '</script>';
                     }
                     
                 else{
@@ -885,7 +888,7 @@ class Landing extends Controller{
 
                 $_SESSION['time'] = $timestamp;
                 $_SESSION['otp'] = $otp;
-                $_SESSION['user_email'] = $userEmail;
+                $_SESSION['user_emailForSignUp'] = $userEmail;
     
                 try {
                     //Server settings
@@ -936,7 +939,7 @@ class Landing extends Controller{
     
             if (isset($_SESSION['otp']) && isset($_SESSION['time'])) {
                 $oldOtp = $_SESSION['otp'];
-                $userEmail = $_SESSION['user_email'];
+                $userEmail = $_SESSION['user_emailForSignUp'];
     
                 $userDetails = $this->userModel->findUserByEmail($userEmail);
     
@@ -995,8 +998,8 @@ class Landing extends Controller{
             }
         } else {
           
-            if (isset($_SESSION['user_email'])) {
-                $userEmail = $_SESSION['user_email'];
+            if (isset($_SESSION['user_emailForSignUp'])) {
+                $userEmail = $_SESSION['user_emailForSignUp'];
                 $userDetails = $this->userModel->findUserByEmail($userEmail);
     
                 if ($userDetails) {
