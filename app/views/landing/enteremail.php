@@ -12,7 +12,6 @@
         <form class="login" action="<?php echo URLROOT; ?>/landing/enteremail" method="post">
         <br><br>
             <h2>Enter your registered email address</h2>
-           
             <br><br><br>
                 <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
               
