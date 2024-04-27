@@ -186,8 +186,9 @@
                 echo '<span style="color:green;">Resolved</span>';
             }
             echo '</td>' .
-                '<td><button onclick="respondPopup(' . $complain->complaint_id . ',\'' . $complain->email . '\',\'' . $complain->name . '\')">Respond</button></td>' .
-                '</tr>';
+                '<td><button onclick="respondPopup(' . $complain->complaint_id . ',\'' . $complain->email . '\',\'' . $complain->name . '\')">Respond</button></td>
+                <td><a href="'.URLROOT.'/admin/sendToSuperAdmin/'.$complain->complaint_id.'"><button>Send to super admin</button></a></td>
+                </tr>';
         }
         echo '</table>' .
             '</div>';

@@ -28,7 +28,7 @@
                 </div>
             
                 <div class="filter-category">
-                    <div class="list-group-U" id="show-list">
+                    <div class="list-group" id="show-list">
                         
                     </div>
                 </div>

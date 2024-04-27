@@ -3602,31 +3602,61 @@ public function markReview()
     }
 
     public function filterbook(){
-        if(isset($_POST['query']) && isset($_POST['bookType'])){
-            $inputText = $_POST['query'];
-            $bookType = $_POST['bookType'];
-            $searchResults ='';
-            
-            $user_id = $_SESSION['user_id'];
-            $customerDetails = $this->customerModel->findCustomerById($user_id);
-            $customer_id = $customerDetails[0]->customer_id;
+        if(!isLoggedInCustomer()){
+            if(isset($_POST['query']) && isset($_POST['bookType'])){
+                $inputText = $_POST['query'];
+                $bookType = $_POST['bookType'];
+                $searchResults ='';
+                
+                // $user_id = $_SESSION['user_id'];
+                // $customerDetails = $this->customerModel->findCustomerById($user_id);
+                // $customer_id = $customerDetails[0]->customer_id;
+    
+                if($bookType=='N'){
+                    $searchResults = $this->customerModel->searchNewBooks($inputText);
+                }
+                else if($bookType=='U'){
+                    $searchResults = $this->customerModel->searchUsedBooksWithoutLoggedIn($inputText);
+                }
+                else if($bookType=='E'){
+                    $searchResults = $this->customerModel->searchExchangeBooksWithoutLoggedIn($inputText);
+                }
+                
+                $data = [
+                    'searchResults' => $searchResults,
+                    'inputText' => $inputText,
+                    'bookType'=>$bookType,
+                ];
+                $this->view('customer/filterbook', $data);
+            } 
+        }
+        else{
+            if(isset($_POST['query']) && isset($_POST['bookType'])){
+                $inputText = $_POST['query'];
+                $bookType = $_POST['bookType'];
+                $searchResults ='';
+                
+                $user_id = $_SESSION['user_id'];
+                $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $customer_id = $customerDetails[0]->customer_id;
 
-            if($bookType=='N'){
-                $searchResults = $this->customerModel->searchNewBooks($inputText);
+                if($bookType=='N'){
+                    $searchResults = $this->customerModel->searchNewBooks($inputText);
+                }
+                else if($bookType=='U'){
+                    $searchResults = $this->customerModel->searchUsedBooks($inputText, $customer_id);
+                }
+                else if($bookType=='E'){
+                    $searchResults = $this->customerModel->searchExchangeBooks($inputText, $customer_id);
+                }
+                
+                $data = [
+                    'searchResults' => $searchResults,
+                    'inputText' => $inputText,
+                    'bookType'=>$bookType,
+                ];
+                $this->view('customer/filterbook', $data);
             }
-            else if($bookType=='U'){
-                $searchResults = $this->customerModel->searchUsedBooks($inputText, $customer_id);
-            }
-            else if($bookType=='E'){
-                $searchResults = $this->customerModel->searchExchangeBooks($inputText, $customer_id);
-            }
-            
-            $data = [
-                'searchResults' => $searchResults,
-                'inputText' => $inputText,
-                'bookType'=>$bookType,
-            ];
-            $this->view('customer/filterbook', $data);
         }
     }
 

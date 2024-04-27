@@ -176,7 +176,10 @@
     }
 
     public function getComplainSearchDetails($input){
-      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input ");
+      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name, email, contact_number, other, descript, err_img, complaint_id, resolved_or_not 
+      FROM complaint 
+      WHERE resolved_or_not = :input 
+      AND (reason='Events' OR reason='Challenges' OR reason='Contents')");
       $this->db->bind(":input",$input);
       $results=$this->db->resultSet();
       return $results;
@@ -353,6 +356,18 @@
       }else{
         return false;
       }
+    }
+
+    public function sendToSuperAdmin($complaint_id) {
+      $this->db->query('UPDATE complaint SET sent_to_superadmin = 1 WHERE complaint_id = :complaint_id');
+      $this->db->bind(":complaint_id",$complaint_id);
+    
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    
     }
 
   }
