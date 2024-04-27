@@ -79,6 +79,7 @@
                         <input type="date" id="deadlineDate" name="deadlineDate" required min="1000-01-01" max="9999-12-31">
                     </td>
                 </tr>
+                
                 <tr>
                     <td>Charity Member Phone:</td>
                     <td><input type="tel" name="charityMemberPhone" value="<?php echo $event->contact_no ?>" placeholder="Enter phone number" required disabled></td>

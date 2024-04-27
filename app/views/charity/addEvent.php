@@ -84,7 +84,7 @@
                         <td><input type="time" name="endTime" required></td>
                     </tr>
                     <tr>
-                        <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon"></i></td>
+                        <td class="deadline">Deadline for donation</td>
                         <td>
                             <input type="date" id="deadlineDate" name="deadlineDate" required min="1000-01-01" max="9999-12-31">
                         </td>
