@@ -472,6 +472,30 @@
       }
     }
 
+    public function updateContent($data){
+      $this->db->query('UPDATE content 
+                SET topic = :topic, 
+                text = :text, 
+                img = :img, 
+                doc = :doc,
+                customer_id = :customer_id,
+                status = :status
+                WHERE content_id = :content_id');
+      $this->db->bind(':customer_id',$data['customer_id']);
+      $this->db->bind(':topic',$data['topic']);
+      $this->db->bind(':text',$data['text']);
+      $this->db->bind(':img',$data['picture']);
+      $this->db->bind(':doc',$data['pdf']);
+      $this->db->bind(':status',$data['status']);
+      $this->db->bind(':content_id',$data['content_id']);
+      // execute
+      if($this->db->execute()){
+          return true;
+      }else{
+          return false;
+      }        
+    }
+
     public function deleteusedbook($book_id) {
       $this->db->query('DELETE FROM books WHERE book_id = :book_id');
       // Bind values
@@ -492,6 +516,22 @@
       $this->db->query('DELETE FROM events WHERE id = :id');
 
       $this->db->bind(':id', $id);
+
+      // Execute after binding
+      $this->db->execute();
+
+      // Check for row count affected
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
+    public function deleteContent($content_id) {
+      $this->db->query('DELETE FROM content WHERE content_id = :content_id');
+
+      $this->db->bind(':content_id', $content_id);
 
       // Execute after binding
       $this->db->execute();
@@ -586,6 +626,12 @@
     $this->db->query('SELECT c.*, cus.* FROM content c JOIN customers cus ON c.customer_id = cus.customer_id WHERE c.content_id = :content_id AND c.status="approval"');
     $this->db->bind(':content_id', $content_id);
     return $this->db->resultSet();
+}
+
+public function findContentByContentId($content_id){
+  $this->db->query('SELECT * FROM content WHERE content_id = :content_id AND status="approval"');
+  $this->db->bind(':content_id', $content_id);
+  return $this->db->resultSet();
 }
 
 
@@ -790,7 +836,7 @@ public function editOrderCardPayment($data){
 
 
 public function findContentByCusId($customer_id){
-  $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id');
+  $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id AND status="approval"');
   $this->db->bind(':customer_id', $customer_id);
   return $this->db->resultSet();
   // $row = $this->db->single();

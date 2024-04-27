@@ -2591,6 +2591,113 @@ public function BuyNewBooks()
         }
     }
 
+    public function updateContent($contentId = null){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        }
+        $user_id = $_SESSION['user_id'];
+        $customerDetails = $this->customerModel->findCustomerById($user_id);
+        $customer_id=$customerDetails[0]->customer_id;
+
+       
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            // process form
+            // sanitize post data
+            $_POST= filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+            if ($customerDetails) {
+                $customerName = $customerDetails[0]->first_name;
+                $customerid = $customerDetails[0]->customer_id;                 
+            } else {
+                echo "Not found";
+            }
+                      
+            $data=[
+                'topic' => trim($_POST['topic']),
+                'text' => trim($_POST['description']),
+                'picture' => '',
+                'pdf' => '',
+                'user_id' => $user_id,// Replace this with the actual customer ID
+                'customer_id'=>$customerDetails[0]->customer_id,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerName,
+                'status' => "pending",
+                'content_id' => $contentId
+            ];
+                
+            if (isset($_FILES['picture']['name']) AND !empty($_FILES['picture']['name'])) {
+                $img_name = $_FILES['picture']['name'];
+                $tmp_name = $_FILES['picture']['tmp_name'];
+                $error = $_FILES['picture']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['topic'] . '-' . $unique_id . 'img.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addcontents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['picture'] = $new_img_name;
+                    }
+                }
+            }
+
+            if (isset($_FILES['pdf']['name']) AND !empty($_FILES['pdf']['name'])) {
+                $img_name = $_FILES['pdf']['name'];
+                $tmp_name = $_FILES['pdf']['tmp_name'];
+                $error = $_FILES['pdf']['error'];
+                
+                if ($error === 0) {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+            
+                    $allowed_exs = array('pdf');
+                    if (in_array($img_ex_to_lc, $allowed_exs)) {
+                        // Generate a unique identifier (e.g., timestamp)
+                        $unique_id = time(); 
+                        $new_img_name = $data['topic'] . '-' . $unique_id . 'pdf.' . $img_ex_to_lc;
+                        $img_upload_path = "../public/assets/images/landing/addcontents/" . $new_img_name;
+                        move_uploaded_file($tmp_name, $img_upload_path);
+            
+                        $data['pdf'] = $new_img_name;
+                    }
+                }
+            }
+
+            if($this->customerModel->updateContent($data)){
+                // flash('update_success','You are added the book  successfully');
+                $_SESSION['showModal'] = true; // Set session variable to true
+                redirect('customer/updateContent');
+            }else{
+                die('Something went wrong');
+            }
+
+        }else{
+            $Content = $this->customerModel->findContentById($contentId);
+
+            $data = [
+                'customerid' => $customer_id,
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->first_name,
+
+
+                'id' => $contentId,
+                'Name' => isset($Content[0]->topic) ? $Content[0]->topic : '', // Check if topic exists
+                'Description' => isset($Content[0]->text) ? $Content[0]->text : '' // Check if text exists
+            ];
+
+            $this->view('customer/updateContent', $data);
+        }
+    }
+
+
+
     public function deleteusedbook($bookId)
     {
         if ($this->customerModel->deleteusedbook($bookId)) {   
@@ -2620,6 +2727,18 @@ public function BuyNewBooks()
         if ($this->customerModel->deleteFavorite($fav_id)) {   
             // flash('post_message', 'book is Removed');
             redirect('customer/Favorite');
+            
+            
+        } else {
+            die('Something went wrong');
+        }
+    }
+
+    public function deleteContent($contentId)
+    {
+        if ($this->customerModel->deleteContent($contentId)) {   
+            // flash('post_message', 'book is Removed');
+            redirect('customer/Content');
             
             
         } else {
