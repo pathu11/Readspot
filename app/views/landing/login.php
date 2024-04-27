@@ -13,10 +13,12 @@
         <?php flash('register_success'); ?>
         <form class="login" action="<?php echo URLROOT; ?>/landing/login" method="post">
             <h1>Log in</h1>
+            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
             <input type="email" name="email" placeholder="Email" value="<?= isset($_COOKIE['email']) ? $_COOKIE['email'] : '' ?>" required >
             <div class="password-wrapper">
+            <span class="invalid-feedback"><?php echo $data['pass_err']; ?></span>
+            
             <input type="password" name="pass" placeholder="password"  value="<?= isset($_COOKIE['pass']) ? $_COOKIE['pass'] : '' ?>" required ><i class="fa fa-eye-slash" id="togglePassword"></i> <br></div>
-          
             <input type="checkbox" id="rememberMe" name="rememberMe" <?= (isset($_COOKIE['email']) && isset($_COOKIE['pass'])) ? "checked" : '' ?> value=1>
             <span id="rememberme"><label for="rememberme">Remember me</label></span>
             <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password !</a>
@@ -35,7 +37,7 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>SignUp</button></a>
+            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>login</button></a>
         </div>  
       </div>
     

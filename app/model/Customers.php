@@ -20,8 +20,30 @@
           return false; 
       }
     }
+    public function updateReview($review_id,$rating,$description) {
+      $this->db->query('UPDATE content_review SET review = :review, rate = :rating WHERE review_id = :review_id');
+      $this->db->bind(':review', $description);
+      $this->db->bind(':rating', $rating);
+      $this->db->bind(':review_id', $review_id);
 
- 
+      // Execute
+      if ($this->db->execute()) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
+    public function deleteReview($review_id){
+      $this->db->query('DELETE FROM content_review WHERE review_id = :review_id');
+      $this->db->bind(':review_id', $review_id);
+      $this->db->execute();
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
     public function findCartById($customer_id) {
       $this->db->query('SELECT c.*, b.book_name,b.discounts, b.price, b.img1, b.type FROM cart c
                         JOIN books b ON c.book_id = b.book_id

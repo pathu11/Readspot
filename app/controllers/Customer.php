@@ -2997,6 +2997,7 @@ public function BuyNewBooks()
 
     public function viewcontent($content_id){
         if (!isLoggedInCustomer()) {
+            
             $contentDetails=$this->customerModel->findContentById($content_id);
             // $reviewDetails=$this->customerModel->findReviewsByContentId($content_id)  ;
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
@@ -3039,6 +3040,7 @@ public function BuyNewBooks()
             $reviewDetails = $this->customerModel->findReviewsByContentId($content_id, $category);
            
             $data = [
+                'customer_id'=>$customerDetails[0]->customer_id,
                 'user_id'=> $user_id,
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->first_name,
@@ -3057,10 +3059,31 @@ public function BuyNewBooks()
             $this->view('customer/viewcontent', $data);
         }
     } 
+    public function deleteReview($content_id,$review_id){
+        if($this->customerModel->deleteReview($review_id)){
+            echo '<script>';
+            echo 'alert("Successfully deleted  your review");';
+            echo '</script>';
+            header("Location: " . URLROOT . "/customer/viewcontent/".$content_id);
+            // header("Location: " . URLROOT . "/customer/viewcontent/4" . $data['content_id']);
+            exit();
+        }
+    }
+    public function updateReview($content_id, $review_id) {
 
-
-// Inside your controller file (e.g., CustomerController.php)
-
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $description = $_POST['description'];
+            $rating = $_POST['rate'];
+            if($this->customerModel->updateReview($review_id,$rating,$description)){
+                 header("Location: " . URLROOT . "/customer/viewcontent/".$content_id);
+                 exit;
+            }
+        } else {
+           
+            header("Location: " . URLROOT . "/customer/viewcontent/".$content_id);
+            exit;
+        }
+    }
 public function markReview()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

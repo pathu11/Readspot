@@ -12,7 +12,6 @@ class Charity extends Controller
         if (!isLoggedInCharity()) {
             redirect('charity/index');
         }
-
         $this->view('charity/index');
     }
 

@@ -55,8 +55,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">
                     <i class="material-icons" style="vertical-align: middle;">book</i> Customer Services
                 </button>
-
-
                 <div class="dropdown-content" id="dropdownContent">
                     <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/BuyUsedBooks">Buy Used Books</a>
@@ -68,7 +66,7 @@
                 </div>
             </div>
             <div class="message-container">
-                <div class="message">Login and Buy Books!</div>
+                <div class="message"><a style="text-decoration:none;color:white;" href="<?php echo URLROOT; ?>/landing/sendEmailCustomer">Login and Buy Books!</a></div>
             </div>
         </div>
     </section>
@@ -89,7 +87,7 @@
                     book to life. Our packages offer end-to-end solutions for every stage of your publishing journey.
                 </p>
 
-                <a href="<?php echo URLROOT; ?>/landing/signupCustomer" class="char-button">Login as Publisher</a>
+                <a href="<?php echo URLROOT; ?>/landing/signupPub" class="char-button">Login as Publisher</a>
             </div>
             <video id="videoPlayer" width="60%" height="auto" controls
                 style="border-radius: 15px; border: 3px solid rgb(88, 88, 88);">

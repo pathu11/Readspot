@@ -20,9 +20,9 @@
         <h1>Verify Your Email</h1><br>
             <h4 style="color:red;" >We sent an OTP to your  email address. Check your inbox and enter the OTP for  verifying entered email address</h4>
             <br>
-                
+            <span class="invalid-feedback"><?php echo $data['otp_err']; ?></span>
             <input type="text" name="otp"  placeholder="Enter the OTP code" required><br>
-            <span class="error"><?php echo $data['otp_err']; ?></span>
+           
                                
             <!-- Add this code where you want to display the remaining time -->
             <!-- <p>Remaining Time:</p> -->
@@ -39,9 +39,25 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="#"> <button onclick="goBack()" class="submit">  Cancel </button></a>
+           <button onclick="goBack()" class="submit">  Cancel </button>
         </div>  
       </div>
+      <!-- <div id="myModal_err" class="modal">
+        <div class="modal-content">
+            
+            <h2>Invalid otp!</h2>
+            <p>We've noticed an invalid OTP attempt on your account. Please try again later.</p><br><br>
+            <button onclick="closeModalErr()" class="confirm">OK</button>
+        </div>
+    </div>
+    <div id="myModal_success" class="modal">
+        <div class="modal-content">
+            
+            <h2>Correct!</h2>
+            <p>Your entered Otp is correct .</p><br><br>
+            <button onclick="closeModalSuccess()" class="confirm">OK</button>
+        </div>
+    </div> -->
       <script>
          document.addEventListener('DOMContentLoaded', function() {
             const emailInput = document.querySelector('input[type="email"]');
@@ -61,28 +77,31 @@
 <script>
         // Set the initial remaining time from PHP variable
         var initialRemainingTime = <?php echo $remainingTime; ?>;
-        
-        // Function to update the remaining time
         function updateRemainingTime() {
             var remainingTimeElement = document.getElementById('remainingTime');
-            if (initialRemainingTime > 0) {
-                remainingTimeElement.innerText = formatTime(initialRemainingTime);
-                initialRemainingTime--;
+            var remainingTime = sessionStorage.getItem('remainingTime'); 
+            if (remainingTime && remainingTime > 0) {
+                remainingTimeElement.innerText = formatTime(remainingTime);
+                remainingTime--; 
+                sessionStorage.setItem('remainingTime', remainingTime); 
             } else {
                 remainingTimeElement.innerText = 'Expired';
-                // You can perform additional actions here when the time expires
+                
             }
         }
 
-        // Function to format time in MM:SS format
         function formatTime(seconds) {
             var minutes = Math.floor(seconds / 60);
             var remainingSeconds = seconds % 60;
             return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
         }
-
-        // Call the updateRemainingTime function every second
-        setInterval(updateRemainingTime, 1000);
+        document.addEventListener('DOMContentLoaded', function() {
+            updateRemainingTime();
+            setInterval(updateRemainingTime, 1000); // 
+            if (!sessionStorage.getItem('remainingTime')) {
+                sessionStorage.setItem('remainingTime', 60); 
+            }
+    });
     </script>
 <script>
      document.getElementById('togglePassword').addEventListener('click', function() {
@@ -102,13 +121,47 @@
         this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
         this.classList.toggle('fa-eye');   // Toggle the eye icon itself
     });
- 
-        // Toggle the eye icon itself
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+ 
+        // function showModalErr() {
+        //         var modal1 = document.getElementById("myModal_err");
+        //         modal1.style.display = "block";
+        //     }
+        //     function goBack() {
+        //     window.history.back();
+        // }
+        //     function closeModalErr() {
+        //         var modal1 = document.getElementById("myModal_err");
+        //         modal1.style.display = "none";
+        //         window.location.href = "<?php echo URLROOT; ?>/landing/sendEmailCustomer"; // Redirect to the event page
+        //     }
+
+        //     <?php
+               
+        //         if (isset($_SESSION['otp_err']) && !empty($_SESSION['otp_err'])) {
+        //             echo "window.onload = showModalErr;";
+        //             unset($_SESSION['otp_err']);
+        //         }
+        //         if (isset($_SESSION['otp_success']) && !empty($_SESSION['otp_success'])) {
+        //             echo "window.onload = showModalSuccess;";
+        //             unset($_SESSION['otp_success']);
+        //         }
+        //     ?>
+
+        //     function showModalSuccess() {
+        //         var modal2 = document.getElementById("myModal_success");
+        //         modal2.style.display = "block";
+        //     }
+
+        //     function closeModalSuccess() {
+        //         var modal2 = document.getElementById("myModal_success");
+        //         modal2.style.display = "none";
+        //         window.location.href = "<?php echo URLROOT; ?>/landing/signupCustomer"; // Redirect to the event page
+        //     }
+
+          
     </script>
 </html>
                      

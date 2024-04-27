@@ -142,6 +142,18 @@
     font-size: 20px;
 
 }
+.text-review{
+    float:right;
+    width:45%;
+    height:50px;
+    border:black;
+}
+.confirm{
+    padding:7px;
+    background-color: #02514C;
+    color:white;
+    border-radius: 6px;
+}
 .prev-btn{
     background-color: #02514C;
     border-radius: 6px;

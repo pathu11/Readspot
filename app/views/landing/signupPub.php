@@ -54,8 +54,34 @@
             <a href="<?php echo URLROOT; ?>/landing/login"><button>login</button></a>
         </div>
     </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Record Added!</h2>
+            <p>Your information has been submitted for approval. Please wait for admin approval!</p><br><br>
+            <button onclick="closeModal()" class="confirm">OK</button>
+        </div>
+    </div>
 </body>
 <script>
+     function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/landing/index"; // Redirect to the event page
+            }
+
+            <?php
+            if (isset($_SESSION['showModal']) && $_SESSION['showModal']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['showModal']);
+            }
+            ?>
+
     document.getElementById('togglePassword').addEventListener('click', function() {
         var passwordInput = document.querySelector('input[name="pass"]');
         var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
