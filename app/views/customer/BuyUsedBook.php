@@ -28,7 +28,7 @@
                 </div>
             
                 <div class="filter-category">
-                    <div class="list-group-U" id="show-list">
+                    <div class="list-group" id="show-list">
                         
                     </div>
                 </div>
@@ -50,14 +50,18 @@
                             <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
                             <div class="fav-cart-msg">
                                 <?php 
-                                    $num = 0; // Initialize the variable before the loop
-                                    foreach ($data['favoriteDetails'] as $favorite): 
-                                        if ($bookDetails->book_id == $favorite->item_id): 
-                                            $num = 1;
-                                            $fav_id = $favorite->fav_id;
-                                            break; // Assuming you want to stop the loop once a match is found
-                                        endif;
-                                    endforeach;
+                                    if ($data['user_id']==0000){
+                                        $num = 0;
+                                    }else{
+                                        $num = 0; // Initialize the variable before the loop
+                                        foreach ($data['favoriteDetails'] as $favorite): 
+                                            if ($bookDetails->book_id == $favorite->item_id): 
+                                                $num = 1;
+                                                $fav_id = $favorite->fav_id;
+                                                break; // Assuming you want to stop the loop once a match is found
+                                            endif;
+                                        endforeach;
+                                    }
                                 ?>
                                 <?php if ($num == 1): ?>
                                     <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">

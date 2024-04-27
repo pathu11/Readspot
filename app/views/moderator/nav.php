@@ -65,6 +65,12 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT?>/moderator/BookReviews" class="nav-link">
+                <i class='bx bxs-comment-error icon'></i>
+                <span class="link">Book Reviews</span>
+              </a>
+            </li>
+            <li class="list">
               <a href="<?php echo URLROOT?>/moderator/complains" class="nav-link">
                 <i class="bx bxs-message-rounded-error icon"></i>
                 <span class="link">Complains</span>

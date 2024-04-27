@@ -2,7 +2,7 @@
     padding: 20px;
     background-color: #F4F4F4;
     right: 0px;
-    min-height: 500px;
+    min-height: 600px;
 }
 
 .event-topic h2 {
@@ -81,12 +81,13 @@
 .e-vw-btn {
     width: 150px;
     height: 36px;
-    background-color: wheat;
-    border-color: black;
+    background-color: #009D94;;
+    /* border-color: black; */
+    border: none;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
-    color: black;
+    color: white;
     font-size: 1.1em;
     font-weight: 500;
     transition: .5s;

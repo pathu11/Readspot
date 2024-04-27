@@ -504,9 +504,19 @@ public function approveOrder($order_id) {
   $this->db->bind(':order_id', $order_id);
   if ($this->db->execute()) {
     return true;
-} else {
-    return false;
+  } else {
+      return false;
+  }
 }
+
+public function rejectOrder($order_id) {
+  $this->db->query("UPDATE order_details SET status = 'cancel' WHERE order_id = :order_id");
+  $this->db->bind(':order_id', $order_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+      return false;
+  }
 }
 
 public function addMessage($data) {
@@ -722,6 +732,29 @@ public function getBookCategoryCount(){
   $this->db->query('SELECT category, COUNT(status) AS count FROM books GROUP BY category');
   $results=$this->db->resultSet();
   return $results;
+}
+
+public function sendToSuperAdmin($complaint_id) {
+  $this->db->query('UPDATE complaint SET sent_to_superadmin = 1 WHERE complaint_id = :complaint_id');
+  $this->db->bind(":complaint_id",$complaint_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+
+}
+
+public function rejectUser($user_id){
+  $this->db->query("UPDATE users SET status = 'reject' WHERE user_id = :user_id");
+  $this->db->bind(":user_id",$user_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 

@@ -3,7 +3,7 @@
     background-color: #F4F4F4;
     /* background-color: white; */
     right: 0px;
-    min-height: 500px;
+    min-height: 600px;
 }
 
 .used-books h2, .exchange-books h2 {
@@ -44,6 +44,7 @@
     align-items: center;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative; /* Added relative positioning */
 }
 
 .B-div-noBook {
@@ -68,12 +69,13 @@
 .ub-vw-btn, .eb-vw-btn {
     width: 150px;
     height: 36px;
-    background-color: wheat;
-    border-color: black;
+    background-color: #009D94;;
+    /* border-color: black; */
+    border: none;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
-    color: black;
+    color: white;
     font-size: 1.1em;
     font-weight: 500;
     transition: .5s;
@@ -92,15 +94,18 @@
 .ub-dts-btn, .eb-dts-btn {
     width: 132px;
     height: 36px;
-    background-color: rgb(1, 36, 33);
+    background-color:black;
     border-color: white;
     outline: none;
-    border-radius: 0px;
+    border-radius: 50px;
     cursor: pointer;
+    border: none;
     color: white;
     transition: .5s;
     margin-left: 8px;
     margin-right: 8px;
+    margin-top: 7px;
+    margin-bottom: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -141,6 +146,50 @@
 .mybook-search img {
     height:15px;
     width:15px;
+}
+
+.approval-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color:	#2dc937; /* Choose your desired background color */
+    color: #ffffff; /* Choose your desired text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    font-size: 14px; /* Optional: Adjust font size */
+}
+
+.pending-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #e7b416; /* Choose your desired background color */
+    color: #ffffff; /* Choose your desired text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    font-size: 14px; /* Optional: Adjust font size */
+}
+
+.reject-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #cc3232; /* Choose your desired background color */
+    color: #ffffff; /* Choose your desired text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    font-size: 14px; /* Optional: Adjust font size */
+}
+
+.noDetails-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white; /* Choose your desired background color */
+    color: black; /* Choose your desired text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    font-size: 14px; /* Optional: Adjust font size */
 }
 
 @media screen and (max-width:600px) {
