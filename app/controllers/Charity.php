@@ -22,7 +22,7 @@ class Charity extends Controller
             redirect('charity/index');
         }
         $results = $this->charityModel->getEvents();
-        $this->view('charity/event-management',$data = ['allEvents' => $results]);
+        $this->view('charity/event-management', $data = ['allEvents' => $results]);
     }
 
     public function addEvent()
@@ -39,9 +39,13 @@ class Charity extends Controller
             redirect('charity/donation_request');
         }
         $results = $this->charityModel->getCharityUsers();
+<<<<<<< Updated upstream
         // print_r($results);
         // die();
         $this->view('charity/donation_request',$data = ['allUsers' => $results]);
+=======
+        $this->view('charity/donation_request', $data = ['allUsers' => $results]);
+>>>>>>> Stashed changes
     }
     public function userrequest()
     {
@@ -49,7 +53,7 @@ class Charity extends Controller
         $customerRequests = $this->charityModel->getCustomerRequests($customerId);
         $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests]);
     }
-    
+
     public function confirmdelete()
     {
         $this->view('charity/confirm-delete-modal');
@@ -81,13 +85,15 @@ class Charity extends Controller
     //     $this->view('charity/aboutus');
     // }
 
-    public function editprofile(){
-        $this->view('charity/edit-profile') ;
+    public function editprofile()
+    {
+        $this->view('charity/edit-profile');
     }
 
 
-    public function notification(){
-        $this->view('charity/notification') ;
+    public function notification()
+    {
+        $this->view('charity/notification');
     }
 
     public function donationQuery()
@@ -101,7 +107,7 @@ class Charity extends Controller
     }
 
 
-    public function createEvent() 
+    public function createEvent()
     {
         $string = implode(", ", $_POST['bookCategory']);
 
@@ -123,19 +129,44 @@ class Charity extends Controller
         }
     }
 
-    public function deleteEvent()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->charityModel->deleteEvent($_POST['eventId'])) {
+        // public function createEvent(){
+        //     $string = implode(", ", $_POST['bookCategory']);
+        //     $event_name = $_POST['eventName'];
+
+        // }
+
+
+    // public function deleteEvent()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         if ($this->charityModel->deleteEvent($_POST['eventId'])) {
+    //             redirect('charity/event');
+    //         } else {
+    //             die('Something went wrong');
+    //         }
+    //     }
+    // }
+
+    public function deleteEvent(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if($this->charityModel->deleteEvent($_POST['eventId'])){
                 redirect('charity/event');
-            } else {
+            }
+            else{
                 die('Something went wrong');
             }
         }
     }
 
-    
-    
+
+    public function logout()
+    {
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_pass']);
+        session_destroy();
+        redirect('landing/index');
+    }
 }
 
 ?>

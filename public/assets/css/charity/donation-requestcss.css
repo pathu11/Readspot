@@ -33,8 +33,8 @@
     align-items: flex-start;
     width: 250px;
     height: 250px;
-    background: #009d94;
-    border-radius: 20px;
+    background: #70BFBA;
+    border-radius: 5px;
     transition: 0.3s;
 }
 
@@ -118,9 +118,10 @@
     padding: 10px 10px;
     background: #009d94;
     color: rgb(255, 255, 255);
-    border-radius: 15px;
+    border-radius: 6px;
     font-weight: 200px;
     text-decoration: none;
+<<<<<<< Updated upstream
     width: 100px;
     height: 40px;
     border: none;
@@ -128,6 +129,14 @@
 
 .reqContainer button:hover {
     background-color: #017973;
+=======
+    width: 90px;
+    height: 35px;
+}
+
+.reqContainer a:hover {
+    background-color: #007771;
+>>>>>>> Stashed changes
     color: #ffffff;
 }
 
