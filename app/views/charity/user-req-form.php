@@ -55,7 +55,7 @@
 <body>
 
     <div id="dashboard">
-
+        <?php $details = $data['requestDetail'];//  print_r($details);die(); ?>
     </div>
     <header>
         <div>
@@ -68,7 +68,6 @@
             <a href="donation" class="active">Donation Requests</a>
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
@@ -76,7 +75,7 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
@@ -94,44 +93,38 @@
                 <table>
                     <tr>
                         <td>First Name:</td>
-                        <td><input type="text" name="firstName" value="Ramath" readonly></td>
+                        <td><input type="text" name="firstName" value="<?php echo $details->first_name?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Last Name:</td>
-                        <td><input type="text" name="lastName" value="Perera" readonly></td>
+                        <td><input type="text" name="lastName" value="<?php echo $details->last_name?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Mail ID:</td>
-                        <td><input type="email" name="mailId" value="ramath@gmail.com" readonly></td>
+                        <td><input type="email" name="mailId" value="<?php echo $details->email?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Mobile Number:</td>
-                        <td><input type="tel" name="mobileNumber" value="0768563700" readonly></td>
+                        <td><input type="tel" name="mobileNumber" value="<?php echo $details->contact_number ?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Quantity:</td>
-                        <td><input type="number" name="quantity" value="200" readonly></td>
+                        <td><input type="number" name="quantity" value="<?php echo $details->quantity?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Book Types:</td>
                         <td>
-                            <label><input type="checkbox" name="bookType[]" value="fiction" checked disabled>
-                                Fiction</label><br>
-                            <label><input type="checkbox" name="bookType[]" value="non-fiction" disabled>
-                                Non-Fiction</label><br>
-                            <label><input type="checkbox" name="bookType[]" value="biography" disabled>
-                                Biography</label><br>
-                            <label><input type="checkbox" name="bookType[]" value="science" disabled> Science</label><br>
+                            <input type="text" name="bookTypes" value="<?php echo $details->book_types?>" readonly>
                         </td>
                     </tr>
                     <tr>
-                        <td>Additional Note:</td>
-                        <td><textarea name="additionalNote" readonly>Special request for the event</textarea></td>
+                        <td>Description:</td>
+                        <td><textarea name="additionalNote" readonly><?php echo $details->description?></textarea></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align:center;">
                             <button type="button" onclick="openRejectModal()" class="uf-reject-req">Reject Request</button>
-                            
+
                             <button type="submit" name="uf-confirm-req" class="uf-confirm-req" onclick="showModal()">Confirm Request</button>
 
                             <div id="confirmModal" class="modal">

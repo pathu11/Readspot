@@ -1,0 +1,230 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f4f4f4;
+}
+
+#prof-container {
+    width: 950px;
+    font-size: 14px;
+    background-color: linear-gradient(to right, rgba(135, 206, 235, 1), rgba(152, 251, 152, 1));
+    border: 2px solid rgb(153, 153, 153);
+    color: rgb(32, 32, 32);
+    height: 550px;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+#prof-left {
+    width: 33%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Current-prof {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 4px solid #ffffff;
+    object-fit: cover;
+    transition: 0.4s ease-out;
+}
+
+#Current-prof:hover {
+    transform: scale(1.1);
+    border-color: #ffffff;
+}
+
+#prof-profileImage {
+    display: none;
+}
+
+#prof-right {
+    width: 60%;
+    padding: 20px;
+}
+
+.prof-input {
+    width: 100%;
+    padding: 6px -2px;
+    margin-bottom: 11px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    height: 28px;
+    position: relative;
+}
+
+.prof-input.show-password {
+    padding-right: 30px;
+}
+
+.prof-input.show-password + .toggle-password {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.prof-btn-update,
+.prof-btn-cancel,
+.logout-btn,
+.choose-image-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.prof-btn-update,
+.choose-image-btn {
+    background-color: #70bfba;
+    color: white;
+}
+
+.prof-btn-cancel,
+.logout-btn {
+    background-color: #d9534f;
+    color: white;
+}
+
+.prof-btn-update:hover,
+.choose-image-btn:hover {
+    background-color: #009d94;
+}
+
+.prof-btn-cancel:hover,
+.logout-btn:hover {
+    background-color: #b32924;
+}
+
+.choose-image-btn {
+    background-color: #dddddd;
+    color: rgb(88, 88, 88);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.choose-image-btn:hover {
+    background-color: #cccccc;
+}
+
+.choose-image-btn i {
+    margin-right: 8px;
+}
+
+.password-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.password-container {
+    flex: 1;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.password-input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.password-input {
+    flex: 1;
+    width: calc(100% - 40px);
+    position: relative;
+}
+
+.toggle-password {
+    display: none;
+}
+
+.toggle-password i {
+    color: #ccc;
+    cursor: pointer;
+}
+
+.toggle-password i.active {
+    color: #007BFF;
+}
+
+.password-section {
+    position: relative;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    margin-top: 20px;
+}
+
+.password-section.active {
+    opacity: 1;
+    max-height: 500px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content label,
+.modal-content input {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #70bfba;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #009d94;
+}
+
+.change-password-box .fas.fa-key {
+    margin-left: 10px;
+}
+
+.hide {
+    display: none;
+}

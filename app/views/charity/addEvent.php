@@ -24,9 +24,9 @@
             <a href="./">Home</a>
             <a href="event" class="active">Event Management</a>
             <a href="donation">Donation Requests</a>
-            <a href="aboutUs">
+            <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
+                <!-- <span class="notification-text">Notification</span> -->
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
@@ -44,7 +44,7 @@
         <a href="javascript:history.go(-1)" class="ae-go-back-btn"><i class="fas fa-arrow-left"></i> Go Back</a>
         <div class="ae-requestTable">
             <div class="ae-table-header">
-                <h2>Confirm & Add event</h2>
+                <h2>Add event</h2>
             </div>
             <form action="<?php URLROOT ?>/Readspot/charity/createEvent" method="post" enctype="multipart/form-data">
                 <table>
@@ -60,7 +60,7 @@
                         <td>Start Date:</td>
                         <td>
                             <div class="date-input-container">
-                                <input type="date" id="startDate" name="startDate" required>
+                                <input type="date" id="startDate" name="startDate" required min="1000-01-01" max="9999-12-31">
                                 <span class="placeholder-startD">Event will start on this date...</span>
                             </div>
                         </td>
@@ -70,7 +70,7 @@
                         <td>Start Date:</td>
                         <td>
                             <div class="date-input-container">
-                                <input type="date" id="endDate" name="endDate" required>
+                                <input type="date" id="endDate" name="endDate" required min="1000-01-01" max="9999-12-31">
                                 <span class="placeholder-endDate">Event will end on this date...</span>
                             </div>
                         </td>
@@ -84,9 +84,9 @@
                         <td><input type="time" name="endTime" required></td>
                     </tr>
                     <tr>
-                        <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon"></i></td>
+                        <td class="deadline">Deadline for donation</td>
                         <td>
-                            <input type="date" id="deadlineDate" name="deadlineDate" required>
+                            <input type="date" id="deadlineDate" name="deadlineDate" required min="1000-01-01" max="9999-12-31">
                         </td>
                     </tr>
                     <tr>

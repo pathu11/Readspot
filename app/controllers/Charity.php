@@ -38,13 +38,21 @@ class Charity extends Controller
             redirect('charity/donation_request');
         }
         $results = $this->charityModel->getCharityUsers();
+        // print_r($results);
+        // die();
         $this->view('charity/donation_request',$data = ['allUsers' => $results]);
     }
     public function userrequest()
     {
-        $this->view('charity/userRequest');
+        $customerId = isset($_POST['customerId']) ? $_POST['customerId'] : null;
+        $customerRequests = $this->charityModel->getCustomerRequests($customerId);
+        $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests]);
     }
-
+    
+    public function confirmdelete()
+    {
+        $this->view('charity/confirm-delete-modal');
+    }
     public function deletedsuccessfully()
     {
         $this->view('charity/eleted-successfully');
@@ -52,7 +60,9 @@ class Charity extends Controller
 
     public function userrequestform()
     {
-        $this->view('charity/user-req-form');
+        $requestId = isset($_POST['donate_id']) ? $_POST['donate_id'] : null;
+        $donation = $this->charityModel->getDonationById($requestId);
+        $this->view('charity/user-req-form', $data= ['requestDetail' => $donation]);
     }
 
     public function confirmEvent()
@@ -65,10 +75,15 @@ class Charity extends Controller
         $this->view('charity/customerSupport');
     }
 
-    public function aboutUs()
-    {
-        $this->view('charity/aboutus');
+    // public function aboutUs()
+    // {
+    //     $this->view('charity/aboutus');
+    // }
+
+    public function editprofile(){
+        $this->view('charity/edit-profile') ;
     }
+
 
     public function notification(){
         $this->view('charity/notification') ;

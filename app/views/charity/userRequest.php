@@ -15,6 +15,7 @@
 <body>
 
     <div id="dashboard">
+        <?php $allRequests = $data['allRequests'];?>
 
     </div>
     <header>
@@ -23,7 +24,7 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            
+
             <a href="event">Event Management</a>
             <a href="donation" class="active">Donation Requests</a>
             <a href="notification">
@@ -36,7 +37,7 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
@@ -85,62 +86,19 @@
                         </tr>
                     </thead>
                     <tbody class="ur-tbody">
-                        <tr>
-                            <td>200+</td>
-                            <td>Fantasy books</td>
-                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
-                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
-                                voluptatum
-                                vel? In laboriosam deserunt velit dignissimos!
-                            </td>
-                            <td>
-                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>200+</td>
-                            <td>Fantasy books</td>
-                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
-                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
-                                voluptatum
-                                vel? In laboriosam deserunt velit dignissimos!
-                            <td>
-                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>200+</td>
-                            <td>Fantasy books</td>
-                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
-                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
-                                voluptatum
-                                vel? In laboriosam deserunt velit dignissimos!
-                            <td>
-                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>200+</td>
-                            <td>Fantasy books</td>
-                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
-                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
-                                voluptatum
-                                vel? In laboriosam deserunt velit dignissimos!
-                            <td>
-                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>200+</td>
-                            <td>Fantasy books</td>
-                            <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore aliquam assumenda,
-                                eaque saepe at magni officia inventore deserunt molestias. Corrupti velit impedit
-                                voluptatum
-                                vel? In laboriosam deserunt velit dignissimos!
-                            <td>
-                                <a href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</a>
-                            </td>
-                        </tr>
+                        <?php foreach ($allRequests as $request) { ?>
+                            <tr>
+                                <td><?php echo $request->quantity ?></td>
+                                <td><?php echo $request->book_types ?></td>
+                                <td><?php echo $request->description ?></td>
+                                <td>
+                                    <form action="<?php URLROOT ?>/Readspot/charity/userrequestform" method="post">
+                                        <input type="hidden" name="donate_id" value="<?php echo  $request->donate_id ?>">
+                                        <button href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </section>
