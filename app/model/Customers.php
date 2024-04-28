@@ -1534,4 +1534,10 @@ public function addNotification($data){
     $result = $this->db->single();
     return isset($result->donate_book_count) ? (int)$result->donate_book_count : 0;
   }
+
+  public function makeAsRead($message_id) {
+    $this->db->query("UPDATE messages SET status = 'read' WHERE message_id = :message_id");
+    $this->db->bind(':message_id', $message_id);
+    return $this->db->execute();
+  }
 }

@@ -4,7 +4,13 @@
             <ul class="menu-list">
                 <li data-page="Dashboard"><a href="<?php echo URLROOT; ?>/customer/Dashboard"><i class="fa fa-tachometer sidebar-img-main" aria-hidden="true"></i>Dashboard</a></li>
                 <li data-page="Profile"><a href="<?php echo URLROOT; ?>/customer/Profile"><i class="fa fa-user sidebar-img-main" aria-hidden="true"></i>Profile</a></li>
-                <li data-page="Notification"><a href="<?php echo URLROOT; ?>/customer/Notification"><i class="fa fa-bell sidebar-img-main" aria-hidden="true"></i>Notification</a></li>
+                <li data-page="Notification"><a href="<?php echo URLROOT; ?>/customer/Notification"><i class="fa fa-bell sidebar-img-main" aria-hidden="true"></i>Notification 
+                <?php
+                    if ($data['unreadNotification'] > 0) {
+                        echo '<h1> '. $data['unreadNotification']. ' </h1>';
+                    }
+                ?>
+                </a></li>
                 <li data-page="Bookshelf"><a href="<?php echo URLROOT; ?>/customer/Bookshelf"><i class="fa fa-book sidebar-img-main" aria-hidden="true"></i>Bookshelf</a></li>
                 <li data-page="Content"><a href="<?php echo URLROOT; ?>/customer/Content"><i class="fa fa-file sidebar-img-main" aria-hidden="true"></i>Content</a></li>
                 <li data-page="Event"><a href="<?php echo URLROOT; ?>/customer/Event"><i class='fas fa-clipboard-list sidebar-img-main'></i>Event</a></li>
@@ -27,7 +33,7 @@
                 <a href="<?php echo URLROOT; ?>/customer/Profile" class="sidebar-link" data-page="Profile"><i class="fa fa-user" aria-hidden="true"></i></a>
             </div>
             <div class="sidebar-img">
-                <a href="<?php echo URLROOT; ?>/customer/Notification" class="sidebar-link" data-page="Notification"><i class="fa fa-bell" aria-hidden="true"></i></a>
+                <a href="<?php echo URLROOT; ?>/customer/Notification" class="sidebar-link" data-page="Notification"><i class="fa fa-bell" aria-hidden="true"></i><h1> 2 </h1></a>
             </div>
             <div class="sidebar-img">
                 <a href="<?php echo URLROOT; ?>/customer/Bookshelf" class="sidebar-link" data-page="Bookshelf"><i class="fa fa-book" aria-hidden="true"></i></a>

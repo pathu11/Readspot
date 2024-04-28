@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="upload-doc-content">
-                    <!-- <div class="img-cont-content">
+                    <div class="img-cont-content">
                         <label class="label-topic">Event Poster</label><br>
                         <input type="file" id="picture" name="imgMain" accept="image/*" value="<?php echo $data['mainImg']; ?>" required>
                     </div>
@@ -137,7 +137,7 @@
                     <div class="img-cont-content">
                         <label class="label-topic">Prev Event Image5</label><br>
                         <input type="file" id="picture" name="5thImg" accept="image/*" value="<?php echo $data['img5']; ?>" required>
-                    </div> -->
+                    </div>
                     <!-- <div class="pdf-cont">
                         <label class="label-topic">Upload Document</label><br>
                         <input type="file" id="pdf" name="pdf" accept=".pdf" required>

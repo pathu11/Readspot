@@ -39,6 +39,11 @@
         <a href="<?php echo URLROOT; ?>/customer/Notification" class="sub-menu-link"> <!--path changed-->
             <img src="<?php echo URLROOT; ?>/assets/images/customer/bell.png"> <!--path changed-->
             <p>Notifications</p>
+            <?php
+                if ($data['unreadNotification'] > 0) {
+                    echo '<h1> '. $data['unreadNotification']. ' </h1>';
+                }
+            ?>
             <span>></span>
         </a>
 
