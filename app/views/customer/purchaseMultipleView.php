@@ -9,6 +9,7 @@
             visibility: hidden;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
@@ -79,7 +80,7 @@
                                 </div>
                                
                             </td>
-                            <td>
+                            <!-- <td>
                             <?php if ($book[0]->discounts > 0): ?>
                               
                                 <span id="subtotal_price_with_discounts_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price_with_discounts; ?> </span>
@@ -87,7 +88,16 @@
                             <?php else: ?>
                                 <span id="subtotal_price_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price; ?> </span>
                             <?php endif; ?>
+                            </td> -->
+                            <td>
+                                <?php if ($book[0]->discounts > 0): ?>
+                                    <span id="subtotal_price_with_discounts_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price_with_discounts; ?> </span>
+                                    <span id="subtotal_price_<?php echo $index; ?>_undiscounted" style="text-decoration:line-through;color:red;"> Rs. <?php echo $book[0]->total_price; ?> </span>
+                                <?php else: ?>
+                                    <span id="subtotal_price_<?php echo $index; ?>"> Rs. <?php echo $book[0]->total_price; ?> </span>
+                                <?php endif; ?>
                             </td>
+
                         </tr>
                         <input id="book_quantity_<?php echo $index; ?>" name="book_quantities[]" class="visible" value="<?php echo $book[0]->nowQuantity; ?>">
                         <input type="hidden" id="maxQuantity_<?php echo $index; ?>" value="<?php echo $book[0]->maxQuantity; ?>">
@@ -96,23 +106,15 @@
                 <br><hr><br>
                 <div class="cost">
                     <div class="subcost">
-
-                        <p>Subtotal</p>
-                        
+                        <p>Subtotal</p> 
                         <p>Delivery Fee</p>
-                       
                         <p> Redeem Points</p>
-                        
                     </div>
                     <div class="subcost2">
                         <p id="totalCostDisplay">Rs. <?php echo $book[0]->total_price; ?></p>
-                       
-                        <p id="totalDeliveryDisplay">Rs. <?php echo $data['deliveryDetails']->priceperkilo; ?></p>
-                       
-                        <p id="addRedeemPoints" onclick="toggleRedeemPoints()">Add Your Redeem Points <i class="fas fa-chevron-down"></i></p>
-                        
+                        <p id="totalDeliveryDisplay">Rs. <?php echo $data['deliveryDetails']->priceperkilo; ?></p> 
+                        <p id="addRedeemPoints" onclick="toggleRedeemPoints()">Add Your Redeem Points <i class="fas fa-chevron-down"></i></p>  
                     </div>
-
                 </div>
                 <div id="redeemPointsDetails" class="redeem" style="display: none;">
                     <span>You have  <?php echo $data['redeempoint']->redeem_points; ?> redeem points.Use them for buy this order</span><br><br>
@@ -191,14 +193,12 @@ function toggleRedeemPoints() {
     // Calculate total price and total weight
     for (let i = 0; i < bookDetails.length; i++) {
         let book = bookDetails[i][0];
-        let bookQuantity = parseInt(document.getElementById('quantity_' + i).innerText); // Get the current quantity
-
-      
+        let bookQuantity = parseInt(document.getElementById('quantity_' + i).innerText);
         let subtotalPrice = book.discounts > 0 ? (book.perOnePrice - (book.perOnePrice * book.discounts * 0.01)) * bookQuantity : book.perOnePrice * bookQuantity;
+
         totalCost += subtotalPrice;
         totalWeight += book.perOneWeight * bookQuantity;
 
-       
         let subtotalElement;
         if (book.discounts > 0) {
             subtotalElement = document.getElementById('subtotal_price_with_discounts_' + i);
@@ -207,35 +207,21 @@ function toggleRedeemPoints() {
         }
         subtotalElement.innerText = "Rs. " + subtotalPrice;
 
-     
+        // Update undiscounted subtotal price if applicable
+        if (book.discounts > 0) {
+            let undiscountedSubtotalElement = document.getElementById('subtotal_price_' + i + '_undiscounted');
+            if (undiscountedSubtotalElement) {
+                undiscountedSubtotalElement.innerText = "Rs. " + (book.perOnePrice * bookQuantity);
+            }
+        }
     }
 
-    // Update the displayed total cost
+    // Update the displayed total cost (sum of all subtotal prices)
     document.getElementById('totalCostDisplay').innerText = "Rs. " + totalCost;
-    document.getElementById('subtotalPriceInput').value = totalCost; // Update hidden input field for subtotal price
 
-    // Calculate delivery fee based on total weight
-    let firstKiloCharge = <?php echo $data['deliveryDetails']->priceperkilo; ?>;
-    let additionalKiloCharge = <?php echo $data['deliveryDetails']->priceperadditional; ?>;
-    if (totalWeight > 1000) {
-        let additionalWeight = Math.ceil((totalWeight - 1000) / 1000);
-        deliveryFee = firstKiloCharge + (additionalWeight * additionalKiloCharge);
-    } else {
-        deliveryFee = firstKiloCharge;
-    }
-
-    // Calculate total price including delivery fee
-    let totalPrice = totalCost + deliveryFee;
-
-    // Update the displayed delivery fee and total price
-    document.getElementById('totalDeliveryDisplay').innerText = "Rs. " + deliveryFee;
-    document.getElementById('totalPriceDisplay').innerText = "Rs. " + totalPrice;
-
-    // Update the hidden input fields with the updated values
-    document.getElementById('totalWeightInput').value = totalWeight;
-    document.getElementById('totalDeliveryInput').value = deliveryFee;
-    document.getElementById('totalCostInput').value = totalPrice;
+    // Remaining code for calculating delivery fee and updating the display
 }
+
 
 // Function to apply redeem points and update total price
 function applyRedeemPoints() {
@@ -246,15 +232,36 @@ function applyRedeemPoints() {
         let deliveryFee = parseFloat(document.getElementById('totalDeliveryDisplay').innerText.split(' ')[1]);
         let newTotalPrice = totalCost + deliveryFee - redeemPoints;
         if (redeemPoints > availableRedeemPoints || redeemPoints < 0) {
-       
-            alert("Error: Entered redeem points exceed the maximum available redeem points.");
+            sweetAlert();
+            // alert("Error: Entered redeem points exceed the maximum available redeem points.");
             return; 
     }
         document.getElementById('totalPriceDisplay').innerText = "Rs. " + newTotalPrice;
 
         document.getElementById('totalCostInput').value = newTotalPrice;
     }
-   
+    function sweetAlert() {
+      
+              Swal.fire({
+                  title: 'Error!',
+                  text: 'Entered redeem points exceed the maximum available redeem points.',
+                  icon: 'warning',
+                 
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: "#70BFBA",
+                
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Redirect to login page
+                      window.location.href = window.location.href;
+                  }
+              });
+  
+              // Return false to prevent form submission
+              return false;
+         
+          return true;
+      }
     function updateHiddenQuantity(index, quantity) {
         document.getElementById('book_quantity_' + index).value = quantity;
     }
