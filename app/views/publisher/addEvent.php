@@ -28,16 +28,17 @@
       <input type="text" name="location" class="<?php echo (!empty($data['location_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['location']; ?>" placeholder="Event Location" required><br>
       <span class="error"><?php echo $data['location_err']; ?></span>
 
-      <input type="text" name="start_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['start_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_date']; ?>" placeholder="Start Date" required><br>
+      <input type="text" name="start_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['start_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_date']; ?>" placeholder="Start Date" min="<?php echo date('Y-m-d'); ?>" 
+       oninput="setEndDateMin(this.value)" required><br>
       <span class="error"><?php echo $data['start_date_err']; ?></span>
 
-      <input type="text" name="end_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['end_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_date']; ?>" placeholder="End date" required><br>
+      <input type="text" name="end_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['end_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_date']; ?>" placeholder="End date" min="<?php echo date('Y-m-d'); ?>" required><br>
       <span class="error"><?php echo $data['end_date_err']; ?></span>
 
-      <input type="text" name="start_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['start_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_time']; ?>" placeholder="Start Time" required><br>
+      <input type="text" name="start_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['start_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_time']; ?>" placeholder="Start Time" oninput="setEndTimeMin(this.value)"  required><br>
       <span class="error"><?php echo $data['start_time_err']; ?></span>
 
-      <input type="text" name="end_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['end_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_time']; ?>" placeholder="End time" required><br>
+      <input type="text" name="end_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['end_time_err'])) ? 'is-invalid' : ''; ?>" oninput="setEndTimeMin(this.value)"  value="<?php echo $data['end_time']; ?>" placeholder="End time" required><br>
       <span class="error"><?php echo $data['end_time_err']; ?></span>
 
 
@@ -82,6 +83,13 @@
 
 
 <script>
+          function setEndDateMin(startDateValue) {
+            document.getElementsByName("end_date")[0].min = startDateValue;
+        }
+
+        function setEndTimeMin(startTimeValue) {
+            document.getElementsByName("end_time")[0].min = startTimeValue;
+        }
         function goBack() {
             // Use the browser's built-in history object to go back
             window.history.back();

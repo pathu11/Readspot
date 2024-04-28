@@ -474,6 +474,7 @@
     float: right;
     transition: all 0.2s ease;
   }
+   
 
 input:not(:checked) ~ label:hover,
 input:not(:checked) ~ label:hover ~ label{
