@@ -1391,7 +1391,8 @@ public function BuyNewBooks()
                     'other' => trim($_POST['OtherReason']),
                     'descript' => trim($_POST['description']),
                     'err_img' => '',
-                    'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                    'customer_id' => trim($customerid),
+                    'user_id'=>$user_id,// Replace this with the actual customer ID
                     'customerImage' => $customerDetails[0]->profile_img,
                     'customerName' => $customerName
                 ];

@@ -424,15 +424,30 @@ class Landing extends Controller{
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
-                              
-                                    echo '<script>';
-                                    echo 'setTimeout(function() { alert("OTP is correct!"); redirectToLogin(); }, 100);'; // Delayed alert
-                                    echo 'function redirectToLogin() {';
-                                    echo '    window.location.href = "' . URLROOT . '/landing/signupCustomer"; ';  
-                                    echo '}';
-                                    echo '</script>';
-                                    exit;
-                              
+                                // Load SweetAlert library
+                                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                                echo '<script>';
+                                echo 'setTimeout(function() { sweet(); }, 100);';
+                                echo 'function sweet() {';
+                                echo '    Swal.fire({';
+                                echo '        title: "Correct",';
+                                echo '        text: "Your OTP is correct!",';
+                                echo '        icon: "success",';
+        
+                                echo '        confirmButtonText: "Ok",';
+                                echo '        confirmButtonColor: "#70BFBA",';
+                                
+                                echo '    }).then((result) => {';
+                                echo '        if (result.isConfirmed) {';
+                                echo '            window.location.href = "'.URLROOT.'/landing/signupCustomer";';
+                                echo '        }';
+                                echo '    });';
+                                echo '    return false;'; // Return false to prevent form submission
+                                echo '}';
+                                echo '</script>';
+                        
+                                exit;
                             }
                         }
                     }
@@ -983,13 +998,30 @@ class Landing extends Controller{
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
+                                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
                                 echo '<script>';
-                                echo 'setTimeout(function() { alert("OTP is correct!"); redirectToUpdatePass(); }, 100);'; 
-                                echo 'function redirectToUpdatePass() {';
-                                echo '    window.location.href = "' . URLROOT . '/landing/updatepass/' . $userId . '";';  
+                                echo 'setTimeout(function() { sweet(); }, 100);';
+                                echo 'function sweet() {';
+                                echo '    Swal.fire({';
+                                echo '        title: "Correct",';
+                                echo '        text: "Your OTP is correct!",';
+                                echo '        icon: "success",';
+        
+                                echo '        confirmButtonText: "Ok",';
+                                echo '        confirmButtonColor: "#70BFBA",';
+                                
+                                echo '    }).then((result) => {';
+                                echo '        if (result.isConfirmed) {';
+                                echo '           window.location.href = "' . URLROOT . '/landing/updatepass/' . $userId . '";';
+                                echo '        }';
+                                echo '    });';
+                                echo '    return false;'; // Return false to prevent form submission
                                 echo '}';
                                 echo '</script>';
+                        
                                 exit;
+                               
                             }
                         }
 

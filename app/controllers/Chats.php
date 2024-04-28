@@ -19,16 +19,12 @@ class Chats extends Controller{
         // $outgoing_id=84;
         $user_id = $_SESSION['user_id'];
         $incomingUserDetails=$this->chatModel->findUserById($incoming_id);
-
-       
         $data=[
             'user_id'=>$user_id,
             'incoming_id'=>$incoming_id,
             'profile_img'=>$incomingUserDetails[0]->profile_img,
             'name'=>$incomingUserDetails[0]->name,
-
         ];
-        
         $this->view('customer/chat',$data);
     }
     public function insertChat() {
@@ -38,9 +34,7 @@ class Chats extends Controller{
 
         $user_id = $_SESSION['user_id'];
         $userDetails=$this->chatModel->findUserById($user_id);
-       
         // $customerDetails = $this->customerModel->findCustomerById($user_id);
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 

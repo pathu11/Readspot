@@ -1,16 +1,43 @@
 <head>
   <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/nav.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/publisher/index.css" />
   <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
   <title>Homepage</title>
+  <script>
+    // function sweet() {
+      
+    //         Swal.fire({
+    //             title: 'You need to login',
+    //             text: 'Please log in to submit your complaint.',
+    //             icon: 'warning',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Login',
+    //             confirmButtonColor: "#70BFBA",
+    //             cancelButtonColor: "#d33",
+    //             cancelButtonText: 'Cancel'
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 // Redirect to login page
+    //                 window.location.href = '<?php echo URLROOT; ?>/publisher/events';
+    //             }
+    //         });
+
+    //         // Return false to prevent form submission
+    //         return false;
+       
+    //     return true;
+    // }
+  </script>
 </head>
 <body>
   <div class="body">
     <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
     <div class="img-container">
         <div class="profile">
+          <!-- <button onclick="sweet();">click</button> -->
           <h2>Welcome Back, <span style="color: red; font-size: 43px;"><?php echo $data['publisherName'];?></span> 
           <i class="fas fa-hand-paper wave-icon"></i>
           </h2>
