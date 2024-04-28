@@ -7,49 +7,53 @@
   <title>Homepage</title>
 </head>
 <body>
-  <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
-  <div class="img-container">
-      <div class="profile">
-        <h2>Welcome Back, <span style="color: red; font-size: 43px;"><?php echo $data['publisherName'];?></span> 
-        <i class="fas fa-hand-paper wave-icon"></i>
-        </h2>
-      </div>
-      <div class="image">
-        <img id="image1" src="<?php echo URLROOT;?>/assets/images/publisher/books2.png" width="700px" height="150px" >
-       
-      </div>
-     
-  </div>
-  <div class="grid-container">
-    <div class="grid-item"><span class="span">Total Books</span>&ensp;&ensp;&ensp;<i class="fa fa-duotone fa-book"></i><br><span class="span1"> <?php echo $data['bookCount']; ?></span></div>
-    <div class="grid-item"><span class="span">Total Orders</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-address-book"></i><br><span class="span1"> <?php echo $data['orderCount']; ?></span></div>
-    <div class="grid-item"><span  class="span">Total Income</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-heart"></i><br><span class="span2">Rs.<?php echo $data['paymentCount']; ?></span></div>
-    <div class="grid-item"><span  class="span">Pending Income</span >&ensp;<i class="fa fa-solid fa-list"></i><br><span class="span2"> Rs.<?php echo $data['pendingPayment']; ?></span></div>
-  </div>
+  <div class="body">
+    <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
+    <div class="img-container">
+        <div class="profile">
+          <h2>Welcome Back, <span style="color: red; font-size: 43px;"><?php echo $data['publisherName'];?></span> 
+          <i class="fas fa-hand-paper wave-icon"></i>
+          </h2>
+        </div>
+        <div class="image">
+          <img id="image1" src="<?php echo URLROOT;?>/assets/images/publisher/books2.png" width="700px" height="150px" >
+        
+        </div>
+      
+    </div>
+    <div class="grid-container">
+      <div class="grid-item"><span class="span">Total Books</span>&ensp;&ensp;&ensp;<i class="fa fa-duotone fa-book"></i><br><span class="span1"> <?php echo $data['bookCount']; ?></span></div>
+      <div class="grid-item"><span class="span">Total Orders</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-address-book"></i><br><span class="span1"> <?php echo $data['orderCount']; ?></span></div>
+      <div class="grid-item"><span  class="span">Total Income</span >&ensp;&ensp;&ensp;<i class="fa fa-solid fa-heart"></i><br><span class="span2">Rs.<?php echo $data['paymentCount']; ?></span></div>
+      <div class="grid-item"><span  class="span">Pending Income</span >&ensp;<i class="fa fa-solid fa-list"></i><br><span class="span2"> Rs.<?php echo $data['pendingPayment']; ?></span></div>
+    </div>
 
-  <div class="chat-container">
-    <div class="chat-container-left">
-      <div class="chat">
-        <canvas id="revenueChart"></canvas>
+    <div class="chat-container">
+      <div class="chat-container-left">
+        <div class="chat">
+          <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="chat">
+          <canvas id="myChart1"></canvas>
+        </div>
       </div>
-      <div class="chat">
-        <canvas id="myChart1"></canvas>
+      <div class="chat-container-right">
+        <div class="chat1">
+          <h3>Summary Based on Book Categories(Add)</h3><br><br>
+          <canvas id="myPieChart"></canvas>
+        </div>
       </div>
-    </div>
-    <div class="chat-container-right">
-      <div class="chat1">
-        <h3>Summary Based on Book Categories(Add)</h3><br><br>
-        <canvas id="myPieChart"></canvas>
-      </div>
-    </div>
-    <div class="chat-container-right">
-      <div class="chat1">
-        <h3>Summary Based on Book Categories(Buy)</h3><br><br>
-        <canvas id="myPieChart1"></canvas>
+      <div class="chat-container-right">
+        <div class="chat1">
+          <h3>Summary Based on Book Categories(Buy)</h3><br><br>
+          <canvas id="myPieChart1"></canvas>
+        </div>
       </div>
     </div>
   </div>
-</body>
+<?php
+    require APPROOT . '/views/publisher/footer.php'; 
+?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   // Sample data for the pie chart (Add)

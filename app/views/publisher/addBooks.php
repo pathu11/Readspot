@@ -78,9 +78,9 @@
         </div>
 </div> 
     </div>
-    <!-- <?php
-            require APPROOT . '/views/publisher/footer.php'; //path changed
-        ?> -->
+    <?php
+            require APPROOT . '/views/publisher/footer.php'; 
+        ?>
        
 </body>
 <script>

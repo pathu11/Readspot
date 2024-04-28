@@ -18,6 +18,7 @@
 </head>
 
 <body>
+<?php require APPROOT.'/views/publisher/sidebar.php';?>
     <div>
         <div class="form-container">
             <div class="form1">

@@ -86,7 +86,10 @@
             <li id="nextButton">»</li>
         </ul>
     </div>
-
+ 
+    <?php
+    require APPROOT . '/views/publisher/footer.php'; 
+?>
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/table.js"></script>
     <script>
         function openPopup(messageContent, notificationId) {

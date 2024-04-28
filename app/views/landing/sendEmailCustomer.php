@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/sendEmailCustomer" method="post">
-            <h1>Sign up AS A Customer</h1>
+            <h1>Signup As A Customer</h1>
            
 <br><br>
             <span  class="invalid-feedback"><?php echo $data['email_err']; ?></span><br>
