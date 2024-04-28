@@ -55,7 +55,7 @@
 <body>
 
     <div id="dashboard">
-
+        <?php $details = $data['requestDetail'];//  print_r($details);die(); ?>
     </div>
     <header>
         <div>
@@ -93,39 +93,33 @@
                 <table>
                     <tr>
                         <td>First Name:</td>
-                        <td><input type="text" name="firstName" value="Ramath" readonly></td>
+                        <td><input type="text" name="firstName" value="<?php echo $details->first_name?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Last Name:</td>
-                        <td><input type="text" name="lastName" value="Perera" readonly></td>
+                        <td><input type="text" name="lastName" value="<?php echo $details->last_name?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Mail ID:</td>
-                        <td><input type="email" name="mailId" value="ramath@gmail.com" readonly></td>
+                        <td><input type="email" name="mailId" value="<?php echo $details->email?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Mobile Number:</td>
-                        <td><input type="tel" name="mobileNumber" value="0768563700" readonly></td>
+                        <td><input type="tel" name="mobileNumber" value="<?php echo $details->contact_number ?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Quantity:</td>
-                        <td><input type="number" name="quantity" value="200" readonly></td>
+                        <td><input type="number" name="quantity" value="<?php echo $details->quantity?>" readonly></td>
                     </tr>
                     <tr>
                         <td>Book Types:</td>
                         <td>
-                            <label><input type="checkbox" name="bookType[]" value="fiction" checked disabled>
-                                Fiction</label><br>
-                            <label><input type="checkbox" name="bookType[]" value="non-fiction" disabled>
-                                Non-Fiction</label><br>
-                            <label><input type="checkbox" name="bookType[]" value="biography" disabled>
-                                Biography</label><br>
-                            <label><input type="checkbox" name="bookType[]" value="science" disabled> Science</label><br>
+                            <input type="text" name="bookTypes" value="<?php echo $details->book_types?>" readonly>
                         </td>
                     </tr>
                     <tr>
-                        <td>Additional Note:</td>
-                        <td><textarea name="additionalNote" readonly>Special request for the event</textarea></td>
+                        <td>Description:</td>
+                        <td><textarea name="additionalNote" readonly><?php echo $details->description?></textarea></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align:center;">
