@@ -56,6 +56,18 @@
   this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
   this.classList.toggle('fa-eye');   // Toggle the eye icon itself
 });
-
+document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.querySelector('input[type="email"]');
+            const emailError = document.getElementById('email-error');
+            emailInput.addEventListener('input', function() {
+                if (!/@/.test(emailInput.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.display = 'block';
+                } else {
+                    emailError.textContent = '';
+                    emailError.style.display = 'none';
+                }
+            });
+        });
 </script>
           

@@ -574,6 +574,10 @@ class Landing extends Controller{
             }
             if(empty($data['reg_no'])){
                 $data['reg_no_err']='Please enter the registration  number';      
+            }else{
+                if($this->userModel->findUserByRegNo($data['reg_no'])){
+                    $data['reg_no_err']='This registration number is already registered '; 
+                }
             }
             //validate email
             if(empty($data['email'])){
@@ -687,6 +691,10 @@ class Landing extends Controller{
             }
             if(empty($data['reg_no'])){
                 $data['reg_no_err']='Please enter the registration  number';      
+            }else{
+                if($this->userModel->findUserByRegNoCharity($data['reg_no'])){
+                    $data['reg_no_err']='This registration number is already registered '; 
+                }
             }
             //validate email
             if(empty($data['email'])){

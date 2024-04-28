@@ -29,7 +29,7 @@
 
 
                 <span class="invalid-feedback"><?php echo $data['contact_no_err']; ?></span>
-                <input type="text" name="contact_no" placeholder="Contact Number" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
+                <input type="text" name="contact_no" placeholder="Contact Number(+94776767678)"  pattern="\+\d{11}" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
 
                 <div class="password-wrapper">
                 <span class="invalid-feedback"><?php echo $data['pass_err']; ?></span>
@@ -100,6 +100,6 @@
         this.classList.toggle('fa-eye');   // Toggle the eye icon itself
     });
         
-        
+   
     </script>
 </html>

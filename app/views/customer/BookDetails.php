@@ -225,13 +225,23 @@
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
                         <?php else: ?>
+
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
                         <?php endif; ?>
                     </div>
                           
                     <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
-                 
+                    <?php if(isset($data['customer_id'])): ?>
+                            <?php if ($reviews->customer_id == $data['customer_id']): ?>
+                                <div>
+                                    <a class ="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReview/<?php echo $content->content_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
+                                
+                                    <a class ="reviewBtn" href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)">Update</a>
+                            </div>
+                           
+                            <?php endif; ?>
+                        <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -248,24 +258,39 @@
     <script>
  
     
-document.querySelectorAll('.helpful-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const reviewId = this.dataset.reviewId;
-        const isHelpful = this.dataset.action === 'helpful';
+ document.addEventListener('DOMContentLoaded', function() {
+    const helpfulButtons = document.querySelectorAll('.helpful-button');
 
-        fetch(<?php echo URLROOT; ?>/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful})
-            .then(response => {
-                if (response.ok) {
-                   
-                    this.disabled = true; // Disable the button after clicking
-                    this.classList.add('clicked'); // Optionally, add a class to indicate the button was clicked
-                } else {
-                    console.error('Failed to update review helpfulness');
-                }
-            })
-            .catch(error => {
-                console.error('Error updating review helpfulness:', error);
-            });
+    helpfulButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const reviewId = button.dataset.reviewId;
+            const isHelpful = button.dataset.action === 'helpful';
+
+            // Check if the button has already been clicked
+            const hasClicked = localStorage.getItem(`helpful_${reviewId}`);
+            if (hasClicked) {
+                console.log('You have already clicked this button.');
+                return; // Exit function if already clicked
+            }
+
+            // Send AJAX request to update review helpfulness
+            fetch(`${window.location.origin}/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+                .then(response => {
+                    if (response.ok) {
+                        // Disable the button and mark it as clicked
+                        button.disabled = true;
+                        button.classList.add('clicked');
+                        // Store in local storage that the user has clicked this button
+                        localStorage.setItem(`helpful_${reviewId}`, true);
+                    } else {
+                        console.error('Failed to update review helpfulness');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating review helpfulness:', error);
+                });
+        });
     });
 });
 

@@ -32,7 +32,7 @@
                     
                     <label for="fileInput" style="cursor: pointer;">
                     <!-- Image preview -->
-                    <img id="imagePreview" src="<?php echo URLROOT; ?>/assets/images/publisher/person.jpg" alt="Profile Image">
+                    <img id="imagePreview" src="<?php echo !empty($data['profile_img']) ? URLROOT . '/assets/images/landing/profile/'.$data['profile_img'] : URLROOT . '/assets/images/publisher/person.jpg'; ?>" alt="Profile Image">
                     <span class="error"><?php echo $data['profile_img_err']; ?></span>
 
                     <br>
