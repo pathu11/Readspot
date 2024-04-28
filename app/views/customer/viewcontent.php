@@ -17,7 +17,7 @@
 <!-- 
         <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
     <div class="img-summary">
-        <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
+        <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed
     <div class="text-summary">
         <h3>Article Summary</h3>
         <br>
@@ -70,7 +70,7 @@
                 <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $content->profile_img; ?>"><br><br>
                 <p style="font-size:18px;"><?php echo $content->name; ?> </p>
                 <p style="font-size:15px;"><?php echo $content->email; ?></p>
-                <br><br><br>
+                <br><br>
                 <p class="down"><b>Download this Content as a PDF</b></p><br><br>
                     <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
                         <button class="btn-d">Click Here</button>

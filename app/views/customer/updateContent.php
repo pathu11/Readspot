@@ -17,8 +17,7 @@
                 <h1>Update the Content</h1>
                 <div class="topic-cont">
                     <label class="label-topic">Topic</label><br>
-                    <input type="text" name="topic" class="form-topic" value="<?php echo $data['Name']; ?>" required>
-                    
+                    <input type="text" name="topic" class="form-topic" value="<?php echo $data['Name']; ?>" required>  
                 </div>
                 <div class="disc-cont">
                     <label class="label-topic">Summary about your content</label><br>

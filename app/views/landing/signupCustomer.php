@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupCustomer" method="post">
-            <h1>Sign up</h1>
+            <h1>Sign up As A Customer</h1>
             <input type="text" name="first_name" placeholder="First Name" <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['first_name']; ?>" required>
            
             <span class="invalid-feedback"><?php echo $data['first_name_err']; ?></span>

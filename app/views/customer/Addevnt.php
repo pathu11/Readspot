@@ -5,13 +5,69 @@
     <?php
         require APPROOT . '/views/customer/sidebar.php'; //path changed
     ?>          
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Function to validate dates and times
+        function validateDateTime() {
+            // Get date inputs
+            var startDate = new Date(document.getElementById("startDate").value);
+            var endDate = new Date(document.getElementById("endDate").value);
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+
+            // Get time inputs
+            var startTime = document.getElementById("startTime").value;
+            var endTime = document.getElementById("endTime").value;
+
+            // Check if start date is equal to or after today
+            if (startDate < today) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Start date must be equal to or after today.'
+                });
+                return false;
+            }
+
+            // Check if end date is after start date
+            if (endDate < startDate) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'End date must be equal to or after the start date.'
+                });
+                return false;
+            }
+
+            
+            if (endTime < startTime) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'End time must be after the start time.'
+                });
+                return false;
+            }
+
+            return true; // Dates and times are valid
+        }
+
+        // Function to validate form on submit
+        function validateForm() {
+            return validateDateTime();
+        }
+    </script>
+
+
     <div class="container">
         <div class="add-content">
             <div class="back-btn-div">
                 <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
             </div>
-            <form action="<?php echo URLROOT; ?>/customer/Addevnt" enctype="multipart/form-data" class="cont-add" method="POST">
-                <h1>Add a Event</h1>
+            <form action="<?php echo URLROOT; ?>/customer/Addevnt" enctype="multipart/form-data" class="cont-add" method="POST" onsubmit="return validateForm()">
+                <h1>Add an Event</h1>
                 <div class="topic-cont">
                     <label class="label-topic">Event Name</label><br>
                     <input type="text" class="form-topic" name="eventName" required>
@@ -42,22 +98,22 @@
                 <div class="upload-pages">
                     <div class="topic-cont">
                         <label class="label-topic">Start Date</label><br>
-                        <input type="date" class="form-topic" name="startDate" required>
+                        <input type="date" class="form-topic" id="startDate" name="startDate" required>
                     </div>
                     <div class="topic-cont">
                         <label class="label-topic">End Date</label><br>
-                        <input type="date" class="form-topic" name="endDate" required>
+                        <input type="date" class="form-topic" id="endDate" name="endDate" required>
                     </div>
                 </div>
                 
                 <div class="upload-pages">
                     <div class="topic-cont">
                         <label class="label-topic">Start Time</label><br>
-                        <input type="time" class="form-topic" name="startTime" required>
+                        <input type="time" class="form-topic" id="startTime" name="startTime" required>
                     </div>
                     <div class="topic-cont">
                         <label class="label-topic">End Time</label><br>
-                        <input type="time" class="form-topic" name="endTime" required>
+                        <input type="time" class="form-topic" id="endTime" name="endTime" required>
                     </div>
                 </div>
 

@@ -5,15 +5,83 @@
     <?php
         include_once 'sidebar.php';
     ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function validateISBN() {
+            // Get the value of the input field
+            var isbnInput = document.getElementById("input1").value.trim();
+
+            // Remove any hyphens or spaces
+            var isbn = isbnInput.replace(/[-\s]/g, '');
+
+            // Check if the ISBN is either ISBN-10 or ISBN-13
+            if (isbn.length === 10 || isbn.length === 13) {
+                // Validate ISBN-10
+                if (isbn.length === 10) {
+                    if (!isValidISBN10(isbn)) {
+                        showErrorAlert("Invalid ISBN-10 number");
+                        return false;
+                    }
+                }
+                // Validate ISBN-13
+                else if (isbn.length === 13) {
+                    if (!isValidISBN13(isbn)) {
+                        showErrorAlert("Invalid ISBN-13 number");
+                        return false;
+                    }
+                }
+                return true; // ISBN is valid
+            } else {
+                showErrorAlert("Invalid ISBN number");
+                return false;
+            }
+        }
+
+        // Function to validate ISBN-10
+        function isValidISBN10(isbn) {
+            var sum = 0;
+            for (var i = 0; i < 9; i++) {
+                sum += (i + 1) * parseInt(isbn[i]);
+            }
+            var checksum = isbn[9].toUpperCase();
+            if (checksum === 'X') {
+                checksum = 10;
+            } else {
+                checksum = parseInt(checksum);
+            }
+            sum += 10 * checksum;
+            return sum % 11 === 0;
+        }
+
+        // Function to validate ISBN-13
+        function isValidISBN13(isbn) {
+            var sum = 0;
+            for (var i = 0; i < 12; i++) {
+                sum += (i % 2 === 0) ? parseInt(isbn[i]) : 3 * parseInt(isbn[i]);
+            }
+            return sum % 10 === 0;
+        }
+
+        // Function to show error alert using SweetAlert
+        function showErrorAlert(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: message
+            });
+        }
+    </script>
+
     <div class="container">
 
         <div class="add-content">
             <div class="back-btn-div">
                 <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
             </div>
-            <form action="<?php echo URLROOT; ?>/customer/updateusedbook/<?php echo $data['book_id'];?>" class="book-add" method="post">
+            <form action="<?php echo URLROOT; ?>/customer/updateusedbook/<?php echo $data['book_id'];?>" enctype="multipart/form-data" class="book-add" method="post" onsubmit="return validateISBN()">
 
-                <h1>Update Used Book</h1>
+                <h1>Update the Book</h1>
                 
                 <div class="topic-book">
                     <label class="label-topic">Book Name</label><br>
@@ -188,7 +256,8 @@
 
                     <div class="topic-book author">
                         <label class="label-topic">Postal Code</label><br>
-                        <input type="number" class="form-topic"  name="postalCode" value="<?php echo $data['postal_code']; ?>"required>
+                        <input type="text" class="form-topic" id="postalCode" name="postalCode" value="<?php echo $data['postal_code']; ?>" maxlength="5" required>
+                        <span class="error" id="postalCodeError" style="color: red;"></span>
                     </div>
                 </div>
 
@@ -205,8 +274,45 @@
                 </div>
             </div>
         </div>
+
+        <div id="myModal1" class="modal">
+            <div class="modal-content">
+                <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+                <h2>Record Added!</h2>
+                <p>Your record has been recorded. Wait for admin approval</p>
+                <button onclick="closeModal1()">OK</button>
+            </div>
+        </div>
+
+        <script>
+            function showModal() {
+                var modal = document.getElementById("myModal1");
+                modal.style.display = "block";
+            }
+
+            function closeModal1() {
+                var modal = document.getElementById("myModal1");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/customer/UsedBooks"; // Redirect to the event page
+            }
+
+            <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['showModal']) && $_SESSION['showModal']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['showModal']);
+            }
+            ?>
+
+            // Submit form function
+            // function submitForm() {
+            //     document.getElementById("eventForm").submit();
+            // }
+        </script>
+
         <?php
-            include_once 'footer.php';
+            require APPROOT . '/views/customer/footer.php';
         ?>
     </div>
 
@@ -312,4 +418,20 @@
             var tooltip = document.getElementById(inputId + 'Tip');
             tooltip.classList.toggle('active');
         }
+</script>
+
+<script>
+    document.getElementById('postalCode').addEventListener('input', function(event) {
+        var postalCode = event.target.value;
+        var postalCodeError = document.getElementById('postalCodeError');
+
+        // Check if postal code is exactly 5 digits long
+        if (postalCode.length !== 5 || isNaN(postalCode)) {
+            postalCodeError.textContent = 'Postal code must be a 5-digit number.';
+            event.target.setCustomValidity('Invalid postal code');
+        } else {
+            postalCodeError.textContent = '';
+            event.target.setCustomValidity('');
+        }
+    });
 </script>

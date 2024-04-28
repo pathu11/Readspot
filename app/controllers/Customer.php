@@ -186,8 +186,9 @@ class Customer extends Controller {
                     }
                 }
                 if($this->customerModel->AddCont($data)){
-                    echo '<script>alert("Your content is successfully added!,Waiting for moderator\'s approval");</script>';
+                    // echo '<script>alert("Your content is successfully added!,Waiting for moderator\'s approval");</script>';
                     // flash('add_success','You are added the book  successfully');
+                    $_SESSION['showModal'] = true;
                     redirect('customer/AddCont');
                 }else{
                     die('Something went wrong');
@@ -537,7 +538,9 @@ class Customer extends Controller {
                 
                 if($this->customerModel->AddExchangeBook($data)){
                     // flash('add_success','You are added the book  successfully');
-                    redirect('customer/ExchangeBooks');
+                    // redirect('customer/ExchangeBooks');
+                    $_SESSION['showModal'] = true;
+                    redirect('customer/AddExchangeBook');
                 }else{
                     die('Something went wrong');
                 }
@@ -739,7 +742,8 @@ class Customer extends Controller {
                 
                 if($this->customerModel->AddUsedBook($data)){
                     // flash('add_success','You are added the book  successfully');
-                    redirect('customer/UsedBooks');
+                    $_SESSION['showModal'] = true;
+                    redirect('customer/AddUsedBook');
                 }else{
                     die('Something went wrong');
                 }
@@ -2002,7 +2006,7 @@ public function BuyNewBooks()
     //     $this->view('customer/sidebar');
     // }
 
-    public function updateusedbook($bookId){
+    public function updateusedbook($bookId = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
@@ -2149,7 +2153,9 @@ public function BuyNewBooks()
                 
                 if($this->customerModel->updateusedbook($data)){
                     // flash('update_success','You are added the book  successfully');
-                    redirect('customer/UsedBooks');
+                    // redirect('customer/UsedBooks');
+                    $_SESSION['showModal'] = true; // Set session variable to true
+                    redirect('customer/updateusedbook');
                 }else{
                     die('Something went wrong');
                 }
@@ -2162,33 +2168,33 @@ public function BuyNewBooks()
             $UsedBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
             $bookCategoryDetails = $this->adminModel->getBookCategories();
-            if($UsedBookId->customer_id != $customer_id){
-                redirect('customer/UsedBooks');
-              }
+            // if($UsedBookId->customer_id != $customer_id && $bookId != null){
+            //     redirect('customer/UsedBooks');
+            //   }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
                 'bookCategoryDetails'=>$bookCategoryDetails,
-                'book_name' => $UsedBookId->book_name,
-                'ISBN_no' => $UsedBookId->ISBN_no,
-                'author' => $UsedBookId->author,
-                'price' => $UsedBookId->price,
-                'category' => $UsedBookId->category,
-                'weight' => $UsedBookId->weight,
-                'descript' => $UsedBookId->descript,
-                'img1' => $UsedBookId->img1,
-                'img2' => $UsedBookId->img2,
-                'img3' => $UsedBookId->img3,
-                'condition' => $UsedBookId->condition,
-                'published_year' => $UsedBookId->published_year,
-                'price_type' => $UsedBookId->price_type,
-                'account_name' => $UsedBookId->account_name,
-                'account_no' => $UsedBookId->account_no,
-                'bank_name' => $UsedBookId->bank_name,
-                'branch_name' => $UsedBookId->branch_name,
-                'town' => $UsedBookId->town,
-                'district' => $UsedBookId->district,
-                'postal_code' => $UsedBookId->postal_code,
+                'book_name' => isset($UsedBookId->book_name) ? $UsedBookId->book_name : '',
+                'ISBN_no' => isset($UsedBookId->ISBN_no) ? $UsedBookId->ISBN_no : '',
+                'author' => isset($UsedBookId->author) ? $UsedBookId->author : '',
+                'price' => isset($UsedBookId->price) ? $UsedBookId->price : '',
+                'category' => isset($UsedBookId->category) ? $UsedBookId->category : '',
+                'weight' => isset($UsedBookId->weight) ? $UsedBookId->weight : '',
+                'descript' => isset($UsedBookId->descript) ? $UsedBookId->descript : '',
+                'img1' => isset($UsedBookId->img1) ? $UsedBookId->img1 : '',
+                'img2' => isset($UsedBookId->img2) ? $UsedBookId->img2 : '',
+                'img3' => isset($UsedBookId->img3) ? $UsedBookId->img3 : '',
+                'condition' => isset($UsedBookId->condition) ? $UsedBookId->condition : '',
+                'published_year' => isset($UsedBookId->published_year) ? $UsedBookId->published_year : '',
+                'price_type' => isset($UsedBookId->price_type) ? $UsedBookId->price_type : '',
+                'account_name' => isset($UsedBookId->account_name) ? $UsedBookId->account_name : '',
+                'account_no' => isset($UsedBookId->account_no) ? $UsedBookId->account_no : '',
+                'bank_name' => isset($UsedBookId->bank_name) ? $UsedBookId->bank_name : '',
+                'branch_name' => isset($UsedBookId->branch_name) ? $UsedBookId->branch_name : '',
+                'town' => isset($UsedBookId->town) ? $UsedBookId->town : '',
+                'district' => isset($UsedBookId->district) ? $UsedBookId->district : '',
+                'postal_code' => isset($UsedBookId->postal_code) ? $UsedBookId->postal_code : '',
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name
             ];
@@ -2199,7 +2205,7 @@ public function BuyNewBooks()
         }
     } 
 
-    public function updateexchangebook($bookId){
+    public function updateexchangebook($bookId = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
@@ -2334,7 +2340,8 @@ public function BuyNewBooks()
                 
                 if($this->customerModel->updateexchangebook($data)){
                     // flash('update_success','You are added the book  successfully');
-                    redirect('customer/ExchangeBooks');
+                    $_SESSION['showModal'] = true; // Set session variable to true
+                    redirect('customer/updateexchangebook');
                 }else{
                     die('Something went wrong');
                 }
@@ -2347,28 +2354,28 @@ public function BuyNewBooks()
             $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
             $bookCategoryDetails = $this->adminModel->getBookCategories();
-            if($ExchangeBookId->customer_id != $customer_id){
-                redirect('customer/ExchangeBooks');
-            }
+            // if($ExchangeBookId->customer_id != $customer_id && $bookId != null){
+            //     redirect('customer/ExchangeBooks');
+            // }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
                 'bookCategoryDetails'=>$bookCategoryDetails,
-                'book_name' => $ExchangeBookId->book_name,
-                'ISBN_no' => $ExchangeBookId->ISBN_no,
-                'author' => $ExchangeBookId->author,
-                'category' => $ExchangeBookId->category,
-                'weight' => $ExchangeBookId->weight,
-                'descript' => $ExchangeBookId->descript,
-                'booksIWant' => $ExchangeBookId->booksIWant,
-                'img1' => $ExchangeBookId->img1,
-                'img2' => $ExchangeBookId->img2,
-                'img3' => $ExchangeBookId->img3,
-                'condition' => $ExchangeBookId->condition,
-                'published_year' => $ExchangeBookId->published_year,
-                'town' => $ExchangeBookId->town,
-                'district' => $ExchangeBookId->district,
-                'postal_code' => $ExchangeBookId->postal_code,
+                'book_name' => isset($ExchangeBookId->book_name) ? $ExchangeBookId->book_name : '',
+                'ISBN_no' => isset($ExchangeBookId->ISBN_no) ? $ExchangeBookId->ISBN_no : '',
+                'author' => isset($ExchangeBookId->author) ? $ExchangeBookId->author : '',
+                'category' => isset($ExchangeBookId->category) ? $ExchangeBookId->category : '',
+                'weight' => isset($ExchangeBookId->weight) ? $ExchangeBookId->weight : '',
+                'descript' => isset($ExchangeBookId->descript) ? $ExchangeBookId->descript : '',
+                'booksIWant' => isset($ExchangeBookId->booksIWant) ? $ExchangeBookId->booksIWant : '',
+                'img1' => isset($ExchangeBookId->img1) ? $ExchangeBookId->img1 : '',
+                'img2' => isset($ExchangeBookId->img2) ? $ExchangeBookId->img2 : '',
+                'img3' => isset($ExchangeBookId->img3) ? $ExchangeBookId->img3 : '',
+                'condition' => isset($ExchangeBookId->condition) ? $ExchangeBookId->condition : '',
+                'published_year' => isset($ExchangeBookId->published_year) ? $ExchangeBookId->published_year : '',
+                'town' => isset($ExchangeBookId->town) ? $ExchangeBookId->town : '',
+                'district' => isset($ExchangeBookId->district) ? $ExchangeBookId->district : '',
+                'postal_code' =>isset( $ExchangeBookId->postal_code) ? $ExchangeBookId->postal_code : '',
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name
             ];
@@ -2379,7 +2386,7 @@ public function BuyNewBooks()
         }
     }
 
-    public function UpdateEvent($eventId){
+    public function UpdateEvent($eventId = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
@@ -2546,7 +2553,8 @@ public function BuyNewBooks()
             }
             if($this->customerModel->UpdateEvent($data)){
                 // flash('add_success','You are added the book  successfully');
-                redirect('customer/Event');
+                $_SESSION['showModal'] = true; // Set session variable to true
+                redirect('customer/updateEvent');
             }else{
                 die('Something went wrong');
             }
@@ -2565,20 +2573,20 @@ public function BuyNewBooks()
                 'customerName' => $customerDetails[0]->first_name,
 
                 'id' => $eventId,
-                'Name' => $Event[0]->title,
-                'Category' => $Event[0]->category_name,
-                'Description' => $Event[0]->description,
-                'Start_date' => $Event[0]->start_date,
-                'End_date' => $Event[0]->end_date,
-                'Start_time' => $Event[0]->start_time,
-                'End_time' => $Event[0]->end_time,
-                'Venue' => $Event[0]->location,
-                'mainImg' => $Event[0]->poster,
-                'img1' => $Event[0]->img1,
-                'img2' => $Event[0]->img2,
-                'img3' => $Event[0]->img3,
-                'img4' => $Event[0]->img4,
-                'img5' => $Event[0]->img5,
+                'Name' => isset($Event[0]->title) ? $Event[0]->title : '',
+                'Category' => isset($Event[0]->category_name) ? $Event[0]->category_name : '',
+                'Description' => isset($Event[0]->description) ? $Event[0]->description : '',
+                'Start_date' => isset($Event[0]->start_date) ? $Event[0]->start_date : '',
+                'End_date' => isset($Event[0]->end_date) ? $Event[0]->end_date : '',
+                'Start_time' => isset($Event[0]->start_time) ? $Event[0]->start_time : '',
+                'End_time' => isset($Event[0]->end_time) ? $Event[0]->end_time : '',
+                'Venue' => isset($Event[0]->location) ? $Event[0]->location : '',
+                'mainImg' => isset($Event[0]->poster) ? $Event[0]->poster : '',
+                'img1' => isset($Event[0]->img1) ? $Event[0]->img1 : '',
+                'img2' => isset($Event[0]->img2) ? $Event[0]->img2 : '',
+                'img3' => isset($Event[0]->img3) ? $Event[0]->img3 : '',
+                'img4' => isset($Event[0]->img4) ? $Event[0]->img4 : '',
+                'img5' => isset($Event[0]->img5) ? $Event[0]->img5 : '',
                 'eventCategoryDetails'=>$eventCategoryDetails
             ];
             $this->view('customer/UpdateEvent', $data);
