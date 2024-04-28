@@ -130,6 +130,7 @@
             window.history.back();
         }
         function confirmDelete(storeId) {
+          console.log(storeId);
           var confirmationModal = document.getElementById("confirmationModal");
           confirmationModal.style.display = "block";
         }
@@ -140,6 +141,7 @@
         }
 
         function proceedDelete(storeId) {
+            console.log(storeId);
           window.location.href = '<?php echo URLROOT; ?>/NewBooks/deletebooks/' + storeId;
         }
 

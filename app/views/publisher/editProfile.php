@@ -40,7 +40,7 @@
                     <input type="text" name="name" class="<?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" placeholder="Full Name" required><br>
                     <span class="error"><?php echo $data['name_err']; ?></span>
 
-                    <input type="text" name="contact_no" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" required>
+                    <input type="text" name="contact_no" pattern="\+\d{11}"  class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" required>
                     <button class="submit" type="button" onclick="goBack()">Back</button>
                     <input type="submit" value="Submit" name="submit" class="submit">
                 </form>

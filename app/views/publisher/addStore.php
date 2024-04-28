@@ -22,10 +22,7 @@
                 <h2>Add a Store </h2>
                 <form action="<?php echo URLROOT; ?>/publisher/addStore/<?php echo $data['publisher_id']; ?>" method="POST">                    
                     <br>
-                    <br>
-                    
-                    
-             
+                    <br>           
                     <input type="text" name="postal_name" class="<?php echo (!empty($data['postal_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_name']; ?>" placeholder=" Name" required><br>
                     <span class="error"><?php echo $data['postal_name_err']; ?></span>
                                
@@ -36,7 +33,7 @@
                     <span class="error"><?php echo $data['town_err']; ?></span>
 
                     <select class="select <?php echo (!empty($data['district_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['district']; ?>" name="district" required>
-                                <option value="" selected disabled>Select Your district</option>
+                                <option value="" selected disabled>Select Your District</option>
                                 <option value="Ampara">Ampara</option>
                                 <option value="Anuradhapura">Anuradhapura</option>
                                 <option value="Badulla">Badulla</option>
