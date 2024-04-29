@@ -15,7 +15,10 @@
 <body>
 
     <div id="dashboard">
-        <?php $allRequests = $data['allRequests'];?>
+        <?php 
+            $allRequests = $data['allRequests'];
+            $userDetail = $data['customerDetail'];    
+        ?>
 
     </div>
     <header>
@@ -51,16 +54,16 @@
         </div>
         <main class="ur-requestTable">
             <section class="ur-table-header">
-                <h2>Ramath's Requests</h2>
+                <h2><?php echo $userDetail->first_name ?>'s Requests</h2>
                 <div class="ur-user-common-details">
-                    <p>F-name: Ramath</p>
-                    <p>L-name: Perera</p>
+                    <p>F-name: <?php echo $userDetail->first_name ?></p>
+                    <p>L-name: <?php echo $userDetail->last_name ?></p>
                     <p>
-                        <a href="mailto:ramath@gmail.com" class="ur-email-link">Email ID: ramath@gmail.com</a>
+                        <a href="mailto:ramath@gmail.com" class="ur-email-link">Email ID: <?php echo $userDetail->email ?></a>
                     </p>
                     <p>
                         <i class="fas fa-phone-alt ur-phone-icon"></i>
-                        <span class="ur-phone-link" onclick="showContactOptions()">0764585760</span>
+                        <span class="ur-phone-link" onclick="showContactOptions()"><?php echo $userDetail->contact_number ?></span>
                     </p>
                     <div class="ur-contact-modal" id="ur-contactModal">
                         <div class="ur-contact-modal-content">

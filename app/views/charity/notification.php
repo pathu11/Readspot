@@ -12,6 +12,11 @@
 
 <body>
     <header>
+        <?php 
+            $allNotifications = $data['allNotifications'];
+            // print_r($allNotifications);
+            // die();
+        ?>
         <div>
             <img id="logo" src=<?= URLROOT . "/assets/images/charity/ReadSpot.png" ?> alt="Logo">
 
@@ -42,133 +47,39 @@
         <button class="query-not" onclick="showQueries()">Queries</button>
 
         <div class="request-notification not-list">
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
-                        <i class="fas fa-eye not-view-icon"></i>
-                    </a>
+            <?php foreach ($allNotifications as $notifiacation) { ?>
+                <div class="not-notification-item">
+                    <div class="not-profile-image">
+                        <img src="/assets/images/charity/himaza.jpg" alt="Profile">
+                    </div>
+                    <div class="not-notification-content">
+                        <strong><?php echo $notifiacation->first_name ?></strong> has donated <?php echo $notifiacation->quantity ?> <?php echo $notifiacation->book_types ?> types of books for the book marathon event
+                    </div>
 
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
-                </div>
-            </div>
+                    <?php
+                        $date = new DateTime($notifiacation->created_at);   
+                        $formatted_date = $date->format("F j, Y");
+                    ?>  
 
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
+                    <div class="not-notification-date">
+                        <?php echo $formatted_date; ?>
+                    </div>
+                    <div class="not-menu-icons">
+                        <form action="<?php URLROOT ?>/Readspot/charity/userrequestform" method="POST">
+                            <input type="hidden" name="donate_id" value="<?php echo $notifiacation->donate_id ?>">
+                            <input type="submit" name="submit" value="View">
+                        </form>
+                        <form action="<?php URLROOT ?>/Readspot/charity/notificationMarkAsRead" method="POST">
+                            <input type="hidden" name="donate_id" value="<?php echo $notifiacation->donate_id ?>">
+                            <input type="submit" name="submit" value="Delete">
+                        </form>
+                        <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
+                    </div>
                 </div>
-                <div class="not-notification-content">
-                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
-                        <i class="fas fa-eye not-view-icon"></i>
-                    </a>
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
-                </div>
-            </div>
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
-                        <i class="fas fa-eye not-view-icon"></i>
-                    </a>
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
-                </div>
-            </div>
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
-                        <i class="fas fa-eye not-view-icon"></i>
-                    </a>
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
-                </div>
-            </div>
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Ramath</strong> has donated 50 fiction types of books for the book marathon event
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <a href="<?php echo URLROOT; ?>/charity/userrequestform">
-                        <i class="fas fa-eye not-view-icon"></i>
-                    </a>
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <!-- <i class="fas fa-comment-alt not-chat-icon"></i> -->
-                </div>
-            </div>
+            <?php } ?>
         </div>
 
         <div class="query-notification not-list" style="display:none;">
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Himaza</strong> shall we donate for poor childs ?!!!
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <!-- <i class="fas fa-eye not-view-icon"></i> -->
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <i class="fas fa-comment-alt not-chat-icon"></i>
-                </div>
-            </div>
-            <div class="not-notification-item">
-                <div class="not-profile-image">
-                    <img src="/assets/images/charity/himaza.jpg" alt="Profile">
-                </div>
-                <div class="not-notification-content">
-                    <strong>Himaza</strong> shall we donate for poor childs ?!!!
-                </div>
-                <div class="not-notification-date">
-                    May 8, 2024
-                </div>
-                <div class="not-menu-icons">
-                    <!-- <i class="fas fa-eye not-view-icon"></i> -->
-                    <i class="fas fa-trash not-delete-icon"></i>
-                    <i class="fas fa-comment-alt not-chat-icon"></i>
-                </div>
-            </div>
             <div class="not-notification-item">
                 <div class="not-profile-image">
                     <img src="/assets/images/charity/himaza.jpg" alt="Profile">

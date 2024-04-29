@@ -77,51 +77,6 @@
             </div>
         <?php } ?>
 
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Ganeshwar</h4>
-                    <p style="color: white;">Ganeshwar11@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Ganeshwar</h4>
-                    <p style="color: white;">Ganeshwar11@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Ganeshwar</h4>
-                    <p style="color: white;">Ganeshwar11@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-
-
-
         <div class="modal" id="confirmationModal">
             <div class="modal-content">
                 <span class="close-btn" id="closeModal">&times;</span>

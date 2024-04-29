@@ -82,11 +82,9 @@
         }
 
         public function getCharityUsersById($id){
-            $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE c.customer_Id =":id" AND u.status ="approval"');
+            $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE c.customer_Id =:id AND u.status ="approval"');
             $this->db->bind(':id', $id);
             $results = $this->db->single();
-            print_r($results);
-            die();
             return $results;
         }
 
@@ -134,6 +132,12 @@
             $this->db->bind(':id', $id);
             $this->db->bind(':rejectMessage', $message);
             return $this->db->execute();
+        }
+
+        public function allRequestNotifications(){
+            $this->db->query('SELECT * FROM donate_books WHERE mark_as_read = 0');
+            $results = $this->db->resultSet();
+            return $results;
         }
 
     } 

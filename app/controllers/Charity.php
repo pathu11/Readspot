@@ -43,9 +43,9 @@ class Charity extends Controller
     public function userrequest()
     {
         $customerId = isset($_POST['customerId']) ? $_POST['customerId'] : null;
-        //$customerDetails = $this->charityModel->getCharityUsersById($customerId);
+        $customerDetails = $this->charityModel->getCharityUsersById($customerId);
         $customerRequests = $this->charityModel->getCustomerRequests($customerId);
-        $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests]);
+        $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests, 'customerDetail' => $customerDetails]);
     }
 
     public function userrequestform()
@@ -82,7 +82,8 @@ class Charity extends Controller
 
     public function notification()
     {
-        $this->view('charity/notification');
+        $results = $this->charityModel->allRequestNotifications();
+        $this->view('charity/notification', $data = ['allNotifications' => $results]);
     }
 
     public function donationQuery()
@@ -162,7 +163,12 @@ class Charity extends Controller
         }
     }
 
-    
+    public function notificationMarkAsRead()
+    {   
+        $id = $_POST['donate_id'];
+        $this->charityModel->markAsRead($id);
+        redirect('charity/notification');
+    }
     
 
     public function logout()
