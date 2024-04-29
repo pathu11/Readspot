@@ -1798,7 +1798,7 @@ public function stores(){
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
             $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
-            $sender_id=$ChatDetails[0]->incoming_msg_id;
+            $sender_id=$ChatDetails[0]->name;
            
             $senderDetails=$this->publisherModel->finduserDetails($sender_id);
             // print_r($senderDetails);

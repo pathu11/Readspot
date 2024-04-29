@@ -1924,6 +1924,26 @@ public function BuyNewBooks()
         }
     } 
 
+    public function Messages(){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $messageDetails = $this->publisherModel->getChatDetailsById($user_id); 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->first_name,
+                'messageDetails'=>$messageDetails,
+                'unreadNotification' => $unreadNotification,
+            ];
+            $this->view('customer/Messages', $data);
+        }
+    } 
+
     public function ChangeProfImage(){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
