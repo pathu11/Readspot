@@ -1801,23 +1801,38 @@ public function stores(){
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
-            $ChatDetails = $this->publisherModel->getChatDetailsById($user_id);
-            $senderDetails = [];
+
+            $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
+            $sender_id=$ChatDetails[0]->name;
+           
+            $senderDetails=$this->publisherModel->finduserDetails($sender_id);
+            // print_r($senderDetails);
+            $data=[
+                'chatDetails'=>$ChatDetails,
+                'user_id'=>$user_id,
+                'publisherName'=>$publisherDetails[0]->name,
+                'publisherDetails'=>$publisherDetails,
+                'senderName'=>$senderDetails->name,
+                'unreadCount'=>$unreadCount
+
+//             $ChatDetails = $this->publisherModel->getChatDetailsById($user_id);
+//             $senderDetails = [];
             
-            foreach($ChatDetails as $chat){
+//             foreach($ChatDetails as $chat){
                 
-                $senderId = $chat->incoming_msg_id;
-                if (!isset($senderDetails[$senderId])) {
-                    $senderDetails[$senderId] = $this->publisherModel->finduserDetails($senderId);
-                }
-            }
-            $data = [
-                'chatDetails' => $ChatDetails,
-                'user_id' => $user_id,
-                'publisherName' => $publisherDetails[0]->name,
-                'publisherDetails' => $publisherDetails,
-                'senderDetails' => $senderDetails, // Pass the sender details array
-                'unreadCount' => $unreadCount
+//                 $senderId = $chat->incoming_msg_id;
+//                 if (!isset($senderDetails[$senderId])) {
+//                     $senderDetails[$senderId] = $this->publisherModel->finduserDetails($senderId);
+//                 }
+//             }
+//             $data = [
+//                 'chatDetails' => $ChatDetails,
+//                 'user_id' => $user_id,
+//                 'publisherName' => $publisherDetails[0]->name,
+//                 'publisherDetails' => $publisherDetails,
+//                 'senderDetails' => $senderDetails, // Pass the sender details array
+//                 'unreadCount' => $unreadCount
+
             ];
     
             $this->view('publisher/messages', $data);

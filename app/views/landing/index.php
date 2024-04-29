@@ -57,7 +57,7 @@
                 </button>
                 <div class="dropdown-content" id="dropdownContent">
                     <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
-                    <a href="<?php echo URLROOT; ?>/customer/BuyUsedBooks">Buy Used Books</a>
+                    <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/BookContents">Content</a>

@@ -11,6 +11,7 @@
                     }
                 ?>
                 </a></li>
+                <li data-page="Messages"><a href="<?php echo URLROOT; ?>/customer/Messages"><i class="fas fa-comment-alt sidebar-img-main" aria-hidden="true"></i>Messages</a></li>
                 <li data-page="Bookshelf"><a href="<?php echo URLROOT; ?>/customer/Bookshelf"><i class="fa fa-book sidebar-img-main" aria-hidden="true"></i>Bookshelf</a></li>
                 <li data-page="Content"><a href="<?php echo URLROOT; ?>/customer/Content"><i class="fa fa-file sidebar-img-main" aria-hidden="true"></i>Content</a></li>
                 <li data-page="Event"><a href="<?php echo URLROOT; ?>/customer/Event"><i class='fas fa-clipboard-list sidebar-img-main'></i>Event</a></li>
@@ -35,7 +36,16 @@
                 <a href="<?php echo URLROOT; ?>/customer/Profile" class="sidebar-link" data-page="Profile"><i class="fa fa-user" aria-hidden="true"></i></a>
             </div>
             <div class="sidebar-img">
-                <a href="<?php echo URLROOT; ?>/customer/Notification" class="sidebar-link" data-page="Notification"><i class="fa fa-bell" aria-hidden="true"></i><h1> 2 </h1></a>
+                <a href="<?php echo URLROOT; ?>/customer/Notification" class="sidebar-link" data-page="Notification"><i class="fa fa-bell" aria-hidden="true"></i>
+                    <?php
+                        if ($data['unreadNotification'] > 0) {
+                            echo '<h1> '. $data['unreadNotification']. ' </h1>';
+                        }
+                    ?>
+                </a>
+            </div>
+            <div class="sidebar-img">
+                <a href="<?php echo URLROOT; ?>/customer/Messages" class="sidebar-link" data-page="Messages"><i class="fas fa-comment-alt" aria-hidden="true"></i></a>
             </div>
             <div class="sidebar-img">
                 <a href="<?php echo URLROOT; ?>/customer/Bookshelf" class="sidebar-link" data-page="Bookshelf"><i class="fa fa-book" aria-hidden="true"></i></a>
