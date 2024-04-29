@@ -1011,7 +1011,7 @@ public function pendingRequestsBooks(){
 public function approveBook($book_id){
         // Retrieve the email from the database
         $pendingBook = $this->adminModel->getPendingBookByID($book_id);
-        $customerEmail = $pendingBook[0]->email;
+        $customerEmail = $pendingBook->email;
 
         if($this->adminModel->approveBook($book_id)){
             // Send email using PHPMailer
@@ -1033,9 +1033,9 @@ public function approveBook($book_id){
 
                 // Content
                 $mail->isHTML(true);  // Set email format to HTML
-                $mail->Subject = 'Your Book '.$pendingBook[0]->book_name.' Has Been Accepted';
-                $mail->Body    = "Dear ".$pendingBook[0]->name. ",.\n\n" .
-                                "We are pleased to inform you that your book " .$pendingBook[0]->book_name.", authored by " .$pendingBook[0]->author. ", has been accepted by our admin for sale.\n\n".
+                $mail->Subject = 'Your Book '.$pendingBook->book_name.' Has Been Accepted';
+                $mail->Body    = "Dear ".$pendingBook->name. ",.\n\n" .
+                                "We are pleased to inform you that your book " .$pendingBook->book_name.", authored by " .$pendingBook->author. ", has been accepted by our admin for sale.\n\n".
                                 "Thank you for contributing to our platform.\n\n".
                                 "Sincerely,\n".
                                 "The Admin Team";

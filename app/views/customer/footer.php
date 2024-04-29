@@ -1,12 +1,12 @@
 <script src="<?php echo URLROOT; ?>/assets/js/customer/prof.js"></script> <!--path changed-->
 <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/footer.css"> -->
 <footer>
-   <div class="container"> 
+   <!-- <div class="container-kokul"> 
         <div class="row">
             
         </div>
 
-        <div class="row">
+        <div class="row"> -->
             <div>
                 <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,
                     audio clips, digital downloads, data compilations,<br>
@@ -18,8 +18,8 @@
             <div>
                 <p id="copyright" style=" color: black;">&copy; 2023 ReadSpot. All rights reserved.</p>
             </div>
-        </div>
-    </div>
+        <!-- </div> -->
+    <!-- </div> -->
 </footer>
 
 <style>
