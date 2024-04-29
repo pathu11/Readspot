@@ -18,8 +18,11 @@
         <img src="<?php echo $profileImage; ?>" alt="">
         <div class="details">
           <span><?php echo $data['name']; ?></span>
-          
-          <p>active now</p>
+         <?php if($data['isActiveNow']==1): ?>
+            <p>active now</p>
+        <?php else: ?>
+            <p>Last seen  <em><?php echo $data['lastLogoutTime']->logout_time; ?></em> </p>
+        <?php endif; ?>
         </div>
        
       </header>
