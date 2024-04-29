@@ -35,12 +35,14 @@
             return $results;
         }
 
-        public function deleteEvent($id){
-            $this->db->query('DELETE FROM charity_event WHERE charity_event_id = :id');
-            $this->db->bind(':id', $id);
+        public function deleteEvent($charity_event_id){
+            $this->db->query('DELETE FROM charity_event WHERE charity_event_id = :charity_event_id');
+            $this->db->bind(':charity_event_id', $charity_event_id);
             return $this->db->execute();
         }
 
+
+        
         public function getEventById($id){
             $this->db->query('SELECT * FROM charity_event WHERE charity_event_id = :id');
             $this->db->bind(':id', $id);
