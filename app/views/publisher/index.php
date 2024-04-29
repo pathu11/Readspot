@@ -7,29 +7,7 @@
   <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
   <title>Homepage</title>
   <script>
-    // function sweet() {
-      
-    //         Swal.fire({
-    //             title: 'You need to login',
-    //             text: 'Please log in to submit your complaint.',
-    //             icon: 'warning',
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Login',
-    //             confirmButtonColor: "#70BFBA",
-    //             cancelButtonColor: "#d33",
-    //             cancelButtonText: 'Cancel'
-    //         }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 // Redirect to login page
-    //                 window.location.href = '<?php echo URLROOT; ?>/publisher/events';
-    //             }
-    //         });
-
-    //         // Return false to prevent form submission
-    //         return false;
-       
-    //     return true;
-    // }
+    
   </script>
 </head>
 <body>
@@ -37,8 +15,13 @@
     <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
     <div class="img-container">
         <div class="profile">
+          <?php
+              $text = $data['publisherName'];
+              $words = explode(" ", $text); // Split the text into an array of words
+              $firstWord = $words[0]; 
+              ?>
           <!-- <button onclick="sweet();">click</button> -->
-          <h2>Welcome Back, <span style="color: red; font-size: 43px;"><?php echo $data['publisherName'];?></span> 
+          <h2>Welcome Back,<br< <span style="color: red; font-size: 43px;"><?php echo $firstWord;?></span> 
           <i class="fas fa-hand-paper wave-icon"></i>
           </h2>
         </div>

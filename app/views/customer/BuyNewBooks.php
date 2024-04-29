@@ -2,7 +2,9 @@
     $title = "Buy New Books";
     require APPROOT . '/views/customer/header.php'; //path changed
 ?>
-
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
     <div class="main-cont">
         <div class="back-btn-div01">
             <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
@@ -37,12 +39,13 @@
        
         <div class="recommend">
             <div class="viewall">
-                <?php if(isset($data['user_id'])): ?>
+                <?php echo $data['user_id']; ?>
+                <?php if(isset($data['user_id']) || $data['user_id']!=0): ?>
 
-                 <h2> Recommended For You </h2>
+                     <h2> Recommended For You </h2>
                  <?php else: ?>
                     <h2> Top Selling </h2> 
-                    <?php endif; ?>
+                <?php endif; ?>
                 <a href="<?php echo URLROOT; ?>/customer/Recommended">VIEW ALL>></a>
             </div>
             <div class="sub-cont-N2">
@@ -100,11 +103,24 @@
                                                 </button>
                                             </a>
                                         <?php endif; ?>
-                                        <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>">
+                                        <?php if($book->quantity>0): ?>
+                                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>">
+                                                    <button class="book-button">
+                                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                    </button>
+                                                </a>
+                                            <?php else: ?>
+                                                <a href="#">
+                                                    <button class="book-button" onclick="error()">
+                                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                    </button>
+                                                </a>
+                                            <?php endif; ?>
+                                        <!-- <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $book->book_id; ?>">
                                             <button class="book-button">
                                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                             </button>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                             </a>
@@ -215,11 +231,19 @@
                                         </button>
                                     </a>
                                 <?php endif; ?>
-                                <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
-                                    <button class="book-button">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    </button>
-                                </a>
+                                <?php if($books->quantity>0): ?>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
+                                        <button class="book-button">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php else: ?>
+                                    <a href="#">
+                                        <button class="book-button" onclick="error()">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                             <!-- <div class="Book-discount">
                                 <p>30%</P>
@@ -241,6 +265,7 @@
 ?>
 
 <script type="text/javascript">
+
     $(document).ready(function(){
         $("#search-N").keyup(function(){
             var searchText = $(this).val(); // Word coming from the input field
@@ -264,7 +289,30 @@
         });
     });
 </script>
+<script>
+    function error() {
+      
+      Swal.fire({
+          title: 'Error',
+          text: 'This book is out of stock',
+          icon: 'warning',
+        
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#70BFBA",
+        
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Redirect to login page
+              window.location.href = window.location.href;
+          }
+      });
 
+      // Return false to prevent form submission
+      return false;
+ 
+  return true;
+}
+    </script>
 
 <!-- <script>
     document.addEventListener("DOMContentLoaded", function() {
