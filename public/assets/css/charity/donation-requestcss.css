@@ -107,7 +107,7 @@
     color: aqua;
 }
 
-.reqContainer a {
+.reqContainer button {
     position: relative;
     font-size: 16px;
     top: 270px;
@@ -123,9 +123,10 @@
     text-decoration: none;
     width: 100px;
     height: 40px;
+    border: none;
 }
 
-.reqContainer a:hover {
+.reqContainer button:hover {
     background-color: #017973;
     color: #ffffff;
 }
@@ -253,4 +254,6 @@
     background-color: #d3d3d3;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+
 

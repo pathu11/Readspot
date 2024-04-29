@@ -15,6 +15,7 @@
 
 <body>
     <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
+    <div class="body">
         <input type="text" class="search-bar" id="searchInput" placeholder="Search" oninput="searchMessages()">
         <div class="container">
             <div class="head">
@@ -41,8 +42,11 @@
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
     </div>
-
+    <?php
+        require APPROOT . '/views/publisher/footer.php'; //path changed
+    ?>
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/table.js"></script>
     
     <script>
@@ -71,6 +75,7 @@
             }
         }
     </script>
+   
 </body>
 
 </html>

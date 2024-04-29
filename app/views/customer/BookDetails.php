@@ -5,16 +5,14 @@
 <head> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
     <div class="main-detail">
 
         <div class="back-btn-div">
             <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
         </div>
-
         <?php foreach($data['bookDetails'] as $books): ?>
-
         <div class="book-img-des">
             <div class="book-img">
                 <div class="sub1">
@@ -351,7 +349,8 @@
                         try {
                             var response = JSON.parse(this.responseText);
                             if (response.status === 'success') {
-                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                sweetAlertCart();
+                                // window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
                             } else {
                                 console.error('Error adding to cart:', response.message);
@@ -371,6 +370,28 @@
     xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
     xhttp.send();
 }
+        function sweetAlertCart() {
+      
+              Swal.fire({
+                  title: 'Success',
+                  text: 'Your Book is added to the cart successfully',
+                  icon: 'success',
+                
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: "#70BFBA",
+                
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Redirect to login page
+                      window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                  }
+              });
+  
+              // Return false to prevent form submission
+              return false;
+         
+          return true;
+      }
 function addToCart2(bookId) {
             var quantity = document.getElementById('quantity').innerText;
 
@@ -384,7 +405,8 @@ function addToCart2(bookId) {
                         try {
                             var response = JSON.parse(this.responseText);
                             if (response.status === 'success') {
-                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                sweetAlertCart();
+                                // window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
                             } else {
                                 console.error('Error adding to cart:', response.message);

@@ -12,7 +12,7 @@
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupCharity" method="post">
             <div id="formPart1">
-                <h1>Sign up</h1>
+                <h1>Signup As A Charity Organization</h1>
                 <span class="invalid-feedback"><?php echo $data['name_err']; ?></span>
                 <input type="text" name="name" placeholder="Full Name" class="<?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" required>
 

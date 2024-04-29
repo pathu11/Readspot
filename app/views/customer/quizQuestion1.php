@@ -8,6 +8,7 @@
   <title>Quiz</title>
 
   <script>
+    const quiz_id=<?php echo $data['quiz_id']; ?>;
     // JavaScript code for the countdown timer
     const startingMinutes = 5;
     let time = startingMinutes * 60;
@@ -24,7 +25,9 @@
 
       if(time<=0){
         localStorage.removeItem('remainingTime');
+
         window.location.href = 'http://localhost/Readspot/customer/result';
+       
       }
 
       // Continue countdown

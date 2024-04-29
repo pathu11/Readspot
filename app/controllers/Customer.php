@@ -975,9 +975,30 @@ public function updateReviewHelpfulBooks() {
             // Check if review or rate is provided
             if (!empty($data['review']) || !empty($data['rate'])) {
                 if ($this->customerModel->addReview($data)) {
-                    echo '<script>alert("added a review successfully");</script>';
-                    header("Location: " . URLROOT . "/customer/BookDetails/" . $data['book_id']);
-                    exit();
+                    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                    echo '<script>';
+                    echo 'setTimeout(function() { sweet(); }, 100);';
+                    echo 'function sweet() {';
+                    echo '    Swal.fire({';
+                    echo '        title: "Correct",';
+                    echo '        text: "Your review is added successfully!",';
+                    echo '        icon: "success",';
+
+                    echo '        confirmButtonText: "Ok",';
+                    echo '        confirmButtonColor: "#70BFBA",';
+                    
+                    echo '    }).then((result) => {';
+                    echo '        if (result.isConfirmed) {';
+                    echo '           window.location.href = "' . URLROOT . '/customer/BookDetails/' .$data['book_id']. '";';
+                    echo '        }';
+                    echo '    });';
+                    echo '    return false;'; // Return false to prevent form submission
+                    echo '}';
+                    echo '</script>';
+                    // echo '<script>alert("added a review successfully");</script>';
+                    // header("Location: " . URLROOT . "/customer/BookDetails/" . $data['book_id']);
+                    // exit();
                 }
             } else {
                 echo "no any reviews";
@@ -1014,10 +1035,30 @@ public function updateReviewHelpfulBooks() {
             // Check if review or rate is provided
             if (!empty($data['review']) || !empty($data['rate'])) {
                 if ($this->customerModel->addContentReview($data)) {
+                    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
                     echo '<script>';
-                    echo 'alert("added a review successfully");';
+                    echo 'setTimeout(function() { sweet(); }, 100);';
+                    echo 'function sweet() {';
+                    echo '    Swal.fire({';
+                    echo '        title: "Correct",';
+                    echo '        text: "Your review is added successfully!",';
+                    echo '        icon: "success",';
+                    echo '        confirmButtonText: "Ok",';
+                    echo '        confirmButtonColor: "#70BFBA",';
+                    
+                    echo '    }).then((result) => {';
+                    echo '        if (result.isConfirmed) {';
+                    echo '           window.location.href = "' . URLROOT . '/customer/viewcontent/' .$data['content_id']. '";';
+                    echo '        }';
+                    echo '    });';
+                    echo '    return false;'; // Return false to prevent form submission
+                    echo '}';
                     echo '</script>';
-                    header("Location: " . URLROOT . "/customer/viewcontent/" . $data['content_id']);
+                    // echo '<script>';
+                    // echo 'alert("added a review successfully");';
+                    // echo '</script>';
+                    // header("Location: " . URLROOT . "/customer/viewcontent/" . $data['content_id']);
                     exit();
                 }
             } else {
@@ -1205,7 +1246,29 @@ public function BuyNewBooks()
         
         if ($bookId && $quantity && $customer_id) {
             if ($this->customerModel->addToCart($bookId, $customer_id, $quantity)) {
-               redirect('customer/Cart');
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                echo '<script>';
+                echo 'setTimeout(function() { sweet(); }, 100);';
+                echo 'function sweet() {';
+                echo '    Swal.fire({';
+                echo '        title: "Correct",';
+                echo '        text: "Your book is added to cart !",';
+                echo '        icon: "success",';
+
+                echo '        confirmButtonText: "Ok",';
+                echo '        confirmButtonColor: "#70BFBA",';
+                
+                echo '    }).then((result) => {';
+                echo '        if (result.isConfirmed) {';
+                echo '           window.location.href = "' . URLROOT . '/customer/Cart' .'";';
+                echo '        }';
+                echo '    });';
+                echo '    return false;'; // Return false to prevent form submission
+                echo '}';
+                echo '</script>';
+                exit; 
+            //    redirect('customer/Cart');
             }
         }else{
             echo '<script>alert("eroor");</script>';
@@ -1391,7 +1454,8 @@ public function BuyNewBooks()
                     'other' => trim($_POST['OtherReason']),
                     'descript' => trim($_POST['description']),
                     'err_img' => '',
-                    'customer_id' => trim($customerid),// Replace this with the actual customer ID
+                    'customer_id' => trim($customerid),
+                    'user_id'=>$user_id,// Replace this with the actual customer ID
                     'customerImage' => $customerDetails[0]->profile_img,
                     'customerName' => $customerName
                 ];

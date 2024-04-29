@@ -1347,7 +1347,7 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
       $this->db->bind(':other',$data['other']);
       $this->db->bind(':descript',$data['descript']);
       $this->db->bind(':err_img',$data['err_img']);
-      $this->db->bind(':customer_id',$data['customer_id']);
+      $this->db->bind(':customer_id',$data['user_id']);
 
       // execute
       if($this->db->execute()){

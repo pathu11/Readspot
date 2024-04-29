@@ -77,9 +77,9 @@
 </div> 
     </div>
    
-    <!-- <?php
-    require APPROOT . '/views/publisher/footer.php'; //path changed
-?> -->
+    <?php
+    require APPROOT . '/views/publisher/footer.php'; 
+?>
 
 <div id="myModal" class="modal">
         <div class="modal-content">

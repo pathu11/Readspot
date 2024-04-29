@@ -17,7 +17,7 @@
     </div>
     <div class="form1">
       <h2>Enter the details of the event</h2>
-      <form action="<?php echo URLROOT;?>/publisher/addEvent" enctype="multipart/form-data" method="post">
+      <form action="<?php echo URLROOT;?>/publisher/addEvent" enctype="multipart/form-data" onsubmit="return validateTime()" method="post">
       
       <input type="text" name="title" class="<?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>" placeholder="Event title" required><br>
       <span class="error"><?php echo $data['title_err']; ?></span>
@@ -79,10 +79,24 @@
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
   </div>
-  
+  <?php
+            require APPROOT . '/views/publisher/footer.php'; 
+        ?>
 
 
 <script>
+        function validateTime() {
+              var startDate = new Date(document.getElementsByName("start_date")[0].value);
+              var endDate = new Date(document.getElementsByName("end_date")[0].value);
+              var startTime = document.getElementsByName("start_time")[0].value;
+              var endTime = document.getElementsByName("end_time")[0].value;
+
+              if (startDate.getTime() === endDate.getTime() && startTime > endTime) {
+                  alert("End time cannot be before start time on the same day.");
+                  return false; // Prevent form submission
+              }
+              return true; // Proceed with form submission
+          }
           function setEndDateMin(startDateValue) {
             document.getElementsByName("end_date")[0].min = startDateValue;
         }
