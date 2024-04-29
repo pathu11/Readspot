@@ -12,7 +12,7 @@
         <i class="bx bx-menu menu-icon"></i>
         <img src="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png" class="readSpot-logo">
         <span class="logo-name">ReadSpot</span>
-        <img class="imgContact" src="<?php echo URLROOT; ?>/assets/images/publisher/contactUs.png">
+        <!-- <img class="imgContact" src="<?php echo URLROOT; ?>/assets/images/publisher/contactUs.png"> -->
          <span class="user"><?php echo $data['publisherName']?></span>
          <?php foreach($data['publisherDetails'] as $publisherDetails): ?>
         <?php
@@ -46,7 +46,7 @@
                 <span>></span>
             </a>
             
-            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
             <i style="font-size:30px;" class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>

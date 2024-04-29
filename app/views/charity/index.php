@@ -34,9 +34,10 @@
             </button>
             <div class="dropdown-content">
                 <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
+        
 
     </header>
 

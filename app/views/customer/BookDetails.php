@@ -217,25 +217,23 @@
                     </div>
                     <p><?php echo $reviews->review; ?></p>
                     
-                    <div class="helpful">
+                    <!-- <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <?php if(isset($data['user_id'])): ?>
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>No</button>
                         <?php else: ?>
-
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
                         <?php endif; ?>
-                    </div>
-                          
-                    <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
+                    </div> -->
+                    
+                    <!-- <h5><?php echo $reviews->help; ?>  people found this helpful</h5>    -->
                     <?php if(isset($data['customer_id'])): ?>
                             <?php if ($reviews->customer_id == $data['customer_id']): ?>
                                 <div>
-                                    <a class ="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReview/<?php echo $content->content_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
-                                
-                                    <a class ="reviewBtn" href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)">Update</a>
+                                <a class="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReviewBook/<?php echo $books->book_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
+                                <!-- <a class="reviewBtn update-review-link" href="#" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $books->book_id; ?>">Update</a> -->
                             </div>
                            
                             <?php endif; ?>
@@ -251,14 +249,70 @@
         <?php endforeach; ?>
     </div>
 
+    <div id="update-review-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Update Review</h2>
+            <form id="update-review-form" action="" method="post">
+                <input type="text" class="text" id="update-review-text" name="description" placeholder="Update your review..." rows="4">
+                <div class="my-rate">
+                    <label for="rate-5" class="fas fa-star"></label>
+                    <label for="rate-4" class="fas fa-star"></label>
+                    <label for="rate-3" class="fas fa-star"></label>
+                    <label for="rate-2" class="fas fa-star"></label>
+                    <label for="rate-1" class="fas fa-star"></label><br>
+                </div>
+                <div>
+                    <input type="radio" class="radionBtn" name="rate" id="rate-5" value="5">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-4" value="4">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-3" value="3">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-2" value="2">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-1" value="1">
+                </div>
+                <input type="hidden" name="content_id" id="update-content-id" value="">
+                <input type="hidden" name="review_id" id="update-review-id" value="">
+                <input type="submit" class="confirm" value="Update">
+            </form>
+        </div>
+</div>
 
 
     <script>
  
-    
+    function openModal(reviewId, contentId) {
+        console.log('Opening modal for Review ID:', reviewId);
+        console.log('Opening modal for Content ID:', contentId);
+        const form = document.getElementById('update-review-form');
+        form.action = "<?php echo URLROOT; ?>/customer/updateReviewBook/" + contentId + "/" + reviewId;
+        document.getElementById('update-content-id').value = contentId;
+        document.getElementById('update-review-id').value = reviewId;
+        document.getElementById('update-review-modal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('update-review-modal').style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Document loaded.');
+        const updateReviewLinks = document.querySelectorAll('.update-review-link');
+        console.log('Update review links found:', updateReviewLinks.length);
+        
+        updateReviewLinks.forEach(link => {
+            console.log('Adding event listener to update review link:', link);
+            link.addEventListener('click', function() {
+                console.log('Update review link clicked.');
+                const reviewId = this.dataset.reviewId;
+                const contentId = this.dataset.contentId;
+                console.log('Review ID:', reviewId);
+                console.log('Content ID:', contentId);
+                openModal(reviewId, contentId); 
+            });
+        });
+});
+
+
  document.addEventListener('DOMContentLoaded', function() {
     const helpfulButtons = document.querySelectorAll('.helpful-button');
-
     helpfulButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -271,7 +325,6 @@
                 console.log('You have already clicked this button.');
                 return; // Exit function if already clicked
             }
-
             // Send AJAX request to update review helpfulness
             fetch(`${window.location.origin}/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
                 .then(response => {

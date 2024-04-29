@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -11,8 +12,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>ReadSpot landing page</title>
 </head>
-
-
 <body>
 
     <div id="dashboard">
@@ -66,7 +65,7 @@
                 </div>
             </div>
             <div class="message-container">
-                <div class="message"><a style="text-decoration:none;color:white;" href="<?php echo URLROOT; ?>/landing/sendEmailCustomer">Login and Buy Books!</a></div>
+                <div class="message"><a style="text-decoration:none;color:white;" href="<?php echo URLROOT; ?>/landing/sendEmailCustomer">Signup as a customer and Buy Books!</a></div>
             </div>
         </div>
     </section>
@@ -87,7 +86,7 @@
                     book to life. Our packages offer end-to-end solutions for every stage of your publishing journey.
                 </p>
 
-                <a href="<?php echo URLROOT; ?>/landing/signupPub" class="char-button">Login as Publisher</a>
+                <a href="<?php echo URLROOT; ?>/landing/signupPub" class="char-button">Signup as Publisher</a>
             </div>
             <video id="videoPlayer" width="60%" height="auto" controls
                 style="border-radius: 15px; border: 3px solid rgb(88, 88, 88);">
@@ -227,7 +226,7 @@
                     provide valuable services. As a charity member, you'll receive customer requests that align with our
                     mission and goals.
                 </p>
-                <a href="<?php echo URLROOT; ?>/landing/signupCharity" class="char-button">Login as Charity member</a>
+                <a href="<?php echo URLROOT; ?>/landing/signupCharity" class="char-button">Signup as Charity member</a>
             </div>
             <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/event01.jpg" alt="Event 1">
         </div>

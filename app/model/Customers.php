@@ -44,6 +44,16 @@
           return false;
       }
     }
+    public function deleteReviewBook($review_id){
+      $this->db->query('DELETE FROM reviews WHERE review_id = :review_id');
+      $this->db->bind(':review_id', $review_id);
+      $this->db->execute();
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
     public function findCartById($customer_id) {
       $this->db->query('SELECT c.*, b.book_name,b.discounts, b.price, b.img1, b.type FROM cart c
                         JOIN books b ON c.book_id = b.book_id

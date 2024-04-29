@@ -12,8 +12,10 @@
                 <li data-page="Calender"><a href="<?php echo URLROOT; ?>/customer/Calender"><i class="fa fa-calendar sidebar-img-main" aria-hidden="true"></i>Calender</a></li>
                 <li data-page="Cart"><a href="<?php echo URLROOT; ?>/customer/Cart"><i class="fa fa-shopping-cart sidebar-img-main" aria-hidden="true"></i>Cart</a></li>
                 <li data-page="Order"><a href="<?php echo URLROOT; ?>/customer/Order"><i class='fas fa-box sidebar-img-main'></i>Order</a></li>
-                <li data-page="Logout"><a href="<?php echo URLROOT; ?>/landing/logout"><i class="fa fa-sign-out sidebar-img-main" aria-hidden="true"></i>Logout</a></li>
+                <li data-page="Logout"><a href="<?php echo URLROOT; ?>/landing/IsLoggedOut"><i class="fa fa-sign-out sidebar-img-main" aria-hidden="true"></i>Logout</a></li>
             </ul>
+
+
         </div>
         </div>
 
@@ -51,7 +53,7 @@
                 <a href="<?php echo URLROOT; ?>/customer/Order" class="sidebar-link" data-page="Order"><i class='fas fa-box'></i></a>
             </div>
             <div class="sidebar-img">
-                <a href="<?php echo URLROOT; ?>/customer/logout" class="sidebar-link" data-page="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sidebar-link" data-page="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
