@@ -38,7 +38,8 @@
             </button>
             <div class="dropdown-content">
                 <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="<?php echo URLROOT; ?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
             </div>
         </div>
 
@@ -63,7 +64,7 @@
                 <div class="content">
                     <div class="customer-info">
                         <h4><?php echo $user->first_name ?></h4>
-                        <p style="color: aqua;"><?php echo $user->email ?></p>
+                        <p style="color: white;"><?php echo $user->email ?></p>
                     </div>
                     <br>
                     <p><?php if($count==1){ echo 'NEW donation Requests from Ramath!';} else {echo 'No any NEW donations!';} ?></p>
@@ -75,17 +76,60 @@
                 
             </div>
         <?php } ?>
-    </div>
+
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: white;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: white;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: white;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
 
 
 
-    <div class="modal" id="confirmationModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <p>No NEW requests, Do you want to see OLD donation details ?!</p>
-            <div class="modal-actions">
-                <button id="confirmBtn">Yes</button>
-                <button id="cancelBtn">No</button>
+        <div class="modal" id="confirmationModal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeModal">&times;</span>
+                <p>No NEW requests, Do you want to see OLD donation details ?!</p>
+                <div class="modal-actions">
+                    <button id="confirmBtn">Yes</button>
+                    <button id="cancelBtn">No</button>
+                </div>
             </div>
         </div>
     </div>

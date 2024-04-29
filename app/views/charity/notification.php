@@ -38,7 +38,7 @@
     </header>
 
     <div class="notification-container">
-        <button class="req-not active" onclick="showRequests()">All Requests</button>
+        <button class="req-not active" onclick="showRequests()">Requests</button>
         <button class="query-not" onclick="showQueries()">Queries</button>
 
         <div class="request-notification not-list">

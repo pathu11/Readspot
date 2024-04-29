@@ -30,7 +30,7 @@
 
         <div id="prof-container">
             <div id="prof-left">
-                <img id="Current-prof" src="rayhan.jpg" alt="Current Profile">
+                <img id="Current-prof" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Current Profile">
                 <label for="prof-profileImage" class="choose-image-btn"><i class="fas fa-upload"></i>Choose Image</label>
                 <input type="file" class="prof-input" id="prof-profileImage" accept="image/*" onchange="previewImage(event)">
                 <button class="logout-btn" onclick="logout()" style="width: 300px;"><i class=" fas fa-sign-out-alt"></i>

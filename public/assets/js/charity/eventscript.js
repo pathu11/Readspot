@@ -9,7 +9,6 @@ function deleteEvent(eventId) {
 }
 
 function addEvent() {
-    // Handle logic to add a new event
     console.log('Adding a new event');
 }
 
@@ -33,52 +32,9 @@ function searchEvents() {
     }
 }
 
-/*
- // Get the pagination elements
- var pagination = document.getElementById("pagination");
- var prevButton = document.getElementById("prevButton");
- var nextButton = document.getElementById("nextButton");
-
- // Set the current page and total pages (you can update these dynamically)
- var currentPage = 5;
- var totalPages = 5;
-
- // Update the next button's status based on the current page
- function updateNextButtonStatus() {
-   if (currentPage === totalPages) {
-    prevButton.classList.add("disabled");
-   } else {
-    prevButton.classList.remove("disabled");
-   }
- }
-
- // Initial update
- updateNextButtonStatus();
-
- // Event listeners for pagination
- prevButton.addEventListener("click", function () {
-   if (currentPage > 1) {
-     currentPage--;
-     // Perform your pagination logic here
-     console.log("Previous button clicked. Current Page: " + currentPage);
-     updateNextButtonStatus();
-   }
- });
-
- nextButton.addEventListener("click", function () {
-   if (currentPage < totalPages) {
-     currentPage++;
-     // Perform your pagination logic here
-     console.log("Next button clicked. Current Page: " + currentPage);
-     updateNextButtonStatus();
-   }
- });
-*/
-
-
 
 let currentPage = 1;
-let rowsPerPage = 5; // Set this based on your layout and row heights
+let rowsPerPage = 5;
 
 function setupPagination(rows) {
     let totalRows = rows.length;
@@ -195,25 +151,22 @@ function closeModal() {
 }
 
 function updateEvent(eventId) {
-    // Implement the update logic
     alert("Update functionality not implemented yet.");
 }
 
+
 function deleteEvent(eventId) {
-    // Implement the delete logic
     alert("Delete functionality not implemented yet.");
 }
 
 
 // addeventscript.js
 function submitEventForm() {
-    // Add logic to handle form submission
-    alert('Form submitted successfully!'); // Replace with your logic
+    alert('Form submitted successfully!');
 }
 
-// Function to redirect to addevent.html
 function redirectToAddEvent() {
-    window.location.href = 'addevent.html';
+    window.location.href = 'addevent';
 }
 
 
