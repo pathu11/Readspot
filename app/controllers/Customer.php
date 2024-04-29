@@ -3638,7 +3638,11 @@ public function markReview()
             }
             else{
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
+                if($question_id==1){
+                    if(!($this->customerModel->addQuizAttempt($quiz_id,$user_id))){
+                        redirect('customer/BookChallenge');
+                    }
+                }
             
                 $data = [
                     'customerDetails' => $customerDetails,

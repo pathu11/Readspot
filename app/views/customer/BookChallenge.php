@@ -33,6 +33,7 @@
                         <div class="modal-content">
                             <span class="close" onclick="hidePopup('acceptPopup_<?php echo $challenge->quiz_id; ?>')">&times;</span>
                             <p><?php echo $challenge->description;?></p>
+                            <span style="color: red;">If you go back you cannot attempt quiz again. Your attempt will be recorded.</span><br>
                             <a href="<?php echo URLROOT; ?>/customer/quizQuestion/<?php echo $challenge->quiz_id;?>/1"><button>Attemp Now</button></a>
                         </div>
                     </div>

@@ -24,7 +24,7 @@
 
       if(time<=0){
         localStorage.removeItem('remainingTime');
-        window.location.href = 'http://localhost/Readspot/customer/BookChallenge';
+        window.location.href = 'http://localhost/Readspot/customer/result';
       }
 
       // Continue countdown
