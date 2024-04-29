@@ -121,22 +121,12 @@
     border-radius: 6px;
     font-weight: 200px;
     text-decoration: none;
-<<<<<<< Updated upstream
-    width: 100px;
-    height: 40px;
-    border: none;
-}
-
-.reqContainer button:hover {
-    background-color: #017973;
-=======
     width: 90px;
     height: 35px;
 }
 
 .reqContainer a:hover {
     background-color: #007771;
->>>>>>> Stashed changes
     color: #ffffff;
 }
 
