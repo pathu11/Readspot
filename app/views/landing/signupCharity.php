@@ -12,14 +12,13 @@
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupCharity" method="post">
             <div id="formPart1">
-                <h1>Sign up</h1>
+                <h1>Signup As A Charity Organization</h1>
                 <span class="invalid-feedback"><?php echo $data['name_err']; ?></span>
                 <input type="text" name="name" placeholder="Full Name" class="<?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" required>
 
                 <span class="invalid-feedback"><?php echo $data['org_name_err']; ?></span>
                 <input type="text" name="org_name" placeholder="Organization Name" class="<?php echo (!empty($data['org_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['org_name']; ?>" required>
                
-
                 <span class="invalid-feedback"><?php echo $data['reg_no_err']; ?></span>
                 <input type="text" name="reg_no" placeholder="Registration Number of the company" class="<?php echo (!empty($data['reg_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reg_no']; ?>" required>
 
@@ -27,7 +26,7 @@
                 <input type="email" name="email" placeholder="Email" class="<?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>" required>
 
                 <span class="invalid-feedback"><?php echo $data['contact_no_err']; ?></span>
-                <input type="text" name="contact_no" placeholder="Contact Number" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
+                <input type="text" name="contact_no" placeholder="Contact Number(+94123456789)" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
 
                 <div class="password-wrapper">
                 <span class="invalid-feedback"><?php echo $data['pass_err']; ?></span>
@@ -105,4 +104,40 @@
 
         
     </script>
+   
+
+<script>
+    var contactNoInput = document.getElementById('contactNoInput');
+    var contactNoError = document.getElementById('contactNoError');
+
+    // Function to validate phone number format
+    function validatePhoneNumber(phoneNumber) {
+        // Regular expression pattern for phone numbers in international format
+        var phonePattern = /^\+\d{11}$/;
+        return phonePattern.test(phoneNumber);
+    }
+
+    // Function to display error message
+    function displayErrorMessage(message) {
+        contactNoError.textContent = message;
+        contactNoError.style.display = 'block';
+    }
+
+    // Function to hide error message
+    function hideErrorMessage() {
+        contactNoError.textContent = '';
+        contactNoError.style.display = 'none';
+    }
+
+    // Event listener to validate phone number format as the user types
+    contactNoInput.addEventListener('input', function() {
+        var phoneNumber = contactNoInput.value;
+        if (!validatePhoneNumber(phoneNumber)) {
+            displayErrorMessage('Invalid phone number format. Please enter in the format: +94123456789');
+        } else {
+            hideErrorMessage();
+        }
+    });
+</script>
+
 </html>

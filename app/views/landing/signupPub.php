@@ -7,14 +7,12 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signuppub.css">
     <title>Sign Up Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
 </head>
-
 <body>
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupPub" method="post">
             <div id="formPart1">
-                <h1>Sign up</h1>
+                <h1>Sign Up As A Publisher</h1>
                 <span class="invalid-feedback"><?php echo $data['name_err']; ?></span>
                 <input type="text" name="name" placeholder="Full Name" class="<?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" required>
 
@@ -29,7 +27,7 @@
 
 
                 <span class="invalid-feedback"><?php echo $data['contact_no_err']; ?></span>
-                <input type="text" name="contact_no" placeholder="Contact Number" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
+                <input type="text" name="contact_no" placeholder="Contact Number(+94776767678)"  pattern="\+\d{11}" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" required>
 
                 <div class="password-wrapper">
                 <span class="invalid-feedback"><?php echo $data['pass_err']; ?></span>
@@ -100,6 +98,6 @@
         this.classList.toggle('fa-eye');   // Toggle the eye icon itself
     });
         
-        
+   
     </script>
 </html>

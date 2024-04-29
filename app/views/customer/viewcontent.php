@@ -6,6 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .radionBtn{
         display:none;
@@ -14,7 +15,6 @@
 </head>
 <?php foreach($data['contentDetails'] as $content): ?>
 <div class="main-content-div">
-<!-- 
         <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
     <div class="img-summary">
         <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
@@ -32,55 +32,27 @@
             <input id="pdf-url" style="display:none;" type="text" value="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>">
             <div id="pdf-viewer"></div>
             <button class="prev-btn" id="prev-page">Previous</button>
-            <button class="next-btn" id="next-page">Next </button> -->
-
-    <div class="back-btn-div">
-        <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
-
-      
+            <button class="next-btn" id="next-page">Next </button>
     </div>
-    <div class="sub-content-div">
-        <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
-        <div class="img-summary">
-            <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
-            <div class="text-summary">
-                <h3>Article Summary</h3>
-                <br>
-                <hr>
-                <br>
-                <p><?php echo $content->text; ?></p>
-            </div>
-        </div>
-        <div class="cont-details">
-            <div class="pdf-view" style="overflow: auto;">
-            
-                    <input id="pdf-url" style="display:none;" type="text" value="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>">
-                    <div id="pdf-viewer"></div>
-                    <div class="next-prev-button-div">
-                        <button class="prev-btn" id="prev-page">Previous</button>
-                        <button class="next-btn" id="next-page">Next </button>
-                    </div>
-            </div>
-            <div class="writer-details">
-        
-                <h3>Writer's Information </h3>
-                <br>
-                <hr>
-                <br>
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $content->profile_img; ?>"><br><br>
-                <p style="font-size:18px;"><?php echo $content->name; ?> </p>
-                <p style="font-size:15px;"><?php echo $content->email; ?></p>
-                <br><br><br>
-                <p class="down"><b>Download this Content as a PDF</b></p><br><br>
-                    <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
-                        <button class="btn-d">Click Here</button>
-                    </a>
+    <div class="writer-details">
+   
+        <h3>Writer's Information </h3>
+        <br>
+        <hr>
+        <br>
+        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $content->profile_img; ?>"><br><br>
+        <p style="font-size:18px;"><?php echo $content->name; ?> </p>
+        <p style="font-size:15px;"><?php echo $content->email; ?></p>
+        <br><br><br>
+        <p class="down"><b>Download this Content as a PDF</b></p><br><br>
+            <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
+                <button class="btn-d">Click Here</button>
+            </a>
 
-            </div>
-        </div>
-    </div>
+</div>
+</div>
 
-    <?php endforeach; ?>
+<?php endforeach; ?>
         <div class="comment-newbooks">
             <h1> Reviews and Rating </h1>
             <div class="send-review">
@@ -108,23 +80,23 @@
                 </div>
                 <div class="give-rate">
                   
-                    <?php foreach($data['contentDetails'] as $content): ?>
-                    <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
+            <?php foreach($data['contentDetails'] as $content): ?>
+                <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
-                        <input type="radio" name="rate" id="rate1-5" value="5">
+                        <input type="radio" name="rate" id="rate-5" value="5">
                         <label for="rate-5" class="fas fa-star"></label>
 
-                        <input type="radio" name="rate" id="rate1-4" value="4">
+                        <input type="radio" name="rate" id="rate-4" value="4">
                         <label for="rate-4" class="fas fa-star"></label>
 
-                        <input type="radio" name="rate" id="rate1-3" value="3">
+                        <input type="radio" name="rate" id="rate-3" value="3">
                         <label for="rate-3" class="fas fa-star"></label>
 
-                        <input type="radio" name="rate" id="rate1-2" value="2">
+                        <input type="radio" name="rate" id="rate-2" value="2">
                         <label for="rate-2" class="fas fa-star"></label>
 
-                        <input type="radio" name="rate" id="rate1-1" value="1">
+                        <input type="radio" name="rate" id="rate-1" value="1">
                         <label for="rate-1" class="fas fa-star"></label>
 
                     </div>
@@ -158,7 +130,6 @@
             <div class="cus-rev">
             <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
-                    
                     <div class="cus-name-img">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
                         <h3><?php echo $reviews->name; ?></h3>
@@ -195,9 +166,9 @@
                         <?php if(isset($data['customer_id'])): ?>
                             <?php if ($reviews->customer_id == $data['customer_id']): ?>
                                 <div>
-                                    <a href="<?php echo URLROOT; ?>/customer/deleteReview/<?php echo $content->content_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
+                                    <a class ="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReview/<?php echo $content->content_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
                                 
-                                    <a href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)"><Edit</a>
+                                    <a class ="reviewBtn" href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)">Update</a>
                             </div>
 
                            
@@ -215,33 +186,33 @@
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Update Review</h2>
                 <form id="update-review-form" action="<?php echo URLROOT; ?>/customer/updateReview" method="post">
-                <input type="text" class="text" id="update-review-text" name="description"  placeholder="Update your review..." rows="4">
-                <div class="my-rate">  
-                        
-                        <label for="rate-5" class="fas fa-star"></label>
-                        <label for="rate-4" class="fas fa-star"></label> 
-                        <label for="rate-3" class="fas fa-star"></label>
-                        <label for="rate-2" class="fas fa-star"></label>
-                        <label for="rate-1" class="fas fa-star"></label><br>
-                        
-                    </div>
-                    <div>
-                        <input type="radio" class="radionBtn" name="rate" id="rate-5" value="5">
-                        <input type="radio" class="radionBtn" name="rate" id="rate-4" value="4">
-                        <input type="radio" class="radionBtn"  name="rate" id="rate-3" value="3">
-                        <input type="radio" class="radionBtn" name="rate" id="rate-2" value="2">
-                        <input type="radio" class="radionBtn"  name="rate" id="rate-1" value="1">
+                    <input type="text" class="text" id="update-review-text" name="description"  placeholder="Update your review..." rows="4">
+                    <div class="my-rate">  
+                            
+                            <label for="rate-5" class="fas fa-star"></label>
+                            <label for="rate-4" class="fas fa-star"></label> 
+                            <label for="rate-3" class="fas fa-star"></label>
+                            <label for="rate-2" class="fas fa-star"></label>
+                            <label for="rate-1" class="fas fa-star"></label><br>
+                            
                         </div>
-                    <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>">
-                    <input type="hidden" name="review_id" value="<?php echo $reviews->review_id; ?>">
-                    <input type="submit" class="confirm" value="Update">
-                </form>
+                        <div>
+                            <input type="radio" class="radionBtn" name="rate" id="rate-5" value="5">
+                            <input type="radio" class="radionBtn" name="rate" id="rate-4" value="4">
+                            <input type="radio" class="radionBtn"  name="rate" id="rate-3" value="3">
+                            <input type="radio" class="radionBtn" name="rate" id="rate-2" value="2">
+                            <input type="radio" class="radionBtn"  name="rate" id="rate-1" value="1">
+                            </div>
+                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>">
+                        <input type="hidden" name="review_id" value="<?php echo $reviews->review_id; ?>">
+                        <input type="submit" class="confirm" value="Update">
+                    </form>
+                </div>
+            
             </div>
-           
-        </div>
 
 
-    <script>
+        <script>
 
         function openModal(reviewId, contentId) {
             document.getElementById('update-review-form').action = "<?php echo URLROOT; ?>/customer/updateReview/" + contentId + "/" + reviewId;
@@ -259,7 +230,8 @@
             document.getElementById('update-review-modal').style.display = 'none';
         }
         function giveerr(){
-            alert(" You cannot add reviews or ratings for your own content.");
+            sweetError();
+            // alert(" You cannot add reviews or ratings for your own content.");
             document.querySelector('.submit-review').setAttribute('disabled', 'disabled');
         }
         document.querySelectorAll('.helpful-button').forEach(button => {
@@ -281,6 +253,26 @@
                     });
             });
         });
+        function sweetError() {
+      
+              Swal.fire({
+                  title: 'Error',
+                  text: 'You cannot add reviews or ratings for your own content.',
+                  icon: 'warning',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: "#70BFBA",
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Redirect to login page
+                      window.location.href = window.location.href;
+                  }
+              });
+  
+              // Return false to prevent form submission
+              return false;
+         
+          return true;
+      }
 
 // Sample data representing count and percentage for each rating
     const star_1=<?php echo $data['countStar_1']->total_1; ?>;

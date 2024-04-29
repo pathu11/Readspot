@@ -154,6 +154,14 @@
     color:white;
     border-radius: 6px;
 }
+.reviewBtn{
+    padding:5px;
+    background-color: #02514C;
+    color:white;
+    border-radius: 6px;
+    font-size:10px;
+    text-decoration:none;
+}
 .prev-btn{
     background-color: #02514C;
     border-radius: 6px;

@@ -37,61 +37,68 @@
 </head>
 <body>
     <?php require APPROOT . '/views/publisher/sidebar.php';?>
-    <div class="container">
-        <h2>EVENTS INFO ></h2>
-        <table id="eventTable">
-            <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
-            <thead>
-                <tr>
-                    <th>Payment Id</th>
-                    <th>Order Id</th>
-                    <th>Book Id</th>
-                    <th>Book Quantity</th>
-                    <th>Received Amount</th>
-                    <th>Received Date</th>
-                    <th>Invoice</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($data['paymentDetails'] as $paymentDetails): ?>
-                <tr>
-                    <td><?php echo $paymentDetails->payment_id; ?></td>
-                    <td><?php echo $paymentDetails->order_id; ?></td>
-                    <td><?php echo $paymentDetails->book_id; ?></td>
-                    <td><?php echo $paymentDetails->quantity; ?></td>
-                    <td><?php echo $paymentDetails->payment; ?></td>
-                    <td><?php echo $paymentDetails->paid_date; ?></td>
-                    <td><i class="fas fa-print" onclick="printInvoice('<?php echo $paymentDetails->payment_id; ?>')"></i></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <!-- Modal for invoice details -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Invoice Details</h2>
-                <div id="invoiceDetails" class="print-only">
-                    <!-- Invoice details will go here -->
+    <div class="all">
+        <div class="container">
+            <h2>EVENTS INFO ></h2>
+            <table id="eventTable">
+                <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
+                <thead>
+                    <tr>
+                        <th>Payment Id</th>
+                        <th>Order Id</th>
+                        <th>Book Id</th>
+                        <th>Book Quantity</th>
+                        <th>Received Amount</th>
+                        <th>Received Date</th>
+                        <th>Invoice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($data['paymentDetails'] as $paymentDetails): ?>
+                    <tr>
+                        <td><?php echo $paymentDetails->payment_id; ?></td>
+                        <td><?php echo $paymentDetails->order_id; ?></td>
+                        <td><?php echo $paymentDetails->book_id; ?></td>
+                        <td><?php echo $paymentDetails->quantity; ?></td>
+                        <td><?php echo $paymentDetails->payment; ?></td>
+                        <td><?php echo $paymentDetails->paid_date; ?></td>
+                        <td><i class="fas fa-print" onclick="printInvoice('<?php echo $paymentDetails->payment_id; ?>')"></i></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <!-- Modal for invoice details -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Invoice Details</h2>
+                    <div id="invoiceDetails" class="print-only">
+                        <!-- Invoice details will go here -->
+                    </div>
+                    <button onclick="printInvoicePopup()">Print</button>
                 </div>
-                <button onclick="printInvoicePopup()">Print</button>
             </div>
+            <ul class="pagination" id="pagination">
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
         </div>
-        <ul class="pagination" id="pagination">
-            <li id="prevButton">«</li>
-            <li class="current">1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li id="nextButton">»</li>
-        </ul>
+        <?php
+            require APPROOT . '/views/publisher/footer.php'; //path changed
+        ?> 
     </div>
+        
+
     <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
     <script>
         function printInvoice(paymentId) {
