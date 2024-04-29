@@ -19,13 +19,13 @@
                     <input type="text" name="book_name" class="<?php echo (!empty($data['book_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['book_name']; ?>" placeholder="Book Name" required><br>
                     <span class="error"><?php echo $data['book_name_err']; ?></span>
                                        
-                    <input type="text" name="ISBN_no" class="<?php echo (!empty($data['ISBN_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['ISBN_no']; ?>" placeholder="ISBN Number" required>
+                    <input type="text" pattern="[0-9]*" name="ISBN_no" class="<?php echo (!empty($data['ISBN_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['ISBN_no']; ?>" placeholder="ISBN Number" required>
                                               
-                    <input type="text" name="author"  class="<?php echo (!empty($data['author_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['author']; ?>"placeholder="Author Name" required><br>
+                    <input type="text" name="author"  class="<?php echo (!empty($data['author_err'])) ? 'is-invalid' : ''; ?>"  pattern="[a-zA-Z\s\u0D80-\u0DFF]+" value="<?php echo $data['author']; ?>"placeholder="Author Name" required><br>
                     <span class="error"><?php echo $data['author_err']; ?></span>
                     <div class="table">
                         <div class="table1">
-                            <input type="number" step="0.01" min="1" id="priceInput" name="price"  class="<?php echo (!empty($data['price_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['price']; ?>"placeholder="Price (Rs.)" required>
+                            <input type="number"  step="0.01" min="1" id="priceInput" name="price"  class="<?php echo (!empty($data['price_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['price']; ?>"placeholder="Price (Rs.)" required>
                             <span class="error"><?php echo $data['price_err']; ?></span>
                             </div>
                         <div class="table1">
@@ -78,9 +78,9 @@
         </div>
 </div> 
     </div>
-    <!-- <?php
-            require APPROOT . '/views/publisher/footer.php'; //path changed
-        ?> -->
+    <?php
+            require APPROOT . '/views/publisher/footer.php'; 
+        ?>
        
 </body>
 <script>

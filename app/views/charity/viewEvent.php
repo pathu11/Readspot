@@ -26,16 +26,16 @@
             <a href="donation">Donation Requests</a>
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
             <button class="dropdown-button">
-                <img id="profile" src=<?= URLROOT . "/assets/images/charity/gokuU.jpg" ?> alt="Profile Pic">
+                <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="<?php echo URLROOT; ?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
             </div>
         </div>
     </header>
@@ -75,21 +75,12 @@
 
                 <!-- need to be add in DB -->
                 <tr>
-                    <td>Book Count:</td>
-                    <td><input type="text" name="bookCount" value="<?php echo $event->book_count ?>" required disabled></td>
-                </tr>
-
-                <tr>
-                    <td>Book Category:</td>
+                    <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon" onclick="enableEdit()"></i></td>
                     <td>
-                        <label><input type="checkbox" name="bookCategory[]" value="fiction" disabled> Fiction</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="non-fiction" disabled> Non-Fiction</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="biography" disabled checked> Biography</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="science" disabled checked> Science</label><br>
-                        <label><input type="checkbox" name="bookCategory[]" value="other" onchange="toggleOther()" disabled> Other</label>
-                        <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter Category" style="display: none;" disabled>
+                        <input type="date" name="deadline" id="deadline" value="<?php echo $event->deadline_date ?>" required min="1000-01-01" max="9999-12-31" disabled>
                     </td>
                 </tr>
+
                 <tr>
                     <td>Charity Member Phone:</td>
                     <td><input type="tel" name="charityMemberPhone" value="<?php echo $event->contact_no ?>" placeholder="Enter phone number" required disabled></td>
@@ -99,7 +90,7 @@
                     <td><textarea name="description" required disabled><?php echo $event->description ?></textarea></td>
                 </tr>
                 <tr>
-                    <td>Description:</td>
+                    <td>Poster image:</td>
                     <td>
                         <div class="ae-drop-image-box">
                             <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
@@ -185,6 +176,42 @@
         var modal = document.getElementById("imageModal");
         modal.style.display = "none";
     }
+
+    function enableEdit() {
+            var inputField = document.getElementById('deadline');
+            var editIcon = document.querySelector('.edit-icon');
+            if (inputField.disabled) {
+                inputField.disabled = false;
+                inputField.setAttribute('name', 'postponed_date');
+                editIcon.classList.remove('fa-edit');
+                editIcon.classList.add('fa-save');
+                editIcon.style.color = 'green';
+                editIcon.setAttribute('onclick', 'saveChanges()');
+                document.querySelector('.deadline').innerHTML = 'Extended Deadline Date';
+            } else {
+                inputField.disabled = true;
+                inputField.setAttribute('name', 'deadline');
+                editIcon.classList.remove('fa-save');
+                editIcon.classList.add('fa-edit');
+                editIcon.style.color = 'black';
+                editIcon.setAttribute('onclick', 'enableEdit()');
+                document.querySelector('.deadline').innerHTML = 'Deadline for donation';
+            }
+        }
+
+        function saveChanges() {
+            // Here you can add code to save the changes made to the postponed date
+            // For example, you can send an AJAX request to update the date in the database
+            var inputField = document.getElementById('deadline');
+            var editIcon = document.querySelector('.edit-icon');
+            inputField.disabled = true;
+            inputField.setAttribute('name', 'deadline');
+            editIcon.classList.remove('fa-save');
+            editIcon.classList.add('fa-edit');
+            editIcon.style.color = 'black';
+            editIcon.setAttribute('onclick', 'enableEdit()');
+            document.querySelector('.deadline').innerHTML = 'Deadline for donation';
+        }
 </script>
 
 </html>

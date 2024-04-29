@@ -16,7 +16,7 @@
             </div>
             <hr>
             
-            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
             <i class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>
@@ -61,9 +61,9 @@ function toggleMenu(){
               </a>
             </li>
             <li class="list">
-              <a href="<?php echo URLROOT?>/admin/pendingRequestsCharity " class="nav-link">
+              <a href="<?php echo URLROOT?>/admin/pendingRequestsBooks " class="nav-link">
                 <i class="bx bxs-message-dots icon"></i>
-                <span class="link">Pending requests</span>
+                <span class="link">Pending Book Requests</span>
               </a>
             </li>
             <li class="list">

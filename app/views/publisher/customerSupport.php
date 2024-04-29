@@ -11,21 +11,22 @@
 
     <title>Notifications</title>
     <style>
-        p{
-            margin-bottom:0px;
-            text-align:left;
+        p {
+            margin-bottom: 0px;
+            text-align: left;
         }
+
         #eventTable td:nth-child(2) {
-            width: 70%; 
+            width: 70%;
         }
-        
-        </style>
+
+    </style>
 </head>
 
 <body>
     <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
     <div class="container">
-    
+
         <table id="eventTable">
             <input type="text" id="searchInput" placeholder="Search" oninput="searchEvents()">
             <div class="head">
@@ -35,31 +36,25 @@
                 </div>
 
             </div>
-            <!-- <thead>
-                <tr>
 
-                    <th>Sender Name</th>
-                    <th>Title</th>
-                    <th>Notification</th>
-                    <th>Action</th>
-                </tr>
-            </thead> -->
             <tbody>
                 <?php foreach ($data['messageDetails'] as $message): ?>
                     <tr style="background-color: <?php echo $message->status === 'read' ? 'white' : '#ebede9'; ?>;">
-                        <td><p><?php echo $message->sender_name; ?><p></td>
                         <td>
-                                <p><b><?php echo $message->topic; ?></b></p>
-                                <p><?php
-                            $lines = explode("\n", $message->message);
-                            echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
-                            ?></p><p style=" font-style: italic;"><?php echo $message->timestamp; ?></p>
+                            <p><?php echo $message->sender_name; ?></p>
+                        </td>
+                        <td onclick="openPopup('<?php echo htmlspecialchars('<h3>'.$message->sender_name .'</h3>'. '<h4>'. $message->topic . '</h4>' ); ?>', <?php echo $message->message_id; ?>)">
+                            <p><b><?php echo $message->topic; ?></b></p>
+                            <p><?php
+                                $lines = explode("\n", $message->message);
+                                echo $lines[0] . '<br>' . (isset($lines[1]) ? $lines[1] : '');
+                                ?></p>
+                            <p style="font-style: italic;"><?php echo $message->timestamp; ?></p>
+                        </td>
 
-                    </td>
-                      
                         <td class="action-buttons">
-                            <a href="#" onclick="openPopup('<?php echo htmlspecialchars('<h3>'.$message->sender_name .'</h3>'. '<h4>'. $message->topic . '</h4>' .'<p>' .$message->message.'</p>'); ?>')">
-                                <i style="color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>;" class="fas fa-eye"></i>
+                            <a href="#" onclick="markNotificationAsRead(<?php echo $message->message_id; ?>)">
+                                <i id="notificationIcon_<?php echo $message->message_id; ?>" style="color: <?php echo $message->status === 'read' ? 'gray' : '#70BFBA'; ?>;" class="fas fa-eye"></i>
                             </a>
                         </td>
                     </tr>
@@ -91,12 +86,37 @@
             <li id="nextButton">»</li>
         </ul>
     </div>
-
+ 
+    <?php
+    require APPROOT . '/views/publisher/footer.php'; 
+?>
     <script src="<?php echo URLROOT; ?>/assets/js/publisher/table.js"></script>
     <script>
-        function openPopup(messageContent) {
+        function openPopup(messageContent, notificationId) {
             document.getElementById('messageContent').innerHTML = messageContent;
             document.getElementById('myModal').style.display = 'block';
+        }
+
+        function markNotificationAsRead(notificationId) {
+            // Send AJAX request to mark notification as read
+            fetch('<?php echo URLROOT; ?>/publisher/changeStatus/' + notificationId, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Change icon color to gray (indicating read status)
+                    const icon = document.getElementById('notificationIcon_' + notificationId);
+                    if (icon) {
+                        icon.style.color = 'gray';
+                    }
+                    console.log('Notification marked as read successfully');
+                } else {
+                    console.error('Failed to mark notification as read');
+                }
+            })
+            .catch(error => {
+                console.error('Error marking notification as read:', error);
+            });
         }
 
         function closeModal() {

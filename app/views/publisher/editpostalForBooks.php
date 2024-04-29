@@ -85,7 +85,7 @@
                             </select>
                         <span class="error"><?php echo $data['district_err']; ?></span>
 
-                        <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>"  placeholder="Postal Code" required><br>
+                        <input type="text" name="postal_code" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" pattern="\d{5}" title="Please enter exactly five digits"  placeholder="Postal Code" required><br>
                         <span class="error"><?php echo $data['postal_code_err']; ?></span>
                         <button class="submit" type="button" onclick="goBack()">Back</button>
                         <input type="submit" value="Next" name="submit" class="submit">

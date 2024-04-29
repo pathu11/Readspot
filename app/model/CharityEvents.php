@@ -35,12 +35,14 @@
             return $results;
         }
 
-        public function deleteEvent($id){
-            $this->db->query('DELETE FROM charity_event WHERE charity_event_id = :id');
-            $this->db->bind(':id', $id);
+        public function deleteEvent($charity_event_id){
+            $this->db->query('DELETE FROM charity_event WHERE charity_event_id = :charity_event_id');
+            $this->db->bind(':charity_event_id', $charity_event_id);
             return $this->db->execute();
         }
 
+
+        
         public function getEventById($id){
             $this->db->query('SELECT * FROM charity_event WHERE charity_event_id = :id');
             $this->db->bind(':id', $id);
@@ -72,11 +74,37 @@
         }
 
         public function getCharityUsers(){
-            $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE user_role = "customer"');
+            $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE user_role = "customer" AND u.status ="approval"');
             $results = $this->db->resultSet();
             // print_r($results);
             // die();
             return $results;
         }
 
-    }
+        public function getCustomerRequests($id){
+            $this->db->query('SELECT * FROM donate_books d WHERE d.customer_id = :id');
+            $this->db->bind(':id', $id);
+            $result = $this->db->resultSet();
+            return $result;
+        }
+
+        public function getDonationById($id){
+            $this->db->query('SELECT * FROM donate_books WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            $result = $this->db->single();
+            return $result;
+        }
+
+        public function requestCount($id){
+            $this->db->query('SELECT COUNT(*) AS count FROM donate_books WHERE customer_id = :id AND mark_as_read = 0');
+            $this->db->bind(':id', $id);
+            $result = $this->db->single();
+
+            if($result->count > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } 
+
+    } 

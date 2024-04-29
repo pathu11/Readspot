@@ -5,6 +5,9 @@
 <?php
     require APPROOT . '/views/customer/sidebar.php'; //path changed
 ?>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+</head>
 <div class="container">
     <div class="my-orders">
         <div class="order-topic">
@@ -248,7 +251,7 @@
                     var response = JSON.parse(xhr.responseText);
                     console.log("Parsed Response:", response);
                     if (response.success) {
-                        alert("Successfully confirmed order status.");
+                        sweetsuccessVerify();
                         closeVerifyOrderModal();
                     } else {
                         alert("Failed to confirm order status.");
@@ -287,7 +290,8 @@
                     var response = JSON.parse(xhr.responseText);
                     console.log("Parsed Response:", response);
                     if (response.success) {
-                        alert("Order has been successfully cancelled.");
+                        sweetsuccess();
+                        // alert("Order has been successfully cancelled.");
                         closeCancelOrderReasonModal();
                     } else {
                         alert("Failed to cancel order.");
@@ -298,6 +302,46 @@
     } else {
         alert("error occured.please try again later.");
     }
+}
+    function sweetsuccess() {
+        
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Order has been successfully cancelled',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: "#70BFBA",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to login page
+                        window.location.href = window.location.href;
+                    }
+                });
+
+                // Return false to prevent form submission
+                return false;
+        
+            return true;
+        }
+        function sweetsuccessVerify() {
+        
+            Swal.fire({
+                title: 'Success',
+                text: 'Successfully confirmed that your order is delivered to your location.Thank you for choosing us',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: "#70BFBA",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to login page
+                    window.location.href = window.location.href;
+                }
+            });
+
+            // Return false to prevent form submission
+            return false;
+
+        return true;
 }
     window.onclick = function(event) {
         var cancelOrderReasonModal = document.getElementById("cancelOrderReasonModal");

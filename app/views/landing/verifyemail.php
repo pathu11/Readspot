@@ -8,9 +8,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Verification</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
@@ -46,6 +49,7 @@
            <button onclick="goBack()" class="submit">  Cancel </button>
         </div>  
       </div>
+      
       <!-- <div id="myModal_err" class="modal">
         <div class="modal-content">
             
@@ -62,7 +66,25 @@
             <button onclick="closeModalSuccess()" class="confirm">OK</button>
         </div>
     </div> -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+            <h2>Record Added!</h2>
+            <p>Your record has been recorded. Wait for admin approval</p>
+            <button onclick="closeModal()" class="confirm">OK</button>
+        </div>
+    </div>
       <script>
+        function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/landing/signupCustomer"; // Redirect to the event page
+            }
          document.addEventListener('DOMContentLoaded', function() {
             const emailInput = document.querySelector('input[type="email"]');
             const emailError = document.getElementById('email-error');
@@ -129,43 +151,16 @@
             window.history.back();
         }
  
-        // function showModalErr() {
-        //         var modal1 = document.getElementById("myModal_err");
-        //         modal1.style.display = "block";
-        //     }
-        //     function goBack() {
-        //     window.history.back();
-        // }
-        //     function closeModalErr() {
-        //         var modal1 = document.getElementById("myModal_err");
-        //         modal1.style.display = "none";
-        //         window.location.href = "<?php echo URLROOT; ?>/landing/sendEmailCustomer"; // Redirect to the event page
-        //     }
+     
+        <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['alert']) && $_SESSION['alert']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['alert']);
+            }
+            ?>
 
-        //     <?php
-               
-        //         if (isset($_SESSION['otp_err']) && !empty($_SESSION['otp_err'])) {
-        //             echo "window.onload = showModalErr;";
-        //             unset($_SESSION['otp_err']);
-        //         }
-        //         if (isset($_SESSION['otp_success']) && !empty($_SESSION['otp_success'])) {
-        //             echo "window.onload = showModalSuccess;";
-        //             unset($_SESSION['otp_success']);
-        //         }
-        //     ?>
-
-        //     function showModalSuccess() {
-        //         var modal2 = document.getElementById("myModal_success");
-        //         modal2.style.display = "block";
-        //     }
-
-        //     function closeModalSuccess() {
-        //         var modal2 = document.getElementById("myModal_success");
-        //         modal2.style.display = "none";
-        //         window.location.href = "<?php echo URLROOT; ?>/landing/signupCustomer"; // Redirect to the event page
-        //     }
-
-          
     </script>
 </html>
                      

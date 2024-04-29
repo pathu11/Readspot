@@ -81,12 +81,10 @@
        
             <tr>
                 <th>Item</th>
-                <th>Price</th>
+                <th>Price Per One</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
-            </tr>
-            
-            
+            </tr>          
           <?php foreach($data['bookDetails'] as $key => $books): ?>
             
             <tr>
@@ -100,9 +98,10 @@
                         echo '<img src="' . URLROOT . '/assets/images/customer/book.jpg" alt="Bell Image" width="180px">';
                     }
             ?></td>
-                <td><?php echo $books[0]->price; ?></td>
+            <?php $discountedPrice=$books[0]->price-($books[0]->price *$books[0]->discounts*0.01); ?>
+                <td><?php echo $discountedPrice; ?></td>
                 <td><?php echo $data['bookQuantities'][$key]; ?></td>
-                <td><?php echo $books[0]->price * $data['bookQuantities'][$key]; ?></td>
+                <td><?php echo $discountedPrice * $data['bookQuantities'][$key]; ?></td>
             </tr>
           <?php endforeach ;?>
     </table>

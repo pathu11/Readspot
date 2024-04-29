@@ -14,84 +14,85 @@
 <body>
 <?php   require APPROOT . '/views/publisher/sidebar.php';?>
 
-
-<div class="container">
-    <div class="nav">
-        <a href="<?php echo URLROOT; ?>/publisher/processingorders">Processing Orders</a>
-        <a href="<?php echo URLROOT; ?>/publisher/shippedorders">Shipped Orders</a>
-        <a href="<?php echo URLROOT; ?>/publisher/deliveredorders">Delivered Orders</a>
-        <a href="<?php echo URLROOT; ?>/publisher/returnedorders">Returned Orders</a>
-    </div>
-  
-    <p> Processing Orders >></p>
+<div class="all">
+    <div class="container">
+        <div class="nav">
+            <a href="<?php echo URLROOT; ?>/publisher/processingorders">Processing Orders</a>
+            <a href="<?php echo URLROOT; ?>/publisher/shippedorders">Shipped Orders</a>
+            <a href="<?php echo URLROOT; ?>/publisher/deliveredorders">Delivered Orders</a>
+            <a href="<?php echo URLROOT; ?>/publisher/returnedorders">Returned Orders</a>
+        </div>
     
-        <table id="eventTable">
-        <?php if(empty($data['orderDetails'] )): ?>
-                <?php echo '<h3 style="text-align:center;">No Orders Found</h3>'; ?>
-                    <?php else : ?>
-        <div class="search-container1">
-            <input type="text" id="live-search" autocomplete="off" placeholder="Tracking Number" class="search-bar"><button id="search-button" class="search-button">Search by Tracking Number</button>
-        </div>
-        <thead>
-            <tr>
-                <th >Tracking Number</th>
-                <th >Book ID</th>
-                <th >No of Items</th>
-                <th >Customer Details</th>
-                <th >Total Cost(Rs)</th>
-                <th >Total Delivery Fee(Rs)</th>
-                <th >Total Income(Rs)</th>
-                <th class="view-details-column">View</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach($data['orderDetails'] as $orderDetails): ?>
-            <tr>
-                <td ><?php echo $orderDetails->tracking_no; ?></td>
-                <td ><?php echo $orderDetails->book_id; ?></td>
-                <td ><?php echo $orderDetails->quantity; ?></td>
-                <td ><?php echo $data['customerName']; ?></td>
-                <td ><?php echo $orderDetails->total_price; ?></td>
-                <td ><?php echo $orderDetails->total_delivery; ?></td>
-                <td ><?php echo $orderDetails->total_price - $orderDetails->total_delivery; ?></td>               
-                <td class="view-details-column">
-                <button class="view-order-button" data-tracking="<?php echo $orderDetails->tracking_no; ?>">View </button>
-
-                </td>
-
-            </tr>
-            <?php endforeach; ?> 
-            </tbody>
-        </table>
-        <ul class="pagination" id="pagination">
-            <li id="prevButton">«</li>
-            <li class="current">1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li id="nextButton">»</li>
-        </ul>
-        <?php endif;?>
-        <div id="myModal" class="modal">
-            <div class="modal-content-orders" style="width: 70%; height: 600px; overflow-y: auto;">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Order Details</h2>
-                <div id="searchresult"></div>
-            </div>
-        </div>
+        <p> Processing Orders >></p>
         
-        <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
-</div>
-    
-<?php
+            <table id="eventTable">
+            <?php if(empty($data['orderDetails'] )): ?>
+                    <?php echo '<h3 style="text-align:center;">No Orders Found</h3>'; ?>
+                        <?php else : ?>
+            <div class="search-container1">
+                <input type="text" id="live-search" autocomplete="off" placeholder="Tracking Number" class="search-bar"><button id="search-button" class="search-button">Search by Tracking Number</button>
+            </div>
+            <thead>
+                <tr>
+                    <th >Tracking Number</th>
+                    <th >Book ID</th>
+                    <th >No of Items</th>
+                    <th >Customer Details</th>
+                    <th >Total Cost(Rs)</th>
+                    <th >Total Delivery Fee(Rs)</th>
+                    <th >Total Income(Rs)</th>
+                    <th class="view-details-column">View</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($data['orderDetails'] as $orderDetails): ?>
+                <tr>
+                    <td ><?php echo $orderDetails->tracking_no; ?></td>
+                    <td ><?php echo $orderDetails->book_id; ?></td>
+                    <td ><?php echo $orderDetails->quantity; ?></td>
+                    <td ><?php echo $data['customerName']; ?></td>
+                    <td ><?php echo $orderDetails->total_price; ?></td>
+                    <td ><?php echo $orderDetails->total_delivery; ?></td>
+                    <td ><?php echo $orderDetails->total_price - $orderDetails->total_delivery; ?></td>               
+                    <td class="view-details-column">
+                    <button class="view-order-button" data-tracking="<?php echo $orderDetails->tracking_no; ?>">View </button>
+
+                    </td>
+
+                </tr>
+                <?php endforeach; ?> 
+                </tbody>
+            </table>
+            <ul class="pagination" id="pagination">
+                <li id="prevButton">«</li>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li id="nextButton">»</li>
+            </ul>
+            <?php endif;?>
+            <div id="myModal" class="modal">
+                <div class="modal-content-orders" style="width: 70%; height: 600px; overflow-y: auto;">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Order Details</h2>
+                    <div id="searchresult"></div>
+                </div>
+            </div>
+            
+            <script src="<?php echo URLROOT;?>/assets/js/publisher/table.js"></script>
+    </div>
+    <?php
             require APPROOT . '/views/publisher/footer.php'; //path changed
         ?>
+</div>     
+
 </body>
 <script>
         function goBack() {

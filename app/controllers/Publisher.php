@@ -411,6 +411,13 @@ public function editAccountForBooks($book_id) {
             $this->view('publisher/viewMessage',$data);
     }
 }
+    public function changeStatus($message_id){
+        if($this->publisherModel->changeStatus($message_id)){
+            echo json_encode(['success' => true]);
+        }else{
+            echo json_encode(['success' => false]);
+        }
+    }
     
     public function deliveredorders()
 {

@@ -79,7 +79,9 @@
             <div class="back-btn-div">
                 <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
             </div>
+
             <form action="<?php echo URLROOT; ?>/customer/updateusedbook/<?php echo $data['book_id'];?>" enctype="multipart/form-data" class="book-add" method="post" onsubmit="return validateISBN()">
+
 
                 <h1>Update the Book</h1>
                 
