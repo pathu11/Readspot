@@ -90,7 +90,7 @@ class Delivery extends Controller{
                 //make sure errors are empty
                 if( empty($data['priceperkilo_err'])   ){   
                     if($this->deliveryModel->updatePricePerOne($data)){
-                        flash('update_success','You are added the book  successfully');
+                        // flash('update_success','You are added the book  successfully');
                         redirect('delivery/index');
                     }else{
                         die('Something went wrong');
@@ -250,8 +250,6 @@ class Delivery extends Controller{
            
             'deliveryName'  =>$deliveryDetails[0] ->name
         ];
-    
-
         $this->view('delivery/notification',$data);
     }
     
@@ -259,7 +257,6 @@ class Delivery extends Controller{
         if (!isLoggedInDeliver()) {
             redirect('landing/login');
         }
-    
         $deliveryid = null;
     
         if (isset($_SESSION['user_id'])) {

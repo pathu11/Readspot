@@ -24,8 +24,8 @@
                     <input type="email" class="form-topic" name="Email" placeholder="Email Address">
                 </div>
                 <div class="last-name-div">
-                    <label class="label-topic" required>Phone Number</label><br>
-                    <input type="text" class="form-topic" name="PhoneNumber" placeholder="Phone Number">
+                    <label class="label-topic" required>Phone Number(+94112323234)</label><br>
+                    <input type="text" class="form-topic" pattern="\+\d{11}" name="PhoneNumber" placeholder="Phone Number">
                 </div>
             </div>
 

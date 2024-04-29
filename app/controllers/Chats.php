@@ -15,18 +15,30 @@ class Chats extends Controller{
     public function chat($incoming_id){
         if (!isLoggedIn()) {
             redirect('landing/login');
-        }
-        // $outgoing_id=84;
+        } 
+        $isActiveNow = 0;
+        $lastLogoutTime = null;
         $user_id = $_SESSION['user_id'];
-        $incomingUserDetails=$this->chatModel->findUserById($incoming_id);
-        $data=[
-            'user_id'=>$user_id,
-            'incoming_id'=>$incoming_id,
-            'profile_img'=>$incomingUserDetails[0]->profile_img,
-            'name'=>$incomingUserDetails[0]->name,
+        if ($this->chatModel->isActiveNow($incoming_id)) {
+            $isActiveNow = 1;
+        }
+        $lastLogoutTime = $this->chatModel->lastLogoutTime($incoming_id);
+        
+        $incomingUserDetails = $this->chatModel->findUserById($incoming_id);
+        $data = [
+            'user_id' => $user_id,
+            'incoming_id' => $incoming_id,
+            'profile_img' => $incomingUserDetails[0]->profile_img,
+            'name' => $incomingUserDetails[0]->name,
+            'lastLogoutTime' => $lastLogoutTime, // Pass last logout time to the view
+            'isActiveNow' => $isActiveNow // Pass active status to the view
         ];
-        $this->view('customer/chat',$data);
+        // print_r($lastLogoutTime);
+        // print_r($isActiveNow);
+        // Uncomment the following line to render the view
+        $this->view('customer/chat', $data);
     }
+    
     public function insertChat() {
         if (!isLoggedIn()) {
             redirect('landing/login');

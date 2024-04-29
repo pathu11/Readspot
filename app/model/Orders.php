@@ -18,7 +18,18 @@
         return $this->db->resultSet();
     }
     
+    public function updateQuantity( $quantity, $bookId){
+        $this->db->query('UPDATE books SET quantity = quantity - :quantity WHERE book_id = :bookId');
+        $this->db->bind(':quantity', $quantity);
+        $this->db->bind(':bookId', $bookId);
+
+            if($this->db->execute()){
+                return true;
     
+            }else{
+                return false;
+            }
+    }
     public function findNewBookProOrdersBypubId($publisher_id) {
         $this->db->query('SELECT od.*, b.*,o.*, p.name AS publisher_name, c.name AS customer_name,od.quantity as quantity
                           FROM order_details od

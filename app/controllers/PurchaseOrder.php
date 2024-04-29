@@ -246,6 +246,7 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                // $this->customerModel->updateQuantity( $quantity, $bookId);
                 // $this->customerModel->updateRedeem($customer_id,$redeemPoints);
            }
         }
@@ -284,7 +285,6 @@ private function handleCardPaymentForm($orderDetails1, $formType)
         "currency" => $currency, 
         "hash" => $hash,
     ];
-
     // Convert payment details to JSON
     $jsonObj = json_encode($paymentDetails);
 
@@ -303,9 +303,9 @@ private function handleCODForm($orderDetails1 ,$formType){
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                $this->customerModel->updateQuantity( $quantity, $bookId);
                 $this->customerModel->updateRedeem($customer_id,$redeemPoints);
-           }
-           
+           }    
 
         }
     } else {
@@ -369,8 +369,7 @@ private function handleCODForm($orderDetails1 ,$formType){
             // if($this->customerModel->editOrderCOD($data) &&
             // $this->adminModel->addMessage($data) &&
             // $this->adminModel->addMessageToPublisher($data)){
-            if($this->customerModel->editOrderCOD($data) 
-               ){
+            if($this->customerModel->editOrderCOD($data) ){
                
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
                 // $this->sendNotifications($data, $owner_user_id);
@@ -419,6 +418,8 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                $this->customerModel->updateQuantity( $quantity, $bookId);
+
            }
            
 
@@ -455,7 +456,6 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
             $recipt_ex_to_lc = strtolower($recipt_ex);
 
             $allowed_exs = array('jpg', 'jpeg', 'png', 'pdf');
-            
             // Check if the file extension is allowed
             if (in_array($recipt_ex_to_lc, $allowed_exs)) {
                 $new_recipt_name = uniqid() . '-' . $recipt_name;
