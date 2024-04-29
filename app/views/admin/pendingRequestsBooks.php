@@ -14,7 +14,7 @@
 
     <?php require APPROOT . '/views/admin/nav.php'; ?>
     <div class="nav-container1">
-        <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Pending Registration Requests > </a>
+        <!-- <a href="<?php echo URLROOT; ?>/admin/pendingRequestsPub">Pending Registration Requests > </a> -->
         <a href="<?php echo URLROOT; ?>/admin/pendingRequestsBooks" class="active1">Pending Books</a>
     </div>
 
