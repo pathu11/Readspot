@@ -20,7 +20,7 @@
         </div>
         <nav>
             <a href="#" class="active">Home</a>
-            <a href="event">Event Management</a>
+            <a href="./event">Event Management</a>
             <a href="donation">Donation Requests</a>
 
             <a href="notification">

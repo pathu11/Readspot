@@ -79,6 +79,16 @@
             return $results;
         }
 
+        public function getCharityUsersById($id){
+            $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE c.customer_Id =":id" AND u.status ="approval"');
+            $this->db->bind(':id', $id);
+            $results = $this->db->single();
+            print_r($results);
+            die();
+            return $results;
+        }
+
+
         public function getCustomerRequests($id){
             $this->db->query('SELECT * FROM donate_books d WHERE d.customer_id = :id');
             $this->db->bind(':id', $id);
@@ -104,5 +114,24 @@
                 return false;
             }
         } 
+
+        public function markAsRead($id){
+            $this->db->query('UPDATE donate_books SET mark_as_read = 1 WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            return $this->db->execute();
+        }
+
+        public function acceptRequest($id){
+            $this->db->query('UPDATE donate_books SET status = "Accepted" WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            return $this->db->execute();
+        }
+
+        public function rejectEvent($id, $message){
+            $this->db->query('UPDATE donate_books SET status = "Rejected", reject_reason = :rejectMessage WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            $this->db->bind(':rejectMessage', $message);
+            return $this->db->execute();
+        }
 
     } 

@@ -70,7 +70,7 @@
                 </div>
                 <form action="<?php URLROOT ?>/Readspot/charity/userrequest" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="customerId" value="<?php echo $user->customer_id ?>">
-                    <button type="submit">CHECK</a>
+                    <button>CHECK</a>
                 </form>
                 
             </div>

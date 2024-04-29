@@ -46,28 +46,24 @@ class Charity extends Controller
     public function userrequest()
     {
         $customerId = isset($_POST['customerId']) ? $_POST['customerId'] : null;
+        //$customerDetails = $this->charityModel->getCharityUsersById($customerId);
         $customerRequests = $this->charityModel->getCustomerRequests($customerId);
         $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests]);
-    }
-    
-    public function confirmdelete()
-    {
-        $this->view('charity/confirm-delete-modal');
-    }
-    public function deletedsuccessfully()
-    {
-        $this->view('charity/eleted-successfully');
     }
 
     public function userrequestform()
     {
         $requestId = isset($_POST['donate_id']) ? $_POST['donate_id'] : null;
+        $this->charityModel->markAsRead($requestId);
         $donation = $this->charityModel->getDonationById($requestId);
         $this->view('charity/user-req-form', $data= ['requestDetail' => $donation]);
     }
 
     public function confirmEvent()
     {
+        // print_r($_POST);
+        // die();
+        $this->charityModel->acceptRequest($_POST['doantionId']);
         $this->view('charity/confirm-event');
     }
 
@@ -128,6 +124,27 @@ class Charity extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->charityModel->deleteEvent($_POST['eventId'])) {
                 redirect('charity/event');
+            } else {
+                die('Something went wrong');
+            }
+        }
+    }
+
+    public function rejectEvent()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // print_r($_POST);
+            // die();
+            if($_POST['reason'] == "other")
+            {
+                $reason = $_POST['customReason'];
+            } else {
+                $reason = $_POST['reason'];
+            }
+            
+            if ($this->charityModel->rejectEvent($_POST['doantionId'], $reason)) {
+                redirect('charity/donation');
             } else {
                 die('Something went wrong');
             }

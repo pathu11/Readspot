@@ -82,19 +82,29 @@
                             <th>Quantity</th>
                             <th>Book Type</th>
                             <th>Additional Note</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ur-tbody">
                         <?php foreach ($allRequests as $request) { ?>
-                            <tr>
+                            <tr <?php if($request->mark_as_read == 0){ echo 'style="background:#bbebe8  "';} ?>>
                                 <td><?php echo $request->quantity ?></td>
                                 <td><?php echo $request->book_types ?></td>
                                 <td><?php echo $request->description ?></td>
+                                
+                                <?php if($request->status == "Accepted"){ ?>
+                                    <td class="doantion-status" style="color:green"><?php echo $request->status ?></td>
+                                <?php } else if($request->status == "Rejected") { ?>
+                                    <td class="doantion-status" style="color:red"><?php echo $request->status ?></td>
+                                <?php } else { ?>
+                                    <td class="doantion-status" style="color:orange"><?php echo $request->status ?></td>
+                                <?php } ?>
+                                
                                 <td>
                                     <form action="<?php URLROOT ?>/Readspot/charity/userrequestform" method="post">
                                         <input type="hidden" name="donate_id" value="<?php echo  $request->donate_id ?>">
-                                        <button href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</button>
+                                        <button class="ur-view">View</button>
                                     </form>
                                 </td>
                             </tr>
