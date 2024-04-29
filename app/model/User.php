@@ -241,6 +241,18 @@ class User{
 
         return $this->db->resultSet();
     }
+    public function findUserByRegNo($reg_no){
+        $this->db->query('SELECT * from publishers WHERE reg_no=:reg_no');
+        $this->db->bind(':reg_no',$reg_no);
+
+        return $this->db->resultSet();
+    }
+    public function findUserByRegNoCharity($reg_no){
+        $this->db->query('SELECT * from charity WHERE reg_no=:reg_no');
+        $this->db->bind(':reg_no',$reg_no);
+
+        return $this->db->resultSet();
+    }
     public function findUserById($user_id){
         $this->db->query('SELECT * from users WHERE user_id=:user_id');
         $this->db->bind(':user_id',$user_id);

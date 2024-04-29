@@ -548,7 +548,7 @@ nav a:hover .notification-text {
     background-color: #009d94;
     font-size: 15px;
     width: 350px;
-    height: 310px;
+    height: 90%;
     margin: 15px;
     border-radius: 10px;
     background-size: cover;
@@ -559,9 +559,9 @@ nav a:hover .notification-text {
     margin-bottom: 0%;
 }
 
-.card:hover {
+/* .card:hover {
     height: 820px;
-}
+} */
 
 dt {
     font-size: 15px;
@@ -605,7 +605,7 @@ dd {
     font-size: 13px;
     margin: 10px 0;
     color: rgb(255, 255, 255);
-    background-color: #202020;
+    background-color: #20202093;
     border-radius: 5px;
     padding: 10px;
 }
@@ -661,6 +661,7 @@ footer {
     background-color: #70bfba;
     color: white;
     padding: 20px;
+    width: 100%;
     margin-top: auto;
     text-align: left;
 }

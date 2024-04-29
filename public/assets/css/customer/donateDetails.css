@@ -1,0 +1,117 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.cd-requestTable {
+    width: 90%;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cd-table-header h2 {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    background-color: #188c7b;
+    color: #f8f8f8;
+    border-radius: 2px;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+}
+
+.cd-requestTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cd-requestTable input[readonly],
+.cd-requestTable textarea[readonly] {
+    background-color: #f2f2f2;
+}
+
+.cd-requestTable th,
+.cd-requestTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.cd-requestTable th {
+    background-color: #f2f2f2;
+    font-size: 14px;
+}
+
+.cd-requestTable input[type="text"],
+.cd-requestTable input[type="date"],
+.cd-requestTable input[type="time"],
+.cd-requestTable input[type="email"],
+.cd-requestTable input[type="tel"],
+.cd-requestTable input[type="number"],
+.cd-requestTable textarea,
+.cd-requestTable button,
+.cd-requestTable input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+}
+
+.cd-requestTable textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+.cd-confirm-req,
+.cd-reject-req {
+    background-color: #188c7b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.cd-reject-req {
+    background-color: rgb(131, 131, 131);
+}
+
+.cd-confirm-req:hover {
+    background-color: #005348;
+}
+
+.cd-reject-req:hover {
+    background-color: red;
+}
+
+.cd-go-back-btn {
+    position: relative;
+    top: 15px;
+    left: 46px;
+    margin-bottom: 20px;
+    background-color: #188c7b;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.cd-go-back-btn i {
+    margin-right: 8px;
+}
+
+.cd-go-back-btn:hover {
+    background-color: #005348;
+}

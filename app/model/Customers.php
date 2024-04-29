@@ -44,6 +44,16 @@
           return false;
       }
     }
+    public function deleteReviewBook($review_id){
+      $this->db->query('DELETE FROM reviews WHERE review_id = :review_id');
+      $this->db->bind(':review_id', $review_id);
+      $this->db->execute();
+      if ($this->db->rowCount() > 0) {
+          return true;
+      } else {
+          return false;
+      }
+    }
     public function findCartById($customer_id) {
       $this->db->query('SELECT c.*, b.book_name,b.discounts, b.price, b.img1, b.type FROM cart c
                         JOIN books b ON c.book_id = b.book_id
@@ -1199,16 +1209,31 @@ public function getOngoingChallenges($user_id){
   return $this->db->resultSet();
 }
 
-public function addQuizAttempt($quiz_id,$user_id){
-  $this->db->query('INSERT INTO history(quiz_id,user_id,score) VALUES (:quiz_id,:user_id,0)');
-  $this->db->bind(':quiz_id',$quiz_id);
-  $this->db->bind(':user_id',$user_id);
-  if ($this->db->execute()) {
-    return true;
-  } else {
-    return false;
-  }
+public function addQuizAttempt($quiz_id, $user_id){
+  // Check if the record already exists
+  $this->db->query('SELECT * FROM history WHERE quiz_id = :quiz_id AND user_id = :user_id');
+  $this->db->bind(':quiz_id', $quiz_id);
+  $this->db->bind(':user_id', $user_id);
+  $this->db->execute();
+
+    // If a record already exists, return false
+    if ($this->db->rowCount() > 0) {
+        return false;
+    }
+
+    // If the record doesn't exist, insert a new record
+    $this->db->query('INSERT INTO history(quiz_id, user_id, score) VALUES (:quiz_id, :user_id, 0)');
+    $this->db->bind(':quiz_id', $quiz_id);
+    $this->db->bind(':user_id', $user_id);
+
+    // Execute the query
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
 
 public function incrementScore($user_id) {
   $this->db->query('UPDATE history SET score = score + 2 WHERE user_id = :user_id');
@@ -1332,7 +1357,7 @@ public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
       $this->db->bind(':other',$data['other']);
       $this->db->bind(':descript',$data['descript']);
       $this->db->bind(':err_img',$data['err_img']);
-      $this->db->bind(':customer_id',$data['customer_id']);
+      $this->db->bind(':customer_id',$data['user_id']);
 
       // execute
       if($this->db->execute()){

@@ -15,7 +15,7 @@
     <script src=<?php echo URLROOT . "/assets/js/charity/eventscript.js" ?>></script>
 
 </head>
-    
+
 <body>
     <header>
         <div>
@@ -23,7 +23,7 @@
         </div>
         <nav>
             <a href="./">Home</a>
-            <a href="event" >Event Management</a>
+            <a href="event">Event Management</a>
             <a href="donation">Donation Requests</a>
             <a href="customerSupport" class="active" id="donorRequestLink">Customer Support</a>
             <a href="aboutUs">
@@ -37,7 +37,8 @@
             </button>
             <div class="dropdown-content">
                 <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="<?php echo URLROOT; ?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
             </div>
         </div>
 
@@ -52,33 +53,33 @@
         <div class="box" onclick="toggleContent(this)">
             <div class="box-inner">
                 <a href="donationQuery">
-                <div class="box-content">
-                    <i class="fas fa-bell notification-bell"></i>
-                    <h2>Donation-Related Queries:</h2>
-                    <div class="note">You have donation-Related Queries</div>
-                </div>
+                    <div class="box-content">
+                        <i class="fas fa-bell notification-bell"></i>
+                        <h2>Donation-Related Queries:</h2>
+                        <div class="note">You have donation-Related Queries</div>
+                    </div>
                 </a>
             </div>
         </div>
         <div class="box" onclick="toggleContent(this)">
             <div class="box-inner">
-            <a href="donationQuery">
-                <div class="box-content">
-                    <i class="fas fa-bell notification-bell"></i>
-                    <h2>Feedback and Reviews:</h2>
-                    <div class="note">You have feedbacks</div>
-                </div>
+                <a href="donationQuery">
+                    <div class="box-content">
+                        <i class="fas fa-bell notification-bell"></i>
+                        <h2>Feedback and Reviews:</h2>
+                        <div class="note">You have feedbacks</div>
+                    </div>
             </div>
             </a>
         </div>
         <div class="box" onclick="toggleContent(this)">
             <div class="box-inner">
-            <a href="donationQuery">
-                <div class="box-content">
-                    <i class="fas fa-bell notification-bell"></i>
-                    <h2>Partnership Queries:</h2>
-                    <div class="note">You have Partnership enquiries</div>
-                </div>
+                <a href="donationQuery">
+                    <div class="box-content">
+                        <i class="fas fa-bell notification-bell"></i>
+                        <h2>Partnership Queries:</h2>
+                        <div class="note">You have Partnership enquiries</div>
+                    </div>
             </div>
             </a>
         </div>
@@ -89,33 +90,33 @@
         <div class="box" onclick="toggleContent(this)">
             <div class="box-inner">
                 <a href="donationQuery">
-                <div class="box-content">
-                    <i class="fas fa-bell notification-bell"></i>
-                    <h2>Event Participation Queries:</h2>
-                    <div class="note">You have event Participation Queries</div>
-                </div>
+                    <div class="box-content">
+                        <i class="fas fa-bell notification-bell"></i>
+                        <h2>Event Participation Queries:</h2>
+                        <div class="note">You have event Participation Queries</div>
+                    </div>
                 </a>
             </div>
         </div>
         <div class="box" onclick="toggleContent(this)">
             <div class="box-inner">
                 <a href="donationQuery">
-                <div class="box-content">
-                    <i class="fas fa-bell notification-bell"></i>
-                    <h2>Event Sponsorship Queries:</h2>
-                    <div class="note">You have Sponsorship Queries</div>
-                </div>
+                    <div class="box-content">
+                        <i class="fas fa-bell notification-bell"></i>
+                        <h2>Event Sponsorship Queries:</h2>
+                        <div class="note">You have Sponsorship Queries</div>
+                    </div>
                 </a>
             </div>
         </div>
         <div class="box" onclick="toggleContent(this)">
             <div class="box-inner">
                 <a href="donationQuery">
-                <div class="box-content">
-                    <i class="fas fa-bell notification-bell"></i>
-                    <h2>Logistical Queries: </h2>
-                    <div class="note">You have logistical Queries</div>
-                </div>
+                    <div class="box-content">
+                        <i class="fas fa-bell notification-bell"></i>
+                        <h2>Logistical Queries: </h2>
+                        <div class="note">You have logistical Queries</div>
+                    </div>
                 </a>
             </div>
         </div>
@@ -198,10 +199,8 @@
         }
 
         showNotification(); // Show the first notification
-
-        
     </script>
-    
+
     <footer>
         <div>
             <p>Privacy Policy : All content included on this site, such as text, graphics, logos, button icons, images,

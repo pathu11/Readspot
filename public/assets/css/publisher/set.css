@@ -90,9 +90,9 @@ body {
     width: 40%;
   }
 .r_c_a_col img {
-    width: 100%;
+    width: 60%;
     /* max-width: 200px; */
-    border-radius: 55%;
+    border-radius: 50%;
 }
 
 /* .r_c_a_col1 {

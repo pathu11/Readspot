@@ -11,7 +11,10 @@
 </head>
 
 <body>
-    <?php $allUsers = $data['allUsers']; ?>
+    <?php $allUsers = $data['allUsers']; 
+            // print_r($allUsers);
+            // die();
+          $charityModel = new CharityEvents();?>
 
     <div id="dashboard">
 
@@ -27,7 +30,6 @@
             <a href="donation" class="active">Donation Requests</a>
             <a href="notification">
                 <i class="fas fa-bell" id="bell"></i>
-                <span class="notification-text">Notification</span>
             </a>
         </nav>
         <div class="dropdown" style="float:right;">
@@ -35,8 +37,9 @@
                 <img id="profile" src=<?= URLROOT . "/assets/images/charity/rayhan.jpg" ?> alt="Profile Pic">
             </button>
             <div class="dropdown-content">
-                <a href="#"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
+                <a href="<?php echo URLROOT; ?>/landing/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
             </div>
         </div>
 
@@ -46,29 +49,34 @@
         <img id="bcnd" src=<?= URLROOT . "/assets/images/charity/donationREQ.png" ?>>
     </div>
     <!-- Filter Buttons -->
-    <div class="filter-buttons">
+    <!-- <div class="filter-buttons">
         <button onclick="filterByUserId()" class="filter-button" style="color:white; background-color: #70bfba;">Users</button>
         <button onclick="filterByEventId()" class="filter-button">Event types</button>
-    </div>
+    </div> -->
 
     <div class="reqContainer">
         <?php foreach ($allUsers as $user) { ?>
-            <div class="reqCard">
+            <?php $count = $charityModel->requestCount($user->customer_id);?>
+            <div <?php if($count==1){ echo 'class="reqCard"';} else {echo 'class="reqCard checked"';} ?>>
                 <div class="imgBox">
                     <img src=<?= URLROOT . "/assets/images/charity/ram3.jpeg" ?>>
                 </div>
                 <div class="content">
                     <div class="customer-info">
                         <h4><?php echo $user->first_name ?></h4>
-                        <p style="color: aqua;"><?php echo $user->email ?></p>
+                        <p style="color: white;"><?php echo $user->email ?></p>
                     </div>
                     <br>
-                    <p>NEW donation Requests from Ramath!</p>
+                    <p><?php if($count==1){ echo 'NEW donation Requests from Ramath!';} else {echo 'No any NEW donations!';} ?></p>
                 </div>
-                <a href="<?php echo URLROOT; ?>/charity/userRequest">CHECK</a>
+                <form action="<?php URLROOT ?>/Readspot/charity/userrequest" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="customerId" value="<?php echo $user->customer_id ?>">
+                    <button type="submit">CHECK</a>
+                </form>
+                
             </div>
         <?php } ?>
-        
+
         <div class="reqCard checked">
             <div class="imgBox">
                 <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
@@ -76,7 +84,35 @@
             <div class="content">
                 <div class="customer-info">
                     <h4>Ganeshwar</h4>
-                    <p style="color: aqua;">Ganeshwar11@gmail.com</p>
+                    <p style="color: white;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: white;">Ganeshwar11@gmail.com</p>
+                </div>
+                <br>
+                <p>No any NEW donations!</p>
+            </div>
+            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
+        </div>
+        <div class="reqCard checked">
+            <div class="imgBox">
+                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
+            </div>
+            <div class="content">
+                <div class="customer-info">
+                    <h4>Ganeshwar</h4>
+                    <p style="color: white;">Ganeshwar11@gmail.com</p>
                 </div>
                 <br>
                 <p>No any NEW donations!</p>
@@ -84,16 +120,16 @@
             <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
 
-    </div>
 
 
-    <div class="modal" id="confirmationModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <p>No NEW requests, Do you want to see OLD donation details ?!</p>
-            <div class="modal-actions">
-                <button id="confirmBtn">Yes</button>
-                <button id="cancelBtn">No</button>
+        <div class="modal" id="confirmationModal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeModal">&times;</span>
+                <p>No NEW requests, Do you want to see OLD donation details ?!</p>
+                <div class="modal-actions">
+                    <button id="confirmBtn">Yes</button>
+                    <button id="cancelBtn">No</button>
+                </div>
             </div>
         </div>
     </div>

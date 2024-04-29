@@ -21,7 +21,7 @@
                 <?php
                         $profileImage = empty($publisherDetails->profile_img) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $publisherDetails->profile_img ;
                     ?>
-                    <img  src="<?php echo $profileImage; ?>"><br><br><br>
+                    <img  src="<?php echo $profileImage; ?>" ><br><br><br>
                    <p><a href="<?php echo URLROOT; ?>/publisher/editProfile/<?php echo  $publisherDetails->publisher_id; ?>" id="btnclick" class="my-button">Edit Profile</a></p><br>
                 </div> 
                 <div class="r_c_a_col1">

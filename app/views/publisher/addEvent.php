@@ -17,7 +17,7 @@
     </div>
     <div class="form1">
       <h2>Enter the details of the event</h2>
-      <form action="<?php echo URLROOT;?>/publisher/addEvent" enctype="multipart/form-data" method="post">
+      <form action="<?php echo URLROOT;?>/publisher/addEvent" enctype="multipart/form-data" onsubmit="return validateTime()" method="post">
       
       <input type="text" name="title" class="<?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>" placeholder="Event title" required><br>
       <span class="error"><?php echo $data['title_err']; ?></span>
@@ -28,16 +28,17 @@
       <input type="text" name="location" class="<?php echo (!empty($data['location_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['location']; ?>" placeholder="Event Location" required><br>
       <span class="error"><?php echo $data['location_err']; ?></span>
 
-      <input type="text" name="start_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['start_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_date']; ?>" placeholder="Start Date" required><br>
+      <input type="text" name="start_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['start_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_date']; ?>" placeholder="Start Date" min="<?php echo date('Y-m-d'); ?>" 
+       oninput="setEndDateMin(this.value)" required><br>
       <span class="error"><?php echo $data['start_date_err']; ?></span>
 
-      <input type="text" name="end_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['end_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_date']; ?>" placeholder="End date" required><br>
+      <input type="text" name="end_date" onfocus="(this.type='date')" class="<?php echo (!empty($data['end_date_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_date']; ?>" placeholder="End date" min="<?php echo date('Y-m-d'); ?>" required><br>
       <span class="error"><?php echo $data['end_date_err']; ?></span>
 
-      <input type="text" name="start_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['start_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_time']; ?>" placeholder="Start Time" required><br>
+      <input type="text" name="start_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['start_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['start_time']; ?>" placeholder="Start Time" oninput="setEndTimeMin(this.value)"  required><br>
       <span class="error"><?php echo $data['start_time_err']; ?></span>
 
-      <input type="text" name="end_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['end_time_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['end_time']; ?>" placeholder="End time" required><br>
+      <input type="text" name="end_time" onfocus="(this.type='time')" class="<?php echo (!empty($data['end_time_err'])) ? 'is-invalid' : ''; ?>" oninput="setEndTimeMin(this.value)"  value="<?php echo $data['end_time']; ?>" placeholder="End time" required><br>
       <span class="error"><?php echo $data['end_time_err']; ?></span>
 
 
@@ -78,10 +79,31 @@
       <img src="<?php echo URLROOT;?>/assets/images/publisher/event2.webp">
     </div-->
   </div>
-  
+  <?php
+            require APPROOT . '/views/publisher/footer.php'; 
+        ?>
 
 
 <script>
+        function validateTime() {
+              var startDate = new Date(document.getElementsByName("start_date")[0].value);
+              var endDate = new Date(document.getElementsByName("end_date")[0].value);
+              var startTime = document.getElementsByName("start_time")[0].value;
+              var endTime = document.getElementsByName("end_time")[0].value;
+
+              if (startDate.getTime() === endDate.getTime() && startTime > endTime) {
+                  alert("End time cannot be before start time on the same day.");
+                  return false; // Prevent form submission
+              }
+              return true; // Proceed with form submission
+          }
+          function setEndDateMin(startDateValue) {
+            document.getElementsByName("end_date")[0].min = startDateValue;
+        }
+
+        function setEndTimeMin(startTimeValue) {
+            document.getElementsByName("end_time")[0].min = startTimeValue;
+        }
         function goBack() {
             // Use the browser's built-in history object to go back
             window.history.back();

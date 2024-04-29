@@ -5,7 +5,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="contact-cont">
         <form action="<?php echo  URLROOT; ?>/customer/ContactUs"  method="POST" enctype="multipart/form-data" class="contact-us" onsubmit="return checkLoginStatus()">
-
             <h3>Any Complaint?</h3>
             
             <div class="topic-name1">

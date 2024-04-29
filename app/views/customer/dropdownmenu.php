@@ -53,7 +53,7 @@
             <span>></span>
         </a>
         
-        <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+        <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
             <img src="<?php echo URLROOT; ?>/assets/images/customer/logout01.png"> <!--path changed-->
             <p>Logout</p>
             <span>></span>
