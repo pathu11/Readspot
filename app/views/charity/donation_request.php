@@ -76,9 +76,6 @@
                 
             </div>
         <?php } ?>
-<<<<<<< Updated upstream
-    </div>
-=======
 
         <div class="reqCard checked">
             <div class="imgBox">
@@ -123,7 +120,6 @@
             <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
         </div>
 
->>>>>>> Stashed changes
 
 
         <div class="modal" id="confirmationModal">

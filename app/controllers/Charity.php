@@ -39,13 +39,7 @@ class Charity extends Controller
             redirect('charity/donation_request');
         }
         $results = $this->charityModel->getCharityUsers();
-<<<<<<< Updated upstream
-        // print_r($results);
-        // die();
-        $this->view('charity/donation_request',$data = ['allUsers' => $results]);
-=======
         $this->view('charity/donation_request', $data = ['allUsers' => $results]);
->>>>>>> Stashed changes
     }
     public function userrequest()
     {
