@@ -84,9 +84,7 @@
                 <th>Price Per One</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
-            </tr>
-            
-            
+            </tr>          
           <?php foreach($data['bookDetails'] as $key => $books): ?>
             
             <tr>
