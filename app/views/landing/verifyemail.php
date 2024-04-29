@@ -8,9 +8,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Verification</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -20,9 +23,9 @@
         <h1>Verify Your Email</h1><br>
             <h4 style="color:red;" >We sent an OTP to your  email address. Check your inbox and enter the OTP for  verifying entered email address</h4>
             <br>
-                
+            <span class="invalid-feedback"><?php echo $data['otp_err']; ?></span>
             <input type="text" name="otp"  placeholder="Enter the OTP code" required><br>
-            <span class="error"><?php echo $data['otp_err']; ?></span>
+           
                                
             <!-- Add this code where you want to display the remaining time -->
             <!-- <p>Remaining Time:</p> -->
@@ -39,10 +42,45 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="#"> <button onclick="goBack()" class="submit">  Cancel </button></a>
+           <button onclick="goBack()" class="submit">  Cancel </button>
         </div>  
       </div>
+      
+      <!-- <div id="myModal_err" class="modal">
+        <div class="modal-content">
+            
+            <h2>Invalid otp!</h2>
+            <p>We've noticed an invalid OTP attempt on your account. Please try again later.</p><br><br>
+            <button onclick="closeModalErr()" class="confirm">OK</button>
+        </div>
+    </div>
+    <div id="myModal_success" class="modal">
+        <div class="modal-content">
+            
+            <h2>Correct!</h2>
+            <p>Your entered Otp is correct .</p><br><br>
+            <button onclick="closeModalSuccess()" class="confirm">OK</button>
+        </div>
+    </div> -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+            <h2>Record Added!</h2>
+            <p>Your record has been recorded. Wait for admin approval</p>
+            <button onclick="closeModal()" class="confirm">OK</button>
+        </div>
+    </div>
       <script>
+        function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+                window.location.href = "<?php echo URLROOT; ?>/landing/signupCustomer"; // Redirect to the event page
+            }
          document.addEventListener('DOMContentLoaded', function() {
             const emailInput = document.querySelector('input[type="email"]');
             const emailError = document.getElementById('email-error');
@@ -61,28 +99,31 @@
 <script>
         // Set the initial remaining time from PHP variable
         var initialRemainingTime = <?php echo $remainingTime; ?>;
-        
-        // Function to update the remaining time
         function updateRemainingTime() {
             var remainingTimeElement = document.getElementById('remainingTime');
-            if (initialRemainingTime > 0) {
-                remainingTimeElement.innerText = formatTime(initialRemainingTime);
-                initialRemainingTime--;
+            var remainingTime = sessionStorage.getItem('remainingTime'); 
+            if (remainingTime && remainingTime > 0) {
+                remainingTimeElement.innerText = formatTime(remainingTime);
+                remainingTime--; 
+                sessionStorage.setItem('remainingTime', remainingTime); 
             } else {
                 remainingTimeElement.innerText = 'Expired';
-                // You can perform additional actions here when the time expires
+                
             }
         }
 
-        // Function to format time in MM:SS format
         function formatTime(seconds) {
             var minutes = Math.floor(seconds / 60);
             var remainingSeconds = seconds % 60;
             return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
         }
-
-        // Call the updateRemainingTime function every second
-        setInterval(updateRemainingTime, 1000);
+        document.addEventListener('DOMContentLoaded', function() {
+            updateRemainingTime();
+            setInterval(updateRemainingTime, 1000); // 
+            if (!sessionStorage.getItem('remainingTime')) {
+                sessionStorage.setItem('remainingTime', 60); 
+            }
+    });
     </script>
 <script>
      document.getElementById('togglePassword').addEventListener('click', function() {
@@ -102,13 +143,20 @@
         this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
         this.classList.toggle('fa-eye');   // Toggle the eye icon itself
     });
- 
-        // Toggle the eye icon itself
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+ 
+     
+        <?php
+            // Check if the showModal flag is set, then call showModal()
+            if (isset($_SESSION['alert']) && $_SESSION['alert']) {
+                echo "window.onload = showModal;";
+                // Unset the session variable after use
+                unset($_SESSION['alert']);
+            }
+            ?>
+
     </script>
 </html>
                      

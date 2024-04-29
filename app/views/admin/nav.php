@@ -16,13 +16,7 @@
             </div>
             <hr>
             
-            <a href="<?php echo URLROOT; ?>/customer/Notification" class="sub-menu-link"> <!--path changed-->
-                <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
-                <p>Notifications</p>
-                <span>></span>
-            </a>
-            
-            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
             <i class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>
@@ -102,15 +96,6 @@ function toggleMenu(){
                 <span class="link">Reports</span>
               </a>
             </li>
-            <br>
-          <div class="bottom-cotent">
-            <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bxs-cog icon"></i>
-                <span class="link">Settings</span>
-              </a>
-            </li>
-          </div>
         </div>
       </div>
     </nav>

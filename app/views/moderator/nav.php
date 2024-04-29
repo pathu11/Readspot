@@ -17,13 +17,7 @@
           </div>
           <hr>
           
-          <a href="<?php echo URLROOT; ?>/customer/Notification" class="sub-menu-link"> <!--path changed-->
-              <i class="bx bxs-bell-ring icon"></i> <!--path changed-->
-              <p>Notifications</p>
-              <span>></span>
-          </a>
-          
-          <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+          <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
           <i class="bx bxs-log-out icon"></i>  <!--path changed-->
               <p>Logout</p>
               <span>></span>
@@ -71,6 +65,12 @@
               </a>
             </li>
             <li class="list">
+              <a href="<?php echo URLROOT?>/moderator/BookReviews" class="nav-link">
+                <i class='bx bxs-comment-error icon'></i>
+                <span class="link">Book Reviews</span>
+              </a>
+            </li>
+            <li class="list">
               <a href="<?php echo URLROOT?>/moderator/complains" class="nav-link">
                 <i class="bx bxs-message-rounded-error icon"></i>
                 <span class="link">Complains</span>
@@ -79,7 +79,7 @@
             <br><br>
           <div class="bottom-cotent">
             <li class="list">
-              <a href="<?php echo URLROOT;?>/landing/logout" class="nav-link">
+              <a href="<?php echo URLROOT;?>/landing/IsLoggedOut" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>
                 <span class="link">Logout</span>
               </a>

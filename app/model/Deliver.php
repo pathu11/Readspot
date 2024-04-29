@@ -154,6 +154,17 @@ public function getMessageById($message_id){
     $this->db->bind(':message_id',$message_id);
     return $this->db->resultSet();
 }
+public function countAllOrders(){    
+    $this->db->query('SELECT COUNT(DISTINCT order_id) as orderCount FROM order_details ');
+    
+    $result = $this->db->single();
+    
+    if ($result) {
+        return $result->orderCount;
+    } else {
+        return 0; 
+    }
+}
 public function countDelOrders(){    
     $this->db->query('SELECT COUNT(DISTINCT order_id) as orderCount FROM order_details WHERE status = "delivered"');
     

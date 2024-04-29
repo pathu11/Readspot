@@ -5,16 +5,14 @@
 <head> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
     <div class="main-detail">
 
         <div class="back-btn-div">
             <button class="back-btn" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
         </div>
-
         <?php foreach($data['bookDetails'] as $books): ?>
-
         <div class="book-img-des">
             <div class="book-img">
                 <div class="sub1">
@@ -53,7 +51,17 @@
                 <h3>Author of Book : <span><?php echo $books->author; ?></span></h3><br>
                 <h3>Book Category : <span><?php echo $books->category; ?></span></h3><br>
                 
-                <h3>Price : <span><?php echo $books->price; ?></span></h3><br>
+                <h3>Price : <span>
+                    <?php if ($books->discounts != 0.00): ?>
+                        <span style="text-decoration: line-through;"><?php echo $books->price; ?></span> <!-- Display old price with underline -->
+                        <?php 
+                            $discountedPrice = $books->price - ($books->price * ($books->discounts / 100)); // Calculate discounted price
+                            echo $discountedPrice; // Display discounted price
+                        ?>
+                    <?php else: ?>
+                        <?php echo $books->price; ?>
+                    <?php endif; ?>
+                </span></h3><br>
                 <!-- <h3>Price Type : <span>Fixed</span></h3><br> -->
                 <h3>Weight (grams) : <span><?php echo $books->weight; ?></span></h3><br>
                 <h3>ISBN Number : <span><?php echo $books->ISBN_no; ?> </span></h3><br>
@@ -68,10 +76,45 @@
                 <h3>Town : <span><?php echo $books->town; ?></span></h3><br>
                 <h3>District : <span><?php echo $books->district; ?></span></h3><br>
                 <h3>Postal Code : <span><?php echo $books->postal_code; ?></span></h3><br>
+                <div class="stock-div">
+                    <!-- <h1>In Stock</h1> -->
+                    <?php if ($books->quantity == 0): ?>
+                        <h1 class="outStock">Out of Stock</h1>
+                    <?php else: ?>
+                        <h1>In Stock</h1>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
         
         <div class="cart-item">
+            <?php 
+                $num = 0; // Initialize the variable before the loop
+                if ($data['user_id']==0000){
+                    $num = 0;
+                }else{
+                    foreach ($data['favoriteDetails'] as $favorite): 
+                        if ($books->book_id == $favorite->item_id): 
+                            $num = 1;
+                            $fav_id = $favorite->fav_id;
+                            break; // Assuming you want to stop the loop once a match is found
+                        endif;
+                    endforeach;
+                }
+            ?>
+            <?php if ($num == 1): ?>
+                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                    <button class="book-button-after-fav before-cart">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $books->book_id; ?>">
+                    <button class="book-button before-cart">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button>
+                </a>
+            <?php endif; ?>
             <button class="quantity-button" onclick="decrement()">-</button>
             <span id="quantity">1</span>
             <button class="quantity-button" onclick="increment(<?php echo $books->quantity; ?>)">+</button>
@@ -102,9 +145,7 @@
                         <canvas id="ratingChart" width="400" height="200"></canvas>
                     </div>
                 </div>
-                
                 <div class="give-rate">
-                    
                     <form action="<?php echo URLROOT; ?>/customer/addReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
@@ -158,25 +199,25 @@
                         <h3><?php echo $reviews->name; ?></h3>
                     </div>
                     <div class="rev-date">
-                    <div class="rating-stars">
-                        <?php 
-                            $rating = $reviews->rate;
-                            // Loop to generate the appropriate number of star icons based on the rating
-                            for ($i = 0; $i < $rating; $i++) {
-                                echo '<span class="fas fa-star checked"></span>';
-                            }
-                            // Fill the remaining stars with empty stars
-                            for ($i = $rating; $i < 5; $i++) {
-                                echo '<span class="fas fa-star"></span>';
-                            }
-                        ?>
-                     </div>
+                        <div class="rating-stars">
+                            <?php 
+                                $rating = $reviews->rate;
+                                // Loop to generate the appropriate number of star icons based on the rating
+                                for ($i = 0; $i < $rating; $i++) {
+                                    echo '<span class="fas fa-star checked"></span>';
+                                }
+                                // Fill the remaining stars with empty stars
+                                for ($i = $rating; $i < 5; $i++) {
+                                    echo '<span class="fas fa-star"></span>';
+                                }
+                            ?>
+                        </div>
                         <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/starts.png"> -->
                         <h6><?php echo $reviews->time; ?></h6>
                     </div>
                     <p><?php echo $reviews->review; ?></p>
                     
-                    <div class="helpful">
+                    <!-- <div class="helpful">
                         <h4>Was this review helpful?</h4>
                         <?php if(isset($data['user_id'])): ?>
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful"<?php echo isset($_SESSION['review_clicksBooks'][$reviews->review_id][$data['user_id']]) ? ' disabled' : ''; ?>>Yes</button>
@@ -185,14 +226,20 @@
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
                         <?php endif; ?>
-</div>
-                          
-                <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
-                    </div>
-                 
+                    </div> -->
+                    
+                    <!-- <h5><?php echo $reviews->help; ?>  people found this helpful</h5>    -->
+                    <?php if(isset($data['customer_id'])): ?>
+                            <?php if ($reviews->customer_id == $data['customer_id']): ?>
+                                <div>
+                                <a class="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReviewBook/<?php echo $books->book_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
+                                <!-- <a class="reviewBtn update-review-link" href="#" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $books->book_id; ?>">Update</a> -->
+                            </div>
+                           
+                            <?php endif; ?>
+                        <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
-                
             </div>
         </div>
 
@@ -202,29 +249,99 @@
         <?php endforeach; ?>
     </div>
 
+    <div id="update-review-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Update Review</h2>
+            <form id="update-review-form" action="" method="post">
+                <input type="text" class="text" id="update-review-text" name="description" placeholder="Update your review..." rows="4">
+                <div class="my-rate">
+                    <label for="rate-5" class="fas fa-star"></label>
+                    <label for="rate-4" class="fas fa-star"></label>
+                    <label for="rate-3" class="fas fa-star"></label>
+                    <label for="rate-2" class="fas fa-star"></label>
+                    <label for="rate-1" class="fas fa-star"></label><br>
+                </div>
+                <div>
+                    <input type="radio" class="radionBtn" name="rate" id="rate-5" value="5">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-4" value="4">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-3" value="3">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-2" value="2">
+                    <input type="radio" class="radionBtn" name="rate" id="rate-1" value="1">
+                </div>
+                <input type="hidden" name="content_id" id="update-content-id" value="">
+                <input type="hidden" name="review_id" id="update-review-id" value="">
+                <input type="submit" class="confirm" value="Update">
+            </form>
+        </div>
+</div>
 
 
     <script>
  
-    
-document.querySelectorAll('.helpful-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const reviewId = this.dataset.reviewId;
-        const isHelpful = this.dataset.action === 'helpful';
+    function openModal(reviewId, contentId) {
+        console.log('Opening modal for Review ID:', reviewId);
+        console.log('Opening modal for Content ID:', contentId);
+        const form = document.getElementById('update-review-form');
+        form.action = "<?php echo URLROOT; ?>/customer/updateReviewBook/" + contentId + "/" + reviewId;
+        document.getElementById('update-content-id').value = contentId;
+        document.getElementById('update-review-id').value = reviewId;
+        document.getElementById('update-review-modal').style.display = 'block';
+    }
 
-        fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
-            .then(response => {
-                if (response.ok) {
-                   
-                    this.disabled = true; // Disable the button after clicking
-                    this.classList.add('clicked'); // Optionally, add a class to indicate the button was clicked
-                } else {
-                    console.error('Failed to update review helpfulness');
-                }
-            })
-            .catch(error => {
-                console.error('Error updating review helpfulness:', error);
+    function closeModal() {
+        document.getElementById('update-review-modal').style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Document loaded.');
+        const updateReviewLinks = document.querySelectorAll('.update-review-link');
+        console.log('Update review links found:', updateReviewLinks.length);
+        
+        updateReviewLinks.forEach(link => {
+            console.log('Adding event listener to update review link:', link);
+            link.addEventListener('click', function() {
+                console.log('Update review link clicked.');
+                const reviewId = this.dataset.reviewId;
+                const contentId = this.dataset.contentId;
+                console.log('Review ID:', reviewId);
+                console.log('Content ID:', contentId);
+                openModal(reviewId, contentId); 
             });
+        });
+});
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+    const helpfulButtons = document.querySelectorAll('.helpful-button');
+    helpfulButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const reviewId = button.dataset.reviewId;
+            const isHelpful = button.dataset.action === 'helpful';
+
+            // Check if the button has already been clicked
+            const hasClicked = localStorage.getItem(`helpful_${reviewId}`);
+            if (hasClicked) {
+                console.log('You have already clicked this button.');
+                return; // Exit function if already clicked
+            }
+            // Send AJAX request to update review helpfulness
+            fetch(`${window.location.origin}/customer/updateReviewHelpfulBooks?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+                .then(response => {
+                    if (response.ok) {
+                        // Disable the button and mark it as clicked
+                        button.disabled = true;
+                        button.classList.add('clicked');
+                        // Store in local storage that the user has clicked this button
+                        localStorage.setItem(`helpful_${reviewId}`, true);
+                    } else {
+                        console.error('Failed to update review helpfulness');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating review helpfulness:', error);
+                });
+        });
     });
 });
 
@@ -249,7 +366,7 @@ document.querySelectorAll('.helpful-button').forEach(button => {
         label.addEventListener('click', () => {
             const rating = index + 1;
             const header = document.querySelector('.give-rate .post .text');
-            header.textContent = `You rated it ${rating} stars.`;
+            header.textContent = You rated it ${rating} stars.;
         });
     });
 
@@ -285,7 +402,8 @@ document.querySelectorAll('.helpful-button').forEach(button => {
                         try {
                             var response = JSON.parse(this.responseText);
                             if (response.status === 'success') {
-                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                sweetAlertCart();
+                                // window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
                             } else {
                                 console.error('Error adding to cart:', response.message);
@@ -305,6 +423,28 @@ document.querySelectorAll('.helpful-button').forEach(button => {
     xhttp.open("GET", '<?php echo URLROOT; ?>/customer/addToCart/' + bookId + '?quantity=' + quantity, true);
     xhttp.send();
 }
+        function sweetAlertCart() {
+      
+              Swal.fire({
+                  title: 'Success',
+                  text: 'Your Book is added to the cart successfully',
+                  icon: 'success',
+                
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: "#70BFBA",
+                
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Redirect to login page
+                      window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                  }
+              });
+  
+              // Return false to prevent form submission
+              return false;
+         
+          return true;
+      }
 function addToCart2(bookId) {
             var quantity = document.getElementById('quantity').innerText;
 
@@ -318,7 +458,8 @@ function addToCart2(bookId) {
                         try {
                             var response = JSON.parse(this.responseText);
                             if (response.status === 'success') {
-                                window.location.href = '<?php echo URLROOT; ?>/customer/cart';
+                                sweetAlertCart();
+                                // window.location.href = '<?php echo URLROOT; ?>/customer/cart';
                                 // ... (rest of the code)
                             } else {
                                 console.error('Error adding to cart:', response.message);

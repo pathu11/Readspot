@@ -158,7 +158,7 @@
                                 </form>
 
                                 <?php if ($event->status == 0) { ?>
-                                    <form action="<?php echo URLROOT; ?>/Readspot/charity/deleteEvent" method="POST" style="display: inline;">
+                                    <form action="<?php echo URLROOT; ?>/Readspot/charity/deleteEvent/" method="POST" style="display: inline;">
                                         <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id; ?>">
                                         <button type="button" class="em-delete-button">
                                             <i class="fas fa-trash"></i>

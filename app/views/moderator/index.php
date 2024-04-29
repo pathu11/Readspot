@@ -34,10 +34,28 @@
         </div></a>
       </div>
 
-        <div class="chart">
-          <canvas id="myChart1"></canvas>
-        </div>
+    <div class="chartMessage">
+      <div class="chart">
+        <canvas id="myChart1"></canvas>
+      </div>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      <div class="message-panel">
+        <h3>Messages for you</h3>
+        <div class="messages">
+          <?php foreach($data['messageDetails'] as $message): ?>
+          <a href="<?php echo URLROOT;?>/Chats/chat/<?php echo $message->outgoing_msg_id;?>">
+          <div class="message">
+            <div class="user-message">
+              <i class="bx bxs-user-circle icon"></i>
+              <span><?php echo $message->outgoing_user_name;?></span>
+            </div>
+            <p><?php echo $message->msg;?></p>
+          </div></a>
+          <?php endforeach;?>
+        </div>
+      </div>
+    </div>
   </div>
       
     <script>
@@ -120,7 +138,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       
-    <div class="message-panel">
+    <!-- <div class="message-panel">
       <h3>Messages for you</h3>
       <div class="messages">
         <?php foreach($data['messageDetails'] as $message): ?>
@@ -134,8 +152,8 @@
         </div></a>
         <?php endforeach;?>
       </div>
-    </div>
-  </div>
+    </div> -->
+
 
   <!-- <script src="<?php echo URLROOT;?>/assets/js/moderator/chart.js"></script> -->
 

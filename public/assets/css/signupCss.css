@@ -18,8 +18,13 @@ body {
     font-family: 'Poppins', sans-serif
 }
 
-
-
+.invalid-feedback{
+    background-color:white;
+    color: red;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding:5px;
+}
 /* container */
 .container {
     width: 80%;

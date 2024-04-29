@@ -170,7 +170,6 @@ nav.open ~ .overlay {
   overflow: hidden;
   transition: max-height 0.5s;
 }
-
 .sub-menu-wrap.open-menu{
   max-height: 370px;
   z-index:100;

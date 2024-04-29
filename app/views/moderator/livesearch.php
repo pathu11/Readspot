@@ -134,5 +134,61 @@ elseif ($_POST['searchType'] == 'complains') {
   }
 }
 
+elseif($_POST['searchType']=='bookReviews'){
+    if(!empty($data['bookReviewSearchDetails'])){
+      echo '<div class="table-container">
+      <table id="eventTable">
+        <tr>
+          <th>Profile Image</th>
+          <th>Customer Name</th>
+          <th>Book Name</th>
+          <th>Book Review</th>
+          <th>Delete Review</th>
+        </tr>';
+        foreach($data['bookReviewSearchDetails'] as $review):
+        echo '<tr>
+          <td><img src="'.URLROOT.'/assets/images/customer/ProfileImages/'.$review->profile_img.'" ></td>
+          <td>'.$review->name.'</td>
+          <td>'.$review->book_name.'</td>
+          <td>'.$review->review.'</td>
+          <td><button onclick="deletePopup('.$review->review_id.')">Delete</button></td>
+        </tr>';
+        endforeach;
+      echo '</table>
+    </div>';
+    }else {
+      echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+  }
+}
+
+elseif($_POST['searchType']=='contentReviews'){
+  if(!empty($data["contentReviewSearchDetails"])){
+    echo '<div class="table-container">
+      <table id="eventTable">
+        <tr>
+          <th>Profile Image</th>
+          <th>Customer Name</th>
+          <th>Content Name</th>
+          <th>Content Review</th>
+          <th>Delete Review</th>
+        </tr>';
+        foreach($data['contentReviewSearchDetails'] as $review):
+        echo '<tr>
+          <td><img src="'.URLROOT.'/assets/images/customer/ProfileImages/'.$review->profile_img.'" ></td>
+          <td>'.$review->name.'</td>
+          <td>'.$review->topic.'</td>
+          <td>'.$review->review.'</td>
+          <td><button onclick="deletePopup('.$review->review_id.')">Delete</button></td>
+        </tr>';
+        endforeach;
+      echo '</table>
+    </div>';
+
+  }else {
+    echo '<div class="no-result" style="display:flex; justify-content:center;"><p>No results found</p></div>';
+  }
+}
+
 ?>
+<script src="<?php echo URLROOT;?>/assets/js/moderator/table.js"></script>
 <script src="<?php echo URLROOT;?>/assets/js/moderator/livesearch.js"></script>

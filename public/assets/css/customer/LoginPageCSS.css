@@ -205,17 +205,72 @@ h4:before, h4:after {
 }
 /********************************************/
 .invalid-feedback{
-    background-color:#03FFF0;
-    color: white;
+    background-color:white;
+    color: red;
     padding-left: 15px;
     padding-right: 15px;
     padding:5px;
-
-
-
 }
-
-
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Fix the size and hide overflow */
+    backdrop-filter: blur(5px); /* Add blur for glass effect */
+  }
+  
+  
+  .modal-content {
+    background-color: #fefefe;
+    /* margin-top: 2px;; */
+    margin: 6% auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+  
+  .close {
+    color: #009D94;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #ffffff;
+    background-color: #009D94;
+    text-decoration: none;
+    cursor: pointer;
+    animation: rotate360 0.5s ease-in-out;
+  }
+  .confirm{
+    padding: 10px 20px;
+    background-color: #009D94;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease-in-out;
+  }
 /********************************************/
 /*RegisterCategory Page*/
 .types{

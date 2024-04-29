@@ -7,17 +7,21 @@
 </head>
 <body>
   <div class="wrapper">
+  
     <section class="chat-area">
       <header>
-        
+      <i class="fa fa-arrow-left back-icon" onclick="history.back()"></i>
         <?php
                     $profileImage = empty($data['profile_img']) ? URLROOT . '/assets/images/publisher/person.jpg' : URLROOT . '/assets/images/landing/profile/' . $data['profile_img'] ;
                 ?>
+     
         <img src="<?php echo $profileImage; ?>" alt="">
         <div class="details">
           <span><?php echo $data['name']; ?></span>
+          
           <p>active now</p>
         </div>
+       
       </header>
       <div class="chat-box">
         

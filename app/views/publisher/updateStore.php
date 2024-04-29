@@ -13,7 +13,7 @@
 
 <body>
     <div>
-   
+    <?php require APPROOT.'/views/publisher/sidebar.php';?>
         <div class="form-container">
         
             <div class="form1">

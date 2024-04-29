@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Send email to customer</title>
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
@@ -11,16 +12,13 @@
 <body>
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/sendEmailCustomer" method="post">
-            <h1>Sign up AS A Customer</h1>
+            <h1>Signup As A Customer</h1>
            
 <br><br>
-        <span style="width:100%;background-color:#03FFF0;color: black;padding-left: 15px;padding-right: 15px;padding:5px;margin-bottom:3px;" class="invalid-feedback"><?php echo $data['email_err']; ?></span><br>
-            <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  >
-
-            
-
+            <span  class="invalid-feedback"><?php echo $data['email_err']; ?></span><br>
+            <input type="email" name="email" placeholder="Email" <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>"  required>
            <br>
-            <button class="btn" name="submit" type="submit">sign up</button><br>
+            <button class="btn" name="submit" onclick="handleEmailEnterButtonClick()"  type="submit">sign up</button><br>
             <div>
                 <span class="copyright">&copy;2023</span> 
             </div>  
@@ -69,12 +67,16 @@
         this.classList.toggle('fa-eye');   // Toggle the eye icon itself
     });
  
-        // Toggle the eye icon itself
+        
         function goBack() {
-            // Use the browser's built-in history object to go back
             window.history.back();
         }
-        
+        function clearSessionStorage() {
+            sessionStorage.removeItem('remainingTime');
+        }
+        function handleEmailEnterButtonClick() {
+            clearSessionStorage();
+        }
     </script>
 </html>
                      

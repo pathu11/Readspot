@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
+    <title>Log in</title>
     <!-- <link rel="stylesheet" href="./assets/css/LoginPageCSS.css"> -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signupCss.css" />
 </head>
@@ -13,18 +14,17 @@
         <?php flash('register_success'); ?>
         <form class="login" action="<?php echo URLROOT; ?>/landing/login" method="post">
             <h1>Log in</h1>
+            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
             <input type="email" name="email" placeholder="Email" value="<?= isset($_COOKIE['email']) ? $_COOKIE['email'] : '' ?>" required >
             <div class="password-wrapper">
+            <span class="invalid-feedback"><?php echo $data['pass_err']; ?></span>
+            
             <input type="password" name="pass" placeholder="password"  value="<?= isset($_COOKIE['pass']) ? $_COOKIE['pass'] : '' ?>" required ><i class="fa fa-eye-slash" id="togglePassword"></i> <br></div>
-          
             <input type="checkbox" id="rememberMe" name="rememberMe" <?= (isset($_COOKIE['email']) && isset($_COOKIE['pass'])) ? "checked" : '' ?> value=1>
             <span id="rememberme"><label for="rememberme">Remember me</label></span>
             <a href="<?php echo URLROOT; ?>/landing/enteremail">Forgot password !</a>
             <button class="btn" name="submit" type="submit">log in</button>
-            <div class="connect">
-                <h4><span>Or Connect With</span></h4>
-            </div>
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/icons8-google-48.png">
+           
             <div>
                 <span class="copyright">Readspot&copy;2023</span> 
             </div>  
@@ -38,11 +38,16 @@
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>SignUp</button></a>
+            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>login</button></a>
         </div>  
       </div>
+    
+
+   
+
 </body>
 </html>
+
 <script>
    document.getElementById('togglePassword').addEventListener('click', function() {
   var passwordInput = document.querySelector('input[name="pass"]');
@@ -52,6 +57,18 @@
   this.classList.toggle('fa-eye-slash'); // Toggle the slash on the icon
   this.classList.toggle('fa-eye');   // Toggle the eye icon itself
 });
-
+document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.querySelector('input[type="email"]');
+            const emailError = document.getElementById('email-error');
+            emailInput.addEventListener('input', function() {
+                if (!/@/.test(emailInput.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.display = 'block';
+                } else {
+                    emailError.textContent = '';
+                    emailError.style.display = 'none';
+                }
+            });
+        });
 </script>
           

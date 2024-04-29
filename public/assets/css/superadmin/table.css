@@ -101,42 +101,8 @@ tr:hover {
     cursor: pointer;
 
 }
-.update-button,
-.delete-button,
-.view-button {
-    position: relative;
-    border-radius: 50px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border: none;
-    color: white;
-    opacity: 0.8;
-    transition: opacity 0.3s ease-in-out;
-}
 
-.delete-button:hover,
-.view-button:hover {
-    opacity: 1;
-    background-color: #404040;
-}
 
-#addEventBtn {
-    background-color: #009D94;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 200px;
-    height: 35px;
-    border: none;
-    color: white;
-    transition: background-color 0.3s ease-in-out;
-}
-
-#addEventBtn:hover {
-    background-color: #008077;
-    animation: shake 0.5s ease-in-out;
-    /* Add shake animation */
-}
 
 @keyframes shake {
 
@@ -156,34 +122,7 @@ tr:hover {
 }
 
 
-.update-button {
-    background-color: #009D94;
-}
 
-.update-button:hover {
-    background-color: #00645f;
-}
-
-.delete-button {
-    background-color:  #919191;
-}
-
-.delete-button:hover {
-    opacity: 0.8;
-}
-
-.view-button {
-    background-color: #919191;
-}
-
-.delete-button:hover {
-    opacity: 0.8;
-}
-
-.button-container {
-    margin-top: 20px;
-    text-align: center;
-}
 
 #updateModal,
 #addEventModal {
@@ -450,7 +389,7 @@ p {
     margin-bottom: 20px;
 }
 
-button {
+/* button {
     padding: 10px 20px;
     background-color: #009D94;
     color: white;
@@ -464,7 +403,7 @@ button {
 
 button:hover {
     background-color: #008077;
-}
+} */
 
 /* orders table */
 
@@ -720,7 +659,9 @@ button:hover {
         border-radius: 5px;
         cursor: pointer;
     }
-   
+/* CSS for action buttons */
+
+
     .view-details-column button:hover {
         background-color: #009D94;
     }

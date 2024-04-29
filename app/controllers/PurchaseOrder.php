@@ -169,7 +169,7 @@ class PurchaseOrder extends Controller{
                         'town' => $customerDetails[0]->town,
                         'district' => $customerDetails[0]->district,
                         'postal_code' => $customerDetails[0]->postal_code,
-                        'contact_no'=>'',
+                        'contact_no'=>$customerDetails[0]->contact_number,
                         'contact_no_err'=>'',
                         'postal_name_err'=>'',
                         'street_name_err'=>'',
@@ -184,8 +184,7 @@ class PurchaseOrder extends Controller{
                  }  else{
                     echo "Not found data";
                  }  
-                //  print_r($_SESSION['PurchaseOrderData']);  
-                //  print_r($data['bookDetails']);
+              
                 $this->view('customer/purchaseMultipleView',$data);
         }
     }
@@ -229,7 +228,7 @@ public function checkout2()
                 
             ];
            
-    // print_r($orderDetails);
+  
             $this->view('customer/checkout2', $data);
         }     
     }
@@ -374,11 +373,34 @@ private function handleCODForm($orderDetails1 ,$formType){
                ){
                
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
-                $this->sendNotifications($data, $owner_user_id);
+                // $this->sendNotifications($data, $owner_user_id);
                 // $this->customerModel->sendnotification($ $data);
-                echo '<script>alert("You are placed an order successfully")</script>';
-                flash('update_success','You are placed an order successfully');
-                redirect('customer/Order');
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                echo '<script>';
+                echo 'setTimeout(function() { sweet(); }, 100);';
+                echo 'function sweet() {';
+                echo '    Swal.fire({';
+                echo '        title: "Correct",';
+                echo '        text: "You are placed an order successfully",';
+                echo '        icon: "success",';
+
+                echo '        confirmButtonText: "Ok",';
+                echo '        confirmButtonColor: "#70BFBA",';
+                
+                echo '    }).then((result) => {';
+                echo '        if (result.isConfirmed) {';
+                echo '           window.location.href = "' . URLROOT . '/customer/Order'. '";';
+                echo '        }';
+                echo '    });';
+                echo '    return false;'; // Return false to prevent form submission
+                echo '}';
+                echo '</script>';
+        
+                exit;        
+                // echo '<script>alert("You are placed an order successfully")</script>';
+                // flash('update_success','You are placed an order successfully');
+                // redirect('customer/Order');
                
             }else{
                 die('Something went wrong');
@@ -462,8 +484,31 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
     // Make sure errors are empty
     if ($data['trackingNumber'] && $data['recipt']) {
         if ($this->customerModel->editOrder($data)) {
-            flash('update_success', 'You have placed an order successfully');
-            redirect('customer/Order');
+            echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                echo '<script>';
+                echo 'setTimeout(function() { sweet(); }, 100);';
+                echo 'function sweet() {';
+                echo '    Swal.fire({';
+                echo '        title: "Correct",';
+                echo '        text: "You are placed an order successfully,Wait for the verification proccess of your payment",';
+                echo '        icon: "success",';
+
+                echo '        confirmButtonText: "Ok",';
+                echo '        confirmButtonColor: "#70BFBA",';
+                
+                echo '    }).then((result) => {';
+                echo '        if (result.isConfirmed) {';
+                echo '           window.location.href = "' . URLROOT . '/customer/Order'. '";';
+                echo '        }';
+                echo '    });';
+                echo '    return false;'; // Return false to prevent form submission
+                echo '}';
+                echo '</script>';
+        
+                exit;        
+            // flash('update_success', 'You have placed an order successfully');
+            // redirect('customer/Order');
         } else {
             die('Something went wrong');
         }
@@ -597,9 +642,32 @@ public function successCardPaymentOrder(){
             if ($this->customerModel->editOrderCardPayment($data)) {
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
                 $this->sendNotifications($data, $owner_user_id);
-                echo '<script>alert("You have placed an order successfully")</script>';
-                flash('update_success', 'You have placed an order successfully');
-                redirect('customer/Order');
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                echo '<script>';
+                echo 'setTimeout(function() { sweet(); }, 100);';
+                echo 'function sweet() {';
+                echo '    Swal.fire({';
+                echo '        title: "Correct",';
+                echo '        text: "You are placed an order successfully.Thank you for choosing us!",';
+                echo '        icon: "success",';
+
+                echo '        confirmButtonText: "Ok",';
+                echo '        confirmButtonColor: "#70BFBA",';
+                
+                echo '    }).then((result) => {';
+                echo '        if (result.isConfirmed) {';
+                echo '           window.location.href = "' . URLROOT . '/customer/Order'. '";';
+                echo '        }';
+                echo '    });';
+                echo '    return false;'; // Return false to prevent form submission
+                echo '}';
+                echo '</script>';
+        
+                exit;        
+                // echo '<script>alert("You have placed an order successfully")</script>';
+                // flash('update_success', 'You have placed an order successfully');
+                // redirect('customer/Order');
                 // $this->view('customer/Order', $data);
             } else {
                 die('Something went wrong');

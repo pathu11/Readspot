@@ -245,3 +245,8 @@ body {
 .date-input-container:hover .placeholder-startD , .date-input-container:hover .placeholder-endDate {
     display: block;
 }
+
+
+.edit-icon {
+    cursor: pointer;
+}

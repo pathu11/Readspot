@@ -34,9 +34,12 @@
             </button>
             <div class="dropdown-content">
                 <a href="editprofile"><i class="fas fa-user-edit"></i>Profile</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
+                <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
             </div>
         </div>
+        
 
     </header>
 
@@ -49,13 +52,13 @@
         <!-- <a href="<?php echo URLROOT; ?>/charity/test">test</a> -->
         <div class="box2">
             <h4 id="dynamicHeading">Keep in MIND!</h4>
-            <p id="dynamicText">I am not just organizing things; also helping create a community where people love to share and read books</p>
+            <p id="dynamicText">You are not just organizing things; also helping create a community where people love to share and read books</p>
             <p id="secondaryText" style="color:#006e69;"><b>being a part of "ReadSpot" journey!</b></p>
         </div>
         <div class="box3" style="background-color: #303030;">
             <h4> a Charity Member !</h4>
             <img id="joinUs" src=<?= URLROOT . "/assets/images/charity/join-with-us-logo.png" ?>>
-            <p> Don't forget the impact of my actions on others; every effort counts
+            <p> Don't forget the impact of actions on others; every effort counts
             </p>
         </div>
         <div class="box4">
@@ -83,27 +86,26 @@
                 <dt><b>Drop-off Locations:</b></dt>
                 <dd>You can drop off your book donations at our main office during business hours. Check our website for
                     additional drop-off locations and events.</dd>
-                <dt><b>Monetary Donations:</b></dt>
-                <dd>In addition to book donations, we also welcome monetary contributions to support our programs and
-                    initiatives.</dd>
+                <!-- <dt><b>Monetary Donations:</b></dt> -->
+                <!-- <dd>In addition to book donations, we also welcome monetary contributions to support our programs and
+                    initiatives.</dd> -->
             </dl>
         </div>
 
         <div class="card">
             <div class="card-image events"></div>
-            <h2>EVENTS</h2>
+            <h2>EVENTS HOSTING</h2>
             <dl>
-                <dt> <b>Event Calendar:</b></dt>
-                <dd> Check our website regularly for an updated event calendar. We host a
-                    variety of events, including fundraisers, workshops, and community gatherings.</dd>
+                <dt> <b>Event Hosting:</b></dt>
+                <dd> We host variety of events, including fundraisers, workshops, and community gatherings.</dd>
                 <dt><b>Registration:</b></dt>
                 <dd> Some events may require pre-registration. Make sure to register early to
                     secure your spot and receive important event updates.</dd>
                 <dt><b>Volunteer Opportunities:</b></dt>
                 <dd> Interested in getting involved? We often have volunteer
                     opportunities during our events. Contact us to learn more about how you can contribute.</dd>
-                <dt><b>Event Locations:</b></dt>
-                <dd>Events may take place at various locations. Check all.</dd>
+                <!-- <dt><b>Event Locations:</b></dt>
+                <dd>Events may take place at various locations. Check all.</dd> -->
             </dl>
         </div>
 
@@ -112,7 +114,7 @@
             <h2>CUSTOMER SATTISFACTION</h2>
             <dl>
                 <dt> <b>Feedback Mechanism:</b></dt>
-                <dd>Your feedback matters to us. We have established an open feedback mechanism to hear your thoughts,
+                <dd>We have established an open feedback mechanism to hear your thoughts,
                     suggestions, and concerns.
                 </dd>
                 <dt><b>Responsive Support:</b></dt>
@@ -121,8 +123,8 @@
                 <dt><b>Community Engagement:</b></dt>
                 <dd> Join our community forums and events to connect with other supporters. We value the sense of
                     community and collaboration among our supporters.</dd>
-                <dt><b>Transparency:</b></dt>
-                <dd> We believe in transparency in all our interactions.</dd>
+                <!-- <dt><b>Transparency:</b></dt>
+                <dd> We believe in transparency in all our interactions.</dd> -->
             </dl>
         </div>
     </section>

@@ -19,7 +19,16 @@
                         $firstFourBooks1 = array_slice($data['bookDetails1'], 0, 4);
                         foreach ($firstFourBooks1 as $bookDetails1): ?>
                             <div class="B-div">
-                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails1->img1 . '" class="Book"><br>'; ?>
+                                <?php if ($bookDetails1->status == 'approval'): ?>
+                                    <div class="approval-tag">Approved</div>
+                                <?php elseif ($bookDetails1->status == 'pending'): ?>
+                                    <div class="pending-tag">Pending</div>
+                                <?php elseif ($bookDetails1->status == 'rejected'): ?>
+                                    <div class="reject-tag">Rejected</div>
+                                <?php else: ?>
+                                    <div class="noDetails-tag">No result</div>
+                                <?php endif; ?>
+                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails1->img1 . '" class="Book">'; ?>
                                 <a href="<?php echo URLROOT; ?>/customer/ViewBook/<?php echo $bookDetails1->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
                             </div>
                         <?php endforeach; ?>
@@ -46,7 +55,16 @@
                         $firstFourBooks2 = array_slice($data['bookDetails2'], 0, 4);
                         foreach ($firstFourBooks2 as $bookDetails2): ?>
                             <div class="B-div">
-                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails2->img1 . '" class="Book"><br>'; ?>
+                                <?php if ($bookDetails2->status == 'approval'): ?>
+                                    <div class="approval-tag">Approved</div>
+                                <?php elseif ($bookDetails2->status == 'pending'): ?>
+                                    <div class="pending-tag">Pending</div>
+                                <?php elseif ($bookDetails2->status == 'rejected'): ?>
+                                    <div class="reject-tag">Rejected</div>
+                                <?php else: ?>
+                                    <div class="noDetails-tag">No result</div>
+                                <?php endif; ?>
+                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddExchangeBook/' .  $bookDetails2->img1 . '" class="Book">'; ?>
                                 <a href="<?php echo URLROOT; ?>/customer/ViewBookExchange/<?php echo $bookDetails2->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
                             </div>
                         <?php endforeach; ?>
