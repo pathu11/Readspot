@@ -39,8 +39,8 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $favorite->fav_id; ?>" style="text-decoration: none;">
-                                    <button class="delete-button">
+                                <a href="#" style="text-decoration: none;">
+                                    <button class="delete-button" onclick="showModal(<?php echo $favorite->fav_id; ?>)">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </a>
@@ -66,6 +66,45 @@
             </ul>
             <?php endif; ?>
         </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure?</p>
+                <button onclick="yesModal()">Yes</button>
+                <button onclick="noModal()" style="background-color:red">No</button>
+                <!-- Hidden input field to store the content_id -->
+                <input type="hidden" id="contentId">
+            </div>
+        </div>
+
+        <script>
+            function showModal(contentId) {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
+
+                // Store the content_id in a hidden input field inside the modal
+                var contentIdInput = document.getElementById("contentId");
+                contentIdInput.value = contentId;
+            }
+
+            function yesModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+
+                // Retrieve the content_id from the hidden input field
+                var contentIdInput = document.getElementById("contentId");
+                var contentId = contentIdInput.value;
+
+                // Redirect to the deleteContent endpoint with the content_id
+                window.location.href = "<?php echo URLROOT; ?>/customer/deleteFavorite/" + contentId; // Redirect to the event page
+            }
+
+            function noModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+            }
+        </script>
+
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
         ?>

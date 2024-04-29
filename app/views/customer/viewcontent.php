@@ -5,11 +5,16 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .radionBtn{
+        display:none;
+    }
+</style>
 </head>
 <?php foreach($data['contentDetails'] as $content): ?>
 <div class="main-content-div">
-    
         <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
     <div class="img-summary">
         <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
@@ -75,8 +80,8 @@
                 </div>
                 <div class="give-rate">
                   
-                    <?php foreach($data['contentDetails'] as $content): ?>
-                    <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
+            <?php foreach($data['contentDetails'] as $content): ?>
+                <form action="<?php echo URLROOT; ?>/customer/addContentReview" method="post">
                     <div class="my-rate">
                         <span class="heading">Add your review</span>
                         <input type="radio" name="rate" id="rate-5" value="5">
@@ -99,18 +104,20 @@
                     <header></header>
                     <div class="my-review">
                         <textarea id="description" placeholder="Describe your experience.." rows="12"  name="descriptions"></textarea>
-                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>"> <!-- Pass the content_id here -->
-                       
+                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>"> 
                     </div>
-                    <button type="submit" class="submit-review">Submit</button>
-                    </form>
-                    <?php endforeach; ?>
+                    <?php if(isset($data['customer_id'])): ?>
+                        <?php if ($content->customer_id == $data['customer_id']): ?>
+                                <button type="submit" class="submit-review" onclick="giveerr()" >Submit</button>
+                            <?php else: ?>
+                                <button type="submit" class="submit-review">Submit</button>
+                            <?php endif; ?>
+                            </form>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                   
                 </div>
-               
-
             </div>
-           
-           
             <!-- <div class="sort-by-star">
                 <form id="filterForm" action="<?php echo URLROOT; ?>/customer/viewcontent" method="post">
                     <select id="searchBy" name="category">
@@ -123,7 +130,6 @@
             <div class="cus-rev">
             <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
-                    
                     <div class="cus-name-img">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
                         <h3><?php echo $reviews->name; ?></h3>
@@ -155,40 +161,118 @@
                             <button class="helpful-button" data-review-id="<?php echo $reviews->review_id; ?>" data-action="helpful" disabled>Yes</button>
                             <button class="not-helpful-button" data-review-id="<?php echo $reviews->id; ?>" data-action="not-helpful" disabled>No</button>
                         <?php endif; ?>
-</div>
-                          
-                <h5><?php echo $reviews->help; ?>  people found this helpful</h5>   
                     </div>
-                 
+                        <h5><?php echo $reviews->help; ?>  people found this helpful</h5>  
+                        <?php if(isset($data['customer_id'])): ?>
+                            <?php if ($reviews->customer_id == $data['customer_id']): ?>
+                                <div>
+                                    <a class ="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReview/<?php echo $content->content_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
+                                
+                                    <a class ="reviewBtn" href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)">Update</a>
+                            </div>
+
+                           
+                            <?php endif; ?>
+                        <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
                 
             </div>
         </div>
     </div>
-    
-    <script>
+        <div id="update-review-modal" class="modal">
+       
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Update Review</h2>
+                <form id="update-review-form" action="<?php echo URLROOT; ?>/customer/updateReview" method="post">
+                    <input type="text" class="text" id="update-review-text" name="description"  placeholder="Update your review..." rows="4">
+                    <div class="my-rate">  
+                            
+                            <label for="rate-5" class="fas fa-star"></label>
+                            <label for="rate-4" class="fas fa-star"></label> 
+                            <label for="rate-3" class="fas fa-star"></label>
+                            <label for="rate-2" class="fas fa-star"></label>
+                            <label for="rate-1" class="fas fa-star"></label><br>
+                            
+                        </div>
+                        <div>
+                            <input type="radio" class="radionBtn" name="rate" id="rate-5" value="5">
+                            <input type="radio" class="radionBtn" name="rate" id="rate-4" value="4">
+                            <input type="radio" class="radionBtn"  name="rate" id="rate-3" value="3">
+                            <input type="radio" class="radionBtn" name="rate" id="rate-2" value="2">
+                            <input type="radio" class="radionBtn"  name="rate" id="rate-1" value="1">
+                            </div>
+                        <input type="hidden" name="content_id" value="<?php echo $content->content_id; ?>">
+                        <input type="hidden" name="review_id" value="<?php echo $reviews->review_id; ?>">
+                        <input type="submit" class="confirm" value="Update">
+                    </form>
+                </div>
+            
+            </div>
 
-document.querySelectorAll('.helpful-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const reviewId = this.dataset.reviewId;
-        const isHelpful = this.dataset.action === 'helpful';
 
-        fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpful?reviewId=${reviewId}&isHelpful=${isHelpful}`)
-            .then(response => {
-                if (response.ok) {
-                   
-                    this.disabled = true; // Disable the button after clicking
-                    this.classList.add('clicked'); // Optionally, add a class to indicate the button was clicked
-                } else {
-                    console.error('Failed to update review helpfulness');
-                }
-            })
-            .catch(error => {
-                console.error('Error updating review helpfulness:', error);
+        <script>
+
+        function openModal(reviewId, contentId) {
+            document.getElementById('update-review-form').action = "<?php echo URLROOT; ?>/customer/updateReview/" + contentId + "/" + reviewId;
+            document.getElementById('update-review-modal').style.display = 'block';
+        }
+        document.querySelectorAll('.update-review-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const reviewId = this.dataset.reviewId;
+                const contentId = this.dataset.contentId;
+                openModal(reviewId, contentId); 
             });
-    });
-});
+        });
+
+        function closeModal() {
+            document.getElementById('update-review-modal').style.display = 'none';
+        }
+        function giveerr(){
+            sweetError();
+            // alert(" You cannot add reviews or ratings for your own content.");
+            document.querySelector('.submit-review').setAttribute('disabled', 'disabled');
+        }
+        document.querySelectorAll('.helpful-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const reviewId = this.dataset.reviewId;
+                const isHelpful = this.dataset.action === 'helpful';
+
+                fetch(`<?php echo URLROOT; ?>/customer/updateReviewHelpful?reviewId=${reviewId}&isHelpful=${isHelpful}`)
+                    .then(response => {
+                        if (response.ok) { 
+                            this.disabled = true; // 
+                            this.classList.add('clicked'); 
+                        } else {
+                            console.error('Failed to update review helpfulness');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating review helpfulness:', error);
+                    });
+            });
+        });
+        function sweetError() {
+      
+              Swal.fire({
+                  title: 'Error',
+                  text: 'You cannot add reviews or ratings for your own content.',
+                  icon: 'warning',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: "#70BFBA",
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Redirect to login page
+                      window.location.href = window.location.href;
+                  }
+              });
+  
+              // Return false to prevent form submission
+              return false;
+         
+          return true;
+      }
 
 // Sample data representing count and percentage for each rating
     const star_1=<?php echo $data['countStar_1']->total_1; ?>;
@@ -304,8 +388,6 @@ document.querySelectorAll('.helpful-button').forEach(button => {
             });
         });
     }
-
-    // Function to load the PDF
     function loadPdf() {
         const pdfUrl = document.getElementById('pdf-url').value;
         // const pdfUrl='<?php echo URLROOT; ?>/assets/images/landing/addContents/1708867735pdf.pdf';
@@ -317,8 +399,6 @@ document.querySelectorAll('.helpful-button').forEach(button => {
             console.error('Error loading PDF:', error); // Log any errors that occur during PDF loading
         });
     }
-
-    // Load PDF when the page is loaded
     document.addEventListener('DOMContentLoaded', function() {
         loadPdf();
     });
@@ -330,17 +410,15 @@ document.querySelectorAll('.helpful-button').forEach(button => {
             renderPage(currentPageNumber);
         }
     });
-
-    // Event listener for next page button
     nextPageButton.addEventListener('click', function() {
         if (pdf && currentPageNumber < pdf.numPages) {
             currentPageNumber++;
             renderPage(currentPageNumber);
         }
     });
+   
+
 </script>
-
-
 </body>
 </html>
 

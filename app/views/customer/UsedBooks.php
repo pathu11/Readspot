@@ -27,7 +27,16 @@
                     <?php else: ?>
                         <?php foreach ($data['bookDetails'] as $bookDetails): ?>
                             <div class="B-div">
-                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book"><br>'; ?>
+                                <?php if ($bookDetails->status == 'approval'): ?>
+                                    <div class="approval-tag">Approved</div>
+                                <?php elseif ($bookDetails->status == 'pending'): ?>
+                                    <div class="pending-tag">Pending</div>
+                                <?php elseif ($bookDetails->status == 'rejected'): ?>
+                                    <div class="reject-tag">Rejected</div>
+                                <?php else: ?>
+                                    <div class="noDetails-tag">No result</div>
+                                <?php endif; ?>
+                                <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book">'; ?>
                                 <a href="<?php echo URLROOT; ?>/customer/ViewBook/<?php echo $bookDetails->book_id; ?>"><button class="ub-dts-btn">View Details</button></a>
                             </div>
                         <?php endforeach; ?>

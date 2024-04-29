@@ -30,9 +30,9 @@
             <span>></span>
         </a>
         
-        <a href="<?php echo URLROOT; ?>/customer/AddCont" class="sub-menu-link"> <!--path changed-->
-            <img src="<?php echo URLROOT; ?>/assets/images/customer/plus.png"> <!--path changed-->
-            <p>Add contents</p>
+        <a href="<?php echo URLROOT; ?>/customer/Favorite" class="sub-menu-link"> <!--path changed-->
+            <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit_icon.png"> <!--path changed-->
+            <p>Favorites</p>
             <span>></span>
         </a>
         

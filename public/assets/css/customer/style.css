@@ -374,6 +374,11 @@ body{
   :is(.users, .users-list) .content .details{
     margin-left: 15px;
   }
+/* Chat Area CSS Start */
+.chat-area header .back-icon {
+  color: #333;
+  font-size: 18px;
+}
 
   .users-list a{
     padding-right: 10px;

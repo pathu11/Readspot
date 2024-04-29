@@ -18,27 +18,32 @@
         // Set the initial remaining time from PHP variable
         var initialRemainingTime = <?php echo $remainingTime; ?>;
         
-        // Function to update the remaining time
-        function updateRemainingTime() {
-            var remainingTimeElement = document.getElementById('remainingTime');
-            if (initialRemainingTime > 0) {
-                remainingTimeElement.innerText = formatTime(initialRemainingTime);
-                initialRemainingTime--;
-            } else {
-                remainingTimeElement.innerText = 'Expired';
-                // You can perform additional actions here when the time expires
-            }
+       // Function to update the remaining time
+    function updateRemainingTime() {
+        var remainingTimeElement = document.getElementById('remainingTime');
+        var remainingTime = sessionStorage.getItem('remainingTime'); 
+        if (remainingTime && remainingTime > 0) {
+            remainingTimeElement.innerText = formatTime(remainingTime);
+            remainingTime--; 
+            sessionStorage.setItem('remainingTime', remainingTime); 
+        } else {
+            remainingTimeElement.innerText = 'Expired';
+            
         }
+    }
 
-        // Function to format time in MM:SS format
-        function formatTime(seconds) {
-            var minutes = Math.floor(seconds / 60);
-            var remainingSeconds = seconds % 60;
-            return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+    function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+        return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        updateRemainingTime();
+        setInterval(updateRemainingTime, 1000); // 
+        if (!sessionStorage.getItem('remainingTime')) {
+            sessionStorage.setItem('remainingTime', 60); 
         }
-
-        // Call the updateRemainingTime function every second
-        setInterval(updateRemainingTime, 1000);
+    });
     </script>
 </head>
 <body>

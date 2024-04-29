@@ -176,11 +176,32 @@
     }
 
     public function getComplainSearchDetails($input){
-      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name,email,contact_number,other,descript,err_img,complaint_id,resolved_or_not FROM complaint WHERE resolved_or_not = :input ");
+      $this->db->query("SELECT CONCAT(first_name,' ',last_name) AS name, email, contact_number, other, descript, err_img, complaint_id, resolved_or_not 
+      FROM complaint 
+      WHERE resolved_or_not = :input 
+      AND (reason='Events' OR reason='Challenges' OR reason='Contents')");
       $this->db->bind(":input",$input);
       $results=$this->db->resultSet();
       return $results;
 
+    }
+
+    public function getbookReviewSearchDetails($input){
+      $this->db->query("SELECT r.book_id, b.book_name, r.review, r.review_id, c.first_name AS name, c.profile_img AS profile_img 
+      FROM reviews r 
+      JOIN customers c ON r.customer_id = c.customer_id
+      JOIN books b ON r.book_id = b.book_id WHERE r.review LIKE '{$input}%' OR c.name LIKE '{$input}%' ");
+      $results=$this->db->resultSet();
+      return $results;
+    }
+
+    public function getcontentReviewSearchDetails($input){
+      $this->db->query("SELECT r.content_id, b.topic, r.review, r.review_id, c.first_name AS name, c.profile_img AS profile_img 
+      FROM content_review r 
+      JOIN customers c ON r.customer_id = c.customer_id
+      JOIN content b ON r.content_id = b.content_id WHERE b.topic LIKE '{$input}%' OR r.review LIKE '{$input}%'");
+      $results=$this->db->resultSet();
+      return $results;
     }
 
     public function getTopContents(){
@@ -269,9 +290,9 @@
     }
 
     public function getChallengeScoreDetails(){
-      $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score
+      $this->db->query('SELECT u.name, s.user_id, SUM(s.score) AS total_score, u.challnege_point
       FROM history s
-      INNER JOIN users u ON s.user_id = u.user_id
+      INNER JOIN customers u ON s.user_id = u.user_id
       GROUP BY u.user_id
       ORDER BY total_score DESC');
 
@@ -295,6 +316,58 @@
       }else{
         return false;
       }
+    }
+
+    public function getReviews() {
+      $this->db->query('SELECT r.book_id, b.book_name, r.review, r.review_id, c.first_name AS name, c.profile_img AS profile_img 
+      FROM reviews r 
+      JOIN customers c ON r.customer_id = c.customer_id
+      JOIN books b ON r.book_id = b.book_id');
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function deleteBookReview($review_id){
+      $this->db->query('DELETE FROM reviews WHERE review_id = :review_id');
+      $this->db->bind(":review_id",$review_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function getContentReviews(){
+      $this->db->query('SELECT r.content_id, b.topic, r.review, r.review_id, c.first_name AS name, c.profile_img AS profile_img 
+      FROM content_review r 
+      JOIN customers c ON r.customer_id = c.customer_id
+      JOIN content b ON r.content_id = b.content_id');
+      $results = $this->db->resultSet();
+      return $results;
+    }
+
+    public function deleteContentReview($review_id){
+      $this->db->query('DELETE FROM content_review WHERE review_id = :review_id');
+      $this->db->bind(":review_id",$review_id);
+
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public function sendToSuperAdmin($complaint_id) {
+      $this->db->query('UPDATE complaint SET sent_to_superadmin = 1 WHERE complaint_id = :complaint_id');
+      $this->db->bind(":complaint_id",$complaint_id);
+    
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
+    
     }
 
   }

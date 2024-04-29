@@ -48,15 +48,48 @@
                     <?php foreach($data['bookDetails'] as $books): ?>
                         <a href="<?php echo URLROOT; ?>/customer/BookDetails/<?php echo $books->book_id; ?>">
                             <div class="B0-N">
+                                <?php if ($books->quantity == 0): ?>
+                                    <div class="out-of-stock-tag">Out of Stock</div>
+                                <?php else: ?>
+                                    <div class="in-of-stock-tag">In Stock</div>
+                                <?php endif; ?>
+                                <?php if ($books->discounts != 0.00): ?>
+                                    <div class="discount-badge"><?php echo $books->discounts; ?>%</div> 
+                                <?php endif; ?>
                                 <img src="<?php echo URLROOT; ?>/assets/images/publisher/addBooks/<?php echo $books->img1; ?>" alt="Book1" class="Book-N"> <!--path changed-->
                                 <h3><?php echo $books->book_name; ?></h3>
                                 <h3><?php echo $books->price; ?></h3>
                                 <div class="fav-cart">
                                     <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
-                                    <img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"> -->
-                                    <button class="book-button">
-                                        <i class="fa fa-heart" aria-hidden="true"></i>
-                                    </button>
+                                    <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $bookDetails->book_id; ?>"><img src="<?php echo URLROOT; ?>/assets/images/customer/mycart.png" alt="cart"></a> -->
+                                    <?php 
+                                        $num = 0; // Initialize the variable before the loop
+                                        if ($data['user_id']==0000){
+                                            $num = 0;
+                                        }else{
+                                            foreach ($data['favoriteDetails'] as $favorite): 
+                                                if ($books->book_id == $favorite->item_id): 
+                                                    $num = 1;
+                                                    $fav_id = $favorite->fav_id;
+                                                    break; // Assuming you want to stop the loop once a match is found
+                                                endif;
+                                            endforeach;
+                                        }
+                                    ?>
+
+                                    <?php if ($num == 1): ?>
+                                        <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                                            <button class="book-button-after-fav">
+                                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="<?php echo URLROOT; ?>/customer/addToFavoriteNewBooks/<?php echo $books->book_id; ?>">
+                                            <button class="book-button">
+                                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                    <?php endif; ?>
                                     <a href="<?php echo URLROOT; ?>/customer/addToCartByEachBook/<?php echo $books->book_id; ?>">
                                         <button class="book-button">
                                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>

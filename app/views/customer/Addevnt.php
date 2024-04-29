@@ -97,7 +97,7 @@
 
         <div id="myModal" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
+                <!-- <span class="close" onclick="closeModal()">&times;</span> -->
                 <h2>Record Added!</h2>
                 <p>Your record has been recorded. Wait for admin approval</p>
                 <button onclick="closeModal()">OK</button>
@@ -126,9 +126,9 @@
             ?>
 
             // Submit form function
-            function submitForm() {
-                document.getElementById("eventForm").submit();
-            }
+            // function submitForm() {
+            //     document.getElementById("eventForm").submit();
+            // }
         </script>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed

@@ -242,14 +242,14 @@ public function sendMessage($user_id_from_users_table,$user_id,$sender_name,$top
   
 
   public function getPendingPublishers() {
-      $this->db->query('SELECT * FROM publishers WHERE  status = "pending"');
+      $this->db->query('SELECT * FROM users WHERE  status = "pending"');
       $results=$this->db->resultSet();
 
       return $results;
   }
 
   public function getPendingCharity() {
-    $this->db->query('SELECT * FROM charity WHERE  status = "pending"');
+    $this->db->query('SELECT * FROM users WHERE  status = "pending"');
     $results=$this->db->resultSet();
 
     return $results;
@@ -504,9 +504,19 @@ public function approveOrder($order_id) {
   $this->db->bind(':order_id', $order_id);
   if ($this->db->execute()) {
     return true;
-} else {
-    return false;
+  } else {
+      return false;
+  }
 }
+
+public function rejectOrder($order_id) {
+  $this->db->query("UPDATE order_details SET status = 'cancel' WHERE order_id = :order_id");
+  $this->db->bind(':order_id', $order_id);
+  if ($this->db->execute()) {
+    return true;
+  } else {
+      return false;
+  }
 }
 
 public function addMessage($data) {
@@ -724,5 +734,28 @@ public function getBookCategoryCount(){
   return $results;
 }
 
-  
+public function sendToSuperAdmin($complaint_id) {
+  $this->db->query('UPDATE complaint SET sent_to_superadmin = 1 WHERE complaint_id = :complaint_id');
+  $this->db->bind(":complaint_id",$complaint_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+
+}
+
+public function rejectUser($user_id){
+  $this->db->query("UPDATE users SET status = 'reject' WHERE user_id = :user_id");
+  $this->db->bind(":user_id",$user_id);
+
+  if($this->db->execute()){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+
 }

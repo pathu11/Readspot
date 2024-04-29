@@ -62,7 +62,31 @@
                     </div>
                 </div>
                 <div class="view-fav">
-                    <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit">
+                    <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit"> -->
+                    <?php 
+                        $num = 0; // Initialize the variable before the loop
+                        foreach ($data['favoriteDetails'] as $favorite): 
+                            if ($content->content_id == $favorite->item_id): 
+                                $num = 1;
+                                $fav_id = $favorite->fav_id;
+                                break; // Assuming you want to stop the loop once a match is found
+                            endif;
+                        endforeach;
+                    ?>
+                    
+                    <?php if ($num == 1): ?>
+                        <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                            <button class="book-button-C-after-fav">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?php echo URLROOT; ?>/customer/addToFavoriteContent/<?php echo $content->content_id; ?>">
+                            <button class="book-button-C">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                        </a>
+                    <?php endif; ?>
                     <a href="<?php echo URLROOT; ?>/customer/viewcontent/<?php echo $content->content_id; ?>"><button class="vw-btn-C">View Details</button></a>
                 </div>
             </div>
@@ -73,7 +97,7 @@
 
             <?php if (empty($data['contentDetails'])): ?>
                 <div class="B-div-noBook">
-                    <p>No books added yet.</p>
+                    <p>No contents added yet.</p>
 
             <?php else: ?>
                 <?php foreach($data['contentDetails'] as $content): ?>
@@ -100,11 +124,29 @@
                             </div>
                         </div>
                         <div class="view-fav">
-                            <a href="<?php echo URLROOT; ?>/customer/addToFavoriteContent/<?php echo $content->content_id; ?>">
-                                <button class="book-button-C">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </button>
-                            </a>
+                            <?php 
+                                $num = 0; // Initialize the variable before the loop
+                                foreach ($data['favoriteDetails'] as $favorite): 
+                                    if ($content->content_id == $favorite->item_id): 
+                                        $num = 1;
+                                        $fav_id = $favorite->fav_id;
+                                        break; // Assuming you want to stop the loop once a match is found
+                                    endif;
+                                endforeach;
+                            ?>
+                            <?php if ($num == 1): ?>
+                                <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">
+                                    <button class="book-button-C-after-fav">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                            <?php else: ?>
+                                <a href="<?php echo URLROOT; ?>/customer/addToFavoriteContent/<?php echo $content->content_id; ?>">
+                                    <button class="book-button-C">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                            <?php endif; ?>
                             <a href="<?php echo URLROOT; ?>/customer/viewcontent/<?php echo $content->content_id; ?>"><button class="vw-btn-C">View Details</button></a>
                         </div>
                     </div>

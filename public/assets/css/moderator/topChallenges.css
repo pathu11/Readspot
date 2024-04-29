@@ -29,6 +29,19 @@
   margin-left: 100px;
 }
 
+.table-container button{
+  padding: 5px;
+  background-color: #009D94;
+  border-style: none;
+  color: white;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+.table-container button:hover{
+  transform: scale(1.1);
+}
+
 table {
   width: 100%;
   height: 100%;
@@ -104,7 +117,7 @@ tr:hover {
   border: 1px solid #2c2c2c;
   width: 50%;
   font-family: "Poppins";
-  font-size: 9px;
+  font-size: 12px;
   box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
   overflow: auto; /* Add overflow for content scrolling */
 }
@@ -116,6 +129,24 @@ tr:hover {
 .modal-content h2 {
   color: white;
   font-size: 14px;
+}
+
+.modal-content button{
+  padding: 5px;
+  background-color: #009D94;
+  border-style: none;
+  border-radius: 5px;
+  color: white;
+  margin: 10px;
+  transition: transform 0.3s;
+}
+
+.modal-content button:hover{
+  transform: scale(1.1);
+}
+
+.modal-content span{
+  font-size: medium;
 }
 
 #large-event-poster{

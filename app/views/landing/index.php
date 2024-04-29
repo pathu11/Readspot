@@ -55,8 +55,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">
                     <i class="material-icons" style="vertical-align: middle;">book</i> Customer Services
                 </button>
-
-
                 <div class="dropdown-content" id="dropdownContent">
                     <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/BuyUsedBooks">Buy Used Books</a>
@@ -68,7 +66,7 @@
                 </div>
             </div>
             <div class="message-container">
-                <div class="message">Login and Buy Books!</div>
+                <div class="message"><a style="text-decoration:none;color:white;" href="<?php echo URLROOT; ?>/landing/sendEmailCustomer">Login and Buy Books!</a></div>
             </div>
         </div>
     </section>
@@ -89,7 +87,7 @@
                     book to life. Our packages offer end-to-end solutions for every stage of your publishing journey.
                 </p>
 
-                <a href="<?php echo URLROOT; ?>/landing/signupCustomer" class="char-button">Login as Publisher</a>
+                <a href="<?php echo URLROOT; ?>/landing/signupPub" class="char-button">Login as Publisher</a>
             </div>
             <video id="videoPlayer" width="60%" height="auto" controls
                 style="border-radius: 15px; border: 3px solid rgb(88, 88, 88);">
@@ -106,6 +104,7 @@
         <h2>Delivery Information</h2>
 
 
+   
 
         <div class="info-box">
             <i class="material-icons icon">local_shipping</i>
@@ -133,19 +132,20 @@
                     <div class="bar delivered">
                         <i class="material-icons">done</i> Delivered
                         <div class="progress-circle delivered-circle">
-                            <span class="count">75%</span>
+                            <span class="count"><?php echo $data['percentageDel']; ?>%</span>
+
                         </div>
                     </div>
                     <div class="bar pending">
-                        <i class="material-icons">schedule</i> Pending
+                        <i class="material-icons">schedule</i> Shipping
                         <div class="progress-circle pending-circle">
-                            <span class="count">15%</span>
+                            <span class="count"><?php echo $data['percentageShip']; ?>%</span>
                         </div>
                     </div>
                     <div class="bar not-yet">
-                        <i class="material-icons">warning</i> Not Yet
+                        <i class="material-icons">warning</i>Proccessing
                         <div class="progress-circle not-yet-circle">
-                            <span class="count">10%</span>
+                            <span class="count"><?php echo  $data['percentagePro']; ?>%</span>
                         </div>
                     </div>
                 </div>
@@ -154,20 +154,39 @@
 
         <!-- Customer Reviews -->
         <div class="customer-reviews">
-
+        <?php foreach($data['latestDeliveryReviews'] as $reviews): ?>
             <div class="review-card">
                 <div class="reviewer-info">
-                    <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/thalapathi-vijay-photos-thalapathy-wallpaper-hd.jpg"
-                        alt="Customer 1">
+                    <?php if(isset($reviews->profile_img)): ?>
+                        <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>"alt="Customer 1">
+                    <?php else: ?>
+                        <img src="<?php echo URLROOT; ?>/assets/images/publisher/person.jpg"alt="Customer 1">
+                    <?php endif; ?>
                     <div>
-                        <h4>Thalapathy</h4>
-                        <span>★★★★★</span>
+                        <h4><?php echo $reviews->name; ?></h4>
+                        <span>
+                            <?php 
+                            if($reviews->rating==1){
+                                echo '★';
+                            }else if($reviews->rating==2){
+                                echo '★★';
+                            }else if($reviews->rating==3){
+                                echo '★★★';
+                            }else if($reviews->rating==4){
+                                echo '★★★★';
+                            }else if($reviews->rating==5){
+                                echo '★★★★★';
+                            }else{
+                                echo '';
+                            }
+                            ?>
+                           </span>
                     </div>
                 </div>
-                <p>"Fast delivery and great service! Highly recommend."</p>
+                <p><?php echo $reviews->review; ?></p>
             </div>
-
-            <div class="review-card">
+        <?php endforeach; ?>
+            <!-- <div class="review-card">
                 <div class="reviewer-info">
                     <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/thalapathi-vijay-photos-thalapathy-wallpaper-hd.jpg"
                         alt="Customer 2">
@@ -177,9 +196,9 @@
                     </div>
                 </div>
                 <p>"Delivery was a bit slow but the product quality is good."</p>
-            </div>
+            </div> -->
 
-            <div class="review-card">
+            <!-- <div class="review-card">
                 <div class="reviewer-info">
                     <img src="<?php echo URLROOT; ?>/assets/images/landing/homepage/thalapathi-vijay-photos-thalapathy-wallpaper-hd.jpg"
                         alt="Customer 3">
@@ -189,7 +208,7 @@
                     </div>
                 </div>
                 <p>"Love the secure payment options and quality of books."</p>
-            </div>
+            </div> -->
         </div>
     </section>
 

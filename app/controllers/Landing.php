@@ -38,10 +38,22 @@ class Landing extends Controller{
     }
     
     public function index(){ 
-        $title="Hi";
-        $data=[
-            'title'=>$title
+        $latestDeliveryReviews = $this->userModel->getLatestDeliveryReviews();
+        $orderProCount=$this->deliveryModel->countProOrders();
+        $orderDelCount=$this->deliveryModel->countDelOrders();
+        $orderShipCount=$this->deliveryModel->countShipOrders();
+        $allOrderCount=$this->deliveryModel->countAllOrders();
+        $percentageShip = ROUND(($orderShipCount / $allOrderCount) * 100);
+        $percentageDel = ROUND(($orderDelCount / $allOrderCount) * 100);
+        $percentagePro = ROUND(($orderProCount / $allOrderCount) * 100);
+        $data = [
+            'percentageShip' => $percentageShip,
+            'percentageDel' => $percentageDel, 
+            'percentagePro' => $percentagePro,
+            'latestDeliveryReviews' => $latestDeliveryReviews,
+            'allOrderCount' => $allOrderCount
         ];
+        
         $this->view('landing/index',$data);       
     }
     public function error(){
@@ -315,7 +327,7 @@ class Landing extends Controller{
                     $timestamp = $_SERVER["REQUEST_TIME"];
                     $_SESSION['time'] = $timestamp;
                     $_SESSION['otp'] = $otp;
-                    $_SESSION['user_email'] = $userEmail;
+                    $_SESSION['user_emailForSignUp'] = $userEmail;
         
                     try {
                         //Server settings
@@ -390,6 +402,7 @@ class Landing extends Controller{
                             'otp_err' => "OTP expired. Please try again.",
                             'remaining_time' => 0
                         ];
+                        $_SESSION['otp_err']=true;
                         $this->view('landing/verifyemail', $data);
                         exit; // Ensure no further processing after redirection
                     } else {
@@ -411,15 +424,30 @@ class Landing extends Controller{
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
-                                // if($this->userModel->verifyemailCustomer($userId) && $this->userModel->verifyemailUsers($userId) ){
-                                    echo '<script>';
-                                    echo 'setTimeout(function() { alert("OTP is correct!"); redirectToLogin(); }, 100);'; // Delayed alert
-                                    echo 'function redirectToLogin() {';
-                                    echo '    window.location.href = "' . URLROOT . '/landing/signupCustomer"; ';  
-                                    echo '}';
-                                    echo '</script>';
-                                    exit;
-                              
+                                // Load SweetAlert library
+                                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
+                                echo '<script>';
+                                echo 'setTimeout(function() { sweet(); }, 100);';
+                                echo 'function sweet() {';
+                                echo '    Swal.fire({';
+                                echo '        title: "Correct",';
+                                echo '        text: "Your OTP is correct!",';
+                                echo '        icon: "success",';
+        
+                                echo '        confirmButtonText: "Ok",';
+                                echo '        confirmButtonColor: "#70BFBA",';
+                                
+                                echo '    }).then((result) => {';
+                                echo '        if (result.isConfirmed) {';
+                                echo '            window.location.href = "'.URLROOT.'/landing/signupCustomer";';
+                                echo '        }';
+                                echo '    });';
+                                echo '    return false;'; // Return false to prevent form submission
+                                echo '}';
+                                echo '</script>';
+                        
+                                exit;
                             }
                         }
                     }
@@ -443,6 +471,7 @@ class Landing extends Controller{
 
     public function signupCustomer(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
+            
             $email=$_SESSION['penEmailOfCustomer'];
             // process form
             // sanitize post data
@@ -498,7 +527,9 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCustomer($data)){
-                   redirect('landing/login');
+                    $_SESSION['showModal']=true;
+                    redirect('landing/signupCustomer');
+                  
                 } else{
                         die('Something went wrong');
                     }  
@@ -558,6 +589,10 @@ class Landing extends Controller{
             }
             if(empty($data['reg_no'])){
                 $data['reg_no_err']='Please enter the registration  number';      
+            }else{
+                if($this->userModel->findUserByRegNo($data['reg_no'])){
+                    $data['reg_no_err']='This registration number is already registered '; 
+                }
             }
             //validate email
             if(empty($data['email'])){
@@ -601,11 +636,9 @@ class Landing extends Controller{
                 
                 // regsiter user
                 if ($this->userModel->signupPubPending($data)) {
-                    echo '<script>';
-                    echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
-                    echo 'window.location.href = "' . URLROOT . '/landing/index";';  // Construct the complete URL
-                    echo '</script>';
-                
+                    $_SESSION['showModal']=true;
+                    redirect('landing/signupPub');
+                    
                 }else{
                     die('Something went wrong');
                 }
@@ -673,6 +706,10 @@ class Landing extends Controller{
             }
             if(empty($data['reg_no'])){
                 $data['reg_no_err']='Please enter the registration  number';      
+            }else{
+                if($this->userModel->findUserByRegNoCharity($data['reg_no'])){
+                    $data['reg_no_err']='This registration number is already registered '; 
+                }
             }
             //validate email
             if(empty($data['email'])){
@@ -716,11 +753,12 @@ class Landing extends Controller{
 
                 //regsiter user
                 if($this->userModel->signupCharityPending($data)){
-                    
-                        echo '<script>';
-                        echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
-                        echo 'window.location.href = "' . URLROOT . '/landing/index";';  
-                        echo '</script>';
+                      $_SESSION['showModal']=true;
+                      redirect('landing/signupCharity');
+                        // echo '<script>';
+                        // echo 'alert("Wait for the administration approval!\nWe will notify through the email after approving your registration request. Thank You!");';
+                        // echo 'window.location.href = "' . URLROOT . '/landing/index";';  
+                        // echo '</script>';
                     }
                     
                 else{
@@ -758,71 +796,80 @@ class Landing extends Controller{
         }   
     }
   
-    
+    public function IsLoggedOut(){
+        $this->view('landing/IsLoggedOut');
+    }
     public function login(){
-      
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-            // process form
-            $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-            if(isset($_POST['rememberMe'])){
-                setcookie('email', $_POST['email'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-                setcookie('pass', $_POST['pass'], ( time() + ((365 * 24 * 60 * 60) *3) ));
-             }else{
-               
-                setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
-                setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
-             }
-            //init data
-            $data=[   
-                'email'=>trim($_POST['email']),
-                'pass'=>trim($_POST['pass']),
-                // 'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 
-                'email_err'=>'',
-                'pass_err'=>'',
-
-            ];
-             //validate email
-             if(empty($data['email'])){
-                $data['email_err']='Please enter email';      
-            }
-             //validate password
-            if(empty($data['pass'])){
-                $data['pass_err']='Please enter password';      
-            }
-
-            //check for user/email
-            if($this->userModel->findUserByEmail($data['email'])){
-                //user found
-            }else{
-                $data['email_err']='No user found';
-            }
-            
-            //make sure errors are empty
-            if (empty($data['email_err']) && empty($data['password_err'])) {
-                // Validate and set logged in user
-                $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
-
-                if ($loggedInUser) {
+        if(isset($_SESSION['user_id']) || isset($_SESSION['user_email']) || isset($_SESSION['user_pass'])){
+           
+            redirect('landing/IsLoggedOut');
+           
+            exit; // Prevent further execution
+        }else{
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                // process form
+                $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                if(isset($_POST['rememberMe'])){
+                    setcookie('email', $_POST['email'], ( time() + (30 * 24 * 60 * 60)));
+                    setcookie('pass', $_POST['pass'], ( time() + (30 * 24 * 60 * 60)));
+                 }else{
                    
-                    $this->createUserSession($loggedInUser);
+                    setcookie('email', $_POST['email'], ( time() - (24 * 60 * 60) ));
+                    setcookie('pass', $_POST['pass'], ( time() - (24 * 60 * 60) ));
+                 }
+                //init data
+                $data=[   
+                    'email'=>trim($_POST['email']),
+                    'pass'=>trim($_POST['pass']),
+                    // 'remember_me' => isset($_POST['rememberMe']) && $_POST['rememberMe'] === '1', 
+                    'email_err'=>'',
+                    'pass_err'=>'',
+    
+                ];
+                 //validate email
+                 if(empty($data['email'])){
+                    $data['email_err']='Please enter email';      
+                }
+                 //validate password
+                if(empty($data['pass'])){
+                    $data['pass_err']='Please enter password';      
+                }
+    
+                //check for user/email
+                if($this->userModel->findUserByEmail($data['email'])){
+                    //user found
+                }else{
+                    $data['email_err']='No user found';
+                }
+                
+                //make sure errors are empty
+                if (empty($data['email_err']) && empty($data['password_err'])) {
+                    // Validate and set logged in user
+                    $loggedInUser = $this->userModel->login($data['email'], $data['pass']);
+    
+                    if ($loggedInUser) {
+                       
+                        $this->createUserSession($loggedInUser);
+                    } else {
+                        $data['pass_err'] = 'Password incorrect';
+                        $this->view('landing/login', $data);
+                    }
                 } else {
-                    $data['pass_err'] = 'Password incorrect';
                     $this->view('landing/login', $data);
                 }
-            } else {
-                $this->view('landing/login', $data);
-            }
-        }else{
-            $data=[
-                'email'=>'',
-                'pass'=>'',
-                // 'remember_me'=>'',
-                'email_err'=>'',
-                'pass_err'=>'',
-            ];
-
-            $this->view('landing/login',$data);
-        }       
+            }else{
+                $data=[
+                    'email'=>'',
+                    'pass'=>'',
+                    // 'remember_me'=>'',
+                    'email_err'=>'',
+                    'pass_err'=>'',
+                ];
+    
+                $this->view('landing/login',$data);
+            }       
+        }
+       
     }
  
  
@@ -864,7 +911,7 @@ class Landing extends Controller{
 
                 $_SESSION['time'] = $timestamp;
                 $_SESSION['otp'] = $otp;
-                $_SESSION['user_email'] = $userEmail;
+                $_SESSION['user_emailForSignUp'] = $userEmail;
     
                 try {
                     //Server settings
@@ -915,7 +962,7 @@ class Landing extends Controller{
     
             if (isset($_SESSION['otp']) && isset($_SESSION['time'])) {
                 $oldOtp = $_SESSION['otp'];
-                $userEmail = $_SESSION['user_email'];
+                $userEmail = $_SESSION['user_emailForSignUp'];
     
                 $userDetails = $this->userModel->findUserByEmail($userEmail);
     
@@ -951,13 +998,30 @@ class Landing extends Controller{
                         if (empty($data['otp_err'])) {
                             // validate
                             if ($data['otp'] == $oldOtp) {
+                                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                             
                                 echo '<script>';
-                                echo 'setTimeout(function() { alert("OTP is correct!"); redirectToUpdatePass(); }, 100);'; 
-                                echo 'function redirectToUpdatePass() {';
-                                echo '    window.location.href = "' . URLROOT . '/landing/updatepass/' . $userId . '";';  
+                                echo 'setTimeout(function() { sweet(); }, 100);';
+                                echo 'function sweet() {';
+                                echo '    Swal.fire({';
+                                echo '        title: "Correct",';
+                                echo '        text: "Your OTP is correct!",';
+                                echo '        icon: "success",';
+        
+                                echo '        confirmButtonText: "Ok",';
+                                echo '        confirmButtonColor: "#70BFBA",';
+                                
+                                echo '    }).then((result) => {';
+                                echo '        if (result.isConfirmed) {';
+                                echo '           window.location.href = "' . URLROOT . '/landing/updatepass/' . $userId . '";';
+                                echo '        }';
+                                echo '    });';
+                                echo '    return false;'; // Return false to prevent form submission
                                 echo '}';
                                 echo '</script>';
+                        
                                 exit;
+                               
                             }
                         }
 
@@ -974,8 +1038,8 @@ class Landing extends Controller{
             }
         } else {
           
-            if (isset($_SESSION['user_email'])) {
-                $userEmail = $_SESSION['user_email'];
+            if (isset($_SESSION['user_emailForSignUp'])) {
+                $userEmail = $_SESSION['user_emailForSignUp'];
                 $userDetails = $this->userModel->findUserByEmail($userEmail);
     
                 if ($userDetails) {

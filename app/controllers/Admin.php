@@ -42,6 +42,7 @@ require APPROOT . '\vendor\autoload.php';
             $user_id = $_SESSION['user_id'];
             $adminDetails = $this->adminModel->findAdminById($user_id);
             $messageDetails = $this->adminModel->getMessageDetails($user_id);
+            $orderDetails = $this->adminModel->getPendingOrderDetails();
             $userRoleFilter = $_GET['user_role'];
         
             $getPendingUserDetailsFilteredByUserRole = $this->adminModel->getPendingUserDetailsFilteredByUserRole($userRoleFilter);
@@ -62,6 +63,7 @@ require APPROOT . '\vendor\autoload.php';
                 'countCharity'=>$countCharity,
                 'countDelivery'=>$countDelivery,
                 'messageDetails'=>$messageDetails,
+                'orderDetails'=>$orderDetails
   
             ];
             $this->view('admin/index', $data);
@@ -73,7 +75,7 @@ require APPROOT . '\vendor\autoload.php';
             $adminDetails = $this->adminModel->findAdminById($user_id);
             $messageDetails = $this->adminModel->getMessageDetails($user_id); 
             $getPendingUserDetails = $this->adminModel->getPendingUsers();
-
+            $orderDetails = $this->adminModel->getPendingOrderDetails();
             
             $countModerators = $this->adminModel->countModerators(); 
             $countDelivery = $this->adminModel->countDelivery(); 
@@ -91,6 +93,7 @@ require APPROOT . '\vendor\autoload.php';
                 'countCharity'=>$countCharity,
                 'countDelivery'=>$countDelivery,
                 'messageDetails' =>$messageDetails,
+                'orderDetails'=>$orderDetails
             ];
             $this->view('admin/index', $data);
         }
@@ -481,7 +484,8 @@ require APPROOT . '\vendor\autoload.php';
             $mail->send();
 
             // Redirect or perform other actions as needed
-            redirect('admin/pendingRequestsPub');
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/index');
         } catch (Exception $e) {
             die('Something went wrong: ' . $mail->ErrorInfo);
         }
@@ -519,7 +523,8 @@ public function approveCharity($user_id){
             $mail->send();
 
             // Redirect or perform other actions as needed
-            redirect('admin/pendingRequestsCharity');
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/index');
         } catch (Exception $e) {
             die('Something went wrong: ' . $mail->ErrorInfo);
         }
@@ -834,8 +839,6 @@ public function sendPayment() {
         //     // echo '<script>alert("Failed to send your payment. Please try again later.")</script>';
              echo json_encode(['success' => false]);
          }
-   
-   
 }
 
 public function approveOrder($order_id) {
@@ -848,7 +851,7 @@ public function approveOrder($order_id) {
     $customerEmail = $customerDetails[0]->email;
     $customer_name= $customerDetails[0]->name;
     $topic = "Approved the Order by administration";
-    $message ="Hi .$customer_name.,\nGreat news! Your payment receipt has been successfully verified, marking your order as approved. Now, sit back and relax as we prepare to deliver your order straight to your door!\nReaspot team";
+    $message ="Hi .$customer_name.,\nGreat news! Your payment receipt has been successfully verified, marking your order as approved. Now, sit back and relax as we prepare to deliver your order straight to your door!\nReadspot team";
     $messageToPublisher = "Congratulations! You have a new order. Login to the site and visit your order status by this tracking number " . $orderDetails[0]->tracking_no;
 
     $bookIds = $this->ordersModel->getOrderDetailsFromOrderDetailsById($order_id);
@@ -894,6 +897,62 @@ public function approveOrder($order_id) {
     } else {
         die('Something went wrong');
     }
+}
+
+public function rejectOrder(){
+    if (!isLoggedIn()) {
+        redirect('landing/login');
+    } else{
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $rejectReason = $_POST['rejectReason'];
+            $order_id = $_POST['order_id'];
+            $orderDetails = $this->adminModel->getOrderDetailsById($order_id);
+            $customer_id = $orderDetails[0]->customer_id;
+            $customerDetails = $this->adminModel->getCustomerDetailsById($customer_id);
+            $customerEmail = $customerDetails[0]->email;
+            $customer_name= $customerDetails[0]->name;
+
+            if ($this->adminModel->rejectOrder($order_id)) {   
+                // Send email using PHPMailer
+                $mail = new PHPMailer(true);
+        
+                try {
+                    //Server settings
+                    $mail->isSMTP();
+                    $mail->Host       = MAIL_HOST;  // Specify your SMTP server
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = MAIL_USER; // SMTP username
+                    $mail->Password   = MAIL_PASS;   // SMTP password
+                    $mail->SMTPSecure = MAIL_SECURITY;
+                    $mail->Port       = MAIL_PORT;
+        
+                    //Recipients
+                    $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+                    $mail->addAddress($customerEmail);  // Add a recipient
+        
+                    // Content
+                    $mail->isHTML(true);  // Set email format to HTML
+                    $mail->Subject = 'Your order has Been Rejected';
+                    $mail->Body    = "Dear ".$customer_name. ",<br><br>" .
+                    "Unfortunaltely your order " .$orderDetails[0]->tracking_no.", has been has been rejected for the following reason:<br><br>".
+                    $rejectReason.
+                    "Sincerely,<br>".
+                    "The Admin Team";
+        
+                    $mail->send();
+        
+                    // Redirect or perform other actions as needed
+                    redirect('admin/pending_payments');
+                } catch (Exception $e) {
+                    die('Something went wrong: ' . $mail->ErrorInfo);
+                }
+              }
+              else{
+                echo 'Something Went Wrong';
+              }
+        }
+    }
+ 
 }
 
 private function sendEmails($customerEmail, $ownerEmails, $data) {
@@ -1118,6 +1177,63 @@ public function respondComplain(){
   
         }
     }
+}
+
+public function sendToSuperAdmin($complaint_id) {
+    if (!isLoggedInAdmin()) {
+        redirect('landing/login');
+    }else{
+        $user_id = $_SESSION['user_id'];
+        $adminDetails = $this->adminModel->findAdminById($user_id);
+
+        if($this->adminModel->sendToSuperAdmin($complaint_id)){
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/complains');
+        }else{
+            echo 'Something went wrong';
+        }
+    }
+}
+
+public function rejectUser(){
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $user_id = $_POST['user_id'];
+        $user_role = $_POST['user_role'];
+        $rejectReason = $_POST['rejectReason'];
+        
+        $userEmail = $this->adminModel->getUserEmail($user_id);
+
+        if($this->adminModel->rejectUser($user_id)){
+        // Send email using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host       = MAIL_HOST;  
+            $mail->SMTPAuth   = true;
+            $mail->Username   = MAIL_USER;
+            $mail->Password   = MAIL_PASS; 
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->Port       = MAIL_PORT;
+            $mail->setFrom('readspot27@gmail.com', 'READSPOT');
+            $mail->addAddress($userEmail);  
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = 'Rejected the registration by administration';
+            $mail->Body    = 'Your registration has been rejected. Reject reason is '.$rejectReason;
+
+            $mail->send();
+
+            // Redirect or perform other actions as needed
+            $_SESSION['showModal'] = true; // Set session variable to true
+            redirect('admin/index');
+        } catch (Exception $e) {
+            die('Something went wrong: ' . $mail->ErrorInfo);
+        }
+        }else{
+            echo "something went wrong";
+        }
+    }
+
 }
 
 
