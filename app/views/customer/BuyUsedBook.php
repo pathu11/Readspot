@@ -43,8 +43,14 @@
                     </div>
                 <?php else: ?>
                     <?php foreach($data['bookDetails'] as $bookDetails): ?>
-                        <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>"><div class="B0-U">
-                        <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
+                        <a href="<?php echo URLROOT; ?>/customer/UsedBookDetails/<?php echo $bookDetails->book_id; ?>">
+                        <div class="B0-U"> 
+                            <?php if ($bookDetails->price_type == 'Fixed'): ?>
+                                <div class="in-of-stock-tag-U"><h5><?php echo $bookDetails->price_type; ?></h5></div>
+                            <?php else: ?>
+                                <div class="out-of-stock-tag-U"><h5><?php echo $bookDetails->price_type; ?></h5></div>
+                            <?php endif; ?>
+                            <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
                             <h3><?php echo $bookDetails->book_name; ?></h3>
                             <h3><?php echo $bookDetails->price; ?></h3>
                             <h5>(<?php echo $bookDetails->price_type; ?>)</h5>

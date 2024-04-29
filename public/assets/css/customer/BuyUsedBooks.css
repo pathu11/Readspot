@@ -99,6 +99,8 @@
     box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
     text-align: center;
     padding: 10px 0px 10px 0px;
+    min-height: 350px;
+    position: relative; /* Added relative positioning */
 }
 
 .B0-U:hover {
@@ -210,6 +212,27 @@
     width:15px;
 }
 
+.out-of-stock-tag-U {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color:#cc3232;; /* Choose your desired background color */
+    color: #ffffff; /* Choose your desired text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    font-size: 14px; /* Optional: Adjust font size */
+}
+
+.in-of-stock-tag-U {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #2dc937;; /* Choose your desired background color */
+    color: #ffffff; /* Choose your desired text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    font-size: 14px; /* Optional: Adjust font size */
+}
 
 @media screen and (max-width:800px) { 
     .sub-cont-U1 {

@@ -70,6 +70,13 @@
         return $this->db->resultSet();
     }
 
+    public function findCharityEventById($charity_event_id){
+      $this->db->query('SELECT * from charity_event WHERE charity_event_id=:charity_event_id');
+      $this->db->bind(':charity_event_id',$charity_event_id);
+     
+
+      return $this->db->resultSet();
+  }
   
     public function findUsedBookByCusId($customer_id){
       $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="used"');
@@ -1315,6 +1322,11 @@ public function getQuizDetails(){
 
   public function findAllEvents() {
     $this->db->query('SELECT * FROM events WHERE status="Approved"');
+    return $this->db->resultSet();
+  }
+
+  public function findCharityEvents() {
+    $this->db->query('SELECT * FROM charity_event');
     return $this->db->resultSet();
   }
 

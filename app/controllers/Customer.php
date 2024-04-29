@@ -825,7 +825,8 @@ class Customer extends Controller {
             $content_Details=$this->customerModel->findContent();
             $data = [
                 'contentDetails'=>$content_Details,
-                'topRatedContent'=>$topRatedContent
+                'topRatedContent'=>$topRatedContent,
+                'user_id' => 0000
             ];
             $this->view('customer/BookContents', $data);
         } else {
@@ -1624,41 +1625,55 @@ public function BuyNewBooks()
     
     public function DonateBooks(){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/DonateBooks');
+            $donateDetails = $this->customerModel->findCharityEvents();
+            $data = [
+                'donateDetails' => $donateDetails
+            ];
+            $this->view('customer/DonateBooks', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $donateDetails = $this->customerModel->findCharityEvents();
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'unreadNotification' => $unreadNotification
+                'unreadNotification' => $unreadNotification,
+                'donateDetails' => $donateDetails
             ];
             $this->view('customer/DonateBooks', $data);
         }
     } 
 
-    public function Donatedetails(){
+    public function Donatedetails($charity_id){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/Donatedetails');
+            $charityEvent = $this->customerModel->findCharityEventById($charity_id);
+            $data = [
+                'charityEvent' => $charityEvent,
+                'booksIWant' => $charityEvent[0]->book_category
+            ];
+            $this->view('customer/Donatedetails', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $charityEvent = $this->customerModel->findCharityEventById($charity_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'unreadNotification' => $unreadNotification
+                'unreadNotification' => $unreadNotification,
+                'charityEvent' => $charityEvent,
+                'booksIWant' => $charityEvent[0]->book_category
             ];
             $this->view('customer/Donatedetails', $data);
         }
     } 
 
-    public function Donateform(){
+    public function Donateform($charity_id = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
@@ -1709,7 +1724,7 @@ public function BuyNewBooks()
                 'description' => trim($_POST['description']),
                 'book_types' => $bookTypeString,
                 'quantity' => $totalQuantity, 
-                'charity_event_id' => 10,
+                'charity_event_id' => $charity_id,
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName,
@@ -1730,11 +1745,14 @@ public function BuyNewBooks()
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $charityEvent = $this->customerModel->findCharityEventById($charity_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'unreadNotification' => $unreadNotification
+                'unreadNotification' => $unreadNotification,
+                'charity_event_id' => $charity_id,
+                'booksIWant' => isset($charityEvent[0]->book_category) ? $charityEvent[0]->book_category : ''
             ];
             $this->view('customer/Donateform', $data);
         }
