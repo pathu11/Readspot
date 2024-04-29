@@ -123,12 +123,6 @@ class Charity extends Controller
         }
     }
 
-        // public function createEvent(){
-        //     $string = implode(", ", $_POST['bookCategory']);
-        //     $event_name = $_POST['eventName'];
-
-        // }
-
 
     // public function deleteEvent()
     // {
