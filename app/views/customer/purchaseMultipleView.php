@@ -41,7 +41,7 @@
 
                 <input type="text" name="postal_code" pattern="^\d{5}$" class="<?php echo (!empty($data['postal_code_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['postal_code']; ?>" placeholder="Postal Code" required><br>
 
-                <input type="text" name="contact_no" pattern="\+\d{11}" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number" required><br>
+                <input type="text" name="contact_no" pattern="\+\d{11}" class="<?php echo (!empty($data['contact_no_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['contact_no']; ?>" placeholder="Contact Number(+94112323234)" required><br>
 
                 <span class="error"><?php echo $data['contact_no_err']; ?></span>
 

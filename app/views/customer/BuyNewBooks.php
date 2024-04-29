@@ -39,8 +39,8 @@
        
         <div class="recommend">
             <div class="viewall">
-                <?php echo $data['user_id']; ?>
-                <?php if(isset($data['user_id']) || $data['user_id']!=0): ?>
+               
+                <?php  if($data['user_id']!=0000): ?>
 
                      <h2> Recommended For You </h2>
                  <?php else: ?>
