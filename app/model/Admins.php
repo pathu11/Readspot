@@ -242,14 +242,14 @@ public function sendMessage($user_id_from_users_table,$user_id,$sender_name,$top
   
 
   public function getPendingPublishers() {
-      $this->db->query('SELECT * FROM publishers WHERE  status = "pending"');
+      $this->db->query('SELECT * FROM users WHERE  status = "pending"');
       $results=$this->db->resultSet();
 
       return $results;
   }
 
   public function getPendingCharity() {
-    $this->db->query('SELECT * FROM charity WHERE  status = "pending"');
+    $this->db->query('SELECT * FROM users WHERE  status = "pending"');
     $results=$this->db->resultSet();
 
     return $results;

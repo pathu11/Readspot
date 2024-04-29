@@ -1199,16 +1199,31 @@ public function getOngoingChallenges($user_id){
   return $this->db->resultSet();
 }
 
-public function addQuizAttempt($quiz_id,$user_id){
-  $this->db->query('INSERT INTO history(quiz_id,user_id,score) VALUES (:quiz_id,:user_id,0)');
-  $this->db->bind(':quiz_id',$quiz_id);
-  $this->db->bind(':user_id',$user_id);
-  if ($this->db->execute()) {
-    return true;
-  } else {
-    return false;
-  }
+public function addQuizAttempt($quiz_id, $user_id){
+  // Check if the record already exists
+  $this->db->query('SELECT * FROM history WHERE quiz_id = :quiz_id AND user_id = :user_id');
+  $this->db->bind(':quiz_id', $quiz_id);
+  $this->db->bind(':user_id', $user_id);
+  $this->db->execute();
+
+    // If a record already exists, return false
+    if ($this->db->rowCount() > 0) {
+        return false;
+    }
+
+    // If the record doesn't exist, insert a new record
+    $this->db->query('INSERT INTO history(quiz_id, user_id, score) VALUES (:quiz_id, :user_id, 0)');
+    $this->db->bind(':quiz_id', $quiz_id);
+    $this->db->bind(':user_id', $user_id);
+
+    // Execute the query
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
 
 public function incrementScore($user_id) {
   $this->db->query('UPDATE history SET score = score + 2 WHERE user_id = :user_id');

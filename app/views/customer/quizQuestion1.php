@@ -25,7 +25,9 @@
 
       if(time<=0){
         localStorage.removeItem('remainingTime');
-        window.location.href = 'http://localhost/Readspot/customer/result/'.quiz_id;
+
+        window.location.href = 'http://localhost/Readspot/customer/result';
+       
       }
 
       // Continue countdown
