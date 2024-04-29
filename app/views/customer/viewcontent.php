@@ -168,7 +168,7 @@
                                 <div>
                                     <a class ="reviewBtn" href="<?php echo URLROOT; ?>/customer/deleteReview/<?php echo $content->content_id; ?>/<?php echo $reviews->review_id; ?>">Delete</a>
                                 
-                                    <a class ="reviewBtn" href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)">Update</a>
+                                    <!-- <a class ="reviewBtn" href="#" class="update-review-link" data-review-id="<?php echo $reviews->review_id; ?>" data-content-id="<?php echo $content->content_id; ?>" onclick="openModal(<?php echo $reviews->review_id; ?>, <?php echo $content->content_id; ?>)">Update</a> -->
                             </div>
 
                            
@@ -207,11 +207,8 @@
                         <input type="hidden" name="review_id" value="<?php echo $reviews->review_id; ?>">
                         <input type="submit" class="confirm" value="Update">
                     </form>
-                </div>
-            
+                </div>       
             </div>
-
-
         <script>
 
         function openModal(reviewId, contentId) {

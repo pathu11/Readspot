@@ -16,7 +16,7 @@
             </div>
             <hr>
             
-            <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+            <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
             <i class="bx bxs-log-out icon"></i>  <!--path changed-->
                 <p>Logout</p>
                 <span>></span>

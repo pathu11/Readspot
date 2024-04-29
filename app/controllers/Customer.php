@@ -932,6 +932,7 @@ public function updateReviewHelpfulBooks() {
             $data = [
                 'user_id'=>$user_id,
                 'customerDetails' => $customerDetails,
+                'customer_id' => $customerDetails[0]->customer_id,
                 'customerName' => $customerDetails[0]->first_name,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'bookDetails'=>$bookDetails,
@@ -3129,6 +3130,16 @@ public function BuyNewBooks()
             echo 'alert("Successfully deleted  your review");';
             echo '</script>';
             header("Location: " . URLROOT . "/customer/viewcontent/".$content_id);
+            // header("Location: " . URLROOT . "/customer/viewcontent/4" . $data['content_id']);
+            exit();
+        }
+    }
+    public function deleteReviewBook($content_id,$review_id){
+        if($this->customerModel->deleteReviewBook($review_id)){
+            echo '<script>';
+            echo 'alert("Successfully deleted  your review");';
+            echo '</script>';
+            header("Location: " . URLROOT . "/customer/bookDetails/".$content_id);
             // header("Location: " . URLROOT . "/customer/viewcontent/4" . $data['content_id']);
             exit();
         }

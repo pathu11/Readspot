@@ -17,7 +17,7 @@
           </div>
           <hr>
           
-          <a href="<?php echo URLROOT; ?>/landing/logout" class="sub-menu-link"> <!--path changed-->
+          <a href="<?php echo URLROOT; ?>/landing/IsLoggedOut" class="sub-menu-link"> <!--path changed-->
           <i class="bx bxs-log-out icon"></i>  <!--path changed-->
               <p>Logout</p>
               <span>></span>
@@ -79,7 +79,7 @@
             <br><br>
           <div class="bottom-cotent">
             <li class="list">
-              <a href="<?php echo URLROOT;?>/landing/logout" class="nav-link">
+              <a href="<?php echo URLROOT;?>/landing/IsLoggedOut" class="nav-link">
                 <i class="bx bxs-log-out icon"></i>
                 <span class="link">Logout</span>
               </a>
