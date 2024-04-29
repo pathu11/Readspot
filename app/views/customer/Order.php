@@ -366,6 +366,8 @@
         var orderDetailsArray = <?php echo json_encode($data['orderDetailsArray']); ?>;
         var orderDetails = orderDetailsArray[order.order_id];
         var detailsHTML = '';
+        var totalPrice = 0; // Initialize total price variable
+        var deliveryFee = 0;
 
         // Loop through the order details and generate HTML for each book
         orderDetails.forEach(function(book) {
@@ -378,6 +380,9 @@
                 imageSource = '<?php echo URLROOT; ?>/assets/images/customer/book.jpg'
             }
 
+            // Calculate the subtotal for each book (price * quantity)
+            var subtotal = book.price * book.quantity;
+            totalPrice += subtotal; // Add subtotal to total price
             detailsHTML += `
                 <tr>
                     <td><img src="${imageSource}" alt="Book" class="ordertablediv-img"></td>
@@ -385,7 +390,12 @@
                     <td>${book.price} x ${book.quantity}</td>
                 </tr>
             `;
+
+            deliveryFee = parseFloat(book.total_delivery);
         });
+
+        // Add delivery fee to the total price
+        totalPrice += deliveryFee;
 
         // Determine the background color for each progress bar based on the delivery status
         // var progressBarProcessingClass = order.status === "processing" ? "progress-bar-processing" : "";
@@ -405,11 +415,11 @@
                 
                 <div class="delivery-fee">
                     <h4>Delivery-fee</h4>
-                    <h4>${order.total_delivery}</h4>
+                    <h4>${deliveryFee}</h4>
                 </div>
                 <div class="delivery-fee">
                     <h4>Total</h4>
-                    <h4>${order.total_price}</h4>
+                    <h4>${totalPrice}</h4>
                 </div>
                 <div class="delivery-status">
                     <div class="progress">

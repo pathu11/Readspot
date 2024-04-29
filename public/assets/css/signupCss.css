@@ -209,22 +209,27 @@ h4:after {
     position: relative;
 }
 
-.button-container button {
-    position: absolute;
-    left: 35%;
-    margin-top: 35%;
-    border-radius: 15px;
-    padding: 10px 20px;
-    background-color: #2e2e2e;
+
+
+.btn-con-log {
+    width: 100%;
+    margin: 50px 0;
+    padding: 15px;
     border: none;
-    color: #ffffff;
+    background-color: black;
+    color: #fff;
     font-size: 16px;
-    text-transform: uppercase;
-    /* transition: 0.5s all ease-in-out; */
+    cursor: pointer;
+    transition: 0.2s all linear;
+    border-radius: 15px;
 }
 
-.button-container button:hover{
-    background-color: #1b1b1b;
+.btn-con-log:hover{
+    width: 110%;
+    background-color: white;
+    color: #1a1a1a;
+    font-size: 16px;
+    border: 1px solid black;
 }
 
 

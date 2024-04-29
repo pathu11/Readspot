@@ -8,6 +8,7 @@
     <title>Is Logout</title>
     <!-- <link rel="stylesheet" href="./assets/css/LoginPageCSS.css"> -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/logout.css" />
+    <link rel="icon" type="image/jpg" href="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
 </head>
 <body>
     <div class="container">

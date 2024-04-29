@@ -65,7 +65,7 @@
                         </div>
                         <div class="Number">
                             <label class="label-Number">Contact Number</label><br>
-                            <input type="text" name="ContactNo" class="form-Number" value="<?php echo $data['ContactNumber']; ?>">
+                            <input type="text" name="ContactNo" class="form-Number" value="<?php echo $data['ContactNumber']; ?>" placeholder="Eg: +94712345689" pattern="\+\d{11}">
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,8 @@
                         </div>
                         <div class="p-code">
                             <label class="label-p-code">Postal Code</label><br>
-                            <input type="text" name="PostalCode" class="form-p-code" value="<?php echo $data['PostalCode']; ?>">
+                            <input type="text" id="postalCode" name="PostalCode" class="form-p-code" value="<?php echo $data['PostalCode']; ?>">
+                            <span class="error" id="postalCodeError" style="color: red;"></span>
                         </div>
                     </div>
                 </div>
@@ -159,7 +160,7 @@
                         </div>
                         <div class="acc-Number">
                             <label class="label-acc-Number">Account Number</label><br>
-                            <input type="text" name="AccNo" class="form-Account-Number" value="<?php echo $data['AccNumber']; ?>">
+                            <input type="number" name="AccNo" class="form-Account-Number" value="<?php echo $data['AccNumber']; ?>">
                         </div>
                         <div class="bank">
                             <label class="label-Bank-Name">Bank Name</label><br>
@@ -221,4 +222,20 @@ function cancelImage() {
     divCngImg.style.display = 'none';
 }
 
+</script>
+
+<script>
+    document.getElementById('postalCode').addEventListener('input', function(event) {
+        var postalCode = event.target.value;
+        var postalCodeError = document.getElementById('postalCodeError');
+
+        // Check if postal code is exactly 5 digits long
+        if (postalCode.length !== 5 || isNaN(postalCode)) {
+            postalCodeError.textContent = 'Postal code must be a 5-digit number.';
+            event.target.setCustomValidity('Invalid postal code');
+        } else {
+            postalCodeError.textContent = '';
+            event.target.setCustomValidity('');
+        }
+    });
 </script>
