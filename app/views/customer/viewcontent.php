@@ -6,13 +6,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .radionBtn{
         display:none;
     }
-    /* Add this CSS to change star color on hover in the update review form */
-   
-
 </style>
 </head>
 <?php foreach($data['contentDetails'] as $content): ?>
@@ -132,7 +130,6 @@
             <div class="cus-rev">
             <?php foreach($data['reviewDetails'] as $reviews): ?>
                 <div class="reviews">
-                    
                     <div class="cus-name-img">
                         <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">
                         <h3><?php echo $reviews->name; ?></h3>
@@ -233,7 +230,8 @@
             document.getElementById('update-review-modal').style.display = 'none';
         }
         function giveerr(){
-            alert(" You cannot add reviews or ratings for your own content.");
+            sweetError();
+            // alert(" You cannot add reviews or ratings for your own content.");
             document.querySelector('.submit-review').setAttribute('disabled', 'disabled');
         }
         document.querySelectorAll('.helpful-button').forEach(button => {
@@ -255,6 +253,26 @@
                     });
             });
         });
+        function sweetError() {
+      
+              Swal.fire({
+                  title: 'Error',
+                  text: 'You cannot add reviews or ratings for your own content.',
+                  icon: 'warning',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: "#70BFBA",
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Redirect to login page
+                      window.location.href = window.location.href;
+                  }
+              });
+  
+              // Return false to prevent form submission
+              return false;
+         
+          return true;
+      }
 
 // Sample data representing count and percentage for each rating
     const star_1=<?php echo $data['countStar_1']->total_1; ?>;
