@@ -1,7 +1,7 @@
 <?php
 class CharityEvents
 {
-    private $db;
+    private $db; 
 
     public function __construct()
     {
@@ -42,7 +42,7 @@ class CharityEvents
 
     public function deleteEvent($charity_event_id)
     {
-        $this->db->query('DELETE FROM charity_event WHERE charity_event_id = :charity_event_id');
+        $this->db->query('UPDATE charity_event SET status = 3 WHERE charity_event_id = :charity_event_id');
         $this->db->bind(':charity_event_id', $charity_event_id);
         return $this->db->execute();
     }
