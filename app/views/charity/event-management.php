@@ -146,17 +146,6 @@
                         <tr>
                             <td><?php echo $event->charity_event_id ?></td>
                             <td><?php echo $event->event_name ?></td>
-<<<<<<< Updated upstream
-                            <?php if($event->status == 0){ ?>
-                                    <td style="color:orange; font-weight: 600">Pending</td>
-                                <?php } else if($event->status == 1) { ?>
-                                    <td style="color:green; font-weight: 600">Approved</td>
-                                <?php } else if($event->status == 3) { ?>
-                                    <td style="color:red; font-weight: 600">Cancelled</td>
-                                <?php } else { ?>
-                                    <td style="color:red; font-weight: 600">Rejeted</td>
-                                <?php } ?>
-=======
                             <?php if ($event->status == 0) { ?>
                                 <td style="color:orange; font-weight: 600">Pending</td>
                             <?php } else if ($event->status == 1) { ?>
@@ -164,7 +153,6 @@
                             <?php } else { ?>
                                 <td style="color:red; font-weight: 600">Rejeted</td>
                             <?php } ?>
->>>>>>> Stashed changes
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
@@ -175,28 +163,6 @@
                                     </button>
                                 </form>
 
-<<<<<<< Updated upstream
-                                <?php if ($event->status == 0) { ?>                                    
-                                        <button type="button" class="em-delete-button" onclick="openModal()">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                               
-                                <!-- <div id="em-dleteModal">
-                                    <div class="em-modal-sontent em-red-box">
-                                        <form action=""><i class="fass"></i></form>
-                                    </div>
-                                </div> -->
-                                <div id="em-deleteModal" class="em-modal">
-                                    <div class="em-modal-content em-red-box">
-                                    <form action="<?php echo URLROOT; ?>/charity/deleteEvent" method="POST" style="display: inline;">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id; ?>">
-                                        <p>Are you sure you want to delete this item?</p>
-                                        <button type="submit" id="em-okButton">yes</button>
-                                    </form>
-                                        <button id="em-noButton" onclick="closeModal()">No</button>
-                                    
-=======
                                 <?php if ($event->status == 0) { ?>
                                     <button type="button" class="em-delete-button" onclick="openModal()">
                                         <i class="fas fa-trash"></i>
@@ -214,7 +180,6 @@
                                             <button id="em-noButton" onclick="closeModal()">No</button>
 
                                         </div>
->>>>>>> Stashed changes
                                     </div>
                                 <?php } ?>
                                 
