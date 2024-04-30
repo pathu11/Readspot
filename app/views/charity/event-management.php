@@ -155,7 +155,7 @@
                             <?php } ?>
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
-                            
+
                             <td class="action-buttons">
                                 <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
                                     <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
@@ -175,7 +175,7 @@
                                             <form action="<?php echo URLROOT; ?>/charity/deleteEvent" method="POST" style="display: inline;">
                                                 <i class="fas fa-exclamation-triangle"></i>
                                                 <input type="text" name="eventId" value="<?php echo $event->charity_event_id; ?>">
-                                                <p>Are you sure you want to delete this item?</p>
+                                                <p>Are you sure you want to delete this item? </p>
                                                 <button type="submit" id="em-okButton">yes</button>
                                             </form>
                                             <button id="em-noButton" onclick="closeModal()">No</button>
