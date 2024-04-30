@@ -53,7 +53,7 @@
                             <?php echo '<img src="' . URLROOT . '/assets/images/customer/AddUsedBook/' .  $bookDetails->img1 . '" class="Book-U"><br>';?>
                             <h3><?php echo $bookDetails->book_name; ?></h3>
                             <h3><?php echo $bookDetails->price; ?></h3>
-                            <h5>(<?php echo $bookDetails->price_type; ?>)</h5>
+                            <!-- <h5>(<?php echo $bookDetails->price_type; ?>)</h5> -->
                             <div class="fav-cart-msg">
                                 <?php 
                                     if ($data['user_id']==0000){
