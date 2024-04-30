@@ -107,9 +107,12 @@
     text-align: center;
 }
 .writer-details img{
-    margin-left:30px;
+    /* margin-left:30px;
     border-radius: 50%;
-    width:90%;
+    width:90%; */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }
 
 .next-prev-button-div {

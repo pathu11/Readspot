@@ -116,9 +116,14 @@
                 </a>
             <?php endif; ?>
             <button class="quantity-button" onclick="decrement()">-</button>
-            <span id="quantity">1</span>
+            <span id="quantity">0</span>
             <button class="quantity-button" onclick="increment(<?php echo $books->quantity; ?>)">+</button>
-            <button class="add-to-cart" onclick="addToCart(<?php echo $books->book_id; ?>)">Add to Cart</button>
+            <?php if(($books->quantity>0)): ?>
+                <button class="add-to-cart" onclick="addToCart(<?php echo $books->book_id; ?>)">Add to Cart</button>
+            <?php else: ?>
+                <button class="add-to-cart" onclick="error()" >Add to Cart</button>
+            <?php endif; ?>
+
         </div>
         
         <div class="comment-newbooks">
@@ -191,7 +196,7 @@
                     <div class="cus-name-img">
                         <?php
                             if ($reviews->profile_img) {
-                                echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/<?php echo $reviews->profile_img; ?>">';
+                                echo '<img src="' . URLROOT . '/assets/images/customer/ProfileImages/'.$reviews->profile_img.'">';
                             } else {
                                 echo '<img src="' . URLROOT . '/assets/images/customer/profile.png" alt="Profile Image" class="profile-image">';
                             }
@@ -244,7 +249,11 @@
         </div>
 
         <div class="sub8">
-            <a href="#" onclick="addToCart2(<?php echo $books->book_id; ?>)"><button class="chat-btn">Purchase</button></a>
+            <?php if($books->quantity>0): ?>
+                <a href="#" onclick="addToCart2(<?php echo $books->book_id; ?>)"><button class="chat-btn">Purchase</button></a>
+            <?php else: ?>
+                <a href="#" onclick="error()"><button class="chat-btn">Purchase</button></a>
+            <?php endif ; ?>
         </div>
         <?php endforeach; ?>
     </div>
@@ -373,7 +382,7 @@
     </script>
     <script>
         
-        let quantity = 1;
+        let quantity = 0;
 
         function increment(maxQuantity) {
             if (quantity < maxQuantity) {
@@ -529,7 +538,28 @@ function addToCart2(bookId) {
         }
     });
 
+    function error() {
+      
+      Swal.fire({
+          title: 'Error',
+          text: 'This book is out of stock',
+          icon: 'warning',
+        
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#70BFBA",
+        
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Redirect to login page
+              window.location.href = window.location.href;
+          }
+      });
 
+      // Return false to prevent form submission
+      return false;
+ 
+  return true;
+}
 
 
     </script>

@@ -8,12 +8,17 @@
     <title>Sign Up Form</title>
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="icon" type="image/jpg" href="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
+
 </head>
 <body>
     <div class="container">
         <form class="login" action="<?php echo URLROOT; ?>/landing/signupPub" method="post">
             <div id="formPart1">
+
                 <h1>Sign Up As A Publisher</h1>
+
                 <span class="invalid-feedback"><?php echo $data['name_err']; ?></span>
                 <input type="text" name="name" placeholder="Full Name" class="<?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" required>
 
@@ -46,11 +51,14 @@
         </form>
 
         <div class="register">
+            <div class="back-btn-div-login">
+                <button class="back-btn-login" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
             <h3>WELCOME TO</h3>
             <h2>Read Spot</h2>
             <p>Here we introduce a web-based platform for buying, selling, exchanging, and donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>/landing/login"><button>login</button></a>
+            <a href="<?php echo URLROOT; ?>/landing/login"><button class="register-button">login</button></a>
         </div>
     </div>
     <div id="myModal" class="modal">

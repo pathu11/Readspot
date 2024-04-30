@@ -161,6 +161,33 @@ h4:before, h4:after {
     border-radius:  0 10px 10px  0;
     text-align: center;
     padding: 100px 0;
+    position: relative;
+}
+
+.back-btn-div-login {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.back-btn-login {
+    background-color: transparent;
+    border: 3px solid #03FFF0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #03FFF0;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition:0.5s all  ease-in-out;
+    outline: none;
+}
+
+.back-btn-login:hover{
+    color: black;
+    background-color: #fff;
+    cursor: pointer;
+    border: none;
+    transform: scale(1.05);
 }
 
 .register img {
@@ -184,7 +211,7 @@ h4:before, h4:after {
     margin: 10px 30px 70px 30px;
 }
 
-.register button{
+.register-button{
     background-color: transparent;
     border: 3px solid #03FFF0;
     border-radius: 20px;
@@ -196,7 +223,7 @@ h4:before, h4:after {
     outline: none;
 }
 
-.register button:hover{
+.register-button:hover{
     color: black;
     background-color: #fff;
     cursor: pointer;

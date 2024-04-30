@@ -86,10 +86,12 @@ class Customer extends Controller {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/index', $data);
         }
@@ -100,10 +102,12 @@ class Customer extends Controller {
         } else {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/AboutUs', $data);
         }
@@ -121,6 +125,7 @@ class Customer extends Controller {
                     $user_id = $_SESSION['user_id'];
                     
                     $customerDetails = $this->customerModel->findCustomerById($user_id);
+                    $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                     // $bookCategoryDetails = $this->adminModel->getBookCategories();
                     if ($customerDetails) {
                         $customerName = $customerDetails[0]->first_name;
@@ -137,7 +142,8 @@ class Customer extends Controller {
                     'user_id' => $user_id,// Replace this with the actual customer ID
                     'customer_id'=>$customerDetails[0]->customer_id,
                     'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerName
+                    'customerName' => $customerName,
+                    'unreadNotification' => $unreadNotification
                 ];
     
                
@@ -186,8 +192,9 @@ class Customer extends Controller {
                     }
                 }
                 if($this->customerModel->AddCont($data)){
-                    echo '<script>alert("Your content is successfully added!,Waiting for moderator\'s approval");</script>';
+                    // echo '<script>alert("Your content is successfully added!,Waiting for moderator\'s approval");</script>';
                     // flash('add_success','You are added the book  successfully');
+                    $_SESSION['showModal'] = true;
                     redirect('customer/AddCont');
                 }else{
                     die('Something went wrong');
@@ -197,10 +204,12 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
                
                 $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $data = [
                     'customerDetails' => $customerDetails,
                     'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerDetails[0]->first_name
+                    'customerName' => $customerDetails[0]->first_name,
+                    'unreadNotification' => $unreadNotification
                 ];
                 $this->view('customer/AddCont', $data);
             }
@@ -219,6 +228,7 @@ class Customer extends Controller {
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->first_name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -244,7 +254,8 @@ class Customer extends Controller {
                 'user_id' => trim($user_id),// Replace this with the actual customer ID
                 'status' => trim('pending'),
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName
+                'customerName' => $customerName,
+                'unreadNotification' => $unreadNotification
             ];
 
             if (isset($_FILES['imgMain']['name']) AND !empty($_FILES['imgMain']['name'])) {
@@ -396,12 +407,14 @@ class Customer extends Controller {
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $eventCategoryDetails = $this->adminModel->getEventCategories();
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
 
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'eventCategoryDetails'=>$eventCategoryDetails
+                'eventCategoryDetails'=>$eventCategoryDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Addevnt', $data);
         }
@@ -419,6 +432,7 @@ class Customer extends Controller {
                 $user_id = $_SESSION['user_id'];
                 
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
@@ -454,7 +468,8 @@ class Customer extends Controller {
                 'weights_err'=>'',
                 'ISBN_err'=>'',
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName
+                'customerName' => $customerName,
+                'unreadNotification' => $unreadNotification
             ];
 
             if(empty($data['published_year'])){
@@ -537,7 +552,9 @@ class Customer extends Controller {
                 
                 if($this->customerModel->AddExchangeBook($data)){
                     // flash('add_success','You are added the book  successfully');
-                    redirect('customer/ExchangeBooks');
+                    // redirect('customer/ExchangeBooks');
+                    $_SESSION['showModal'] = true;
+                    redirect('customer/AddExchangeBook');
                 }else{
                     die('Something went wrong');
                 }
@@ -551,6 +568,7 @@ class Customer extends Controller {
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
             $bookCategoryDetails = $this->adminModel->getBookCategories();
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
 
             if ($customerDetails) {
                 $town = $customerDetails[0]->town; 
@@ -570,7 +588,8 @@ class Customer extends Controller {
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'bookCategoryDetails'=>$bookCategoryDetails
+                'bookCategoryDetails'=>$bookCategoryDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/AddExchangeBook', $data);
         }
@@ -592,6 +611,7 @@ class Customer extends Controller {
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();  
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->first_name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -632,7 +652,8 @@ class Customer extends Controller {
                 'weights_err'=>'',
                 'ISBN_err'=>'',
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName
+                'customerName' => $customerName,
+                'unreadNotification' => $unreadNotification
             ];
 
            
@@ -739,7 +760,8 @@ class Customer extends Controller {
                 
                 if($this->customerModel->AddUsedBook($data)){
                     // flash('add_success','You are added the book  successfully');
-                    redirect('customer/UsedBooks');
+                    $_SESSION['showModal'] = true;
+                    redirect('customer/AddUsedBook');
                 }else{
                     die('Something went wrong');
                 }
@@ -755,6 +777,7 @@ class Customer extends Controller {
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 
                 if ($customerDetails) {
                     $accName = $customerDetails[0]->account_name;
@@ -782,7 +805,8 @@ class Customer extends Controller {
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName,
-                'bookCategoryDetails'=>$bookCategoryDetails
+                'bookCategoryDetails'=>$bookCategoryDetails,
+                'unreadNotification' => $unreadNotification
             ];
 
             $this->view('customer/AddUsedBook',$data);
@@ -801,7 +825,8 @@ class Customer extends Controller {
             $content_Details=$this->customerModel->findContent();
             $data = [
                 'contentDetails'=>$content_Details,
-                'topRatedContent'=>$topRatedContent
+                'topRatedContent'=>$topRatedContent,
+                'user_id' => 0000
             ];
             $this->view('customer/BookContents', $data);
         } else {
@@ -817,6 +842,7 @@ class Customer extends Controller {
              $topRatedContent = $this->customerModel->getTopRatedContentOfWeek($startOfWeek, $endOfWeek);
              $customer_id = $customerDetails[0]->customer_id;
              $favoriteDetails = $this->customerModel->findContentFavoriteByCustomerId($customer_id);
+             $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             //  print_r($topRatedContent);
 
 //             $customerid = $customerDetails[0]->customer_id;
@@ -828,7 +854,8 @@ class Customer extends Controller {
                 'customerName' => $customerDetails[0]->first_name,
                 'contentDetails'=>$content_Details,
                 'topRatedContent'=>$topRatedContent,
-                'favoriteDetails' => $favoriteDetails
+                'favoriteDetails' => $favoriteDetails,
+                'unreadNotification' => $unreadNotification
             ];
             // print_r($data['topRatedContent']);
             $this->view('customer/BookContents', $data);
@@ -928,6 +955,8 @@ public function updateReviewHelpfulBooks() {
             $countStar_5 = $this->customerModel->countStar_5($book_id);
             $customer_id = $customerDetails[0]->customer_id;
             $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            
 
             $data = [
                 'user_id'=>$user_id,
@@ -944,6 +973,7 @@ public function updateReviewHelpfulBooks() {
                 'countStar_5'=>$countStar_5,
                 'averageRatingCount'=>$averageRatingCount,
                 'favoriteDetails' => $favoriteDetails,
+                'unreadNotification' => $unreadNotification
             ];
             // print_r($data['countStar_1']);
             $this->view('customer/BookDetails', $data);
@@ -1085,6 +1115,7 @@ public function updateReviewHelpfulBooks() {
                 $user_id = $_SESSION['user_id'];
            
                 $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
@@ -1101,7 +1132,8 @@ public function updateReviewHelpfulBooks() {
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'eventDetails' => $eventDetails
+                'eventDetails' => $eventDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/BookEvents', $data);
         }
@@ -1117,6 +1149,7 @@ public function updateReviewHelpfulBooks() {
                 $user_id = $_SESSION['user_id'];
             
                 $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
@@ -1134,7 +1167,8 @@ public function updateReviewHelpfulBooks() {
                 'customerDetails' => $customerDetails,
                 'bookDetails1' => $bookDetails1,
                 'bookDetails2' => $bookDetails2,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Bookshelf', $data);
         }
@@ -1163,6 +1197,7 @@ public function BuyNewBooks()
         $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
         $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
         $bookCategoryDetails = $this->adminModel->getBookCategories();
+        $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
 
         $data = [
             'customerDetails' => $customerDetails,
@@ -1172,7 +1207,8 @@ public function BuyNewBooks()
             'bookDetails' => $NewbookDetailsByTime,
             'recommendedBooks' => $recommendedBooks,
             'favoriteDetails' => $favoriteDetails,
-            'bookCategoryDetails'=>$bookCategoryDetails
+            'bookCategoryDetails'=>$bookCategoryDetails,
+            'unreadNotification' => $unreadNotification
         ];
 
         $this->view('customer/BuyNewBooks', $data);
@@ -1193,6 +1229,7 @@ public function BuyNewBooks()
                 $user_id = $_SESSION['user_id'];
             
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
               
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
@@ -1212,7 +1249,8 @@ public function BuyNewBooks()
                     'customerDetails' => $customerDetails,
                     'bookDetails' => $UsedbookDetailsByTime,
                     'customerName' => $customerDetails[0]->first_name,
-                    'favoriteDetails' => $favoriteDetails
+                    'favoriteDetails' => $favoriteDetails,
+                    'unreadNotification' => $unreadNotification
                 ];
                 $this->view('customer/BuyUsedBook', $data);
         }
@@ -1405,13 +1443,14 @@ public function BuyNewBooks()
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0] ->customer_id;
             $cartDetails=$this->customerModel->findCartById($customer_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
            
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'cartDetails'=>$cartDetails,
-                
+                'unreadNotification' => $unreadNotification
             ];
             
             $this->view('customer/Cart', $data);
@@ -1439,6 +1478,7 @@ public function BuyNewBooks()
                     
                     $customerDetails = $this->customerModel->findCustomerById($user_id);
                     // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                    $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                     if ($customerDetails) {
                         $customerName = $customerDetails[0]->first_name;
                         $customerid = $customerDetails[0]->customer_id;                 
@@ -1458,7 +1498,8 @@ public function BuyNewBooks()
                     'customer_id' => trim($customerid),
                     'user_id'=>$user_id,// Replace this with the actual customer ID
                     'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerName
+                    'customerName' => $customerName,
+                    'unreadNotification' => $unreadNotification
                 ];
     
                 if (isset($_FILES['imgComplaint']['name']) AND !empty($_FILES['imgComplaint']['name'])) {
@@ -1494,10 +1535,12 @@ public function BuyNewBooks()
                 $user_id = $_SESSION['user_id'];
             
                 $customerDetails = $this->customerModel->findCustomerById($user_id);  
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 $data = [
                     'customerDetails' => $customerDetails,
                     'customerImage' => $customerDetails[0]->profile_img,
-                    'customerName' => $customerDetails[0]->first_name
+                    'customerName' => $customerDetails[0]->first_name,
+                    'unreadNotification' => $unreadNotification
                 ];
                 $this->view('customer/ContactUs', $data);
             }
@@ -1513,13 +1556,15 @@ public function BuyNewBooks()
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0]->customer_id;
             $contentDetails = $this->customerModel->findContentByCusId( $customer_id); 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             // print_r($content_Details);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'contentDetails'=>$contentDetails,
-                'customer_id'=> $customer_id
+                'customer_id'=> $customer_id,
+                'unreadNotification' => $unreadNotification
             ];
            
             $this->view('customer/Content', $data);
@@ -1550,6 +1595,8 @@ public function BuyNewBooks()
             $challengePoints = $this->customerModel->findChallengePoints($customer_id);
             $donateDetails = $this->customerModel->findDonateBooks($customer_id);
 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
@@ -1569,7 +1616,8 @@ public function BuyNewBooks()
                 'contentPoints' => intval($contentPoints),
                 'challengePoints' => intval($challengePoints),
                 'totalPoints' => intval($challengePoints) + intval($contentPoints),
-                'donateDetails' => intval($donateDetails)
+                'donateDetails' => intval($donateDetails),
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Dashboard', $data);
         }
@@ -1577,37 +1625,55 @@ public function BuyNewBooks()
     
     public function DonateBooks(){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/DonateBooks');
+            $donateDetails = $this->customerModel->findCharityEvents();
+            $data = [
+                'donateDetails' => $donateDetails
+            ];
+            $this->view('customer/DonateBooks', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $donateDetails = $this->customerModel->findCharityEvents();
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification,
+                'donateDetails' => $donateDetails
             ];
             $this->view('customer/DonateBooks', $data);
         }
     } 
 
-    public function Donatedetails(){
+    public function Donatedetails($charity_id){
         if (!isLoggedInCustomer()) {
-            $this->view('customer/Donatedetails');
+            $charityEvent = $this->customerModel->findCharityEventById($charity_id);
+            $data = [
+                'charityEvent' => $charityEvent,
+                'booksIWant' => $charityEvent[0]->book_category
+            ];
+            $this->view('customer/Donatedetails', $data);
         } else {
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $charityEvent = $this->customerModel->findCharityEventById($charity_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification,
+                'charityEvent' => $charityEvent,
+                'booksIWant' => $charityEvent[0]->book_category
             ];
             $this->view('customer/Donatedetails', $data);
         }
     } 
 
-    public function Donateform(){
+    public function Donateform($charity_id = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
@@ -1621,6 +1687,7 @@ public function BuyNewBooks()
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();  
                 $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->first_name;
                     $customerid = $customerDetails[0]->customer_id;                 
@@ -1657,10 +1724,11 @@ public function BuyNewBooks()
                 'description' => trim($_POST['description']),
                 'book_types' => $bookTypeString,
                 'quantity' => $totalQuantity, 
-                'charity_event_id' => 10,
+                'charity_event_id' => $charity_id,
                 'customer_id' => trim($customerid),// Replace this with the actual customer ID
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerName
+                'customerName' => $customerName,
+                'unreadNotification' => $unreadNotification
             ];
 
             if($this->customerModel->AddDonateBooks($data)){
@@ -1676,10 +1744,15 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $charityEvent = $this->customerModel->findCharityEventById($charity_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification,
+                'charity_event_id' => $charity_id,
+                'booksIWant' => isset($charityEvent[0]->book_category) ? $charityEvent[0]->book_category : ''
             ];
             $this->view('customer/Donateform', $data);
         }
@@ -1704,6 +1777,7 @@ public function BuyNewBooks()
             // }
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
@@ -1720,7 +1794,8 @@ public function BuyNewBooks()
             'customerDetails' => $customerDetails,
             'eventDetails' => $eventDetails,
             'customerImage' => $customerDetails[0]->profile_img,
-            'customerName' => $customerDetails[0]->first_name
+            'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification
         ];
         $this->view('customer/Event', $data);
     } 
@@ -1739,7 +1814,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
                 $bookDetails = $this->customerModel->findExchangedBookByNotCusId($customerid);
@@ -1757,7 +1832,8 @@ public function BuyNewBooks()
             'customerImage' => $customerDetails[0]->profile_img,
             'bookDetails' => $bookDetails,
             'customerName' => $customerDetails[0]->first_name,
-            'favoriteDetails' => $favoriteDetails
+            'favoriteDetails' => $favoriteDetails,
+            'unreadNotification' => $unreadNotification
         ];
             $this->view('customer/ExchangeBook', $data);
         } 
@@ -1796,6 +1872,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             
             if ($customerDetails) {
                 
@@ -1820,6 +1897,7 @@ public function BuyNewBooks()
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->first_name,
             'customerImage' => $customerDetails[0]->profile_img,
+            'unreadNotification' => $unreadNotification,
             'user_id'=>$user_id,
 
             'book_id' => $bookId,
@@ -1853,7 +1931,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
                 $bookDetails = $this->customerModel->findExchangedBookByCusId($customerid);
@@ -1868,7 +1946,8 @@ public function BuyNewBooks()
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
             'customerImage' => $customerDetails[0]->profile_img,
-            'customerName' => $customerDetails[0]->first_name
+            'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification
         ];
             $this->view('customer/ExchangeBooks', $data);
     } 
@@ -1886,13 +1965,65 @@ public function BuyNewBooks()
            
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $messageDetails = $this->publisherModel->findMessageByUserId($user_id); 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'messageDetails'=>$messageDetails
+                'messageDetails'=>$messageDetails,
+                'unreadNotification' => $unreadNotification,
             ];
             $this->view('customer/Notification', $data);
+        }
+    } 
+
+    public function ViewNotification($msg_id){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $messageDetails = $this->publisherModel->findMessageByUserId($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->first_name,
+                'messageDetails'=>$messageDetails,
+                'unreadNotification' => $unreadNotification
+            ];
+
+            if ($this->customerModel->makeAsRead($msg_id)) {   
+                // flash('post_message', 'book is Removed');
+                redirect('customer/Notification', $data);
+                
+                
+            } else {
+                die('Something went wrong');
+            }
+            // $this->view('customer/Notification', $data);
+        }
+    } 
+
+    public function Messages(){
+        if (!isLoggedInCustomer()) {
+            redirect('landing/login');
+        } else {
+            $user_id = $_SESSION['user_id'];
+           
+            $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $messageDetails = $this->publisherModel->getChatDetailsById($user_id); 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+            $data = [
+                'customerDetails' => $customerDetails,
+                'customerImage' => $customerDetails[0]->profile_img,
+                'customerName' => $customerDetails[0]->first_name,
+                'messageDetails'=>$messageDetails,
+                'unreadNotification' => $unreadNotification,
+            ];
+            $this->view('customer/Messages', $data);
         }
     } 
 
@@ -1907,6 +2038,7 @@ public function BuyNewBooks()
             if (isset($_SESSION['user_id'])) {
                 $user_id = $_SESSION['user_id'];
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->first_name;
@@ -1919,6 +2051,7 @@ public function BuyNewBooks()
                 'customerName' => $customerName,
                 'customer_id' => $customerid,
                 'profile_img' => '',
+                'unreadNotification' => $unreadNotification
             ];
 
             if (isset($_FILES['newImage']['name']) AND !empty($_FILES['newImage']['name'])) {
@@ -1964,6 +2097,7 @@ public function BuyNewBooks()
                 $user_id = $_SESSION['user_id'];
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
                 // $bookCategoryDetails = $this->adminModel->getBookCategories();
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 if ($customerDetails) {
                     $customerName = $customerDetails[0]->first_name;
                     $FullName = $customerDetails[0]->name;
@@ -1977,6 +2111,7 @@ public function BuyNewBooks()
                 'FullName' => $FullName,
                 'customer_id' => $customerid,
                 'profile_img' => $customerDetails[0]->profile_img,
+                'unreadNotification' => $unreadNotification,
                 'first_name' => trim($_POST['FName']),
                 'last_name' => trim($_POST['LName']),
                 'email' => trim($_POST['email']),
@@ -2023,6 +2158,7 @@ public function BuyNewBooks()
         } else {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->first_name,
@@ -2041,6 +2177,7 @@ public function BuyNewBooks()
                 'AccNumber' => $customerDetails[0]->account_no,
                 'BankName' => $customerDetails[0]->bank_name,
                 'BranchName' => $customerDetails[0]->branch_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Profile', $data);
         }
@@ -2053,10 +2190,12 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Services', $data);
         }
@@ -2067,7 +2206,7 @@ public function BuyNewBooks()
     //     $this->view('customer/sidebar');
     // }
 
-    public function updateusedbook($bookId){
+    public function updateusedbook($bookId = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
@@ -2075,6 +2214,7 @@ public function BuyNewBooks()
        
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $bookCategoryDetails = $this->adminModel->getBookCategories();
+        $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
         
         $customer_id=$customerDetails[0]->customer_id;
 
@@ -2120,7 +2260,8 @@ public function BuyNewBooks()
                 'weights_err'=>'',
                 'ISBN_err'=>'',
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
 
            
@@ -2214,7 +2355,9 @@ public function BuyNewBooks()
                 
                 if($this->customerModel->updateusedbook($data)){
                     // flash('update_success','You are added the book  successfully');
-                    redirect('customer/UsedBooks');
+                    // redirect('customer/UsedBooks');
+                    $_SESSION['showModal'] = true; // Set session variable to true
+                    redirect('customer/updateusedbook');
                 }else{
                     die('Something went wrong');
                 }
@@ -2227,35 +2370,36 @@ public function BuyNewBooks()
             $UsedBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
             $bookCategoryDetails = $this->adminModel->getBookCategories();
-            if($UsedBookId->customer_id != $customer_id){
-                redirect('customer/UsedBooks');
-              }
+            // if($UsedBookId->customer_id != $customer_id && $bookId != null){
+            //     redirect('customer/UsedBooks');
+            //   }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
                 'bookCategoryDetails'=>$bookCategoryDetails,
-                'book_name' => $UsedBookId->book_name,
-                'ISBN_no' => $UsedBookId->ISBN_no,
-                'author' => $UsedBookId->author,
-                'price' => $UsedBookId->price,
-                'category' => $UsedBookId->category,
-                'weight' => $UsedBookId->weight,
-                'descript' => $UsedBookId->descript,
-                'img1' => $UsedBookId->img1,
-                'img2' => $UsedBookId->img2,
-                'img3' => $UsedBookId->img3,
-                'condition' => $UsedBookId->condition,
-                'published_year' => $UsedBookId->published_year,
-                'price_type' => $UsedBookId->price_type,
-                'account_name' => $UsedBookId->account_name,
-                'account_no' => $UsedBookId->account_no,
-                'bank_name' => $UsedBookId->bank_name,
-                'branch_name' => $UsedBookId->branch_name,
-                'town' => $UsedBookId->town,
-                'district' => $UsedBookId->district,
-                'postal_code' => $UsedBookId->postal_code,
+                'book_name' => isset($UsedBookId->book_name) ? $UsedBookId->book_name : '',
+                'ISBN_no' => isset($UsedBookId->ISBN_no) ? $UsedBookId->ISBN_no : '',
+                'author' => isset($UsedBookId->author) ? $UsedBookId->author : '',
+                'price' => isset($UsedBookId->price) ? $UsedBookId->price : '',
+                'category' => isset($UsedBookId->category) ? $UsedBookId->category : '',
+                'weight' => isset($UsedBookId->weight) ? $UsedBookId->weight : '',
+                'descript' => isset($UsedBookId->descript) ? $UsedBookId->descript : '',
+                'img1' => isset($UsedBookId->img1) ? $UsedBookId->img1 : '',
+                'img2' => isset($UsedBookId->img2) ? $UsedBookId->img2 : '',
+                'img3' => isset($UsedBookId->img3) ? $UsedBookId->img3 : '',
+                'condition' => isset($UsedBookId->condition) ? $UsedBookId->condition : '',
+                'published_year' => isset($UsedBookId->published_year) ? $UsedBookId->published_year : '',
+                'price_type' => isset($UsedBookId->price_type) ? $UsedBookId->price_type : '',
+                'account_name' => isset($UsedBookId->account_name) ? $UsedBookId->account_name : '',
+                'account_no' => isset($UsedBookId->account_no) ? $UsedBookId->account_no : '',
+                'bank_name' => isset($UsedBookId->bank_name) ? $UsedBookId->bank_name : '',
+                'branch_name' => isset($UsedBookId->branch_name) ? $UsedBookId->branch_name : '',
+                'town' => isset($UsedBookId->town) ? $UsedBookId->town : '',
+                'district' => isset($UsedBookId->district) ? $UsedBookId->district : '',
+                'postal_code' => isset($UsedBookId->postal_code) ? $UsedBookId->postal_code : '',
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
 
 
@@ -2264,7 +2408,7 @@ public function BuyNewBooks()
         }
     } 
 
-    public function updateexchangebook($bookId){
+    public function updateexchangebook($bookId = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         }
@@ -2274,6 +2418,7 @@ public function BuyNewBooks()
         $customer_id=$customerDetails[0]->customer_id;
 
         $bookCategoryDetails = $this->adminModel->getBookCategories();
+        $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
         // $data = [
         //     'customerDetails' => $customerDetails,
         //     'customerName' => $customerDetails[0]->first_name
@@ -2314,7 +2459,8 @@ public function BuyNewBooks()
                 'weights_err'=>'',
                 'ISBN_err'=>'',
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             
             if(empty($data['published_year'])){
@@ -2399,7 +2545,8 @@ public function BuyNewBooks()
                 
                 if($this->customerModel->updateexchangebook($data)){
                     // flash('update_success','You are added the book  successfully');
-                    redirect('customer/ExchangeBooks');
+                    $_SESSION['showModal'] = true; // Set session variable to true
+                    redirect('customer/updateexchangebook');
                 }else{
                     die('Something went wrong');
                 }
@@ -2412,30 +2559,31 @@ public function BuyNewBooks()
             $ExchangeBookId = $this->customerModel->findUsedBookById($bookId);
             // $books = $this->publisherModel->findBookById($book_id);
             $bookCategoryDetails = $this->adminModel->getBookCategories();
-            if($ExchangeBookId->customer_id != $customer_id){
-                redirect('customer/ExchangeBooks');
-            }
+            // if($ExchangeBookId->customer_id != $customer_id && $bookId != null){
+            //     redirect('customer/ExchangeBooks');
+            // }
             $data = [
                 // 'customerName'=>$customerName,
                 'book_id' => $bookId,
                 'bookCategoryDetails'=>$bookCategoryDetails,
-                'book_name' => $ExchangeBookId->book_name,
-                'ISBN_no' => $ExchangeBookId->ISBN_no,
-                'author' => $ExchangeBookId->author,
-                'category' => $ExchangeBookId->category,
-                'weight' => $ExchangeBookId->weight,
-                'descript' => $ExchangeBookId->descript,
-                'booksIWant' => $ExchangeBookId->booksIWant,
-                'img1' => $ExchangeBookId->img1,
-                'img2' => $ExchangeBookId->img2,
-                'img3' => $ExchangeBookId->img3,
-                'condition' => $ExchangeBookId->condition,
-                'published_year' => $ExchangeBookId->published_year,
-                'town' => $ExchangeBookId->town,
-                'district' => $ExchangeBookId->district,
-                'postal_code' => $ExchangeBookId->postal_code,
+                'book_name' => isset($ExchangeBookId->book_name) ? $ExchangeBookId->book_name : '',
+                'ISBN_no' => isset($ExchangeBookId->ISBN_no) ? $ExchangeBookId->ISBN_no : '',
+                'author' => isset($ExchangeBookId->author) ? $ExchangeBookId->author : '',
+                'category' => isset($ExchangeBookId->category) ? $ExchangeBookId->category : '',
+                'weight' => isset($ExchangeBookId->weight) ? $ExchangeBookId->weight : '',
+                'descript' => isset($ExchangeBookId->descript) ? $ExchangeBookId->descript : '',
+                'booksIWant' => isset($ExchangeBookId->booksIWant) ? $ExchangeBookId->booksIWant : '',
+                'img1' => isset($ExchangeBookId->img1) ? $ExchangeBookId->img1 : '',
+                'img2' => isset($ExchangeBookId->img2) ? $ExchangeBookId->img2 : '',
+                'img3' => isset($ExchangeBookId->img3) ? $ExchangeBookId->img3 : '',
+                'condition' => isset($ExchangeBookId->condition) ? $ExchangeBookId->condition : '',
+                'published_year' => isset($ExchangeBookId->published_year) ? $ExchangeBookId->published_year : '',
+                'town' => isset($ExchangeBookId->town) ? $ExchangeBookId->town : '',
+                'district' => isset($ExchangeBookId->district) ? $ExchangeBookId->district : '',
+                'postal_code' =>isset( $ExchangeBookId->postal_code) ? $ExchangeBookId->postal_code : '',
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
 
 
@@ -2444,13 +2592,14 @@ public function BuyNewBooks()
         }
     }
 
-    public function UpdateEvent($eventId){
+    public function UpdateEvent($eventId = null){
         if (!isLoggedInCustomer()) {
             redirect('landing/login');
         } 
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);  
         $customer_id=$customerDetails[0]->customer_id;
+        $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
 
 
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -2475,7 +2624,8 @@ public function BuyNewBooks()
                 'status' => trim('pending'),
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'id' => $eventId
+                'id' => $eventId,
+                'unreadNotification' => $unreadNotification
             ];
 
             if (isset($_FILES['imgMain']['name']) AND !empty($_FILES['imgMain']['name'])) {
@@ -2611,7 +2761,8 @@ public function BuyNewBooks()
             }
             if($this->customerModel->UpdateEvent($data)){
                 // flash('add_success','You are added the book  successfully');
-                redirect('customer/Event');
+                $_SESSION['showModal'] = true; // Set session variable to true
+                redirect('customer/updateEvent');
             }else{
                 die('Something went wrong');
             }
@@ -2630,21 +2781,22 @@ public function BuyNewBooks()
                 'customerName' => $customerDetails[0]->first_name,
 
                 'id' => $eventId,
-                'Name' => $Event[0]->title,
-                'Category' => $Event[0]->category_name,
-                'Description' => $Event[0]->description,
-                'Start_date' => $Event[0]->start_date,
-                'End_date' => $Event[0]->end_date,
-                'Start_time' => $Event[0]->start_time,
-                'End_time' => $Event[0]->end_time,
-                'Venue' => $Event[0]->location,
-                'mainImg' => $Event[0]->poster,
-                'img1' => $Event[0]->img1,
-                'img2' => $Event[0]->img2,
-                'img3' => $Event[0]->img3,
-                'img4' => $Event[0]->img4,
-                'img5' => $Event[0]->img5,
-                'eventCategoryDetails'=>$eventCategoryDetails
+                'Name' => isset($Event[0]->title) ? $Event[0]->title : '',
+                'Category' => isset($Event[0]->category_name) ? $Event[0]->category_name : '',
+                'Description' => isset($Event[0]->description) ? $Event[0]->description : '',
+                'Start_date' => isset($Event[0]->start_date) ? $Event[0]->start_date : '',
+                'End_date' => isset($Event[0]->end_date) ? $Event[0]->end_date : '',
+                'Start_time' => isset($Event[0]->start_time) ? $Event[0]->start_time : '',
+                'End_time' => isset($Event[0]->end_time) ? $Event[0]->end_time : '',
+                'Venue' => isset($Event[0]->location) ? $Event[0]->location : '',
+                'mainImg' => isset($Event[0]->poster) ? $Event[0]->poster : '',
+                'img1' => isset($Event[0]->img1) ? $Event[0]->img1 : '',
+                'img2' => isset($Event[0]->img2) ? $Event[0]->img2 : '',
+                'img3' => isset($Event[0]->img3) ? $Event[0]->img3 : '',
+                'img4' => isset($Event[0]->img4) ? $Event[0]->img4 : '',
+                'img5' => isset($Event[0]->img5) ? $Event[0]->img5 : '',
+                'eventCategoryDetails'=>$eventCategoryDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/UpdateEvent', $data);
         }
@@ -2657,6 +2809,7 @@ public function BuyNewBooks()
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);
         $customer_id=$customerDetails[0]->customer_id;
+        $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
 
        
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -2681,7 +2834,8 @@ public function BuyNewBooks()
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerName,
                 'status' => "pending",
-                'content_id' => $contentId
+                'content_id' => $contentId,
+                'unreadNotification' => $unreadNotification
             ];
                 
             if (isset($_FILES['picture']['name']) AND !empty($_FILES['picture']['name'])) {
@@ -2744,7 +2898,7 @@ public function BuyNewBooks()
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-
+                'unreadNotification' => $unreadNotification,
 
                 'id' => $contentId,
                 'Name' => isset($Content[0]->topic) ? $Content[0]->topic : '', // Check if topic exists
@@ -2826,6 +2980,7 @@ public function BuyNewBooks()
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
             } else {
@@ -2839,6 +2994,7 @@ public function BuyNewBooks()
             'customerDetails' => $customerDetails,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification,
     
             'user_id' => trim($user_id),
             'event_id' => trim($eventId),
@@ -2861,6 +3017,7 @@ public function BuyNewBooks()
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
                 $eventIDdetails = $this->customerModel->findEventById($eventId);
@@ -2876,6 +3033,7 @@ public function BuyNewBooks()
             'eventIDdetails' => $eventIDdetails,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification,
     
             'user_id' => trim($user_id),
             'event_id' => trim($eventId),
@@ -2919,7 +3077,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
-            
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
                 $bookDetails = $this->customerModel->findUsedBookByCusId($customerid);
@@ -2935,7 +3093,8 @@ public function BuyNewBooks()
             'customerDetails' => $customerDetails,
             'bookDetails' => $bookDetails,
             'customerImage' => $customerDetails[0]->profile_img,
-            'customerName' => $customerDetails[0]->first_name
+            'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification
         ];
 
         $this->view('customer/UsedBooks', $data);
@@ -2951,6 +3110,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             
             if ($customerDetails) {
                 
@@ -2974,6 +3134,10 @@ public function BuyNewBooks()
             echo "Not a customer";
         }
 
+        if(!$UsedBookId){
+            redirect('customer/UsedBooks');
+        }
+
         $data = [
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
@@ -2981,6 +3145,8 @@ public function BuyNewBooks()
             'UsedBookId' => $UsedBookId,
             'customerName' => $customerDetails[0]->first_name,
             'customerImage' => $customerDetails[0]->profile_img,
+            'unreadNotification' => $unreadNotification,
+            
 
             'book_id' => $bookId,
             'book_name' => $UsedBookId->book_name,
@@ -3017,6 +3183,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             
             if ($customerDetails) {
                 
@@ -3032,6 +3199,10 @@ public function BuyNewBooks()
             echo "Not a customer";
         }
 
+        if(!$ExchangeBookId){
+            redirect('customer/ExchangeBooks');
+        }
+
         $data = [
             'customerid' => $customerid,
             'customerDetails' => $customerDetails,
@@ -3039,6 +3210,7 @@ public function BuyNewBooks()
             'ExchangeBookId' => $ExchangeBookId,
             'customerName' => $customerDetails[0]->first_name,
             'customerImage' => $customerDetails[0]->profile_img,
+            'unreadNotification' => $unreadNotification,
 
             'book_id' => $bookId,
             'book_name' => $ExchangeBookId->book_name,
@@ -3093,6 +3265,7 @@ public function BuyNewBooks()
             $user_id = $_SESSION['user_id'];
             $contentDetails=$this->customerModel->findContentById($content_id);
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id); 
            
             $averageRatingCount=$this->customerModel->getAverageRatingByContentId($content_id);
             $countStar_1 = $this->customerModel->countStar_1c($content_id);
@@ -3110,6 +3283,7 @@ public function BuyNewBooks()
                 'customerDetails' => $customerDetails,
                 'customerName' => $customerDetails[0]->first_name,
                 'customerImage' => $customerDetails[0]->profile_img,
+                'unreadNotification' => $unreadNotification,
                 'contentDetails'=>$contentDetails,
                 'reviewDetails'=>$reviewDetails,
                 'countStar_1'=>$countStar_1,
@@ -3215,6 +3389,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 
                 $customerid = $customerDetails[0]->customer_id;
@@ -3234,6 +3409,7 @@ public function markReview()
             'eventIDdetails' => $eventIDdetails,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification,
             
             'eventId' => $eventId,
             'Name' => $eventIDdetails[0]->title,
@@ -3266,6 +3442,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 
                 $customerid = $customerDetails[0]->customer_id;
@@ -3285,6 +3462,7 @@ public function markReview()
             'eventIDdetails' => $eventIDdetails,
             'customerImage' => $customerDetails[0]->profile_img,
             'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification,
             
             'eventId' => $eventId,
             'Name' => $eventIDdetails[0]->title,
@@ -3315,6 +3493,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             if ($customerDetails) {
                 
                 $customerid = $customerDetails[0]->customer_id;
@@ -3368,6 +3547,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
 
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $customer_id = $customerDetails[0]->customer_id;
             $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
             $bookCategoryDetails = $this->adminModel->getBookCategories();
@@ -3379,7 +3559,8 @@ public function markReview()
                 'customerName' => $customerDetails[0]->first_name,
                 'bookDetails' => $NewbookDetailsByTime,
                 'bookCategoryDetails'=>$bookCategoryDetails,
-                'favoriteDetails' => $favoriteDetails
+                'favoriteDetails' => $favoriteDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/TopCategory', $data);
         }
@@ -3392,10 +3573,12 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
 
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/TopAuthor', $data);
         }
@@ -3416,6 +3599,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $customer_id = $customerDetails[0]->customer_id;
             $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
             $recommendedBooks = $this->customerModel->recommendBooks($customer_id); 
@@ -3425,7 +3609,8 @@ public function markReview()
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'recommendedBooks'=>$recommendedBooks,
-                'favoriteDetails' => $favoriteDetails
+                'favoriteDetails' => $favoriteDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Recommended', $data);
         }
@@ -3446,6 +3631,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $customer_id = $customerDetails[0]->customer_id;
             $NewbookDetailsByCategory = $this->customerModel->findBooksByCategory($category);
             $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
@@ -3457,7 +3643,8 @@ public function markReview()
                 'customerName' => $customerDetails[0]->first_name,
                 'bookDetails' => $NewbookDetailsByCategory,
                 'category' => $category,
-                'favoriteDetails' => $favoriteDetails
+                'favoriteDetails' => $favoriteDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Category', $data);
         }
@@ -3476,6 +3663,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
 
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $customer_id = $customerDetails[0]->customer_id;
             $NewbookDetailsByTime = $this->customerModel->findNewBooksByTime();
             $favoriteDetails = $this->customerModel->findNewBooksFavoriteByCustomerId($customer_id);
@@ -3485,7 +3673,8 @@ public function markReview()
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'bookDetails' => $NewbookDetailsByTime,
-                'favoriteDetails' => $favoriteDetails
+                'favoriteDetails' => $favoriteDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/NewArrival', $data);
         }
@@ -3527,6 +3716,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             
             if ($customerDetails) {
                 
@@ -3582,7 +3772,8 @@ public function markReview()
             'town' => $UsedBookId->town,
             'district' => $UsedBookId->district,
             'postal_code' => $UsedBookId->postal_code,
-            'favoriteDetails' => $favoriteDetails
+            'favoriteDetails' => $favoriteDetails,
+            'unreadNotification' => $unreadNotification
         ];
         $this->view('customer/UsedBookDetails', $data);
         }
@@ -3598,6 +3789,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             
             if ($customerDetails) {
                 $customerid = $customerDetails[0]->customer_id;
@@ -3614,7 +3806,8 @@ public function markReview()
             'customerDetails' => $customerDetails,
             'favoriteDetails' => $favoriteDetails,
             'customerImage' => $customerDetails[0]->profile_img,
-            'customerName' => $customerDetails[0]->first_name
+            'customerName' => $customerDetails[0]->first_name,
+            'unreadNotification' => $unreadNotification
         ];
         $this->view('customer/Favorite', $data);
     }
@@ -3632,6 +3825,7 @@ public function markReview()
                 $user_id = $_SESSION['user_id'];
             
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
               
                 if ($customerDetails) {
                     $customerid = $customerDetails[0]->customer_id;
@@ -3650,7 +3844,8 @@ public function markReview()
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
-                'eventDetails' => $mysaveevent
+                'eventDetails' => $mysaveevent,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/Calender', $data);
         }
@@ -3664,6 +3859,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $challengeDetails = $this->customerModel->getOngoingChallenges($user_id);
             $quizDetails = $this->customerModel->getQuizDetails();
             $data = [
@@ -3672,6 +3868,7 @@ public function markReview()
                 'customerName' => $customerDetails[0]->first_name,
                 'challengeDetails'=>$challengeDetails,
                 'quizDetails'=>$quizDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/BookChallenge', $data);
         }
@@ -3684,12 +3881,14 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $quizDetails = $this->customerModel->getQuiz($quiz_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'quizDetails'=>$quizDetails,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/quiz', $data);
         }   
@@ -3713,11 +3912,16 @@ public function markReview()
             }
             else{
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
-                if($question_id==1){
-                    if(!($this->customerModel->addQuizAttempt($quiz_id,$user_id))){
-                        redirect('customer/BookChallenge');
-                    }
-                }
+
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
+                if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
+
+                // if($question_id==1){
+                //     if(!($this->customerModel->addQuizAttempt($quiz_id,$user_id))){
+                //         redirect('customer/BookChallenge');
+                //     }
+                // }
+
             
                 $data = [
                     'customerDetails' => $customerDetails,
@@ -3728,6 +3932,7 @@ public function markReview()
                     'option2'=>$question[0]->option2,
                     'option3'=>$question[0]->option3,
                     'quiz_id'=>$quiz_id,
+                    'unreadNotification' => $unreadNotification
                 ];
                 $this->view('customer/quizQuestion'.$question_id, $data);
             }
@@ -3741,6 +3946,7 @@ public function markReview()
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $score = $this->customerModel->getQuizScore($quiz_id,$user_id);
             $answers = $this->customerModel->getAllQuizQuestions($quiz_id);
             $scoreObject = $score[0];
@@ -3757,6 +3963,7 @@ public function markReview()
                 'numberOfWrongAnswers'=>$numberOfWrongAnswers,
                 'percentage'=>$percentage,
                 'answers'=>$answers,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/result', $data);
         }
@@ -3771,6 +3978,7 @@ public function markReview()
             $customerDetails = $this->customerModel->findCustomerById($user_id);
             $orderDetails=$this->ordersModel->findOrdersByCustomerId( $customerDetails[0]->customer_id);
             // $orderDetails01 = $this->ordersModel->findOrdersByCustomerId($$orderDetails->order_id);
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
 
             $orderDetailsArray = [];
             foreach ($orderDetails as $order) {
@@ -3782,7 +3990,8 @@ public function markReview()
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
                 'orderDetails' => $orderDetails,
-                'orderDetailsArray' => $orderDetailsArray
+                'orderDetailsArray' => $orderDetailsArray,
+                'unreadNotification' => $unreadNotification
             ];
            
             $this->view('customer/Order', $data);
@@ -4003,11 +4212,13 @@ public function markReview()
            
             $customerDetails = $this->customerModel->findCustomerById($user_id); 
             $customer_id=$customerDetails[0] ->customer_id;
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
            
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->first_name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             
             $this->view('customer/weightCalculator', $data);

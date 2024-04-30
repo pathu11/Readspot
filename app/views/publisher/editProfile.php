@@ -26,9 +26,8 @@
                 <form action="<?php echo URLROOT; ?>/publisher/editProfile/<?php echo $data['publisher_id']; ?>" method="POST" enctype="multipart/form-data">
                     <br>
                     <br>
-
                     <!-- Hidden file input -->
-                    <input type="file" id="fileInput" name="profile_img" style="display: none;" class="<?php echo (!empty($data['profile_img_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['profile_img']; ?>" required onchange="previewImage()">
+                    <input type="file" id="fileInput" name="profile_img" style="display: none;width:100px;height:50px" class="<?php echo (!empty($data['profile_img_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['profile_img']; ?>" required onchange="previewImage()">
 
                     
                     <label for="fileInput" style="cursor: pointer;">

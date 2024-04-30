@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
     <title>ReadSpot landing page</title>
 </head>
 <body>
@@ -56,7 +57,7 @@
                 </button>
                 <div class="dropdown-content" id="dropdownContent">
                     <a href="<?php echo URLROOT; ?>/customer/BuyNewBooks">Buy New Books</a>
-                    <a href="<?php echo URLROOT; ?>/customer/BuyUsedBooks">Buy Used Books</a>
+                    <a href="<?php echo URLROOT; ?>/customer/BuyUsedBook">Buy Used Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/ExchangeBook">Exchange Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/DonateBooks">Donate Books</a>
                     <a href="<?php echo URLROOT; ?>/customer/BookContents">Content</a>

@@ -17,7 +17,7 @@
 <div class="main-content-div">
         <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
     <div class="img-summary">
-        <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
+        <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed
     <div class="text-summary">
         <h3>Article Summary</h3>
         <br>
@@ -34,7 +34,45 @@
             <button class="prev-btn" id="prev-page">Previous</button>
             <button class="next-btn" id="next-page">Next </button>
     </div>
-    <div class="writer-details">
+
+    <div class="sub-content-div">
+        <h1 class="cont-topic"><?php echo $content->topic; ?></h1>
+        <div class="img-summary">
+            <img src="<?php echo URLROOT; ?>/assets/images/landing/addcontents/<?php echo $content->img; ?>" alt="Book3" class="content-img-main"> <!--path changed -->
+            <div class="text-summary">
+                <h3>Article Summary</h3>
+                <br>
+                <hr>
+                <br>
+                <p><?php echo $content->text; ?></p>
+            </div>
+        </div>
+        <div class="cont-details">
+            <div class="pdf-view" style="overflow: auto;">
+            
+                    <input id="pdf-url" style="display:none;" type="text" value="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>">
+                    <div id="pdf-viewer"></div>
+                    <div class="next-prev-button-div">
+                        <button class="prev-btn" id="prev-page">Previous</button>
+                        <button class="next-btn" id="next-page">Next </button>
+                    </div>
+            </div>
+            <div class="writer-details">
+        
+                <h3>Writer's Information </h3>
+                <br>
+                <hr>
+                <br>
+                <img src="<?php echo URLROOT; ?>/assets/images/customer/ProfileImages/<?php echo $content->profile_img; ?>"><br><br>
+                <p style="font-size:18px;"><?php echo $content->name; ?> </p>
+                <p style="font-size:15px;"><?php echo $content->email; ?></p>
+                <br><br>
+                <p class="down"><b>Download this Content as a PDF</b></p><br><br>
+                    <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
+                        <button class="btn-d">Click Here</button>
+                    </a>
+
+<!--     <div class="writer-details">
    
         <h3>Writer's Information </h3>
         <br>
@@ -47,7 +85,8 @@
         <p class="down"><b>Download this Content as a PDF</b></p><br><br>
             <a href="<?php echo URLROOT; ?>/assets/images/landing/addContents/<?php echo $content->doc; ?>" download>
                 <button class="btn-d">Click Here</button>
-            </a>
+            </a> -->
+
 
 </div>
 </div>

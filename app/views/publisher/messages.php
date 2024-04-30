@@ -23,10 +23,14 @@
                     <h4>Chat Details</h4>
                 </div>
             </div>
+            <!-- <?php foreach($data['chatDetails'] as $chat): ?>
+                      <?php  $senderId = $chat->incoming_msg_id; ?>
+                 <?php endforeach; ?>    -->
+
             <?php foreach ($data['chatDetails'] as $message): ?>
                 <div class="chat-pub">
                     <div>
-                        <p><?php echo $data['senderName']; ?></p>
+                        <p> <?php echo $data['senderDetails'][$senderId]->name; ?></p>
                         <p>
                             <?php
                             // Display only the first two lines of the message

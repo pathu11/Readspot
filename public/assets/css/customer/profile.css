@@ -7,7 +7,7 @@
     grid-template-columns: 1fr 4fr;
     margin: 90px 10px 10px 10px;
     grid-auto-rows: minmax(725px,auto); */
-    background-color: yellow;
+    /* background-color: yellow; */
     /* grid-gap: 1rem; */
 }
 
@@ -264,7 +264,7 @@
     .container {
         margin-left: 200px;
         margin-top: 85px;
-        background-color: yellow;
+        /* background-color: yellow; */
     }
 
     .my-details, .acc-details {
@@ -294,7 +294,7 @@
     .container {
         margin-left: 60px;
         margin-top: 85px;
-        background-color: yellow;
+        /* background-color: yellow; */
     }
 
     .personal-details h2, .postal-details h2 .account-details h2 {
@@ -371,7 +371,7 @@
     .container {
         margin-left: 50px;
         margin-top: 85px;
-        background-color: yellow;
+        /* background-color: yellow; */
     }
 
     .personal-details h2, .postal-details h2, .account-details h2 {

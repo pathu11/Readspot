@@ -22,35 +22,33 @@
                 <br>-->
                 <br>
                 <div class="notification">
-                <?php foreach($data['messageDetails'] as $msg) : ?>
-                    <div class="notify">
-                        
-                        <!-- <input type="checkbox"> -->
-                        <h4><?php echo $msg->sender_name ; ?></h4>
-                        <p>
-                            <?php echo $msg->message ; ?>
-                            <br>
-                            <span><em><?php echo $msg->timestamp ; ?></em></span>
-                        </p>
-                        <button class="view-button notify-view-btn" onclick='viewNotification(<?php echo json_encode($msg); ?>)'>
-                            <i class="fas fa-eye"></i>
-                        </button>
-
-                    </div>
+                    <?php foreach($data['messageDetails'] as $msg) : ?>
+                        <div class="notify <?php echo ($msg->status == 'read') ? 'read-message' : 'unread-message'; ?>">
+                            <h4><?php echo $msg->sender_name ; ?></h4>
+                            <p>
+                                <?php echo $msg->message ; ?>
+                                <br>
+                                <span><em><?php echo $msg->timestamp ; ?></em></span>
+                            </p>
+                            <button class="view-button notify-view-btn" onclick='viewNotification(<?php echo json_encode($msg); ?>)'>
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     <?php endforeach; ?>
+
                 </div>
             </div>
             <?php endif; ?>
         </div>
 
         <div id="myModal" class="modal0">
-            <div class="modal-content0">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="form1" id="bookDetailsTable">
-                    <!-- Event details will go here -->
-                </div>
-            </div>
+    <div class="modal-content0">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <div class="form1" id="bookDetailsTable">
+            <!-- Event details will go here -->
         </div>
+    </div>
+</div>
         <?php
             require APPROOT . '/views/customer/footer.php'; //path changed
         ?>
@@ -58,8 +56,9 @@
 
 
     <script>
-        function closeModal() {
+        function closeModal(msg) {
             document.getElementById("myModal").style.display = "none";
+            window.location.href = "<?php echo URLROOT; ?>/customer/ViewNotification/"+ msg.message_id;; // Redirect to the event page
         }
 
         function viewNotification(msg) {
@@ -74,5 +73,10 @@
                 </div>
             `;
             modal.style.display = "block";
+
+            // Pass the message to the closeModal function
+            document.getElementById("closeModalBtn").addEventListener("click", function() {
+                closeModal(msg);
+            });
         }
     </script>

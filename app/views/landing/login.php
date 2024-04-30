@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <title>Log in</title>
-    <!-- <link rel="stylesheet" href="./assets/css/LoginPageCSS.css"> -->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signupCss.css" />
+
 </head>
 <body>
     <div class="container">
@@ -32,13 +35,16 @@
 
 
         <div class="register">
+            <div class="back-btn-div-login">
+                <button class="back-btn-login" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
             <!-- <i class="fas fa-user-plus fa-5x"></i> -->
             <h3>WELCOME TO</h3>
             <h2>Read Spot</h2>
             <p>Here we introducing a web-based Platform for Buying
                 Selling, exchanging, and Donating both new & used books.</p>
-            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>login</button></a>
+            <a href="<?php echo URLROOT; ?>/landing/selectuser"><button>Sign Up</button></a>
         </div>  
       </div>
     

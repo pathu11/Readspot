@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Select User Role </title>
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signupCss.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
+
 
 </head>
 
@@ -21,13 +24,16 @@
             </div>
 
             <div class="button-container">
-                <a href="<?php echo URLROOT; ?>/landing/login"><button>login</button></a>
+                <a href="<?php echo URLROOT; ?>/landing/login"><button class="btn-con-log">login</button></a>
             </div>
             <!-- <div>
                 <span class="copyright">ReadSpot &copy;2023</span>
             </div> -->
         </div>
         <div class="register">
+            <div class="back-btn-div-login">
+                <button class="back-btn-login" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
+            </div>
             <img src="<?php echo URLROOT; ?>/assets/images/customer/logo.png">
             <h3>WELCOME TO</h3>
             <h2>Read Spot</h2>

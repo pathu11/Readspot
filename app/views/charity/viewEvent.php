@@ -59,19 +59,20 @@
                 </tr>
                 <tr>
                     <td>Start Date:</td>
-                    <td><input type="date" name="startDate" value="<?php echo $event->start_date ?>" required disabled></td>
+                    <td><input min="<?php echo date('Y-m-d'); ?>" 
+                    oninput="setEndDateMin(this.value)" type="date" name="startDate" value="<?php echo $event->start_date ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>End Date:</td>
-                    <td><input type="date" name="endDate" value="<?php echo $event->end_date ?>" required disabled></td>
+                    <td><input type="date" min="<?php echo date('Y-m-d'); ?>" name="endDate" value="<?php echo $event->end_date ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>Start Time:</td>
-                    <td><input type="time" name="startTime" value="<?php echo $event->start_time ?>" required disabled></td>
+                    <td><input type="time" oninput="setEndTimeMin(this.value)"  name="startTime" value="<?php echo $event->start_time ?>" required disabled></td>
                 </tr>
                 <tr>
                     <td>End Time:</td>
-                    <td><input type="time" name="endTime" value="<?php echo $event->end_time ?>" required disabled></td>
+                    <td><input type="time" oninput="setEndTimeMin(this.value)"  name="endTime" value="<?php echo $event->end_time ?>" required disabled></td>
                 </tr>
             <form action="<?php echo URLROOT; ?>/charity/updateDeadline" method="post">
                 <!-- need to be add in DB -->
@@ -242,6 +243,28 @@
             editIcon.setAttribute('onclick', 'enableEdit()');
             document.querySelector('.deadline').innerHTML = 'Deadline for donation';
         }
+        
+        function validateTime() {
+              var startDate = new Date(document.getElementsByName("start_date")[0].value);
+              var endDate = new Date(document.getElementsByName("end_date")[0].value);
+              var startTime = document.getElementsByName("start_time")[0].value;
+              var endTime = document.getElementsByName("end_time")[0].value;
+
+              if (startDate.getTime() === endDate.getTime() && startTime > endTime) {
+                  alert("End time cannot be before start time on the same day.");
+                  return false; // Prevent form submission
+              }
+              return true; // Proceed with form submission
+          }
+          function setEndDateMin(startDateValue) {
+            document.getElementsByName("end_date")[0].min = startDateValue;
+        }
+
+        function setEndTimeMin(startTimeValue) {
+            document.getElementsByName("end_time")[0].min = startTimeValue;
+        }
+
+
 </script>
 
 </html>

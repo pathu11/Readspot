@@ -36,78 +36,16 @@
             </div> -->
         </div>
         <div class="sub-cont-D2">
-            <div class="B0-D">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/donate1.jpg" alt="Book1" class="event-D"> <!--path changed-->
-                <table border="1" class="tb1">
-                    <tr>
-                        <th>Required</th>
-                        <th>Get</th>
-                        <th>Pending</th>
-                        <th>More</th>
-                    </tr>
-                    <tr>
-                        <td>50</td>
-                        <td>25</td>
-                        <td>10</td>
-                        <td>15</td>
-                    </tr>
-                </table>
-                <table border="1" class="tb2">
-                    <tr>
-                        <th>Required</th>
-                        <th>50</th>
-                    </tr>
-                    <tr>
-                        <td>Get</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>Pending</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>More</td>
-                        <td>15</td>
-                    </tr>
-                </table>
-                <a href="<?php echo URLROOT; ?>/customer/Donatedetails"><button class="dts-btn-D">Donate</button></a> <!--path changed-->
-            </div>
-            <div class="B0-D">
-                <img src="<?php echo URLROOT; ?>/assets/images/customer/donate2.jpg" alt="Book2" class="event-D"> <!--path changed-->
-                <table border="1" class="tb1">
-                    <tr>
-                        <th>Required</th>
-                        <th>Get</th>
-                        <th>Pending</th>
-                        <th>More</th>
-                    </tr>
-                    <tr>
-                        <td>50</td>
-                        <td>25</td>
-                        <td>10</td>
-                        <td>15</td>
-                    </tr>
-                </table>
-                <table border="1" class="tb2">
-                    <tr>
-                        <th>Required</th>
-                        <th>50</th>
-                    </tr>
-                    <tr>
-                        <td>Get</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>Pending</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>More</td>
-                        <td>15</td>
-                    </tr>
-                </table>
-                <a href="<?php echo URLROOT; ?>/customer/Donatedetails"><button class="dts-btn-D">Donate</button></a> <!--path changed-->
-            </div>
+            <?php foreach($data['donateDetails'] as $donate): ?>
+                <div class="B0-D">
+                    <img src="<?php echo URLROOT; ?>/assets/images/charity/<?php echo $donate->poster; ?>" alt="Book1" class="event-D"> <!--path changed-->
+                    <div class="cd-deadline-D">
+                        <strong>Deadline:</strong>
+                        <p><?php echo $donate->Deadline_date; ?></p>
+                    </div>
+                    <a href="<?php echo URLROOT; ?>/customer/Donatedetails/<?php echo $donate->charity_event_id; ?>"><button class="dts-btn-D">Donate</button></a> <!--path changed-->
+                </div>
+            <?php endforeach; ?>
         </div>
         
     </div>
