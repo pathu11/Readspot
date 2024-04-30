@@ -14,7 +14,8 @@
 
 <body>
     <div id="dashboard">
-        <?php $event = $data['event'] ?>
+        <?php $event = $data['event'];
+              $_SESSION['eventId'] = $event->charity_event_id ?>
     </div>
     <header>
         <div>
@@ -46,7 +47,7 @@
         <div class="ae-table-header">
             <h2>View event</h2>
         </div>
-        <form id="eventForm" action="#" method="post" enctype="multipart/form-data">
+        <form id="eventForm" action="<?php echo URLROOT; ?>/charity/updateEvent" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>Event Name:</td>
@@ -72,18 +73,32 @@
                     <td>End Time:</td>
                     <td><input type="time" name="endTime" value="<?php echo $event->end_time ?>" required disabled></td>
                 </tr>
-
+            <form action="<?php echo URLROOT; ?>/charity/updateDeadline" method="post">
                 <!-- need to be add in DB -->
                 <tr>
-                    <td class="deadline">Deadline for donation <i class="fas fa-edit edit-icon" onclick="enableEdit()"></i></td>
+                    <td class="deadline">Deadline for donation  <?php if($event->status != 0){?><i class="fas fa-edit edit-icon" onclick="enableEdit()"></i><?php } ?></td>
                     <td>
-                        <input type="date" name="deadline" id="deadline" value="<?php echo $event->deadline_date ?>" required min="1000-01-01" max="9999-12-31" disabled>
+                        <input type="date" name="deadline" id="deadline" value="<?php echo $event->donation_deadline ?>" required min="1000-01-01" max="9999-12-31" disabled>
                     </td>
                 </tr>
-
+                <tr>
+                    <td>bookCategories:</td>
+                    <td><input type="text" name="bookCategory" value="<?php echo $event->book_category ?>" required disabled></td>
+                </tr>
                 <tr>
                     <td>Charity Member Phone:</td>
                     <td><input type="tel" name="charityMemberPhone" value="<?php echo $event->contact_no ?>" placeholder="Enter phone number" required disabled></td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <?php if($event->status == 0){ ?>
+                        <td><input type="tel" id="donot" name="charityMemberPhone" value="Pending" style="color:orange; font-weight: 600" required disabled></td>
+                    <?php } else if($event->status == 1) { ?>
+                        <td><input type="tel" id="donot" name="charityMemberPhone" value="Approved" style="color:green; font-weight: 600" required disabled></td>
+                    <?php } else { ?>
+                        <td><input type="tel" id="donot" name="charityMemberPhone" value="Rejeted" style="color:red; font-weight: 600" required disabled></td>
+                    <?php } ?>
+                    
                 </tr>
                 <tr>
                     <td>Description:</td>
@@ -91,7 +106,7 @@
                 </tr>
                 <tr>
                     <td>Poster image:</td>
-                    <td>
+                    <td>    
                         <div class="ae-drop-image-box">
                             <span class="placeholder-text"><i class="fas fa-camera"></i> Drop an Image</span>
                             <img id="previewImage" src="<?php echo URLROOT ?>/public/assets/images/charity/event01.jpg" alt="Preview">
@@ -102,13 +117,24 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align:center;">
-                        <button type="button" style="background-color: red;" id="ve-dltbtn">Delete</button>
-                        <button type="button" onclick="enableEditing()" id="ve-editbtn">Edit</button>
+                        <!-- <button type="button" style="background-color: red;" id="ve-dltbtn">Delete</button> -->
+                        <?php if($event->status == 0) { ?>
+                            <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
+                            <button type="submit" id="ve-savebtn" style="display:none">Save</button>
+                            
+                            <?php if($event->status == 0){ ?><button type="button" onclick="enableEditing()" id="ve-editbtn">Edit</button><?php }    ?>
+                        <?php } ?>
+                        <button type="submit" id="ve-savebtnConfirm" style="display:none">Save</button>
+            </form>
+        </form>   
+                            
+                            
+                       
 
                     </td>
                 </tr>
             </table>
-        </form>
+        
     </div>
 
     <div id="imageModal" class="modal">
@@ -136,18 +162,20 @@
 
 <script>
     function enableEditing() {
-        var btn = document.getElementById("ve-editbtn");
-        var dltBtn = document.getElementById("ve-dltbtn");
+        var editbtn = document.getElementById("ve-editbtn");
         var form = document.getElementById("eventForm");
         var inputs = form.querySelectorAll("input, textarea, select");
+        var saveBtn =document.getElementById("ve-savebtn");
 
-        if (btn.innerHTML === "Edit") {
-            btn.innerHTML = "Save";
-            dltBtn.style.display = "none";
+        editbtn.style.display = "none";
+        saveBtn.style.display = "inline";
+
             inputs.forEach(function(input) {
-                input.removeAttribute("disabled");
+                if(input.id != "donot"){
+                    input.removeAttribute("disabled");
+                }
             });
-        }
+        
 
     }
 
@@ -180,6 +208,8 @@
     function enableEdit() {
             var inputField = document.getElementById('deadline');
             var editIcon = document.querySelector('.edit-icon');
+            var saveBtn = document.getElementById('ve-savebtnConfirm');
+            saveBtn.style.display = "inline";
             if (inputField.disabled) {
                 inputField.disabled = false;
                 inputField.setAttribute('name', 'postponed_date');

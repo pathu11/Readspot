@@ -107,31 +107,53 @@ class Charity extends Controller
         $end_date = $_POST['endDate'];
         $start_time = $_POST['startTime'];
         $end_time = $_POST['endTime'];
+        $deadline = $_POST['deadlineDate'];
         $book_category = $string;
         $poster = "test";
         $contact_no = $_POST['charityMemberPhone'];
         $description = $_POST['description'];
 
-        if ($this->charityModel->addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time, $book_category, $poster, $contact_no, $description)) {
+        if ($this->charityModel->addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time,$deadline, $book_category, $poster, $contact_no, $description)) {
             redirect('charity/event');
         } else {
             die('Something went wrong');
         }
     }
 
+    public function updateEvent()
+    {
+        $event_name = $_POST['eventName'];
+        $location = $_POST['eventLocation'];
+        $start_date = $_POST['startDate'];
+        $end_date = $_POST['endDate'];
+        $start_time = $_POST['startTime'];
+        $end_time = $_POST['endTime'];
+        $deadline = $_POST['deadline'];
+        $book_category = $_POST['bookCategory'];
+        $poster = "test";
+        $contact_no = $_POST['charityMemberPhone'];
+        $description = $_POST['description'];
 
-    // public function deleteEvent()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         if ($this->charityModel->deleteEvent($_POST['eventId'])) {
-    //             redirect('charity/event');
-    //         } else {
-    //             die('Something went wrong');
-    //         }
-    //     }
-    // }
+        if ($this->charityModel->updateEvent($_POST['eventId'], $event_name, $location, $start_date, $end_date, $start_time, $end_time, $deadline, $book_category, $poster, $contact_no, $description)) {
+            redirect('charity/event');
+        } else {
+            die('Something went wrong');
+        }
+    }
+
+    public function updateDeadline()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->charityModel->updateDeadline($_SESSION['eventId'], $_POST['deadline'])) {
+                redirect('charity/event');
+            } else {
+                die('Something went wrong');
+            }
+        }
+    }
 
     public function deleteEvent(){
+       
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($this->charityModel->deleteEvent($_POST['eventId'])){
                 redirect('charity/event');
