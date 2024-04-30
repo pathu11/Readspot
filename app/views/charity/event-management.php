@@ -155,6 +155,7 @@
                             <?php } ?>
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
+                            
                             <td class="action-buttons">
                                 <form action="<?php echo URLROOT; ?>/charity/viewEvent" method="POST" style="display: inline;">
                                     <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id ?>">
