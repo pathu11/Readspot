@@ -18,7 +18,7 @@ class Charity extends Controller
     public function event()
     {
         if (!isLoggedInCharity()) {
-            redirect('charity/index');
+            redirect('charity/index'); 
         }
         $results = $this->charityModel->getEvents();
         $this->view('charity/event-management', $data = ['allEvents' => $results]);
