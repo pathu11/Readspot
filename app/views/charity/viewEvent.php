@@ -96,6 +96,8 @@
                         <td><input type="tel" id="donot" name="charityMemberPhone" value="Pending" style="color:orange; font-weight: 600" required disabled></td>
                     <?php } else if($event->status == 1) { ?>
                         <td><input type="tel" id="donot" name="charityMemberPhone" value="Approved" style="color:green; font-weight: 600" required disabled></td>
+                    <?php } else if($event->status == 3) { ?>
+                        <td><input type="tel" id="donot" name="charityMemberPhone" value="Cancelled" style="color:green; font-weight: 600" required disabled></td>
                     <?php } else { ?>
                         <td><input type="tel" id="donot" name="charityMemberPhone" value="Rejeted" style="color:red; font-weight: 600" required disabled></td>
                     <?php } ?>
