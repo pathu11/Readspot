@@ -40,6 +40,7 @@ class CharityEvents
         return $results;
     }
 
+    //
     public function deleteEvent($charity_event_id)
     {
         $this->db->query('UPDATE charity_event SET status = 3 WHERE charity_event_id = :charity_event_id');
