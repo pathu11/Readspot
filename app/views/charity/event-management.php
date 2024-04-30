@@ -168,7 +168,11 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                
-
+                                <!-- <div id="em-dleteModal">
+                                    <div class="em-modal-sontent em-red-box">
+                                        <form action=""><i class="fass"></i></form>
+                                    </div>
+                                </div> -->
                                 <div id="em-deleteModal" class="em-modal">
                                     <div class="em-modal-content em-red-box">
                                     <form action="<?php echo URLROOT; ?>/charity/deleteEvent" method="POST" style="display: inline;">
