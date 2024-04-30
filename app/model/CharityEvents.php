@@ -6,10 +6,10 @@
             $this->db = new Database;
         }
 
-        public function addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time, $book_category, $poster, $contact_no, $description) {
+        public function addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time,$deadline, $book_category, $poster, $contact_no, $description) {
             try {
-                $this->db->query('INSERT INTO charity_event (event_name, location, start_date, end_date, start_time, end_time, book_category, poster, contact_no,description) 
-                                    VALUES (:event_name, :location, :start_date, :end_date, :start_time, :end_time, :book_category, :poster, :contact_no, :description)');
+                $this->db->query('INSERT INTO charity_event (event_name, location, start_date, end_date, start_time, end_time, book_category, poster, contact_no,description, donation_deadline) 
+                                    VALUES (:event_name, :location, :start_date, :end_date, :start_time, :end_time, :book_category, :poster, :contact_no, :description, :deadline)');
                 $this->db->bind(':event_name', $event_name);
                 $this->db->bind(':location', $location);
                 $this->db->bind(':start_date', $start_date);
@@ -20,6 +20,7 @@
                 $this->db->bind(':poster', $poster);
                 $this->db->bind(':contact_no', $contact_no);
                 $this->db->bind(':description', $description);
+                $this->db->bind(':deadline', $deadline);
         
                 return $this->db->execute();
             } catch (\Exception $e) {
@@ -50,9 +51,9 @@
             return $result;
         }
 
-        public function updateEvent($id, $event_name, $location, $start_date, $end_date, $start_time, $end_time, $book_category, $poster, $contact_no, $description){
+        public function updateEvent($id, $event_name, $location, $start_date, $end_date, $start_time, $end_time, $deadline, $book_category, $poster, $contact_no, $description){
             try {
-                $this->db->query('UPDATE charity_event SET event_name = :event_name, location = :location, start_date = :start_date, end_date = :end_date, start_time = :start_time, end_time = :end_time, book_category = :book_category, poster = :poster, contact_no = :contact_no, description = :description WHERE charity_event_id = :id');
+                $this->db->query('UPDATE charity_event SET event_name = :event_name, location = :location, start_date = :start_date, end_date = :end_date, start_time = :start_time, end_time = :end_time, book_category = :book_category, poster = :poster, contact_no = :contact_no, description = :description, donation_deadline = :deadline WHERE charity_event_id = :id');
                 $this->db->bind(':id', $id);
                 $this->db->bind(':event_name', $event_name);
                 $this->db->bind(':location', $location);
@@ -64,6 +65,7 @@
                 $this->db->bind(':poster', $poster);
                 $this->db->bind(':contact_no', $contact_no);
                 $this->db->bind(':description', $description);
+                $this->db->bind(':deadline', $deadline);
         
                 return $this->db->execute();
             } catch (\Exception $e) {
@@ -73,6 +75,13 @@
             }
         }
 
+        public function updateDeadline($id, $deadline){
+            $this->db->query('UPDATE charity_event SET donation_deadline = :deadline WHERE charity_event_id = :id');
+            $this->db->bind(':id', $id);
+            $this->db->bind(':deadline', $deadline);
+            return $this->db->execute();
+        }
+
         public function getCharityUsers(){
             $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE user_role = "customer" AND u.status ="approval"');
             $results = $this->db->resultSet();
@@ -80,6 +89,14 @@
             // die();
             return $results;
         }
+
+        public function getCharityUsersById($id){
+            $this->db->query('SELECT * FROM users u INNER JOIN customers c ON u.email = c.email WHERE c.customer_Id =:id AND u.status ="approval"');
+            $this->db->bind(':id', $id);
+            $results = $this->db->single();
+            return $results;
+        }
+
 
         public function getCustomerRequests($id){
             $this->db->query('SELECT * FROM donate_books d WHERE d.customer_id = :id');
@@ -106,5 +123,30 @@
                 return false;
             }
         } 
+
+        public function markAsRead($id){
+            $this->db->query('UPDATE donate_books SET mark_as_read = 1 WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            return $this->db->execute();
+        }
+
+        public function acceptRequest($id){
+            $this->db->query('UPDATE donate_books SET status = "Accepted" WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            return $this->db->execute();
+        }
+
+        public function rejectEvent($id, $message){
+            $this->db->query('UPDATE donate_books SET status = "Rejected", reject_reason = :rejectMessage WHERE donate_id = :id');
+            $this->db->bind(':id', $id);
+            $this->db->bind(':rejectMessage', $message);
+            return $this->db->execute();
+        }
+
+        public function allRequestNotifications(){
+            $this->db->query('SELECT * FROM donate_books WHERE mark_as_read = 0');
+            $results = $this->db->resultSet();
+            return $results;
+        }
 
     } 

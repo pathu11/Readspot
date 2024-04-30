@@ -71,56 +71,11 @@
                 </div>
                 <form action="<?php URLROOT ?>/Readspot/charity/userrequest" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="customerId" value="<?php echo $user->customer_id ?>">
-                    <button type="submit">CHECK</a>
+                    <button>CHECK</a>
                 </form>
                 
             </div>
         <?php } ?>
-
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Ganeshwar</h4>
-                    <p style="color: white;">Ganeshwar11@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Ganeshwar</h4>
-                    <p style="color: white;">Ganeshwar11@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-        <div class="reqCard checked">
-            <div class="imgBox">
-                <img src=<?= URLROOT . "/assets/images/charity/ganesh.avif" ?>>
-            </div>
-            <div class="content">
-                <div class="customer-info">
-                    <h4>Ganeshwar</h4>
-                    <p style="color: white;">Ganeshwar11@gmail.com</p>
-                </div>
-                <br>
-                <p>No any NEW donations!</p>
-            </div>
-            <a href="<?php echo URLROOT; ?>/charity/userRequest" style="background-color:gray;">CHECK</a>
-        </div>
-
-
 
         <div class="modal" id="confirmationModal">
             <div class="modal-content">

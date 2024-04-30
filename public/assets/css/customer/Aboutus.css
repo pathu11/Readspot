@@ -73,26 +73,21 @@
     margin: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.contact-us-form{
 
-    margin-left:10px;
+.contact-us-form {
     display:flex;
     flex-direction: row;
     text-align: center;
+    justify-content: center;
     text-decoration: none;
+    gap: 20px;
 }
-.fa {
-    color:rgb(19, 53, 53);
-    margin-left:10px;
-    padding:10px;
-    /* font-size: 20px; */
+
+.contact-us-form a {
+    text-decoration: none;
+    color: inherit;
 }
-.fa-solid{
-    color:rgb(19, 53, 53);
-    margin-left:10px;
-    padding:10px;
-    /* font-size: 20px; */
-}
+
 @media screen and (max-width:600px) {
     .about-cont {
         margin: 90px 20px 20px 20px;
