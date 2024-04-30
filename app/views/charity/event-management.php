@@ -174,8 +174,8 @@
                                         <div class="em-modal-content em-red-box">
                                             <form action="<?php echo URLROOT; ?>/charity/deleteEvent" method="POST" style="display: inline;">
                                                 <i class="fas fa-exclamation-triangle"></i>
-                                                <input type="text" name="eventId" value="<?php echo $event->charity_event_id; ?>">
-                                                <p>Are you sure you want to delete this item? </p>
+                                                <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id; ?>">
+                                                    <p>Are you sure you want to delete this item? </p>
                                                 <button type="submit" id="em-okButton">yes</button>
                                             </form>
                                             <button id="em-noButton" onclick="closeModal()">No</button>
@@ -183,12 +183,9 @@
                                         </div>
                                     </div>
                                 <?php } ?>
-                                
 
 
-                                <!-- <button type="submit" class="delete-button">
-                                        <i class="fas fa-trash"></i>
-                                </button> -->
+
                             </td>
                         </tr>
                     <?php } ?>
@@ -206,6 +203,17 @@
             <!-- </table>
                     </div>
                 </div> -->
+            <!-- xplanation - i added another status code 3 for cancelled events and if we 
+                                delete an event it will change the status in the db to 3 if status is 3 it will show event cancelled status 
+                            change panna files -
+                            1. event-management.php la line 154  status cancelled ndu add pannathu
+                            2. CharityEvents model la  - deleteEvent function la delete query ku pathila UPDATE query la status ah 3 ndu mathinan
+                            status 3 ya ioruntha event-management.php page la cancelled ndu kaatum athu than line 154 la potu irukkan-->
+
+            <!-- <button type="submit" class="delete-button">
+                                        <i class="fas fa-trash"></i>
+                                </button> 
+                            Ithu event- management.php view la line 177 ku kitta oru input irukku atha input type hidden aaku-->
 
             <ul class="pagination" id="pagination">
                 <li id="prevButton">«</li>
