@@ -923,10 +923,7 @@ public function processingorders()
                             $data['profile_img_err'] = 'An unknown error occurred while uploading the profile picture.';
                     }
                 }
-            }
-                   
-                    
-                    
+            }        
                     if($this->publisherModel->editProfile($data)){
                         flash('update_success','You are added the book  successfully');
                         redirect('publisher/setting');
@@ -941,10 +938,11 @@ public function processingorders()
             }else{
                      
                 $publishers = $this->publisherModel->findPublisherBypubId($publisher_id);
-                
-                
+                $publisherDetails = $this->publisherModel->findPublisherById($user_id);
+               
                 $data = [
-                    
+                    'publisherDetails' => $publisherDetails,
+                    'publisherName' => $publisherDetails[0]->name,
                     'publisher_id' => $publisher_id,
                     'profile_img' => $publishers->profile_img,
                     'name' => $publishers->name,
@@ -1799,13 +1797,13 @@ public function stores(){
     public function messages(){
         if(!isLoggedInPublisher()){
             redirect('landing/login');
-        }else{
-
+        } else {
             $user_id = $_SESSION['user_id'];
             $publisherDetails = $this->publisherModel->findPublisherById($user_id);
             $unreadCount = $this->publisherModel->getUnreadMessagesCount($user_id);
+
             $ChatDetails=$this->publisherModel->getChatDetailsById($user_id);
-            $sender_id=$ChatDetails[0]->incoming_msg_id;
+            $sender_id=$ChatDetails[0]->name;
            
             $senderDetails=$this->publisherModel->finduserDetails($sender_id);
             // print_r($senderDetails);
@@ -1816,12 +1814,32 @@ public function stores(){
                 'publisherDetails'=>$publisherDetails,
                 'senderName'=>$senderDetails->name,
                 'unreadCount'=>$unreadCount
+
+//             $ChatDetails = $this->publisherModel->getChatDetailsById($user_id);
+//             $senderDetails = [];
+            
+//             foreach($ChatDetails as $chat){
+                
+//                 $senderId = $chat->incoming_msg_id;
+//                 if (!isset($senderDetails[$senderId])) {
+//                     $senderDetails[$senderId] = $this->publisherModel->finduserDetails($senderId);
+//                 }
+//             }
+//             $data = [
+//                 'chatDetails' => $ChatDetails,
+//                 'user_id' => $user_id,
+//                 'publisherName' => $publisherDetails[0]->name,
+//                 'publisherDetails' => $publisherDetails,
+//                 'senderDetails' => $senderDetails, // Pass the sender details array
+//                 'unreadCount' => $unreadCount
+
             ];
-
-            $this->view('publisher/messages',$data);
-
+    
+            $this->view('publisher/messages', $data);
+        }
     }
-}  
+    
+      
 public function payments(){
     if(!isLoggedInPublisher()){
         redirect('landing/login');

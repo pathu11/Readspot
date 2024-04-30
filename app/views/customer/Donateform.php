@@ -39,7 +39,7 @@
         <div class="back-btn-div01">
             <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
         </div>
-        <form action="<?php echo  URLROOT; ?>/customer/Donateform"  method="POST" enctype="multipart/form-data" class="contact-us">
+        <form action="<?php echo  URLROOT; ?>/customer/Donateform/<?php echo $data['charity_event_id'];?>"  method="POST" enctype="multipart/form-data" class="contact-us">
 
             <h1>Donate Books</h1>
             
@@ -61,7 +61,7 @@
                 </div>
                 <div class="last-name-div">
                     <label class="label-topic" required>Phone Number</label><br>
-                    <input type="text" class="form-topic" name="PhoneNumber" placeholder="Phone Number">
+                    <input type="text" class="form-topic" name="PhoneNumber" placeholder="Eg: +94712345689" pattern="\+\d{11}">
                 </div>
             </div>
 
@@ -88,22 +88,27 @@
                     <label class="label-topic">Type of Books</label><br>
                 </div>
                 <div class="book-type-div">
-                    <div class="sub-category-div">
-                        <input type="checkbox" id="book01" name="book01">
-                        <label for="book01" class="label-topic">Book type 01</label>
-                        <input type="text" class="form-topic" name="book01Quantity" id="book01Quantity" placeholder="Quantity" disabled>
-                    </div>
-                    <div class="sub-category-div">
-                        <input type="checkbox" id="book02" name="book02">
-                        <label for="book02" class="label-topic">Book 02</label>
-                        <input type="text" class="form-topic" name="book02Quantity" id="book02Quantity" placeholder="Quantity" disabled>
-                    </div>
-                    <div class="sub-category-div">
-                        <input type="checkbox" id="book03" name="book03">
-                        <label for="book03" class="label-topic">Bk 03</label>
-                        <input type="text" class="form-topic" name="book03Quantity" id="book03Quantity" placeholder="Quantity" disabled>
-                    </div>
-                </div>
+    <?php
+    // Split the booksIWant string by commas
+    $booksIWantList = explode(',', $data['booksIWant']);
+
+    // Output each book in the list as a list item
+    // Start unordered list
+    foreach ($booksIWantList as $book) {
+        // Use the actual book name as ID and name
+        $bookId = 'book_' . str_replace(' ', '_', $book);
+        $bookQuantityId = $bookId . '_Quantity';
+        ?>
+        <div class="sub-category-div">
+            <input type="checkbox" id="<?php echo $bookId; ?>" name="<?php echo $bookId; ?>">
+            <label for="<?php echo $bookId; ?>" class="label-topic"><?php echo trim($book); ?></label>
+            <input type="text" class="form-topic" name="<?php echo $bookId; ?>_Quantity" id="<?php echo $bookQuantityId; ?>" placeholder="Quantity" disabled>
+        </div>
+        <?php
+    }
+    ?>
+</div>
+
             </div>
 
             <!-- <div class="topic-name2">
@@ -139,7 +144,7 @@
             function closeModal() {
                 var modal = document.getElementById("myModal");
                 modal.style.display = "none";
-                window.location.href = "<?php echo URLROOT; ?>/customer/Donatedetails"; // Redirect to the event page
+                window.location.href = "<?php echo URLROOT; ?>/customer/DonateBooks"; // Redirect to the event page
             }
 
             <?php
@@ -162,7 +167,7 @@
 ?>
 
 
-<script>
+<!-- <script>
     // Function to toggle quantity input based on checkbox status
     function toggleQuantityInput(checkboxId, quantityInputId) {
         var checkbox = document.getElementById(checkboxId);
@@ -182,4 +187,29 @@
     document.getElementById("book03").addEventListener("change", function() {
         toggleQuantityInput("book03", "book03Quantity");
     });
+</script> -->
+
+<script>
+    // Function to toggle quantity input based on checkbox status
+    function toggleQuantityInput(checkboxId, quantityInputId) {
+        var checkbox = document.getElementById(checkboxId);
+        var quantityInput = document.getElementById(quantityInputId);
+        quantityInput.disabled = !checkbox.checked;
+    }
+
+    // Add event listeners to each checkbox to toggle quantity input
+    <?php
+    // Loop through each book and add event listeners
+    foreach ($booksIWantList as $book) {
+        // Use the actual book name to construct IDs
+        $bookId = 'book_' . str_replace(' ', '_', $book);
+        $bookQuantityId = $bookId . '_Quantity';
+        ?>
+        document.getElementById("<?php echo $bookId; ?>").addEventListener("change", function() {
+            toggleQuantityInput("<?php echo $bookId; ?>", "<?php echo $bookQuantityId; ?>");
+        });
+        <?php
+    }
+    ?>
 </script>
+

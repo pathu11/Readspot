@@ -32,10 +32,12 @@ class PurchaseOrder extends Controller{
             $user_id = $_SESSION['user_id'];
            
             $customerDetails = $this->customerModel->findCustomerById($user_id);  
+            $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
             $data = [
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
-                'customerName' => $customerDetails[0]->name
+                'customerName' => $customerDetails[0]->first_name,
+                'unreadNotification' => $unreadNotification
             ];
             $this->view('customer/index', $data);
         }
@@ -157,6 +159,7 @@ class PurchaseOrder extends Controller{
             } else {
                 // Your existing code for displaying the form
                 $customerDetails = $this->customerModel->findCustomerById($user_id);
+                $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                
                  if($customerDetails)   {
                     $data = [
@@ -177,8 +180,9 @@ class PurchaseOrder extends Controller{
                         'district_err'=>'',
                         'postal_code_err'=>'',
                         'customerDetails' => $customerDetails,
-                        'customerName' => $customerDetails[0]->name,
-                        'customerImage'=>$customerDetails[0]->profile_img
+                        'customerName' => $customerDetails[0]->first_name,
+                        'customerImage'=>$customerDetails[0]->profile_img,
+                        'unreadNotification' => $unreadNotification
                     ];
                     // print_r($data['book_id']);
                  }  else{
@@ -204,6 +208,7 @@ public function checkout2()
         $bookQuantities=$orderDetails['bookQuantities'];
         $user_id = $_SESSION['user_id'];
         $customerDetails = $this->customerModel->findCustomerById($user_id);   
+        $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $formType = $_POST['form_type'];
             if ($formType === 'cardPayment') {    
@@ -221,10 +226,11 @@ public function checkout2()
             $data = [
                 'bookQuantities'=>$bookQuantities,
                 'customerDetails' => $customerDetails,
-                'customerName' => $customerDetails[0]->name,
+                'customerName' => $customerDetails[0]->first_name,
                 'orderDetails'=>$orderDetails,
                 'bookDetails'=>$book_details,
-                'customerImage'=>$customerDetails[0]->profile_img
+                'customerImage'=>$customerDetails[0]->profile_img,
+                'unreadNotification' => $unreadNotification
                 
             ];
            
@@ -246,6 +252,7 @@ private function handleCardPaymentForm($orderDetails1, $formType)
 
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                // $this->customerModel->updateQuantity( $quantity, $bookId);
                 // $this->customerModel->updateRedeem($customer_id,$redeemPoints);
            }
         }
@@ -284,7 +291,6 @@ private function handleCardPaymentForm($orderDetails1, $formType)
         "currency" => $currency, 
         "hash" => $hash,
     ];
-
     // Convert payment details to JSON
     $jsonObj = json_encode($paymentDetails);
 
@@ -303,9 +309,9 @@ private function handleCODForm($orderDetails1 ,$formType){
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                $this->customerModel->updateQuantity( $quantity, $bookId);
                 $this->customerModel->updateRedeem($customer_id,$redeemPoints);
-           }
-           
+           }    
 
         }
     } else {
@@ -369,8 +375,7 @@ private function handleCODForm($orderDetails1 ,$formType){
             // if($this->customerModel->editOrderCOD($data) &&
             // $this->adminModel->addMessage($data) &&
             // $this->adminModel->addMessageToPublisher($data)){
-            if($this->customerModel->editOrderCOD($data) 
-               ){
+            if($this->customerModel->editOrderCOD($data) ){
                
                 $this->sendEmails($customerEmail, $ownerEmails, $data);
                 // $this->sendNotifications($data, $owner_user_id);
@@ -419,6 +424,8 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
             $quantity = $orderDetails1['bookQuantities'][$index];
            if( $this->ordersModel->addOrderDetails($order_id, $bookId, $quantity)){
                 $this->customerModel->deleteFromCart($cart_id);
+                $this->customerModel->updateQuantity( $quantity, $bookId);
+
            }
            
 
@@ -455,7 +462,6 @@ private function handleOnlineDepositForm($orderDetails1, $formType)
             $recipt_ex_to_lc = strtolower($recipt_ex);
 
             $allowed_exs = array('jpg', 'jpeg', 'png', 'pdf');
-            
             // Check if the file extension is allowed
             if (in_array($recipt_ex_to_lc, $allowed_exs)) {
                 $new_recipt_name = uniqid() . '-' . $recipt_name;

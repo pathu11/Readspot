@@ -109,6 +109,7 @@ require APPROOT . '/views/customer/header.php'; //path changed
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s ease;
+            text-align: center;
         }
 
         .cd-donate-button:hover {
@@ -183,43 +184,46 @@ require APPROOT . '/views/customer/header.php'; //path changed
         <button class="back-btn01" onclick="history.back()"><i class="fa fa-angle-double-left"></i> Go Back</button>
     </div>
 
-    <div class="cd-poster-container">
-        <img src="/assets/images/customer/prfileImages/dashboard.png" alt="Poster Image" class="cd-poster">
-        <div class="cd-view-icon" onclick="toggleFullscreen()">
-            <i class="fas fa-eye"></i>
-        </div>
-    </div>
-    <div class="cd-deadline">
-        <strong>Deadline:</strong> <input type="text" value="2024-05-01" style="font-weight: bold;" readonly>
-    </div>
-    <div class="cd-info-container">
-        <div class="cd-book-categories-container">
-            <div class="cd-book-categories">
-
-                <h3 style="font-size: 15px;">Book Categories :</h3>
-                <ul>
-                    <li>Fiction</li>
-                    <li>Non-fiction</li>
-                    <li>Science Fiction</li>
-                </ul>
+    <?php foreach($data['charityEvent'] as $donate): ?>
+        <div class="cd-poster-container">
+            <img src="<?php echo URLROOT; ?>/assets/images/charity/<?php echo $donate->poster; ?>" alt="Poster Image" class="cd-poster">
+            <div class="cd-view-icon" onclick="toggleFullscreen('<?php echo URLROOT; ?>/assets/images/charity/<?php echo $donate->poster; ?>')">
+                <i class="fas fa-eye"></i>
             </div>
-
         </div>
-        <div class="cd-event-description-container">
-            <h3 style="font-size: 15px;">About Event:</h3>
-            <p style="font-size: 14px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam quibusdam
-                molestiae itaque, magnam quod accusamus rem dolorum voluptatibus possimus suscipit excepturi
-                consequuntur doloribus cum, illo, modi dignissimos. Numquam, repudiandae totam.</p>
+        <div class="cd-deadline">
+            <strong>Deadline:</strong> <input type="text" value="<?php echo $donate->Deadline_date; ?>" style="font-weight: bold;" readonly>
         </div>
-    </div>
-    <button class="cd-donate-button">Donate</button>
+        <div class="cd-info-container">
+            <div class="cd-book-categories-container">
+                <?php
+                    // Split the booksIWant string by commas
+                    $booksIWantList = explode(',', $data['booksIWant']);
 
+                    // Output each book in the list as a list item
+                    echo '<div class="cd-book-categories">';
+                    echo '<h3 style="font-size: 15px;">Book Categories :</h3>';
+                    echo '<ul>'; // Start unordered list
+                    foreach ($booksIWantList as $book) {
+                        echo '<li>' . trim($book) . '</li>'; // Trim whitespace and display each book
+                    }
+                    echo '</ul>'; // End unordered list
+                    echo '</div>';
+                ?>
+            </div>
+            <div class="cd-event-description-container">
+                <h3 style="font-size: 15px;">About Event:</h3>
+                <p style="font-size: 14px;"><?php echo $donate->description; ?></p>
+            </div>
+        </div>
+        <a href="<?php echo URLROOT; ?>/customer/Donateform/<?php echo $donate->charity_event_id; ?>" style="text-decoration: none; color: inherit;" class="cd-donate-button">Donate</a>
+    <?php endforeach; ?>
 </body>
 <script>
-    function toggleFullscreen() {
+    function toggleFullscreen(imageSrc) {
         const posterContainer = document.querySelector('.cd-poster-container');
         const fullscreenImage = document.createElement('img');
-        fullscreenImage.src = "char-event01.jpg";
+        fullscreenImage.src = imageSrc;
         fullscreenImage.style.position = "fixed";
         fullscreenImage.style.top = "0";
         fullscreenImage.style.left = "0";

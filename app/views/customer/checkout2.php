@@ -78,7 +78,6 @@
         <br>
        
         <table>
-       
             <tr>
                 <th>Item</th>
                 <th>Price Per One</th>

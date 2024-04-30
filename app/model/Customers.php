@@ -70,6 +70,13 @@
         return $this->db->resultSet();
     }
 
+    public function findCharityEventById($charity_event_id){
+      $this->db->query('SELECT * from charity_event WHERE charity_event_id=:charity_event_id');
+      $this->db->bind(':charity_event_id',$charity_event_id);
+     
+
+      return $this->db->resultSet();
+  }
   
     public function findUsedBookByCusId($customer_id){
       $this->db->query('SELECT * from books WHERE customer_id=:customer_id AND type="used"');
@@ -301,11 +308,9 @@
           return false;
       }
     }
-
     public function AddUsedBook($data){
-      $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, img1, img2, img3, `condition`, published_year, price_type, type, account_name, account_no, bank_name, branch_name, town, district, postal_code, customer_id, status) 
-                                  VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :img1, :img2, :img3, :condition, :published_year, :price_type, :type, :account_name, :account_no, :bank_name, :branch_name, :town, :district, :postal_code, :customer_id, :status)');
-      
+      $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price, category, weight, descript, img1, img2, img3, `condition`, published_year, price_type, type, quantity, account_name, account_no, bank_name, branch_name, town, district, postal_code, customer_id, status) 
+                                  VALUES(:book_name, :ISBN_no, :author, :price, :category, :weight, :descript, :img1, :img2, :img3, :condition, :published_year, :price_type, :type, :quantity, :account_name, :account_no, :bank_name, :branch_name, :town, :district, :postal_code, :customer_id, :status)');
       $this->db->bind(':book_name',$data['book_name']);
       $this->db->bind(':ISBN_no',$data['ISBN_no']);
       // $this->db->bind(':ISSN_no',$data['ISSN_no']);
@@ -322,6 +327,7 @@
       $this->db->bind(':published_year',$data['published_year']);
       $this->db->bind(':price_type',$data['price_type']);
       $this->db->bind(':type',$data['type']);
+      $this->db->bind(':quantity',1); 
       $this->db->bind(':account_name',$data['account_name']);
       $this->db->bind(':account_no',$data['account_no']);
       $this->db->bind(':bank_name',$data['bank_name']);
@@ -942,15 +948,9 @@ public function addReview($data){
 public function recommendBooks($customerId) {
   // Initialize an empty array to store recommended books
   $recommendedBooks = [];
-
-  // Get categories based on the customer's orders
   $orderCategories = $this->getCategoriesFromOrders($customerId);
-  // Get categories based on the customer's cart
   $cartCategories = $this->getCategoriesFromCart($customerId);
-  // Get categories based on all users' orders
   $allOrdersCategories = $this->getCategoriesFromAllOrders();
-
-  // Merge all categories and remove duplicates
   $categories = array_unique(array_merge($orderCategories, $cartCategories, $allOrdersCategories));
 
   // Retrieve books for each category
@@ -1003,7 +1003,6 @@ private function getCategoriesFromCart($customerId) {
   }
   return $categories;
 }
-
 // Helper function to get categories from all users' orders
 private function getCategoriesFromAllOrders() {
   $categories = [];
@@ -1318,6 +1317,11 @@ public function getQuizDetails(){
     return $this->db->resultSet();
   }
 
+  public function findCharityEvents() {
+    $this->db->query('SELECT * FROM charity_event');
+    return $this->db->resultSet();
+  }
+
   public function FindRedeemPoints($customer_id){
     $this->db->query('SELECT redeem_points FROM customers WHERE customer_id=:customer_id');
     $this->db->bind(':customer_id',$customer_id);
@@ -1334,6 +1338,16 @@ public function getQuizDetails(){
         return false;
     }
 }
+  public function updateQuantity( $quantity, $bookId) {
+    $this->db->query('UPDATE books SET quantity = quantity - :quantity WHERE book_id = :book_id');
+    $this->db->bind(':quantity', $quantity); 
+    $this->db->bind(':book_id', $bookId);
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+  }
 public function getTopRatedContentOfWeek($startOfWeek, $endOfWeek) {
  
 

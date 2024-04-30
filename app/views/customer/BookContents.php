@@ -64,14 +64,18 @@
                 <div class="view-fav">
                     <!-- <img src="<?php echo URLROOT; ?>/assets/images/customer/favorit.png" alt="Favorit"> -->
                     <?php 
-                        $num = 0; // Initialize the variable before the loop
-                        foreach ($data['favoriteDetails'] as $favorite): 
-                            if ($content->content_id == $favorite->item_id): 
-                                $num = 1;
-                                $fav_id = $favorite->fav_id;
-                                break; // Assuming you want to stop the loop once a match is found
-                            endif;
-                        endforeach;
+                        if ($data['user_id']==0000){
+                            $num = 0; // Initialize the variable before the loop
+                        }else{
+                            $num = 0; // Initialize the variable before the loop
+                            foreach ($data['favoriteDetails'] as $favorite): 
+                                if ($content->content_id == $favorite->item_id): 
+                                    $num = 1;
+                                    $fav_id = $favorite->fav_id;
+                                    break; // Assuming you want to stop the loop once a match is found
+                                endif;
+                            endforeach;
+                        }
                     ?>
                     
                     <?php if ($num == 1): ?>
@@ -124,7 +128,10 @@
                             </div>
                         </div>
                         <div class="view-fav">
-                            <?php 
+                        <?php 
+                            if ($data['user_id']==0000){
+                                $num = 0; // Initialize the variable before the loop
+                            }else{
                                 $num = 0; // Initialize the variable before the loop
                                 foreach ($data['favoriteDetails'] as $favorite): 
                                     if ($content->content_id == $favorite->item_id): 
@@ -133,6 +140,7 @@
                                         break; // Assuming you want to stop the loop once a match is found
                                     endif;
                                 endforeach;
+                            }
                             ?>
                             <?php if ($num == 1): ?>
                                 <a href="<?php echo URLROOT; ?>/customer/deleteFavorite/<?php echo $fav_id; ?>">

@@ -8,7 +8,7 @@
   
     <link rel="icon" type="image/png" href="<?php echo URLROOT; ?>/assets/images/publisher/ReadSpot.png">
     <title>Log in</title>
-    <!-- <link rel="stylesheet" href="./assets/css/LoginPageCSS.css"> -->
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/customer/LoginPageCSS.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/signupCss.css" />
 
 </head>
