@@ -608,7 +608,7 @@ tr:hover {
     margin: 50px auto;
 }
 
-form {
+.container form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
