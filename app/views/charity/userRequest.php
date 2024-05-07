@@ -15,7 +15,10 @@
 <body>
 
     <div id="dashboard">
-        <?php $allRequests = $data['allRequests'];?>
+        <?php 
+            $allRequests = $data['allRequests'];
+            $userDetail = $data['customerDetail'];    
+        ?>
 
     </div>
     <header>
@@ -51,16 +54,16 @@
         </div>
         <main class="ur-requestTable">
             <section class="ur-table-header">
-                <h2>Ramath's Requests</h2>
+                <h2><?php echo $userDetail->first_name ?>'s Requests</h2>
                 <div class="ur-user-common-details">
-                    <p>F-name: Ramath</p>
-                    <p>L-name: Perera</p>
+                    <p>F-name: <?php echo $userDetail->first_name ?></p>
+                    <p>L-name: <?php echo $userDetail->last_name ?></p>
                     <p>
-                        <a href="mailto:ramath@gmail.com" class="ur-email-link">Email ID: ramath@gmail.com</a>
+                        <a href="mailto:ramath@gmail.com" class="ur-email-link">Email ID: <?php echo $userDetail->email ?></a>
                     </p>
                     <p>
                         <i class="fas fa-phone-alt ur-phone-icon"></i>
-                        <span class="ur-phone-link" onclick="showContactOptions()">0764585760</span>
+                        <span class="ur-phone-link" onclick="showContactOptions()"><?php echo $userDetail->contact_number ?></span>
                     </p>
                     <div class="ur-contact-modal" id="ur-contactModal">
                         <div class="ur-contact-modal-content">
@@ -82,19 +85,29 @@
                             <th>Quantity</th>
                             <th>Book Type</th>
                             <th>Additional Note</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ur-tbody">
                         <?php foreach ($allRequests as $request) { ?>
-                            <tr>
+                            <tr <?php if($request->mark_as_read == 0){ echo 'style="background:#bbebe8  "';} ?>>
                                 <td><?php echo $request->quantity ?></td>
                                 <td><?php echo $request->book_types ?></td>
                                 <td><?php echo $request->description ?></td>
+                                
+                                <?php if($request->status == "Accepted"){ ?>
+                                    <td class="doantion-status" style="color:green"><?php echo $request->status ?></td>
+                                <?php } else if($request->status == "Rejected") { ?>
+                                    <td class="doantion-status" style="color:red"><?php echo $request->status ?></td>
+                                <?php } else { ?>
+                                    <td class="doantion-status" style="color:orange"><?php echo $request->status ?></td>
+                                <?php } ?>
+                                
                                 <td>
                                     <form action="<?php URLROOT ?>/Readspot/charity/userrequestform" method="post">
                                         <input type="hidden" name="donate_id" value="<?php echo  $request->donate_id ?>">
-                                        <button href="<?php echo URLROOT; ?>/charity/userrequestform" class="ur-view">View</button>
+                                        <button class="ur-view">View</button>
                                     </form>
                                 </td>
                             </tr>

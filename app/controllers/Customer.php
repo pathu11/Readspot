@@ -3916,11 +3916,11 @@ public function markReview()
                 $unreadNotification = $this->publisherModel->getUnreadMessagesCount($user_id);
                 if($question_id==1) $this->customerModel->addQuizAttempt($quiz_id,$user_id);
 
-                if($question_id==1){
-                    if(!($this->customerModel->addQuizAttempt($quiz_id,$user_id))){
-                        redirect('customer/BookChallenge');
-                    }
-                }
+                // if($question_id==1){
+                //     if(!($this->customerModel->addQuizAttempt($quiz_id,$user_id))){
+                //         redirect('customer/BookChallenge');
+                //     }
+                // }
 
             
                 $data = [

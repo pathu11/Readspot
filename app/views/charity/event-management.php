@@ -134,7 +134,7 @@
                     <tr>
                         <th>Event ID</th>
                         <th>Event Name</th>
-                        <th>Goal</th>
+                        <th>Status</th>
                         <th>Location</th>
                         <th>Date</th>
                         <th>Action</th>
@@ -142,11 +142,17 @@
                 </thead>
 
                 <tbody>
-                    <?php foreach ($data['allEvents'] as $event) : ?>
+                    <?php foreach ($data['allEvents'] as $event) { ?>
                         <tr>
-                            <td>1</td>
+                            <td><?php echo $event->charity_event_id ?></td>
                             <td><?php echo $event->event_name ?></td>
-                            <td><?php echo $event->description ?></td>
+                            <?php if($event->status == 0){ ?>
+                                    <td style="color:orange; font-weight: 600">Pending</td>
+                                <?php } else if($event->status == 1) { ?>
+                                    <td style="color:green; font-weight: 600">Approved</td>
+                                <?php } else { ?>
+                                    <td style="color:red; font-weight: 600">Rejeted</td>
+                                <?php } ?>
                             <td><?php echo $event->location ?></td>
                             <td><?php echo $event->start_date ?></td>
                             <td class="action-buttons">
@@ -157,23 +163,25 @@
                                     </button>
                                 </form>
 
-                                <?php if ($event->status == 0) { ?>
-                                    <form action="<?php echo URLROOT; ?>/Readspot/charity/deleteEvent/" method="POST" style="display: inline;">
-                                        <input type="hidden" name="eventId" value="<?php echo $event->charity_event_id; ?>">
-                                        <button type="button" class="em-delete-button">
+                                <?php if ($event->status == 0) { ?>                                    
+                                        <button type="button" class="em-delete-button" onclick="openModal()">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                    </form>
-                                <?php } ?>
+                               
 
                                 <div id="em-deleteModal" class="em-modal">
                                     <div class="em-modal-content em-red-box">
+                                    <form action="<?php echo URLROOT; ?>/charity/deleteEvent" method="POST" style="display: inline;">
                                         <i class="fas fa-exclamation-triangle"></i>
+                                        <input type="text" name="eventId" value="<?php echo $event->charity_event_id; ?>">
                                         <p>Are you sure you want to delete this item?</p>
-                                        <button id="em-okButton">yes</button>
-                                        <button id="em-noButton">No</button>
+                                        <button type="submit" id="em-okButton">yes</button>
+                                    </form>
+                                        <button id="em-noButton" onclick="closeModal()">No</button>
+                                    
                                     </div>
                                 </div>
+                                <?php } ?>
 
 
                                 <!-- <button type="submit" class="delete-button">
@@ -181,7 +189,7 @@
                                 </button> -->
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -235,56 +243,15 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const deleteButtons = document.querySelectorAll(".em-delete-button");
-        const deleteModal = document.getElementById("em-deleteModal");
-        const yesButton = document.getElementById("em-okButton");
-        const noButton = document.getElementById("em-noButton");
+    function openModal() {
+        var modal = document.getElementById("em-deleteModal");
+        modal.style.display = "block";
+    }
 
-        deleteButtons.forEach(button => {
-            button.addEventListener("click", function(event) {
-                event.preventDefault();
-                deleteModal.style.display = "block";
-            });
-        });
-
-        yesButton.addEventListener("click", function() {
-            deleteEvent();
-        });
-
-        noButton.addEventListener("click", function() {
-            closeModal();
-        });
-
-        function deleteEvent() {
-            const eventId = "<?php echo $event->charity_event_id; ?>"; // Get the event ID
-            const formData = new FormData();
-            formData.append('eventId', eventId);
-
-            fetch("<?php echo URLROOT; ?>/Readspot/charity/deleteEvent", {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Event deleted!");
-                        closeModal();
-                        // location.reload();
-                    } else {
-                        alert("Failed to delete event.");
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert("An error occurred while deleting the event.");
-                });
-        }
-
-        function closeModal() {
-            deleteModal.style.display = "none";
-        }
-    });
+    function closeModal() {
+        var modal = document.getElementById("em-deleteModal");
+        modal.style.display = "none";
+    }
 </script>
 
 </html>
