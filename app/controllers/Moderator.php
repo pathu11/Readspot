@@ -193,7 +193,6 @@ require APPROOT . '\vendor\autoload.php';
               $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
   
               $all_questions_added = true;
-  
               for ($i = 1; $i <= 5; $i++) {
                   $question = $_POST["q$i"];
                   $option1 = $_POST["q$i-opt1"];

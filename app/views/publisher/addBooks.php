@@ -47,6 +47,8 @@
                             <a href="<?php echo URLROOT; ?>/NewBooks/weightcalc" class="calc-button">Weight Calculator</a>          
                         </div>
 </div>       
+                     <input type="number" step="1" min="1"  placeholder="No of Pages  in your book" name="NoOfPages"  class="<?php echo (!empty($data['NoOfPages_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['NoOfPages']; ?>"placeholder="No of Pages" required><br>
+                            <span class="error"><?php echo $data['NoOfPages_err']; ?></span>
 <br><br>
                             <select class="select <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['category']; ?>" name="category" required>
                                 <option value="" selected disabled>Select Book Category</option>

@@ -23,7 +23,6 @@ class Chats extends Controller{
             $isActiveNow = 1;
         }
         $lastLogoutTime = $this->chatModel->lastLogoutTime($incoming_id);
-        
         $incomingUserDetails = $this->chatModel->findUserById($incoming_id);
         $data = [
             'user_id' => $user_id,
@@ -38,12 +37,10 @@ class Chats extends Controller{
         // Uncomment the following line to render the view
         $this->view('customer/chat', $data);
     }
-    
     public function insertChat() {
         if (!isLoggedIn()) {
             redirect('landing/login');
         }
-
         $user_id = $_SESSION['user_id'];
         $userDetails=$this->chatModel->findUserById($user_id);
         // $customerDetails = $this->customerModel->findCustomerById($user_id);

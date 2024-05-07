@@ -200,12 +200,13 @@ class Publishers{
         }
     }
     public function addBooks($data){
-        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price,discounts, category, weight, descript, quantity, img1, img2, publisher_id,type) VALUES(:book_name, :ISBN_no, :author, :price, :discounts, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:type)');
+        $this->db->query('INSERT INTO books (book_name, ISBN_no, author, price,discounts, NoOfPages,category, weight, descript, quantity, img1, img2, publisher_id,type) VALUES(:book_name, :ISBN_no, :author, :price, :discounts, :NoOfPages, :category, :weight, :descript, :quantity, :img1, :img2, :publisher_id,:type)');
         $this->db->bind(':book_name',$data['book_name']);
         $this->db->bind(':ISBN_no',$data['ISBN_no']);
         $this->db->bind(':author',$data['author']);
         $this->db->bind(':price',$data['price']);
         $this->db->bind(':discounts',$data['discounts']);
+        $this->db->bind(':NoOfPages',$data['NoOfPages']);
         $this->db->bind(':category',$data['category']);
         $this->db->bind(':weight',$data['weight']);
         $this->db->bind(':descript',$data['descript']);

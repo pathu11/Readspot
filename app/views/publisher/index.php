@@ -15,6 +15,7 @@
     <?php require APPROOT . '/views/publisher/sidebar.php'; ?>
     <div class="img-container">
         <div class="profile">
+          <!-- <a href="<?php echo URLROOT; ?>/publisher/edit/94" >link</a> -->
           <?php
               $text = $data['publisherName'];
               $words = explode(" ", $text); // Split the text into an array of words

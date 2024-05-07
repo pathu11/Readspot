@@ -15,7 +15,11 @@ class Publisher extends Controller{
         $this->db = new Database();      
         
     }
-    
+    public function edit($id){
+        if($this->publisherModel->edit($id)){
+            redirect('publisher/index');
+        }
+    }
     public function index(){
         if (!isLoggedInPublisher()) {
             redirect('landing/login');
