@@ -68,6 +68,7 @@ public function addbooks(){
                 'author' => trim($_POST['author']),
                 'price' => trim($_POST['price']),
                 'discounts'=>trim($_POST['discounts']),
+                'NoOfPages'=>trim($_POST['NoOfPages']),
                 'category' => trim($_POST['category']),
                 'weight' => trim($_POST['weight']),
                 'descript' => trim($_POST['descript']),
@@ -117,6 +118,11 @@ public function addbooks(){
             }else if($data['discounts'] < 0 ){
                 $data['discounts_err']='Please enter a valid discount percent (Ex: 30%)';
             }
+            if(empty($data['NoOfPages']) ){ // Allow 0 as a valid input
+                $data['NoOfPages_err']='Please enter theNo of pages';
+            }else if($data['NoOfPages'] < 0 ){
+                $data['NoOfPages_err']='Please enter a valid No of pages';
+            }
             if(empty($data['category'])){
                 $data['category_err']='Please select the category';      
             }
@@ -135,7 +141,7 @@ public function addbooks(){
                 $data['quantity_err'] = 'Please enter a valid positive integer';
             }
             //make sure errors are empty
-            if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['discounts_err'])  && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
+            if( empty($data['book_name_err']) && empty($data['ISBN_no_err']) && empty($data['author_err']) &&empty($data['price_err']) && empty($data['discounts_err'])  && empty($data['NoOfPages_err'])  && empty($data['category_err']) && empty($data['weight_err']) && empty($data['descript_err']) && empty($data['qunatity_err'])  ){
 
                 //image
                 if (isset($_FILES['img1']['name']) AND !empty($_FILES['img1']['name'])) {
@@ -217,6 +223,7 @@ public function addbooks(){
                 'author' => '',
                 'price' => '',
                 'discounts' => '',
+                'NoOfPages'=>'',
                 'category' => '',
                 'weight' => '',
                 'descript' => '',
@@ -230,6 +237,7 @@ public function addbooks(){
                 'author_err'=>'',
                 'price_err'=>'',
                 'discounts_err'=>'',
+                'NoOfPages_err'=>'',
                 'category_err'=>'',
                 'weight_err'=>'',
                 'descript_err'=>'',

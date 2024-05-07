@@ -19,7 +19,6 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    font-size:15px;
 }
 .our-mission h1{
     font-size: 30px;
@@ -30,7 +29,6 @@
 }
 
 .our-site {
-    font-size:15px;
     display: flex;
     flex-direction: column;
     /* background-color:darkcyan; */
@@ -38,7 +36,7 @@
     margin-bottom: 5px;
     justify-content: center;
     align-items: center;
-    padding: 18px;
+    padding: 20px;
 }
 
 .site-about p {
@@ -47,7 +45,6 @@
 }
 
 .our-team {
-    font-size:20px;
     display: flex;
     flex-direction: column;
     /* background-color: aquamarine; */
@@ -85,7 +82,9 @@
 
 .contact-us-form a {
     text-decoration: none;
+
     color: inherit;
+
 }
 
 @media screen and (max-width:600px) {
