@@ -522,27 +522,8 @@ class Publishers{
         $this->db->bind(':user_id', $sender_id);
         return $this->db->single(); // Return the result of the query
     }
-    public function getChatDetailsById($user_id){
-        $this->db->query('SELECT m.*, last_msgs.chat_id 
-                         FROM message m 
-                         JOIN (
-                             SELECT MAX(msg_id) AS max_msg_id, 
-                                 CASE 
-                                     WHEN incoming_msg_id = :user_id THEN outgoing_msg_id 
-                                     ELSE incoming_msg_id 
-                                 END AS chat_id
-                             FROM message 
-                             WHERE incoming_msg_id = :user_id OR outgoing_msg_id = :user_id 
-                             GROUP BY chat_id
-                         ) AS last_msgs 
-                         ON m.msg_id = last_msgs.max_msg_id;');
-            
-        $this->db->bind(':user_id', $user_id);
-        return $this->db->resultSet();
-    }
-    
     // public function getChatDetailsById($user_id){
-    //     $this->db->query('SELECT m.*, u.name, last_msgs.chat_id 
+    //     $this->db->query('SELECT m.*, last_msgs.chat_id 
     //                      FROM message m 
     //                      JOIN (
     //                          SELECT MAX(msg_id) AS max_msg_id, 
@@ -554,12 +535,31 @@ class Publishers{
     //                          WHERE incoming_msg_id = :user_id OR outgoing_msg_id = :user_id 
     //                          GROUP BY chat_id
     //                      ) AS last_msgs 
-    //                      ON m.msg_id = last_msgs.max_msg_id
-    //                      JOIN users u ON u.user_id = last_msgs.chat_id;');
+    //                      ON m.msg_id = last_msgs.max_msg_id;');
             
     //     $this->db->bind(':user_id', $user_id);
     //     return $this->db->resultSet();
     // }
+    
+    public function getChatDetailsById($user_id){
+        $this->db->query('SELECT m.*, u.name, last_msgs.chat_id 
+                         FROM message m 
+                         JOIN (
+                             SELECT MAX(msg_id) AS max_msg_id, 
+                                 CASE 
+                                     WHEN incoming_msg_id = :user_id THEN outgoing_msg_id 
+                                     ELSE incoming_msg_id 
+                                 END AS chat_id
+                             FROM message 
+                             WHERE incoming_msg_id = :user_id OR outgoing_msg_id = :user_id 
+                             GROUP BY chat_id
+                         ) AS last_msgs 
+                         ON m.msg_id = last_msgs.max_msg_id
+                         JOIN users u ON u.user_id = last_msgs.chat_id;');
+            
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->resultSet();
+    }
     
 
     public function getPaymentDetails($user_id){

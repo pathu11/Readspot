@@ -890,7 +890,7 @@ public function editOrderCardPayment($data){
 
 
 public function findContentByCusId($customer_id){
-  $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id AND status="approval"');
+  $this->db->query('SELECT * FROM content  WHERE customer_id = :customer_id');
   $this->db->bind(':customer_id', $customer_id);
   return $this->db->resultSet();
   // $row = $this->db->single();
