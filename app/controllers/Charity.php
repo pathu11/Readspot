@@ -43,28 +43,24 @@ class Charity extends Controller
     public function userrequest()
     {
         $customerId = isset($_POST['customerId']) ? $_POST['customerId'] : null;
+        $customerDetails = $this->charityModel->getCharityUsersById($customerId);
         $customerRequests = $this->charityModel->getCustomerRequests($customerId);
-        $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests]);
-    }
-
-    public function confirmdelete()
-    {
-        $this->view('charity/confirm-delete-modal');
-    }
-    public function deletedsuccessfully()
-    {
-        $this->view('charity/eleted-successfully');
+        $this->view('charity/userRequest', $data = ['allRequests' => $customerRequests, 'customerDetail' => $customerDetails]);
     }
 
     public function userrequestform()
     {
         $requestId = isset($_POST['donate_id']) ? $_POST['donate_id'] : null;
+        $this->charityModel->markAsRead($requestId);
         $donation = $this->charityModel->getDonationById($requestId);
         $this->view('charity/user-req-form', $data= ['requestDetail' => $donation]);
     }
 
     public function confirmEvent()
     {
+        // print_r($_POST);
+        // die();
+        $this->charityModel->acceptRequest($_POST['doantionId']);
         $this->view('charity/confirm-event');
     }
 
@@ -86,7 +82,8 @@ class Charity extends Controller
 
     public function notification()
     {
-        $this->view('charity/notification');
+        $results = $this->charityModel->allRequestNotifications();
+        $this->view('charity/notification', $data = ['allNotifications' => $results]);
     }
 
     public function donationQuery()
@@ -110,31 +107,53 @@ class Charity extends Controller
         $end_date = $_POST['endDate'];
         $start_time = $_POST['startTime'];
         $end_time = $_POST['endTime'];
+        $deadline = $_POST['deadlineDate'];
         $book_category = $string;
         $poster = "test";
         $contact_no = $_POST['charityMemberPhone'];
         $description = $_POST['description'];
 
-        if ($this->charityModel->addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time, $book_category, $poster, $contact_no, $description)) {
+        if ($this->charityModel->addEvent($event_name, $location, $start_date, $end_date, $start_time, $end_time,$deadline, $book_category, $poster, $contact_no, $description)) {
             redirect('charity/event');
         } else {
             die('Something went wrong');
         }
     }
 
+    public function updateEvent()
+    {
+        $event_name = $_POST['eventName'];
+        $location = $_POST['eventLocation'];
+        $start_date = $_POST['startDate'];
+        $end_date = $_POST['endDate'];
+        $start_time = $_POST['startTime'];
+        $end_time = $_POST['endTime'];
+        $deadline = $_POST['deadline'];
+        $book_category = $_POST['bookCategory'];
+        $poster = "test";
+        $contact_no = $_POST['charityMemberPhone'];
+        $description = $_POST['description'];
 
-    // public function deleteEvent()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         if ($this->charityModel->deleteEvent($_POST['eventId'])) {
-    //             redirect('charity/event');
-    //         } else {
-    //             die('Something went wrong');
-    //         }
-    //     }
-    // }
+        if ($this->charityModel->updateEvent($_POST['eventId'], $event_name, $location, $start_date, $end_date, $start_time, $end_time, $deadline, $book_category, $poster, $contact_no, $description)) {
+            redirect('charity/event');
+        } else {
+            die('Something went wrong');
+        }
+    }
+
+    public function updateDeadline()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->charityModel->updateDeadline($_SESSION['eventId'], $_POST['deadline'])) {
+                redirect('charity/event');
+            } else {
+                die('Something went wrong');
+            }
+        }
+    }
 
     public function deleteEvent(){
+       
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($this->charityModel->deleteEvent($_POST['eventId'])){
                 redirect('charity/event');
@@ -145,6 +164,34 @@ class Charity extends Controller
         }
     }
 
+    public function rejectEvent()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // print_r($_POST);
+            // die();
+            if($_POST['reason'] == "other")
+            {
+                $reason = $_POST['customReason'];
+            } else {
+                $reason = $_POST['reason'];
+            }
+            
+            if ($this->charityModel->rejectEvent($_POST['doantionId'], $reason)) {
+                redirect('charity/donation');
+            } else {
+                die('Something went wrong');
+            }
+        }
+    }
+
+    public function notificationMarkAsRead()
+    {   
+        $id = $_POST['donate_id'];
+        $this->charityModel->markAsRead($id);
+        redirect('charity/notification');
+    }
+    
 
     public function logout()
     {
@@ -154,6 +201,7 @@ class Charity extends Controller
         session_destroy();
         redirect('landing/index');
     }
+
 }
 
 ?>

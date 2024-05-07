@@ -242,6 +242,7 @@ require APPROOT . '\vendor\autoload.php';
                   if ($all_questions_added && $this->moderatorModel->addQuestion($data)) {
                       // All questions added successfully
                       flash('add_success', 'You have added the questions successfully');
+                      // redirect('moderator/challenges');
                   }
               }
               redirect('moderator/challenges');
@@ -270,7 +271,7 @@ require APPROOT . '\vendor\autoload.php';
                       'correctAnswer_err' => '',
                   ];
   
-                  $this->view('moderator/challenges', $data);
+                  $this->view('moderator/createChallengeQuestions', $data);
               } 
           }
       }

@@ -62,9 +62,9 @@
     width: 35%;
 }
 
-.ur-table-body th:nth-child(4),
-.ur-table-body td:nth-child(4) {
-    width: 5%;
+.ur-table-body th:nth-child(5),
+.ur-table-body td:nth-child(5) {
+    width: 10%;
 }
 
 .ur-table-body tr {
@@ -400,4 +400,9 @@
 
 .ur-go-back-btn:hover {
     background-color: #005348;
+}
+
+.doantion-status{
+    font-weight: 600;
+    width: 400px;
 }
