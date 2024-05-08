@@ -1,6 +1,6 @@
 # ReadSpot
 
-![ReadSpot Logo](public/assets/images/landing/homepage/Readspot02.png)
+## 2nd Year Group Project
 
 ## Welcome to ReadSpot!
 
@@ -39,11 +39,12 @@ We've utilized a blend of powerful programming languages to craft ReadSpot:
 - PHP
 
 ## Project Contributors
-- M.K.P.Ahinsa
-- P.D.Kaumadi
-- K.R.S.Perera
-- S.Kokularajh
 
+- [M.K.P.Ahinsa (pathu11)](https://github.com/pathu11)
+- [P.D.Kaumadi (Kaumadi2k)](https://github.com/Kaumadi2k)
+- [K.R.S.Perera (RamathPerera)](https://github.com/RamathPerera)
+- [S.Kokularajh (sivarasa-kokularajh)](https://github.com/sivarasa-kokularajh)
+  
 ## Get in Touch
 
 Got questions or feedback? We'd love to hear from you! Reach out to us via:
