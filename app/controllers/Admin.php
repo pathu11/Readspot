@@ -130,10 +130,12 @@ require APPROOT . '\vendor\autoload.php';
             'adminName'=>$adminDetails[0]->name,
             'book_category'=>trim($_POST['book_category']),
             'description'=>trim($_POST['description']),
+            'remark'=>trim($_POST['remark']),
             'img'=>'',
             'book_category_err'=>'',
             'description_err'=>'',
             'img_err'=>'',
+            'remark_err'=>'',
         ];
         if(empty($data['book_category'])){
             $data['book_category_err']='Please enter the category name';      
@@ -143,7 +145,11 @@ require APPROOT . '\vendor\autoload.php';
             $data['description_err']='Please enter the category description';      
         }
 
-        if(empty($data['book_category_err']) && empty($data['description_err']) && empty($data['img_err'])){
+        if(empty($data['remark'])){
+            $data['remark_err']='Please enter the remark';      
+        }
+
+        if(empty($data['book_category_err']) && empty($data['description_err']) && empty($data['img_err']) && empty($data['remark_err'])){
             if (isset($_FILES['bookCategoryImg']['name']) AND !empty($_FILES['bookCategoryImg']['name'])) {
                 $img_name = $_FILES['bookCategoryImg']['name'];
                 $tmp_name = $_FILES['bookCategoryImg']['tmp_name'];
@@ -193,8 +199,10 @@ require APPROOT . '\vendor\autoload.php';
             'img'=>'',
             'book_category'=>'',
             'description'=>'',
+            'remark'=>'',
             'book_category_err'=>'',
-            'description_err'=>''
+            'description_err'=>'',
+            'remark_err'=>''
         ];
 
         $this->view('admin/addBookCategories',$data);

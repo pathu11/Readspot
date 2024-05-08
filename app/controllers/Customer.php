@@ -849,6 +849,7 @@ class Customer extends Controller {
 //             $content_Details=$this->customerModel->findContentByNotCusId($customerid);
 
             $data = [
+                'user_id' => $user_id,
                 'customerDetails' => $customerDetails,
                 'customerImage' => $customerDetails[0]->profile_img,
                 'customerName' => $customerDetails[0]->first_name,
@@ -3001,7 +3002,7 @@ public function BuyNewBooks()
         ];
         if ($this->customerModel->RemoveEventFromCalender($data)) {   
             // flash('post_message', 'book is Removed');
-            redirect('customer/BookEvents');
+            redirect('customer/Calender');
             
             
         } else {
@@ -3047,7 +3048,7 @@ public function BuyNewBooks()
 
         if ($this->customerModel->AddEventToCalender($data)) {   
             // flash('post_message', 'book is Removed');
-            redirect('customer/BookEvents');
+            redirect('customer/Calender');
             
             
         } else {
